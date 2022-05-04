@@ -10,7 +10,7 @@
 # Team Memebers
 
 ## Isheanesu Dzingirai - DevOp
-<img src="https://user-images.githubusercontent.com/93042354/166635499-cd35d24b-5856-463e-8b60-b246e84c8ff1.jpeg" width=30% height = 20%> [![Isheanesu's GitHub stats](https://github-readme-stats.vercel.app/api?username=Zenthon)](https://github.com/anuraghazra/github-readme-stats)
+<img src="https://user-images.githubusercontent.com/93042354/166635499-cd35d24b-5856-463e-8b60-b246e84c8ff1.jpeg" width=20% height = 20%> [![Isheanesu's GitHub stats](https://github-readme-stats.vercel.app/api?username=Zenthon)](https://github.com/anuraghazra/github-readme-stats)
 <details>
   <summary>Personal Description</summary>
   <p>
