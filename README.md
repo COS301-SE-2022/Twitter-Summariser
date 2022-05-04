@@ -10,4 +10,5 @@
 # Team Memebers
 
 ## Isheanesu Dzingirai - DevOp
+![u20536951](https://user-images.githubusercontent.com/93042354/166634556-62785247-8464-48cc-bb30-628536750145.jpeg)
 [![Isheanesu's GitHub stats](https://github-readme-stats.vercel.app/api?username=Zenthon)](https://github.com/anuraghazra/github-readme-stats)
