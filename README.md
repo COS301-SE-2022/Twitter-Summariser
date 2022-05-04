@@ -10,9 +10,10 @@
 # Team Memebers
 
 ## Isheanesu Dzingirai - DevOp
-<img src="https://user-images.githubusercontent.com/93042354/166634556-62785247-8464-48cc-bb30-628536750145.jpeg" width=30% height = 30%>
-<details><summary>Information</summary>
-<p>
-  Aspiring Data Mining and Machine Learning Engineer
+<img src="https://user-images.githubusercontent.com/93042354/166635499-cd35d24b-5856-463e-8b60-b246e84c8ff1.jpeg" width=30% height = 30%>
+<details>
+  <summary>Personal Description</summary>
+  <p>
+      Aspiring Data Mining and Machine Learning Engineer
  </p>
 </details>
