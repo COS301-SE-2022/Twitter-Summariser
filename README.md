@@ -60,3 +60,16 @@
 </p>
  </p>
 </details>
+
+## Gabriel Shoderu - Designer, UI Engineer
+
+<img src="https://avatars.githubusercontent.com/u/85843032?v=4" width=25% height = 25%> [![Gabriel's GitHub stats](https://github-readme-stats.vercel.app/api?username=GO-Shoderu&show_icons=true&theme=radical)]
+
+<details>
+  <summary>PERSONAL INFORMATION</summary>
+  <p>
+    <h3> About Me: </h3>
+      <h4>Well-presented, highly focused, and intelligent final year computer science student passionate about data engineering and machine learning. Proficient in a range of modern technologies including Python, C++, and Java.</h4>
+    <h3 align="left">Languages, Frameworks, Libraries and Tools:</h3>
+  </p>
+</details>
