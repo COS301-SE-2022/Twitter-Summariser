@@ -10,7 +10,9 @@
 # Team Memebers
 
 ## Isheanesu Dzingirai - DevOp
+
 <img src="https://user-images.githubusercontent.com/93042354/166635499-cd35d24b-5856-463e-8b60-b246e84c8ff1.jpeg" width=30% height = 30%> [![Isheanesu's GitHub stats](https://github-readme-stats.vercel.app/api?username=Zenthon)](https://github.com/anuraghazra/github-readme-stats)
+
 <details>
   <summary>PERSONAL INFORMATION</summary>
   <p>
@@ -31,4 +33,17 @@
 </a>
 </p>
  </p>
+</details>
+
+## Gabriel Shoderu - Designer, UI Engineer
+
+<img src="https://avatars.githubusercontent.com/u/85843032?v=4" width=25% height = 25%> [![Gabriel's GitHub stats](https://github-readme-stats.vercel.app/api?username=GO-Shoderu&show_icons=true&theme=radical)]
+
+<details>
+  <summary>PERSONAL INFORMATION</summary>
+  <p>
+    <h3> About Me: </h3>
+      <h4>Well-presented, highly focused, and intelligent final year computer science student passionate about data engineering and machine learning. Proficient in a range of modern technologies including Python, C++, and Java.</h4>
+    <h3 align="left">Languages and Tools:</h3>
+  </p>
 </details>
