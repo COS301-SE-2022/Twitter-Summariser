@@ -1,19 +1,35 @@
-- name: Super-Linter
-  uses: github/super-linter@v4.9.2
+name: Lint Code Base
 
-on: 
+on:
   pull_request:
-    types: [ opened, reopened, labeled ]
-
+    branches: [develop]
+    
 jobs:
-  super-lint:
-    name: Lint code base
+  build:
+    # Name the Job
+    name: Lint Code Base
+    # Set the agent to run on
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
 
-      - name: Run Super-Linter
-        uses: github/super-linter@v3
+    ##################
+    # Load all steps #
+    ##################
+    steps:
+      ##########################
+      # Checkout the code base #
+      ##########################
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          # Full git history is needed to get a proper list of changed files within `super-linter`
+          fetch-depth: 0
+
+      ################################
+      # Run Linter against code base #
+      ################################
+      - name: Lint Code Base
+        uses: github/super-linter@v4
         env:
+          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: develop
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
