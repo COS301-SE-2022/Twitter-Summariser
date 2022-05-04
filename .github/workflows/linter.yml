@@ -1,4 +1,4 @@
-name: Liner
+name: Linter
 
 on:
   pull_request:
@@ -13,4 +13,6 @@ jobs:
        - name: Super-Linter
          uses: github/super-linter@v4.9.2
          env:
+          VALIDATE_CSS: false
+          VALIDATE_MD: false
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
