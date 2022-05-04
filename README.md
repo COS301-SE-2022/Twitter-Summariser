@@ -63,7 +63,7 @@
 
 ## Gabriel Shoderu - Designer, Frontend/UI Engineer
 
-<img src="https://avatars.githubusercontent.com/u/85843032?v=4" width=25% height = 25%> ![Gabriel's GitHub stats](https://github-readme-stats.vercel.app/api?username=GO-Shoderu&show_icons=true&count_private=true)
+<img src="https://avatars.githubusercontent.com/u/85843032?v=4" width=25% height = 25%> ![Gabriel's GitHub stats](https://github-readme-stats.vercel.app/api?username=GO-Shoderu&show_icons=true&count_private=true&include_all_commits=true)
 
 <details>
   <summary>PERSONAL INFORMATION</summary>
@@ -94,6 +94,6 @@
       <a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="typescript" width="40" height="40"/> </a>
     </p>
     <h3 align="left">Top Languages:</h3>
-    [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=GO-Shoderu)](https://github.com/anuraghazra/github-readme-stats)
+    [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=GO-Shoderu)]
   </p>
 </details>
