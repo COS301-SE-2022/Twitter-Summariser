@@ -37,7 +37,7 @@
 
 ## Jonah Gasura - Frontend Engineer
 
-<img src="https://user-images.githubusercontent.com/99664202/166660461-bc5065a1-ab7f-4b13-9875-44916f11b309.JPG" width=40% height = 40%> [![Jonah's GitHub stats](https://github-readme-stats.vercel.app/api?username=jonahgasura)](https://github.com/anuraghazra/github-readme-stats)
+<img src="https://user-images.githubusercontent.com/99664202/166660461-bc5065a1-ab7f-4b13-9875-44916f11b309.JPG" width=35% height = 35%> [![Jonah's GitHub stats](https://github-readme-stats.vercel.app/api?username=jonahgasura)](https://github.com/anuraghazra/github-readme-stats)
 
 <details>
   <summary>PERSONAL INFORMATION</summary>
