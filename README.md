@@ -6,3 +6,8 @@
 ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/COS301-SE-2022/Twitter-Summariser?color=red&style=for-the-badge)
 
 [Project Board](https://github.com/COS301-SE-2022/Twitter-Summariser/projects/1)
+
+# Team Memebers
+
+## Isheanesu Dzingirai - DevOp
+[![Isheanesu's GitHub stats](https://github-readme-stats.vercel.app/api?username=Zenthon)](https://github.com/anuraghazra/github-readme-stats)
