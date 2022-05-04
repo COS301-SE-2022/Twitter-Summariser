@@ -63,7 +63,7 @@
 
 ## Gabriel Shoderu - Designer, UI Engineer
 
-<img src="https://avatars.githubusercontent.com/u/85843032?v=4" width=25% height = 25%> ![Gabriel's GitHub stats](https://github-readme-stats.vercel.app/api?username=GO-Shoderu&show_icons=true)
+<img src="https://avatars.githubusercontent.com/u/85843032?v=4" width=25% height = 25%> ![Gabriel's GitHub stats](https://github-readme-stats.vercel.app/api?username=GO-Shoderu&show_icons=true&count_private=true)
 
 <details>
   <summary>PERSONAL INFORMATION</summary>
