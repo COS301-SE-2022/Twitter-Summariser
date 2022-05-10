@@ -3,3 +3,12 @@
   text-align: center;
   color: #00acee;
 }
+
+.search-component{
+  align-content: center;
+  text-align: center;
+}
+
+.draft-reports {
+  text-align: right;
+}
