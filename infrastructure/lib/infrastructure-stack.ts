@@ -1,16 +1,26 @@
-import { Stack, StackProps } from 'aws-cdk-lib';
-import { Construct } from 'constructs';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
+import * as cdk from '@aws-cdk/core';
+import * as s3 from '@aws-cdk/aws-s3';
+import * as iam from '@aws-cdk/aws-iam';
 
-export class InfrastructureStack extends Stack {
-  constructor(scope: Construct, id: string, props?: StackProps) {
+export class InfrastructureStack extends cdk.Stack {
+  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    // The code that defines your stack goes here
+    const bucket = new s3.Bucket(this, 'TwitterSummariserBucket', {
+      bucketName: 'twitter-summariser-bucket',
+      websiteIndexDocument: 'index.html',
+      blockPublicAccess: new s3.BlockPublicAccess({
+        restrictPublicBuckets: false
+      })
+    });
 
-    // example resource
-    // const queue = new sqs.Queue(this, 'InfrastructureQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
+    const bucketPolicy = new iam.PolicyStatement ({
+      actions: ['s3:GetObject'],
+      resources: [
+        `${bucket.bucketArn}/*`
+      ],
+      principals: [new iam.Anyone()],
+    })
+    bucket.addToResourcePolicy(bucketPolicy); 
   }
 }
