@@ -8,6 +8,10 @@ on:
     branches:
       - develop
 
+defaults:
+  run:
+    working-directory: client
+
 jobs:
   Build-and-Deploy:
     runs-on: ubuntu-latest
