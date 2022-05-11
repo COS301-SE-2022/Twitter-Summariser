@@ -9,7 +9,7 @@ on:
       - develop
 
 jobs:
-  Build and Deploy:
+  Build-and-Deploy:
     runs-on: ubuntu-latest
 
     strategy:
