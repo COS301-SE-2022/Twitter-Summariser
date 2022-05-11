@@ -32,8 +32,8 @@ jobs:
       - name: Install all package dependencies
         run: npm install
 
-      - name: Lint the code
-        run:  npx eslint src/* --fix
+      # - name: Lint the code
+      #   run:  npx eslint src/* --fix
 
       - name: Build the project
         run: npm run build
