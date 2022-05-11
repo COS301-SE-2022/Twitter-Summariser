@@ -4,7 +4,7 @@ import "./Logo.css";
 
 const Logo = () => {
   return (
-    <div>
+    <div className="fixed ml-14">
       <img src="assets/logo.png" alt="Twitter Summarizer Logo" />
     </div>
   );
