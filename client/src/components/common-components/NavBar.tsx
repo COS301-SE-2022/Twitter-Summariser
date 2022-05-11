@@ -25,7 +25,7 @@ function NavBar() {
               <a href="/">Profile</a>
             </li>
           </ul>
-          {/* <button id="btn-nav-summarise"> Summarize </button> */}
+          <button id="btn-nav-summarise" type="submit"> Summarize </button>
         </div>
       </nav>
     </div>
