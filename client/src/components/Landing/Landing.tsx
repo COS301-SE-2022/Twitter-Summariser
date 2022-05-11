@@ -20,7 +20,7 @@ function Landing() {
 
   const onBlackedHandler = () => {
     changeColor(!blacked);
-    console.log(black);
+    // console.log(black);
   };
 
   // style for the icons
