@@ -13,7 +13,7 @@ defaults:
     working-directory: client
 
 jobs:
-  Build-and-Deploy Reactg App:
+  Build-and-Deploy-React-App:
     runs-on: ubuntu-latest
 
     steps:
