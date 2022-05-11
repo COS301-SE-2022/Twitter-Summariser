@@ -107,5 +107,5 @@
  
   ## Batsirai Malcolm Dzimati
 
-<img src="https://user-images.githubusercontent.com/93042354/166635499-cd35d24b-5856-463e-8b60-b246e84c8ff1.jpeg" width=30% height = 30%> [![Malcolm's GitHub stats](https://github-readme-stats.vercel.app/api?username=malcolmdzimati)](https://github.com/anuraghazra/github-readme-stats)
+<img src="https://avatars.githubusercontent.com/u/63916731?s=96&v=4" width=30% height = 30%> [![Malcolm's GitHub stats](https://github-readme-stats.vercel.app/api?username=malcolmdzimati)](https://github.com/anuraghazra/github-readme-stats)
 
