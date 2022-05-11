@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 
-const LandingBody = () => {
-    return (
-        <div className="landing-body">
-            {/* Insert Previously generated reports  */}
-        </div>
-    )
+function LandingBody() {
+  return (
+    <div className="landing-body">
+      {/* Insert Previously generated reports  */}
+    </div>
+  );
 }
 
-export default LandingBody
+export default LandingBody;
