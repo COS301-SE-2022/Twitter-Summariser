@@ -1,12 +1,12 @@
-import React from 'react'
+import React from 'react';
 
-const DraftReports = () => {
-    return (
-        <div className="draft-reports">
-            <h2>Drafts to report</h2>
-            {/* Created unpublished reports  */}
-        </div>
-    )
+function DraftReports() {
+  return (
+    <div className="draft-reports">
+      <h2>Drafts to report</h2>
+      {/* Created unpublished reports  */}
+    </div>
+  );
 }
 
-export default DraftReports
+export default DraftReports;
