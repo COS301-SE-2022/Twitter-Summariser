@@ -20,6 +20,7 @@
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
+        "test-eslint": "npx eslint \"src/**\" --fix",
         "coverage": "jest --collect-coverage",
         "eject": "react-scripts eject"
     },
