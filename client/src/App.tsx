@@ -1,10 +1,10 @@
-import React from 'react';
-import './css/App.css';
-// import AuthorizationPage from './pages/AuthorizationPage';
+import Landing from './components/Landing/Landing';
+import './index.css';
 
 // main Application component in which different page sub-components will be contained
 function App() {
-  return <h1 className="text-3xl font-bold underline">Hello World!</h1>;
+  // eslint-disable-next-line react/react-in-jsx-scope
+  return <Landing />;
 }
 
 export default App;
