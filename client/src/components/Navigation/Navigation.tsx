@@ -13,7 +13,7 @@ function Navigation(props: any) {
     const style = { fontSize: '1.5rem' };
 
     return (
-        <div className="pt-2 text-lg fixed top-20 w-80 ml-14">
+        <div data-testid = "navi" className="pt-2 text-lg fixed top-20 w-80 ml-14">
             <div className="pt-4 flex flex-row ">
                 <button
                     type="submit"

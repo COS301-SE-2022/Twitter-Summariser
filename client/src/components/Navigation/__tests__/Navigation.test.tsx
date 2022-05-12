@@ -9,4 +9,5 @@ it("renders without crashing", () => {
     const { getByTestId } = render(<Navigation />);
     const navi = getByTestId("navi");
     expect(navi).toBeTruthy();
+    
 });

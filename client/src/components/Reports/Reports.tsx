@@ -12,11 +12,12 @@ const Reports = () => {
   };
 
   return (
-    <div>
+    <div data-testid = "report">
       {/* search */}
       <div className="flex justify-center p-2 border-l border-r border-b border-gray-200">
         <div className="w-3/4 mb-3">
           <input
+            data-testid = "search"
             type="search"
             className="
                 nosubmit
@@ -71,7 +72,7 @@ const Reports = () => {
           <div className=" mt-4">
             <h1 className="text-2xl">My Reports</h1>
 
-            <div className="mt-4 flex flex-row flex-wrap justify-center">
+            <div data-testid = "reports" className="mt-4 flex flex-row flex-wrap justify-center">
               {tweeter.myReports.map((data) => (
                 <div className="m-4 w-1/4 h-20 bg-gray-400 rounded-md flex flex-col p-2">
                   <div className="">

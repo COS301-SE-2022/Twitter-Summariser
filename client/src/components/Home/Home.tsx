@@ -19,11 +19,12 @@ function Home() {
     // style for the icons
     const style = { color: 'black', fontSize: '1.5rem' };
     return (
-        <div>
+        <div data-testid = "home">
             {/* search */}
             <div className="flex justify-center p-2 border-l border-r border-gray-200">
                 <div className="w-3/4 mb-3">
                     <input
+                        data-testid = "search"
                         type="search"
                         className="
                 nosubmit
@@ -90,7 +91,7 @@ function Home() {
             </div>
 
             {/* Api response comes here */}
-            <div className="flex flex-col">
+            <div data-testid = "results" className="flex flex-col">
                 {tweeter.tweets.map(
                     (data) =>
                         data.tags.match(enteredSearch) &&
