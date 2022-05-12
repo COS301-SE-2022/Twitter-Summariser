@@ -85,6 +85,8 @@ jobs:
 
       - name: Generate coverage report
         run:  npm test -- --coverage --watchAll=false
+        run: |
+              cd client
 
       - name: Coveralls
         uses: coverallsapp/github-action@master
