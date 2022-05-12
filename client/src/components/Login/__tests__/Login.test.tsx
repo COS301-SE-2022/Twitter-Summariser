@@ -1,7 +1,5 @@
-import { render, screen } from "@testing-library/react"
+import { render, screen } from '@testing-library/react';
 
-import ReactDOM from "react-dom"
+import ReactDOM from 'react-dom';
 
-import Login from "../Login"
-
-
+import Login from '../Login';

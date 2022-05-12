@@ -1,40 +1,53 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 // importing icons for the sorting options
-import { AiFillHeart } from "react-icons/ai";
-import { AiOutlineHeart } from "react-icons/ai";
-import { AiOutlineRetweet } from "react-icons/ai";
-import { FaRegCommentAlt } from "react-icons/fa";
-import { IoLogoTwitter } from "react-icons/io";
+// import { AiFillHeart } from "react-icons/ai";
+import { AiOutlineHeart, AiOutlineRetweet } from 'react-icons/ai';
+import { FaRegCommentAlt } from 'react-icons/fa';
 
-import Logo from "../Logo/Logo";
-import Navigation from "../Navigation/Navigation";
+// import { IoLogoTwitter } from "react-icons/io";
+
+import Logo from '../Logo/Logo';
+import Navigation from '../Navigation/Navigation';
 
 // importing styling
-import "./Landing.css";
+import './Landing.css';
 
-const Landing = () => {
-  // creating a little state change
-  let black = true;
+// importing mock data
+import tweeter from '../../mock.json';
 
-  const [blacked, changeColor] = useState(black);
+function Landing() {
+  // const search = "";
+  const [enteredSearch, changeEnteredSearch] = useState('');
 
-  const onBlackedHandler = () => {
-    changeColor(!blacked);
-    console.log(black);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const searchHandler = (event: any) => {
+    changeEnteredSearch(event.target.value);
   };
 
-  //style for the icons
-  let style;
-  blacked
-    ? (style = { color: "black", fontSize: "1.5rem" })
-    : (style = { color: "#e5e7eb", fontSize: "1.5rem" });
+  // creating a little state change
+  // const black = true;
+
+  // const [blacked, changeColor] = useState(black);
+
+  // const onBlackedHandler = () => {
+  //   changeColor(!blacked);
+  //   // console.log(black);
+  // };
+
+  // viewing data generated
+  // console.log(tweeter.tweets);
+  // console.log(tweeter.users);
+
+  // style for the icons
+  const style = { color: 'black', fontSize: '1.5rem' };
+  // blacked
+  //   ? (style = { color: 'black', fontSize: '1.5rem' })
+  //   : (style = { color: '#e5e7eb', fontSize: '1.5rem' });
 
   return (
-    <div
-      data-testid="landing" 
-      className="flex flex-row bg-white ml-14 mr-14 relative">
-      {/* first container #########################################################################################################*/}
+    <div className="flex flex-row bg-white ml-14 mr-14 relative">
+      {/* first container ######################################################################################################### */}
       <div className="basis-1/4 p-2 pt-5 flex flex-col">
         {/* logo comes here */}
         <Logo />
@@ -50,13 +63,12 @@ const Landing = () => {
         </div> */}
       </div>
 
-      {/* second container #########################################################################################################*/}
+      {/* second container ######################################################################################################### */}
       <div className="flex flex-col basis-1/2 relative">
         {/* search */}
         <div className="flex justify-center p-2 border-l border-r border-gray-200">
           <div className="w-3/4 mb-3">
             <input
-              data-testid="search"
               type="search"
               className="
                 nosubmit
@@ -72,6 +84,8 @@ const Landing = () => {
                 focus:text-gray-700 focus:bg-white focus:border-twitter-blue focus:outline-none
                 bg-gray-200
               "
+              value={enteredSearch}
+              onChange={searchHandler}
               placeholder="search twitter..."
             />
           </div>
@@ -94,7 +108,7 @@ const Landing = () => {
 
           {/* this is for the button */}
           <div className="w-1/3 pt-1">
-            {blacked ? (
+            {/* {blacked ? (
               <button
                 type="submit"
                 className="button w-3/4 text-lg p-0.5"
@@ -110,43 +124,64 @@ const Landing = () => {
               >
                 Summarize
               </button>
-            )}
+            )} */}
+            <button type="submit" className="button w-3/4 text-lg p-0.5">
+              Summarize
+            </button>
           </div>
         </div>
 
         {/* Api response comes here */}
         <div className="flex flex-col">
-          <div className=" h-60 w-full border-b border-l border-r border-gray-200">
-            <p>content comes here</p>
-          </div>
-          <div className=" h-60 w-full  border-b border-l border-r border-gray-200">
-            <p>content comes here</p>
-          </div>
-          <div className=" h-60 w-full  border-b border-l border-r border-gray-200">
-            <p>content comes here</p>
-          </div>
-          <div className=" h-60 w-full  border-b border-l border-r border-gray-200">
-            <p>content comes here</p>
-          </div>
-          <div className=" h-60 w-full  border-b border-l border-r border-gray-200">
-            <p>content comes here</p>
-          </div>
-          <div className=" h-60 w-full  border-b border-l border-r border-gray-200">
-            <p>content comes here</p>
-          </div>
-          <div className=" h-60 w-full  border-b border-l border-r border-gray-200">
-            <p>content comes here</p>
-          </div>
-          <div className=" h-60 w-full  border-b border-l border-r border-gray-200">
-            <p>content comes here</p>
-          </div>
-          <div className=" h-60 w-full  border-b border-l border-r border-gray-200">
-            <p>content comes here</p>
-          </div>
+          {tweeter.tweets.map(
+            (data) => data.tags.match(enteredSearch)
+              && enteredSearch !== '' && (
+                <div className=" w-full border-b border-l border-r border-gray-200">
+                  <p>
+                    Tags: #
+                    {data.tags}
+                  </p>
+                  <p>
+                    Name:
+                    {data.name}
+                  </p>
+                  <p>
+                    Title:
+                    {data.title}
+                  </p>
+                  <p>
+                    Date:
+                    {data.date}
+                  </p>
+                  <p>
+                    Likes:
+                    {data.likes}
+                  </p>
+                  <p>
+                    Comments:
+                    {data.comments}
+                  </p>
+                  <p>
+                    retweets:
+                    {data.retweets}
+                  </p>
+                  <p>
+                    Tweet:
+                    {data.tweet}
+                  </p>
+                </div>
+            ),
+          )}
+
+          {enteredSearch === '' && (
+            <div className="">
+              <h1 className="text-4xl">Trends</h1>
+            </div>
+          )}
         </div>
       </div>
 
-      {/* third container #########################################################################################################*/}
+      {/* third container ######################################################################################################### */}
       <div className="basis-1/4 p-2 pt-5 relative mr-14">
         <div className="fixed rounded bg-gray-200 h-2/3 ml-8 p-5 w-80 ">
           <h1 className="text-xl font-bold">Drafts to report</h1>
@@ -159,6 +194,6 @@ const Landing = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Landing;
