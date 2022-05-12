@@ -84,7 +84,7 @@ jobs:
         run: npm run test-eslint
 
       - name: Build the project
-        run: npm run build
+        run: CI="" npm run build
 
       - name: Configure AWS tokens
         uses: aws-actions/configure-aws-credentials@v1
