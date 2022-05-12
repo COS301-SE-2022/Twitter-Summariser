@@ -28,9 +28,7 @@ jobs:
 
     steps: 
       - name: Checking out to the develop branch
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+        uses: actions/checkout@v2
 
       - name: Has atleast one priority label
         uses: mheap/github-action-required-labels@v1
