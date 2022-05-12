@@ -4,6 +4,7 @@ import { useState } from 'react';
 // import { AiFillHeart } from "react-icons/ai";
 import { AiOutlineHeart, AiOutlineRetweet } from 'react-icons/ai';
 import { FaRegCommentAlt } from 'react-icons/fa';
+
 // import { IoLogoTwitter } from "react-icons/io";
 
 import Logo from '../Logo/Logo';
@@ -12,22 +13,36 @@ import Navigation from '../Navigation/Navigation';
 // importing styling
 import './Landing.css';
 
+// importing mock data
+import tweeter from '../../mock.json';
+
 function Landing() {
-  // creating a little state change
-  const black = true;
+  // const search = "";
+  const [enteredSearch, changeEnteredSearch] = useState('');
 
-  const [blacked, changeColor] = useState(black);
-
-  const onBlackedHandler = () => {
-    changeColor(!blacked);
-    // console.log(black);
+  const searchHandler = (event: any) => {
+    changeEnteredSearch(event.target.value);
   };
 
+  // creating a little state change
+  // const black = true;
+
+  // const [blacked, changeColor] = useState(black);
+
+  // const onBlackedHandler = () => {
+  //   changeColor(!blacked);
+  //   // console.log(black);
+  // };
+
+  // viewing data generated
+  // console.log(tweeter.tweets);
+  // console.log(tweeter.users);
+
   // style for the icons
-  let style;
-  blacked
-    ? (style = { color: 'black', fontSize: '1.5rem' })
-    : (style = { color: '#e5e7eb', fontSize: '1.5rem' });
+  const style = { color: 'black', fontSize: '1.5rem' };
+  // blacked
+  //   ? (style = { color: 'black', fontSize: '1.5rem' })
+  //   : (style = { color: '#e5e7eb', fontSize: '1.5rem' });
 
   return (
     <div className="flex flex-row bg-white ml-14 mr-14 relative">
@@ -68,6 +83,8 @@ function Landing() {
                 focus:text-gray-700 focus:bg-white focus:border-twitter-blue focus:outline-none
                 bg-gray-200
               "
+              value={enteredSearch}
+              onChange={searchHandler}
               placeholder="search twitter..."
             />
           </div>
@@ -90,7 +107,7 @@ function Landing() {
 
           {/* this is for the button */}
           <div className="w-1/3 pt-1">
-            {blacked ? (
+            {/* {blacked ? (
               <button
                 type="submit"
                 className="button w-3/4 text-lg p-0.5"
@@ -106,39 +123,60 @@ function Landing() {
               >
                 Summarize
               </button>
-            )}
+            )} */}
+            <button type="submit" className="button w-3/4 text-lg p-0.5">
+              Summarize
+            </button>
           </div>
         </div>
 
         {/* Api response comes here */}
         <div className="flex flex-col">
-          <div className=" h-60 w-full border-b border-l border-r border-gray-200">
-            <p>content comes here</p>
-          </div>
-          <div className=" h-60 w-full  border-b border-l border-r border-gray-200">
-            <p>content comes here</p>
-          </div>
-          <div className=" h-60 w-full  border-b border-l border-r border-gray-200">
-            <p>content comes here</p>
-          </div>
-          <div className=" h-60 w-full  border-b border-l border-r border-gray-200">
-            <p>content comes here</p>
-          </div>
-          <div className=" h-60 w-full  border-b border-l border-r border-gray-200">
-            <p>content comes here</p>
-          </div>
-          <div className=" h-60 w-full  border-b border-l border-r border-gray-200">
-            <p>content comes here</p>
-          </div>
-          <div className=" h-60 w-full  border-b border-l border-r border-gray-200">
-            <p>content comes here</p>
-          </div>
-          <div className=" h-60 w-full  border-b border-l border-r border-gray-200">
-            <p>content comes here</p>
-          </div>
-          <div className=" h-60 w-full  border-b border-l border-r border-gray-200">
-            <p>content comes here</p>
-          </div>
+          {tweeter.tweets.map(
+            (data) => data.tags.match(enteredSearch)
+              && enteredSearch !== '' && (
+                <div className=" w-full border-b border-l border-r border-gray-200">
+                  <p>
+                    Tags: #
+                    {data.tags}
+                  </p>
+                  <p>
+                    Name:
+                    {data.name}
+                  </p>
+                  <p>
+                    Title:
+                    {data.title}
+                  </p>
+                  <p>
+                    Date:
+                    {data.date}
+                  </p>
+                  <p>
+                    Likes:
+                    {data.likes}
+                  </p>
+                  <p>
+                    Comments:
+                    {data.comments}
+                  </p>
+                  <p>
+                    retweets:
+                    {data.retweets}
+                  </p>
+                  <p>
+                    Tweet:
+                    {data.tweet}
+                  </p>
+                </div>
+            ),
+          )}
+
+          {enteredSearch === '' && (
+            <div className="">
+              <h1 className="text-4xl">Trends</h1>
+            </div>
+          )}
         </div>
       </div>
 
