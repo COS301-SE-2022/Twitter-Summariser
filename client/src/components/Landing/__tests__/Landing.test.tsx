@@ -3,7 +3,6 @@ import React from "react";
 import ReactDOM from "react-dom/client"
 import Landing from "../Landing"
 
-
 describe("Rendering Tests For Components in Landing", () =>{
     //Test to see if Landing is rendered
     it("renders without crashing", () => {
@@ -22,7 +21,13 @@ describe("Rendering Tests For Components in Landing", () =>{
 
 
 //Tests that the search bar recieves text correctly
-describe("Testing Search Bar Input", () =>{
-    //checking to see that
-    
+describe("Testing That Search Bar Receieves Input", () =>{
+    //Function that mocks data to the search bar
+    it("Testing That it Updates on Change", () => {
+        const search = jest.fn((value) => {})                                           //Mock function from jest to provide props
+        const { queryByPlaceholderText } = render(<Landing setSearch={search}/>)        //Rendering search bar to search
+        const searchInput = queryByPlaceholderText("search twitter...")                 //Sets search bar defualt text 
+        fireEvent.change(searchInput, { target: {value: "Test Search" }})               //runs the mock function to change and search text
+        expect(searchInput.value).toBe("Test Search")                                   //Checking The condition
+    })
 })
