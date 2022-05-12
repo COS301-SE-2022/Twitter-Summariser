@@ -23,6 +23,7 @@
 
     "rules": {
         "no-use-before-define": "off",
+        "no-unused-vars": 0,
         "react/react-in-jsx-scope": "off",
         "no-unused-expressions": "off",
         "quotes": 0,
