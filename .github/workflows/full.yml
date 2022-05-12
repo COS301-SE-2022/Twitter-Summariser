@@ -74,6 +74,9 @@ jobs:
       - name: Checkout to develop branch
         uses: actions/checkout@v2
 
+      - name: Change to client directory
+        run: cd client
+
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
