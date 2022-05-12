@@ -101,3 +101,9 @@ jobs:
       - name: Deploy the React App to S3 Bucket
         run: aws s3 cp build s3://twitter-summariser-bucket/ --recursive
           
+  Build-and-Deploy-Backend:
+      runs-on: ubuntu-latest
+      needs: label-check
+      defaults:
+        run:
+          working-directory: infrastructure
