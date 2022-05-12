@@ -129,7 +129,7 @@ jobs:
           aws-region: us-east-1
 
       - name: Install CDK
-        run: npm install aws-cdk
+        run: npm install -g aws-cdk
 
       - name: Build the CDK
         run: npm run build
