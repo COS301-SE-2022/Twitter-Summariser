@@ -1,0 +1,34 @@
+---
+name: Coverage
+
+on:
+  push:
+    branches: [develop, master]
+
+jobs:
+  Coverage-Report-Client:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: client
+
+    steps:
+      - name: Checkout to devlop/master branch
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+
+      - name: Install all package dependencies
+        run: npm install  
+
+      - name: Generate coverage report
+        run:  npm test -- --coverage --watchAll=false
+
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ./client/coverage/lcov.info
