@@ -1,13 +1,10 @@
 ---
-name: 'React CICD'
+name: 'Twitter Summariser CI'
 
 on: 
-  push:
-    branches: [ develop ]
-
   pull_request:
-    branches: [develop ]
-    types: [ opened, reopened, labeled ]
+    branches:
+      - develop
 
 jobs:
   milestone-check:
@@ -26,10 +23,8 @@ jobs:
     needs: milestone-check
 
     steps: 
-        #Checking out to the develop branch
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+      - name: Checking out to the develop branch
+        uses: actions/checkout@v2
 
       - name: Has atleast one priority label
         uses: mheap/github-action-required-labels@v1
@@ -89,7 +84,7 @@ jobs:
         run: npm run test-eslint
 
       - name: Build the project
-        run: npm run build
+        run: CI=false npm run build
 
       - name: Configure AWS tokens
         uses: aws-actions/configure-aws-credentials@v1
@@ -111,3 +106,30 @@ jobs:
       steps:
       - name: Checkout to develop branch
         uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+
+      - name: Install all package dependencies
+        run: npm install
+
+      - name: Configure AWS tokens
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Install CDK
+        run: npm install -g aws-cdk
+
+      - name: Build the CDK
+        run: npm run build
+
+      - name: Synthesize the CDK
+        run: cdk synth
+
+      - name: Deploy the CDK to AWS
+        run: cdk deploy --require-approval never
