@@ -1,13 +1,7 @@
 ---
 name: 'React CICD'
 
-on: 
-  push:
-    branches: [ develop ]
-
-  pull_request:
-    branches: [develop ]
-    types: [ opened, reopened, labeled ]
+on: [push, pull_request]
 
 jobs:
   milestone-check:
