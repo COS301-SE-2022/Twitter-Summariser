@@ -22,6 +22,7 @@ describe("Rendering Tests For Components in Landing", () =>{
 
 //Tests that the search bar recieves text correctly
 describe("Testing That Search Bar Receieves Input", () =>{
+
     //Function that mocks data to the search bar
     it("Testing That it Updates on Change", () => {
         const search = jest.fn((value) => {})                                           //Mock function from jest to provide props
@@ -29,5 +30,21 @@ describe("Testing That Search Bar Receieves Input", () =>{
         const searchInput = queryByPlaceholderText("search twitter...")                 //Sets search bar defualt text 
         fireEvent.change(searchInput, { target: {value: "Test Search" }})               //runs the mock function to change and search text
         expect(searchInput.value).toBe("Test Search")                                   //Checking The condition
+    })
+
+    //Function that tests that typing in Search Bar changes div if tweets are found
+    test("Testing That search changes div(With results that are found)", () =>{
+        const search = jest.fn((value) => {})                                           //Mock function from jest to provide props
+        const { queryByPlaceholderText } = render(<Landing setSearch={search}/>)        //Rendering search bar to search
+        const searchInput = queryByPlaceholderText("search twitter...")                 //Sets search bar defualt text 
+        fireEvent.change(searchInput, { target: {value: "Stacy" }})
+    })
+
+    //Function that tests that typing in Search Bar doesn't change div if tweets are not found
+    test("Testing That search changes div(With results that are found)", () =>{
+        const search = jest.fn((value) => {})                                           //Mock function from jest to provide props
+        const { queryByPlaceholderText } = render(<Landing setSearch={search}/>)        //Rendering search bar to search
+        const searchInput = queryByPlaceholderText("search twitter...")                 //Sets search bar defualt text 
+        fireEvent.change(searchInput, { target: {value: "Rabbit" }})
     })
 })
