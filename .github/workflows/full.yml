@@ -1,5 +1,5 @@
 ---
-name: 'Twitter Summariser CI/CD'
+name: 'Twitter Summariser CI'
 
 on: 
   pull_request:
