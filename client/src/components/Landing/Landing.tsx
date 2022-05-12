@@ -46,7 +46,7 @@ function Landing() {
   //   : (style = { color: '#e5e7eb', fontSize: '1.5rem' });
 
   return (
-    <div className="flex flex-row bg-white ml-14 mr-14 relative">
+    <div data-testid = "landing" className="flex flex-row bg-white ml-14 mr-14 relative">
       {/* first container ######################################################################################################### */}
       <div className="basis-1/4 p-2 pt-5 flex flex-col">
         {/* logo comes here */}
@@ -69,6 +69,7 @@ function Landing() {
         <div className="flex justify-center p-2 border-l border-r border-gray-200">
           <div className="w-3/4 mb-3">
             <input
+              data-testid = "search"
               type="search"
               className="
                 nosubmit
