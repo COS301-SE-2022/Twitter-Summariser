@@ -38,6 +38,7 @@ describe("Testing That Search Bar Receieves Input", () =>{
         const { queryByPlaceholderText } = render(<Landing setSearch={search}/>)        //Rendering search bar to search
         const searchInput = queryByPlaceholderText("search twitter...")                 //Sets search bar defualt text 
         fireEvent.change(searchInput, { target: {value: "Stacy" }})
+        
     })
 
     //Function that tests that typing in Search Bar doesn't change div if tweets are not found
@@ -46,5 +47,6 @@ describe("Testing That Search Bar Receieves Input", () =>{
         const { queryByPlaceholderText } = render(<Landing setSearch={search}/>)        //Rendering search bar to search
         const searchInput = queryByPlaceholderText("search twitter...")                 //Sets search bar defualt text 
         fireEvent.change(searchInput, { target: {value: "Rabbit" }})
+
     })
 })
