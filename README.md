@@ -1,6 +1,7 @@
 # BitByBit - Twitter Summariser
 
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/COS301-SE-2022/Twitter-Summariser/Twitter%20Summariser%20CI?style=for-the-badge)
+![Coveralls](https://img.shields.io/coveralls/github/COS301-SE-2022/Twitter-Summariser?style=for-the-badge)
 ![GitHub repo size](https://img.shields.io/github/repo-size/COS301-SE-2022/Twitter-Summariser?style=for-the-badge)
 
 
