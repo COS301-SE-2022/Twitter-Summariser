@@ -1,17 +1,17 @@
 // importing icons for the navigation
-import { GoHome } from 'react-icons/go';
-import { BiHash } from 'react-icons/bi';
-import { TiDocumentText } from 'react-icons/ti';
-import { FaRegClone } from 'react-icons/fa';
-import { RiDraftLine } from 'react-icons/ri';
-import { CgProfile } from 'react-icons/cg';
-import { BsShare } from 'react-icons/bs';
+import { GoHome } from "react-icons/go";
+import { BiHash } from "react-icons/bi";
+import { TiDocumentText } from "react-icons/ti";
+import { FaRegClone } from "react-icons/fa";
+import { RiDraftLine } from "react-icons/ri";
+import { CgProfile } from "react-icons/cg";
+import { BsShare } from "react-icons/bs";
 
 function Navigation() {
   // const style = { color: "#00ACDF" };
 
   // style for the icons
-  const style = { fontSize: '1.5rem' };
+  const style = { fontSize: "1.5rem" };
 
   return (
     <div className="pt-2 text-lg fixed top-20 w-80 ml-14">
@@ -62,7 +62,7 @@ function Navigation() {
         <div className="items-end pt-1 ">
           <CgProfile style={style} />
         </div>
-        &nbsp; Profile
+        &nbsp; Gabriel
       </div>
     </div>
   );
