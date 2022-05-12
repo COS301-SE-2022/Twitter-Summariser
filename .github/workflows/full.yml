@@ -85,6 +85,8 @@ jobs:
 
       - name: Build the project
         run: npm run build
+        env:
+          CI: false
 
       - name: Configure AWS tokens
         uses: aws-actions/configure-aws-credentials@v1
