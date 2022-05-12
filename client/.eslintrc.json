@@ -1,12 +1,16 @@
 {
     "env": {
         "browser": true,
-        "es2021": true
+        "es2021": true,
+        "jest": true
     },
 
     "extends": [
+        "react-app",
+        "react-app/jest",
         "plugin:react/recommended",
         "airbnb",
+        "plugin:prettier/recommended",
         "plugin:@typescript-eslint/recommended"
     ],
 
@@ -19,7 +23,7 @@
         "sourceType": "module"
     },
 
-    "plugins": ["react", "@typescript-eslint", "react-hooks"],
+    "plugins": ["react", "@typescript-eslint", "react-hooks", "prettier"],
 
     "rules": {
         "no-use-before-define": "off",
@@ -27,6 +31,7 @@
         "react/destructuring-assignment": 0,
         "no-unused-vars": 0,
         "react/react-in-jsx-scope": "off",
+        "react/jsx-uses-react": "off",
         "no-unused-expressions": "off",
         "quotes": 0,
         "max-len": ["warn", { "code": 250 }],
