@@ -16,6 +16,7 @@ const Navigation = (props: any) => {
     <div className="pt-2 text-lg fixed top-20 w-80 ml-14">
       <div className="pt-4 flex flex-row ">
         <button
+          type="submit"
           onClick={() => props.onNavigateOption(1)}
           className="flex flex-row"
         >
@@ -29,6 +30,7 @@ const Navigation = (props: any) => {
 
       <div className="pt-4 flex flex-row ">
         <button
+          type="submit"
           onClick={() => props.onNavigateOption(2)}
           className="flex flex-row"
         >
@@ -41,6 +43,7 @@ const Navigation = (props: any) => {
 
       <div className="pt-4 flex flex-row ">
         <button
+          type="submit"
           onClick={() => props.onNavigateOption(3)}
           className="flex flex-row"
         >
@@ -53,6 +56,7 @@ const Navigation = (props: any) => {
 
       <div className="pt-4 flex flex-row ">
         <button
+          type="submit"
           onClick={() => props.onNavigateOption(4)}
           className="flex flex-row"
         >
@@ -65,6 +69,7 @@ const Navigation = (props: any) => {
 
       <div className="pt-4 flex flex-row ">
         <button
+          type="submit"
           onClick={() => props.onNavigateOption(5)}
           className="flex flex-row"
         >
@@ -77,6 +82,7 @@ const Navigation = (props: any) => {
 
       <div className="pt-4 flex flex-row ">
         <button
+          type="submit"
           onClick={() => props.onNavigateOption(6)}
           className="flex flex-row"
         >
@@ -89,6 +95,7 @@ const Navigation = (props: any) => {
 
       <div className="pt-4 flex flex-row ">
         <button
+          type="submit"
           onClick={() => props.onNavigateOption(7)}
           className="flex flex-row"
         >
