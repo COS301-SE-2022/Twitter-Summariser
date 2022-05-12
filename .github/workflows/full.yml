@@ -107,3 +107,7 @@ jobs:
       defaults:
         run:
           working-directory: infrastructure
+
+      steps:
+      - name: Checkout to develop branch
+        uses: actions/checkout@v2
