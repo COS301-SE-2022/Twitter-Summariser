@@ -2,12 +2,12 @@
 name: 'React CICD'
 
 on: 
-  pull_request:
-    types: [ opened, reopened, labeled ]
-
   push:
     branches: [ develop ]
 
+  pull_request:
+    branches: [develop ]
+    types: [ opened, reopened, labeled ]
 
 jobs:
   milestone-check:
@@ -101,3 +101,13 @@ jobs:
       - name: Deploy the React App to S3 Bucket
         run: aws s3 cp build s3://twitter-summariser-bucket/ --recursive
           
+  Build-and-Deploy-Backend:
+      runs-on: ubuntu-latest
+      needs: label-check
+      defaults:
+        run:
+          working-directory: infrastructure
+
+      steps:
+      - name: Checkout to develop branch
+        uses: actions/checkout@v2
