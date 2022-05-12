@@ -20,6 +20,7 @@ function Landing() {
   // const search = "";
   const [enteredSearch, changeEnteredSearch] = useState('');
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const searchHandler = (event: any) => {
     changeEnteredSearch(event.target.value);
   };
