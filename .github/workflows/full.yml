@@ -27,7 +27,7 @@ jobs:
     needs: milestone-check
 
     steps: 
-        #Checking out to the develop branch
+      - name: Checking out to the develop branch
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
