@@ -133,7 +133,7 @@ function Landing() {
         </div>
 
         {/* Api response comes here */}
-        <div className="flex flex-col">
+        <div data-testid = "results" className="flex flex-col">
           {tweeter.tweets.map(
             (data) => data.tags.match(enteredSearch)
               && enteredSearch !== '' && (
@@ -175,7 +175,7 @@ function Landing() {
           )}
 
           {enteredSearch === '' && (
-            <div className="">
+            <div data-testid="trending" className="">
               <h1 className="text-4xl">Trends</h1>
             </div>
           )}
