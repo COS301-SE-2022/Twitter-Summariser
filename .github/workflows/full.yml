@@ -1,5 +1,5 @@
 ---
-name: 'React CICD'
+name: 'Twitter Summariser CI/CD'
 
 on: 
   push:
