@@ -137,5 +137,5 @@ jobs:
       - name: Synthesize the CDK
         run: cdk synth
 
-      # - name: Deploy the CDK
-      #   run: cdk deploy --require-approval never
+      - name: Deploy the CDK to AWS
+        run: cdk deploy --require-approval never
