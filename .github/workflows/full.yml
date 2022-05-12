@@ -83,6 +83,14 @@ jobs:
       - name: Lint the code and format the files
         run: npm run test-eslint
 
+      - name: Generate coverage report
+        run:  npm test -- --coverage --watchAll=false
+
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build the project
         run: CI=false npm run build
 
