@@ -138,8 +138,8 @@ jobs:
       - name: Build the CDK
         run: npm run build
 
-      # - name: Synthesize the CDK
-      #   run: cdk synth
+      - name: Synthesize the CDK
+        run: cdk synth
 
       # - name: Deploy the CDK
       #   run: cdk deploy --require-approval never
