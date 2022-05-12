@@ -50,7 +50,7 @@ function Navigation(props: any) {
                     <div className="items-end pt-1 ">
                         <TiDocumentText style={style} />
                     </div>
-                    &nbsp; Reports
+                    &nbsp; My Reports
                 </button>
             </div>
 
