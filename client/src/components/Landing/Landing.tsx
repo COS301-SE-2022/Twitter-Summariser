@@ -1,28 +1,113 @@
 // import { AiFillHeart } from "react-icons/ai";
 
 // import { IoLogoTwitter } from "react-icons/io";
+import { useState } from "react";
 
 import Logo from "../Logo/Logo";
 
 import Navigation from "../Navigation/Navigation";
 import Home from "../Home/Home";
+import Explore from "../Explore/Explore";
+import Reports from "../Reports/Reports";
+import CLReports from "../CLReports/CLReports";
+import Drafts from "../Drafts/Drafts";
+import Shared from "../Shared/Shared";
+import Profile from "../Profile/Profile";
 
 // importing styling
 import "./Landing.css";
 
-function Landing() {
-  const home = true;
-  const explore = false;
-  const reports = false;
-  const clonedReports = false;
-  const drafts = false;
-  const shared = false;
-  const profile = false;
+const Landing = () => {
+  let home = true;
+  let explore = false;
+  let reports = false;
+  let clonedReports = false;
+  let drafts = false;
+  let shared = false;
+  let profile = false;
 
-  // const navigateOptionHandler = (option: any) => {
-  //   // const option = enteredOption;
-  //   console.log(option);
-  // };
+  const [option, changeOption] = useState(0);
+
+  const navigateOptionHandler = (opt: any) => {
+    // const option = enteredOption;
+    changeOption(opt);
+    console.log(opt);
+    // console.log(option);
+  };
+
+  // console.log(option);
+
+  if (option === 1) {
+    // console.log(1);
+
+    home = true;
+    explore = false;
+    reports = false;
+    clonedReports = false;
+    drafts = false;
+    shared = false;
+    profile = false;
+  } else if (option === 2) {
+    // console.log(2);
+
+    home = false;
+    explore = true;
+    reports = false;
+    clonedReports = false;
+    drafts = false;
+    shared = false;
+    profile = false;
+  } else if (option === 3) {
+    // console.log(3);
+
+    home = false;
+    explore = false;
+    reports = true;
+    clonedReports = false;
+    drafts = false;
+    shared = false;
+    profile = false;
+  } else if (option === 4) {
+    // console.log(4);
+
+    home = false;
+    explore = false;
+    reports = false;
+    clonedReports = true;
+    drafts = false;
+    shared = false;
+    profile = false;
+  } else if (option === 5) {
+    // console.log(5);
+
+    home = false;
+    explore = false;
+    reports = false;
+    clonedReports = false;
+    drafts = true;
+    shared = false;
+    profile = false;
+  } else if (option === 6) {
+    // console.log(6);
+
+    home = false;
+    explore = false;
+    reports = false;
+    clonedReports = false;
+    drafts = false;
+    shared = true;
+    profile = false;
+  } else if (option === 7) {
+    // console.log(7);
+
+    home = false;
+    explore = false;
+    reports = false;
+    clonedReports = false;
+    drafts = false;
+    shared = false;
+    profile = true;
+  }
 
   return (
     <div className="flex flex-row bg-white ml-14 mr-14 relative">
@@ -32,26 +117,18 @@ function Landing() {
         <Logo />
 
         {/* Navigation */}
-        {/* <Navigation onNavigateOption={navigateOptionHandler} /> */}
-        <Navigation />
-
-        {/* Button comes here */}
-        {/* <div className="pt-5 pr-3">
-          <button type="submit" className="button w-full text-sm p-0.5">
-            Summarize
-          </button>
-        </div> */}
+        <Navigation onNavigateOption={navigateOptionHandler} />
       </div>
 
       {/* second container ######################################################################################################### */}
       <div className="flex flex-col basis-1/2 relative">
         {home && <Home />}
-        {/* {explore && <Explore />}
-        {reports && <Reports/>}
+        {explore && <Explore />}
+        {reports && <Reports />}
         {clonedReports && <CLReports />}
         {drafts && <Drafts />}
         {shared && <Shared />}
-        {profile && <Profile />} */}
+        {profile && <Profile />}
       </div>
 
       {/* third container ######################################################################################################### */}
@@ -67,6 +144,6 @@ function Landing() {
       </div>
     </div>
   );
-}
+};
 
 export default Landing;

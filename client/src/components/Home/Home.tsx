@@ -7,7 +7,7 @@ import { FaRegCommentAlt } from "react-icons/fa";
 // importing mock data
 import tweeter from "../../mock.json";
 
-function Home() {
+const Home = () => {
   // const search = "";
   const [enteredSearch, changeEnteredSearch] = useState("");
 
@@ -18,7 +18,6 @@ function Home() {
 
   // style for the icons
   const style = { color: "black", fontSize: "1.5rem" };
-
   return (
     <div>
       {/* search */}
@@ -90,13 +89,11 @@ function Home() {
       {/* Api response comes here */}
       <div className="flex flex-col">
         {tweeter.tweets.map(
-          (data) => data.tags.match(enteredSearch)
-            && enteredSearch !== "" && (
+          (data) =>
+            data.tags.match(enteredSearch) &&
+            enteredSearch !== "" && (
               <div className=" w-full border-b border-l border-r border-gray-200">
-                <p>
-                  Tags: #
-                  {data.tags}
-                </p>
+                <p>Tags: #{data.tags}</p>
                 <p>
                   Name:
                   {data.name}
@@ -126,7 +123,7 @@ function Home() {
                   {data.tweet}
                 </p>
               </div>
-          ),
+            )
         )}
 
         {enteredSearch === "" && (
@@ -137,6 +134,6 @@ function Home() {
       </div>
     </div>
   );
-}
+};
 
 export default Home;
