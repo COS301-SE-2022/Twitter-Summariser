@@ -39,4 +39,13 @@ describe("Testing That Search Bar Receieves Input", () =>{
         expect(searchInput.value).toBe("Test Search")                                   //Checking The condition
         expect(onChange).toHaveBeenCalled
     })
+
+    //Function that tests that when typing in Search an onChange Function is called
+    test("Testing That search changes div(With results that are found)", () =>{
+        const onChange = jest.fn((value) => {})                                          //Mock function from jest to provide props
+        const { queryByTestId } = render(<Reports/>)                                       //Rendering search bar to search
+        const searchInput = queryByTestId("search")                                     //Sets search bar defualt text 
+        fireEvent.change(searchInput, { target: {value: "Test Search" }})               //runs the mock function to change and search text
+        expect(onChange).toHasBeenCalled
+    })
 })
