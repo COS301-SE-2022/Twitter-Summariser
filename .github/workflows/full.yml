@@ -135,8 +135,8 @@ jobs:
       # - name: Install CDK
       #   run: npm install -g aws-cdk npx
 
-      # - name: Build the CDK
-      #   run: npm run build
+      - name: Build the CDK
+        run: npm run build
 
       # - name: Synthesize the CDK
       #   run: cdk synth
