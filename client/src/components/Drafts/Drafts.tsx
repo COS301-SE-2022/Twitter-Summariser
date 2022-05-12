@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-const Drafts = () => {
-  return <div>Drafts</div>;
-};
+function Drafts() {
+    return <div>Drafts</div>;
+}
 
 export default Drafts;

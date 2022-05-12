@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-const CLReports = () => {
-  return <div>CLReports</div>;
-};
+function CLReports() {
+    return <div>CLReports</div>;
+}
 
 export default CLReports;
