@@ -1,3 +1,4 @@
 *.svg
 *.css
 *.json
+node_modules

@@ -25,6 +25,7 @@
         "no-use-before-define": "off",
         "react/react-in-jsx-scope": "off",
         "no-unused-expressions": "off",
+        "quotes": 0,
         "max-len": ["warn", { "code": 250 }],
         "@typescript-eslint/no-use-before-define": ["error"],
         "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
