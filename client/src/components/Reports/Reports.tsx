@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-const Reports = () => {
-  return <div>Reports</div>;
-};
+function Reports() {
+    return <div>Reports</div>;
+}
 
 export default Reports;
