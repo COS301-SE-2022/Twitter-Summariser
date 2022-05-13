@@ -26,7 +26,10 @@
     "plugins": ["react", "@typescript-eslint", "react-hooks", "prettier"],
 
     "rules": {
+        "jest/expect-expect": "off",
+        "jest/valid-expect": 0,
         "no-use-before-define": "off",
+        "jest/no-identical-title": 0,
         "no-explicit-any": 0,
         "react/destructuring-assignment": 0,
         "no-unused-vars": 0,
