@@ -4,22 +4,11 @@ import ReactDOM from 'react-dom';
 
 import Signup from '../Signup';
 
-describe('Testing sum', () => {
-    function sum(a: number, b: number) {
-        return a + b;
-    }
-
-    it('should equal 4', () => {
-        expect(sum(2, 2)).toBe(4);
+describe('Rendering Tests For Components Signup', () => {
+    // Test to see if Signup is rendered
+    it('renders Signup without crashing', () => {
+        const { getByTestId } = render(<Signup />);
+        const up = screen.getByTestId('signup');
+        expect(up).toBeTruthy();
     });
-
-    test('aslso should be equal 4', () => {
-        expect(sum(2, 2)).toBe(4);
-    });
-});
-
-it('renders without crashing', () => {
-    const div = document.createElement('div');
-
-    ReactDOM.render(<Signup />, div);
 });

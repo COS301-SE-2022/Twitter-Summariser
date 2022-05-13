@@ -3,9 +3,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import Reports from '../Reports';
 
-describe('Rendering Tests For Components in Landing', () => {
-    // Test to see if Landing is rendered
-    it('renders landing without crashing', () => {
+describe('Rendering Tests For Components in Reports', () => {
+    // Test to see if Report is rendered
+    it('renders reports without crashing', () => {
         const { getByTestId } = render(<Reports />);
         const home = screen.getByTestId('report');
         expect(home).toBeTruthy();
