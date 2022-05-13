@@ -1,7 +1,8 @@
 # BitByBit - Twitter Summariser
 A progressive web app to generate an article on a given trend using curated Tweets.
 
-[Twitter Summariser System Requirement Specifications](https://github.com/COS301-SE-2022/Twitter-Summariser/files/8684152/twitter-summariser-srs.pdf)
+### Twitter Summariser System Requirements Specifications
+[twitter-summariser-srs](https://github.com/COS301-SE-2022/Twitter-Summariser/files/8684152/twitter-summariser-srs.pdf)
 
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/COS301-SE-2022/Twitter-Summariser/Twitter%20Summariser%20CI?style=for-the-badge)
 ![Coveralls](https://img.shields.io/coveralls/github/COS301-SE-2022/Twitter-Summariser?style=for-the-badge)
