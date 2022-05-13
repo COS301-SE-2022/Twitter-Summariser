@@ -7,7 +7,7 @@ import { FaRegCommentAlt } from "react-icons/fa";
 // importing mock data
 import tweeter from "../../mock.json";
 
-function Home() {
+function Home(props: any) {
   // const search = "";
   const [enteredSearch, changeEnteredSearch] = useState("");
 
@@ -136,7 +136,10 @@ function Home() {
         {clicked && (
           <div className="mt-4 flex flex-col flex-wrap justify-center">
             <h1 className="text-2xl">Newly created report</h1>
-            <div className="m-4 w-1/4 h-20 bg-gray-400 rounded-md flex flex-col p-2">
+            <button type="submit"
+                            onClick={() => props.myPropOption(8)}
+            >
+              <div className="m-4 w-1/4 h-20 bg-gray-400 rounded-md flex flex-col p-2">
               <div className="">
                 <button type="submit">
                   <p className="font-bold">{createTitle}</p>
@@ -149,6 +152,7 @@ function Home() {
                 <p className="italic text-xs">5/12/2022</p>
               </div>
             </div>
+            </button>
           </div>
         )}
       </div>
