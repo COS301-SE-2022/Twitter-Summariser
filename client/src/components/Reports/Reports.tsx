@@ -12,11 +12,12 @@ function Reports() {
     };
 
     return (
-        <div>
+        <div data-testid="report">
             {/* search */}
             <div className="flex justify-center p-2 border-l border-r border-b border-gray-200">
                 <div className="w-3/4 mb-3">
                     <input
+                        data-testid="search"
                         type="search"
                         className="
                 nosubmit
@@ -40,7 +41,7 @@ function Reports() {
             </div>
 
             {/* Api response comes here */}
-            <div className=" mt-4">
+            <div data-testid="reports" className=" mt-4">
                 {enteredSearch !== '' && (
                     <h1 className="text-2xl">Search results....</h1>
                 )}
