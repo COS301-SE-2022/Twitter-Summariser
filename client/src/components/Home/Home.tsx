@@ -33,11 +33,12 @@ function Home(props: any) {
   // style for the icons
   const style = { color: "black", fontSize: "1.5rem" };
   return (
-    <div>
+    <div data-testid = "home">
       {/* search */}
       <div className="flex justify-center p-2 border-l border-r border-gray-200">
         <div className="w-3/4 mb-3">
           <input
+            data-testid = "search"
             type="search"
             className="
                 nosubmit
@@ -88,12 +89,12 @@ function Home(props: any) {
       </div>
 
       {/* Api response comes here */}
-      <div className="flex flex-col">
+      <div data-testid = "result" className="flex flex-col">
         {tweeter.tweets.map(
           (data) =>
             data.tags.toLowerCase().match(enteredSearch.toLowerCase()) &&
             enteredSearch !== "" && (
-              <div className=" w-full border-b border-l border-r border-gray-200">
+              <div data-testid = "results" className=" w-full border-b border-l border-r border-gray-200">
                 <p>Tags: #{data.tags}</p>
                 <p>
                   Name:
