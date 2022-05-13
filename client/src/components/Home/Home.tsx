@@ -7,7 +7,7 @@ import { FaRegCommentAlt } from 'react-icons/fa';
 // importing mock data
 import tweeter from '../../mock.json';
 
-function Home() {
+function Home(props: any) {
     // const search = "";
     const [enteredSearch, changeEnteredSearch] = useState('');
 
@@ -16,14 +16,29 @@ function Home() {
         changeEnteredSearch(event.target.value);
     };
 
+    // let clicked = false;
+
+    const [clicked, changeClicked] = useState(false);
+    const [createTitle, changeCreateTitle] = useState('');
+
+    const click = () => {
+        if (enteredSearch !== '') {
+            console.log('clicked');
+            changeCreateTitle(enteredSearch);
+            changeEnteredSearch('');
+            changeClicked(!clicked);
+        }
+    };
+
     // style for the icons
     const style = { color: 'black', fontSize: '1.5rem' };
     return (
-        <div>
+        <div data-testid="home">
             {/* search */}
             <div className="flex justify-center p-2 border-l border-r border-gray-200">
                 <div className="w-3/4 mb-3">
                     <input
+                        data-testid="search"
                         type="search"
                         className="
                 nosubmit
@@ -63,26 +78,10 @@ function Home() {
 
                 {/* this is for the button */}
                 <div className="w-1/3 pt-1">
-                    {/* {blacked ? (
-              <button
-                type="submit"
-                className="button w-3/4 text-lg p-0.5"
-                onClick={onBlackedHandler}
-              >
-                Summarize
-              </button>
-            ) : (
-              <button
-                type="submit"
-                className="button-greyed w-3/4 text-lg p-0.5"
-                onClick={onBlackedHandler}
-              >
-                Summarize
-              </button>
-            )} */}
                     <button
                         type="submit"
                         className="button w-3/4 text-lg p-0.5"
+                        onClick={click}
                     >
                         Summarize
                     </button>
@@ -90,12 +89,17 @@ function Home() {
             </div>
 
             {/* Api response comes here */}
-            <div className="flex flex-col">
+            <div data-testid="result" className="flex flex-col">
                 {tweeter.tweets.map(
                     (data) =>
-                        data.tags.match(enteredSearch) &&
+                        data.tags
+                            .toLowerCase()
+                            .match(enteredSearch.toLowerCase()) &&
                         enteredSearch !== '' && (
-                            <div className=" w-full border-b border-l border-r border-gray-200">
+                            <div
+                                data-testid="results"
+                                className=" w-full border-b border-l border-r border-gray-200"
+                            >
                                 <p>Tags: #{data.tags}</p>
                                 <p>
                                     Name:
@@ -129,9 +133,37 @@ function Home() {
                         ),
                 )}
 
-                {enteredSearch === '' && (
-                    <div className="">
-                        <h1 className="text-4xl">Trends</h1>
+                {enteredSearch === '' && clicked === false && (
+                    <div className="mt-4">
+                        <h1 className="text-2xl">Trends</h1>
+                    </div>
+                )}
+
+                {clicked && (
+                    <div className="mt-4 flex flex-col flex-wrap justify-center">
+                        <h1 className="text-2xl">Newly created report</h1>
+                        <button
+                            type="submit"
+                            onClick={() => props.myPropOption(8)}
+                        >
+                            <div className="m-4 w-1/4 h-20 bg-gray-400 rounded-md flex flex-col p-2">
+                                <div className="">
+                                    <button type="submit">
+                                        <p className="font-bold">
+                                            {createTitle}
+                                        </p>
+                                    </button>
+                                </div>
+                                <div className="mt-2">
+                                    <p className="italic text-xs">
+                                        Gabriel Shoderu
+                                    </p>
+                                </div>
+                                <div className="">
+                                    <p className="italic text-xs">5/12/2022</p>
+                                </div>
+                            </div>
+                        </button>
                     </div>
                 )}
             </div>

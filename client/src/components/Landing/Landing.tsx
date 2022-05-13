@@ -13,6 +13,7 @@ import CLReports from '../CLReports/CLReports';
 import Drafts from '../Drafts/Drafts';
 import Shared from '../Shared/Shared';
 import Profile from '../Profile/Profile';
+import GenReport from '../GenReport/GenReport';
 
 // importing styling
 import './Landing.css';
@@ -25,10 +26,18 @@ function Landing() {
     let drafts = false;
     let shared = false;
     let profile = false;
+    let genReport = false;
 
     const [option, changeOption] = useState(0);
 
     const navigateOptionHandler = (opt: any) => {
+        // const option = enteredOption;
+        changeOption(opt);
+        console.log(opt);
+        // console.log(option);
+    };
+
+    const myPropHandler = (opt: any) => {
         // const option = enteredOption;
         changeOption(opt);
         console.log(opt);
@@ -47,6 +56,7 @@ function Landing() {
         drafts = false;
         shared = false;
         profile = false;
+        genReport = false;
     } else if (option === 2) {
         // console.log(2);
 
@@ -57,6 +67,7 @@ function Landing() {
         drafts = false;
         shared = false;
         profile = false;
+        genReport = false;
     } else if (option === 3) {
         // console.log(3);
 
@@ -67,6 +78,7 @@ function Landing() {
         drafts = false;
         shared = false;
         profile = false;
+        genReport = false;
     } else if (option === 4) {
         // console.log(4);
 
@@ -77,6 +89,7 @@ function Landing() {
         drafts = false;
         shared = false;
         profile = false;
+        genReport = false;
     } else if (option === 5) {
         // console.log(5);
 
@@ -87,6 +100,7 @@ function Landing() {
         drafts = true;
         shared = false;
         profile = false;
+        genReport = false;
     } else if (option === 6) {
         // console.log(6);
 
@@ -97,6 +111,7 @@ function Landing() {
         drafts = false;
         shared = true;
         profile = false;
+        genReport = false;
     } else if (option === 7) {
         // console.log(7);
 
@@ -107,10 +122,25 @@ function Landing() {
         drafts = false;
         shared = false;
         profile = true;
+        genReport = false;
+    } else if (option === 8) {
+        // console.log(7);
+
+        home = false;
+        explore = false;
+        reports = false;
+        clonedReports = false;
+        drafts = false;
+        shared = false;
+        profile = false;
+        genReport = true;
     }
 
     return (
-        <div className="flex flex-row bg-white ml-14 mr-14 relative">
+        <div
+            data-testid="landing"
+            className="flex flex-row bg-white ml-14 mr-14 relative"
+        >
             {/* first container ######################################################################################################### */}
             <div className="basis-1/4 p-2 pt-5 flex flex-col">
                 {/* logo comes here */}
@@ -122,13 +152,14 @@ function Landing() {
 
             {/* second container ######################################################################################################### */}
             <div className="flex flex-col basis-1/2 relative">
-                {home && <Home />}
+                {home && <Home myPropOption={myPropHandler} />}
                 {explore && <Explore />}
                 {reports && <Reports />}
                 {clonedReports && <CLReports />}
                 {drafts && <Drafts />}
                 {shared && <Shared />}
                 {profile && <Profile />}
+                {genReport && <GenReport myPropOption={myPropHandler} />}
             </div>
 
             {/* third container ######################################################################################################### */}
@@ -136,9 +167,9 @@ function Landing() {
                 <div className="fixed rounded bg-gray-200 h-2/3 ml-8 p-5 w-80 ">
                     <h1 className="text-xl font-bold">Drafts to report</h1>
                     <div className="w-full flex flex-col">
+                        {/* <div>mine</div>
                         <div>mine</div>
-                        <div>mine</div>
-                        <div>mine</div>
+                        <div>mine</div> */}
                     </div>
                 </div>
             </div>

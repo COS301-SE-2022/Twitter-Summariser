@@ -50,7 +50,7 @@ function Navigation(props: any) {
                     <div className="items-end pt-1 ">
                         <TiDocumentText style={style} />
                     </div>
-                    &nbsp; Reports
+                    &nbsp; My Reports
                 </button>
             </div>
 
@@ -67,7 +67,7 @@ function Navigation(props: any) {
                 </button>
             </div>
 
-            <div className="pt-4 flex flex-row ">
+            <div className="pt-4 flex flex-row">
                 <button
                     type="submit"
                     onClick={() => props.onNavigateOption(5)}
