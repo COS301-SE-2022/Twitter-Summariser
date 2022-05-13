@@ -48,7 +48,7 @@ const Reports = () => {
         <div className="mt-4 flex flex-row flex-wrap justify-center">
           {tweeter.myReports.map(
             (data) =>
-              data.title.match(enteredSearch) &&
+              data.title.toLowerCase().match(enteredSearch.toLowerCase()) &&
               enteredSearch !== "" && (
                 <div className="m-4 w-1/4 h-20 bg-gray-400 rounded-md flex flex-col p-2">
                   <div className="">
