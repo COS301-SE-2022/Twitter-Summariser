@@ -156,7 +156,7 @@ function Landing() {
                 {drafts && <Drafts />}
                 {shared && <Shared />}
                 {profile && <Profile />}
-                {genReport && <GenReport myPropOption={myPropHandler}/>}
+                {genReport && <GenReport myPropOption={myPropHandler} />}
             </div>
 
             {/* third container ######################################################################################################### */}
