@@ -137,7 +137,10 @@ function Landing() {
     }
 
     return (
-        <div className="flex flex-row bg-white ml-14 mr-14 relative">
+        <div
+            data-testid="landing"
+            className="flex flex-row bg-white ml-14 mr-14 relative"
+        >
             {/* first container ######################################################################################################### */}
             <div className="basis-1/4 p-2 pt-5 flex flex-col">
                 {/* logo comes here */}
