@@ -110,7 +110,10 @@ function Landing() {
     }
 
     return (
-        <div data-testid = "landing" className="flex flex-row bg-white ml-14 mr-14 relative">
+        <div
+            data-testid="landing"
+            className="flex flex-row bg-white ml-14 mr-14 relative"
+        >
             {/* first container ######################################################################################################### */}
             <div className="basis-1/4 p-2 pt-5 flex flex-col">
                 {/* logo comes here */}
@@ -132,7 +135,7 @@ function Landing() {
             </div>
 
             {/* third container ######################################################################################################### */}
-            <div  className="basis-1/4 p-2 pt-5 relative mr-14">
+            <div className="basis-1/4 p-2 pt-5 relative mr-14">
                 <div className="fixed rounded bg-gray-200 h-2/3 ml-8 p-5 w-80 ">
                     <h1 className="text-xl font-bold">Drafts to report</h1>
                     <div className="w-full flex flex-col">

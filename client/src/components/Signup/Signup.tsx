@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-const Signup = () => {
-  return <div data-testid = "signup" >Signup</div>;
-};
+function Signup() {
+    return <div data-testid="signup">Signup</div>;
+}
 
 export default Signup;

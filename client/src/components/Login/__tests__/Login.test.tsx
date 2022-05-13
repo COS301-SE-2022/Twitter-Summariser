@@ -4,11 +4,11 @@ import ReactDOM from 'react-dom';
 
 import Login from '../Login';
 
-describe("Rendering Tests For Components in Login", () =>{
-    //Test to see if Landing is rendered
-    it("renders without crashing", () => {
-        const { getByTestId } = render(<Login />);
-        const up = getByTestId("login");
+describe('Rendering Tests For Components in Login', () => {
+    // Test to see if Landing is rendered
+    it('renders without crashing', () => {
+        const { getByTestId } = screen.render(<Login />);
+        const up = screen.getByTestId('login');
         expect(up).toBeTruthy();
     });
-})
+});

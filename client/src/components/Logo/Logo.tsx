@@ -1,13 +1,13 @@
-import React from "react";
+import React from 'react';
 
-import "./Logo.css";
+import './Logo.css';
 
-const Logo = () => {
-  return (
-    <div data-testid="logo" className="fixed ml-14">
-      <img src="assets/logo.png" alt="Twitter Summarizer Logo" />
-    </div>
-  );
-};
+function Logo() {
+    return (
+        <div data-testid="logo" className="fixed ml-14">
+            <img src="assets/logo.png" alt="Twitter Summarizer Logo" />
+        </div>
+    );
+}
 
 export default Logo;
