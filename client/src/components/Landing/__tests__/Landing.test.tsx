@@ -1,25 +1,13 @@
-import { render, screen } from '@testing-library/react';
-
-import ReactDOM from 'react-dom';
-
+import { fireEvent, queryByRole, render, screen } from '@testing-library/react';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 import Landing from '../Landing';
 
-describe('Testing sum', () => {
-    function sum(a: number, b: number) {
-        return a + b;
-    }
-
-    it('should equal 4', () => {
-        expect(sum(2, 2)).toBe(4);
+describe('Rendering Tests For Components in Landing', () => {
+    // Test to see if Landing is rendered
+    it('renders without crashing', () => {
+        const { getByTestId } = render(<Landing />);
+        const landing = screen.getByTestId('landing');
+        expect(landing).toBeTruthy();
     });
-
-    test('aslso should be equal 4', () => {
-        expect(sum(2, 2)).toBe(4);
-    });
-});
-
-it('renders without crashing', () => {
-    const div = document.createElement('div');
-
-    ReactDOM.render(<Landing />, div);
 });
