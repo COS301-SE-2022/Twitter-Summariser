@@ -33,10 +33,43 @@ function Reports() {
                 focus:text-gray-700 focus:bg-white focus:border-twitter-blue focus:outline-none
                 bg-gray-200
               "
+<<<<<<< HEAD
                         value={enteredSearch}
                         onChange={searchHandler}
                         placeholder="search your published report..."
                     />
+=======
+            value={enteredSearch}
+            onChange={searchHandler}
+            placeholder="search your published report..."
+          />
+        </div>
+      </div>
+
+      {/* Api response comes here */}
+      <div className=" mt-4">
+        {enteredSearch !== "" && (
+          <h1 className="text-2xl">Search results....</h1>
+        )}
+
+        <div className="mt-4 flex flex-row flex-wrap justify-center">
+          {tweeter.myReports.map(
+            (data) =>
+              data.title.toLowerCase().match(enteredSearch.toLowerCase()) &&
+              enteredSearch !== "" && (
+                <div className="m-4 w-1/4 h-20 bg-gray-400 rounded-md flex flex-col p-2">
+                  <div className="">
+                    <button type="submit">
+                      <p className="font-bold">{data.title}</p>
+                    </button>
+                  </div>
+                  <div className="mt-2">
+                    <p className="italic text-xs">{data.name}</p>
+                  </div>
+                  <div className="">
+                    <p className="italic text-xs">{data.date}</p>
+                  </div>
+>>>>>>> 72dfa857381312e58876f94028de06ca3d2c76c0
                 </div>
             </div>
 
