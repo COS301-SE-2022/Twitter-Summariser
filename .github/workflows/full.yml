@@ -80,9 +80,6 @@ jobs:
       - name: Install all package dependencies
         run: npm install
 
-      - name: Lint the code and format the files
-        run: npm run test-eslint
-
       - name: Build the project
         run: CI=false npm run build
 
