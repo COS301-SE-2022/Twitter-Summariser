@@ -27,15 +27,9 @@ const App = () => {
 
     for (let index = 0; index < data.length; index++) {
       if (
-        (data[index].name.toLowerCase() === props.username.toLowerCase() &&
-          data[index].password
-            .toLowerCase()
-            .match(props.password.toLowerCase())) ||
-        data[index].email.toLowerCase() ===
-          (props.username.toLowerCase() &&
-            data[index].password
-              .toLowerCase()
-              .match(props.password.toLowerCase()))
+        (data[index].name.toLowerCase() === props.username.toLowerCase() ||
+          data[index].email.toLowerCase() === props.username.toLowerCase()) &&
+        data[index].password.toLowerCase() === props.password.toLowerCase()
       ) {
         console.log(data[index]);
 
