@@ -18,7 +18,9 @@ import GenReport from "../GenReport/GenReport";
 // importing styling
 import "./Landing.css";
 
-const Landing = () => {
+const Landing = (props: any) => {
+  console.log("User Id: " + props.userID);
+
   let home = true;
   let explore = false;
   let reports = false;
