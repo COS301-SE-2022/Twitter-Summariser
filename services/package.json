@@ -1,0 +1,11 @@
+{
+  "name": "services",
+  "version": "0.1.0",
+  "bin": {
+    "src": "bin/services.js"
+  },
+  "scripts": {},
+  "dependencies": {
+    "serverless": "^3.17.0"
+  }
+}
