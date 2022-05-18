@@ -44,7 +44,7 @@ const App = () => {
     }
   };
 
-  const signUpPage = (props: any) => {
+  const signUpPage = () => {
     changeLoginPage(false);
     changeCorrectLoginDetails(false);
     changeLandingPage(false);
@@ -53,10 +53,10 @@ const App = () => {
     changeUser_id(0.0);
   };
 
-  const logInPage = (props: any) => {
-    changeLoginPage(false);
+  const logInPage = () => {
+    changeLoginPage(true);
     changeCorrectLoginDetails(false);
-    changeLandingPage(true);
+    changeLandingPage(false);
     changeSignupPage(false);
 
     changeUser_id(0.0);
@@ -73,7 +73,7 @@ const App = () => {
       )}
 
       {/* Signup */}
-      {signupPage && <Signup />}
+      {signupPage && <Signup takeToSigninPage={logInPage} />}
 
       {/* Entry here based on Signup and Login decision  */}
       {landingPage && <Landing userID={user_id} takeToLoginPage={logInPage} />}
