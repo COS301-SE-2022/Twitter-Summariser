@@ -38,7 +38,7 @@ serverless invoke local --function functionName --raw --data "hello world"
 
 ### AWS DynamoDB:
 AWS DynamoDB functionality can also be tested local using plugin: Serverless-dynamodb-local
-- The DynamoDB Local instance will run a a local Java program by default or a docker container can be used. As always the configuration of DynamoDB will be done in the serverless.yml configure file. Can also make code use offline instances. for more info [Serverless-dynamodb-local](https://www.serverless.com/plugins/serverless-dynamodb-local)
+- The DynamoDB Local instance will run a local Java program by default or a docker container can be used. As always the configuration of DynamoDB will be done in the serverless.yml configure file. AWS Lambda and other parts of code can also make code use of the offline instances of databases. for more info [Serverless-dynamodb-local](https://www.serverless.com/plugins/serverless-dynamodb-local)
 
 #### Usefull Commands
 1. To start dynamodb
