@@ -70,7 +70,7 @@ const Signup = (props: any) => {
 
   return (
     <div
-      data-testid="login"
+      data-testid="signup"
       className="flex justify-center flex-col items-center h-screen"
     >
       <div>
