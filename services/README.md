@@ -38,7 +38,7 @@ serverless invoke local --function functionName --raw --data "hello world"
 
 ### AWS DynamoDB:
 AWS DynamoDB functionality can also be tested local using plugin: Serverless-dynamodb-local
-- The DynamoDB Local instance will run a local Java program by default or a docker container can be used. As always the configuration of DynamoDB will be done in the serverless.yml configure file. AWS Lambda and other parts of code can also make code use of the offline instances of databases. for more info [Serverless-dynamodb-local](https://www.serverless.com/plugins/serverless-dynamodb-local)
+- The DynamoDB Local instance will run a local Java program by default or a docker container can be used. As always the configuration of DynamoDB will be done in the serverless.yml configure file. AWS Lambda and other parts of code can also make use of the offline instances of databases. for more info [Serverless-dynamodb-local](https://www.serverless.com/plugins/serverless-dynamodb-local)
 
 #### Usefull Commands
 1. To start dynamodb
@@ -56,7 +56,7 @@ sls offline
 ```
 
 ## Deploying
-Deploying will be very interesting as Serverless will be deployed inconjuction with AWS CDK, actual it kinda of "latches on" to AWS CDK and uses it's resources to deploy it's self and it might need function by function integration let me figure it out and test it and the read me will contain all the relevant commands and information
+Deploying will be very interesting as Serverless will be deployed in conjuction with AWS CDK, actual it kinda of "latches on" to AWS CDK and uses it's resources to deploy it's self and it might need "function by function" integration let me figure it out and test it and the read me will contain all the relevant commands and information
 
 ## Use full resources:
 1. Using AWS Dynamodb Client: [serverless-dynamodb-client](https://www.serverless.com/plugins/serverless-dynamodb-client)
@@ -65,3 +65,4 @@ Deploying will be very interesting as Serverless will be deployed inconjuction w
 4. Documentation for Serverless Offline [Serverless Offline](https://www.serverless.com/plugins/serverless-offline)
 5. Documentation for running AWS Lambda functions on serverless [Serverless x AWS Lambda](https://www.serverless.com/framework/docs/providers/aws/guide/functions)
 6. Rest API with serverless x AWS Lambda x AWS DynamoDB x Nodejs [Rest API](https://www.serverless.com/blog/node-rest-api-with-serverless-lambda-and-dynamodb)
+7. Serverless x AWS CDk [Linking Serverless with CDK](https://dev.to/aws-builders/combining-serverless-framework-aws-cdk-1dg0)
