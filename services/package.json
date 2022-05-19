@@ -6,8 +6,10 @@
   },
   "scripts": {},
   "dependencies": {
+    "aws-sdk": "^2.1138.0",
     "nodejs": "^0.0.0",
     "serverless": "^3.17.0",
+    "serverless-dynamodb-client": "^0.0.2",
     "typescript": "^4.6.4"
   },
   "devDependencies": {
