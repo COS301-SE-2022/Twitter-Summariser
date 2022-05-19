@@ -6,6 +6,12 @@
   },
   "scripts": {},
   "dependencies": {
-    "serverless": "^3.17.0"
+    "nodejs": "^0.0.0",
+    "serverless": "^3.17.0",
+    "typescript": "^4.6.4"
+  },
+  "devDependencies": {
+    "serverless-dynamodb-local": "^0.2.40",
+    "serverless-offline": "^8.8.0"
   }
 }
