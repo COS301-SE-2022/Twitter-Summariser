@@ -11,7 +11,7 @@ npm install
 ### AWS Lambda
 AWS Lambda functionality can be run locally using the serverless plugin:
 - serverless-offline
-please note: 
+- please note: 
 "This plugin simulates API Gateway for many practical purposes, good enough for development - but is not a perfect simulator. Specifically, Lambda currently runs on Node.js v10.x, v12.x and v14.x (AWS Docs), whereas Offline runs on your own runtime where no memory limits are enforced. "
 for more information please refer to [Serverless-Offline](https://www.serverless.com/plugins/serverless-offline)
 
@@ -41,7 +41,7 @@ serverless invoke local --function functionName --raw --data "hello world"
 ### AWS DynamoDB:
 AWS DynamoDB functionality can also be tested local using plugin:
 - Serverless-dynamodb-local
-The DynamoDB Local instance will run a a local Java program by default or a docker container can be used. As always the configuration of DynamoDB will be done in the serverless.yml configure file. Can also make code use offline instances. for more info [Serverless-dynamodb-local](https://www.serverless.com/plugins/serverless-dynamodb-local)
+- The DynamoDB Local instance will run a a local Java program by default or a docker container can be used. As always the configuration of DynamoDB will be done in the serverless.yml configure file. Can also make code use offline instances. for more info [Serverless-dynamodb-local](https://www.serverless.com/plugins/serverless-dynamodb-local)
 
 #### Usefull Commands
 1. To start dynamodb
