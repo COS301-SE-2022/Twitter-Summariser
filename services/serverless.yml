@@ -120,6 +120,66 @@ functions:
 #       Description: "Description for the output"
 #       Value: "Some output value"
 
+resources:
+  Resources:
+    usersTable:
+      Type: AWS::DynamoDB::Table
+      Properties: 
+        TableName: Users
+        AttributeDefinitions:
+          - AttributeName: apiKey
+            AttributeType: S 
+          - AttributeName: email
+            AttributeType: S
+          - AttributeName: username
+            AttributeType: S
+          - AttributeName: password
+            AttributeType: S
+          - AttributeName: dateOfBirth
+            AttributeType: S
+        KeySchema: 
+          - AttributeName: apiKey
+            KeyType: HASH
+          - AttributeName: email
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+
+    LambdaRole: 
+      Type: AWS::IAM::Role
+      Properties:
+        AssumeRolePolicyDocument:
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service: lambda.amazonaws.com
+              Action: sts:AssumeRole
+          ManagedPolicyArns:
+            - arn:aws:iam::aws:policy/AWSXrayWriteOnlyAccess
+            - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+          Policies:
+            - PolicyName: dynamodb
+              PolicyDocument:
+                Statement:
+                  - Effect: Allow
+                    Action:
+                      - 'dynamodb:BatchGetItem'
+                      - 'dynamodb:BatchWriteItem'
+                      - 'dynamodb:PutItem'
+                      - 'dynamodb:DeleteItem'
+                      - 'dynamodb:GetItem'
+                      - 'dynamodb:Scan'
+                      - 'dynamodb:Query'
+                      - 'dynamodb:UpdateItem'
+                      - 'dynamodb:PartiQL*'
+                    Resource:
+                      - !GetAtt DynamoDBExampleTable.Arn
+                      - !Sub
+                        - ${Table}/*
+                        - Table: !GetAtt DynamoDBExampleTable.Arn
+
+
 plugins:
   - serverless-dynamodb-local
   - serverless-offline
