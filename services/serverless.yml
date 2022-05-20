@@ -58,9 +58,16 @@ provider:
 #    - include-me.js
 #    - include-me-dir/**
 
+#createTodo:
+#    handler: src/createTodo.handler
+#    events:
+#      - http:
+#        path: /todos
+#       method: post
+
 functions:
   hello:
-    handler: src/handler.hello
+   handler: src/handler.hello
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details

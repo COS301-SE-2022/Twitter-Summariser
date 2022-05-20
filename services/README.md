@@ -56,7 +56,12 @@ sls offline
 ```
 
 ## Deploying
-Deploying will be very interesting as Serverless will be deployed in conjuction with AWS CDK, actual it kinda of "latches on" to AWS CDK and uses it's resources to deploy it's self and it might need "function by function" integration let me figure it out and test it and the read me will contain all the relevant commands and information
+Deploying of Backend code will be done separately from front-end and Infrustructure and this basically just means giving your code to AWS to keep and store to run it at times when you need the code and at times when you want to actively call on the function. Backend will comprise of lambda and dynamodb. When deploy don't worry about the functions you have already deployed, these will only be alter or re-deployed if they are altered, same for the structure of the database.
+
+### Useful Commands
+```bash
+serverless deploy
+```
 
 ## Use full resources:
 1. Using AWS Dynamodb Client: [serverless-dynamodb-client](https://www.serverless.com/plugins/serverless-dynamodb-client)
@@ -66,3 +71,5 @@ Deploying will be very interesting as Serverless will be deployed in conjuction 
 5. Documentation for running AWS Lambda functions on serverless [Serverless x AWS Lambda](https://www.serverless.com/framework/docs/providers/aws/guide/functions)
 6. Rest API with serverless x AWS Lambda x AWS DynamoDB x Nodejs [Rest API](https://www.serverless.com/blog/node-rest-api-with-serverless-lambda-and-dynamodb)
 7. Serverless x AWS CDk [Linking Serverless with CDK](https://dev.to/aws-builders/combining-serverless-framework-aws-cdk-1dg0)
+8. DynamoDB x CDK [Dynamodb with CDk](https://dev.to/kumo/serverless-framework-aws-cdk-1dnf)
+9. Serverless for Lambda and Dynamodb [serverless](https://www.serverless.com/blog/getting-started-with-serverless-framework)
