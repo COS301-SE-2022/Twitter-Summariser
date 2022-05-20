@@ -179,6 +179,17 @@ resources:
                         - ${Table}/*
                         - Table: !GetAtt DynamoDBExampleTable.Arn
 
+custom:
+  dynamodb:
+    stages:
+      - dev
+    start: 
+      docker: true
+      port: 8001
+      inMemory: true
+      migrate: true
+      seed: true
+      convertEmptyValues: true
 
 plugins:
   - serverless-dynamodb-local
