@@ -65,6 +65,19 @@ provider:
 #        path: /todos
 #       method: post
 
+custom:
+  dynamodb:
+    stages:
+      - dev
+    start: 
+      docker: true
+      port: 8000
+      inMemory: true
+      migrate: true
+      seed: true
+      convertEmptyValues: true
+      # noStart: true
+
 functions:
   hello:
    handler: src/handler.hello
@@ -131,12 +144,7 @@ resources:
             AttributeType: S 
           - AttributeName: email
             AttributeType: S
-          - AttributeName: username
-            AttributeType: S
-          - AttributeName: password
-            AttributeType: S
-          - AttributeName: dateOfBirth
-            AttributeType: S
+    
         KeySchema: 
           - AttributeName: apiKey
             KeyType: HASH
@@ -179,17 +187,7 @@ resources:
                         - ${Table}/*
                         - Table: !GetAtt DynamoDBExampleTable.Arn
 
-custom:
-  dynamodb:
-    stages:
-      - dev
-    start: 
-      docker: true
-      port: 8001
-      inMemory: true
-      migrate: true
-      seed: true
-      convertEmptyValues: true
+
 
 plugins:
   - serverless-dynamodb-local
