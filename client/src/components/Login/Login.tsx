@@ -64,7 +64,7 @@ const Login = (props: any) => {
       <br />
       <div>
         <form onSubmit={submitHandler} action="">
-          <input
+          <input data-testid="username-input"
             type="text"
             placeholder="Phone, email or username"
             className=" w-56 h-10 border-gray-200 border rounded-md text-center text-sm"
@@ -72,7 +72,7 @@ const Login = (props: any) => {
             value={enteredUsername}
           />
           <br /> <br />
-          <input
+          <input data-testid="password-input"
             type="password"
             placeholder="password"
             className=" w-56 h-10 border-gray-200 border rounded-md text-center text-sm"
@@ -81,7 +81,7 @@ const Login = (props: any) => {
           />
           <br />
           <br />
-          <button
+          <button data-testid="btn-submit"
             type="submit"
             className="button__login text-sm p-0.5 h-10 w-56 bg-black rounded-full text-white"
           >
@@ -90,7 +90,7 @@ const Login = (props: any) => {
           <br />
           <br />
           <br />
-          <button
+          <button data-testid="btn-forgot"
             type="submit"
             className="button__login text-sm p-0.5 h-10 w-56 bg-white border border-black text-black font-semibold rounded-full"
           >
@@ -98,9 +98,9 @@ const Login = (props: any) => {
           </button>
           <br />
           <br />
-          <p className="text-sm text-center">
+          <p  className="text-sm text-center">
             Don't have an account?
-            <button type="submit" className=" text-sky-500" onClick={signup}>
+            <button data-testid="btn-signup" type="submit" className=" text-sky-500" onClick={signup}>
               &nbsp; Sign up
             </button>
           </p>

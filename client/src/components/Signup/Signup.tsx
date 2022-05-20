@@ -70,7 +70,7 @@ const Signup = (props: any) => {
 
   return (
     <div
-      data-testid="login"
+      data-testid="signup"
       className="flex justify-center flex-col items-center h-screen"
     >
       <div>
@@ -89,7 +89,7 @@ const Signup = (props: any) => {
           action=""
           className="flex justify-center items-center flex-col"
         >
-          <input
+          <input data-testid="name-input"
             type="text"
             placeholder="Name"
             className=" w-56 h-10 border-gray-200 border rounded-md text-center text-sm"
@@ -99,7 +99,7 @@ const Signup = (props: any) => {
           <br />
           {/* unacceptable email notification */}
           {/*  */}
-          <input
+          <input data-testid="email-input"
             type="text"
             placeholder="Email"
             className=" w-56 h-10 border-gray-200 border rounded-md text-center text-sm"
@@ -109,7 +109,7 @@ const Signup = (props: any) => {
           <br />
           {/* less than 18 notification */}
           {/*  */}
-          <input
+          <input data-testid="date-input"
             type="date"
             className=" w-56 h-10 border-gray-200 border rounded-md text-center text-sm text-gray-400"
             onChange={dateChangeHandler}
@@ -119,7 +119,7 @@ const Signup = (props: any) => {
           {/* incorrect password notification  */}
           {/*  */}
           <div className="flex flex-row">
-            <input
+            <input data-testid="password-input"
               type="password"
               placeholder="password"
               className=" w-56 h-10 border-gray-200 border rounded-md text-center text-sm"
@@ -127,7 +127,7 @@ const Signup = (props: any) => {
               value={enteredPassword}
             />
             &nbsp;
-            <input
+            <input data-testid="confirm-password-input"
               type="password"
               placeholder="confirm password"
               className=" w-56 h-10 border-gray-200 border rounded-md text-center text-sm"
@@ -136,7 +136,7 @@ const Signup = (props: any) => {
             />
           </div>
           <br />
-          <button
+          <button data-testid="btn-submit"
             type="submit"
             className="button__login text-sm p-0.5 h-10 w-56 bg-black rounded-full text-white"
           >
@@ -145,7 +145,7 @@ const Signup = (props: any) => {
           <br />
           <p className="text-sm text-center">
             Already have an account?
-            <button type="submit" className=" text-sky-500" onClick={signin}>
+            <button data-testid="btn-signin" type="submit" className=" text-sky-500" onClick={signin}>
               &nbsp; Sign in
             </button>
           </p>
