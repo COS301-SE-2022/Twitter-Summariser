@@ -117,7 +117,7 @@ A progressive web app to generate an article on a given trend using curated Twee
   </p>
   </details>
  
-  ## Batsirai Malcolm Dzimati: Lead Backend/API Engineer
+  ## Batsirai Malcolm Dzimati: Backend/API Engineer
 
 <img src="https://avatars.githubusercontent.com/u/63916731?s=400&u=337908eccfcfd61ec9748c0a677934d97f3563b9&v=4" width=30% height = 30%> [![Malcolm's GitHub stats](https://github-readme-stats.vercel.app/api?username=malcolmdzimati)](https://github.com/anuraghazra/github-readme-stats)
 
