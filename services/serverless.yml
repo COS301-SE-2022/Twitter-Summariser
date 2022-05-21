@@ -163,25 +163,7 @@ custom:
 
 resources:
   Resources:
-    usersTable:
-      Type: AWS::DynamoDB::Table
-      Properties: 
-        TableName: Users
-        AttributeDefinitions:
-          - AttributeName: apiKey
-            AttributeType: S 
-          - AttributeName: email
-            AttributeType: S
-    
-        KeySchema: 
-          - AttributeName: apiKey
-            KeyType: HASH
-          - AttributeName: email
-            KeyType: RANGE
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
-        TableName: ${self:service}-usersTable-${sls:stage}
+      ${file(./config/database.yml)}
 
 plugins:
   - serverless-dynamodb-local

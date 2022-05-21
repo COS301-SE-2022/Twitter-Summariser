@@ -1,0 +1,2 @@
+usersTable: 
+  ${file(./config/database_tables/usersTable.yml)}
