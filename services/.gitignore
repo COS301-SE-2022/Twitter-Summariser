@@ -4,3 +4,9 @@ jspm_packages
 
 # Serverless directories
 .serverless
+
+#Enviroment Files
+.secrets.yml
+
+#JavaScript Conversions
+.build
