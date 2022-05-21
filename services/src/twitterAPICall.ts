@@ -1,14 +1,11 @@
 const Twitter = require('twitter-v2');
+require('dotenv').config();
 
 const client = new Twitter({
-    /*consumer_key: 'oRz2uK3yDaoe4TPzuPsDTsylF',
-    consumer_secret: 'y7OOVr5A9Q236tpdBKtH2lScRFjQYcSH57Jn8DpKJd3LKrxhgl',
-    access_token_key: '1522200413608775682-DV36volrmDcjPZeN2VYoDiu2uIQNV9',
-    access_token_secret: 'aa7zEOnvuD9ZmXmPWqbTrZ1hwCQW594UaRQYG9iHC2zcm',*/
-    consumer_key: ${{ secrets.TWITTER_CONSUMER_KEY }},
-    consumer_secret: 'y7OOVr5A9Q236tpdBKtH2lScRFjQYcSH57Jn8DpKJd3LKrxhgl',
-    access_token_key: '1522200413608775682-DV36volrmDcjPZeN2VYoDiu2uIQNV9',
-    access_token_secret: 'aa7zEOnvuD9ZmXmPWqbTrZ1hwCQW594UaRQYG9iHC2zcm',
+    consumer_key: process.env.TWITTER_CONSUMER_KEY,
+    consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+    access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
+    access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
 })
 
 module.exports.getTweetHandler = async(event) => {

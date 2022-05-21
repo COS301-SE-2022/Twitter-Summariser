@@ -25,6 +25,13 @@ provider:
   runtime: nodejs12.x
   stage: dev
   region: us-east-1
+  timeout: 10
+  versionFunctions: false
+  environment:
+    #TWITTER_CONSUMER_KEY: ${self:custom.secrets.TWITTER_CONSUMER_KEY}
+    #TWITTER_CONSUMER_SECRET: ${self:custom.secrets.TWITTER_CONSUMER_SECRET}
+    #TWITTER_ACCESS_TOKEN_KEY: ${self:custom.secrets.TWITTER_ACCESS_TOKEN_KEY}
+    #TWITTER_ACCESS_TOKEN_SECRET: ${{self:custom.secrets.TWITTER_ACCESS_TOKEN_SECRET}
   iam:                # you can add statements to the Lambda function's IAM Role here
     role:
       statements:     # permissions for all of your functions can be set here
@@ -76,13 +83,14 @@ functions:
     description: Hello World Function that returns "Hello World"
 
   getTweetHandler:
+    name: getTweets
     handler: src/twitterAPICall.getTweetHandler
     description: A simple lambda function to make an API Call to the Twitter API for 3 tweets
-    memorySize: 128
+    memorySize: 512     
     url: 
       cors:
         allowedHeaders: null
-    timeout: 10
+    timeout: 10    
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
@@ -138,6 +146,7 @@ functions:
 custom:
   serverlessPluginTypescript:
     tsConfigFileLocation: './tsconfig.build.json'
+  secrets: ${file(./.secrets.yml):Twitter_Credentials}
 
 plugins:
   - serverless-dynamodb-local
