@@ -78,9 +78,9 @@ custom:
       convertEmptyValues: true
       # noStart: true
 
-functions:
-  hello:
-   handler: src/handler.hello
+# functions:
+#   hello:
+  #  handler: src/handler.hello
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
@@ -182,10 +182,10 @@ resources:
                       - 'dynamodb:UpdateItem'
                       - 'dynamodb:PartiQL*'
                     Resource:
-                      - !GetAtt DynamoDBExampleTable.Arn
+                      - !GetAtt usersTable.Arn
                       - !Sub
                         - ${Table}/*
-                        - Table: !GetAtt DynamoDBExampleTable.Arn
+                        - Table: !GetAtt usersTable.Arn
 
 
 
