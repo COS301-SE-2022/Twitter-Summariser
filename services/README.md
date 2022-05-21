@@ -73,3 +73,4 @@ serverless deploy
 7. Serverless x AWS CDk [Linking Serverless with CDK](https://dev.to/aws-builders/combining-serverless-framework-aws-cdk-1dg0)
 8. DynamoDB x CDK [Dynamodb with CDk](https://dev.to/kumo/serverless-framework-aws-cdk-1dnf)
 9. Serverless for Lambda and Dynamodb [serverless](https://www.serverless.com/blog/getting-started-with-serverless-framework)
+10. Twitter API V2 github (asyn) [Twitter API V2](https://github.com/HunterLarco/twitter-v2)

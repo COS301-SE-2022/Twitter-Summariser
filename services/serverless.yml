@@ -23,17 +23,22 @@ frameworkVersion: '3'
 provider:
   name: aws
   runtime: nodejs12.x
+  stage: dev
+  region: us-east-1
+  iam:                # you can add statements to the Lambda function's IAM Role here
+    role:
+      statements:     # permissions for all of your functions can be set here
+        - Effect: "Allow"
+          Action:     # Gives permission to DynamoDB tables in a specific region
+            - dynamodb:DescribeTable
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource: 'arn:aws:dynamodb:us-east-1:*:*'
 
-# you can overwrite defaults here
-#  stage: dev
-#  region: us-east-1
-
-# you can add statements to the Lambda function's IAM Role here
-#  iam:
-#    role:
-#      statements:
-#        - Effect: "Allow"
-#          Action:
 #            - "s3:ListBucket"
 #          Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "ServerlessDeploymentBucket" } ] ]  }
 #        - Effect: "Allow"
@@ -67,7 +72,17 @@ provider:
 
 functions:
   hello:
-   handler: src/handler.hello
+    handler: src/handler.hello
+    description: Hello World Function that returns "Hello World"
+
+  getTweetHandler:
+    handler: src/twitterAPICall.getTweetHandler
+    description: A simple lambda function to make an API Call to the Twitter API for 3 tweets
+    memorySize: 128
+    url: 
+      cors:
+        allowedHeaders: null
+    timeout: 10
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
@@ -119,7 +134,12 @@ functions:
 #     NewOutput:
 #       Description: "Description for the output"
 #       Value: "Some output value"
+	
+custom:
+  serverlessPluginTypescript:
+    tsConfigFileLocation: './tsconfig.build.json'
 
 plugins:
   - serverless-dynamodb-local
   - serverless-offline
+  - serverless-plugin-typescript
