@@ -14,7 +14,7 @@ function Navigation(props: any) {
   const style = { fontSize: "1.5rem" };
 
   return (
-    <div className="pt-2 text-lg fixed top-20 w-80 ml-14 h-screen">
+    <div className="pt-2 text-lg fixed top-20 w-80 2xl:ml-14 xl:ml-3 md:ml-5  h-screen">
       <div className="pt-4 flex flex-row ">
         <button
           type="submit"
@@ -25,7 +25,7 @@ function Navigation(props: any) {
             <GoHome style={style} />
             {/* <GoHome /> */}
           </div>
-          &nbsp; Home
+          <div className="hidden lg:block">&nbsp; Home</div>
         </button>
       </div>
 
@@ -38,7 +38,7 @@ function Navigation(props: any) {
           <div className="items-end pt-1 ">
             <BiHash style={style} />
           </div>
-          &nbsp; Explore
+          <div className="hidden lg:block">&nbsp; Explore</div>
         </button>
       </div>
 
@@ -51,7 +51,7 @@ function Navigation(props: any) {
           <div className="items-end pt-1 ">
             <TiDocumentText style={style} />
           </div>
-          &nbsp; My Reports
+          <div className="hidden lg:block">&nbsp; My Reports</div>
         </button>
       </div>
 
@@ -64,7 +64,7 @@ function Navigation(props: any) {
           <div className="items-end pt-1 ">
             <FaRegClone style={style} />
           </div>
-          &nbsp; Cloned Reports
+          <div className="hidden lg:block">&nbsp; Cloned Reports</div>
         </button>
       </div>
 
@@ -77,7 +77,7 @@ function Navigation(props: any) {
           <div className="items-end pt-1 ">
             <RiDraftLine style={style} />
           </div>
-          &nbsp; Drafts
+          <div className="hidden lg:block">&nbsp; Drafts</div>
         </button>
       </div>
 
@@ -90,7 +90,7 @@ function Navigation(props: any) {
           <div className="items-end pt-1 ">
             <BsShare style={style} />
           </div>
-          &nbsp; Shared
+          <div className="hidden lg:block">&nbsp; Shared</div>
         </button>
       </div>
 
@@ -103,7 +103,7 @@ function Navigation(props: any) {
           <div className="items-end pt-1 ">
             <CgProfile style={style} />
           </div>
-          &nbsp; Gabriel
+          <div className="hidden lg:block">&nbsp; Gabriel</div>
         </button>
       </div>
 
@@ -116,7 +116,7 @@ function Navigation(props: any) {
           <div className="items-end pt-1 ">
             <HiOutlineLogin style={style} />
           </div>
-          &nbsp; Logout
+          <div className="hidden lg:block">&nbsp; Logout</div>
         </button>
       </div>
     </div>

@@ -119,7 +119,7 @@ const Home = (props: any) => {
         {/*  */}
 
         <div className="flex flex-row w-1/3 justify-center">
-          <p>Number of Tweets:</p> &nbsp;
+          <p>Tweets:</p> &nbsp;
           <select className=" text-black">{tweetOptions}</select>
         </div>
 
