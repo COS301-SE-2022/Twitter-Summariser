@@ -141,10 +141,10 @@ const Landing = (props: any) => {
   return (
     <div
       data-testid="landing"
-      className="flex flex-row bg-white ml-14 mr-14 relative"
+      className="flex flex-row bg-white lg:ml-14 lg:mr-14 sm:ml-5 sm:mr-5 relative md:justify-around "
     >
       {/* first container ######################################################################################################### */}
-      <div className="basis-1/4 p-2 pt-5 flex flex-col">
+      <div className="xl:basis-1/5 lg:basis-1/6 p-2 pt-5 flex-col hidden mini-tablet:block">
         {/* logo comes here */}
         <Logo width="60.69px" height="54px" page="landing" />
 
@@ -153,7 +153,7 @@ const Landing = (props: any) => {
       </div>
 
       {/* second container ######################################################################################################### */}
-      <div className="flex flex-col basis-1/2 relative">
+      <div className="flex flex-col 2xl:basis-1/2 mini-tablet:basis-2/3 basis-full relative">
         {home && <Home myPropOption={myPropHandler} />}
         {explore && <Explore />}
         {reports && <Reports />}
@@ -165,8 +165,8 @@ const Landing = (props: any) => {
       </div>
 
       {/* third container ######################################################################################################### */}
-      <div className="basis-1/4 p-2 pt-5 relative mr-14">
-        <div className="fixed rounded bg-gray-200 h-2/3 ml-8 p-5 w-80 ">
+      <div className=" xl:flex xl:basis-1/4 xl:p-2 xl:pt-5 xl:relative xl:mr-14 hidden">
+        <div className="fixed rounded bg-gray-200 h-2/3 ml-8 p-5 2xl:w-80 xl:w-64 ">
           <h1 className="text-xl font-bold">Drafts to report</h1>
           <div className="w-full flex flex-col">
             {/* <div>mine</div>
