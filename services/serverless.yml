@@ -149,7 +149,7 @@ functions:
 custom:
   serverlessPluginTypescript:
     tsConfigFileLocation: './tsconfig.build.json'
-  secrets: ${file(./.secrets.yml):Twitter_Credentials}
+  # secrets: ${file(./.secrets.yml):Twitter_Credentials}
   dynamodb:
     stages:
       - dev

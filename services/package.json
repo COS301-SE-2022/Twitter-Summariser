@@ -14,6 +14,7 @@
     "twitter-v2": "^1.1.0"
   },
   "devDependencies": {
+    "@shelf/jest-dynamodb": "^2.2.4",
     "serverless-dynamodb-local": "^0.2.40",
     "serverless-offline": "^8.8.0",
     "serverless-plugin-typescript": "^2.1.2",

@@ -40,13 +40,18 @@ serverless invoke local --function functionName --raw --data "hello world"
 AWS DynamoDB functionality can also be tested local using plugin: Serverless-dynamodb-local
 - The DynamoDB Local instance will run a local Java program by default or a docker container can be used. As always the configuration of DynamoDB will be done in the serverless.yml configure file. AWS Lambda and other parts of code can also make use of the offline instances of databases. for more info [Serverless-dynamodb-local](https://www.serverless.com/plugins/serverless-dynamodb-local)
 
-#### Usefull Commands
-1. To start dynamodb
+#### Useful Commands
+1. Add docker container
+```bash
+docker-compose up
+```
+
+2. To start dynamodb
 ```bash
 serverless dynamodb start
 ```
 
-2. Please note the this command automatically triggers command 1
+3. Please note the this command automatically triggers command 1
 ```bash
 serverless offline
 ```
@@ -54,6 +59,10 @@ or
 ```bash
 sls offline
 ```
+
+### Integration Tests
+
+### Unit tests
 
 ## Deploying
 Deploying of Backend code will be done separately from front-end and Infrustructure and this basically just means giving your code to AWS to keep and store to run it at times when you need the code and at times when you want to actively call on the function. Backend will comprise of lambda and dynamodb. When deploy don't worry about the functions you have already deployed, these will only be alter or re-deployed if they are altered, same for the structure of the database.
