@@ -72,6 +72,11 @@ const serverlessConfiguration: AWS = {
                 migrate: true,
             },
             stages: "dev"
+        },
+
+        s3sync: {
+            bucketName: "twitter-summariser",
+            localDir: "client/build/"
         }
     },
 
@@ -95,6 +100,43 @@ const serverlessConfiguration: AWS = {
                     },
 
                 }
+            },
+
+            TwitterSummariserApp: {
+                Type: "AWS::S3::Bucket",
+                Properties: {
+                    BucketName: "twitter-summariser",
+                    AccessControl: "PublicRead",
+                    WebstieConfiguration: {
+                        IndexDocument: "index.html",
+                        ErrorDocument: "index.html"
+                    }
+                }
+            },
+
+            S3AccessPolicy: {
+                Type: "AWS::S3::BucketPolicy",
+                Properties: {
+                    Bucket: {
+                        Ref: "TwitterSummariserApp"
+                    },
+                    PolicyDocument: {
+                        Statement: {
+                            Sid: "PublicReadGetObject",
+                            Effect: "Allow",
+                            Principal: "*",
+                            Action: {
+                                s3: "GetObject"
+                            },
+                            Resource: "arn:aws:s3:::twitter-summariser"
+                        }
+                    }
+                }
+            },
+
+            CloudFrontDistribution: {
+                Type: "AWS::CloudFront:Dsitribution"
+
             }
         }
     }
