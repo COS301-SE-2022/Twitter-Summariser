@@ -8,7 +8,8 @@ const serverlessConfiguration: AWS = {
     plugins: [
         'serverless-esbuild',
         'serverless-offline',
-        'serverless-dynamodb-local'
+        'serverless-dynamodb-local',
+        'serverless-s3-sync'
     ],
     provider: {
         name: 'aws',
