@@ -9,7 +9,7 @@ const serverlessConfiguration: AWS = {
         'serverless-esbuild',
         'serverless-offline',
         'serverless-dynamodb-local',
-        'serverless-s3-sync'
+        'serverless-s3-sync',
     ],
     provider: {
         name: 'aws',
@@ -74,10 +74,10 @@ const serverlessConfiguration: AWS = {
             stages: "dev"
         },
 
-        s3sync: {
+        s3Sync: [{
             bucketName: "twitter-summariser",
             localDir: "client/build/"
-        }
+        }]
     },
 
     resources: {
@@ -107,7 +107,7 @@ const serverlessConfiguration: AWS = {
                 Properties: {
                     BucketName: "twitter-summariser",
                     AccessControl: "PublicRead",
-                    WebstieConfiguration: {
+                    WebsiteConfiguration: {
                         IndexDocument: "index.html",
                         ErrorDocument: "index.html"
                     }
@@ -121,22 +121,71 @@ const serverlessConfiguration: AWS = {
                         Ref: "TwitterSummariserApp"
                     },
                     PolicyDocument: {
+                        Version: '2012-10-17',
                         Statement: {
                             Sid: "PublicReadGetObject",
                             Effect: "Allow",
                             Principal: "*",
-                            Action: {
-                                s3: "GetObject"
-                            },
-                            Resource: "arn:aws:s3:::twitter-summariser"
+                            Action: "s3:GetObject",
+                            Resource: "arn:aws:s3:::twitter-summariser/*"
                         }
                     }
                 }
             },
 
             CloudFrontDistribution: {
-                Type: "AWS::CloudFront:Dsitribution"
+                Type: "AWS::CloudFront::Distribution",
+                Properties: {
+                    DistributionConfig: {
+                        DefaultRootObject: "index.html",
+                        Origins: [
+                            {
+                                DomainName: "twitter-summariser.s3.amazonaws.com",
+                                Id: "TwitterSummariserApp",
+                                CustomOriginConfig: {
+                                    HTTPPort: 80,
+                                    HTTPSPort: 443,
+                                    OriginProtocolPolicy: "https-only"
+                                }
+                            }
+                        ],
 
+                        Enabled: true,
+
+                        CustomErrorResponses: [{
+                            ErrorCode: 404,
+                            ResponseCode: 200,
+                            ResponsePagePath: "/index.html"
+                        }],
+
+                        DefaultCacheBehavior: {
+                            AllowedMethods: [
+                                "DELETE",
+                                "GET",
+                                "HEAD",
+                                "OPTIONS",
+                                "PATCH",
+                                "POST",
+                                "PUT"
+                            ],
+
+                            TargetOriginId: "TwitterSummariserApp",
+
+                            ForwardedValues: {
+                                QueryString: false,
+                                Cookies: {
+                                    Forward: "none"
+                                }
+                            },
+
+                            ViewerProtocolPolicy: "redirect-to-https"
+                        },
+
+                        ViewerCertificate: {
+                            CloudFrontDefaultCertificate: true
+                        }
+                    }
+                }
             }
         }
     }
