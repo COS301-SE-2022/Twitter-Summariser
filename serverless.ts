@@ -67,9 +67,13 @@ const serverlessConfiguration: AWS = {
 
         dynamodb: {
             start: {
-                port: 5000,
+                image: "dynamodb-local-latest", 
+                docker: true,
+                port: 8000,
                 inMemory: true,
                 migrate: true,
+                seed: true,
+                convertEmptyValues: true
             },
             stages: "dev"
         },
@@ -87,12 +91,20 @@ const serverlessConfiguration: AWS = {
                 Properties: {
                     TableName: "CreatorTable",
                     AttributeDefinitions: [{
-                        AttributeName: "username",
+                        AttributeName: "apiKey",
                         AttributeType: "S",
+                    },
+                    {
+                        AttributeName: "email",
+                        AttributeType: "S"
                     }],
                     KeySchema: [{
-                        AttributeName: "username",
+                        AttributeName: "apiKey",
                         KeyType: "HASH"
+                    },
+                    {
+                        AttributeName: "email",
+                        KeyType: "RANGE"
                     }],
                     ProvisionedThroughput: {
                         ReadCapacityUnits: 1,
