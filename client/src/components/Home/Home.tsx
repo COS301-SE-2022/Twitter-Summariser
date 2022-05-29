@@ -65,10 +65,14 @@ const Home = (props: any) => {
   const apiResponse = [<div key={"begining div"}></div>];
 
   tweeter.tweets.map(
-    (data) =>
+    (data, index) =>
       data.tags.toLowerCase().match(enteredSearch.toLowerCase()) &&
       enteredSearch !== "" &&
-      apiResponse.push(<Tweet tweetData={data} />)
+      apiResponse.push(
+        <div key={index}>
+          <Tweet tweetData={data} />
+        </div>
+      )
   );
 
   let ind = 0;
