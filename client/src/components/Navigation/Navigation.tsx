@@ -1,7 +1,7 @@
 import { GoHome } from "react-icons/go";
 import { BiHash } from "react-icons/bi";
 import { TiDocumentText } from "react-icons/ti";
-import { FaRegClone } from "react-icons/fa";
+// import { FaRegClone } from "react-icons/fa";
 import { RiDraftLine } from "react-icons/ri";
 import { CgProfile } from "react-icons/cg";
 import { BsShare } from "react-icons/bs";
@@ -15,7 +15,7 @@ function Navigation(props: any) {
 
   return (
     <div className="pt-2 text-lg fixed top-20 w-80 2xl:ml-14 xl:ml-3 md:ml-5  h-screen">
-      <div className="pt-4 flex flex-row ">
+      <div className="pt-4 flex flex-row " key={(1).toString()}>
         <button
           type="submit"
           onClick={() => props.onNavigateOption(1)}
@@ -29,7 +29,7 @@ function Navigation(props: any) {
         </button>
       </div>
 
-      <div className="pt-4 flex flex-row ">
+      <div className="pt-4 flex flex-row " key={(2).toString()}>
         <button
           type="submit"
           onClick={() => props.onNavigateOption(2)}
@@ -42,7 +42,7 @@ function Navigation(props: any) {
         </button>
       </div>
 
-      <div className="pt-4 flex flex-row ">
+      <div className="pt-4 flex flex-row " key={(3).toString()}>
         <button
           type="submit"
           onClick={() => props.onNavigateOption(3)}
@@ -55,7 +55,7 @@ function Navigation(props: any) {
         </button>
       </div>
 
-      <div className="pt-4 flex flex-row ">
+      {/* <div className="pt-4 flex flex-row ">
         <button
           type="submit"
           onClick={() => props.onNavigateOption(4)}
@@ -66,9 +66,9 @@ function Navigation(props: any) {
           </div>
           <div className="hidden lg:block">&nbsp; Cloned Reports</div>
         </button>
-      </div>
+      </div> */}
 
-      <div className="pt-4 flex flex-row">
+      <div className="pt-4 flex flex-row" key={(4).toString()}>
         <button
           type="submit"
           onClick={() => props.onNavigateOption(5)}
@@ -81,7 +81,7 @@ function Navigation(props: any) {
         </button>
       </div>
 
-      <div className="pt-4 flex flex-row ">
+      <div className="pt-4 flex flex-row " key={(5).toString()}>
         <button
           type="submit"
           onClick={() => props.onNavigateOption(6)}
@@ -94,7 +94,7 @@ function Navigation(props: any) {
         </button>
       </div>
 
-      <div className="pt-4 flex flex-row ">
+      <div className="pt-4 flex flex-row " key={(6).toString()}>
         <button
           type="submit"
           onClick={() => props.onNavigateOption(7)}
