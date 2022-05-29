@@ -1,22 +1,16 @@
 import { useState } from "react";
-
-// importing icons for the sorting options
-import { AiOutlineHeart, AiOutlineRetweet } from "react-icons/ai";
-import { FaRegCommentAlt } from "react-icons/fa";
+import Tweet from "../Tweet/Tweet";
 
 // importing mock data
 import tweeter from "../../mock.json";
 
 const Home = (props: any) => {
-  // const search = "";
+  // all related to the search
   const [enteredSearch, changeEnteredSearch] = useState("");
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const searchHandler = (event: any) => {
     changeEnteredSearch(event.target.value);
   };
-
-  // let clicked = false;
 
   const [clicked, changeClicked] = useState(false);
   const [createTitle, changeCreateTitle] = useState("");
@@ -30,60 +24,58 @@ const Home = (props: any) => {
     }
   };
 
-  // style for the icons
-  const style_ = { color: "black", fontSize: "1rem" };
+  // extra search function sort, filter, number of tweets to collect
+  const [noOfTweets, changeNoOfTweets] = useState(1);
+  const [sort, changeSort] = useState("");
+  const [filter, changeFilter] = useState("");
+
+  const tweetHandler = (event: any) => {
+    changeNoOfTweets(event.target.value);
+  };
+
+  const sortHandler = (event: any) => {
+    changeSort(event.target.value);
+  };
+
+  const filterHandler = (event: any) => {
+    changeFilter(event.target.value);
+  };
+
+  const search = () => {
+    const searchData = {
+      keyword: enteredSearch,
+      tweets: noOfTweets,
+      sortIn: sort,
+      filter: filter,
+    };
+
+    if (enteredSearch !== "") {
+      console.log(searchData);
+    }
+  };
 
   // tweet options
   const tweetOptions = [];
 
   for (let index = 1; index <= 100; index++) {
-    tweetOptions.push(<option key={index}>{index}</option>);
+    tweetOptions.push(<option key={index.toString()}>{index}</option>);
   }
 
   // processing api response
-  const apiResponse = [<div></div>];
+  const apiResponse = [<div key={"begining div"}></div>];
 
   tweeter.tweets.map(
-    (data, index = 0) =>
+    (data, index) =>
       data.tags.toLowerCase().match(enteredSearch.toLowerCase()) &&
       enteredSearch !== "" &&
       apiResponse.push(
-        <div
-          key={index++}
-          data-testid="results"
-          className=" w-full border-b border-l border-r border-gray-200 flex flex-col p-3"
-        >
-          <div className="flex flex-row items-center">
-            <p className=" font-semibold">{data.name}</p>
-            &nbsp;
-            <p className=" font-bold">&sdot;</p>
-            &nbsp;
-            <p className="text-sm">{data.date}</p>
-          </div>
-
-          <div className=" pt-3 flex flex-row">
-            <p>{data.tweet}</p>
-          </div>
-
-          <div className="flex flex-row justify-around pt-3">
-            <p className="flex flex-row text-sm items-center">
-              <FaRegCommentAlt style={style_} />
-              &nbsp;
-              {parseInt(data.comments, 10)}
-            </p>
-            <p className="flex flex-row text-sm items-center">
-              <AiOutlineRetweet style={style_} />
-              &nbsp; {parseInt(data.retweets, 10)}
-            </p>
-            <p className="flex flex-row text-sm items-center">
-              <AiOutlineHeart style={style_} />
-              &nbsp;
-              {parseInt(data.likes, 10)}
-            </p>
-          </div>
+        <div key={index}>
+          <Tweet tweetData={data} />
         </div>
       )
   );
+
+  let ind = 0;
 
   return (
     <div data-testid="home">
@@ -114,33 +106,56 @@ const Home = (props: any) => {
         </div>
       </div>
 
-      {/* certain options and summarize button comes here */}
-      <div className="flex flex-row justify-around pt-3 pb-3 border border-gray-200 items-center">
+      {/* certain options and search button comes here */}
+      <div className="flex flex-row flex-wrap justify-around pt-3 pb-3 border border-gray-200 items-center">
         {/*  */}
 
-        <div className="flex flex-row w-1/3 justify-center">
+        <div className="flex flex-row flex-wrap w-1/3 justify-center">
           <p>Tweets:</p> &nbsp;
-          <select className=" text-black">{tweetOptions}</select>
-        </div>
-
-        {/* this is for the sorting options */}
-        <div className="flex flex-row w-1/3 justify-center">
-          <p className="">Sort by:</p> &nbsp;
-          <select className=" text-black">
-            <option>comments</option>
-            <option>re-tweets</option>
-            <option>likes</option>
+          <select className=" text-black" onChange={tweetHandler}>
+            {tweetOptions}
           </select>
         </div>
 
-        {/* this is for the button */}
-        <div className="flex flex-row w-1/3 justify-center">
+        {/* this is for the Fitlering options */}
+        <div className="flex flex-row flex-wrap w-1/3 justify-center">
+          <p className="">Filter:</p> &nbsp;
+          <select className=" text-black" onChange={filterHandler}>
+            <option>by likes</option>
+            <option>by comments</option>
+            <option>by re-tweets</option>
+          </select>
+        </div>
+
+        {/* this is for the sorting options */}
+        <div className="flex flex-row flex-wrap w-1/3 justify-center">
+          <p className="">Sort:</p> &nbsp;
+          <select className=" text-black" onChange={sortHandler}>
+            <option>ascending order</option>
+            <option>descending order</option>
+          </select>
+        </div>
+
+        {/* this is for the search button */}
+        <div className="flex flex-row w-1/3 justify-center pt-3">
+          <button
+            type="submit"
+            className="button w-3/4 text-lg p-0.5"
+            onClick={search}
+          >
+            Search
+          </button>
+        </div>
+      </div>
+
+      <div className="flex flex-row flex-wrap justify-around pt-3 pb-3 border border-gray-200 items-center">
+        <div className="flex flex-row w-1/3 justify-center pt-3">
           <button
             type="submit"
             className="button w-3/4 text-lg p-0.5"
             onClick={click}
           >
-            Generate
+            Generate Report
           </button>
         </div>
       </div>
@@ -150,7 +165,7 @@ const Home = (props: any) => {
         {apiResponse}
 
         {enteredSearch === "" && clicked === false && (
-          <div className="mt-4">
+          <div className="mt-4" key={(ind++).toString()}>
             <h1 className="text-2xl">Trends</h1>
           </div>
         )}

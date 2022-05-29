@@ -9,7 +9,7 @@ import Navigation from "../Navigation/Navigation";
 import Home from "../Home/Home";
 import Explore from "../Explore/Explore";
 import Reports from "../Reports/Reports";
-import CLReports from "../CLReports/CLReports";
+// import CLReports from "../CLReports/CLReports";
 import Drafts from "../Drafts/Drafts";
 import Shared from "../Shared/Shared";
 import Profile from "../Profile/Profile";
@@ -24,7 +24,7 @@ const Landing = (props: any) => {
   let home = true;
   let explore = false;
   let reports = false;
-  let clonedReports = false;
+  // let clonedReports = false;
   let drafts = false;
   let shared = false;
   let profile = false;
@@ -54,7 +54,7 @@ const Landing = (props: any) => {
     home = true;
     explore = false;
     reports = false;
-    clonedReports = false;
+    // clonedReports = false;
     drafts = false;
     shared = false;
     profile = false;
@@ -65,7 +65,7 @@ const Landing = (props: any) => {
     home = false;
     explore = true;
     reports = false;
-    clonedReports = false;
+    // clonedReports = false;
     drafts = false;
     shared = false;
     profile = false;
@@ -76,7 +76,7 @@ const Landing = (props: any) => {
     home = false;
     explore = false;
     reports = true;
-    clonedReports = false;
+    // clonedReports = false;
     drafts = false;
     shared = false;
     profile = false;
@@ -87,7 +87,7 @@ const Landing = (props: any) => {
     home = false;
     explore = false;
     reports = false;
-    clonedReports = true;
+    // clonedReports = true;
     drafts = false;
     shared = false;
     profile = false;
@@ -98,7 +98,7 @@ const Landing = (props: any) => {
     home = false;
     explore = false;
     reports = false;
-    clonedReports = false;
+    // clonedReports = false;
     drafts = true;
     shared = false;
     profile = false;
@@ -109,7 +109,7 @@ const Landing = (props: any) => {
     home = false;
     explore = false;
     reports = false;
-    clonedReports = false;
+    // clonedReports = false;
     drafts = false;
     shared = true;
     profile = false;
@@ -120,7 +120,7 @@ const Landing = (props: any) => {
     home = false;
     explore = false;
     reports = false;
-    clonedReports = false;
+    // clonedReports = false;
     drafts = false;
     shared = false;
     profile = true;
@@ -131,7 +131,7 @@ const Landing = (props: any) => {
     home = false;
     explore = false;
     reports = false;
-    clonedReports = false;
+    // clonedReports = false;
     drafts = false;
     shared = false;
     profile = false;
@@ -157,7 +157,7 @@ const Landing = (props: any) => {
         {home && <Home myPropOption={myPropHandler} />}
         {explore && <Explore />}
         {reports && <Reports />}
-        {clonedReports && <CLReports />}
+        {/* {clonedReports && <CLReports />} */}
         {drafts && <Drafts />}
         {shared && <Shared />}
         {profile && <Profile />}
