@@ -26,11 +26,11 @@ jobs:
       - name: Install package dependencies
         run: yarn
 
-      # - name: Build the client
-      #   run: |
-      #     cd client
-      #     yarn
-      #     yarn run build
+      - name: Build the client
+        run: |
+          cd client
+          yarn
+          yarn run build
 
       - name: Serverless deploy
         uses: serverless/github-action@v3
