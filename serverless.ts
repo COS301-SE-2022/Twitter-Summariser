@@ -1,6 +1,6 @@
 import type { AWS } from '@serverless/typescript';
 import { getAllCreators, addCreator } from '@functions/creator';
-
+import { CreatorTable } from '@model/index';
 
 const serverlessConfiguration: AWS = {
     service: 'twitter-summariser',
@@ -86,33 +86,7 @@ const serverlessConfiguration: AWS = {
 
     resources: {
         Resources: {
-            CreatorTable: {
-                Type: "AWS::DynamoDB::Table",
-                Properties: {
-                    TableName: "CreatorTable",
-                    AttributeDefinitions: [{
-                        AttributeName: "apiKey",
-                        AttributeType: "S",
-                    },
-                    {
-                        AttributeName: "email",
-                        AttributeType: "S"
-                    }],
-                    KeySchema: [{
-                        AttributeName: "apiKey",
-                        KeyType: "HASH"
-                    },
-                    {
-                        AttributeName: "email",
-                        KeyType: "RANGE"
-                    }],
-                    ProvisionedThroughput: {
-                        ReadCapacityUnits: 1,
-                        WriteCapacityUnits: 1
-                    },
-
-                }
-            },
+            CreatorTable,
 
             TwitterSummariserApp: {
                 Type: "AWS::S3::Bucket",
