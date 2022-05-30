@@ -1,4 +1,4 @@
-name: Deploy Develop Branch
+name: Serverless Develop
 
 on:
   pull_request:
