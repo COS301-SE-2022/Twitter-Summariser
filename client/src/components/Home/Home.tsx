@@ -120,7 +120,7 @@ const Home = (props: any) => {
         {/* this is for the Fitlering options */}
         <div className="flex flex-row flex-wrap w-1/3 justify-center">
           <p className="">Filter:</p> &nbsp;
-          <select className=" text-black" onChange={filterHandler}>
+          <select data-testid="select-filter" className=" text-black" onChange={filterHandler}>
             <option>by likes</option>
             <option>by comments</option>
             <option>by re-tweets</option>

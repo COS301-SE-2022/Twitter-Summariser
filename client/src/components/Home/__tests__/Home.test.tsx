@@ -45,6 +45,13 @@ describe('Rendering Tests For Components in Home', () => {
         const select_num_tweets = screen.getByTestId('select-num-tweets');
         expect(select_num_tweets).toBeTruthy();
     });
+
+    // Testing to see if filter dropdown is rendered
+    it('renders filter options without crashing', () => {
+        const { getByTestId } = render(<Home />);
+        const select_filter = screen.getByTestId('select-filter');
+        expect(select_filter).toBeTruthy();
+    });
 });
 
 // Tests that the search bar recieves text correctly
