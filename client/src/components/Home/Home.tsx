@@ -176,7 +176,7 @@ const Home = (props: any) => {
             <button type="submit" onClick={() => props.myPropOption(8)}>
               <div className="m-4 w-1/4 h-20 bg-gray-400 rounded-md flex flex-col p-2">
                 <div className="">
-                  <button type="submit">
+                  <button data-testid="btn-report" type="submit">
                     <p className="font-bold">{createTitle}</p>
                   </button>
                 </div>

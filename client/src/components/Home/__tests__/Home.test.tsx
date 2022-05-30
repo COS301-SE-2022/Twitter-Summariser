@@ -39,6 +39,13 @@ describe('Rendering Tests For Components in Home', () => {
         expect(btn_generate).toBeTruthy();
     });
 
+    // Testing to see if Generated report button is rendered
+    // it('renders Generated report button without crashing', () => {
+    //     const { getByTestId } = render(<Home />);
+    //     const btn_report = screen.getByTestId('btn-report');
+    //     expect(btn_report).toBeTruthy();
+    // });
+
     // Testing to see if Num Tweets dropdown is rendered
     it('renders Num Tweets filter without crashing', () => {
         const { getByTestId } = render(<Home />);
