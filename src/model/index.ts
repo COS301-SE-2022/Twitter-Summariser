@@ -18,9 +18,27 @@ export const CreatorTable = {
             AttributeName: "email",
             KeyType: "RANGE"
         }],
+        GlobalSecondaryIndexes: [{
+            IndexName: "gsiIndex",
+            KeySchema: [{
+                AttributeName: "email",
+                KeyType: "HASH"
+            },
+            {
+                AttributeName: "apiKey",
+                KeyType: "RANGE"
+            }],
+            Projection: {
+                ProjectionType: "ALL"
+            },
+            ProvisionedThroughput: {
+                ReadCapacityUnits: 5,
+                WriteCapacityUnits: 5
+            }
+        }],
         ProvisionedThroughput: {
-            ReadCapacityUnits: 1,
-            WriteCapacityUnits: 1
+            ReadCapacityUnits: 5,
+            WriteCapacityUnits: 5
         },
 
     }

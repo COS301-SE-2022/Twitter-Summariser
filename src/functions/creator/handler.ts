@@ -49,6 +49,22 @@ export const addCreator = middyfy(async (event: APIGatewayProxyEvent): Promise<A
 })
 
 export const loginCreator = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-    return null;
+    const params = JSON.parse(event.body);
+    
+    try {
+        const creator = await CreatorServices.creatorService.getCreator(
+            params.email, params.password
+        )
+
+        return formatJSONResponse({
+            creator
+        });
+    } catch (e) {
+        return formatJSONResponse({
+            status: 500,
+            message: JSON.stringify(e)
+        });
+    }
+
 })
 
