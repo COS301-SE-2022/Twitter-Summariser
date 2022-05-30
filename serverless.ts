@@ -1,5 +1,5 @@
 import type { AWS } from '@serverless/typescript';
-import { getAllCreators, addCreator } from '@functions/creator';
+import { getAllCreators, addCreator, loginCreator } from '@functions/creator';
 import { CreatorTable } from '@model/index';
 
 const serverlessConfiguration: AWS = {
@@ -37,7 +37,7 @@ const serverlessConfiguration: AWS = {
                         "dynamodb:UpdateItem",
                         "dynamodb:DeleteItem",
                     ],
-                    Resource: "arn:aws:dynamodb:us-east-1:*:table/CreatorTable",
+                    Resource: "arn:aws:dynamodb:us-east-1:*:*",
                 }],
             },
         },
@@ -46,7 +46,8 @@ const serverlessConfiguration: AWS = {
     // import the function via paths
     functions: {
         getAllCreators,
-        addCreator
+        addCreator,
+        loginCreator
     },
 
     package: {

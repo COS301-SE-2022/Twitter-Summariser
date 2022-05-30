@@ -37,14 +37,49 @@ export const addCreator = middyfy(async (event: APIGatewayProxyEvent): Promise<A
             dateRegistered: new Date().toISOString(),
 
         })
+
+        const response = {
+            apiKey: creator.apiKey,
+            email: creator.email,
+            username: creator.username
+        }
+
         return formatJSONResponse({
-            creator
+            response
         });
+
     } catch (e) {
         return formatJSONResponse({
-            status: 500,
+            status: 403,
             message: JSON.stringify(e)
         });
     }
+})
+
+export const loginCreator = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+    const params = JSON.parse(event.body);
+    
+    try {
+        const creator = await CreatorServices.creatorService.getCreator(
+            params.email, params.password
+        )
+        
+        const response = {
+            apiKey: creator.apiKey,
+            email: creator.email,
+            username: creator.username
+        }
+
+        return formatJSONResponse({
+            response
+        });
+
+    } catch (e) {
+        return formatJSONResponse({
+            status: 403,
+            message: JSON.stringify(e)
+        });
+    }
+
 })
 

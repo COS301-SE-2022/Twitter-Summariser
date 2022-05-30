@@ -17,10 +17,22 @@ export const addCreator = {
         {
             http: {
                 method: 'post',
-                path: 'creator',
+                path: 'signup',
             },
         },
     ],
+};
+
+export const loginCreator = {
+    handler: `${handlerPath(__dirname)}/handler.loginCreator`,
+    events: [
+        {
+            http: {
+                method: 'post',
+                path: 'login',
+            }
+        }
+    ]
 };
 
 
