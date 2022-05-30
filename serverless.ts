@@ -1,5 +1,6 @@
 import type { AWS } from '@serverless/typescript';
 import { getAllCreators, addCreator } from '@functions/creator';
+import { search } from '@functions/search';
 
 
 const serverlessConfiguration: AWS = {
@@ -46,7 +47,8 @@ const serverlessConfiguration: AWS = {
     // import the function via paths
     functions: {
         getAllCreators,
-        addCreator
+        addCreator,
+        search
     },
 
     package: {
