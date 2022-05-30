@@ -112,7 +112,7 @@ const Home = (props: any) => {
 
         <div className="flex flex-row flex-wrap w-1/3 justify-center">
           <p>Tweets:</p> &nbsp;
-          <select className=" text-black" onChange={tweetHandler}>
+          <select data-testid="select-num-tweets" className=" text-black" onChange={tweetHandler}>
             {tweetOptions}
           </select>
         </div>
