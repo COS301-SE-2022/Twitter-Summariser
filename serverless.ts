@@ -7,9 +7,9 @@ const serverlessConfiguration: AWS = {
     frameworkVersion: '3',
     plugins: [
         'serverless-esbuild',
-        'serverless-offline',
         'serverless-dynamodb-local',
         'serverless-s3-sync',
+        'serverless-offline',
     ],
     provider: {
         name: 'aws',
@@ -73,7 +73,7 @@ const serverlessConfiguration: AWS = {
                 inMemory: true,
                 migrate: true,
                 seed: true,
-                convertEmptyValues: true
+                convertEmptyValues: true,
             },
             stages: "dev"
         },

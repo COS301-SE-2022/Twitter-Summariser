@@ -12,12 +12,15 @@ export const getAllCreators = middyfy(async (): Promise<APIGatewayProxyResult> =
 })
 
 export const addCreator = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-    const params = JSON.parse(event.body)
+    const params = JSON.parse(event.body);
+    // console.log(params);
     try {
         const creator = await CreatorServices.creatorService.addCreator({
+            apiKey: 'ABCDER',
+            email: params.email,
             username: params.username,
             password: params.password,
-            displayName: params.displayName,
+            dateOfBirth: params.dateOfBirth,
             dateRegistered: new Date().toISOString(),
 
         })
@@ -27,7 +30,7 @@ export const addCreator = middyfy(async (event: APIGatewayProxyEvent): Promise<A
     } catch (e) {
         return formatJSONResponse({
             status: 500,
-            message: "Could not add creator"
+            message: JSON.stringify(e)
         });
     }
 })
