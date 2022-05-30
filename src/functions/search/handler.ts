@@ -6,27 +6,35 @@ import { middyfy } from '@libs/lambda';
 import {clientV2} from "../clients/twitterV2.client"
 
 
-export const search = middyfy(async (/*event: APIGatewayProxyEvent*/): Promise<APIGatewayProxyResult> => {
-    //const params = JSON.parse(event.body)
+export const search = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+    const params = JSON.parse(event.body)
     try{
-        const {data, meta} = await clientV2.get(
+        const {data, meta, includes} = await clientV2.get(
             'tweets/search/recent',
             {
-              query: '"run to the shop" lang:en',
-              max_results: '15',
+              query: params.keyword + ' lang:en',
+              max_results: params.numOfTweets,
               tweet: {
                 fields: [
                   'public_metrics',
                   'author_id',
                 ],
               },
-              sort_by: "public"
+              expansions: 'author_id',
+              user: {
+                  fields: [
+                      'id',
+                      'username',
+                      'name',
+                  ],
+              },
             }
           );
         return formatJSONResponse({
             status: 200,
             data,
-            meta
+            includes,
+            meta,
         });
     } catch (e){
         return formatJSONResponse({
