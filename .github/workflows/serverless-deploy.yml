@@ -1,4 +1,4 @@
-name: Deploy Develop Branch
+name: Serverless Deploy
 
 on:
   pull_request:
@@ -8,8 +8,7 @@ on:
       - closed
 
 jobs:
-  deploy:
-    if: ${{ github.event.pull_request.merged }}
+  Serverless-Deploy:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -26,6 +25,12 @@ jobs:
 
       - name: Install package dependencies
         run: yarn
+
+      - name: Build the client
+        run: |
+          cd client
+          yarn
+          yarn run build
 
       - name: Serverless deploy
         uses: serverless/github-action@v3

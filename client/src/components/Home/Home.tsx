@@ -58,7 +58,15 @@ const Home = (props: any) => {
   const tweetOptions = [];
 
   for (let index = 1; index <= 100; index++) {
-    tweetOptions.push(<option key={index.toString()}>{index}</option>);
+    if (index === 10) {
+      tweetOptions.push(
+        <option key={index.toString()} selected>
+          {index}
+        </option>
+      );
+    } else {
+      tweetOptions.push(<option key={index.toString()}>{index}</option>);
+    }
   }
 
   // processing api response
@@ -121,9 +129,9 @@ const Home = (props: any) => {
         <div className="flex flex-row flex-wrap w-1/3 justify-center">
           <p className="">Filter:</p> &nbsp;
           <select data-testid="select-filter" className=" text-black" onChange={filterHandler}>
-            <option>by likes</option>
-            <option>by comments</option>
-            <option>by re-tweets</option>
+            <option selected>none</option>
+            <option>min number of likes</option>
+            <option>non-replies</option>
           </select>
         </div>
 
@@ -131,8 +139,10 @@ const Home = (props: any) => {
         <div className="flex flex-row flex-wrap w-1/3 justify-center">
           <p className="">Sort:</p> &nbsp;
           <select data-testid="select-sort" className=" text-black" onChange={sortHandler}>
-            <option>ascending order</option>
-            <option>descending order</option>
+            <option selected>none</option>
+            <option>by likes</option>
+            <option>by comments</option>
+            <option>by re-tweets</option>
           </select>
         </div>
 

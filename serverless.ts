@@ -1,15 +1,15 @@
 import type { AWS } from '@serverless/typescript';
-import { getAllCreators, addCreator } from '@functions/creator';
-
+import { getAllCreators, addCreator, loginCreator } from '@functions/creator';
+import { CreatorTable } from '@model/index';
 
 const serverlessConfiguration: AWS = {
     service: 'twitter-summariser',
     frameworkVersion: '3',
     plugins: [
         'serverless-esbuild',
-        'serverless-offline',
         'serverless-dynamodb-local',
         'serverless-s3-sync',
+        'serverless-offline',
     ],
     provider: {
         name: 'aws',
@@ -37,7 +37,7 @@ const serverlessConfiguration: AWS = {
                         "dynamodb:UpdateItem",
                         "dynamodb:DeleteItem",
                     ],
-                    Resource: "arn:aws:dynamodb:us-east-1:*:table/CreatorTable",
+                    Resource: "arn:aws:dynamodb:us-east-1:*:*",
                 }],
             },
         },
@@ -46,7 +46,8 @@ const serverlessConfiguration: AWS = {
     // import the function via paths
     functions: {
         getAllCreators,
-        addCreator
+        addCreator,
+        loginCreator
     },
 
     package: {
@@ -67,9 +68,13 @@ const serverlessConfiguration: AWS = {
 
         dynamodb: {
             start: {
-                port: 5000,
+                image: "dynamodb-local-latest", 
+                docker: true,
+                port: 8000,
                 inMemory: true,
                 migrate: true,
+                seed: true,
+                convertEmptyValues: true,
             },
             stages: "dev"
         },
@@ -82,25 +87,7 @@ const serverlessConfiguration: AWS = {
 
     resources: {
         Resources: {
-            CreatorTable: {
-                Type: "AWS::DynamoDB::Table",
-                Properties: {
-                    TableName: "CreatorTable",
-                    AttributeDefinitions: [{
-                        AttributeName: "username",
-                        AttributeType: "S",
-                    }],
-                    KeySchema: [{
-                        AttributeName: "username",
-                        KeyType: "HASH"
-                    }],
-                    ProvisionedThroughput: {
-                        ReadCapacityUnits: 1,
-                        WriteCapacityUnits: 1
-                    },
-
-                }
-            },
+            CreatorTable,
 
             TwitterSummariserApp: {
                 Type: "AWS::S3::Bucket",

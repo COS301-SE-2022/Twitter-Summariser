@@ -3,6 +3,8 @@ import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
 import CreatorServices from "../../services";
 
+import * as bcrypt from 'bcryptjs';
+
 
 export const getAllCreators = middyfy(async (): Promise<APIGatewayProxyResult> => {
     const creators = await CreatorServices.creatorService.getAllCreators();
@@ -12,23 +14,72 @@ export const getAllCreators = middyfy(async (): Promise<APIGatewayProxyResult> =
 })
 
 export const addCreator = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-    const params = JSON.parse(event.body)
+    let apiKey : string;
+    const characters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    
+    apiKey="";
+    
+    for (let i=0; i<15; i++) {
+        apiKey+=characters.charAt(Math.floor(Math.random()*characters.length)+0);
+    }
+    
+    const params = JSON.parse(event.body);
+
+    const hashedPass = bcrypt.hashSync(params.password, 10);
+    
     try {
         const creator = await CreatorServices.creatorService.addCreator({
+            apiKey: apiKey,
+            email: params.email,
             username: params.username,
-            password: params.password,
-            displayName: params.displayName,
+            password: hashedPass,
+            dateOfBirth: params.dateOfBirth,
             dateRegistered: new Date().toISOString(),
 
         })
+
+        const response = {
+            apiKey: creator.apiKey,
+            email: creator.email,
+            username: creator.username
+        }
+
         return formatJSONResponse({
-            creator
+            response
         });
+
     } catch (e) {
         return formatJSONResponse({
-            status: 500,
-            message: "Could not add creator"
+            status: 403,
+            message: JSON.stringify(e)
         });
     }
+})
+
+export const loginCreator = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+    const params = JSON.parse(event.body);
+    
+    try {
+        const creator = await CreatorServices.creatorService.getCreator(
+            params.email, params.password
+        )
+        
+        const response = {
+            apiKey: creator.apiKey,
+            email: creator.email,
+            username: creator.username
+        }
+
+        return formatJSONResponse({
+            response
+        });
+
+    } catch (e) {
+        return formatJSONResponse({
+            status: 403,
+            message: JSON.stringify(e)
+        });
+    }
+
 })
 
