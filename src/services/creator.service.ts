@@ -21,4 +21,13 @@ export default class CreatorService {
         }).promise()
         return creator as Creator;
     }
+
+   async getCreator(apiKey : string, email : string): Promise<Creator> {
+        const result = await this.docClient.get({
+            TableName: this.TableName,
+            Key: {apiKey, email}
+        }).promise();
+
+        return result.Item as Creator;
+   }    
 }
