@@ -12,14 +12,25 @@ export const getAllCreators = middyfy(async (): Promise<APIGatewayProxyResult> =
 })
 
 export const addCreator = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+    let apiKey : string;
+    const characters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    
+    apiKey="";
+    
+    for (let i=0; i<15; i++) {
+        apiKey+=characters.charAt(Math.floor(Math.random()*characters.length)+0);
+    }
+    
     const params = JSON.parse(event.body);
-    // console.log(params);
+    let hashedPass : string;
+    hashedPass="abdc";
+    
     try {
         const creator = await CreatorServices.creatorService.addCreator({
-            apiKey: 'ABCDER',
+            apiKey: apiKey,
             email: params.email,
             username: params.username,
-            password: params.password,
+            password: hashedPass,
             dateOfBirth: params.dateOfBirth,
             dateRegistered: new Date().toISOString(),
 
