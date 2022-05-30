@@ -121,9 +121,8 @@ const Home = (props: any) => {
         <div className="flex flex-row flex-wrap w-1/3 justify-center">
           <p className="">Filter:</p> &nbsp;
           <select className=" text-black" onChange={filterHandler}>
-            <option>by likes</option>
-            <option>by comments</option>
-            <option>by re-tweets</option>
+            <option>min number of likes</option>
+            <option>non-replies</option>
           </select>
         </div>
 
@@ -131,8 +130,9 @@ const Home = (props: any) => {
         <div className="flex flex-row flex-wrap w-1/3 justify-center">
           <p className="">Sort:</p> &nbsp;
           <select className=" text-black" onChange={sortHandler}>
-            <option>ascending order</option>
-            <option>descending order</option>
+            <option>by likes</option>
+            <option>by comments</option>
+            <option>by re-tweets</option>
           </select>
         </div>
 
