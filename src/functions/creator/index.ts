@@ -17,7 +17,7 @@ export const addCreator = {
         {
             http: {
                 method: 'post',
-                path: 'creator',
+                path: 'signup',
             },
         },
     ],
