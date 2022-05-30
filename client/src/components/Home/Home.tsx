@@ -130,7 +130,7 @@ const Home = (props: any) => {
         {/* this is for the sorting options */}
         <div className="flex flex-row flex-wrap w-1/3 justify-center">
           <p className="">Sort:</p> &nbsp;
-          <select className=" text-black" onChange={sortHandler}>
+          <select data-testid="select-sort" className=" text-black" onChange={sortHandler}>
             <option>ascending order</option>
             <option>descending order</option>
           </select>

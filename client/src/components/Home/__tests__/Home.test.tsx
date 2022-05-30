@@ -52,6 +52,13 @@ describe('Rendering Tests For Components in Home', () => {
         const select_filter = screen.getByTestId('select-filter');
         expect(select_filter).toBeTruthy();
     });
+
+    // Testing to see if sort dropdown is rendered
+    it('renders sort options without crashing', () => {
+        const { getByTestId } = render(<Home />);
+        const select_sort = screen.getByTestId('select-sort');
+        expect(select_sort).toBeTruthy();
+    });
 });
 
 // Tests that the search bar recieves text correctly
