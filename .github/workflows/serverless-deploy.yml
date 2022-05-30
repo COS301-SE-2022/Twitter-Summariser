@@ -34,7 +34,7 @@ jobs:
 
       - name: Change to root directory
         run:  |
-        cd /
+        cd ..
 
       - name: Serverless deploy
         uses: serverless/github-action@v3
