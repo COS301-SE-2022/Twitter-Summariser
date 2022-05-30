@@ -24,6 +24,20 @@ describe('Rendering Tests For Components in Home', () => {
         const input = screen.getByTestId('result');
         expect(input).toBeTruthy();
     });
+
+    // Testing to see if Search button is rendered
+    it('renders Submit button without crashing', () => {
+        const { getByTestId } = render(<Home />);
+        const btn_search = screen.getByTestId('btn-search');
+        expect(btn_search).toBeTruthy();
+    });
+
+    // Testing to see if Search button is rendered
+    it('renders Generate button without crashing', () => {
+        const { getByTestId } = render(<Home />);
+        const btn_generate = screen.getByTestId('btn-generate');
+        expect(btn_generate).toBeTruthy();
+    });
 });
 
 // Tests that the search bar recieves text correctly

@@ -138,7 +138,7 @@ const Home = (props: any) => {
 
         {/* this is for the search button */}
         <div className="flex flex-row w-1/3 justify-center pt-3">
-          <button
+          <button data-testid="btn-search"
             type="submit"
             className="button w-3/4 text-lg p-0.5"
             onClick={search}
@@ -150,7 +150,7 @@ const Home = (props: any) => {
 
       <div className="flex flex-row flex-wrap justify-around pt-3 pb-3 border border-gray-200 items-center">
         <div className="flex flex-row w-1/3 justify-center pt-3">
-          <button
+          <button data-testid="btn-generate"
             type="submit"
             className="button w-3/4 text-lg p-0.5"
             onClick={click}
