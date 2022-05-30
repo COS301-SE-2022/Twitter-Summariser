@@ -48,3 +48,7 @@ export const addCreator = middyfy(async (event: APIGatewayProxyEvent): Promise<A
     }
 })
 
+export const loginCreator = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+    return null;
+})
+
