@@ -24,6 +24,48 @@ describe('Rendering Tests For Components in Home', () => {
         const input = screen.getByTestId('result');
         expect(input).toBeTruthy();
     });
+
+    // Testing to see if Search button is rendered
+    it('renders Submit button without crashing', () => {
+        const { getByTestId } = render(<Home />);
+        const btn_search = screen.getByTestId('btn-search');
+        expect(btn_search).toBeTruthy();
+    });
+
+    // Testing to see if Generate button is rendered
+    it('renders Generate button without crashing', () => {
+        const { getByTestId } = render(<Home />);
+        const btn_generate = screen.getByTestId('btn-generate');
+        expect(btn_generate).toBeTruthy();
+    });
+
+    // Testing to see if Generated report button is rendered
+    // it('renders Generated report button without crashing', () => {
+    //     const { getByTestId } = render(<Home />);
+    //     const btn_report = screen.getByTestId('btn-report');
+    //     expect(btn_report).toBeTruthy();
+    // });
+
+    // Testing to see if Num Tweets dropdown is rendered
+    it('renders Num Tweets filter without crashing', () => {
+        const { getByTestId } = render(<Home />);
+        const select_num_tweets = screen.getByTestId('select-num-tweets');
+        expect(select_num_tweets).toBeTruthy();
+    });
+
+    // Testing to see if filter dropdown is rendered
+    it('renders filter options without crashing', () => {
+        const { getByTestId } = render(<Home />);
+        const select_filter = screen.getByTestId('select-filter');
+        expect(select_filter).toBeTruthy();
+    });
+
+    // Testing to see if sort dropdown is rendered
+    it('renders sort options without crashing', () => {
+        const { getByTestId } = render(<Home />);
+        const select_sort = screen.getByTestId('select-sort');
+        expect(select_sort).toBeTruthy();
+    });
 });
 
 // Tests that the search bar recieves text correctly

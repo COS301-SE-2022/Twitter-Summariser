@@ -120,7 +120,7 @@ const Home = (props: any) => {
 
         <div className="flex flex-row flex-wrap w-1/3 justify-center">
           <p>Tweets:</p> &nbsp;
-          <select className=" text-black" onChange={tweetHandler}>
+          <select data-testid="select-num-tweets" className=" text-black" onChange={tweetHandler}>
             {tweetOptions}
           </select>
         </div>
@@ -128,7 +128,7 @@ const Home = (props: any) => {
         {/* this is for the Fitlering options */}
         <div className="flex flex-row flex-wrap w-1/3 justify-center">
           <p className="">Filter:</p> &nbsp;
-          <select className=" text-black" onChange={filterHandler}>
+          <select data-testid="select-filter" className=" text-black" onChange={filterHandler}>
             <option selected>none</option>
             <option>min number of likes</option>
             <option>non-replies</option>
@@ -138,7 +138,7 @@ const Home = (props: any) => {
         {/* this is for the sorting options */}
         <div className="flex flex-row flex-wrap w-1/3 justify-center">
           <p className="">Sort:</p> &nbsp;
-          <select className=" text-black" onChange={sortHandler}>
+          <select data-testid="select-sort" className=" text-black" onChange={sortHandler}>
             <option selected>none</option>
             <option>by likes</option>
             <option>by comments</option>
@@ -148,7 +148,7 @@ const Home = (props: any) => {
 
         {/* this is for the search button */}
         <div className="flex flex-row w-1/3 justify-center pt-3">
-          <button
+          <button data-testid="btn-search"
             type="submit"
             className="button w-3/4 text-lg p-0.5"
             onClick={search}
@@ -160,7 +160,7 @@ const Home = (props: any) => {
 
       <div className="flex flex-row flex-wrap justify-around pt-3 pb-3 border border-gray-200 items-center">
         <div className="flex flex-row w-1/3 justify-center pt-3">
-          <button
+          <button data-testid="btn-generate"
             type="submit"
             className="button w-3/4 text-lg p-0.5"
             onClick={click}
@@ -186,7 +186,7 @@ const Home = (props: any) => {
             <button type="submit" onClick={() => props.myPropOption(8)}>
               <div className="m-4 w-1/4 h-20 bg-gray-400 rounded-md flex flex-col p-2">
                 <div className="">
-                  <button type="submit">
+                  <button data-testid="btn-report" type="submit">
                     <p className="font-bold">{createTitle}</p>
                   </button>
                 </div>
