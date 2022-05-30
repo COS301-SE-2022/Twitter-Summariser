@@ -3,6 +3,8 @@ import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
 import CreatorServices from "../../services";
 
+import * as bcrypt from 'bcryptjs';
+
 
 export const getAllCreators = middyfy(async (): Promise<APIGatewayProxyResult> => {
     const creators = await CreatorServices.creatorService.getAllCreators();
@@ -22,8 +24,8 @@ export const addCreator = middyfy(async (event: APIGatewayProxyEvent): Promise<A
     }
     
     const params = JSON.parse(event.body);
-    let hashedPass : string;
-    hashedPass="abdc";
+
+    const hashedPass = bcrypt.hashSync(params.password, 10);
     
     try {
         const creator = await CreatorServices.creatorService.addCreator({
