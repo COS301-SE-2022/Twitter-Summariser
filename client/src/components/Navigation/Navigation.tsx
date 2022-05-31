@@ -44,7 +44,7 @@ function Navigation(props: any) {
         </div>
 
         <div className="pt-4 flex flex-row " key={(2).toString()}>
-          <button
+          {/* <button
             type="submit"
             onClick={() => props.onNavigateOption(2)}
             className="flex flex-row"
@@ -53,11 +53,21 @@ function Navigation(props: any) {
               <BiHash style={style} />
             </div>
             <div className="hidden lg:block">&nbsp; Explore</div>
-          </button>
+          </button> */}
+          <Link to="/explore"
+            // type="submit"
+            // onClick={() => props.onNavigateOption(2)}
+            className="flex flex-row"
+          >
+            <div className="items-end pt-1 ">
+              <BiHash style={style} />
+            </div>
+            <div className="hidden lg:block">&nbsp; Explore</div>
+          </Link>
         </div>
 
         <div className="pt-4 flex flex-row " key={(3).toString()}>
-          <button
+          {/* <button
             type="submit"
             onClick={() => props.onNavigateOption(3)}
             className="flex flex-row"
@@ -66,7 +76,17 @@ function Navigation(props: any) {
               <TiDocumentText style={style} />
             </div>
             <div className="hidden lg:block">&nbsp; My Reports</div>
-          </button>
+          </button> */}
+          <Link to="/reports"
+            // type="submit"
+            // onClick={() => props.onNavigateOption(3)}
+            className="flex flex-row"
+          >
+            <div className="items-end pt-1 ">
+              <TiDocumentText style={style} />
+            </div>
+            <div className="hidden lg:block">&nbsp; My Reports</div>
+          </Link>
         </div>
 
         {/* <div className="pt-4 flex flex-row ">
@@ -83,7 +103,7 @@ function Navigation(props: any) {
         </div> */}
 
         <div className="pt-4 flex flex-row" key={(4).toString()}>
-          <button
+          {/* <button
             type="submit"
             onClick={() => props.onNavigateOption(5)}
             className="flex flex-row"
@@ -92,11 +112,21 @@ function Navigation(props: any) {
               <RiDraftLine style={style} />
             </div>
             <div className="hidden lg:block">&nbsp; Drafts</div>
-          </button>
+          </button> */}
+          <Link to="/drafts"
+            // type="submit"
+            // onClick={() => props.onNavigateOption(5)}
+            className="flex flex-row"
+          >
+            <div className="items-end pt-1 ">
+              <RiDraftLine style={style} />
+            </div>
+            <div className="hidden lg:block">&nbsp; Drafts</div>
+          </Link>
         </div>
 
         <div className="pt-4 flex flex-row " key={(5).toString()}>
-          <button
+          {/* <button
             type="submit"
             onClick={() => props.onNavigateOption(6)}
             className="flex flex-row"
@@ -105,11 +135,21 @@ function Navigation(props: any) {
               <BsShare style={style} />
             </div>
             <div className="hidden lg:block">&nbsp; Shared</div>
-          </button>
+          </button> */}
+          <Link to="/shared"
+            // type="submit"
+            // onClick={() => props.onNavigateOption(6)}
+            className="flex flex-row"
+          >
+            <div className="items-end pt-1 ">
+              <BsShare style={style} />
+            </div>
+            <div className="hidden lg:block">&nbsp; Shared</div>
+          </Link>
         </div>
 
         <div className="pt-4 flex flex-row " key={(6).toString()}>
-          <button
+          {/* <button
             type="submit"
             onClick={() => props.onNavigateOption(7)}
             className="flex flex-row"
@@ -118,7 +158,17 @@ function Navigation(props: any) {
               <CgProfile style={style} />
             </div>
             <div className="hidden lg:block">&nbsp; Gabriel</div>
-          </button>
+          </button> */}
+          <Link to="/profile"
+            // type="submit"
+            // onClick={() => props.onNavigateOption(7)}
+            className="flex flex-row"
+          >
+            <div className="items-end pt-1 ">
+              <CgProfile style={style} />
+            </div>
+            <div className="hidden lg:block">&nbsp; Gabriel</div>
+          </Link>
         </div>
 
         <div className="pt-4 flex flex-row items-end">
