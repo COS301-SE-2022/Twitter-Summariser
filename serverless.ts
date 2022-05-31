@@ -1,6 +1,8 @@
 import type { AWS } from '@serverless/typescript';
 import { getAllCreators, addCreator, loginCreator } from '@functions/creator';
 import { CreatorTable } from '@model/index';
+import { search } from '@functions/search';
+
 
 const serverlessConfiguration: AWS = {
     service: 'twitter-summariser',
@@ -47,7 +49,8 @@ const serverlessConfiguration: AWS = {
     functions: {
         getAllCreators,
         addCreator,
-        loginCreator
+        loginCreator,
+        search
     },
 
     package: {
