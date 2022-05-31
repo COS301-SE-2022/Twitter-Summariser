@@ -16,6 +16,7 @@ import Drafts from "../Drafts/Drafts";
 import Shared from "../Shared/Shared";
 import Profile from "../Profile/Profile";
 import GenReport from "../GenReport/GenReport";
+import PageNotFound from "../PageNotFound/PageNotFound";
 
 // importing styling
 import "./Landing.css";
@@ -160,6 +161,7 @@ const Landing = (props: any) => {
           <Routes>
             <Route path="/" element={<Home myPropOption={myPropHandler} />} />
             <Route path="/explore" element={<Explore />} />
+             <Route path="*" element={<PageNotFound />} />
           </Routes>
           {/* {home && <Home myPropOption={myPropHandler} />} */}
           {/* {explore && <Explore />} */}
