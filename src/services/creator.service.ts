@@ -1,5 +1,5 @@
 import { DocumentClient } from "aws-sdk/clients/dynamodb";
-import Creator from "../model/creator.model";
+import Creator from "@model/creator/creator.model";
 
 import * as bcrypt from 'bcryptjs';
 

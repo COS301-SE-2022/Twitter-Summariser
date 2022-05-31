@@ -1,6 +1,8 @@
 import type { AWS } from '@serverless/typescript';
 import { getAllCreators, addCreator, loginCreator } from '@functions/creator';
-import { CreatorTable } from '@model/index';
+import { CreatorTable } from '@model/creator/index';
+import { search } from '@functions/search';
+
 
 const serverlessConfiguration: AWS = {
     service: 'twitter-summariser',
@@ -8,7 +10,7 @@ const serverlessConfiguration: AWS = {
     plugins: [
         'serverless-esbuild',
         'serverless-dynamodb-local',
-        'serverless-s3-sync',
+        // 'serverless-s3-sync',
         'serverless-offline',
     ],
     provider: {
@@ -47,7 +49,8 @@ const serverlessConfiguration: AWS = {
     functions: {
         getAllCreators,
         addCreator,
-        loginCreator
+        loginCreator,
+        search
     },
 
     package: {
@@ -68,13 +71,13 @@ const serverlessConfiguration: AWS = {
 
         dynamodb: {
             start: {
-                image: "dynamodb-local-latest", 
                 docker: true,
                 port: 8000,
                 inMemory: true,
                 migrate: true,
                 seed: true,
                 convertEmptyValues: true,
+                noStart: true
             },
             stages: "dev"
         },
