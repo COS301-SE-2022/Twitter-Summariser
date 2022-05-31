@@ -1,6 +1,10 @@
 import React from 'react';
 import { Tweet } from 'react-twitter-widgets';
-import {Link} from 'react-router-dom';
+
+// export default {
+//     title: "Tweet",
+//     component: Tweet
+// };
 
 function GenReport(props: any) {
     return (
@@ -27,13 +31,14 @@ function GenReport(props: any) {
                 </div>
             </div>
 
-            <Link to="/"
+            <button
                 type="submit"
+                onClick={() => props.myPropOption(1)}
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded button"
             >
                 {' '}
                 PUBLISH REPORT
-            </Link>
+            </button>
         </div>
     );
 }
