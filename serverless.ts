@@ -10,7 +10,7 @@ const serverlessConfiguration: AWS = {
     plugins: [
         'serverless-esbuild',
         'serverless-dynamodb-local',
-        'serverless-s3-sync',
+        // 'serverless-s3-sync',
         'serverless-offline',
     ],
     provider: {
@@ -71,13 +71,13 @@ const serverlessConfiguration: AWS = {
 
         dynamodb: {
             start: {
-                image: "dynamodb-local-latest", 
                 docker: true,
                 port: 8000,
                 inMemory: true,
                 migrate: true,
                 seed: true,
                 convertEmptyValues: true,
+                noStart: true
             },
             stages: "dev"
         },
