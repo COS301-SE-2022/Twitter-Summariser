@@ -4,7 +4,9 @@ import Tweet from "../Tweet/Tweet";
 // importing mock data
 import tweeter from "../../mock.json";
 
-const Home = (props: any) => {
+import {Link} from 'react-router-dom';
+
+const Home = () => {
   // all related to the search
   const [enteredSearch, changeEnteredSearch] = useState("");
 
@@ -183,7 +185,8 @@ const Home = (props: any) => {
         {clicked && (
           <div className="mt-4 flex flex-col flex-wrap justify-center">
             <h1 className="text-2xl">Newly created report</h1>
-            <button type="submit" onClick={() => props.myPropOption(8)}>
+            <Link to="/genReport"
+            >
               <div className="m-4 w-1/4 h-20 bg-gray-400 rounded-md flex flex-col p-2">
                 <div className="">
                   <button data-testid="btn-report" type="submit">
@@ -197,7 +200,7 @@ const Home = (props: any) => {
                   <p className="italic text-xs">5/12/2022</p>
                 </div>
               </div>
-            </button>
+            </Link>
           </div>
         )}
       </div>
