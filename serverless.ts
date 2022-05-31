@@ -1,6 +1,6 @@
 import type { AWS } from '@serverless/typescript';
 import { getAllCreators, addCreator, loginCreator } from '@functions/creator';
-import { CreatorTable } from '@model/index';
+import { CreatorTable } from '@model/creator/index';
 import { search } from '@functions/search';
 
 
