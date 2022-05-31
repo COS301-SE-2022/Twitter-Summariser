@@ -161,6 +161,11 @@ const Landing = (props: any) => {
           <Routes>
             <Route path="/" element={<Home myPropOption={myPropHandler} />} />
             <Route path="/explore" element={<Explore />} />
+            <Route path="/reports" element={<Reports />} />
+            <Route path="/drafts" element={<Drafts />} />
+            <Route path="/shared" element={<Shared />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/genReport" element={<GenReport myPropOption={myPropHandler} />} />
              <Route path="*" element={<PageNotFound />} />
           </Routes>
           {/* {home && <Home myPropOption={myPropHandler} />} */}
