@@ -3,6 +3,8 @@
 // import { IoLogoTwitter } from "react-icons/io";
 import { useState } from "react";
 
+import {BrowserRouter, Routes, Route} from "react-router-dom";
+
 import Logo from "../Logo/Logo";
 
 import Navigation from "../Navigation/Navigation";
@@ -139,43 +141,53 @@ const Landing = (props: any) => {
   }
 
   return (
-    <div
-      data-testid="landing"
-      className="flex flex-row bg-white lg:ml-14 lg:mr-14 sm:ml-5 sm:mr-5 relative md:justify-around "
-    >
-      {/* first container ######################################################################################################### */}
-      <div className="xl:basis-1/5 lg:basis-1/6 p-2 pt-5 flex-col hidden mini-tablet:block">
-        {/* logo comes here */}
-        <Logo width="60.69px" height="54px" page="landing" />
+    <BrowserRouter>
+      <div
+        data-testid="landing"
+        className="flex flex-row bg-white lg:ml-14 lg:mr-14 sm:ml-5 sm:mr-5 relative md:justify-around "
+      >
+        {/* first container ######################################################################################################### */}
+        <div className="xl:basis-1/5 lg:basis-1/6 p-2 pt-5 flex-col hidden mini-tablet:block">
+          {/* logo comes here */}
+          <Logo width="60.69px" height="54px" page="landing" />
 
-        {/* Navigation */}
-        <Navigation onNavigateOption={navigateOptionHandler} />
-      </div>
+          {/* Navigation */}
+          <Navigation onNavigateOption={navigateOptionHandler} />
+        </div>
 
-      {/* second container ######################################################################################################### */}
-      <div className="flex flex-col 2xl:basis-1/2 mini-tablet:basis-2/3 basis-full relative">
-        {home && <Home myPropOption={myPropHandler} />}
-        {explore && <Explore />}
-        {reports && <Reports />}
-        {/* {clonedReports && <CLReports />} */}
-        {drafts && <Drafts />}
-        {shared && <Shared />}
-        {profile && <Profile />}
-        {genReport && <GenReport myPropOption={myPropHandler} />}
-      </div>
+        {/* second container ######################################################################################################### */}
+        <div className="flex flex-col 2xl:basis-1/2 mini-tablet:basis-2/3 basis-full relative">
+          <Routes>
+            <Route path="/" element={<Home myPropOption={myPropHandler} />} />
+            <Route path="/explore" element={<Explore />} />
+          </Routes>
+          {/* {home && <Home myPropOption={myPropHandler} />} */}
+          {/* {explore && <Explore />} */}
+          {/* {reports && <Reports />} */}
+          {/* {clonedReports && <CLReports />} */}
+          {/* {drafts && <Drafts />} */}
+          {/* {shared && <Shared />} */}
+          {/* {profile && <Profile />} */}
+          {/* {genReport && <GenReport myPropOption={myPropHandler} />} */}
 
-      {/* third container ######################################################################################################### */}
-      <div className=" xl:flex xl:basis-1/4 xl:p-2 xl:pt-5 xl:relative xl:mr-14 hidden">
-        <div className="fixed rounded bg-gray-200 h-2/3 ml-8 p-5 2xl:w-80 xl:w-64 ">
-          <h1 className="text-xl font-bold">Drafts to report</h1>
-          <div className="w-full flex flex-col">
-            {/* <div>mine</div>
-                        <div>mine</div>
-                        <div>mine</div> */}
+        </div>
+
+
+
+        {/* third container ######################################################################################################### */}
+        <div className=" xl:flex xl:basis-1/4 xl:p-2 xl:pt-5 xl:relative xl:mr-14 hidden">
+          <div className="fixed rounded bg-gray-200 h-2/3 ml-8 p-5 2xl:w-80 xl:w-64 ">
+            <h1 className="text-xl font-bold">Drafts to report</h1>
+            <div className="w-full flex flex-col">
+              {/* <div>mine</div>
+                          <div>mine</div>
+                          <div>mine</div> */}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </BrowserRouter>
+
   );
 };
 
