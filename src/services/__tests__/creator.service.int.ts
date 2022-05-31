@@ -1,9 +1,11 @@
 jest.unmock("aws-sdk");
 
 import {CreateTableInput, DeleteTableInput} from "aws-sdk/clients/dynamodb";
-import CreatorService from "../creator.service";
+import CreatorServices from "..";
 import {DynamoDB} from "aws-sdk";
 import dynamoDBClient from "@model/database";
+import { getAllCreators } from "@functions/creator";
+import Creator from "@model/creator/creator.model";
 
 const dynamoDb : DynamoDB = new DynamoDB({ ... dynamoDBClient()});
 
@@ -53,5 +55,34 @@ describe("creator.service", () => {
                 WriteCapacityUnits: 5
             }
         }
+        await dynamoDb.createTable(params).promise();
+    });
+
+    afterAll(async () => {
+        jest.useRealTimers();
+
+        const params: DeleteTableInput = {
+            TableName: "CreatorTable"
+        };
+
+        await dynamoDb.deleteTable(params).promise();
+    });
+
+    describe("getAllCreators", () => {
+        describe("on error", () => {
+            it ("error should be thrown if no item is found in database", () => {
+                return expect(CreatorServices.creatorService.getAllCreators()).rejects.toThrowError(
+                    "no records found"
+                );
+            });
+        });
+
+        // describe("on success", () => [
+        //     it ("should return correct creator", async () => {
+        //         const creator: Creator = {
+                    
+        //         }
+        //     })
+        // ])
     })
 })
