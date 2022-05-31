@@ -8,3 +8,4 @@ export default interface Tweet {
     text: string;           //Actual Tweet text
     id: string;             //Tweet ID
 }
+

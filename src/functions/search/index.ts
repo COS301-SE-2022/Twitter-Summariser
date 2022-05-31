@@ -5,7 +5,7 @@ export const search = {
     events: [
         {
             http: {
-                method: 'get',
+                method: 'post',
                 path: 'search/',
             },
         },
