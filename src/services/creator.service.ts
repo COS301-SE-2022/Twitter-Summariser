@@ -17,6 +17,10 @@ export default class CreatorService {
     }
 
     async addCreator(creator: Creator): Promise<Creator> {
+
+        if (!creator) {
+            throw new Error("no new creator provided");
+        }
         await this.docClient.put({
             TableName: this.TableName,
             Item: creator
@@ -36,14 +40,18 @@ export default class CreatorService {
             
             
         }).promise();
-        console.log(result);
+
         const creator=result.Items[0];
 
-        if (creator===undefined) return null;
+        if (creator===undefined) {
+            throw new Error("creator "+email+" not found");
+        }
 
         if (await bcrypt.compare(password, result.Items[0].password)===true) {
             return creator as Creator;
-        } else return null;
+        } else {
+            throw new Error ("invalid credentials for user "+email);
+        }
         
         // return result.Items[0] as Creator;
    }    
