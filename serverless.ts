@@ -8,9 +8,10 @@ const serverlessConfiguration: AWS = {
     service: 'twitter-summariser',
     frameworkVersion: '3',
     plugins: [
+        'serverless-webpack',
         'serverless-esbuild',
         'serverless-dynamodb-local',
-        // 'serverless-s3-sync',
+        'serverless-s3-sync',
         'serverless-offline',
     ],
     provider: {
