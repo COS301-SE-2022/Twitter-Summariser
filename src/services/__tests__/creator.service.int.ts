@@ -7,14 +7,12 @@ import {DynamoDB} from "aws-sdk";
 import Creator from "@model/creator/creator.model";
 
 import * as bcrypt from 'bcryptjs';
-import * as AWS from "aws-sdk";
+// import * as AWS from "aws-sdk";
 
-const dynamoDBClient= new AWS.DynamoDB.DocumentClient({
-    region: "local",
+const dynamoDBClient= {
+    region: "us-east-1",
     endpoint: "http://localhost:8000",
-    accessKeyId: "DEFAULT_ACCESS_KEY",
-    secretAccessKey: "DEFAULT_SECRET_KEY"
-});
+};
 
 const dynamoDb : DynamoDB = new DynamoDB({ ... dynamoDBClient});
 
@@ -90,11 +88,11 @@ describe("creator.service", () => {
 
     describe("getCreator", () => {
         describe("on error", () => {
-            it("should throw an error if no item is found in the database", async () => {
+            it("should throw an error if no item is found in the database", () => {
                 const email = "test@yahoo.com";
                 const password = "password";
 
-                return expect(await CreatorServices.creatorService.getCreator(email, password)).rejects.toThrowError(
+                return expect(CreatorServices.creatorService.getCreator(email, password)).rejects.toThrowError(
                     "creator test@yahoo.com not found"
                 );
             });
@@ -113,7 +111,7 @@ describe("creator.service", () => {
                     dateRegistered: "2021-01-08T00:00:00.000Z"
                 };
 
-                CreatorServices.creatorService.addCreator(creator);
+                await CreatorServices.creatorService.addCreator(creator);
             
                  return expect(CreatorServices.creatorService.getCreator(creator.email, "password")).resolves.toMatchInlineSnapshot(`
                     Object {
@@ -129,7 +127,7 @@ describe("creator.service", () => {
 
     describe("addCreator", () => {
         describe("on error", () => {
-            it("should throw an error if no creator is provided", async () => {
+            it("should throw an error if no creator is provided", () => {
                 const creator = null;
 
                 return expect(CreatorServices.creatorService.addCreator(creator)).rejects.toThrowError(
@@ -151,7 +149,9 @@ describe("creator.service", () => {
                     dateRegistered: "2021-01-08T00:00:00.000Z"
                 };
 
-                return expect(CreatorServices.creatorService.addCreator(creator)).resolves.toMatchInlineSnapshot(`
+                await CreatorServices.creatorService.addCreator(creator);
+
+                return expect(CreatorServices.creatorService.getCreator(creator.email, "password")).resolves.toMatchInlineSnapshot(`
                     Object {
                         apiKey: 'AbzDwu9dYfvP214',
                         email: 'testAdd@yahoo.com',
