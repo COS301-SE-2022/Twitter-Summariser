@@ -2,26 +2,30 @@
 
 A progressive web app to generate an article on a given trend using curated Tweets.
 
-### Twitter Summariser System Requirements Specifications
+### SYSTEM REQUIREMENTS SPECIFICCATION AND PROJECT BOARD:
+- [Twitter Summariser SRS](https://github.com/COS301-SE-2022/Twitter-Summariser/files/8684152/twitter-summariser-srs.pdf)
+- [Project Board](https://github.com/COS301-SE-2022/Twitter-Summariser/projects/1)
 
--[twitter-summariser-srs](https://github.com/COS301-SE-2022/Twitter-Summariser/files/8684152/twitter-summariser-srs.pdf)
 
-### Demo video links
-
+### DEMO VIDEO LINKS:
 - [Demo 1](https://drive.google.com/file/d/1LPuUmVU7ITBsx_G0VlAXqQpufLkrOZKe/view?usp=sharing)
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/COS301-SE-2022/Twitter-Summariser/Twitter%20Summariser%20CI?style=for-the-badge)
+### BADGES:
 ![Coveralls](https://img.shields.io/coveralls/github/COS301-SE-2022/Twitter-Summariser?style=for-the-badge)
 ![GitHub repo size](https://img.shields.io/github/repo-size/COS301-SE-2022/Twitter-Summariser?style=for-the-badge)
+
+
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/COS301-SE-2022/Twitter-Summariser/Twitter%20Summariser%20CI?label=Serveless%20BUild&style=for-the-badge)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/COS301-SE-2022/Twitter-Summariser/Serverless%20Deploy?label=Serveless%20BUild&style=for-the-badge)
+![PingPong status](https://img.shields.io/pingpong/status/sp_f02944df840e4307968cf340d0a8ca78?style=for-the-badge)
+![PingPong uptime (last 30 days)](https://img.shields.io/pingpong/uptime/sp_f02944df840e4307968cf340d0a8ca78?style=for-the-badge)
 
 ![GitHub issues](https://img.shields.io/github/issues/COS301-SE-2022/Twitter-Summariser?color=4CBB17&style=for-the-badge)
 ![GitHub closed issues](https://img.shields.io/github/issues-closed/COS301-SE-2022/Twitter-Summariser?color=red&style=for-the-badge)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/COS301-SE-2022/Twitter-Summariser?color=4CBB17&style=for-the-badge)
 ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/COS301-SE-2022/Twitter-Summariser?color=red&style=for-the-badge)
 
-[Project Board](https://github.com/COS301-SE-2022/Twitter-Summariser/projects/1)
-
-# Team Memebers
+# TEAM MEMBERS:
 
 ## Isheanesu Dzingirai - DevOp
 
@@ -267,3 +271,11 @@ The project code base is mainly located within the `src` folder. This folder is 
 ### Advanced usage
 
 Any tsconfig.json can be used, but if you do, set the environment variable `TS_NODE_CONFIG` for building the application, eg `TS_NODE_CONFIG=./tsconfig.app.json npx serverless webpack`
+
+
+### Run DynamoDB and API Locally
+
+1. Run docker on local machine
+2. Run command `serverless offline start`
+
+Note that the contents of the database gets wiped each time the docker container is stopped.
