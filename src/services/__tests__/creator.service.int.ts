@@ -3,47 +3,64 @@ jest.unmock("aws-sdk");
 import {CreateTableInput, DeleteTableInput} from "aws-sdk/clients/dynamodb";
 import CreatorServices from "..";
 import {DynamoDB} from "aws-sdk";
-import dynamoDBClient  from "../../model/database";
+// import dynamoDBClient  from "../../model/database";
 import Creator from "@model/creator/creator.model";
 
 import * as bcrypt from 'bcryptjs';
+import * as AWS from "aws-sdk";
 
-const dynamoDb : DynamoDB = new DynamoDB({ ... dynamoDBClient()});
+const dynamoDBClient= new AWS.DynamoDB.DocumentClient({
+    region: "local",
+    endpoint: "http://localhost:8000",
+    accessKeyId: "DEFAULT_ACCESS_KEY",
+    secretAccessKey: "DEFAULT_SECRET_KEY"
+});
+
+const dynamoDb : DynamoDB = new DynamoDB({ ... dynamoDBClient});
+
+console.log(dynamoDb);
 
 describe("creator.service", () => {
-    beforeAll(async () => {
+    beforeAll( async () => {
         // jest.setTimeout(60000);
-        jest.useFakeTimers("modern");
+        jest.useFakeTimers("legacy");
         jest.setSystemTime(new Date(2021, 1, 8));
 
         const params: CreateTableInput = {
             TableName: "CreatorTable",
-            AttributeDefinitions: [{
-                AttributeName: "apiKey",
-                AttributeType: "S"
-            },
-            {
-                AttributeName: "email",
-                AttributeType: "S"
-            }],
-            KeySchema: [{
-                AttributeName: "apiKey",
-                KeyType: "HASH"
-            },
-            {   
-                AttributeName: "email",
-                KeyType: "RANGE"
-            }],
-            GlobalSecondaryIndexes: [{
-                IndexName: "gsiIndex",
-                KeySchema: [{
-                    AttributeName: "email",
-                    KeyType: "HASH"
-                },
+            AttributeDefinitions: [
                 {
                     AttributeName: "apiKey",
+                    AttributeType: "S"
+                },
+                {
+                    AttributeName: "email",
+                    AttributeType: "S"
+                }
+            ],
+            KeySchema: [
+                {
+                    AttributeName: "apiKey",
+                    KeyType: "HASH"
+                },
+                {   
+                    AttributeName: "email",
                     KeyType: "RANGE"
-                }],
+                }
+            ],
+            GlobalSecondaryIndexes: [
+                {
+                IndexName: "gsiIndex",
+                KeySchema: [
+                    {
+                    AttributeName: "email",
+                    KeyType: "HASH"
+                    },
+                    {
+                        AttributeName: "apiKey",
+                        KeyType: "RANGE"
+                    }
+                ],
                 Projection: {
                     ProjectionType: "ALL"
                 },
@@ -68,17 +85,17 @@ describe("creator.service", () => {
             TableName: "CreatorTable"
         };
 
-        await dynamoDb.deleteTable(params).promise();
+        dynamoDb.deleteTable(params).promise();
     });
 
     describe("getCreator", () => {
         describe("on error", () => {
-            it("should throw an error if no item is found in the database", () => {
+            it("should throw an error if no item is found in the database", async () => {
                 const email = "test@yahoo.com";
                 const password = "password";
 
-                return expect(CreatorServices.creatorService.getCreator(email, password)).rejects.toThrowError(
-                    "creator not found"
+                return expect(await CreatorServices.creatorService.getCreator(email, password)).rejects.toThrowError(
+                    "creator test@yahoo.com not found"
                 );
             });
         });
@@ -96,13 +113,14 @@ describe("creator.service", () => {
                     dateRegistered: "2021-01-08T00:00:00.000Z"
                 };
 
-                await CreatorServices.creatorService.addCreator(creator);
+                CreatorServices.creatorService.addCreator(creator);
             
-                 return expect(CreatorServices.creatorService.getCreator(creator.email, creator.password)).resolves.toMatchInlineSnapshot(`
+                 return expect(CreatorServices.creatorService.getCreator(creator.email, "password")).resolves.toMatchInlineSnapshot(`
                     Object {
                         "apiKey": "AbcDwu9dgfv",
                         "email": "test@yahoo.com",
-                        "username": "test"
+                        "username": "test",
+                        "password"
                     }
                 `);
             });
@@ -111,7 +129,7 @@ describe("creator.service", () => {
 
     describe("addCreator", () => {
         describe("on error", () => {
-            it("should throw an error if no creator is provided", () => {
+            it("should throw an error if no creator is provided", async () => {
                 const creator = null;
 
                 return expect(CreatorServices.creatorService.addCreator(creator)).rejects.toThrowError(
@@ -122,22 +140,25 @@ describe("creator.service", () => {
 
         describe("on success", () => {
             it("should create and return the correct creator", async () => {
-                const hashedPass=bcrypt.hashSync("password", 10);
+                // const hashedPass=bcrypt.hashSync("password", 10);
                 
                 const creator : Creator= {
                     apiKey: "AbzDwu9dYfvP214",
                     username: "testAdd",
                     email: "testAdd@yahoo.com",
-                    password: hashedPass,
+                    password: "password",
                     dateOfBirth: "2002/02/08",
                     dateRegistered: "2021-01-08T00:00:00.000Z"
                 };
 
                 return expect(CreatorServices.creatorService.addCreator(creator)).resolves.toMatchInlineSnapshot(`
                     Object {
-                        "apiKey": "AbzDwu9dYfvP214",
-                        "email": "testAdd@yahoo.com",
-                        "username": "testAdd"
+                        apiKey: 'AbzDwu9dYfvP214',
+                        email: 'testAdd@yahoo.com',
+                        username: 'testAdd',
+                        password: 'password',
+                        dateOfBirth: '2002/02/08',
+                        dateRegistered: '2021-01-08T00:00:00.000Z'
                     }
                 `);
             });
