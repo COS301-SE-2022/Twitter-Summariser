@@ -9,6 +9,13 @@ const dynamoDBClient = (): DocumentClient => {
             accessKeyId: "DEFAULT_ACCESS_KEY",
             secretAccessKey: "DEFAULT_SECRET_KEY"
         });
+    } else if (process.env.LOCAL === "true") {
+        return new AWS.DynamoDB.DocumentClient({
+            region: "local",
+            endpoint: "http://localhost:8000",
+            accessKeyId: "DEFAULT_ACCESS_KEY",
+            secretAccessKey: "DEFAULT_SECRET_KEY"
+        })
     }
     return new AWS.DynamoDB.DocumentClient();
 };
