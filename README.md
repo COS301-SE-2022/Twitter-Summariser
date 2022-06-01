@@ -11,10 +11,14 @@ A progressive web app to generate an article on a given trend using curated Twee
 - [Demo 1](https://drive.google.com/file/d/1LPuUmVU7ITBsx_G0VlAXqQpufLkrOZKe/view?usp=sharing)
 
 ### BADGES:
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/COS301-SE-2022/Twitter-Summariser/Twitter%20Summariser%20CI?label=CI-BUILD&style=for-the-badge)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/COS301-SE-2022/Twitter-Summariser/Serverless%20Develop?label=Serveless-BUILD&style=for-the-badge)
 ![Coveralls](https://img.shields.io/coveralls/github/COS301-SE-2022/Twitter-Summariser?style=for-the-badge)
 ![GitHub repo size](https://img.shields.io/github/repo-size/COS301-SE-2022/Twitter-Summariser?style=for-the-badge)
+
+
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/COS301-SE-2022/Twitter-Summariser/Twitter%20Summariser%20CI?label=Serveless%20BUild&style=for-the-badge)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/COS301-SE-2022/Twitter-Summariser/Serverless%20Deploy?label=Serveless%20BUild&style=for-the-badge)
+![PingPong status](https://img.shields.io/pingpong/status/sp_f02944df840e4307968cf340d0a8ca78?style=for-the-badge)
+![PingPong uptime (last 30 days)](https://img.shields.io/pingpong/uptime/sp_f02944df840e4307968cf340d0a8ca78?style=for-the-badge)
 
 ![GitHub issues](https://img.shields.io/github/issues/COS301-SE-2022/Twitter-Summariser?color=4CBB17&style=for-the-badge)
 ![GitHub closed issues](https://img.shields.io/github/issues-closed/COS301-SE-2022/Twitter-Summariser?color=red&style=for-the-badge)
