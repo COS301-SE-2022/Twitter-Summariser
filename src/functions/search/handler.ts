@@ -8,9 +8,9 @@ import TweetServices from "@functions/TweetTransServices/tweet.service";
 
 
 export const search = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-    try{
+    //try{
         const params = JSON.parse(event.body);
-        const {data, includes} = await clientV2.get(
+        const {meta, data, includes} = await clientV2.get(
             'tweets/search/recent',
             {
               query: params.keyword + ' -is:retweet lang:en',
@@ -32,19 +32,23 @@ export const search = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGa
               },
             }
           );
-        //const tweetlist = JSON.stringify(await TweetServices.tweetServices.addTweets(data, includes, 20));
+        const tweetService = new TweetServices();
+        const tweetlist = JSON.stringify(await tweetService.addTweets(data, includes, meta["result_count"]));
+        //const mt = meta["result_count"];
+        //const dt = data[0]['public_metrics']['retweet_count'];
         return formatJSONResponse({
             status: 200,
-            data,
-            includes,
-            //tweetlist,
+            //mt,
+            //dt,
+            //includes,
+            tweetlist,
         });
-    } catch (e){
+    /*} catch (e){
         return formatJSONResponse({
             status: 500,
             message: e
         });
-    }
+    }*/
 })
 
 /*export const addCreator = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
