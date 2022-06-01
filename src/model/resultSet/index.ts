@@ -18,6 +18,24 @@ export const ResultSetTable = {
             AttributeName: "apiKey",
             KeyType: "RANGE"
         }],
+        GlobalSecondaryIndexes: [{
+            IndexName: "resultSetIndex",
+            KeySchema: [{
+                AttributeName: "apiKey",
+                KeyType: "HASH"
+            },
+            {
+                AttributeName: "id",
+                KeyType: "RANGE"
+            }],
+            Projection: {
+                ProjectionType: "ALL"
+            },
+            ProvisionedThroughput: {
+                ReadCapacityUnits: 5,
+                WriteCapacity: 5
+            }
+        }],
         ProvisionedThroughput: {
             ReadCapacityUnits: 5,
             WriteCapacityUnits: 5
