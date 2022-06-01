@@ -4,7 +4,7 @@ export const ResultSetTable = {
         TableName: "ResultSetTable",
         AttributeDefinitions: [{
             AttributeName: "id",
-            AtrributeType: "S"
+            AttributeType: "S"
         },
         {
             AttributeName: "apiKey",
@@ -33,7 +33,7 @@ export const ResultSetTable = {
             },
             ProvisionedThroughput: {
                 ReadCapacityUnits: 5,
-                WriteCapacity: 5
+                WriteCapacityUnits: 5
             }
         }],
         ProvisionedThroughput: {
