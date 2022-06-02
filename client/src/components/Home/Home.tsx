@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import Tweet from "../Tweet/Tweet";
+// import Tweet from "../Tweet/Tweet";
 import axios from "axios";
 
 // importing mock data
-import tweeter from "../../mock.json";
+// import tweeter from "../../mock.json";
 
 import { Link } from "react-router-dom";
 
@@ -12,7 +12,7 @@ const Home = () => {
   const [enteredSearch, changeEnteredSearch] = useState("");
 
   // for axios purposes
-  const [post, setPost] = useState(null);
+  // const [post, setPost] = useState(null);
 
   const searchHandler = (event: any) => {
     changeEnteredSearch(event.target.value);
