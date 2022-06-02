@@ -3,7 +3,7 @@ import Tweet from "../model/tweet.model";
 export default class TweetService{
 
     constructor() {
-        
+
     }
 
     async addTweets(data:any, includes:any, numTweets:number): Promise<Tweet[]> {
@@ -21,19 +21,19 @@ export default class TweetService{
             tweets.sort((a,b) => {
                 if (a['numLikes'] < b['numLikes']) return 1;
                 if (a['numLikes'] > b['numLikes']) return -1;
-                return ;
+                return 0;
             });
         }else if(sortBy==="byComments"){
             tweets.sort((a,b) => {
                 if (a['numComments'] < b['numComments']) return 1;
                 if (a['numComments'] > b['numComments']) return -1;
-                return ;
+                return 0;
             });
         }else if(sortBy==="byRetweets"){
             tweets.sort((a,b) => {
                 if (a['numRetweets'] < b['numRetweets']) return 1;
                 if (a['numRetweets'] > b['numRetweets']) return -1;
-                return ;
+                return 0;
             });
         }
         return tweets;

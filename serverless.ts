@@ -1,7 +1,11 @@
 import type { AWS } from '@serverless/typescript';
+
 import { getAllCreators, addCreator, loginCreator } from '@functions/creator';
-import { CreatorTable } from '@model/creator/index';
 import { search } from '@functions/search';
+
+import { CreatorTable } from '@model/creator/index';
+import { ResultSetTable } from '@model/resultSet';
+
 
 
 const serverlessConfiguration: AWS = {
@@ -90,6 +94,7 @@ const serverlessConfiguration: AWS = {
     resources: {
         Resources: {
             CreatorTable,
+            ResultSetTable,
 
             TwitterSummariserApp: {
                 Type: "AWS::S3::Bucket",

@@ -1,8 +1,9 @@
-module.export = {
+module.exports = {
     testEnvironment: "node",
     roots: ["<rootDir>/src"],
-    testMatch: ["**/*.init.ts"],
+    testMatch: ["**/*.int.ts"],
     transform: {
         "^.+\\.tsx?$": "ts-jest",
     },
+    testTimeout: 60000
 };

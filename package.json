@@ -4,9 +4,9 @@
   "description": "Serverless aws-nodejs-typescript template",
   "main": "serverless.ts",
   "scripts": {
-    "test": "jest --config jest.uniy.config.js",
-    "test:int": "LOCAL=true jest --config jest.int.config.js",
-    "pretest:int": "serverless dynamodb start"
+    "test": "jest --config jest.unit.config.js",
+    "test:int": "jest --config jest.int.config.js",
+    "pretest:int": "docker-compose up -d dynamodb"
   },
   "engines": {
     "node": ">=14.15.0"
@@ -19,9 +19,11 @@
     "twitter-v2": "^1.1.0"
   },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.17.12",
     "@serverless/typescript": "^3.0.0",
     "@types/aws-lambda": "^8.10.71",
     "@types/bcryptjs": "^2.4.2",
+    "@types/jest": "^27.5.1",
     "@types/node": "^14.14.25",
     "esbuild": "^0.14.11",
     "jest": "^28.1.0",
@@ -31,6 +33,7 @@
     "serverless-esbuild": "^1.29.0",
     "serverless-offline": "^8.8.0",
     "serverless-s3-sync": "^3.0.0",
+    "ts-jest": "^28.0.3",
     "ts-node": "^10.4.0",
     "tsconfig-paths": "^3.9.0",
     "typescript": "^4.1.3",
