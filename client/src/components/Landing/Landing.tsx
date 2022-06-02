@@ -1,9 +1,4 @@
-// import { AiFillHeart } from "react-icons/ai";
-
-// import { IoLogoTwitter } from "react-icons/io";
-import { useState } from "react";
-
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Logo from "../Logo/Logo";
 
@@ -11,7 +6,6 @@ import Navigation from "../Navigation/Navigation";
 import Home from "../Home/Home";
 import Explore from "../Explore/Explore";
 import Reports from "../Reports/Reports";
-// import CLReports from "../CLReports/CLReports";
 import Drafts from "../Drafts/Drafts";
 import Shared from "../Shared/Shared";
 import Profile from "../Profile/Profile";
@@ -23,6 +17,11 @@ import "./Landing.css";
 
 const Landing = (props: any) => {
   console.log("User Id: " + props.userID);
+
+  const logout = () => {
+    //Executing logout from Landing page
+    props.takeToSigninPage();
+  };
 
   return (
     <BrowserRouter>
@@ -36,7 +35,7 @@ const Landing = (props: any) => {
           <Logo width="60.69px" height="54px" page="landing" />
 
           {/* Navigation */}
-          <Navigation  />
+          <Navigation logout={logout} />
         </div>
 
         {/* second container ######################################################################################################### */}
@@ -49,23 +48,19 @@ const Landing = (props: any) => {
             <Route path="/shared" element={<Shared />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/genReport" element={<GenReport />} />
-             <Route path="*" element={<PageNotFound />} />
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
         </div>
-
-
 
         {/* third container ######################################################################################################### */}
         <div className=" xl:flex xl:basis-1/4 xl:p-2 xl:pt-5 xl:relative xl:mr-14 hidden">
           <div className="fixed rounded bg-gray-200 h-2/3 ml-8 p-5 2xl:w-80 xl:w-64 ">
             <h1 className="text-xl font-bold">Drafts to report</h1>
-            <div className="w-full flex flex-col">
-            </div>
+            <div className="w-full flex flex-col"></div>
           </div>
         </div>
       </div>
     </BrowserRouter>
-
   );
 };
 

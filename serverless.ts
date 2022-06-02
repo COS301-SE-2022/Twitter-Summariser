@@ -5,7 +5,7 @@ import { search } from '@functions/search';
 
 import { CreatorTable } from '@model/creator/index';
 import { ResultSetTable } from '@model/resultSet';
-
+import { TweetTable } from '@model/tweet';
 
 
 const serverlessConfiguration: AWS = {
@@ -24,7 +24,7 @@ const serverlessConfiguration: AWS = {
             minimumCompressionSize: 1024,
             shouldStartNameWithService: true,
         },
-        
+
         environment: {
             AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
             NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
@@ -95,6 +95,7 @@ const serverlessConfiguration: AWS = {
         Resources: {
             CreatorTable,
             ResultSetTable,
+            TweetTable,
 
             TwitterSummariserApp: {
                 Type: "AWS::S3::Bucket",
@@ -134,7 +135,7 @@ const serverlessConfiguration: AWS = {
                         DefaultRootObject: "index.html",
                         Origins: [
                             {
-                                DomainName: "twitter-summariser.s3.amazonaws.com",
+                                DomainName: "twitter-summariser.s3-website-us-east-1.amazonaws.com",
                                 Id: "TwitterSummariserApp",
                                 CustomOriginConfig: {
                                     HTTPPort: 80,

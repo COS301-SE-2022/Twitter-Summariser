@@ -1,4 +1,4 @@
-import Tweet from "../model/tweet.model";
+import Tweet from "@model/tweet/tweet.model";
 
 export default class TweetService{
 
