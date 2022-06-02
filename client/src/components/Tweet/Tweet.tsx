@@ -12,7 +12,7 @@ const Tweet = (props: any) => {
     <div
       key={data.id}
       data-testid="results"
-      className=" w-full border-b border-l border-r border-gray-200 flex flex-col p-3"
+      className=" w-full border border-gray-200 flex flex-col p-3"
     >
       <div className="flex flex-row items-center">
         <p className=" font-semibold">{data.name}</p>
