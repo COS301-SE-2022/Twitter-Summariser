@@ -5,7 +5,7 @@ import { search } from '@functions/search';
 
 import { CreatorTable } from '@model/creator/index';
 import { ResultSetTable } from '@model/resultSet';
-
+import { TweetTable } from '@model/tweet';
 
 
 const serverlessConfiguration: AWS = {
@@ -95,6 +95,7 @@ const serverlessConfiguration: AWS = {
         Resources: {
             CreatorTable,
             ResultSetTable,
+            TweetTable,
 
             TwitterSummariserApp: {
                 Type: "AWS::S3::Bucket",
