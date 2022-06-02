@@ -6,7 +6,6 @@ import Navigation from "../Navigation/Navigation";
 import Home from "../Home/Home";
 import Explore from "../Explore/Explore";
 import Reports from "../Reports/Reports";
-// import CLReports from "../CLReports/CLReports";
 import Drafts from "../Drafts/Drafts";
 import Shared from "../Shared/Shared";
 import Profile from "../Profile/Profile";
@@ -21,7 +20,7 @@ const Landing = (props: any) => {
 
   const logout = () => {
     //Executing logout from Landing page
-    props.takeToLoginPage();
+    props.takeToSigninPage();
   };
 
   return (

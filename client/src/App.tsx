@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Landing from "./components/Landing/Landing";
 import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
@@ -9,18 +9,21 @@ import tweeter from "./mock.json";
 
 // main Application component in which different page sub-components will be contained
 const App = () => {
-  const [loginPage, changeLoginPage] = useState(true);
-  const [correctLoginDetails, changeCorrectLoginDetails] = useState(false);
-  const [landingPage, changeLandingPage] = useState(false);
-  const [signupPage, changeSignupPage] = useState(false);
+  // const [loginPage, setLoginPage] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [signupPage, setSignupPage] = useState(false);
   const [user_id, changeUser_id] = useState(0.0);
 
-  if (correctLoginDetails === signupPage) {
-    //do nothing, just bypassing warnings
-  }
+  useEffect(() => {
+    const storageUserLoggedInInformation = localStorage.getItem("isLoggedIn");
+
+    if (storageUserLoggedInInformation === "1") {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   // retrieving user login details
-  const userAuthentication = (props: any) => {
+  const loginHandler = (props: any) => {
     console.log(props);
 
     const data = tweeter.users;
@@ -33,10 +36,9 @@ const App = () => {
       ) {
         console.log(data[index]);
 
-        changeLoginPage(false);
-        changeCorrectLoginDetails(true);
-        changeLandingPage(true);
-        changeSignupPage(false);
+        localStorage.setItem("isLoggedIn", "1");
+        setIsLoggedIn(true);
+        setSignupPage(false);
 
         changeUser_id(data[index].id);
         return;
@@ -45,19 +47,17 @@ const App = () => {
   };
 
   const signUpPage = () => {
-    changeLoginPage(false);
-    changeCorrectLoginDetails(false);
-    changeLandingPage(false);
-    changeSignupPage(true);
+    localStorage.setItem("isLoggedIn", "0");
+    setIsLoggedIn(false);
+    setSignupPage(true);
 
     changeUser_id(0.0);
   };
 
   const logInPage = () => {
-    changeLoginPage(true);
-    changeCorrectLoginDetails(false);
-    changeLandingPage(false);
-    changeSignupPage(false);
+    localStorage.removeItem("isLoggedIn");
+    setIsLoggedIn(false);
+    setSignupPage(false);
 
     changeUser_id(0.0);
   };
@@ -65,18 +65,15 @@ const App = () => {
   return (
     <div className="">
       {/* Login */}
-      {loginPage && (
-        <Login
-          userLoginDetails={userAuthentication}
-          takeToSignupPage={signUpPage}
-        />
+      {!localStorage.getItem("isLoggedIn") && (
+        <Login userLoginDetails={loginHandler} takeToSignupPage={signUpPage} />
       )}
 
       {/* Signup */}
       {signupPage && <Signup takeToSigninPage={logInPage} />}
 
       {/* Entry here based on Signup and Login decision  */}
-      {landingPage && <Landing userID={user_id} takeToLoginPage={logInPage} />}
+      {isLoggedIn && <Landing userID={user_id} takeToSigninPage={logInPage} />}
     </div>
   );
 };
