@@ -41,9 +41,15 @@ export const search = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGa
         
         return formatJSONResponse({
             status: 200,
-            params,
-            number_of_Tweets: numOfTweets,
-            result,
+            headers: {
+              "Access-Control-Allow-Origin" : "*", // Required for CORS support to work
+              "Access-Control-Allow-Credentials" : true // Required for cookies, authorization headers with HTTPS
+            },
+            body: {
+              params,
+              number_of_Tweets: numOfTweets,
+              result,
+            }
         });
     } catch (e){
         return formatJSONResponse({
