@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Tweet from "../Tweet/Tweet";
+import axios from "axios";
 
 // importing mock data
 import tweeter from "../../mock.json";
@@ -9,6 +10,9 @@ import { Link } from "react-router-dom";
 const Home = () => {
   // all related to the search
   const [enteredSearch, changeEnteredSearch] = useState("");
+
+  // for axios purposes
+  const [post, setPost] = useState(null);
 
   const searchHandler = (event: any) => {
     changeEnteredSearch(event.target.value);
@@ -28,7 +32,7 @@ const Home = () => {
 
   // extra search function sort, filter, number of tweets to collect
   const [noOfTweets, changeNoOfTweets] = useState(10);
-  const [sort, changeSort] = useState("-");
+  let [sort, changeSort] = useState("-");
   const [filter, changeFilter] = useState("-");
 
   const tweetHandler = (event: any) => {
@@ -43,16 +47,66 @@ const Home = () => {
     changeFilter(event.target.value);
   };
 
+  const baseURL = "http://localhost:3000/dev/search";
+  const baseURL2 = "https://jsonplaceholder.typicode.com/users";
+
+  // getting a request using axios
+  useEffect(() => {
+    axios.get(baseURL2).then((response) => {
+      console.log(response.data);
+    });
+  }, []);
+
+  // const searchEndpoint = "https://jsonplaceholder.typicode.com/users";
+  // const searchEndpoint = "http://localhost:3000/dev/search";
+
   const search = () => {
+    if (sort === "by comments") {
+      sort = "byComments";
+    } else if (sort === "by likes") {
+      sort = "byLikes";
+    } else if (sort === "by re-tweets") {
+      sort = "byRetweets";
+    }
+
+    console.log("sortBy: " + sort);
+
+    // const searchData = {
+    //   keyword: enteredSearch,
+    //   numOfTweets: noOfTweets,
+    //   sortBy: sort,
+    //   filter: filter,
+    // };
+
     const searchData = {
       keyword: enteredSearch,
-      tweets: noOfTweets,
-      sortIn: sort,
-      filter: filter,
+      numOfTweets: noOfTweets,
+      sortBy: sort,
     };
 
     if (enteredSearch !== "") {
       console.log(searchData);
+
+      // post request
+      // const response = await fetch(searchEndpoint, {
+      //   method: "POST",
+      //   body: JSON.stringify(searchData),
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // });
+
+      // const data = await response;
+      // console.log(data);
+
+      // posting a request using axios
+      axios
+        .post(baseURL, {
+          body: searchData,
+        })
+        .then((response) => {
+          console.log(response.data);
+        });
     }
   };
 
@@ -66,16 +120,16 @@ const Home = () => {
   // processing api response
   const apiResponse = [<div key={"begining div"}></div>];
 
-  tweeter.tweets.map(
-    (data, index) =>
-      data.tags.toLowerCase().match(enteredSearch.toLowerCase()) &&
-      enteredSearch !== "" &&
-      apiResponse.push(
-        <div key={index}>
-          <Tweet tweetData={data} />
-        </div>
-      )
-  );
+  // tweeter.tweets.map(
+  //   (data, index) =>
+  //     data.tags.toLowerCase().match(enteredSearch.toLowerCase()) &&
+  //     enteredSearch !== "" &&
+  //     apiResponse.push(
+  //       <div key={index}>
+  //         <Tweet tweetData={data} />
+  //       </div>
+  //     )
+  // );
 
   let ind = 0;
 
