@@ -15,7 +15,7 @@ function GenReport(props: any) {
   tweeter.tweets.slice(0, 50).map((data, index) =>
     apiResponse.push(
       <div key={index}>
-        <Text />
+        <Text keyValue={index} />
         <Tweet tweetData={data} />
       </div>
     )
