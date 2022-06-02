@@ -8,13 +8,13 @@ import TweetServices from "@functions/TweetTransServices/tweet.service";
 
 
 export const search = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-    //try{
+    try{
         const params = JSON.parse(event.body);
         const {meta, data, includes} = await clientV2.get(
             'tweets/search/recent',
             {
               query: params.keyword + ' -is:retweet lang:en',
-              max_results: params.numOfTweets,
+              max_results: '100',
               tweet: {
                 fields: [
                   'public_metrics',
@@ -32,43 +32,23 @@ export const search = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGa
               },
             }
           );
+
         const tweetService = new TweetServices();
-        const tweetlist = JSON.stringify(await tweetService.addTweets(data, includes, meta["result_count"]));
-        //const mt = meta["result_count"];
-        //const dt = data[0]['public_metrics']['retweet_count'];
+        const tweetlist = await tweetService.addTweets(data, includes, meta["result_count"]);
+        const sortedList = await tweetService.sortTweets(tweetlist, params.sortBy);
+        const result = sortedList.slice(0, params.numOfTweets);
+        const numOfTweets = result.length;
+        
         return formatJSONResponse({
             status: 200,
-            //mt,
-            //dt,
-            //includes,
-            tweetlist,
+            params,
+            number_of_Tweets: numOfTweets,
+            result,
         });
-    /*} catch (e){
+    } catch (e){
         return formatJSONResponse({
             status: 500,
             message: e
         });
-    }*/
-})
-
-/*export const addCreator = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-    const params = JSON.parse(event.body)
-    try {
-        const creator = await CreatorServices.creatorService.addCreator({
-            username: params.username,
-            password: params.password,
-            displayName: params.displayName,
-            dateRegistered: new Date().toISOString(),
-
-        })
-        return formatJSONResponse({
-            creator
-        });
-    } catch (e) {
-        return formatJSONResponse({
-            status: 500,
-            message: "Could not add creator"
-        });
     }
-})*/
-
+})
