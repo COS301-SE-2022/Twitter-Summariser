@@ -135,7 +135,7 @@ const serverlessConfiguration: AWS = {
                         DefaultRootObject: "index.html",
                         Origins: [
                             {
-                                DomainName: "twitter-summariser.s3-website-us-east-1.amazonaws.com",
+                                DomainName: "twitter-summariser.s3.amazonaws.com",
                                 Id: "TwitterSummariserApp",
                                 CustomOriginConfig: {
                                     HTTPPort: 80,
