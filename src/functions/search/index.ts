@@ -7,6 +7,7 @@ export const search = {
             http: {
                 method: 'post',
                 path: 'search/',
+                cors: true
             },
         },
     ],
