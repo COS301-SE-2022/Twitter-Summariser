@@ -39,12 +39,22 @@ export const search = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGa
         const result = sortedList.slice(0, params.numOfTweets);
         const numOfTweets = result.length;
         
-        return formatJSONResponse({
+        return {
+          statusCode: 200,
+          headers: {
+              'Content-Type': 'application/json',
+              "Access-Control-Allow-Methods": '*',
+              'Access-Control-Allow-Origin': '*',
+          },
+          body: JSON.stringify(result)
+      }
+
+        /*return formatJSONResponse({
             statusCode: 200,
             params,
             number_of_Tweets: numOfTweets,
             result,
-        });
+        });*/
     } catch (e){
         return formatJSONResponse({
             statusCode: 500,
