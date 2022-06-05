@@ -6,24 +6,27 @@ import CreatorServices from "../../services";
 import * as bcrypt from 'bcryptjs';
 
 
+const responseHeaders = {
+    'Content-Type': 'application/json',
+    "Access-Control-Allow-Methods": '*',
+    'Access-Control-Allow-Origin': '*'
+}
+
 export const getAllCreators = middyfy(async (): Promise<APIGatewayProxyResult> => {
     const creators = await CreatorServices.creatorService.getAllCreators();
     try {
         return {
             statusCode: 200,
-            headers: {
-                'Content-Type': 'application/json',
-                "Access-Control-Allow-Methods": '*',
-                'Access-Control-Allow-Origin': '*',
-            },
+            headers: responseHeaders,
             body: JSON.stringify(creators)
         }
     } catch (error) {
-        console.log(error)
+        console.log(error);
         return {
             statusCode: 500,
-            body: 'Something went wrong'
-        }
+            headers: responseHeaders,
+            body: JSON.stringify('Something went wrong')
+        };
     }
 
 })
@@ -59,15 +62,19 @@ export const addCreator = middyfy(async (event: APIGatewayProxyEvent): Promise<A
             username: creator.username
         }
 
-        return formatJSONResponse({
-            response
-        });
+        return {
+            statusCode: 200,
+            headers: responseHeaders,
+            body: JSON.stringify(response)
+        };
 
     } catch (e) {
-        return formatJSONResponse({
-            status: 403,
-            message: JSON.stringify(e)
-        });
+        console.log(e);
+        return {
+            statusCode: 500,
+            headers: responseHeaders,
+            body: JSON.stringify('Something went wrong')
+        };
     }
 })
 
@@ -87,19 +94,16 @@ export const loginCreator = middyfy(async (event: APIGatewayProxyEvent): Promise
 
         return {
             statusCode: 200,
-            headers: {
-                'Content-Type': 'application/json',
-                "Access-Control-Allow-Methods": '*',
-                'Access-Control-Allow-Origin': '*',
-            },
+            headers: responseHeaders,
             body: JSON.stringify(response)
         };
 
     } catch (e) {
         console.log(e);
         return {
-            statusCode: 403,
-            body: JSON.stringify('Could not find the user')
+            statusCode: 500,
+            headers: responseHeaders,
+            body: JSON.stringify('Something went wrong')
         };
     }
 
