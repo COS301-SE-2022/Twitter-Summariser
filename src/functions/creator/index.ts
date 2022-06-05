@@ -5,8 +5,7 @@ export const getAllCreators = {
         {
             http: {
                 method: 'get',
-                path: 'creator/',
-                cors: true
+                path: 'creator/'
             },
         },
     ],

@@ -8,25 +8,40 @@ import * as bcrypt from 'bcryptjs';
 
 export const getAllCreators = middyfy(async (): Promise<APIGatewayProxyResult> => {
     const creators = await CreatorServices.creatorService.getAllCreators();
-    return formatJSONResponse({
-        creators
-    })
+    try {
+        return {
+            statusCode: 200,
+            headers: {
+                'Content-Type': 'application/json',
+                "Access-Control-Allow-Methods": '*',
+                'Access-Control-Allow-Origin': '*',
+            },
+            body: JSON.stringify(creators)
+        }
+    } catch (error) {
+        console.log(error)
+        return {
+            statusCode: 500,
+            body: 'Something went wrong'
+        }
+    }
+
 })
 
 export const addCreator = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-    let apiKey : string;
-    const characters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    
-    apiKey="";
-    
-    for (let i=0; i<15; i++) {
-        apiKey+=characters.charAt(Math.floor(Math.random()*characters.length)+0);
+    let apiKey: string;
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    apiKey = "";
+
+    for (let i = 0; i < 15; i++) {
+        apiKey += characters.charAt(Math.floor(Math.random() * characters.length) + 0);
     }
-    
+
     const params = JSON.parse(event.body);
 
     const hashedPass = bcrypt.hashSync(params.password, 10);
-    
+
     try {
         const creator = await CreatorServices.creatorService.addCreator({
             apiKey: apiKey,
@@ -58,27 +73,34 @@ export const addCreator = middyfy(async (event: APIGatewayProxyEvent): Promise<A
 
 export const loginCreator = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     const params = JSON.parse(event.body);
-    
+
     try {
         const creator = await CreatorServices.creatorService.getCreator(
             params.email, params.password
         )
-        
+
         const response = {
             apiKey: creator.apiKey,
             email: creator.email,
             username: creator.username
         }
 
-        return formatJSONResponse({
-            response
-        });
+        return {
+            statusCode: 200,
+            headers: {
+                'Content-Type': 'application/json',
+                "Access-Control-Allow-Methods": '*',
+                'Access-Control-Allow-Origin': '*',
+            },
+            body: JSON.stringify(response)
+        };
 
     } catch (e) {
-        return formatJSONResponse({
-            status: 403,
-            message: JSON.stringify(e)
-        });
+        console.log(e);
+        return {
+            statusCode: 403,
+            body: JSON.stringify('Could not find the user')
+        };
     }
 
 })
