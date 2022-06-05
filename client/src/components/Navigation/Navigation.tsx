@@ -6,6 +6,7 @@ import { RiDraftLine } from "react-icons/ri";
 import { CgProfile } from "react-icons/cg";
 import { BsShare } from "react-icons/bs";
 import { HiOutlineLogin } from "react-icons/hi";
+import { AiOutlineHistory } from "react-icons/ai";
 
 import { Link } from "react-router-dom";
 
@@ -66,6 +67,15 @@ function Navigation(props: any) {
               <BsShare style={style} />
             </div>
             <div className="hidden lg:block">&nbsp; Shared</div>
+          </Link>
+        </div>
+
+        <div className="pt-4 flex flex-row " key={(6).toString()}>
+          <Link to="/history" className="flex flex-row">
+            <div className="items-end pt-1 ">
+              <AiOutlineHistory style={style} />
+            </div>
+            <div className="hidden lg:block">&nbsp; History</div>
           </Link>
         </div>
 

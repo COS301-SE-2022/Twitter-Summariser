@@ -8,6 +8,7 @@ import Explore from "../Explore/Explore";
 import Reports from "../Reports/Reports";
 import Drafts from "../Drafts/Drafts";
 import Shared from "../Shared/Shared";
+import History from "../History/History";
 import Profile from "../Profile/Profile";
 import GenReport from "../GenReport/GenReport";
 import PageNotFound from "../PageNotFound/PageNotFound";
@@ -49,6 +50,7 @@ const Landing = (props: any) => {
             <Route path="/profile" element={<Profile />} />
             <Route path="/genReport" element={<GenReport />} />
             <Route path="*" element={<PageNotFound />} />
+            <Route path="/history" element={<History />} />
           </Routes>
         </div>
 
