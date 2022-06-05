@@ -6,6 +6,7 @@ export const getAllCreators = {
             http: {
                 method: 'get',
                 path: 'creator/',
+                cors: true
             },
         },
     ],
@@ -18,6 +19,7 @@ export const addCreator = {
             http: {
                 method: 'post',
                 path: 'signup',
+                cors: true
             },
         },
     ],
@@ -30,6 +32,7 @@ export const loginCreator = {
             http: {
                 method: 'post',
                 path: 'login',
+                cors: true
             }
         }
     ]

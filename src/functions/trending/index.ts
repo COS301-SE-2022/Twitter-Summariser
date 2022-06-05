@@ -7,6 +7,7 @@ export const getTrendingTopics = {
             http: {
                 method: 'get',
                 path: 'trending/',
+                cors: true
             },
         },
     ],
@@ -19,6 +20,7 @@ export const getTweetsInTopic = {
             http: {
                 method: 'get',
                 path: 'trending/',
+                cors: true
             },
         },
     ],
