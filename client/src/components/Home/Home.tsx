@@ -1,18 +1,10 @@
-import { useState, useEffect } from "react";
-// import Tweet from "../Tweet/Tweet";
-import axios from "axios";
-
-// importing mock data
-// import tweeter from "../../mock.json";
-
+import { useState } from "react";
+import Tweet from "../Tweet/Tweet";
 import { Link } from "react-router-dom";
 
 const Home = () => {
-  // all related to the search
+  // ################ all related to the search ############################
   const [enteredSearch, changeEnteredSearch] = useState("");
-
-  // for axios purposes
-  // const [post, setPost] = useState(null);
 
   const searchHandler = (event: any) => {
     changeEnteredSearch(event.target.value);
@@ -31,6 +23,7 @@ const Home = () => {
   };
 
   // extra search function sort, filter, number of tweets to collect
+  const [searchResponse, changeResponse] = useState([]);
   const [noOfTweets, changeNoOfTweets] = useState(10);
   let [sort, changeSort] = useState("-");
   const [filter, changeFilter] = useState("-");
@@ -47,19 +40,24 @@ const Home = () => {
     changeFilter(event.target.value);
   };
 
-  const baseURL = "http://localhost:3000/dev/search";
-  const baseURL2 = "https://jsonplaceholder.typicode.com/users";
+  // ######################### API ###############################################
 
-  // getting a request using axios
-  useEffect(() => {
-    axios.get(baseURL2).then((response) => {
-      console.log(response.data);
+  const searchEndpoint =
+    "https://mtx3w94c8f.execute-api.us-east-1.amazonaws.com/dev/search";
+
+  // post request
+  const api_handler = async (e: any) => {
+    const response = await fetch(searchEndpoint, {
+      method: "POST",
+      body: JSON.stringify(e),
     });
-  }, []);
 
-  // const searchEndpoint = "https://jsonplaceholder.typicode.com/users";
-  // const searchEndpoint = "http://localhost:3000/dev/search";
+    changeResponse(await response.json());
+  };
 
+  // #######################################################################
+
+  // compiling user search information
   const search = () => {
     if (sort === "by comments") {
       sort = "byComments";
@@ -69,15 +67,6 @@ const Home = () => {
       sort = "byRetweets";
     }
 
-    console.log("sortBy: " + sort);
-
-    // const searchData = {
-    //   keyword: enteredSearch,
-    //   numOfTweets: noOfTweets,
-    //   sortBy: sort,
-    //   filter: filter,
-    // };
-
     const searchData = {
       keyword: enteredSearch,
       numOfTweets: noOfTweets,
@@ -85,28 +74,8 @@ const Home = () => {
     };
 
     if (enteredSearch !== "") {
-      console.log(searchData);
-
-      // post request
-      // const response = await fetch(searchEndpoint, {
-      //   method: "POST",
-      //   body: JSON.stringify(searchData),
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      // });
-
-      // const data = await response;
-      // console.log(data);
-
-      // posting a request using axios
-      axios
-        .post(baseURL, {
-          body: searchData,
-        })
-        .then((response) => {
-          console.log(response.data);
-        });
+      // calling the api__Handler
+      api_handler(searchData);
     }
   };
 
@@ -120,16 +89,15 @@ const Home = () => {
   // processing api response
   const apiResponse = [<div key={"begining div"}></div>];
 
-  // tweeter.tweets.map(
-  //   (data, index) =>
-  //     data.tags.toLowerCase().match(enteredSearch.toLowerCase()) &&
-  //     enteredSearch !== "" &&
-  //     apiResponse.push(
-  //       <div key={index}>
-  //         <Tweet tweetData={data} />
-  //       </div>
-  //     )
-  // );
+  searchResponse.map(
+    (data, index) =>
+      enteredSearch !== "" &&
+      apiResponse.push(
+        <div key={index}>
+          <Tweet tweetData={data} />
+        </div>
+      )
+  );
 
   let ind = 0;
 
@@ -246,7 +214,10 @@ const Home = () => {
         {clicked && (
           <div className="mt-4 flex flex-col flex-wrap justify-center">
             <h1 className="text-2xl">Newly created report</h1>
-            <Link to="/genReport">
+            {/* <Link to="/genReport"> */}
+            <Link to="genReport" state={{ searchResponse }}>
+              {/* <Link to={{pathname: "genReport", state:{searchResponse}}}> */}
+              {/* <Link to="genReport/vais24evaivoiv"> */}
               <div className="m-4 w-1/4 h-20 bg-gray-400 rounded-md flex flex-col p-2">
                 <div className="">
                   <button data-testid="btn-report" type="submit">

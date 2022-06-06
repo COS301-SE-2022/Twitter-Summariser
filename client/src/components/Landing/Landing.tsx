@@ -17,7 +17,7 @@ import PageNotFound from "../PageNotFound/PageNotFound";
 import "./Landing.css";
 
 const Landing = (props: any) => {
-  console.log("User Id: " + props.userID);
+  console.log("User Api: " + props.userAPI);
 
   const logout = () => {
     //Executing logout from Landing page
@@ -49,6 +49,7 @@ const Landing = (props: any) => {
             <Route path="/shared" element={<Shared />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/genReport" element={<GenReport />} />
+            {/* <Route path="/genReport/:api" element={<GenReport />} /> */}
             <Route path="*" element={<PageNotFound />} />
             <Route path="/history" element={<History />} />
           </Routes>
