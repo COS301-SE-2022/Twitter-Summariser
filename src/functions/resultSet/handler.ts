@@ -4,47 +4,47 @@ import { middyfy } from '@libs/lambda';
 import ServicesLayer from "../../services";
 
 export const getAllResultSet = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-    try {
-        const params = JSON.parse(event.body);
+  try {
+    const params = JSON.parse(event.body);
 
-        const resultSet = ServicesLayer.resultSetServices.getResultSets(params.apiKey);
+    const resultSet = ServicesLayer.resultSetServices.getResultSets(params.apiKey);
 
-        return {
-            statusCode: 200,
-            headers: {
-              'Content-Type': 'application/json',
-              "Access-Control-Allow-Methods": '*',
-              'Access-Control-Allow-Origin': '*',
-            },
-            body: JSON.stringify(resultSet)
-          }
-    } catch (e) {
-        return formatJSONResponse({
-         statusCode: 500,
-          message: e
-        });
-      }
+    return {
+      statusCode: 200,
+      headers: {
+        'Content-Type': 'application/json',
+        "Access-Control-Allow-Methods": '*',
+        'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify(resultSet)
+    }
+  } catch (e) {
+    return formatJSONResponse({
+      statusCode: 500,
+      message: e
+    });
+  }
 });
 
 export const getResultSet = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-    try {
-        const params = JSON.parse(event.body);
+  try {
+    const params = JSON.parse(event.body);
 
-        const tweets = ServicesLayer.tweetService.getTweets(params.resultSetID);
+    const tweets = ServicesLayer.tweetService.getTweets(params.resultSetID);
 
-        return {
-            statusCode: 200,
-            headers: {
-              'Content-Type': 'application/json',
-              "Access-Control-Allow-Methods": '*',
-              'Access-Control-Allow-Origin': '*',
-            },
-            body: JSON.stringify({ResultSetID: params.resultSetID, tweets: tweets})
-          }
-    } catch (e) {
-        return formatJSONResponse({
-         statusCode: 500,
-          message: e
-        });
-      }
+    return {
+      statusCode: 200,
+      headers: {
+        'Content-Type': 'application/json',
+        "Access-Control-Allow-Methods": '*',
+        'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify({ ResultSetID: params.resultSetID, tweets: tweets })
+    }
+  } catch (e) {
+    return formatJSONResponse({
+      statusCode: 500,
+      message: e
+    });
+  }
 });
