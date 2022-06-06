@@ -15,6 +15,7 @@ export const generateReport = middyfy(async (event: APIGatewayProxyEvent): Promi
         id += randomUUID();
 
         const report = ServicesLayer.reportService.addReport({reportID: id, resultSetID: params.resultSetID, apiKey: params.apiKey, dateCreated: new Date(), author: params.author});
+        
         return {
             statusCode: 200,
             headers: {
@@ -24,6 +25,7 @@ export const generateReport = middyfy(async (event: APIGatewayProxyEvent): Promi
             },
             body: JSON.stringify({Report: report, Tweets: tweets})
           }
+          
     } catch (e) {
         return formatJSONResponse({
          statusCode: 500,
