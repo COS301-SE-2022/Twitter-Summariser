@@ -23,7 +23,7 @@ export const search = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGa
     const { meta, data, includes } = await clientV2.get(
       'tweets/search/recent',
       {
-        query: params.keyword +' -is:retweet lang:en',
+        query: params.keyword + filter + ' -is:retweet lang:en',
         max_results: '100',
         tweet: {
           fields: [
