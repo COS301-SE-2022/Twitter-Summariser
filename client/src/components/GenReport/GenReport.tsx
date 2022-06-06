@@ -1,25 +1,50 @@
-import React from "react";
 // import { Tweet } from 'react-twitter-widgets';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Tweet from "../Tweet/Tweet";
-import axios from "axios";
+import { Key, useState } from "react";
 
 // importing mock data
-import tweeter from "../../editReport.json";
 import Text from "../Text/Text";
 
 function GenReport(props: any) {
+  const { state } = useLocation();
+  // const location = useLocation();
+
+  console.log(state);
+
+  // const [searchResponse, changeResponse] = useState([]);
+  // const searchEndpoint =
+  //   "https://mtx3w94c8f.execute-api.us-east-1.amazonaws.com/dev/search";
+
+  // // post request
+  // const api_handler = async (e: any) => {
+  //   const response = await fetch(searchEndpoint, {
+  //     method: "POST",
+  //     body: JSON.stringify(e),
+  //   });
+
+  //   changeResponse(await response.json());
+  // };
+
+  // const searchData = {
+  //   keyword: "Elon",
+  //   numOfTweets: "10",
+  //   sortBy: "by likes",
+  // };
+
+  // api_handler(searchData);
+
   // processing api response
   const apiResponse = [<div key={"begining div"}></div>];
 
-  tweeter.tweets.slice(0, 50).map((data, index) =>
-    apiResponse.push(
-      <div key={index}>
-        <Text keyValue={index} />
-        <Tweet tweetData={data} />
-      </div>
-    )
-  );
+  // state.map((data: any, index: Key | null | undefined) =>
+  //   apiResponse.push(
+  //     <div key={index}>
+  //       <Text keyValue={index} />
+  //       <Tweet tweetData={data} />
+  //     </div>
+  //   )
+  // );
 
   return (
     <div className="mt-4 p-4">

@@ -79,12 +79,14 @@ function Navigation(props: any) {
           </Link>
         </div>
 
-        <div className="pt-4 flex flex-row " key={(6).toString()}>
+        <div className="pt-4 flex flex-row " key={(7).toString()}>
           <Link to="/profile" className="flex flex-row">
             <div className="items-end pt-1 ">
               <CgProfile style={style} />
             </div>
-            <div className="hidden lg:block">&nbsp; Gabriel</div>
+            <div className="hidden lg:block">
+              &nbsp; {localStorage.getItem("loggedUserName")}
+            </div>
           </Link>
         </div>
 

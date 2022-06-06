@@ -15,31 +15,31 @@ const Tweet = (props: any) => {
       className=" w-full border border-gray-200 flex flex-col p-3"
     >
       <div className="flex flex-row items-center">
-        <p className=" font-semibold">{data.name}</p>
+        <p className=" font-semibold">{data.username}</p>
         &nbsp;
         <p className=" font-bold">&sdot;</p>
         &nbsp;
-        <p className="text-sm">{data.date}</p>
+        <p className="text-sm">{data.dateOT.substring(0, 10)}</p>
       </div>
 
       <div className=" pt-3 flex flex-row">
-        <p>{data.tweet}</p>
+        <p>{data.text}</p>
       </div>
 
       <div className="flex flex-row justify-around pt-3">
         <p className="flex flex-row text-sm items-center">
           <FaRegCommentAlt style={style_} />
           &nbsp;
-          {parseInt(data.comments, 10)}
+          {parseInt(data.numComments, 10)}
         </p>
         <p className="flex flex-row text-sm items-center">
           <AiOutlineRetweet style={style_} />
-          &nbsp; {parseInt(data.retweets, 10)}
+          &nbsp; {parseInt(data.numRetweets, 10)}
         </p>
         <p className="flex flex-row text-sm items-center">
           <AiOutlineHeart style={style_} />
           &nbsp;
-          {parseInt(data.likes, 10)}
+          {parseInt(data.numLikes, 10)}
         </p>
       </div>
     </div>
