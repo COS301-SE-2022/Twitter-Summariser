@@ -5,7 +5,7 @@ export const getAllResultSet = {
     events: [
         {
             http: {
-                method: 'get',
+                method: 'post',
                 path: 'getAllResultSet/',
                 cors: true
             },
@@ -15,10 +15,11 @@ export const getAllResultSet = {
 
 export const getResultSet = {
     handler: `${handlerPath(__dirname)}/handler.getResultSet`,
+    describe: 'Function that returns the contents of a result set',
     events: [
         {
             http: {
-                method: 'get',
+                method: 'post',
                 path: 'getResultSet/',
                 cors: true
             },

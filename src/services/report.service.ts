@@ -7,7 +7,7 @@ export default class ReportService {
 
     constructor(private docClient: DocumentClient) {}
 
-    async getReports(key: string) : Promise<Report[]> {
+    async getMyReports(key: string) : Promise<Report[]> {
         const result = await this.docClient.query({
             TableName: this.TableName,
             IndexName: "reportIndex",
@@ -19,6 +19,13 @@ export default class ReportService {
         }).promise();
 
         return result.Items as Report[];
+    }
+
+    async getAllReports(): Promise<Report[]> {
+        const creator = await this.docClient.scan({
+            TableName: this.TableName,
+        }).promise()
+        return creator.Items as Report[];
     }
 
     async getReport(id: string, key: string) : Promise<Report> {
