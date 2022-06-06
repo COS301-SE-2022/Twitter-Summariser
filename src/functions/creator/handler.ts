@@ -3,6 +3,7 @@ import { middyfy } from '@libs/lambda';
 import CreatorServices from "../../services";
 
 import * as bcrypt from 'bcryptjs';
+import { formatJSONResponse } from "@libs/api-gateway";
 
 
 const responseHeaders = {
@@ -98,12 +99,10 @@ export const loginCreator = middyfy(async (event: APIGatewayProxyEvent): Promise
         };
 
     } catch (e) {
-        console.log(e);
-        return {
-            statusCode: 500,
-            headers: responseHeaders,
-            body: JSON.stringify('Something went wrong')
-        };
+        return formatJSONResponse({
+            status: 403,
+            message: e.message
+        });
     }
 
 })
