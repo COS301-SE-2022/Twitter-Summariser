@@ -12,15 +12,3 @@ export const search = {
         },
     ],
 };
-
-/*export const getTweetsInTopic = {
-    handler: `${handlerPath(__dirname)}/handler.getTweetsInTopic`,
-    events: [
-        {
-            http: {
-                method: 'get',
-                path: 'trending/',
-            },
-        },
-    ],
-};*/

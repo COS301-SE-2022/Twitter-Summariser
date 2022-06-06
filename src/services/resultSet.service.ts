@@ -1,5 +1,6 @@
 import { DocumentClient } from "aws-sdk/clients/dynamodb";
 import ResultSet from "@model/resultSet/resultSet.model";
+import Tweet from "@model/tweet/tweet.model";
 
 export default class ResultSetService {
     private TableName: string = "ResultSetTable";
