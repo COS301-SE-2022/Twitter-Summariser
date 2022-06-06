@@ -15,6 +15,7 @@ describe("creator.service", () => {
         awsSdkPromiseResponse.mockReset();
     });
 
+    /*
     describe("getCreator", () => {
 
         test("Save Creator", async () => {
@@ -30,11 +31,13 @@ describe("creator.service", () => {
             awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({Item: test}));
 
             const creator: Creator = await CreatorServices.creatorService.getCreator("test@gmail.com");
-            expect(db.get).toHaveBeenCalledWith({
+            
+            console.log(creator);
+            expect(db.query).toHaveBeenCalledWith({
                 TableName: "CreatorTable",
-                Key: {
-                    PK: "njksea",
-                    SK: "test@gmail.com"
+                KeyConditionExpression: 'email = :email',
+                ExpressionAttributeValues: {
+                    ':email': 'test@gmail.com'
                 }
             });
 
@@ -42,7 +45,7 @@ describe("creator.service", () => {
         
         })
 
-        /*
+        
         describe("on error", () => {
             it("should throw an error if the item not found in the db", () => {
                 const email = "unitTest@gmail.com";
@@ -72,7 +75,24 @@ describe("creator.service", () => {
                 return expect(CreatorServices.creatorService.getCreator(email)).resolves.toEqual(creator);
             });
         }) ;
-        */
+        
 
     });
+    */
+
+    describe("addCreator", () => {
+        test("Add Creator", async () => {
+            const creator : Creator = {
+                apiKey: "njksea",
+                email: "test@gmail.com",
+                username: "test",
+                password: "password",
+                dateOfBirth: "2002-01-08",
+                dateRegistered: "2022-01-01T00:00:00.000Z"
+            };
+
+            await CreatorServices.creatorService.addCreator(creator);
+            expect(db.put).toHaveBeenCalledWith({TableName: "CreatorTable", Item: creator})
+        })
+    })
 })
