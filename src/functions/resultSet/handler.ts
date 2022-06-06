@@ -30,7 +30,7 @@ export const getResultSet = middyfy(async (event: APIGatewayProxyEvent): Promise
     try {
         const params = JSON.parse(event.body);
 
-        const resultSet = ServicesLayer.resultSetServices.getResultSet(params.resultsSetID, params.apiKey);
+        const tweets = ServicesLayer.tweetService.getTweets(params.resultSetID);
 
         return {
             statusCode: 200,
@@ -39,7 +39,7 @@ export const getResultSet = middyfy(async (event: APIGatewayProxyEvent): Promise
               "Access-Control-Allow-Methods": '*',
               'Access-Control-Allow-Origin': '*',
             },
-            body: JSON.stringify(resultSet)
+            body: JSON.stringify({ResultSetID: params.resultSetID, tweets: tweets})
           }
     } catch (e) {
         return formatJSONResponse({

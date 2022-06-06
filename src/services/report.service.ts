@@ -1,13 +1,41 @@
+import { DocumentClient } from "aws-sdk/clients/dynamodb";
 import Report from "@model/Report/report.model";
-import { DocumentClient } from "src/__mocks__/aws-sdk";
 
-export default class ReportService{
+export default class ReportService {
+    
     private TableName: string = "ReportTable";
 
     constructor(private docClient: DocumentClient) {}
 
-    async getReport(report: Report) : Promise<Report> {
+    async getReports(key: string) : Promise<Report[]> {
+        const result = await this.docClient.query({
+            TableName: this.TableName,
+            IndexName: "reportIndex",
+            KeyConditionExpression: 'apiKey = :apiKey',
+            
+            ExpressionAttributeValues: {
+                ":apiKey": key
+            }
+        }).promise();
 
-        return report;
+        return result.Items as Report[];
+    }
+
+    async getReport(id: string, key: string) : Promise<Report> {
+        const result = await this.docClient.get({
+            TableName: this.TableName,
+            Key: { id, key}
+        }).promise();
+
+        return result.Item as Report;
+    }
+
+    async addReport(report: Report): Promise<Report> {
+        await this.docClient.put({
+            TableName: this.TableName,
+            Item: report
+        }).promise();
+
+        return report as Report;
     }
 }
