@@ -6,6 +6,8 @@ import { search } from '@functions/search';
 import { CreatorTable } from '@model/creator/index';
 import { ResultSetTable } from '@model/resultSet';
 import { TweetTable } from '@model/tweet';
+import { getAllResultSet, getResultSet } from '@functions/resultSet';
+import { generateReport } from '@functions/generateReport';
 
 
 const serverlessConfiguration: AWS = {
@@ -53,7 +55,10 @@ const serverlessConfiguration: AWS = {
         getAllCreators,
         addCreator,
         loginCreator,
-        search
+        search,
+        getAllResultSet,
+        getResultSet,
+        generateReport
     },
 
     package: {

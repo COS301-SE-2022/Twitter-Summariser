@@ -5,7 +5,7 @@ export const getAllResultSet = {
     events: [
         {
             http: {
-                method: 'post',
+                method: 'get',
                 path: 'getAllResultSet/',
                 cors: true
             },
@@ -18,7 +18,7 @@ export const getResultSet = {
     events: [
         {
             http: {
-                method: 'post',
+                method: 'get',
                 path: 'getResultSet/',
                 cors: true
             },
