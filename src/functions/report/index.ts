@@ -2,7 +2,7 @@ import { handlerPath } from "@libs/handler-resolver";
 
 export const getAllReports = {
     handler: `${handlerPath(__dirname)}/handler.getAllReports`,
-    describe: 'A function that returns all of the reports in the system.',
+    description: 'A function that returns all of the reports in the system.',
     events: [
         {
             http: {
@@ -16,7 +16,7 @@ export const getAllReports = {
 
 export const getAllMyReports = {
     handler: `${handlerPath(__dirname)}/handler.getAllMyReports`,
-    describe: 'A function that returns all the users reports.',
+    description: 'A function that returns all the users reports.',
     events: [
         {
             http: {
@@ -30,7 +30,7 @@ export const getAllMyReports = {
 
 export const getReport = {
     handler: `${handlerPath(__dirname)}/handler.getReport`,
-    describe: 'A function that returns the content of a specific report.',
+    description: 'A function that returns the content of a specific report.',
     events: [
         {
             http: {

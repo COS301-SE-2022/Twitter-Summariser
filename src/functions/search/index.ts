@@ -2,7 +2,7 @@ import { handlerPath } from '@libs/handler-resolver';
 
 export const search = {
     handler: `${handlerPath(__dirname)}/handler.search`,
-    describe: 'Function that allows for the searcing of tweets on the twitter API',
+    description: 'Function that allows for the searcing of tweets on the twitter API',
     events: [
         {
             http: {
