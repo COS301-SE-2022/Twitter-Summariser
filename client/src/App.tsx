@@ -4,68 +4,62 @@ import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
 import "./index.css";
 
-// importing mock data
-import tweeter from "./mock.json";
-
 // main Application component in which different page sub-components will be contained
 const App = () => {
   // const [loginPage, setLoginPage] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [signupPage, setSignupPage] = useState(false);
-  const [user_id, changeUser_id] = useState(0.0);
+  const [user_api, changeUser_api] = useState("");
 
   useEffect(() => {
-    const storageUserLoggedInInformation = localStorage.getItem("isLoggedIn");
+    const storageUserLoggedInInformation =
+      localStorage.getItem("loggedUserApi");
 
-    if (storageUserLoggedInInformation === "1") {
+    if (storageUserLoggedInInformation) {
       setIsLoggedIn(true);
     }
   }, []);
 
   // retrieving user login details
   const loginHandler = (props: any) => {
-    console.log(props);
+    console.log(props.email);
+    console.log(props.username);
+    console.log(props.apiKey);
 
-    const data = tweeter.users;
+    if (props.login === "true") {
+      localStorage.setItem("loggedUserApi", props.apiKey);
+      localStorage.setItem("loggedUserName", props.username);
+      localStorage.setItem("loggedUserEmail", props.email);
+      setIsLoggedIn(true);
+      setSignupPage(false);
 
-    for (let index = 0; index < data.length; index++) {
-      if (
-        (data[index].name.toLowerCase() === props.username.toLowerCase() ||
-          data[index].email.toLowerCase() === props.username.toLowerCase()) &&
-        data[index].password.toLowerCase() === props.password.toLowerCase()
-      ) {
-        console.log(data[index]);
-
-        localStorage.setItem("isLoggedIn", "1");
-        setIsLoggedIn(true);
-        setSignupPage(false);
-
-        changeUser_id(data[index].id);
-        return;
-      }
+      changeUser_api(props.apiKey);
+      return;
     }
   };
 
   const signUpPage = () => {
-    localStorage.setItem("isLoggedIn", "0");
+    localStorage.setItem("loggedUserApi", "0");
     setIsLoggedIn(false);
     setSignupPage(true);
 
-    changeUser_id(0.0);
+    changeUser_api("");
   };
 
   const logInPage = () => {
-    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("loggedUserApi");
+    localStorage.removeItem("loggedUserName");
+    localStorage.removeItem("loggedUserEmail");
     setIsLoggedIn(false);
     setSignupPage(false);
 
-    changeUser_id(0.0);
+    changeUser_api("");
   };
 
   return (
     <div className="">
       {/* Login */}
-      {!localStorage.getItem("isLoggedIn") && (
+      {!localStorage.getItem("loggedUserApi") && (
         <Login userLoginDetails={loginHandler} takeToSignupPage={signUpPage} />
       )}
 
@@ -73,7 +67,9 @@ const App = () => {
       {signupPage && <Signup takeToSigninPage={logInPage} />}
 
       {/* Entry here based on Signup and Login decision  */}
-      {isLoggedIn && <Landing userID={user_id} takeToSigninPage={logInPage} />}
+      {isLoggedIn && (
+        <Landing userAPI={user_api} takeToSigninPage={logInPage} />
+      )}
     </div>
   );
 };
