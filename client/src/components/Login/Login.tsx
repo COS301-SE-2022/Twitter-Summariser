@@ -1,13 +1,17 @@
 import "./Login.css";
 import Logo from "../Logo/Logo";
 import { BiErrorCircle } from "react-icons/bi";
+import { AiOutlineCheckCircle } from "react-icons/ai";
 
 import { useState } from "react";
 
 const Login = (props: any) => {
-  const [wrongCredentials, setCredentialsStatus] = useState(false);
+  const [wrongCredentials, setWrongCredentialsStatus] = useState(false);
+  const [rightCredentials, setRightCredentialsStatus] = useState(true);
+  // const [readyToLog, setReadyToLog] = useState(false);
 
   const style = { fontSize: "1.5rem", color: "red" };
+  const style__ = { fontSize: "1.5rem", color: "green" };
 
   // username retrieval
   const [enteredUsername, changeEnteredUsername] = useState("");
@@ -15,7 +19,9 @@ const Login = (props: any) => {
   // username retrieval update
   const usernameHandler = (event: any) => {
     changeEnteredUsername(event.target.value);
-    setCredentialsStatus(false);
+    setWrongCredentialsStatus(false);
+    setRightCredentialsStatus(true);
+    // setReadyToLog(false);
   };
 
   // password retrieval
@@ -24,15 +30,15 @@ const Login = (props: any) => {
   // password retrieval update
   const passwordHandler = (event: any) => {
     changeEnteredPassword(event.target.value);
-    setCredentialsStatus(false);
+    setWrongCredentialsStatus(false);
+    setRightCredentialsStatus(true);
+    // setReadyToLog(false);
   };
-
-  const [userCredential, changeResponse] = useState();
 
   // ######################### API ###############################################
 
   const loginEndpoint =
-    "https://mtx3w94c8f.execute-api.us-east-1.amazonaws.com/dev/login";
+    "https://czbmusycz2.execute-api.us-east-1.amazonaws.com/dev/login";
 
   // post request with error handling
   const checkCredentials = (userCredentials: any) => {
@@ -50,14 +56,11 @@ const Login = (props: any) => {
 
         const data = isJson && (await response.json());
 
-        // console.log(await data);
-
-        changeResponse(await data);
-
         // check for error response
         if (!response.ok) {
           // error
-          setCredentialsStatus(true);
+          setWrongCredentialsStatus(true);
+          setRightCredentialsStatus(false);
 
           changeEnteredUsername("");
           changeEnteredPassword("");
@@ -74,7 +77,8 @@ const Login = (props: any) => {
       })
       .catch((error) => {
         console.log("Error in credentials given");
-        setCredentialsStatus(true);
+        setWrongCredentialsStatus(true);
+        setRightCredentialsStatus(false);
       });
   };
 
@@ -88,7 +92,6 @@ const Login = (props: any) => {
       password: enteredPassword,
     };
 
-    // api_handler(JSON.stringify(userDetails));
     checkCredentials(userDetails);
   };
 
@@ -102,39 +105,14 @@ const Login = (props: any) => {
     props.takeToSignupPage(sign);
   };
 
-  // const mockEndpoint = "https://reqres.in/api/articles'";
-
-  // const mockData = {
-  //   title: "React POST Request Example",
-  // };
-
-  // const loginEndpoint =
-  //   "https://mtx3w94c8f.execute-api.us-east-1.amazonaws.com/dev/login";
-
-  // const loginData = {
-  //   email: "go.shoderu@gmail.com",
-  //   password: "Pass@2022",
-  // };
-
-  // // post request
-  // const handler = async (e: any) => {
-  //   const response = await fetch(loginEndpoint, {
-  //     method: "POST",
-  //     body: JSON.stringify(loginData),
-  //   });
-
-  //   const data = await response.json();
-
-  //   console.log(data);
-  // };
-
-  // handler(0);
-  // const data = await response;
-  // console.log(data);
-
-  // posting a request using axios
+  // if (localStorage.getItem("newUser")) {
+  // setWrongCredentialsStatus(false);
+  // setRightCredentialsStatus(false);
+  // setReadyToLog(true);
+  // }
 
   return (
+    // <div>Login Works</div>
     <div
       data-testid="login"
       className="flex justify-center flex-col items-center h-screen"
@@ -150,10 +128,16 @@ const Login = (props: any) => {
           Summarizer
         </h1>
       </div>
-      {!wrongCredentials && (
+      {rightCredentials && (
         <div>
           <br />
           <br />
+        </div>
+      )}
+      {localStorage.getItem("newUser") && (
+        <div className="flex flex-row border-2 border-green-700 rounded-md bg-green-300 h-auto w-auto m-4 mb-5 p-2">
+          <AiOutlineCheckCircle style={style__} />
+          <p>Ready to Explore Twitter Summarizer</p>
         </div>
       )}
       {wrongCredentials && (
