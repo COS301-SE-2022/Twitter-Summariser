@@ -66,8 +66,9 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Splash />} />
         <Route path="/login" element={<Login userLoginDetails={loginHandler} takeToSignupPage={signUpPage} />}/>
-        <Route path="/signup " element={<Signup takeToSigninPage={logInPage} />}/>
-        <Route path="/landing " element={<Landing userAPI={user_api} takeToSigninPage={logInPage} />}/>
+        <Route path="/signup" element={<Signup takeToSigninPage={logInPage} />}/>
+        <Route path="/landing" element={<Landing userAPI={user_api} takeToSigninPage={logInPage} />}/>
+
       </Routes>
         {/* Login */}
         {/* {!localStorage.getItem("loggedUserApi") && (

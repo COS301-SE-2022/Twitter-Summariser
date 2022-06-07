@@ -1,7 +1,7 @@
 import "./Splash.css";
 import Logo from "../Logo/Logo";
 
-import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Splash = (props: any) => {
 
@@ -24,21 +24,26 @@ const Splash = (props: any) => {
           <div className="flex flex-row">
             &nbsp;
           </div>
-          <button
-            data-testid="btn-signup"
-            className="button__login text-sm p-0.5 h-10 w-56 bg-black rounded-full text-white"
-          >
-            Sign up
-          </button>
+          <Link to="/signup">
+            <button
+              data-testid="btn-signup"
+              className="button__login text-sm p-0.5 h-10 w-56 bg-black rounded-full text-white"
+            >
+              Sign up
+            </button>
+          </Link>
+
           <br />
           <p className="text-sm text-center">
             Already have an account? </p>
+            <Link to="/login">
             <button
               data-testid="btn-login"
               className="button__login text-sm p-0.5 h-10 w-56 bg-black rounded-full text-white"
             >
               Login
             </button>
+          </Link>
       </div>
     </div>
   );
