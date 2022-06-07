@@ -27,7 +27,6 @@ const Landing = (props: any) => {
   };
 
   return (
-    <BrowserRouter>
       <div
         data-testid="landing"
         className="flex flex-row bg-white lg:ml-14 lg:mr-14 sm:ml-5 sm:mr-5 relative md:justify-around "
@@ -64,7 +63,6 @@ const Landing = (props: any) => {
           </div>
         </div>
       </div>
-    </BrowserRouter>
   );
 };
 
