@@ -43,7 +43,7 @@ const Home = () => {
   // ######################### API ###############################################
 
   const searchEndpoint =
-    "https://mtx3w94c8f.execute-api.us-east-1.amazonaws.com/dev/search";
+    "https://czbmusycz2.execute-api.us-east-1.amazonaws.com/dev/search";
 
   // post request
   const api_handler = async (e: any) => {
@@ -59,19 +59,15 @@ const Home = () => {
 
   // compiling user search information
   const search = () => {
-    if (sort === "by comments") {
-      sort = "byComments";
-    } else if (sort === "by likes") {
-      sort = "byLikes";
-    } else if (sort === "by re-tweets") {
-      sort = "byRetweets";
-    }
-
     const searchData = {
+      apiKey: localStorage.getItem("loggedUserApi"),
       keyword: enteredSearch,
       numOfTweets: noOfTweets,
       sortBy: sort,
+      filterBy: filter,
     };
+
+    console.log(searchData);
 
     if (enteredSearch !== "") {
       // calling the api__Handler
@@ -155,8 +151,8 @@ const Home = () => {
             onChange={filterHandler}
           >
             <option>-</option>
-            <option>min number of likes</option>
-            <option>non-replies</option>
+            <option value="verifiedTweets">Verified Tweets</option>
+            <option value="noneReply">non-replies</option>
           </select>
         </div>
 
@@ -169,9 +165,9 @@ const Home = () => {
             onChange={sortHandler}
           >
             <option>-</option>
-            <option>by likes</option>
-            <option>by comments</option>
-            <option>by re-tweets</option>
+            <option value="byLikes">by likes</option>
+            <option value="byComments">by comments</option>
+            <option value="byRetweets">by re-tweets</option>
           </select>
         </div>
 

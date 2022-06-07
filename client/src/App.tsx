@@ -56,6 +56,12 @@ const App = () => {
     changeUser_api("");
   };
 
+  const readyToLog = () => {
+    localStorage.removeItem("loggedUserApi");
+    localStorage.setItem("newUser", "true");
+    setSignupPage(false);
+  };
+
   return (
     <div className="">
       {/* Login */}
@@ -64,7 +70,9 @@ const App = () => {
       )}
 
       {/* Signup */}
-      {signupPage && <Signup takeToSigninPage={logInPage} />}
+      {signupPage && (
+        <Signup takeToSigninPage={logInPage} readyToLogIN={readyToLog} />
+      )}
 
       {/* Entry here based on Signup and Login decision  */}
       {isLoggedIn && (
