@@ -28,4 +28,13 @@ export default class ReportService {
         return result.Items as Report[];
     }
 
+    async addReport(report: Report): Promise<Report> {
+        await this.docClient.put({
+            TableName: this.TableName,
+            Item: report
+        }).promise();
+
+        return report as Report;
+    }
+
 }
