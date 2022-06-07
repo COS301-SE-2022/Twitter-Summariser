@@ -59,7 +59,11 @@ const App = (props : any) => {
     changeUser_api("");
   };
 
-
+  const readyToLog = () => {
+    localStorage.removeItem("loggedUserApi");
+    localStorage.setItem("newUser", "true");
+    setSignupPage(false);
+  };
 
   return (
 

@@ -33,7 +33,7 @@ export default class TweetService {
         let tweetList: Tweet[] = new Array();
         for(let i=0; i < numTweets; i++){
             if(i in includes['users']){
-                tweetList.push({username: includes['users'][i]['username'], fullname: includes['users'][i]['name'], dateOT: data[i]['created_at'], numComments: data[i]['public_metrics']['reply_count'], numLikes: data[i]['public_metrics']['like_count'], numRetweets: data[i]['public_metrics']['retweet_count'], text: data[i]['text'], id: data[i]['id'], resultSetId: GID});
+                tweetList.push({username: includes['users'][i]['username'], fullname: includes['users'][i]['name'], dateOT: data[i]['created_at'], numComments: data[i]['public_metrics']['reply_count'], numLikes: data[i]['public_metrics']['like_count'], numRetweets: data[i]['public_metrics']['retweet_count'], text: data[i]['text'], tweetId: data[i]['id'], resultSetId: GID});
             }
         }
         return tweetList as Tweet[];

@@ -5,25 +5,78 @@ import { Link } from "react-router-dom";
 const Home = () => {
   // ################ all related to the search ############################
   const [enteredSearch, changeEnteredSearch] = useState("");
+  const [resultSet, changeResultSet] = useState("");
+  const [date, changeDate] = useState("");
 
   const searchHandler = (event: any) => {
     changeEnteredSearch(event.target.value);
   };
 
+  const [genReport, changeGenReport] = useState("");
+
   const [clicked, changeClicked] = useState(false);
   const [createTitle, changeCreateTitle] = useState("");
 
-  const click = () => {
-    if (enteredSearch !== "") {
-      console.log("clicked");
-      changeCreateTitle(enteredSearch);
-      changeEnteredSearch("");
-      changeClicked(!clicked);
-    }
+  // ################ API FOR GENERATE REPORT ###########################
+
+  const genReportEndpoint =
+    "https://czbmusycz2.execute-api.us-east-1.amazonaws.com/dev/generateReport";
+
+  const genRep = async () => {
+    // POST request using fetch with error handling
+
+    const searchData = {
+      apiKey: localStorage.getItem("loggedUserApi"),
+      author: localStorage.getItem("loggedUserName"),
+      resultSetID: resultSet,
+    };
+
+    const requestOptions = {
+      method: "POST",
+      body: JSON.stringify(searchData),
+    };
+
+    fetch(genReportEndpoint, requestOptions)
+      .then(async (response) => {
+        const isJson = response.headers
+          .get("content-type")
+          ?.includes("application/json");
+
+        const data = isJson && (await response.json());
+
+        console.log(await data.Report.dateCreated);
+        changeDate(await data.Report.dateCreated.substring(0, 10));
+        changeGenReport("genReport/" + resultSet);
+
+        console.log(genReport);
+
+        // check for error response
+        if (!response.ok) {
+          // error
+          // signUpFailure(true);
+
+          return;
+        }
+
+        if (enteredSearch !== "") {
+          console.log("clicked");
+          changeCreateTitle(enteredSearch);
+          changeEnteredSearch("");
+          changeClicked(!clicked);
+        }
+
+        // await props.readyToLogIN();
+      })
+      .catch((error) => {
+        console.log("Error Signing up given");
+        // signUpFailure(true);
+      });
   };
 
+  // ###################################################################
+
   // extra search function sort, filter, number of tweets to collect
-  const [searchResponse, changeResponse] = useState([]);
+  const [searchResponse, changeResponse] = useState<any[]>([]);
   const [noOfTweets, changeNoOfTweets] = useState(10);
   let [sort, changeSort] = useState("-");
   const [filter, changeFilter] = useState("-");
@@ -40,42 +93,66 @@ const Home = () => {
     changeFilter(event.target.value);
   };
 
-  // ######################### API ###############################################
+  // ######################### API FOR SEARCHING ###############################################
 
   const searchEndpoint =
-    "https://mtx3w94c8f.execute-api.us-east-1.amazonaws.com/dev/search";
+    "https://czbmusycz2.execute-api.us-east-1.amazonaws.com/dev/search";
 
-  // post request
-  const api_handler = async (e: any) => {
-    const response = await fetch(searchEndpoint, {
+  const searchTwitter = async (searchData: any) => {
+    // POST request using fetch with error handling
+    const requestOptions = {
       method: "POST",
-      body: JSON.stringify(e),
-    });
+      body: JSON.stringify(searchData),
+    };
 
-    changeResponse(await response.json());
+    fetch(searchEndpoint, requestOptions)
+      .then(async (response) => {
+        const isJson = response.headers
+          .get("content-type")
+          ?.includes("application/json");
+
+        const data = isJson && (await response.json());
+
+        console.log(await data);
+
+        console.log(await data.tweets);
+        console.log(await data.resultSetID);
+        changeResultSet(await data.resultSetID);
+        changeResponse(await data.tweets);
+
+        // check for error response
+        if (!response.ok) {
+          // error
+          // signUpFailure(true);
+
+          return;
+        }
+
+        // await props.readyToLogIN();
+      })
+      .catch((error) => {
+        console.log("Error Searching");
+        // signUpFailure(true);
+      });
   };
 
   // #######################################################################
 
   // compiling user search information
   const search = () => {
-    if (sort === "by comments") {
-      sort = "byComments";
-    } else if (sort === "by likes") {
-      sort = "byLikes";
-    } else if (sort === "by re-tweets") {
-      sort = "byRetweets";
-    }
-
     const searchData = {
+      apiKey: localStorage.getItem("loggedUserApi"),
       keyword: enteredSearch,
       numOfTweets: noOfTweets,
       sortBy: sort,
+      filterBy: filter,
     };
+
+    console.log(searchData);
 
     if (enteredSearch !== "") {
       // calling the api__Handler
-      api_handler(searchData);
+      searchTwitter(searchData);
     }
   };
 
@@ -88,6 +165,8 @@ const Home = () => {
 
   // processing api response
   const apiResponse = [<div key={"begining div"}></div>];
+
+  // console.log(searchResponse);
 
   searchResponse.map(
     (data, index) =>
@@ -155,8 +234,8 @@ const Home = () => {
             onChange={filterHandler}
           >
             <option>-</option>
-            <option>min number of likes</option>
-            <option>non-replies</option>
+            <option value="verifiedTweets">Verified Tweets</option>
+            <option value="noneReply">non-replies</option>
           </select>
         </div>
 
@@ -169,9 +248,9 @@ const Home = () => {
             onChange={sortHandler}
           >
             <option>-</option>
-            <option>by likes</option>
-            <option>by comments</option>
-            <option>by re-tweets</option>
+            <option value="byLikes">by likes</option>
+            <option value="byComments">by comments</option>
+            <option value="byRetweets">by re-tweets</option>
           </select>
         </div>
 
@@ -194,7 +273,7 @@ const Home = () => {
             data-testid="btn-generate"
             type="submit"
             className="button w-3/4 text-lg p-0.5"
-            onClick={click}
+            onClick={genRep}
           >
             Generate Report
           </button>
@@ -215,9 +294,9 @@ const Home = () => {
           <div className="mt-4 flex flex-col flex-wrap justify-center">
             <h1 className="text-2xl">Newly created report</h1>
             {/* <Link to="/genReport"> */}
-            <Link to="genReport" state={{ searchResponse }}>
-              {/* <Link to={{pathname: "genReport", state:{searchResponse}}}> */}
-              {/* <Link to="genReport/vais24evaivoiv"> */}
+            {/* <Link to="genReport" state={{ searchResponse }}> */}
+            {/* <Link to={{pathname: "genReport", state:{searchResponse}}}> */}
+            <Link to={genReport}>
               <div className="m-4 w-1/4 h-20 bg-gray-400 rounded-md flex flex-col p-2">
                 <div className="">
                   <button data-testid="btn-report" type="submit">
@@ -225,10 +304,12 @@ const Home = () => {
                   </button>
                 </div>
                 <div className="mt-2">
-                  <p className="italic text-xs">Gabriel Shoderu</p>
+                  <p className="italic text-xs">
+                    {localStorage.getItem("loggedUserName")}
+                  </p>
                 </div>
                 <div className="">
-                  <p className="italic text-xs">5/12/2022</p>
+                  <p className="italic text-xs">{date}</p>
                 </div>
               </div>
             </Link>

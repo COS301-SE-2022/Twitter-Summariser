@@ -19,6 +19,8 @@ import "./Landing.css";
 const Landing = (props: any) => {
   console.log("User Api: " + props.userAPI);
 
+  localStorage.removeItem("newUser");
+
   const logout = () => {
     //Executing logout from Landing page
     props.takeToSigninPage();
@@ -42,16 +44,14 @@ const Landing = (props: any) => {
         <div className="flex flex-col 2xl:basis-1/2 mini-tablet:basis-2/3 basis-full relative">
           <Routes>
             <Route path="/" element={<Home />} />
-              <Route path="/explore" element={<Explore />} />
-              <Route path="/reports" element={<Reports />} />
-              <Route path="/drafts" element={<Drafts />} />
-              <Route path="/shared" element={<Shared />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/genReport" element={<GenReport />} />
-              {/* <Route path="/genReport/:api" element={<GenReport />} /> */}
-              <Route path="*" element={<PageNotFound />} />
-              <Route path="/history" element={<History />} />
-            {/* </Route> */}
+            <Route path="/explore" element={<Explore />} />
+            <Route path="/reports" element={<Reports />} />
+            <Route path="/drafts" element={<Drafts />} />
+            <Route path="/shared" element={<Shared />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/genReport/:id" element={<GenReport />} />
+            <Route path="*" element={<PageNotFound />} />
+            <Route path="/history" element={<History />} />
           </Routes>
         </div>
 

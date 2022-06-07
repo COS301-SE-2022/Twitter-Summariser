@@ -3,5 +3,7 @@ export default interface Report {
     resultSetID: string,
     apiKey: string,
     dateCreated: Date,
-    author: string
+    title: string,
+    author: string,
+    tweets?: any
 };
