@@ -51,10 +51,12 @@ export const search = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGa
     const result = sortedList.slice(0, params.numOfTweets);
 
     ServicesLayer.resultSetServices.addResultSet({ id: id, apiKey: params.apiKey, dateCreated: new Date(), searchPhrase: params.keyword, sortOption: params.sortBy, filterOption: params.filterBy });
-
+    
+    /*
     for (var i = 0; i < result.length; i++) {
       await ServicesLayer.tweetService.addTweet(result[i]);
     }
+    */
 
     return {
       statusCode: 200,

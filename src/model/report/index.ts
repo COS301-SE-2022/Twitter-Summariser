@@ -2,7 +2,7 @@ export const ReportTable = {
     Type: "AWS::DynamoDB::Table",
     Properties: {
         TableName: "ReportTable",
-        AttributeDefinition: [{
+        AttributeDefinitions: [{
             AttributeName: "id",
             AttributeType: "S"
         },
@@ -19,7 +19,7 @@ export const ReportTable = {
             IndexName: "reportIndex",
             KeySchema: [{
                 AttributeName: "apiKey",
-                KeyHash: "HASH"
+                KeyType: "HASH"
             }],
             Projection: {
                 ProjectionType: "ALL"

@@ -6,7 +6,7 @@ import ServicesLayer from "../../services";
 export const getAllMyReports = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const params = JSON.parse(event.body);
-    const reports = ServicesLayer.reportService.getMyReports(params.apiKey);
+    const reports = ServicesLayer.reportService.getReport(params.apiKey);
     return {
       statusCode: 200,
       headers: {
@@ -24,10 +24,11 @@ export const getAllMyReports = middyfy(async (event: APIGatewayProxyEvent): Prom
   }
 });
 
-
-export const getAllReports = middyfy(async (): Promise<APIGatewayProxyResult> => {
+// Published reports
+export const getAllReports = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
-    const reports = ServicesLayer.reportService.getAllReports();
+    const params = JSON.parse(event.body);
+    const reports = ServicesLayer.reportService.getReports(params.apiKey);
     return {
       statusCode: 200,
       headers: {
@@ -48,7 +49,7 @@ export const getAllReports = middyfy(async (): Promise<APIGatewayProxyResult> =>
 export const getReport = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const params = JSON.parse(event.body);
-    const tweets = ServicesLayer.reportService.getReport(params.reportID, params.apiKey);
+    const tweets = ServicesLayer.reportService.getReport(params.reportID);
     return {
       statusCode: 200,
       headers: {
