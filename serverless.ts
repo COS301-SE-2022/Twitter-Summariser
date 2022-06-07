@@ -1,11 +1,12 @@
 import type { AWS } from '@serverless/typescript';
-
 import { getAllCreators, addCreator, loginCreator } from '@functions/creator';
 import { search } from '@functions/search';
-
 import { CreatorTable } from '@model/creator/index';
 import { ResultSetTable } from '@model/resultSet';
 import { TweetTable } from '@model/tweet';
+import { getAllResultSet, getResultSet } from '@functions/resultSet';
+import { generateReport } from '@functions/generateReport';
+import { getAllMyReports, getAllReports, getReport } from '@functions/report';
 
 
 const serverlessConfiguration: AWS = {
@@ -53,7 +54,13 @@ const serverlessConfiguration: AWS = {
         getAllCreators,
         addCreator,
         loginCreator,
-        search
+        search,
+        getAllResultSet,
+        getResultSet,
+        generateReport,
+        getAllReports,
+        getAllMyReports,
+        getReport
     },
 
     package: {

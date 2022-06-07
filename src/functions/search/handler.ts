@@ -3,8 +3,7 @@ import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
 import { clientV2 } from "../clients/twitterV2.client";
 import { randomUUID } from "crypto";
-import tweetTransService from "../../services"
-import resultSetServices from "../../services";
+import ServicesLayer from "../../services";
 
 
 export const search = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
@@ -12,12 +11,12 @@ export const search = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGa
     const params = JSON.parse(event.body);
 
     let filter: string;
-    if(params.filterBy=="noneReply"){
+    if (params.filterBy == "noneReply") {
       filter = " -is:reply";
-    }else if(params.filterBy=="verifiedTweets"){
+    } else if (params.filterBy == "verifiedTweets") {
       filter = " is:verified";
-    }else{
-      filter="";
+    } else {
+      filter = "";
     }
 
     const { meta, data, includes } = await clientV2.get(
@@ -43,15 +42,19 @@ export const search = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGa
       }
     );
 
-    const tweetlist = await tweetTransService.tweetTransService.addTweets(data, includes, meta["result_count"]);
-    const sortedList = await tweetTransService.tweetTransService.sortTweets(tweetlist, params.sortBy);
-    const result = sortedList.slice(0, params.numOfTweets);
-
     let id: string;
-    id = "R-";
+    id = "RS-";
     id += randomUUID();
 
-    resultSetServices.resultSetServices.addResultSet({id: id, apiKey: params.apiKey, dateCreated: new Date(), searchPhrase: params.keyword, sortOption: params.sortBy, filterOption: params.filterBy});
+    const tweetlist = await ServicesLayer.tweetService.addTweets(data, includes, meta["result_count"], id);
+    const sortedList = await ServicesLayer.tweetService.sortTweets(tweetlist, params.sortBy);
+    const result = sortedList.slice(0, params.numOfTweets);
+
+    ServicesLayer.resultSetServices.addResultSet({ id: id, apiKey: params.apiKey, dateCreated: new Date(), searchPhrase: params.keyword, sortOption: params.sortBy, filterOption: params.filterBy });
+
+    for (var i = 0; i < result.length; i++) {
+      await ServicesLayer.tweetService.addTweet(result[i]);
+    }
 
     return {
       statusCode: 200,
@@ -60,12 +63,12 @@ export const search = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGa
         "Access-Control-Allow-Methods": '*',
         'Access-Control-Allow-Origin': '*',
       },
-      body: JSON.stringify({reportID: id, tweets: result})
+      body: JSON.stringify({ reportID: id, tweets: result })
     }
 
   } catch (e) {
     return formatJSONResponse({
-     statusCode: 500,
+      statusCode: 500,
       message: e
     });
   }
