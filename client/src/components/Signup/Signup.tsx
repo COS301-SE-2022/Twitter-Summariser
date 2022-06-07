@@ -3,6 +3,7 @@ import Logo from "../Logo/Logo";
 
 import { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Signup = (props: any) => {
   // username retrieval
@@ -189,14 +190,18 @@ const Signup = (props: any) => {
           <br />
           <p className="text-sm text-center">
             Already have an account?
-            <button
+            <Link to="/login" className=" text-sky-500">
+              &nbsp; Sign in
+            </Link>
+            {/* <button
               data-testid="btn-signin"
               type="submit"
               className=" text-sky-500"
               onClick={signin}
             >
               &nbsp; Sign in
-            </button>
+            </button> */}
+
           </p>
         </form>
       </div>
