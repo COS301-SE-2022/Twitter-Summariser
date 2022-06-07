@@ -37,6 +37,7 @@ const Login = (props: any) => {
   // post request with error handling
   const checkCredentials = (userCredentials: any) => {
     // POST request using fetch with error handling
+    console.log("inside check credentials function");
     const requestOptions = {
       method: "POST",
       body: JSON.stringify(userCredentials),
