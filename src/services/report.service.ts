@@ -1,6 +1,8 @@
 import { DocumentClient } from "aws-sdk/clients/dynamodb";
 import Report from "@model/report/report.model";
 
+import ServicesLayer from "../services";
+
 export default class ReportService {
 
     // add function to get all published reports
@@ -13,8 +15,18 @@ export default class ReportService {
     async getReport(id: string) : Promise<Report> {
         const result = await this.docClient.get({
             TableName: this.TableName,
-            Key: { PK: id}
+            Key: { "reportID": id}
         }).promise();
+
+        const item = result.Item;
+
+        const tweets = await ServicesLayer.tweetService.getTweets(item.resultSetID);
+
+        item["tweets"] = tweets;
+
+        // console.log(result.Item);
+
+        
 
         return result.Item as Report;
     }
@@ -30,11 +42,28 @@ export default class ReportService {
             }
         }).promise();
 
+        const array = result.Items;
+
+        const promises = array.map(async (item) => {
+            const tweets = await ServicesLayer.tweetService.getTweets(item.resultSetID);
+
+            item["tweets"] = tweets;
+            // console.log(item);
+            // console.log(result.Items);
+        });
+
+        await Promise.all(promises);
+
+        console.log(result.Items);
+    
+
+        // const tweets = await ServicesLayer.tweetService.getTweets(resultSetID);
         return result.Items as Report[];
     }
 
     // store reports
     async addReport(report: Report): Promise<Report> {
+        console.log(report);
         await this.docClient.put({
             TableName: this.TableName,
             Item: report

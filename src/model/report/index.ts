@@ -3,18 +3,21 @@ export const ReportTable = {
     Properties: {
         TableName: "ReportTable",
         AttributeDefinitions: [{
-            AttributeName: "id",
+            AttributeName: "reportID",
             AttributeType: "S"
         },
+        
         {
             AttributeName: "apiKey",
             AttributeType: "S"
         }
+        
         ],
         KeySchema: [{
-            AttributeName: "id",
+            AttributeName: "reportID",
             KeyType: "HASH"
         },],
+        
         GlobalSecondaryIndexes: [{
             IndexName: "reportIndex",
             KeySchema: [{
@@ -29,6 +32,7 @@ export const ReportTable = {
                 WriteCapacityUnits: 5
             }
         }],
+        
         ProvisionedThroughput: {
             ReadCapacityUnits: 5,
             WriteCapacityUnits: 5
