@@ -14,9 +14,8 @@ A progressive web app to generate an article on a given trend using curated Twee
 ![Coveralls](https://img.shields.io/coveralls/github/COS301-SE-2022/Twitter-Summariser?style=for-the-badge)
 ![GitHub repo size](https://img.shields.io/github/repo-size/COS301-SE-2022/Twitter-Summariser?style=for-the-badge)
 
-
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/COS301-SE-2022/Twitter-Summariser/Twitter%20Summariser%20CI?label=Serveless%20BUild&style=for-the-badge)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/COS301-SE-2022/Twitter-Summariser/Serverless%20Deploy?label=Serveless%20BUild&style=for-the-badge)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/COS301-SE-2022/Twitter-Summariser/Twitter%20Summariser%20CI?label=Twitter%20Summariser%20Build&style=for-the-badge)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/COS301-SE-2022/Twitter-Summariser/Serverless%20Deploy?label=Serveless%20BUILD%20%26%20DEploy&style=for-the-badge)
 ![PingPong status](https://img.shields.io/pingpong/status/sp_f02944df840e4307968cf340d0a8ca78?style=for-the-badge)
 ![PingPong uptime (last 30 days)](https://img.shields.io/pingpong/uptime/sp_f02944df840e4307968cf340d0a8ca78?style=for-the-badge)
 

@@ -36,8 +36,7 @@ jobs:
       - name: Make the test coverage
         run: |
           cd client
-          yarn test -- --coverage --watchAll
-          q
+          CI=true yarn test -- --coverage --watchAll
 
       - name: Coveralls
         uses: coverallsapp/github-action@master
