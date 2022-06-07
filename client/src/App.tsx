@@ -8,7 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 
 // main Application component in which different page sub-components will be contained
-const App = () => {
+const App = (props : any) => {
   // const [loginPage, setLoginPage] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [signupPage, setSignupPage] = useState(false);
@@ -33,9 +33,9 @@ const App = () => {
       localStorage.setItem("loggedUserApi", props.apiKey);
       localStorage.setItem("loggedUserName", props.username);
       localStorage.setItem("loggedUserEmail", props.email);
+      console.log("here: " + props.username);
       setIsLoggedIn(true);
       setSignupPage(false);
-
       changeUser_api(props.apiKey);
       return;
     }
@@ -59,16 +59,29 @@ const App = () => {
     changeUser_api("");
   };
 
+
+
   return (
+
+
     <BrowserRouter>
 
-    <div className="">
       <Routes>
-        <Route path="/" element={<Splash />} />
-        <Route path="/login" element={<Login userLoginDetails={loginHandler} takeToSignupPage={signUpPage} />}/>
-        <Route path="/signup" element={<Signup takeToSigninPage={logInPage} />}/>
-        <Route path="/landing" element={<Landing userAPI={user_api} takeToSigninPage={logInPage} />}/>
-
+        {!isLoggedIn &&
+          <Route path="/" element={<Splash />} />
+        }
+        {/* <Route path="/" element={<Splash />} /> */}
+        {!localStorage.getItem("loggedUserApi") &&
+          <Route path="/login" element= {<Login userLoginDetails={loginHandler} takeToSignupPage={signUpPage} />} />
+        }
+        {
+          <Route path="/signup" element={<Signup takeToSigninPage={logInPage} />}/>
+        }
+        {isLoggedIn &&
+          <Route path="/*" element={
+            <Landing userAPI={user_api} takeToSigninPage={logInPage} />
+          }/>
+        }
       </Routes>
         {/* Login */}
         {/* {!localStorage.getItem("loggedUserApi") && (
@@ -82,7 +95,6 @@ const App = () => {
         {/* {isLoggedIn && (
           <Landing userAPI={user_api} takeToSigninPage={logInPage} />
         )} */}
-      </div>
 
       {/* <div className=""> */}
         {/* Login */}

@@ -4,9 +4,10 @@ import { BiErrorCircle } from "react-icons/bi";
 
 import { useState } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = (props: any) => {
+  const navigate = useNavigate();
   const [wrongCredentials, setCredentialsStatus] = useState(false);
 
   const style = { fontSize: "1.5rem", color: "red" };
@@ -34,7 +35,7 @@ const Login = (props: any) => {
   // ######################### API ###############################################
 
   const loginEndpoint =
-    "https://mtx3w94c8f.execute-api.us-east-1.amazonaws.com/dev/login";
+    "https://czbmusycz2.execute-api.us-east-1.amazonaws.com/dev/login";
 
   // post request with error handling
   const checkCredentials = (userCredentials: any) => {
@@ -84,6 +85,7 @@ const Login = (props: any) => {
   // #######################################################################
 
   const submitHandler = (event: any) => {
+
     event.preventDefault();
 
     const userDetails = {
@@ -93,6 +95,7 @@ const Login = (props: any) => {
 
     // api_handler(JSON.stringify(userDetails));
     checkCredentials(userDetails);
+    navigate("/");
   };
 
   const signup = (event: any) => {
@@ -186,13 +189,43 @@ const Login = (props: any) => {
           />
           <br />
           <br />
-          <button
+
+          {/* <Link to="/"> */}
+          {/* <button
+              data-testid="btn-submit"
+              type="submit"
+              className="button__login text-sm p-0.5 h-10 w-56 bg-black rounded-full text-white"
+            >
+               <Link to="/"
+                  data-testid="btn-login"
+                >
+                  Login
+              </Link>
+              {/* Login */}
+          {/* </button> */}
+            {/* <Link to="/"
+              data-testid="btn-submit"
+              type="submit"
+              className="button__login text-sm p-0.5 h-10 w-56 bg-black rounded-full text-white"
+            > */}
+               <button
+                data-testid="btn-submit"
+                type="submit"
+                className="button__login text-sm p-0.5 h-10 w-56 bg-black rounded-full text-white"
+              >
+                Login
+                {/* Login */}
+            </button>
+              {/* Login */}
+          {/* </Link> */}
+          {/* </Link> */}
+          {/* <button
             data-testid="btn-submit"
             type="submit"
             className="button__login text-sm p-0.5 h-10 w-56 bg-black rounded-full text-white"
           >
             Login
-          </button>
+          </button> */}
           <br />
           <br />
           <br />

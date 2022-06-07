@@ -25,7 +25,6 @@ const Landing = (props: any) => {
   };
 
   return (
-    <BrowserRouter>
       <div
         data-testid="landing"
         className="flex flex-row bg-white lg:ml-14 lg:mr-14 sm:ml-5 sm:mr-5 relative md:justify-around "
@@ -43,15 +42,16 @@ const Landing = (props: any) => {
         <div className="flex flex-col 2xl:basis-1/2 mini-tablet:basis-2/3 basis-full relative">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/explore" element={<Explore />} />
-            <Route path="/reports" element={<Reports />} />
-            <Route path="/drafts" element={<Drafts />} />
-            <Route path="/shared" element={<Shared />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/genReport" element={<GenReport />} />
-            {/* <Route path="/genReport/:api" element={<GenReport />} /> */}
-            <Route path="*" element={<PageNotFound />} />
-            <Route path="/history" element={<History />} />
+              <Route path="/explore" element={<Explore />} />
+              <Route path="/reports" element={<Reports />} />
+              <Route path="/drafts" element={<Drafts />} />
+              <Route path="/shared" element={<Shared />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/genReport" element={<GenReport />} />
+              {/* <Route path="/genReport/:api" element={<GenReport />} /> */}
+              <Route path="*" element={<PageNotFound />} />
+              <Route path="/history" element={<History />} />
+            {/* </Route> */}
           </Routes>
         </div>
 
@@ -63,7 +63,6 @@ const Landing = (props: any) => {
           </div>
         </div>
       </div>
-    </BrowserRouter>
   );
 };
 
