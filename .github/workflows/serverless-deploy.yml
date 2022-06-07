@@ -40,9 +40,9 @@ jobs:
           q
 
       - name: Coveralls
-        working-directory: client
         uses: coverallsapp/github-action@master
         with:
+          working-directory: client
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Serverless deploy
