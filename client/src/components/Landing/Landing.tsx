@@ -19,6 +19,8 @@ import "./Landing.css";
 const Landing = (props: any) => {
   console.log("User Api: " + props.userAPI);
 
+  localStorage.removeItem("newUser");
+
   const logout = () => {
     //Executing logout from Landing page
     props.takeToSigninPage();

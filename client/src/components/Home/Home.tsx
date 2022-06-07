@@ -23,7 +23,7 @@ const Home = () => {
   };
 
   // extra search function sort, filter, number of tweets to collect
-  const [searchResponse, changeResponse] = useState([]);
+  const [searchResponse, changeResponse] = useState<any[]>([]);
   const [noOfTweets, changeNoOfTweets] = useState(10);
   let [sort, changeSort] = useState("-");
   const [filter, changeFilter] = useState("-");
@@ -43,39 +43,69 @@ const Home = () => {
   // ######################### API ###############################################
 
   const searchEndpoint =
-    "https://mtx3w94c8f.execute-api.us-east-1.amazonaws.com/dev/search";
+    "https://czbmusycz2.execute-api.us-east-1.amazonaws.com/dev/search";
 
   // post request
-  const api_handler = async (e: any) => {
-    const response = await fetch(searchEndpoint, {
-      method: "POST",
-      body: JSON.stringify(e),
-    });
+  // const api_handler = async (e: any) => {
+  //   const response = await fetch(searchEndpoint, {
+  //     method: "POST",
+  //     body: JSON.stringify(e),
+  //   });
 
-    changeResponse(await response.json());
+  //   changeResponse(await response.json());
+  // };
+
+  const searchTwitter = async (searchData: any) => {
+    // POST request using fetch with error handling
+    const requestOptions = {
+      method: "POST",
+      body: JSON.stringify(searchData),
+    };
+
+    fetch(searchEndpoint, requestOptions)
+      .then(async (response) => {
+        const isJson = response.headers
+          .get("content-type")
+          ?.includes("application/json");
+
+        const data = isJson && (await response.json());
+
+        console.log(await data.tweets);
+        changeResponse(await data.tweets);
+
+        // check for error response
+        if (!response.ok) {
+          // error
+          // signUpFailure(true);
+
+          return;
+        }
+
+        // await props.readyToLogIN();
+      })
+      .catch((error) => {
+        console.log("Error Signing up given");
+        // signUpFailure(true);
+      });
   };
 
   // #######################################################################
 
   // compiling user search information
   const search = () => {
-    if (sort === "by comments") {
-      sort = "byComments";
-    } else if (sort === "by likes") {
-      sort = "byLikes";
-    } else if (sort === "by re-tweets") {
-      sort = "byRetweets";
-    }
-
     const searchData = {
+      apiKey: localStorage.getItem("loggedUserApi"),
       keyword: enteredSearch,
       numOfTweets: noOfTweets,
       sortBy: sort,
+      filterBy: filter,
     };
+
+    console.log(searchData);
 
     if (enteredSearch !== "") {
       // calling the api__Handler
-      api_handler(searchData);
+      searchTwitter(searchData);
     }
   };
 
@@ -88,6 +118,8 @@ const Home = () => {
 
   // processing api response
   const apiResponse = [<div key={"begining div"}></div>];
+
+  // console.log(searchResponse);
 
   searchResponse.map(
     (data, index) =>
@@ -155,8 +187,8 @@ const Home = () => {
             onChange={filterHandler}
           >
             <option>-</option>
-            <option>min number of likes</option>
-            <option>non-replies</option>
+            <option value="verifiedTweets">Verified Tweets</option>
+            <option value="noneReply">non-replies</option>
           </select>
         </div>
 
@@ -169,9 +201,9 @@ const Home = () => {
             onChange={sortHandler}
           >
             <option>-</option>
-            <option>by likes</option>
-            <option>by comments</option>
-            <option>by re-tweets</option>
+            <option value="byLikes">by likes</option>
+            <option value="byComments">by comments</option>
+            <option value="byRetweets">by re-tweets</option>
           </select>
         </div>
 
