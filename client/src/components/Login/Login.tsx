@@ -4,6 +4,8 @@ import { BiErrorCircle } from "react-icons/bi";
 
 import { useState } from "react";
 
+import { Link } from "react-router-dom";
+
 const Login = (props: any) => {
   const [wrongCredentials, setCredentialsStatus] = useState(false);
 
@@ -205,14 +207,17 @@ const Login = (props: any) => {
           <br />
           <p className="text-sm text-center">
             Don't have an account?
-            <button
+            <Link to="/signup" className=" text-sky-500">
+              &nbsp; Sign up
+            </Link>
+            {/* <button
               data-testid="btn-signup"
               type="submit"
               className=" text-sky-500"
               onClick={signup}
             >
               &nbsp; Sign up
-            </button>
+            </button> */}
           </p>
         </form>
       </div>
