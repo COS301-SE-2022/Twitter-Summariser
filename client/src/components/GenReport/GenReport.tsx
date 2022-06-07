@@ -1,5 +1,5 @@
 // import { Tweet } from 'react-twitter-widgets';
-import { Link, useLocation } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Tweet from "../Tweet/Tweet";
 import { Key, useState } from "react";
 
@@ -7,10 +7,10 @@ import { Key, useState } from "react";
 import Text from "../Text/Text";
 
 function GenReport(props: any) {
-  const { state } = useLocation();
+  // const { state } = useLocation();
   // const location = useLocation();
 
-  console.log(state);
+  console.log(useParams());
 
   // const [searchResponse, changeResponse] = useState([]);
   // const searchEndpoint =
