@@ -17,7 +17,7 @@ export const generateReport = middyfy(async (event: APIGatewayProxyEvent): Promi
         id += randomUUID();
 
         console.log(id);
-        const report = await ServicesLayer.reportService.addReport({reportID: id, resultSetID: params.resultSetID, apiKey: params.apiKey, dateCreated: new Date(), author: params.author});
+        const report = await ServicesLayer.reportService.addReport({reportID: id, resultSetID: params.resultSetID, title: "Input Title", apiKey: params.apiKey, dateCreated: new Date(), author: params.author});
         
         return {
             statusCode: 200,
@@ -26,7 +26,7 @@ export const generateReport = middyfy(async (event: APIGatewayProxyEvent): Promi
               "Access-Control-Allow-Methods": '*',
               'Access-Control-Allow-Origin': '*',
             },
-            body: JSON.stringify({Report: report, Tweets: tweets})
+            body: JSON.stringify({Report: report})
           }
           
     } catch (e) {
