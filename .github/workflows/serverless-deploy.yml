@@ -35,10 +35,12 @@ jobs:
 
       - name: Make the test coverage
         run: |
+          cd client
           yarn test -- --coverage --watchAll
           q
 
       - name: Coveralls
+        working-directory: client
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
