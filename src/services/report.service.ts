@@ -15,4 +15,17 @@ export default class ReportService {
         return result.Item as Report;
     }
 
+    async getReports(key: string): Promise<Report[]> {
+        const result = await this.docClient.query({
+            TableName: this.TableName,
+            IndexName: "reportIndex",
+            KeyConditionExpression: 'apiKey = :apiKey',
+            ExpressionAttributeValues: {
+                ":apiKey": key
+            }
+        }).promise();
+
+        return result.Items as Report[];
+    }
+
 }
