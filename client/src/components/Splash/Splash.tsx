@@ -3,11 +3,11 @@ import Logo from "../Logo/Logo";
 
 import { useState } from "react";
 
-const Signup = (props: any) => {
+const Splash = (props: any) => {
 
   return (
     <div
-      data-testid="signup"
+      data-testid="splash"
       className="flex justify-center flex-col items-center h-screen"
     >
       <div>
@@ -15,7 +15,7 @@ const Signup = (props: any) => {
       </div>
 
       <div>
-        <h1 className="text-center text-xl font-bold">Create your account</h1>
+        <h1 className="text-center text-xl font-bold">Welcome to Twitter Summariser</h1>
       </div>
       <br />
       {/* unacceptable name notification */}
@@ -32,18 +32,16 @@ const Signup = (props: any) => {
           </button>
           <br />
           <p className="text-sm text-center">
-            Already have an account?
+            Already have an account? </p>
             <button
               data-testid="btn-login"
               className="button__login text-sm p-0.5 h-10 w-56 bg-black rounded-full text-white"
             >
               Login
             </button>
-              &nbsp; Sign in
-          </p>
       </div>
     </div>
   );
 };
 
-export default Signup;
+export default Splash;
