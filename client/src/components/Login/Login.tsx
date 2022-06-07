@@ -8,7 +8,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Login = (props: any) => {
   const navigate = useNavigate();
-  const [wrongCredentials, setCredentialsStatus] = useState(false);
+  const [wrongCredentials, setWrongCredentialsStatus] = useState(false);
+  const [rightCredentials, setRightCredentialsStatus] = useState(true);
 
   const style = { fontSize: "1.5rem", color: "red" };
 
@@ -18,7 +19,8 @@ const Login = (props: any) => {
   // username retrieval update
   const usernameHandler = (event: any) => {
     changeEnteredUsername(event.target.value);
-    setCredentialsStatus(false);
+    setWrongCredentialsStatus(false);
+    setRightCredentialsStatus(true);
   };
 
   // password retrieval
@@ -27,7 +29,9 @@ const Login = (props: any) => {
   // password retrieval update
   const passwordHandler = (event: any) => {
     changeEnteredPassword(event.target.value);
-    setCredentialsStatus(false);
+    setWrongCredentialsStatus(false);
+    setRightCredentialsStatus(true);
+    // setReadyToLog(false);
   };
 
   const [userCredential, changeResponse] = useState();
@@ -61,7 +65,8 @@ const Login = (props: any) => {
         // check for error response
         if (!response.ok) {
           // error
-          setCredentialsStatus(true);
+          setWrongCredentialsStatus(true);
+          setRightCredentialsStatus(false);
 
           changeEnteredUsername("");
           changeEnteredPassword("");
@@ -78,7 +83,8 @@ const Login = (props: any) => {
       })
       .catch((error) => {
         console.log("Error in credentials given");
-        setCredentialsStatus(true);
+        setWrongCredentialsStatus(true);
+        setRightCredentialsStatus(false);
       });
   };
 
@@ -156,7 +162,7 @@ const Login = (props: any) => {
           Summarizer
         </h1>
       </div>
-      {!wrongCredentials && (
+      {rightCredentials && (
         <div>
           <br />
           <br />
