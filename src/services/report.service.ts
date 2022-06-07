@@ -6,17 +6,13 @@ export default class ReportService {
 
     constructor (private docClient: DocumentClient) {}
 
-    async getReport(id: string) : Promise<Report[]> {
-        const result = await this.docClient.query({
+    async getReport(id: string) : Promise<Report> {
+        const result = await this.docClient.get({
             TableName: this.TableName,
-            KeyConditionExpression: "id = :id",
-            ExpressionAttributeValues: {
-                ":id": id
-            }
-
+            Key: { PK: id}
         }).promise();
 
-        return result.Items as Report[];
+        return result.Item as Report;
     }
 
 }
