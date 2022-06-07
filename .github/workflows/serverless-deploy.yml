@@ -36,6 +36,7 @@ jobs:
       - name: Make the test coverage
         run: |
           yarn test -- --coverage --watchAll
+          q
 
       - name: Coveralls
         uses: coverallsapp/github-action@master
