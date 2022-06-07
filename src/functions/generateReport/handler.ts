@@ -8,13 +8,16 @@ export const generateReport = middyfy(async (event: APIGatewayProxyEvent): Promi
     try {
         const params = JSON.parse(event.body);
 
-        const tweets = ServicesLayer.tweetService.getTweets(params.resultSetID);
+        const tweets = await ServicesLayer.tweetService.getTweets(params.resultSetID);
+
+        console.log(tweets);
 
         let id: string;
         id = "RT-";
         id += randomUUID();
 
-        const report = ServicesLayer.reportService.addReport({reportID: id, resultSetID: params.resultSetID, apiKey: params.apiKey, dateCreated: new Date(), author: params.author});
+        console.log(id);
+        const report = await ServicesLayer.reportService.addReport({reportID: id, resultSetID: params.resultSetID, title: "Input Title", apiKey: params.apiKey, dateCreated: new Date(), author: params.author});
         
         return {
             statusCode: 200,
@@ -23,7 +26,7 @@ export const generateReport = middyfy(async (event: APIGatewayProxyEvent): Promi
               "Access-Control-Allow-Methods": '*',
               'Access-Control-Allow-Origin': '*',
             },
-            body: JSON.stringify({Report: report, Tweets: tweets})
+            body: JSON.stringify({Report: report})
           }
           
     } catch (e) {

@@ -1,43 +1,57 @@
 import { DocumentClient } from "aws-sdk/clients/dynamodb";
-import Report from "@model/Report/report.model";
+import Report from "@model/report/report.model";
+
+import ServicesLayer from "../services";
 
 export default class ReportService {
-    
+
+    // add function to get all published reports
+
     private TableName: string = "ReportTable";
 
-    constructor(private docClient: DocumentClient) {}
+    constructor (private docClient: DocumentClient) {}
 
-    async getMyReports(key: string) : Promise<Report[]> {
+    // get specific reports
+    async getReport(id: string) : Promise<Report> {
+        const result = await this.docClient.get({
+            TableName: this.TableName,
+            Key: { "reportID": id}
+        }).promise();
+
+        const item = result.Item;
+
+        const tweets = await ServicesLayer.tweetService.getTweets(item.resultSetID);
+
+        item["tweets"] = tweets;
+
+        // console.log(result.Item);
+
+        
+
+        return result.Item as Report;
+    }
+
+    // get my reports
+    async getReports(key: string): Promise<Report[]> {
         const result = await this.docClient.query({
             TableName: this.TableName,
             IndexName: "reportIndex",
             KeyConditionExpression: 'apiKey = :apiKey',
-            
             ExpressionAttributeValues: {
                 ":apiKey": key
             }
         }).promise();
 
+        console.log(result.Items);
+    
+
+        // const tweets = await ServicesLayer.tweetService.getTweets(resultSetID);
         return result.Items as Report[];
     }
 
-    async getAllReports(): Promise<Report[]> {
-        const creator = await this.docClient.scan({
-            TableName: this.TableName,
-        }).promise()
-        return creator.Items as Report[];
-    }
-
-    async getReport(id: string, key: string) : Promise<Report> {
-        const result = await this.docClient.get({
-            TableName: this.TableName,
-            Key: { id, key}
-        }).promise();
-
-        return result.Item as Report;
-    }
-
+    // store reports
     async addReport(report: Report): Promise<Report> {
+        console.log(report);
         await this.docClient.put({
             TableName: this.TableName,
             Item: report

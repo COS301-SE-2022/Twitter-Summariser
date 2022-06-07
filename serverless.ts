@@ -4,6 +4,7 @@ import { search } from '@functions/search';
 import { CreatorTable } from '@model/creator/index';
 import { ResultSetTable } from '@model/resultSet';
 import { TweetTable } from '@model/tweet';
+import { ReportTable } from '@model/report';
 import { getAllResultSet, getResultSet } from '@functions/resultSet';
 import { generateReport } from '@functions/generateReport';
 import { getAllMyReports, getAllReports, getReport } from '@functions/report';
@@ -95,7 +96,11 @@ const serverlessConfiguration: AWS = {
         s3Sync: [{
             bucketName: "twitter-summariser",
             localDir: "client/build/"
-        }]
+        }],
+
+        'serverless-offline': {
+            httpPort: 4000
+        }
     },
 
     resources: {
@@ -103,6 +108,7 @@ const serverlessConfiguration: AWS = {
             CreatorTable,
             ResultSetTable,
             TweetTable,
+            ReportTable,
 
             TwitterSummariserApp: {
                 Type: "AWS::S3::Bucket",

@@ -22,11 +22,15 @@ export default class ResultSetService {
     }
 
     async getResultSet(id: string, key: string) : Promise<ResultSet> {
+        
         const result = await this.docClient.get({
             TableName: this.TableName,
-            Key: { id, key}
+            Key: { 
+                "id":id,
+                "apiKey": key
+            }
         }).promise();
-
+        
         return result.Item as ResultSet;
     }
 
