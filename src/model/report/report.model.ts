@@ -1,7 +1,7 @@
 export default interface Report {
-    id: string,
+    reportID: string,
+    resultSetID: string,
     apiKey: string,
-    dateCreated: string,
-    title: string,
-    author: string,
-} 
+    dateCreated: Date,
+    author: string
+};
