@@ -6,7 +6,7 @@ export default interface Tweet {
     numLikes: number;       //Number of likes of tweet
     numRetweets: number;    //Number of times tweet was retweeted
     text: string;           //Actual Tweet text
-    id: string;             //Tweet ID
+    tweetId: string;             //Tweet ID
     resultSetId: string;    //ID of the group that the tweet belongs to, either report xxx or resultset xxx
 }
 
