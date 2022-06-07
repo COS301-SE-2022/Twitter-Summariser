@@ -36,5 +36,4 @@ export default class ReportService {
 
         return report as Report;
     }
-
 }

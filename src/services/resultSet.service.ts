@@ -2,6 +2,7 @@ import { DocumentClient } from "aws-sdk/clients/dynamodb";
 import ResultSet from "@model/resultSet/resultSet.model";
 
 export default class ResultSetService {
+    
     private TableName: string = "ResultSetTable";
 
     constructor(private docClient: DocumentClient) {}
