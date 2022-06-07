@@ -42,18 +42,6 @@ export default class ReportService {
             }
         }).promise();
 
-        const array = result.Items;
-
-        const promises = array.map(async (item) => {
-            const tweets = await ServicesLayer.tweetService.getTweets(item.resultSetID);
-
-            item["tweets"] = tweets;
-            // console.log(item);
-            // console.log(result.Items);
-        });
-
-        await Promise.all(promises);
-
         console.log(result.Items);
     
 

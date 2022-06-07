@@ -66,7 +66,7 @@ export const search = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGa
         "Access-Control-Allow-Methods": '*',
         'Access-Control-Allow-Origin': '*',
       },
-      body: JSON.stringify({ reportID: id, tweets: result })
+      body: JSON.stringify({ resultSetID: id, tweets: result })
     }
 
   } catch (e) {
