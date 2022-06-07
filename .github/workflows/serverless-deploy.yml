@@ -33,17 +33,17 @@ jobs:
           yarn
           CI=false yarn run build
 
-      # - name: Make the test coverage
-      #   run: |
-      #     cd client
-      #     CI=true yarn test -- --coverage --watchAll
-      #     echo q
+      - name: Make the test coverage
+        run: |
+          cd client
+          CI=true yarn test -- --coverage --watchAll=false
+          echo q
 
-      # - name: Coveralls
-      #   uses: coverallsapp/github-action@master
-      #   with:
-      #     working-directory: client
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          working-directory: client
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Serverless deploy
         uses: serverless/github-action@v3
