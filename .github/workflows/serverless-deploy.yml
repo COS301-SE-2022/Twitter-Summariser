@@ -37,13 +37,13 @@ jobs:
         run: |
           cd client
           CI=true yarn test -- --coverage --watchAll=false
-          echo q
 
       - name: Coveralls
         uses: coverallsapp/github-action@master
         with:
           working-directory: client
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ./client/coverage/lcov.info
 
       - name: Serverless deploy
         uses: serverless/github-action@v3
