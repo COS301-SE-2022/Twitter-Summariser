@@ -96,7 +96,11 @@ const serverlessConfiguration: AWS = {
         s3Sync: [{
             bucketName: "twitter-summariser",
             localDir: "client/build/"
-        }]
+        }],
+
+        'serverless-offline': {
+            httpPort: 4000
+        }
     },
 
     resources: {
