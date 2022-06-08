@@ -1,5 +1,5 @@
 // import { Tweet } from 'react-twitter-widgets';
-import { Link, useLocation } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Tweet from "../Tweet/Tweet";
 import { Key, useState } from "react";
 
@@ -7,52 +7,83 @@ import { Key, useState } from "react";
 import Text from "../Text/Text";
 
 function GenReport(props: any) {
-  const { state } = useLocation();
-  // const location = useLocation();
+  // const [{id}, changeID] = useState("");
 
-  console.log(state);
+  // let { val } = useParams();
+  const [state, setState] = useState([]);
+  const [title, setTitle] = useState("");
+  const [author, setAuthor] = useState("");
+  const [date, setDate] = useState("");
+  console.log(localStorage.getItem("id"));
+  // console.log(val);
 
-  // const [searchResponse, changeResponse] = useState([]);
-  // const searchEndpoint =
-  //   "https://mtx3w94c8f.execute-api.us-east-1.amazonaws.com/dev/search";
+  // ################ API FOR GENERATE REPORT ###########################
 
-  // // post request
-  // const api_handler = async (e: any) => {
-  //   const response = await fetch(searchEndpoint, {
-  //     method: "POST",
-  //     body: JSON.stringify(e),
-  //   });
+  const getReportEndpoint =
+    "https://czbmusycz2.execute-api.us-east-1.amazonaws.com/dev/getReport";
 
-  //   changeResponse(await response.json());
-  // };
+  const genRep = async () => {
+    // POST request using fetch with error handling
 
-  // const searchData = {
-  //   keyword: "Elon",
-  //   numOfTweets: "10",
-  //   sortBy: "by likes",
-  // };
+    const requiredData = {
+      reportID: localStorage.getItem("id"),
+    };
 
-  // api_handler(searchData);
+    const requestOptions = {
+      method: "POST",
+      body: JSON.stringify(requiredData),
+    };
+
+    fetch(getReportEndpoint, requestOptions)
+      .then(async (response) => {
+        const isJson = response.headers
+          .get("content-type")
+          ?.includes("application/json");
+
+        const data = isJson && (await response.json());
+
+        setState(data.report.tweets);
+        setTitle(data.report.title);
+        setAuthor(data.report.author);
+        // setDate(data.report.)
+        console.log(await data);
+
+        // check for error response
+        if (!response.ok) {
+          // error
+          // signUpFailure(true);
+
+          return;
+        }
+
+        // await props.readyToLogIN();
+      })
+      .catch((error) => {
+        console.log("Error retrieving report");
+        // signUpFailure(true);
+      });
+  };
+
+  genRep();
+  // ###################################################################
 
   // processing api response
   const apiResponse = [<div key={"begining div"}></div>];
 
-  // state.map((data: any, index: Key | null | undefined) =>
-  //   apiResponse.push(
-  //     <div key={index}>
-  //       <Text keyValue={index} />
-  //       <Tweet tweetData={data} />
-  //     </div>
-  //   )
-  // );
+  state.map((data: any, index: Key | null | undefined) =>
+    apiResponse.push(
+      <div key={index}>
+        <Text keyValue={index} />
+        <Tweet tweetData={data} />
+      </div>
+    )
+  );
 
   return (
     <div className="mt-4 p-4">
-      <h1 className="text-3xl font-bold">
-        Stacey Passed the BitByBit Students!
-      </h1>
+      <h1 className="text-3xl font-bold">{title}</h1>
       <br />
-      <h2 className="italic font-bold">Created By: Gabriel Shoderu</h2>
+      <h2 className="italic font-bold">Created By: {author}</h2>
       <h3 className="italic text-xs">Date Created: 13/05/2022</h3>
       <br />
 

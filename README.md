@@ -11,7 +11,7 @@ A progressive web app to generate an article on a given trend using curated Twee
 - [Demo 1](https://drive.google.com/file/d/1LPuUmVU7ITBsx_G0VlAXqQpufLkrOZKe/view?usp=sharing)
 
 ### BADGES:
-![Coveralls](https://img.shields.io/coveralls/github/COS301-SE-2022/Twitter-Summariser?style=for-the-badge)
+![Coveralls](https://img.shields.io/coveralls/github/COS301-SE-2022/Twitter-Summariser?label=Backend%20Coverage&style=for-the-badge)
 ![GitHub repo size](https://img.shields.io/github/repo-size/COS301-SE-2022/Twitter-Summariser?style=for-the-badge)
 
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/COS301-SE-2022/Twitter-Summariser/Twitter%20Summariser%20CI?label=Twitter%20Summariser%20Build&style=for-the-badge)
