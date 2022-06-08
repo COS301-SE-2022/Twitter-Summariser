@@ -41,8 +41,6 @@ export const search = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGa
         },
       }
     );
-
-    process.env.TZ = 'Africa/South_Africa';
     
     var dd = new Date();
     var d = new Date(dd.toLocaleString()+"-02:00");
@@ -55,7 +53,7 @@ export const search = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGa
     const sortedList = await ServicesLayer.tweetService.sortTweets(tweetlist, params.sortBy);
     const result = sortedList.slice(0, params.numOfTweets);
 
-    ServicesLayer.resultSetServices.addResultSet({ id: id, apiKey: params.apiKey, dateCreated: d, searchPhrase: params.keyword, sortOption: params.sortBy, filterOption: params.filterBy });
+    ServicesLayer.resultSetServices.addResultSet({ id: id, apiKey: params.apiKey, dateCreated: d.toString(), searchPhrase: params.keyword, sortOption: params.sortBy, filterOption: params.filterBy });
     
     
     for (var i = 0; i < result.length; i++) {

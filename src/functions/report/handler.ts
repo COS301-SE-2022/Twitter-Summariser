@@ -9,7 +9,7 @@ export const getAllMyReports = middyfy(async (event: APIGatewayProxyEvent): Prom
     const reports = await ServicesLayer.reportService.getReports(params.apiKey);
 
 
-    // const tweets = await ServicesLayer.tweetService.getTweets(params.resultSetID);
+    //const tweets = await ServicesLayer.tweetService.getTweets(params.resultSetID);
     return {
       statusCode: 200,
       headers: {
@@ -51,8 +51,13 @@ export const getAllReports = middyfy(async (event: APIGatewayProxyEvent): Promis
 
 export const getReport = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
+
     const params = JSON.parse(event.body);
     const report = await ServicesLayer.reportService.getReport(params.reportID);
+    const blocksmid = await ServicesLayer.reportBlock.getReportBlocks(params.reportID);
+    const blocks = await ServicesLayer.reportBlock.sortReportBlocks(blocksmid);
+    
+
     return {
       statusCode: 200,
       headers: {
@@ -60,7 +65,7 @@ export const getReport = middyfy(async (event: APIGatewayProxyEvent): Promise<AP
         "Access-Control-Allow-Methods": '*',
         'Access-Control-Allow-Origin': '*',
       },
-      body: JSON.stringify({ report })
+      body: JSON.stringify({ report: report, blocks: blocks })
     }
   } catch (e) {
     return formatJSONResponse({
