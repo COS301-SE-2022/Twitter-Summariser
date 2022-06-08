@@ -7,7 +7,7 @@ export const editBlock = middyfy(async (event: APIGatewayProxyEvent): Promise<AP
     try {
         const params = JSON.parse(event.body);
 
-        const block = await ServicesLayer.reportBlock.getReportBlock(params.reportID, params.blockID);
+        const block = await ServicesLayer.reportBlock.getReportBlock(params.reportID);
 
         if(block == undefined){
           //await ServicesLayer.reportBlock.addReportBlock({});

@@ -7,7 +7,16 @@ export default class ReportBlockService {
 
     constructor (private docClient: DocumentClient) {}
 
-    
+    async getReportBlock(reportBlockID: string): Promise<ReportBlock> {
+        const result = await this.docClient.get({
+            TableName: this.TableName,
+            Key: { "id": reportBlockID}
+        }).promise();
+
+        return result.Item as ReportBlock;
+    }
+
+
     async getReportBlocks(reportID: string) : Promise<ReportBlock[]> {
         const result = await this.docClient.query({
             TableName: this.TableName,
@@ -20,10 +29,6 @@ export default class ReportBlockService {
 
         return result.Items as ReportBlock[];
     }
-
-    async getReportBlock(reportID: string, blockID: string) : Promise<ReportBlock[]> {
-        return
-    }
     
     
     async addReportBlock(reportBlock: ReportBlock): Promise<ReportBlock> {
@@ -34,5 +39,14 @@ export default class ReportBlockService {
 
         return reportBlock as ReportBlock;
     } 
+
+   async sortReportBlocks(reportBlocks: ReportBlock[]): Promise<ReportBlock[]> {
+    reportBlocks.sort((a,b) => {
+        if (a['position'] > b['position']) return 1;
+        if (a['position'] < b['position']) return -1;
+        return 0;
+    });
+       return reportBlocks as ReportBlock[]
+   }
 
 }
