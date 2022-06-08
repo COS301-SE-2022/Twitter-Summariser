@@ -1,13 +1,3 @@
-export const awsSdkGetPromiseResponse = jest.fn().mockReturnValue(Promise.resolve({ Item: {}}));
-
-export const awsSdkPutPromiseResponse = jest.fn().mockReturnValue(
-    Promise.resolve({
-        ConsumedCapacity: 1,
-        Attributes: {},
-        ItemCollectionMetrics: {}
-    })
-);
-
 export const awsSdkPromiseResponse = jest.fn().mockReturnValue(Promise.resolve(true));
 
 const getFn = jest.fn().mockImplementation(() => ({ promise: awsSdkPromiseResponse}));
