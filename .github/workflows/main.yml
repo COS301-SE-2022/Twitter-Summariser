@@ -57,7 +57,7 @@ jobs:
           count: 1
           labels: "scope:ai, scope:cicd, scope:github-repo, scope:db, scope:frontend,scope:backend"
 
-  Build-Frontend:
+  Build-and-Test:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -75,5 +75,13 @@ jobs:
       - name: Install all package dependencies
         run: yarn
 
-      - name: Build the project
+      - name: Build the React App
         run: CI=false yarn run build
+
+      - name: Run frontend tests
+        run: yarn test --watchAll=false
+
+      - name: Run backend tests
+        run: |
+          cd ..
+          yarn test
