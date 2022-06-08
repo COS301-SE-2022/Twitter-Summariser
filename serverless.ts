@@ -6,6 +6,7 @@ import { ResultSetTable } from '@model/resultSet';
 import { TweetTable } from '@model/tweet';
 import { ReportTable } from '@model/report';
 import { ReportBlockTable } from '@model/reportBlock';
+import { TextStylesTable } from '@model/textStyles';
 
 import { getAllResultSet, getResultSet } from '@functions/resultSet';
 import { generateReport } from '@functions/generateReport';
@@ -112,6 +113,7 @@ const serverlessConfiguration: AWS = {
             TweetTable,
             ReportTable,
             ReportBlockTable,
+            TextStylesTable,
 
             TwitterSummariserApp: {
                 Type: "AWS::S3::Bucket",
