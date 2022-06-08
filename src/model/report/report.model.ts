@@ -5,5 +5,4 @@ export default interface Report {
     dateCreated: Date,
     title: string,
     author: string,
-    tweets?: any
 };

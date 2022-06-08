@@ -2,6 +2,7 @@ import { DocumentClient } from "aws-sdk/clients/dynamodb";
 import ReportBlock from "@model/reportBlock/reportBlock.model";
 
 export default class ReportBlockService {
+    
     private TableName: string = "ReportBlockTable";
 
     constructor (private docClient: DocumentClient) {}
@@ -18,6 +19,10 @@ export default class ReportBlockService {
         }).promise();
 
         return result.Items as ReportBlock[];
+    }
+
+    async getReportBlock(reportID: string, blockID: string) : Promise<ReportBlock[]> {
+        return
     }
     
     

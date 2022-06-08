@@ -1,13 +1,13 @@
 import { handlerPath } from "@libs/handler-resolver";
 
-export const editReport = {
-    handler: `${handlerPath(__dirname)}/handler.editReport`,
-    description: 'A function that edits a report.',
+export const editBlock = {
+    handler: `${handlerPath(__dirname)}/handler.editBlock`,
+    description: 'A function that edits a Block.',
     events: [
         {
             http: {
                 method: 'post',
-                path: 'editReport/',
+                path: 'editBlock/',
                 cors: true
             },
         },
