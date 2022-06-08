@@ -6,11 +6,20 @@ export default class ReportBlockService {
 
     constructor (private docClient: DocumentClient) {}
 
-    /*
+    
     async getReportBlocks(reportID: string) : Promise<ReportBlock[]> {
-        const result = 
+        const result = await this.docClient.query({
+            TableName: this.TableName,
+            IndexName: "reportBlockIndex",
+            KeyConditionExpression: 'reportID = :reportID',
+            ExpressionAttributeValues: {
+                ":reportID": reportID
+            }
+        }).promise();
+
+        return result.Items as ReportBlock[];
     }
-    */
+    
     
     async addReportBlock(reportBlock: ReportBlock): Promise<ReportBlock> {
         await this.docClient.put({
