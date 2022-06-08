@@ -12,7 +12,7 @@ const getLcovFiles = function (src) {
 };
 
 (async function(){
-  var files = await getLcovFiles('client/coverage');
+  var files = await getLcovFiles('./client/coverage');
   // if no files reset directory
   // if (files.length === 0) {
   //   // remove directory
