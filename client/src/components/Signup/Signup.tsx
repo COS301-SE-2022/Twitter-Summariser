@@ -2,9 +2,10 @@ import "./Signup.css";
 import Logo from "../Logo/Logo";
 import { BiErrorCircle } from "react-icons/bi";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+// import { Link, useNavigate } from "react-router-dom";
 
 const Signup = (props: any) => {
+  // const navigate = useNavigate();
   // username retrieval
   const [enteredUsername, changeEnteredUsername] = useState("");
 
@@ -162,6 +163,7 @@ const Signup = (props: any) => {
       console.log(userDetails);
 
       signup(userDetails);
+      // navigate("/login");
     }
   };
 
@@ -169,6 +171,7 @@ const Signup = (props: any) => {
     event.preventDefault();
 
     props.takeToSigninPage();
+    // navigate("/login")
   };
 
   return (
@@ -273,17 +276,17 @@ const Signup = (props: any) => {
           <br />
           <p className="text-sm text-center">
             Already have an account?
-            <Link to="/login" className=" text-sky-500">
+            {/* <Link to="/login" className=" text-sky-500">
               &nbsp; Sign in
-            </Link>
-            {/* <button
+            </Link> */}
+            <button
               data-testid="btn-signin"
               type="submit"
               className=" text-sky-500"
               onClick={signin}
             >
               &nbsp; Sign in
-            </button> */}
+            </button>
 
           </p>
         </form>
