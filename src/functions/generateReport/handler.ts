@@ -5,7 +5,7 @@ import ServicesLayer from "../../services";
 import { randomUUID } from "crypto";
 
 export const generateReport = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-    //try {
+    try {
         const params = JSON.parse(event.body);
 
         const tweets = await ServicesLayer.tweetService.getTweets(params.resultSetID);
@@ -44,10 +44,10 @@ export const generateReport = middyfy(async (event: APIGatewayProxyEvent): Promi
             body: JSON.stringify({Report: report})
           }
           
-    /*} catch (e) {
+    } catch (e) {
         return formatJSONResponse({
          statusCode: 500,
           message: e
         });
-      }*/
+      }
 });
