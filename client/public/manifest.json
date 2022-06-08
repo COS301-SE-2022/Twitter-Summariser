@@ -1,9 +1,9 @@
 {
-    "short_name": "React App",
-    "name": "Create React App Sample",
+    "short_name": "TS",
+    "name": "Twitter-Summariser",
     "icons": [
         {
-            "src": "favicon.ico",
+            "src": "TS_Logo.ico",
             "sizes": "64x64 32x32 24x24 16x16",
             "type": "image/x-icon"
         },
