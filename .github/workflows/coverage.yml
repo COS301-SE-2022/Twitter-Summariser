@@ -22,14 +22,14 @@ jobs:
       - name: Generate coverage report for backend
         run: yarn test -- --coverage
 
-      # - name: Changed to client directory and generate coverage for frontend
-      # run: |
-      #   cd client
-      #   yarn
-      #   yarn test -- --coverage --watchAll=false
+      - name: Changed to client directory and generate coverage for frontend
+      run: |
+        cd client
+        yarn
+        yarn test -- --coverage --watchAll=false
 
-      # - name: Merge the coverage reports
-      #   run: node tools/scripts/merge-reports.js
+      - name: Merge the coverage reports
+        run: node tools/scripts/merge-reports.js
 
       - name: Upload report to Coveralls
         uses: coverallsapp/github-action@master
