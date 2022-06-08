@@ -49,7 +49,7 @@ const Landing = (props: any) => {
             <Route path="/drafts" element={<Drafts />} />
             <Route path="/shared" element={<Shared />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/genReport/:id" element={<GenReport />} />
+            <Route path="/genReport" element={<GenReport />} />
             <Route path="*" element={<PageNotFound />} />
             <Route path="/history" element={<History />} />
           </Routes>

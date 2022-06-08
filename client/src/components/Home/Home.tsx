@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 const Home = () => {
   // ################ all related to the search ############################
   const [enteredSearch, changeEnteredSearch] = useState("");
+  const [reportID, changeReportID] = useState("");
   const [resultSet, changeResultSet] = useState("");
   const [date, changeDate] = useState("");
 
@@ -44,11 +45,20 @@ const Home = () => {
 
         const data = isJson && (await response.json());
 
-        console.log(await data.Report.dateCreated);
-        changeDate(await data.Report.dateCreated.substring(0, 10));
-        changeGenReport("genReport/" + resultSet);
+        // console.log(await data);
 
-        console.log(genReport);
+        // console.log(await data.Report.dateCreated);
+        changeDate(await data.Report.dateCreated.substring(0, 10));
+
+        // console.log(await data.Report.reportID);
+
+        localStorage.setItem("id", await data.Report.reportID);
+        // changeReportID(await data.Report.reportID);
+        // console.log(reportID);
+
+        // changeGenReport("genReport/" + (await data.Report.reportID));
+
+        // console.log(genReport);
 
         // check for error response
         if (!response.ok) {
@@ -68,7 +78,7 @@ const Home = () => {
         // await props.readyToLogIN();
       })
       .catch((error) => {
-        console.log("Error Signing up given");
+        console.log("Error Generating Report");
         // signUpFailure(true);
       });
   };
@@ -116,7 +126,6 @@ const Home = () => {
         console.log(await data);
 
         console.log(await data.tweets);
-        console.log(await data.resultSetID);
         changeResultSet(await data.resultSetID);
         changeResponse(await data.tweets);
 
@@ -296,7 +305,7 @@ const Home = () => {
             {/* <Link to="/genReport"> */}
             {/* <Link to="genReport" state={{ searchResponse }}> */}
             {/* <Link to={{pathname: "genReport", state:{searchResponse}}}> */}
-            <Link to={genReport}>
+            <Link to="genReport/">
               <div className="m-4 w-1/4 h-20 bg-gray-400 rounded-md flex flex-col p-2">
                 <div className="">
                   <button data-testid="btn-report" type="submit">
