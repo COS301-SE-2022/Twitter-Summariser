@@ -1,6 +1,7 @@
 import "./Login.css";
 import Logo from "../Logo/Logo";
 import { BiErrorCircle } from "react-icons/bi";
+import { AiOutlineCheckCircle } from "react-icons/ai";
 
 import { useState } from "react";
 
@@ -12,6 +13,7 @@ const Login = (props: any) => {
   const [rightCredentials, setRightCredentialsStatus] = useState(true);
 
   const style = { fontSize: "1.5rem", color: "red" };
+  const style__ = { fontSize: "1.5rem", color: "green" };
 
   // username retrieval
   const [enteredUsername, changeEnteredUsername] = useState("");
@@ -166,6 +168,12 @@ const Login = (props: any) => {
         <div>
           <br />
           <br />
+        </div>
+      )}
+      {localStorage.getItem("newUser") && (
+        <div className="flex flex-row border-2 border-green-700 rounded-md bg-green-300 h-auto w-auto m-4 mb-5 p-2">
+          <AiOutlineCheckCircle style={style__} />
+          <p>Ready to Explore Twitter Summarizer</p>
         </div>
       )}
       {wrongCredentials && (

@@ -2,9 +2,10 @@ import "./Signup.css";
 import Logo from "../Logo/Logo";
 import { BiErrorCircle } from "react-icons/bi";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup = (props: any) => {
+  const navigate = useNavigate();
   // username retrieval
   const [enteredUsername, changeEnteredUsername] = useState("");
 
@@ -162,6 +163,7 @@ const Signup = (props: any) => {
       console.log(userDetails);
 
       signup(userDetails);
+      navigate("/login");
     }
   };
 
