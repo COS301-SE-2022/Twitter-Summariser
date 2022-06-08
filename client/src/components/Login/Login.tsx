@@ -1,13 +1,19 @@
 import "./Login.css";
 import Logo from "../Logo/Logo";
 import { BiErrorCircle } from "react-icons/bi";
+import { AiOutlineCheckCircle } from "react-icons/ai";
 
 import { useState } from "react";
 
+// import { Link, useNavigate } from "react-router-dom";
+
 const Login = (props: any) => {
-  const [wrongCredentials, setCredentialsStatus] = useState(false);
+  // const navigate = useNavigate();
+  const [wrongCredentials, setWrongCredentialsStatus] = useState(false);
+  const [rightCredentials, setRightCredentialsStatus] = useState(true);
 
   const style = { fontSize: "1.5rem", color: "red" };
+  const style__ = { fontSize: "1.5rem", color: "green" };
 
   // username retrieval
   const [enteredUsername, changeEnteredUsername] = useState("");
@@ -15,7 +21,8 @@ const Login = (props: any) => {
   // username retrieval update
   const usernameHandler = (event: any) => {
     changeEnteredUsername(event.target.value);
-    setCredentialsStatus(false);
+    setWrongCredentialsStatus(false);
+    setRightCredentialsStatus(true);
   };
 
   // password retrieval
@@ -24,7 +31,9 @@ const Login = (props: any) => {
   // password retrieval update
   const passwordHandler = (event: any) => {
     changeEnteredPassword(event.target.value);
-    setCredentialsStatus(false);
+    setWrongCredentialsStatus(false);
+    setRightCredentialsStatus(true);
+    // setReadyToLog(false);
   };
 
   const [userCredential, changeResponse] = useState();
@@ -32,7 +41,7 @@ const Login = (props: any) => {
   // ######################### API ###############################################
 
   const loginEndpoint =
-    "https://mtx3w94c8f.execute-api.us-east-1.amazonaws.com/dev/login";
+    "https://czbmusycz2.execute-api.us-east-1.amazonaws.com/dev/login";
 
   // post request with error handling
   const checkCredentials = (userCredentials: any) => {
@@ -58,7 +67,8 @@ const Login = (props: any) => {
         // check for error response
         if (!response.ok) {
           // error
-          setCredentialsStatus(true);
+          setWrongCredentialsStatus(true);
+          setRightCredentialsStatus(false);
 
           changeEnteredUsername("");
           changeEnteredPassword("");
@@ -75,13 +85,15 @@ const Login = (props: any) => {
       })
       .catch((error) => {
         console.log("Error in credentials given");
-        setCredentialsStatus(true);
+        setWrongCredentialsStatus(true);
+        setRightCredentialsStatus(false);
       });
   };
 
   // #######################################################################
 
   const submitHandler = (event: any) => {
+
     event.preventDefault();
 
     const userDetails = {
@@ -91,6 +103,7 @@ const Login = (props: any) => {
 
     // api_handler(JSON.stringify(userDetails));
     checkCredentials(userDetails);
+    // navigate("/");
   };
 
   const signup = (event: any) => {
@@ -101,6 +114,7 @@ const Login = (props: any) => {
     };
 
     props.takeToSignupPage(sign);
+    // navigate("/signup");
   };
 
   // const mockEndpoint = "https://reqres.in/api/articles'";
@@ -151,10 +165,16 @@ const Login = (props: any) => {
           Summarizer
         </h1>
       </div>
-      {!wrongCredentials && (
+      {rightCredentials && (
         <div>
           <br />
           <br />
+        </div>
+      )}
+      {localStorage.getItem("newUser") && (
+        <div className="flex flex-row border-2 border-green-700 rounded-md bg-green-300 h-auto w-auto m-4 mb-5 p-2">
+          <AiOutlineCheckCircle style={style__} />
+          <p>Ready to Explore Twitter Summarizer</p>
         </div>
       )}
       {wrongCredentials && (
@@ -184,13 +204,43 @@ const Login = (props: any) => {
           />
           <br />
           <br />
-          <button
+
+          {/* <Link to="/"> */}
+          {/* <button
+              data-testid="btn-submit"
+              type="submit"
+              className="button__login text-sm p-0.5 h-10 w-56 bg-black rounded-full text-white"
+            >
+               <Link to="/"
+                  data-testid="btn-login"
+                >
+                  Login
+              </Link>
+              {/* Login */}
+          {/* </button> */}
+            {/* <Link to="/"
+              data-testid="btn-submit"
+              type="submit"
+              className="button__login text-sm p-0.5 h-10 w-56 bg-black rounded-full text-white"
+            > */}
+               <button
+                  data-testid="btn-submit"
+                  type="submit"
+                  className="button__login text-sm p-0.5 h-10 w-56 bg-black rounded-full text-white"
+                >
+                  Login
+                  {/* Login */}
+              </button>
+              {/* Login */}
+          {/* </Link> */}
+          {/* </Link> */}
+          {/* <button
             data-testid="btn-submit"
             type="submit"
             className="button__login text-sm p-0.5 h-10 w-56 bg-black rounded-full text-white"
           >
             Login
-          </button>
+          </button> */}
           <br />
           <br />
           <br />
@@ -205,6 +255,9 @@ const Login = (props: any) => {
           <br />
           <p className="text-sm text-center">
             Don't have an account?
+            {/* <Link to="/signup" className=" text-sky-500">
+              &nbsp; Sign up
+            </Link> */}
             <button
               data-testid="btn-signup"
               type="submit"
