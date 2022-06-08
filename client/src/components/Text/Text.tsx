@@ -11,11 +11,13 @@ import {
 import { useState } from "react";
 
 const Text = (props: any) => {
-  const update = () => {
-    console.log("Updated");
-  };
-
   //   const italic = " italic";
+  // console.log(props.tweetId);
+  // console.log("Text position is " + props.position);
+  // const [, setPosition] = useState("");
+  // setPosition(
+  const textPos = props.position.toString();
+
   const [italic, setItalic] = useState("");
 
   const italicHandler = () => {
@@ -96,6 +98,37 @@ const Text = (props: any) => {
 
   const textEditorHandler = () => {
     setEditor(!editor);
+  };
+
+  const [report, changeReport] = useState("");
+
+  const textHandler = (event: any) => {
+    changeReport(event.target.value);
+  };
+
+  const update = () => {
+    // console.log("Updated");
+
+    // if (localStorage.getItem("text")) {
+
+    // }
+
+    const Text = {
+      textStyle: {
+        Italic: italic,
+        Bold: bold,
+        Color: color,
+        Size: size,
+        Align: align,
+      },
+      text: report,
+      tweetId: props.tweetId,
+      apiKey: localStorage.getItem("loggedUserApi"),
+      reportID: localStorage.getItem("id"),
+      textPosition: textPos,
+    };
+
+    console.log(Text);
   };
 
   return (
@@ -179,7 +212,7 @@ const Text = (props: any) => {
 
           <div className="flex flex-row items-center">
             <div className="w-5/6">
-              <textarea className={style}></textarea>
+              <textarea className={style} onChange={textHandler}></textarea>
             </div>
 
             <div className="w-1/6 flex text-center justify-center">

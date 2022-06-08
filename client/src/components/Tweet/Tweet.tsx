@@ -4,6 +4,7 @@ import { FaRegCommentAlt } from "react-icons/fa";
 
 const Tweet = (props: any) => {
   const data = props.tweetData;
+  // console.log("Text position is " + props.position);
 
   // style for the icons
   const style_ = { color: "black", fontSize: "1rem" };
