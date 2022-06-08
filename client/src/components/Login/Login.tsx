@@ -5,10 +5,10 @@ import { AiOutlineCheckCircle } from "react-icons/ai";
 
 import { useState } from "react";
 
-import { Link, useNavigate } from "react-router-dom";
+// import { Link, useNavigate } from "react-router-dom";
 
 const Login = (props: any) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [wrongCredentials, setWrongCredentialsStatus] = useState(false);
   const [rightCredentials, setRightCredentialsStatus] = useState(true);
 
@@ -103,7 +103,7 @@ const Login = (props: any) => {
 
     // api_handler(JSON.stringify(userDetails));
     checkCredentials(userDetails);
-    navigate("/");
+    // navigate("/");
   };
 
   const signup = (event: any) => {
@@ -114,6 +114,7 @@ const Login = (props: any) => {
     };
 
     props.takeToSignupPage(sign);
+    // navigate("/signup");
   };
 
   // const mockEndpoint = "https://reqres.in/api/articles'";
@@ -223,13 +224,13 @@ const Login = (props: any) => {
               className="button__login text-sm p-0.5 h-10 w-56 bg-black rounded-full text-white"
             > */}
                <button
-                data-testid="btn-submit"
-                type="submit"
-                className="button__login text-sm p-0.5 h-10 w-56 bg-black rounded-full text-white"
-              >
-                Login
-                {/* Login */}
-            </button>
+                  data-testid="btn-submit"
+                  type="submit"
+                  className="button__login text-sm p-0.5 h-10 w-56 bg-black rounded-full text-white"
+                >
+                  Login
+                  {/* Login */}
+              </button>
               {/* Login */}
           {/* </Link> */}
           {/* </Link> */}
@@ -254,17 +255,17 @@ const Login = (props: any) => {
           <br />
           <p className="text-sm text-center">
             Don't have an account?
-            <Link to="/signup" className=" text-sky-500">
+            {/* <Link to="/signup" className=" text-sky-500">
               &nbsp; Sign up
-            </Link>
-            {/* <button
+            </Link> */}
+            <button
               data-testid="btn-signup"
               type="submit"
               className=" text-sky-500"
               onClick={signup}
             >
               &nbsp; Sign up
-            </button> */}
+            </button>
           </p>
         </form>
       </div>
