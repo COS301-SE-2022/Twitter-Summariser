@@ -2,6 +2,7 @@ import { DocumentClient } from "aws-sdk/clients/dynamodb";
 import ReportBlock from "@model/reportBlock/reportBlock.model";
 
 export default class ReportBlockService {
+    
     private TableName: string = "ReportBlockTable";
 
     constructor (private docClient: DocumentClient) {}
@@ -38,5 +39,14 @@ export default class ReportBlockService {
 
         return reportBlock as ReportBlock;
     } 
+
+   async sortReportBlocks(reportBlocks: ReportBlock[]): Promise<ReportBlock[]> {
+    reportBlocks.sort((a,b) => {
+        if (a['position'] > b['position']) return 1;
+        if (a['position'] < b['position']) return -1;
+        return 0;
+    });
+       return reportBlocks as ReportBlock[]
+   }
 
 }

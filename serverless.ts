@@ -11,6 +11,7 @@ import { TextStylesTable } from '@model/textStyles';
 import { getAllResultSet, getResultSet } from '@functions/resultSet';
 import { generateReport } from '@functions/generateReport';
 import { getAllMyReports, getAllReports, getReport } from '@functions/report';
+import { editBlock } from '@functions/editBlock';
 
 
 const serverlessConfiguration: AWS = {
@@ -64,7 +65,8 @@ const serverlessConfiguration: AWS = {
         generateReport,
         getAllReports,
         getAllMyReports,
-        getReport
+        getReport,
+        editBlock
     },
 
     package: {
