@@ -14,7 +14,7 @@ export const ReportBlockTable = {
             AttributeName: "id",
             KeyType: "HASH"
         }],
-        GlobalSecondaryIndex: [{
+        GlobalSecondaryIndexes: [{
             IndexName: "reportBlockIndex",
             KeySchema: [{
                 AttributeName: "reportID",
