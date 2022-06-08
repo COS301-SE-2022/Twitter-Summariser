@@ -10,15 +10,16 @@ export const generateReport = middyfy(async (event: APIGatewayProxyEvent): Promi
 
         const tweets = await ServicesLayer.tweetService.getTweets(params.resultSetID);
 
-        console.log(tweets);
+        //console.log(tweets);
 
         let id: string;
         id = "RT-";
         id += randomUUID();
-        process.env.TZ = 'Africa/South_Africa';
+        var dd = new Date();
+        var d = new Date(dd.toLocaleString()+"-02:00");
 
-        console.log(id);
-        const report = await ServicesLayer.reportService.addReport({reportID: id, resultSetID: params.resultSetID, apiKey: params.apiKey, dateCreated: new Date(), author: params.author});
+        console.log(d);
+        const report = await ServicesLayer.reportService.addReport({reportID: id, resultSetID: params.resultSetID, apiKey: params.apiKey, dateCreated: d, author: params.author});
         
         return {
             statusCode: 200,
