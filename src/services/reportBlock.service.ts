@@ -1,5 +1,6 @@
 import { DocumentClient } from "aws-sdk/clients/dynamodb";
 import ReportBlock from "@model/reportBlock/reportBlock.model";
+import { maxHeaderSize } from "http";
 
 export default class ReportBlockService {
     
@@ -27,7 +28,11 @@ export default class ReportBlockService {
             }
         }).promise();
 
-        return result.Items as ReportBlock[];
+        let blocks : ReportBlock[];
+        blocks = result.Items as ReportBlock[];
+        this.sortReportBlocks(blocks);
+        
+        return blocks as ReportBlock[];
     }
     
     
