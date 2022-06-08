@@ -41,8 +41,6 @@ export const search = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGa
         },
       }
     );
-
-    process.env.TZ = 'Africa/South_Africa';
     
     var dd = new Date();
     var d = new Date(dd.toLocaleString()+"-02:00");
