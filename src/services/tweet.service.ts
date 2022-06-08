@@ -9,7 +9,7 @@ export default class TweetService {
     async getTweet(id: string): Promise<Tweet> {
         const result = await this.docClient.get({
             TableName: this.TableName,
-            Key: { "tweetID": id}
+            Key: { "tweetId": id}
         }).promise();
 
         return result.Item as Tweet;

@@ -12,7 +12,7 @@ export default class ReportService {
     constructor (private docClient: DocumentClient) {}
 
     // get specific reports
-    async getReport(id: string) : Promise<Report> {
+    async getReport(id: string) : Promise<any> {
         const result = await this.docClient.get({
             TableName: this.TableName,
             Key: { "reportID": id}
@@ -23,18 +23,19 @@ export default class ReportService {
         const report = [];
 
         const reportBlocks = await ServicesLayer.reportBlockService.getReportBlocks(item.reportID);
-
-        // console.log(reportBlocks);
         
-        reportBlocks.map(async block => {
+        const promises = reportBlocks.map(async block => {
             let type = block.blockType;
             let ob = {};
 
             ob["blockType"] = type;
+            ob["position"] = block.position;
             
             if (type === "TWEET") {
                 const tweet = await ServicesLayer.tweetService.getTweet(block.tweetID);
-                ob["block"]=tweet;              
+                // console.log(tweet);
+                ob["block"]=tweet;    
+                // console.log(ob);          
             }
             else if (type === "RICHTEXT") {
                 
@@ -52,7 +53,11 @@ export default class ReportService {
             }
 
             report.push(ob);
-        })
+
+        });
+        
+        await Promise.all(promises);
+        await ServicesLayer.reportBlockService.sortReportBlocks(report);
 
         item["Report"] = report;
         
@@ -64,7 +69,7 @@ export default class ReportService {
 
         
 
-        return result.Item as Report;
+        return result.Item;
     }
 
     // get my reports
@@ -95,8 +100,4 @@ export default class ReportService {
 
         return report as Report;
     }
-}
-
-function block(block: any) {
-    throw new Error("Function not implemented.");
 }

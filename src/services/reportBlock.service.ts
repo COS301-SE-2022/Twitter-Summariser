@@ -37,7 +37,7 @@ export default class ReportBlockService {
         blocks = result.Items as ReportBlock[];
         this.sortReportBlocks(blocks);
 
-        console.log(blocks);
+        // console.log(blocks);
         return blocks as ReportBlock[];
     }
     
@@ -51,13 +51,13 @@ export default class ReportBlockService {
         return reportBlock as ReportBlock;
     } 
 
-   async sortReportBlocks(reportBlocks: ReportBlock[]): Promise<ReportBlock[]> {
+   async sortReportBlocks(reportBlocks: any[]): Promise<any[]> {
     reportBlocks.sort((a,b) => {
         if (a['position'] > b['position']) return 1;
         if (a['position'] < b['position']) return -1;
         return 0;
     });
-       return reportBlocks as ReportBlock[]
+       return reportBlocks;
    }
 
 }
