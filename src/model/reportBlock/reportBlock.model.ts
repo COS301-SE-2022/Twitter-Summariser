@@ -1,4 +1,4 @@
-export default interface reportBlock {
+export default interface ReportBlock {
     id: string,
     reportID: string,
     blockType: "TWEET|RICHTEXT",

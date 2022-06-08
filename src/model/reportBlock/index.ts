@@ -13,10 +13,20 @@ export const ReportBlockTable = {
         KeySchema: [{
             AttributeName: "id",
             KeyType: "HASH"
-        },
-        {
-            AttributeName: "reportID",
-            KeyType: "RANGE"
+        }],
+        GlobalSecondaryIndex: [{
+            IndexName: "reportBlockIndex",
+            KeySchema: [{
+                AttributeName: "reportID",
+                KeyType: "HASH"
+            }], 
+            Projection: {
+                ProjectionType: "ALL"
+            },
+            ProvisionedThroughput: {
+                ReadCapacityUnits: 5,
+                WriteCapacityUnits: 5
+            }
         }],
         ProvisionedThroughput: {
             ReadCapacityUnits: 5,
