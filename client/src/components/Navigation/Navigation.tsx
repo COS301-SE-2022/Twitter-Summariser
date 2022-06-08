@@ -8,10 +8,11 @@ import { BsShare } from "react-icons/bs";
 import { HiOutlineLogin } from "react-icons/hi";
 import { AiOutlineHistory } from "react-icons/ai";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-function Navigation(props: any) {
+const Navigation = (props: any) => {
   // const style = { color: "#00ACDF" };
+  let navigate = useNavigate();
 
   // style for the icons
   const style = { fontSize: "1.5rem" };
@@ -19,6 +20,7 @@ function Navigation(props: any) {
   const logout = () => {
     //Logout in navigation calling logout in landing
     props.logout();
+    navigate("/");
   };
 
   return (
@@ -101,6 +103,6 @@ function Navigation(props: any) {
       </nav>
     </div>
   );
-}
+};
 
 export default Navigation;

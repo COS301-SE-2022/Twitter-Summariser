@@ -70,19 +70,22 @@ const Signup = (props: any) => {
 
         console.log(await data);
 
+        console.log(response.ok);
+        await props.readyToLogIN();
+        console.log("Prop is set");
         // check for error response
         if (!response.ok) {
           // error
           signUpFailure(true);
+          console.log("Error things");
 
           return;
+        } else {
         }
-
-        await props.readyToLogIN();
       })
       .catch((error) => {
-        console.log("Error Signing up given");
-        signUpFailure(true);
+        console.log("Error Signing up");
+        // signUpFailure(true);
       });
   };
 
@@ -203,6 +206,8 @@ const Signup = (props: any) => {
                 password must contain number, letters and special characters{" "}
               </p>
             )}
+            {!upperCase && <p>password should have Uppercase</p>}
+            {!lowerCase && <p>password should have Lowercase</p>}
             {!match && <p>password must match</p>}
           </div>
         </div>
@@ -287,7 +292,6 @@ const Signup = (props: any) => {
             >
               &nbsp; Sign in
             </button>
-
           </p>
         </form>
       </div>
