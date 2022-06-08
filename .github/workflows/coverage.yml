@@ -25,7 +25,7 @@ jobs:
       - name: Changed to client directory and generate coverage for frontend
         run: |
           cd client
-          yarn test -- -- coverage --watchAll=false
+          yarn test -- --coverage --watchAll=false
 
       - name: Merge the coverage reports
         run: node .tools/scripts/merge-reports.js
