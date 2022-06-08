@@ -6,6 +6,15 @@ export default class TweetService {
 
     constructor (private docClient: DocumentClient) {};
 
+    async getTweet(id: string): Promise<Tweet> {
+        const result = await this.docClient.get({
+            TableName: this.TableName,
+            Key: { "tweetID": id}
+        }).promise();
+
+        return result.Item as Tweet;
+    };
+
     async getTweets(rsId: string) : Promise<Tweet[]> {
         const result = await this.docClient.query({
             TableName: this.TableName,

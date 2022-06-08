@@ -20,9 +20,42 @@ export default class ReportService {
 
         const item = result.Item;
 
-        const tweets = await ServicesLayer.tweetService.getTweets(item.resultSetID);
+        const report = [];
 
-        item["tweets"] = tweets;
+        const reportBlocks = await ServicesLayer.reportBlockService.getReportBlocks(item.reportID);
+
+        reportBlocks.map(async block => {
+            let type = block.blockType;
+            let ob = {};
+
+            ob["blockType"] = type;
+            
+            if (type === "TWEET") {
+                const tweet = await ServicesLayer.tweetService.getTweet(block.tweetID);
+                ob["block"]=tweet;              
+            }
+            else if (type === "RICHTEXT") {
+                
+                const style = await ServicesLayer.textStyleService.getStyle(block.id);
+                ob["block"]={
+                    text: block.richText,
+                    position: block.position,
+                    style: style
+                };
+                // ob["block"].push(ob["text"] = block.richText);
+                // ob["block"].push(ob["position"] = block.position);
+                // ob["block"].push
+                // ob["style"] = style;
+
+            }
+
+            report.push(ob);
+        })
+
+        item["Report"] = report;
+        // const tweets = await ServicesLayer.tweetService.getTweets(item.resultSetID);
+
+        // item["tweets"] = tweets;
 
         // console.log(result.Item);
 
@@ -59,4 +92,8 @@ export default class ReportService {
 
         return report as Report;
     }
+}
+
+function block(block: any) {
+    throw new Error("Function not implemented.");
 }
