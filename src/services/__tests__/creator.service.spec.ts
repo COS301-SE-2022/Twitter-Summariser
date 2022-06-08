@@ -20,7 +20,7 @@ describe("creator.service", () => {
     
     describe("getCreator", () => {
 
-        test("Save Creator", async () => {
+        test("Get Creator", async () => {
             const hashed = bcrypt.hashSync("password", 10);
 
             const test : Creator = {
@@ -49,6 +49,16 @@ describe("creator.service", () => {
         
         })
 
+        test("Creator doesn't exist", async () => {
+            expect.assertions(1);
+            
+            awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({Items: []}));
+            try {
+                await CreatorServices.creatorService.getCreator("test@gmail.com", "password");
+            } catch (e) {
+                expect(e.message).toBe("creator test@gmail.com not found");
+            }
+        })
         
     });
     
