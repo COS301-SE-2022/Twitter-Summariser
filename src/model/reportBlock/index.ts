@@ -3,7 +3,7 @@ export const ReportBlockTable = {
     Properties: {
         TableName: "ReportBlockTable",
         AttributeDefinitions: [{
-            AttributeName: "id",
+            AttributeName: "reportBlockID",
             AttributeType: "S"
         },
         {
@@ -11,7 +11,7 @@ export const ReportBlockTable = {
             AttributeType: "S"
         }],
         KeySchema: [{
-            AttributeName: "id",
+            AttributeName: "reportBlockID",
             KeyType: "HASH"
         }],
         GlobalSecondaryIndexes: [{
@@ -24,13 +24,13 @@ export const ReportBlockTable = {
                 ProjectionType: "ALL"
             },
             ProvisionedThroughput: {
-                ReadCapacityUnits: 5,
-                WriteCapacityUnits: 5
+                ReadCapacityUnits: 15,
+                WriteCapacityUnits: 15
             }
         }],
         ProvisionedThroughput: {
-            ReadCapacityUnits: 5,
-            WriteCapacityUnits: 5
+            ReadCapacityUnits: 15,
+            WriteCapacityUnits: 15
         }
     }
 }

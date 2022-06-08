@@ -9,6 +9,7 @@ export default class ReportBlockService {
     constructor (private docClient: DocumentClient) {}
 
     async getReportBlock(reportBlockID: string): Promise<ReportBlock> {
+        
         const result = await this.docClient.get({
             TableName: this.TableName,
             Key: { "id": reportBlockID}
@@ -18,20 +19,25 @@ export default class ReportBlockService {
     }
 
 
-    async getReportBlocks(reportID: string) : Promise<ReportBlock[]> {
+    async getReportBlocks(key: string) : Promise<ReportBlock[]> {
+        console.log(key);
+        
         const result = await this.docClient.query({
             TableName: this.TableName,
             IndexName: "reportBlockIndex",
             KeyConditionExpression: 'reportID = :reportID',
             ExpressionAttributeValues: {
-                ":reportID": reportID
+                ":reportID": key
             }
         }).promise();
+
+        //console.log(result.Items);
 
         let blocks : ReportBlock[];
         blocks = result.Items as ReportBlock[];
         this.sortReportBlocks(blocks);
-        
+
+        console.log(blocks);
         return blocks as ReportBlock[];
     }
     

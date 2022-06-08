@@ -24,6 +24,8 @@ export default class ReportService {
 
         const reportBlocks = await ServicesLayer.reportBlockService.getReportBlocks(item.reportID);
 
+        // console.log(reportBlocks);
+        
         reportBlocks.map(async block => {
             let type = block.blockType;
             let ob = {};
@@ -36,7 +38,7 @@ export default class ReportService {
             }
             else if (type === "RICHTEXT") {
                 
-                const style = await ServicesLayer.textStyleService.getStyle(block.id);
+                const style = await ServicesLayer.textStyleService.getStyle(block.reportBlockID);
                 ob["block"]={
                     text: block.richText,
                     position: block.position,
@@ -53,6 +55,7 @@ export default class ReportService {
         })
 
         item["Report"] = report;
+        
         // const tweets = await ServicesLayer.tweetService.getTweets(item.resultSetID);
 
         // item["tweets"] = tweets;
