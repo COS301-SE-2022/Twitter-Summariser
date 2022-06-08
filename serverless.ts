@@ -5,6 +5,8 @@ import { CreatorTable } from '@model/creator/index';
 import { ResultSetTable } from '@model/resultSet';
 import { TweetTable } from '@model/tweet';
 import { ReportTable } from '@model/report';
+import { ReportBlockTable } from '@model/reportBlock';
+
 import { getAllResultSet, getResultSet } from '@functions/resultSet';
 import { generateReport } from '@functions/generateReport';
 import { getAllMyReports, getAllReports, getReport } from '@functions/report';
@@ -109,6 +111,7 @@ const serverlessConfiguration: AWS = {
             ResultSetTable,
             TweetTable,
             ReportTable,
+            ReportBlockTable,
 
             TwitterSummariserApp: {
                 Type: "AWS::S3::Bucket",
