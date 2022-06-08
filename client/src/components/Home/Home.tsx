@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Home = () => {
   // ################ all related to the search ############################
   const [enteredSearch, changeEnteredSearch] = useState("");
-  const [reportID, changeReportID] = useState("");
+  // const [reportID, changeReportID] = useState("");
   const [resultSet, changeResultSet] = useState("");
   const [date, changeDate] = useState("");
 
@@ -13,7 +13,7 @@ const Home = () => {
     changeEnteredSearch(event.target.value);
   };
 
-  const [genReport, changeGenReport] = useState("");
+  // const [genReport, changeGenReport] = useState("");
 
   const [clicked, changeClicked] = useState(false);
   const [createTitle, changeCreateTitle] = useState("");

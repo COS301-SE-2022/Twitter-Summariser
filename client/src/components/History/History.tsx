@@ -1,4 +1,5 @@
 import { useState } from "react";
+import HistoryCard from "../HistoryCard/HistoryCard";
 
 const History = () => {
   const [history, changeHistory] = useState<any[]>([]);
@@ -59,22 +60,7 @@ const History = () => {
                   className="m-4 w-1/4 h-auto bg-gray-400 rounded-md flex flex-col p-2"
                   key={index}
                 >
-                  <div className="">
-                    <button type="submit">
-                      <p className="font-bold">{data.searchPhrase}</p>
-                    </button>
-                  </div>
-                  <div className="mt-2">
-                    <p className="italic text-xs">Sorted: {data.sortOption}</p>
-                  </div>
-                  <div className="mt-2">
-                    <p className="italic text-xs">
-                      Filtered: {data.filterOption}
-                    </p>
-                  </div>
-                  <div className="">
-                    <p className="italic text-xs">{data.date}</p>
-                  </div>
+                  <HistoryCard data={data} />
                 </div>
               ))}
             </div>
