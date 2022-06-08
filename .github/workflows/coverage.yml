@@ -5,7 +5,7 @@ on:
     branches: [develop, master]
 
 jobs:
-  Backend-Coverage:
+  Coverage:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout to devlop/master branch
@@ -30,6 +30,7 @@ jobs:
 
       - name: Merge the coverage reports
         run: |
+          ls
           node tools/scripts/merge-reports.js
           cat ./coverage/lcov.info
 
