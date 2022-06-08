@@ -26,7 +26,7 @@ export const generateReport = middyfy(async (event: APIGatewayProxyEvent): Promi
           x=x+2;
         }
 
-        const report = await ServicesLayer.reportService.addReport({reportID: id, resultSetID: params.resultSetID, title: "Input Title", apiKey: params.apiKey, dateCreated: d, author: params.author});
+        const report = await ServicesLayer.reportService.addReport({reportID: id, resultSetID: params.resultSetID, title: "Input Title", apiKey: params.apiKey, dateCreated: d.toString(), author: params.author});
         
         return {
             statusCode: 200,

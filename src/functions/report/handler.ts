@@ -51,11 +51,12 @@ export const getAllReports = middyfy(async (event: APIGatewayProxyEvent): Promis
 
 export const getReport = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
-    
+
     const params = JSON.parse(event.body);
     const report = await ServicesLayer.reportService.getReport(params.reportID);
     const blocksmid = await ServicesLayer.reportBlock.getReportBlocks(params.reportID);
     const blocks = await ServicesLayer.reportBlock.sortReportBlocks(blocksmid);
+    
 
     return {
       statusCode: 200,
