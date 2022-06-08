@@ -1,9 +1,9 @@
 import dynamoDBClient from "../model/database";
 import CreatorService from "./creator.service"
 import ReportService from "./report.service";
+import ReportBlockService from "./reportBlock.service";
 import ResultSetService from "./resultSet.service";
 import TweetService from "./tweet.service";
-import ReportBlockService from "./reportBlock.service";
 import TextStyleService from "./textStyles.service";
 
 
