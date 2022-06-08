@@ -15,6 +15,7 @@ export const generateReport = middyfy(async (event: APIGatewayProxyEvent): Promi
         let id: string;
         id = "RT-";
         id += randomUUID();
+        process.env.TZ = 'Africa/South_Africa';
 
         console.log(id);
         const report = await ServicesLayer.reportService.addReport({reportID: id, resultSetID: params.resultSetID, apiKey: params.apiKey, dateCreated: new Date(), author: params.author});
