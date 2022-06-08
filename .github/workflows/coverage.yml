@@ -29,7 +29,9 @@ jobs:
           yarn test -- --coverage --watchAll=false
 
       - name: Merge the coverage reports
-        run: node .tools/scripts/merge-reports.js
+        run: |
+          cd ~
+          node .tools/scripts/merge-reports.js
 
       - name: Upload report to Coveralls
         uses: coverallsapp/github-action@master
