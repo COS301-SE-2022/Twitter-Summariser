@@ -4,7 +4,7 @@ import { middyfy } from '@libs/lambda';
 import ServicesLayer from "../../services";
 import { randomUUID } from "crypto";
 
-export const generateReport = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+export const editReport = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     try {
         const params = JSON.parse(event.body);
 
@@ -12,18 +12,13 @@ export const generateReport = middyfy(async (event: APIGatewayProxyEvent): Promi
 
         //console.log(tweets);
 
-        var bid = 'BK-'+randomUUID();
-
         let id: string;
         id = "RT-";
         id += randomUUID();
         var dd = new Date();
         var d = new Date(dd.toLocaleString()+"-02:00");
 
-        for(var i=0; i<tweets.length; i++){
-          ServicesLayer.reportBlock.addReportBlock({id: bid, reportID: id, blockType: "TWEET", position: i, tweetID: tweets[i]["tweetId"]});
-        }
-        
+        console.log(id);
         const report = await ServicesLayer.reportService.addReport({reportID: id, resultSetID: params.resultSetID, title: "Input Title", apiKey: params.apiKey, dateCreated: d, author: params.author});
         
         return {

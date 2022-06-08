@@ -10,6 +10,7 @@ import { ReportBlockTable } from '@model/reportBlock';
 import { getAllResultSet, getResultSet } from '@functions/resultSet';
 import { generateReport } from '@functions/generateReport';
 import { getAllMyReports, getAllReports, getReport } from '@functions/report';
+import { editReport } from '@functions/editReport';
 
 
 const serverlessConfiguration: AWS = {
@@ -63,7 +64,8 @@ const serverlessConfiguration: AWS = {
         generateReport,
         getAllReports,
         getAllMyReports,
-        getReport
+        getReport,
+        editReport
     },
 
     package: {
