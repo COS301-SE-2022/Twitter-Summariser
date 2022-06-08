@@ -8,7 +8,7 @@ export const editReport = middyfy(async (event: APIGatewayProxyEvent): Promise<A
     try {
         const params = JSON.parse(event.body);
 
-        const tweets = await ServicesLayer.tweetService.getTweets(params.resultSetID);
+        //const blocks = await ServicesLayer.reportBlock.getBlocks(params.reportID);
 
         //console.log(tweets);
 

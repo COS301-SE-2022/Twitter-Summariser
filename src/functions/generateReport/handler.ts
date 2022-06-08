@@ -21,9 +21,9 @@ export const generateReport = middyfy(async (event: APIGatewayProxyEvent): Promi
         var d = new Date(dd.toLocaleString()+"-02:00");
 
         for(var i=0; i<tweets.length; i++){
-          ServicesLayer.reportBlock.addReportBlock({id: bid, reportID: id, blockType: "TWEET", position: i, tweetID: tweets[i]["tweetId"]});
+          //await ServicesLayer.reportBlock.addReportBlock({id: bid, reportID: id, blockType: "TWEET", position: i, tweetID: tweets[i]["tweetId"]});
         }
-        
+
         const report = await ServicesLayer.reportService.addReport({reportID: id, resultSetID: params.resultSetID, title: "Input Title", apiKey: params.apiKey, dateCreated: d, author: params.author});
         
         return {
