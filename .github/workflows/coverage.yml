@@ -28,8 +28,10 @@ jobs:
           yarn
           yarn test -- --coverage --watchAll=false
 
-      # - name: Merge the coverage reports
-      #   run: node tools/scripts/merge-reports.js
+      - name: Merge the coverage reports
+        run: |
+          node tools/scripts/merge-reports.js
+          cat ./coverage/lcov.info
 
       - name: Upload report to Coveralls
         uses: coverallsapp/github-action@master
