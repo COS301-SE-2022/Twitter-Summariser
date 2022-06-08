@@ -14,10 +14,10 @@ function GenReport(props: any) {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [date, setDate] = useState("");
-  console.log(localStorage.getItem("id"));
+  // console.log(localStorage.getItem("id"));
   // console.log(val);
 
-  // ################ API FOR GENERATE REPORT ###########################
+  // ################ API FOR GETTING REPORT ###########################
 
   const getReportEndpoint =
     "https://czbmusycz2.execute-api.us-east-1.amazonaws.com/dev/getReport";
@@ -46,7 +46,7 @@ function GenReport(props: any) {
         setTitle(data.report.title);
         setAuthor(data.report.author);
         // setDate(data.report.)
-        console.log(await data);
+        // console.log(await data.report.dateCreated);
 
         // check for error response
         if (!response.ok) {
@@ -70,14 +70,23 @@ function GenReport(props: any) {
   // processing api response
   const apiResponse = [<div key={"begining div"}></div>];
 
+  let textPosition = -1;
+  // console.log(state);
+
   state.map((data: any, index: Key | null | undefined) =>
     apiResponse.push(
       <div key={index}>
-        <Text keyValue={index} />
-        <Tweet tweetData={data} />
+        <Text
+          keyValue={index}
+          tweetId={data.tweetId}
+          position={(textPosition += 1)}
+        />
+        <Tweet tweetData={data} position={(textPosition += 1)} />
       </div>
     )
   );
+
+  // console.log("Total content is " + textPosition);
 
   return (
     <div className="mt-4 p-4">
@@ -87,7 +96,10 @@ function GenReport(props: any) {
       <h3 className="italic text-xs">Date Created: 13/05/2022</h3>
       <br />
 
-      <div className="grid grid-cols gap-4 content-center">{apiResponse}</div>
+      <div className="grid grid-cols gap-4 content-center">
+        {apiResponse}
+        <Text position={(textPosition += 1)} />
+      </div>
 
       <Link
         to="/"

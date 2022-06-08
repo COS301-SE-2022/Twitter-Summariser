@@ -6,7 +6,16 @@ export default class ReportBlockService {
 
     constructor (private docClient: DocumentClient) {}
 
-    
+    async getReportBlock(reportBlockID: string): Promise<ReportBlock> {
+        const result = await this.docClient.get({
+            TableName: this.TableName,
+            Key: { "id": reportBlockID}
+        }).promise();
+
+        return result.Item as ReportBlock;
+    }
+
+
     async getReportBlocks(reportID: string) : Promise<ReportBlock[]> {
         const result = await this.docClient.query({
             TableName: this.TableName,
