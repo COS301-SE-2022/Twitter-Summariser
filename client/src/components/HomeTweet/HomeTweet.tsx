@@ -2,7 +2,7 @@
 import { AiOutlineHeart, AiOutlineRetweet } from "react-icons/ai";
 import { FaRegCommentAlt } from "react-icons/fa";
 
-const Tweet = (props: any) => {
+const HomeTweet = (props: any) => {
   const data = props.tweetData;
   // console.log("Tweet position is " + props.position);
 
@@ -11,41 +11,41 @@ const Tweet = (props: any) => {
 
   return (
     <div
-      key={data.block.tweetId}
+      key={data.tweetId}
       data-testid="results"
       className=" w-full border border-gray-200 flex flex-col p-3"
     >
       <div className="flex flex-row items-center">
-        <p className=" font-semibold">{data.block.fullname}</p>
-        <p className=" font-light">@{data.block.username}</p>
+        <p className=" font-semibold">{data.fullname}</p>
+        <p className=" font-light">@{data.username}</p>
         &nbsp;
         <p className=" font-bold">&sdot;</p>
         &nbsp;
-        <p className="text-sm">{data.block.dateOT.substring(0, 10)}</p>
+        <p className="text-sm">{data.dateOT.substring(0, 10)}</p>
       </div>
 
       <div className=" pt-3 flex flex-row">
-        <p>{data.block.text}</p>
+        <p>{data.text}</p>
       </div>
 
       <div className="flex flex-row justify-around pt-3">
         <p className="flex flex-row text-sm items-center">
           <FaRegCommentAlt style={style_} />
           &nbsp;
-          {parseInt(data.block.numComments, 10)}
+          {parseInt(data.numComments, 10)}
         </p>
         <p className="flex flex-row text-sm items-center">
           <AiOutlineRetweet style={style_} />
-          &nbsp; {parseInt(data.block.numRetweets, 10)}
+          &nbsp; {parseInt(data.numRetweets, 10)}
         </p>
         <p className="flex flex-row text-sm items-center">
           <AiOutlineHeart style={style_} />
           &nbsp;
-          {parseInt(data.block.numLikes, 10)}
+          {parseInt(data.numLikes, 10)}
         </p>
       </div>
     </div>
   );
 };
 
-export default Tweet;
+export default HomeTweet;

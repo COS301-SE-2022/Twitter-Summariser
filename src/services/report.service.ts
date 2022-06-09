@@ -18,6 +18,9 @@ export default class ReportService {
             Key: { "reportID": id}
         }).promise();
 
+        if (result == undefined)
+            throw new Error("report with id: "+id+ " does not exist");
+            
         const item = result.Item;
 
         const report = [];

@@ -7,6 +7,10 @@ on:
 jobs:
   Coverage:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: client
+
     steps:
       - name: Checkout to devlop/master branch
         uses: actions/checkout@v2
@@ -19,12 +23,11 @@ jobs:
       - name: Install all package dependencies
         run: yarn
 
-      - name: Generate coverage report for backend
-        run: yarn test -- --coverage
+      # - name: Generate coverage report for backend
+      #   run: yarn test -- --coverage
 
       - name: Changed to client directory and generate coverage for frontend
         run: |
-          cd client
           yarn
           yarn test -- --coverage --watchAll=false
 
@@ -33,9 +36,8 @@ jobs:
       #     ls
       #     node tools/scripts/merge-reports.js
       #     cat ./coverage/lcov.info
-
       - name: Upload report to Coveralls
         uses: coverallsapp/github-action@master
         with:
-          files: ./client/coverage/lcov.info
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ${{ github.workspace }}/client/coverage/lcov.info

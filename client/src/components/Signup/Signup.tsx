@@ -2,10 +2,8 @@ import "./Signup.css";
 import Logo from "../Logo/Logo";
 import { BiErrorCircle } from "react-icons/bi";
 import { useState, useEffect } from "react";
-// import { Link, useNavigate } from "react-router-dom";
 
 const Signup = (props: any) => {
-  // const navigate = useNavigate();
   // username retrieval
   const [enteredUsername, changeEnteredUsername] = useState("");
 
@@ -46,15 +44,11 @@ const Signup = (props: any) => {
     changeEnteredConfirmPassword(event.target.value);
   };
 
-  const [signupStatus, signUpFailure] = useState(false);
-  // console.log("Issues with the server " + signupStatus);
-
-  // ######################### API ###############################################
+  // ######################### API FOR SIGNING USERS UP ###############################################
   const signUpEndpoint =
-    "https://czbmusycz2.execute-api.us-east-1.amazonaws.com/dev/signup";
+    "https://xprnnqlwwi.execute-api.us-east-1.amazonaws.com/dev/signup";
 
   const signup = async (userValidatedData: any) => {
-    // POST request using fetch with error handling
     const requestOptions = {
       method: "POST",
       body: JSON.stringify(userValidatedData),
@@ -62,30 +56,17 @@ const Signup = (props: any) => {
 
     fetch(signUpEndpoint, requestOptions)
       .then(async (response) => {
-        const isJson = response.headers
-          .get("content-type")
-          ?.includes("application/json");
-
-        const data = isJson && (await response.json());
-
-        console.log(await data);
-
-        console.log(response.ok);
-        await props.readyToLogIN();
-        console.log("Prop is set");
         // check for error response
         if (!response.ok) {
           // error
-          signUpFailure(true);
-          console.log("Error things");
 
           return;
-        } else {
         }
+
+        await props.readyToLogIN();
       })
       .catch((error) => {
         console.log("Error Signing up");
-        // signUpFailure(true);
       });
   };
 
@@ -129,18 +110,9 @@ const Signup = (props: any) => {
   const submitHandler = (event: any) => {
     event.preventDefault();
 
-    // ######## CHECK DATABASE FOR EXISTING EMAIL ########
+    // ######## CHECK DATABASE FOR EXISTING EMAIL ######## .... to do ....
 
     // ###################################################
-
-    console.log("valid name is " + validName);
-    console.log("valid email is " + validEmail);
-    console.log("valid pass length " + validLength);
-    console.log("valid pass num " + hasNumber);
-    console.log("valid pass uppe " + upperCase);
-    console.log("valid pass lower " + lowerCase);
-    console.log("valid pass special char " + specialChar);
-    console.log("valid pass match " + match);
 
     const userDetails = {
       email: enteredEmail,
@@ -166,7 +138,6 @@ const Signup = (props: any) => {
       console.log(userDetails);
 
       signup(userDetails);
-      // navigate("/login");
     }
   };
 
@@ -174,7 +145,6 @@ const Signup = (props: any) => {
     event.preventDefault();
 
     props.takeToSigninPage();
-    // navigate("/login")
   };
 
   return (
@@ -281,9 +251,6 @@ const Signup = (props: any) => {
           <br />
           <p className="text-sm text-center">
             Already have an account?
-            {/* <Link to="/login" className=" text-sky-500">
-              &nbsp; Sign in
-            </Link> */}
             <button
               data-testid="btn-signin"
               type="submit"

@@ -1,19 +1,18 @@
 import { useState } from "react";
-import Tweet from "../Tweet/Tweet";
+// import Tweet from "../Tweet/Tweet";
 import { Link } from "react-router-dom";
+import HomeTweet from "../HomeTweet/HomeTweet";
 
 const Home = () => {
   // ################ all related to the search ############################
   const [enteredSearch, changeEnteredSearch] = useState("");
-  // const [reportID, changeReportID] = useState("");
   const [resultSet, changeResultSet] = useState("");
   const [date, changeDate] = useState("");
+  const [genReport, changeGenReport] = useState("");
 
   const searchHandler = (event: any) => {
     changeEnteredSearch(event.target.value);
   };
-
-  // const [genReport, changeGenReport] = useState("");
 
   const [clicked, changeClicked] = useState(false);
   const [createTitle, changeCreateTitle] = useState("");
@@ -21,11 +20,9 @@ const Home = () => {
   // ################ API FOR GENERATE REPORT ###########################
 
   const genReportEndpoint =
-    "https://czbmusycz2.execute-api.us-east-1.amazonaws.com/dev/generateReport";
+    "https://xprnnqlwwi.execute-api.us-east-1.amazonaws.com/dev/generateReport";
 
   const genRep = async () => {
-    // POST request using fetch with error handling
-
     const searchData = {
       apiKey: localStorage.getItem("loggedUserApi"),
       author: localStorage.getItem("loggedUserName"),
@@ -45,41 +42,23 @@ const Home = () => {
 
         const data = isJson && (await response.json());
 
-        // console.log(await data);
-
-        // console.log(await data.Report.dateCreated);
-        changeDate(await data.Report.dateCreated.substring(0, 10));
-
-        // console.log(await data.Report.reportID);
-
-        localStorage.setItem("id", await data.Report.reportID);
-        // changeReportID(await data.Report.reportID);
-        // console.log(reportID);
-
-        // changeGenReport("genReport/" + (await data.Report.reportID));
-
-        // console.log(genReport);
-
-        // check for error response
         if (!response.ok) {
           // error
-          // signUpFailure(true);
 
           return;
         }
 
+        changeDate(await data.Report.dateCreated.substring(0, 10));
+        changeGenReport(data.Report.reportID);
+
         if (enteredSearch !== "") {
-          console.log("clicked");
           changeCreateTitle(enteredSearch);
           changeEnteredSearch("");
           changeClicked(!clicked);
         }
-
-        // await props.readyToLogIN();
       })
       .catch((error) => {
         console.log("Error Generating Report");
-        // signUpFailure(true);
       });
   };
 
@@ -106,7 +85,7 @@ const Home = () => {
   // ######################### API FOR SEARCHING ###############################################
 
   const searchEndpoint =
-    "https://czbmusycz2.execute-api.us-east-1.amazonaws.com/dev/search";
+    "https://xprnnqlwwi.execute-api.us-east-1.amazonaws.com/dev/search";
 
   const searchTwitter = async (searchData: any) => {
     // POST request using fetch with error handling
@@ -123,25 +102,18 @@ const Home = () => {
 
         const data = isJson && (await response.json());
 
-        console.log(await data);
-
-        console.log(await data.tweets);
         changeResultSet(await data.resultSetID);
         changeResponse(await data.tweets);
 
         // check for error response
         if (!response.ok) {
           // error
-          // signUpFailure(true);
 
           return;
         }
-
-        // await props.readyToLogIN();
       })
       .catch((error) => {
         console.log("Error Searching");
-        // signUpFailure(true);
       });
   };
 
@@ -156,8 +128,6 @@ const Home = () => {
       sortBy: sort,
       filterBy: filter,
     };
-
-    console.log(searchData);
 
     if (enteredSearch !== "") {
       // calling the api__Handler
@@ -175,19 +145,23 @@ const Home = () => {
   // processing api response
   const apiResponse = [<div key={"begining div"}></div>];
 
-  // console.log(searchResponse);
-
   searchResponse.map(
     (data, index) =>
       enteredSearch !== "" &&
       apiResponse.push(
         <div key={index}>
-          <Tweet tweetData={data} />
+          <HomeTweet tweetData={data} />
         </div>
       )
   );
 
   let ind = 0;
+
+  const viewGenReport = () => {
+    if (enteredSearch !== "") {
+      localStorage.setItem("draftReportId", genReport);
+    }
+  };
 
   return (
     <div data-testid="home">
@@ -302,13 +276,14 @@ const Home = () => {
         {clicked && (
           <div className="mt-4 flex flex-col flex-wrap justify-center">
             <h1 className="text-2xl">Newly created report</h1>
-            {/* <Link to="/genReport"> */}
-            {/* <Link to="genReport" state={{ searchResponse }}> */}
-            {/* <Link to={{pathname: "genReport", state:{searchResponse}}}> */}
-            <Link to="genReport/">
+            <Link to="/genReport">
               <div className="m-4 w-1/4 h-20 bg-gray-400 rounded-md flex flex-col p-2">
                 <div className="">
-                  <button data-testid="btn-report" type="submit">
+                  <button
+                    data-testid="btn-report"
+                    type="submit"
+                    onClick={viewGenReport}
+                  >
                     <p className="font-bold">{createTitle}</p>
                   </button>
                 </div>
