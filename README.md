@@ -1,5 +1,5 @@
 # BitByBit - Twitter Summariser
-![Capture](https://user-images.githubusercontent.com/93042354/172892469-2d061129-6e78-47a3-b2bd-d58a7837db09.PNG)
+![image](https://user-images.githubusercontent.com/93042354/172893656-8d203066-4917-4131-900a-f7dfd18f7516.png)
 
 A progressive web app to generate an article on a given trend using curated Tweets.
 
