@@ -13,9 +13,43 @@ import { useState } from "react";
 const Text = (props: any) => {
   //   const italic = " italic";
   // console.log(props.tweetId);
-  // console.log("Text position is " + props.position);
   // const [, setPosition] = useState("");
   // setPosition(
+
+  // const [viewText, changeToText] = useState<Boolean>();
+  // const [viewEdit, changeToEdit] = useState<Boolean>();
+
+  // if (props.data.blockType === "RICHTEXT") {
+  //   // console.log("This is " + props.data.blockType);
+  //   // console.log(props.data.block.text);
+  //   // console.log("Hoping it's Text and it position is " + props.position);
+  //   // console.log(props.data);
+  //   changeToText(true);
+  //   changeToEdit(false);
+  // } else {
+  //   // console.log("This is " + props.data.blockType);
+  //   // console.log(props.data.block.text);
+  //   // console.log(
+  //   //   "Hoping it's a button to create text and it position is " + props.position
+  //   // );
+  //   // console.log(props.data);
+  //   changeToEdit(true);
+  //   changeToText(false);
+  // }
+
+  if (
+    props.data.blockType === "RICHTEXT" &&
+    props.position === props.data.position
+  ) {
+    console.log("This is " + props.data.blockType);
+    console.log(props.data.block.text);
+    console.log("Hoping it's Text and it position is " + props.position);
+    console.log(props.data);
+  }
+
+  // console.log(props.position);
+  // const val = props.pleaseIncrement;
+
   const textPos = props.position;
 
   const [italic, setItalic] = useState("");
@@ -106,13 +140,42 @@ const Text = (props: any) => {
     changeReport(event.target.value);
   };
 
+  // ######################### API FOR SIGNING USERS UP ###############################################
+  const textEndpoint =
+    "https://xprnnqlwwi.execute-api.us-east-1.amazonaws.com/dev/editBlock";
+
+  const editText = async (text: any) => {
+    const requestOptions = {
+      method: "POST",
+      body: JSON.stringify(text),
+    };
+
+    fetch(textEndpoint, requestOptions)
+      .then(async (response) => {
+        const isJson = response.headers
+          .get("content-type")
+          ?.includes("application/json");
+
+        const data = isJson && (await response.json());
+
+        console.log(await data);
+
+        // check for error response
+        if (!response.ok) {
+          // error
+
+          return;
+        }
+      })
+      .catch((error) => {
+        console.log("Error Updating Text");
+        console.log(error);
+      });
+  };
+
+  // #############################################################################
+
   const update = () => {
-    // console.log("Updated");
-
-    // if (localStorage.getItem("text")) {
-
-    // }
-
     const Text = {
       textStyle: {
         Italic: italic,
@@ -122,121 +185,125 @@ const Text = (props: any) => {
         Align: align,
       },
       text: report,
-      apiKey: localStorage.getItem("loggedUserApi"),
       reportID: localStorage.getItem("draftReportId"),
-      textPosition: textPos,
+      position: textPos,
     };
 
     console.log(Text);
+
+    editText(Text);
   };
 
   return (
-    <div key={props.keyValue}>
-      {editor && (
-        <div className="flex flex-col">
-          <div className="flex justify-center align-middle">
-            <div className="flex flex-row w-1/3 justify-around pt-2  items-center">
-              <button onClick={italicHandler}>
-                <BiItalic style={icon_style} />
-              </button>{" "}
-              &nbsp;
-              <button onClick={boldHandler}>
-                <BiBold style={icon_style} />
-              </button>
-              &nbsp;{" "}
-              {alignLeft && (
-                <button onClick={() => alignHandler("left")}>
-                  {" "}
-                  <GrTextAlignLeft style={icon_style_2} />{" "}
-                </button>
-              )}
-              {alignRight && (
-                <button onClick={() => alignHandler("right")}>
-                  {" "}
-                  <GrTextAlignRight style={icon_style_2} />{" "}
-                </button>
-              )}
-              {alignCenter && (
-                <button onClick={() => alignHandler("center")}>
-                  {" "}
-                  <GrTextAlignCenter style={icon_style_2} />{" "}
-                </button>
-              )}
-              {alignJustify && (
-                <button onClick={() => alignHandler("justify")}>
-                  {" "}
-                  <BsJustify style={icon_style} />{" "}
-                </button>
-              )}
-              &nbsp;&nbsp;
-              <div className="flex flex-row">
-                <AiOutlineFontSize style={icon_style} />
-                <select
-                  className="text-black text-center text-xs"
-                  onChange={sizeHandler}
-                >
-                  <option value=" text-xs">12px</option>
-                  <option value=" text-sm">14px</option>
-                  <option value=" text-base">16px</option>
-                  <option value=" text-lg">18px</option>
-                  <option value=" text-xl">20px</option>
-                  <option value=" text-2xl">24px</option>
-                  <option value=" text-3xl">30px</option>
-                  <option value=" text-4xl">36px</option>
-                  <option value=" text-5xl">48px</option>
-                  <option value=" text-6xl">64px</option>
-                </select>
+    <div>
+      {/* {viewText && <div>This is a Text</div>}
+      {viewEdit && (
+        <div key={props.keyValue}>
+          {editor && (
+            <div className="flex flex-col">
+              <div className="flex justify-center align-middle">
+                <div className="flex flex-row w-1/3 justify-around pt-2  items-center">
+                  <button onClick={italicHandler}>
+                    <BiItalic style={icon_style} />
+                  </button>{" "}
+                  &nbsp;
+                  <button onClick={boldHandler}>
+                    <BiBold style={icon_style} />
+                  </button>
+                  &nbsp;{" "}
+                  {alignLeft && (
+                    <button onClick={() => alignHandler("left")}>
+                      {" "}
+                      <GrTextAlignLeft style={icon_style_2} />{" "}
+                    </button>
+                  )}
+                  {alignRight && (
+                    <button onClick={() => alignHandler("right")}>
+                      {" "}
+                      <GrTextAlignRight style={icon_style_2} />{" "}
+                    </button>
+                  )}
+                  {alignCenter && (
+                    <button onClick={() => alignHandler("center")}>
+                      {" "}
+                      <GrTextAlignCenter style={icon_style_2} />{" "}
+                    </button>
+                  )}
+                  {alignJustify && (
+                    <button onClick={() => alignHandler("justify")}>
+                      {" "}
+                      <BsJustify style={icon_style} />{" "}
+                    </button>
+                  )}
+                  &nbsp;&nbsp;
+                  <div className="flex flex-row">
+                    <AiOutlineFontSize style={icon_style} />
+                    <select
+                      className="text-black text-center text-xs"
+                      onChange={sizeHandler}
+                    >
+                      <option value=" text-xs">12px</option>
+                      <option value=" text-sm">14px</option>
+                      <option value=" text-base">16px</option>
+                      <option value=" text-lg">18px</option>
+                      <option value=" text-xl">20px</option>
+                      <option value=" text-2xl">24px</option>
+                      <option value=" text-3xl">30px</option>
+                      <option value=" text-4xl">36px</option>
+                      <option value=" text-5xl">48px</option>
+                      <option value=" text-6xl">64px</option>
+                    </select>
+                  </div>
+                  &nbsp;{" "}
+                  <div className="flex flex-row">
+                    <IoColorPaletteOutline style={icon_style} />
+                    <select
+                      className="text-black text-center text-xs"
+                      onChange={colorHandler}
+                    >
+                      <option value=" text-slate-600">slate</option>
+                      <option value=" text-zinc-600">gray</option>
+                      <option value=" text-red-600">red</option>
+                      <option value=" text-orange-600">orange</option>
+                      <option value=" text-green-600">green</option>
+                      <option value=" text-blue-600">blue</option>
+                      <option value=" text-pink-600">pink</option>
+                      <option value=" text-purple-600">purple</option>
+                    </select>
+                  </div>
+                </div>
               </div>
-              &nbsp;{" "}
-              <div className="flex flex-row">
-                <IoColorPaletteOutline style={icon_style} />
-                <select
-                  className="text-black text-center text-xs"
-                  onChange={colorHandler}
-                >
-                  <option value=" text-slate-600">slate</option>
-                  <option value=" text-zinc-600">gray</option>
-                  <option value=" text-red-600">red</option>
-                  <option value=" text-orange-600">orange</option>
-                  <option value=" text-green-600">green</option>
-                  <option value=" text-blue-600">blue</option>
-                  <option value=" text-pink-600">pink</option>
-                  <option value=" text-purple-600">purple</option>
-                  {/* <option value=" text-5xl">48px</option>
-                <option value=" text-6xl">64px</option> */}
-                </select>
+
+              <div className="flex flex-row items-center">
+                <div className="w-5/6">
+                  <textarea className={style} onChange={textHandler}></textarea>
+                </div>
+
+                <div className="w-1/6 flex text-center justify-center">
+                  <button onClick={textEditorHandler}>
+                    <MdDeleteOutline style={icon_style_3} />
+                  </button>
+                </div>
+              </div>
+
+              <button type="submit" onClick={update} className="mt-2">
+                Update
+              </button>
+              <br />
+            </div>
+          )}
+
+          {!editor && (
+            <div className="flex flex-col mt-5 mb-5">
+              <div className="flex justify-center align-middle">
+                <button onClick={textEditorHandler}>
+                  <AiFillEdit style={icon_style} />
+                </button>
               </div>
             </div>
-          </div>
-
-          <div className="flex flex-row items-center">
-            <div className="w-5/6">
-              <textarea className={style} onChange={textHandler}></textarea>
-            </div>
-
-            <div className="w-1/6 flex text-center justify-center">
-              <button onClick={textEditorHandler}>
-                <MdDeleteOutline style={icon_style_3} />
-              </button>
-            </div>
-          </div>
-
-          <button type="submit" onClick={update} className="mt-2">
-            Update
-          </button>
-          <br />
+          )}
         </div>
-      )}
-
-      {!editor && (
-        <div className="flex flex-col mt-5 mb-5">
-          <div className="flex justify-center align-middle">
-            <button onClick={textEditorHandler}>
-              <AiFillEdit style={icon_style} />
-            </button>
-          </div>
-        </div>
-      )}
+      )} */}
     </div>
   );
 };

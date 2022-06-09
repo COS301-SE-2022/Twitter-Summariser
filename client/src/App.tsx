@@ -51,6 +51,7 @@ const App = (props: any) => {
     localStorage.removeItem("loggedUserEmail");
     localStorage.removeItem("id");
     localStorage.removeItem("resultSetId");
+    localStorage.removeItem("draftReportId");
     setIsLoggedIn(false);
     setSignupPage(false);
 
