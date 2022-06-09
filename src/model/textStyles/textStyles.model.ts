@@ -1,5 +1,5 @@
 export default interface TextStyle {
-    styleID: string,
+    textStylesID: string,
     reportBlockID: string,
     align: string,
     bold: string,
