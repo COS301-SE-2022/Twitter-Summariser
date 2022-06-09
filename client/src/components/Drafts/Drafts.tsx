@@ -4,6 +4,9 @@ import DraftCard from "../DraftCard/DraftCard";
 function Drafts() {
   const [draft, changeDraft] = useState<any[]>([]);
 
+  // localStorage.removeItem("resultSetId");
+  // localStorage.removeItem("draftReportId");
+
   // ######################### API FOR GETTING HISTORY #####################
 
   const getAllMyReportsEndpoint =

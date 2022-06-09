@@ -2,6 +2,9 @@ import { useState } from "react";
 import HistoryCard from "../HistoryCard/HistoryCard";
 
 const History = () => {
+  // localStorage.removeItem("resultSetId");
+  // localStorage.removeItem("draftReportId");
+
   const [history, changeHistory] = useState<any[]>([]);
 
   // ######################### API FOR GETTING HISTORY #####################
