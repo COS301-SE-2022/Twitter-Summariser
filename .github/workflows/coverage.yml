@@ -37,5 +37,5 @@ jobs:
       - name: Upload report to Coveralls
         uses: coverallsapp/github-action@master
         with:
-          files: ./client/coverage/lcov.info
+          path-to-lcov: ./client/coverage/lcov.info
           github-token: ${{ secrets.GITHUB_TOKEN }}
