@@ -10,8 +10,6 @@ const History = () => {
     "https://xprnnqlwwi.execute-api.us-east-1.amazonaws.com/dev/getAllResultSet";
 
   const getHistory = async () => {
-    // POST request using fetch with error handling
-
     const apiData = {
       apiKey: localStorage.getItem("loggedUserApi"),
     };

@@ -1,12 +1,14 @@
 import { useState } from "react";
-import Tweet from "../Tweet/Tweet";
+// import Tweet from "../Tweet/Tweet";
 import { Link } from "react-router-dom";
+import HomeTweet from "../HomeTweet/HomeTweet";
 
 const Home = () => {
   // ################ all related to the search ############################
   const [enteredSearch, changeEnteredSearch] = useState("");
   const [resultSet, changeResultSet] = useState("");
   const [date, changeDate] = useState("");
+  const [genReport, changeGenReport] = useState("");
 
   const searchHandler = (event: any) => {
     changeEnteredSearch(event.target.value);
@@ -40,15 +42,14 @@ const Home = () => {
 
         const data = isJson && (await response.json());
 
-        changeDate(await data.Report.dateCreated.substring(0, 10));
-
-        localStorage.setItem("id", await data.Report.reportID);
-
         if (!response.ok) {
           // error
 
           return;
         }
+
+        changeDate(await data.Report.dateCreated.substring(0, 10));
+        changeGenReport(data.Report.reportID);
 
         if (enteredSearch !== "") {
           changeCreateTitle(enteredSearch);
@@ -149,12 +150,18 @@ const Home = () => {
       enteredSearch !== "" &&
       apiResponse.push(
         <div key={index}>
-          <Tweet tweetData={data} />
+          <HomeTweet tweetData={data} />
         </div>
       )
   );
 
   let ind = 0;
+
+  const viewGenReport = () => {
+    if (enteredSearch !== "") {
+      localStorage.setItem("draftReportId", genReport);
+    }
+  };
 
   return (
     <div data-testid="home">
@@ -269,10 +276,14 @@ const Home = () => {
         {clicked && (
           <div className="mt-4 flex flex-col flex-wrap justify-center">
             <h1 className="text-2xl">Newly created report</h1>
-            <Link to="genReport/">
+            <Link to="/genReport">
               <div className="m-4 w-1/4 h-20 bg-gray-400 rounded-md flex flex-col p-2">
                 <div className="">
-                  <button data-testid="btn-report" type="submit">
+                  <button
+                    data-testid="btn-report"
+                    type="submit"
+                    onClick={viewGenReport}
+                  >
                     <p className="font-bold">{createTitle}</p>
                   </button>
                 </div>

@@ -16,7 +16,7 @@ const Text = (props: any) => {
   // console.log("Text position is " + props.position);
   // const [, setPosition] = useState("");
   // setPosition(
-  const textPos = props.position.toString();
+  const textPos = props.position;
 
   const [italic, setItalic] = useState("");
 
@@ -122,9 +122,8 @@ const Text = (props: any) => {
         Align: align,
       },
       text: report,
-      tweetId: props.tweetId,
       apiKey: localStorage.getItem("loggedUserApi"),
-      reportID: localStorage.getItem("id"),
+      reportID: localStorage.getItem("draftReportId"),
       textPosition: textPos,
     };
 
