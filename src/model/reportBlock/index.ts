@@ -24,13 +24,13 @@ export const ReportBlockTable = {
                 ProjectionType: "ALL"
             },
             ProvisionedThroughput: {
-                ReadCapacityUnits: 15,
-                WriteCapacityUnits: 15
+                ReadCapacityUnits: 5,
+                WriteCapacityUnits: 5
             }
         }],
         ProvisionedThroughput: {
-            ReadCapacityUnits: 15,
-            WriteCapacityUnits: 15
+            ReadCapacityUnits: 5,
+            WriteCapacityUnits: 5
         }
     }
 }
