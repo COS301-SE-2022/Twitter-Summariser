@@ -57,21 +57,30 @@ export default class ReportService {
         await ServicesLayer.reportBlockService.sortReportBlocks(report);
         let rp = [];
         let bl =false;
+        var max =0;
+        var count =0;
 
-        for(var x=0; x<report.length; x++){
+        for(var y=0; y<report.length; y++){
+            max = report[y].position;
+        }
+
+        for(var x=0; x<max; x++){
             for(var y=0; y<report.length; y++){
                 if(report[y].position==x){
                     rp.push(report[y]);
                     bl=true;
+                    count++;
                 }
             }
             
             if(!bl){
                 rp.push({blockType: 'RICHTEXT', position: x, block: null});
+                count++;
             }
         }
 
         item["Report"] = rp;
+        item["numOfBlocks"] = count;
         //item["Report"] = report;
         // result.Item.push({numBlocks: report.length*2+1});
         
