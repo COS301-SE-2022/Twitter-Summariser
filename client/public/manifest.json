@@ -3,17 +3,42 @@
     "name": "Twitter-Summariser",
     "icons": [
         {
-            "src": "TS_Logo.ico",
-            "sizes": "64x64 32x32 24x24 16x16",
+            "src": "maskable_icon.png",
+            "sizes": "1174x1174",
             "type": "image/x-icon"
         },
         {
-            "src": "logo192.png",
+            "src": "maskable_icon_x48.png",
+            "type": "image/png",
+            "sizes": "48x48"
+        },
+        {
+            "src": "maskable_icon_x72.png",
+            "type": "image/png",
+            "sizes": "72x72"
+        },
+        {
+            "src": "maskable_icon_x96.png",
+            "type": "image/png",
+            "sizes": "96x96"
+        },
+        {
+            "src": "maskable_icon_x128.png",
+            "type": "image/png",
+            "sizes": "128x128"
+        },
+        {
+            "src": "maskable_icon_x192.png",
             "type": "image/png",
             "sizes": "192x192"
         },
         {
-            "src": "logo512.png",
+            "src": "maskable_icon_x384.png",
+            "type": "image/png",
+            "sizes": "384x384"
+        },
+        {
+            "src": "maskable_icon_x72.png",
             "type": "image/png",
             "sizes": "512x512"
         }
