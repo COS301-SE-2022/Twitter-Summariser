@@ -7,7 +7,7 @@ const History = () => {
   // ######################### API FOR GETTING HISTORY #####################
 
   const getAllResultSetEndpoint =
-    "https://czbmusycz2.execute-api.us-east-1.amazonaws.com/dev/getAllResultSet";
+    "https://xprnnqlwwi.execute-api.us-east-1.amazonaws.com/dev/getAllResultSet";
 
   const getHistory = async () => {
     // POST request using fetch with error handling
@@ -57,7 +57,7 @@ const History = () => {
             <div className="mt-4 flex flex-row flex-wrap justify-center">
               {history.map((data, index) => (
                 <div
-                  className="m-4 w-1/4 h-auto bg-gray-400 rounded-md flex flex-col p-2"
+                  className="m-4 w-auto h-auto bg-gray-400 rounded-md flex flex-col p-2"
                   key={index}
                 >
                   <HistoryCard data={data} />

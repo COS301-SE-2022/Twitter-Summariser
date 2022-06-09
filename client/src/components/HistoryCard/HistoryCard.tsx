@@ -1,12 +1,21 @@
-import React from "react";
+import { Link } from "react-router-dom";
 
 const HistoryCard = (props: any) => {
+  // console.log(props.data);
+
+  const setResultSet = () => {
+    console.log(props.data.id);
+    localStorage.setItem("resultSetId", props.data.id);
+  };
+
   return (
     <div>
       <div className="">
-        <button type="submit">
-          <p className="font-bold">{props.data.searchPhrase}</p>
-        </button>
+        <Link to="/viewHistory">
+          <button type="submit" onClick={setResultSet}>
+            <p className="font-bold">{props.data.searchPhrase}</p>
+          </button>
+        </Link>
       </div>
       <div className="mt-2">
         <p className="italic text-xs">Sorted: {props.data.sortOption}</p>
