@@ -30,6 +30,7 @@ jobs:
         run: |
           yarn
           yarn test -- --coverage --watchAll=false
+          cd coverage
           ls
           cat coverage/lcov.info
 
