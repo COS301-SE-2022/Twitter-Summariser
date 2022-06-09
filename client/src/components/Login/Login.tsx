@@ -140,7 +140,7 @@ const Login = (props: any) => {
           <input
             data-testid="username-input"
             type="text"
-            placeholder=" email"
+            placeholder=" Email"
             className=" w-56 h-10 border-gray-200 border rounded-md text-center text-sm"
             onChange={usernameHandler}
             value={enteredUsername}
@@ -149,7 +149,7 @@ const Login = (props: any) => {
           <input
             data-testid="password-input"
             type="password"
-            placeholder="password"
+            placeholder="Password"
             className=" w-56 h-10 border-gray-200 border rounded-md text-center text-sm"
             onChange={passwordHandler}
             value={enteredPassword}
