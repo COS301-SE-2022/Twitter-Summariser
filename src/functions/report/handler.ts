@@ -50,7 +50,7 @@ export const getAllReports = middyfy(async (event: APIGatewayProxyEvent): Promis
 });
 
 export const getReport = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  try {
+  // try {
 
     const params = JSON.parse(event.body);
     const report = await ServicesLayer.reportService.getReport(params.reportID);
@@ -64,10 +64,11 @@ export const getReport = middyfy(async (event: APIGatewayProxyEvent): Promise<AP
       },
       body: JSON.stringify({ report: report })
     }
+    /*
   } catch (e) {
     return formatJSONResponse({
       statusCode: 500,
       message: e
     });
-  }
+  }*/
 });

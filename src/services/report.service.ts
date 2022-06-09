@@ -55,19 +55,19 @@ export default class ReportService {
         
         await Promise.all(promises);
         await ServicesLayer.reportBlockService.sortReportBlocks(report);
-        let rp: any;
+        let rp = [];
 
         for(var x=0; x<report.length; x++){
             for(var y=0; y<report.length; y++){
-                if(report[y]['position']==x){
-                    rp[x]=report[y];
+                if(report[y].position==x){
+                    rp.push(report[y]);
                 }
             }
         }
 
         item["Report"] = rp;
         //item["Report"] = report;
-        result.Item.push({numBlocks: report.length*2+1});
+        // result.Item.push({numBlocks: report.length*2+1});
         
         // const tweets = await ServicesLayer.tweetService.getTweets(item.resultSetID);
 
