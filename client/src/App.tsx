@@ -26,15 +26,10 @@ const App = (props: any) => {
 
   // retrieving user login details
   const loginHandler = (props: any) => {
-    console.log(props.email);
-    console.log(props.username);
-    console.log(props.apiKey);
-
     if (props.login === "true") {
       localStorage.setItem("loggedUserApi", props.apiKey);
       localStorage.setItem("loggedUserName", props.username);
       localStorage.setItem("loggedUserEmail", props.email);
-      console.log("here: " + props.username);
       setIsLoggedIn(true);
       setSignupPage(false);
       changeUser_api(props.apiKey);
@@ -46,7 +41,6 @@ const App = (props: any) => {
     localStorage.setItem("loggedUserApi", "0");
     setIsLoggedIn(false);
     setSignupPage(true);
-    // navigate("/signup");
 
     changeUser_api("");
   };
@@ -56,9 +50,9 @@ const App = (props: any) => {
     localStorage.removeItem("loggedUserName");
     localStorage.removeItem("loggedUserEmail");
     localStorage.removeItem("id");
+    localStorage.removeItem("resultSetId");
     setIsLoggedIn(false);
     setSignupPage(false);
-    // navigate("/login");
 
     changeUser_api("");
   };
@@ -86,60 +80,6 @@ const App = (props: any) => {
         <Landing userAPI={user_api} takeToSigninPage={logInPage} />
       )}
     </div>
-
-    // <BrowserRouter>
-
-    // <Routes>
-    // <Route />
-    // {!isLoggedIn &&
-    //   <Route path="/" element={<Splash takeToSignupPage={signUpPage} takeToSigninPage={logInPage} />} />
-    // }
-    // {/* <Route path="/" element={<Splash />} /> */}
-    // {!localStorage.getItem("loggedUserApi") &&
-    //   <Route path="/login" element= {<Login userLoginDetails={loginHandler} takeToSignupPage={signUpPage} />} />
-    // }
-    // {signupPage &&
-    //   <Route path="/signup" element={<Signup takeToSigninPage={logInPage} />}/>
-    // }
-    // {signupPage && (
-    //   <Signup takeToSigninPage={logInPage} readyToLogIN={readyToLog} />
-    // )}
-    // {isLoggedIn &&
-    //   <Route path="/*" element={
-    //     <Landing userAPI={user_api} takeToSigninPage={logInPage} />
-    //   }/>
-    // }
-    // </Routes>
-    // {/* Login */}
-    // {/* {!localStorage.getItem("loggedUserApi") && (
-    //   <Login userLoginDetails={loginHandler} takeToSignupPage={signUpPage} />
-    // )} */}
-
-    // {/* Signup */}
-    // {/* {signupPage && <Signup takeToSigninPage={logInPage} />} */}
-
-    // {/* Entry here based on Signup and Login decision  */}
-    // {/* {isLoggedIn && (
-    //   <Landing userAPI={user_api} takeToSigninPage={logInPage} />
-    // )} */}
-
-    // {/* <div className=""> */}
-    // {/* Login */}
-    // {/* {!localStorage.getItem("loggedUserApi") && (
-    //   <Login userLoginDetails={loginHandler} takeToSignupPage={signUpPage} />
-    // )} */}
-
-    //   {/* Signup */}
-    //   {/* {signupPage && <Signup takeToSigninPage={logInPage} />} */}
-    //   {/* {signupPage && (
-    //   <Signup takeToSigninPage={logInPage} readyToLogIN={readyToLog} />
-    // )} */}
-    //   {/* Entry here based on Signup and Login decision  */}
-    //   {/* {isLoggedIn && (
-    //     <Landing userAPI={user_api} takeToSigninPage={logInPage} />
-    //   )} */}
-    // {/* </div> */}
-    // </BrowserRouter>
   );
 };
 

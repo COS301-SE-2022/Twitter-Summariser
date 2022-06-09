@@ -4,13 +4,15 @@ import ReportService from "./report.service";
 import ReportBlockService from "./reportBlock.service";
 import ResultSetService from "./resultSet.service";
 import TweetService from "./tweet.service";
+import TextStyleService from "./textStyles.service";
 
 
 const reportService = new ReportService(dynamoDBClient());
 const creatorService = new CreatorService(dynamoDBClient());
 const resultSetServices = new ResultSetService(dynamoDBClient());
 const tweetService = new TweetService(dynamoDBClient());
-const reportBlock = new ReportBlockService(dynamoDBClient());
+const reportBlockService = new ReportBlockService(dynamoDBClient());
+const textStyleService = new TextStyleService(dynamoDBClient());
 
-export default { creatorService, resultSetServices, tweetService, reportService, reportBlock };
+export default { creatorService, resultSetServices, tweetService, reportService, reportBlockService, textStyleService };
 
