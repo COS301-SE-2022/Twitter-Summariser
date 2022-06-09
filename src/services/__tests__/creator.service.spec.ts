@@ -49,7 +49,7 @@ describe("creator.service", () => {
         
         })
 
-        test("Creator doesn't exist", async () => {
+        test("Get item from empty table", async () => {
             expect.assertions(1);
             
             awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({Items: []}));
@@ -57,6 +57,50 @@ describe("creator.service", () => {
                 await CreatorServices.creatorService.getCreator("test@gmail.com", "password");
             } catch (e) {
                 expect(e.message).toBe("creator test@gmail.com not found");
+            }
+        })
+
+        test("Creator does not exist", async () => {
+            const hashed = bcrypt.hashSync("password", 10);
+
+            const test : Creator = {
+                apiKey: "njksea",
+                email: "test@gmail.com",
+                username: "test",
+                password: hashed,
+                dateOfBirth: "2002-01-08",
+                dateRegistered: "2022-01-01T00:00:00.000Z"
+            };
+
+            awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({Items: [test]}));
+
+            // const creator: Creator = await CreatorServices.creatorService.getCreator("test2@gmail.com", "password");
+            
+            try {
+                await CreatorServices.creatorService.getCreator("test2@gmail.com", "password");
+            } catch (e) {
+                expect(e.message).toBe("creator test@gmail.com not found");
+            }
+        })
+
+        test("Wrong credentials given", async () => {
+            const hashed = bcrypt.hashSync("password", 10);
+
+            const test : Creator = {
+                apiKey: "njksea",
+                email: "test@gmail.com",
+                username: "test",
+                password: hashed,
+                dateOfBirth: "2002-01-08",
+                dateRegistered: "2022-01-01T00:00:00.000Z"
+            };
+
+            awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({Items: [test]}));
+
+            try {
+                await CreatorServices.creatorService.getCreator("test@gmail.com", "password1");
+            } catch (e) {
+                expect(e.message).toBe("invalid credentials for user test@gmail.com");
             }
         })
         
