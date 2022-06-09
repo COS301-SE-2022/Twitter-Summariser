@@ -41,6 +41,7 @@ describe("report.service", () => {
                 resultSetID: "12222",
                 apiKey: "ABdggekj23",
                 dateCreated: "2022-01-01",
+                numOfBlocks: 0,
                 title: "This is my report",
                 author: "Test",
                 Report: []
