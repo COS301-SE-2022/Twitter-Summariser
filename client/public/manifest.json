@@ -8,14 +8,34 @@
             "type": "image/x-icon"
         },
         {
-            "src": "logo192.png",
+            "src": "TS_Logo_16x16.png",
             "type": "image/png",
-            "sizes": "192x192"
+            "sizes": "16x16"
         },
         {
-            "src": "logo512.png",
+            "src": "TS_Logo_24x24.png",
             "type": "image/png",
-            "sizes": "512x512"
+            "sizes": "24x24"
+        },
+        {
+            "src": "TS_Logo_32x32.png",
+            "type": "image/png",
+            "sizes": "32x32"
+        },
+        {
+            "src": "TS_Logo_48x48.png",
+            "type": "image/png",
+            "sizes": "48x48"
+        },
+        {
+            "src": "TS_Logo_128x128.png",
+            "type": "image/png",
+            "sizes": "128x128"
+        },
+        {
+            "src": "TS_Logo_256x256.png",
+            "type": "image/png",
+            "sizes": "256x256"
         }
     ],
     "start_url": ".",
