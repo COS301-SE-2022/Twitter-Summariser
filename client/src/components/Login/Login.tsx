@@ -5,8 +5,6 @@ import { AiOutlineCheckCircle } from "react-icons/ai";
 
 import { useState } from "react";
 
-// import { Link, useNavigate } from "react-router-dom";
-
 const Login = (props: any) => {
   // const navigate = useNavigate();
   const [wrongCredentials, setWrongCredentialsStatus] = useState(false);
@@ -33,20 +31,14 @@ const Login = (props: any) => {
     changeEnteredPassword(event.target.value);
     setWrongCredentialsStatus(false);
     setRightCredentialsStatus(true);
-    // setReadyToLog(false);
   };
 
-  const [userCredential, changeResponse] = useState();
-
-  // ######################### API ###############################################
+  // ######################### API FOR LOGGING USERS IN ###############################################
 
   const loginEndpoint =
-    "https://czbmusycz2.execute-api.us-east-1.amazonaws.com/dev/login";
+    "https://xprnnqlwwi.execute-api.us-east-1.amazonaws.com/dev/login";
 
-  // post request with error handling
   const checkCredentials = (userCredentials: any) => {
-    // POST request using fetch with error handling
-    console.log("inside check credentials function");
     const requestOptions = {
       method: "POST",
       body: JSON.stringify(userCredentials),
@@ -59,10 +51,6 @@ const Login = (props: any) => {
           ?.includes("application/json");
 
         const data = isJson && (await response.json());
-
-        // console.log(await data);
-
-        changeResponse(await data);
 
         // check for error response
         if (!response.ok) {
@@ -93,7 +81,6 @@ const Login = (props: any) => {
   // #######################################################################
 
   const submitHandler = (event: any) => {
-
     event.preventDefault();
 
     const userDetails = {
@@ -101,9 +88,7 @@ const Login = (props: any) => {
       password: enteredPassword,
     };
 
-    // api_handler(JSON.stringify(userDetails));
     checkCredentials(userDetails);
-    // navigate("/");
   };
 
   const signup = (event: any) => {
@@ -114,40 +99,7 @@ const Login = (props: any) => {
     };
 
     props.takeToSignupPage(sign);
-    // navigate("/signup");
   };
-
-  // const mockEndpoint = "https://reqres.in/api/articles'";
-
-  // const mockData = {
-  //   title: "React POST Request Example",
-  // };
-
-  // const loginEndpoint =
-  //   "https://mtx3w94c8f.execute-api.us-east-1.amazonaws.com/dev/login";
-
-  // const loginData = {
-  //   email: "go.shoderu@gmail.com",
-  //   password: "Pass@2022",
-  // };
-
-  // // post request
-  // const handler = async (e: any) => {
-  //   const response = await fetch(loginEndpoint, {
-  //     method: "POST",
-  //     body: JSON.stringify(loginData),
-  //   });
-
-  //   const data = await response.json();
-
-  //   console.log(data);
-  // };
-
-  // handler(0);
-  // const data = await response;
-  // console.log(data);
-
-  // posting a request using axios
 
   return (
     <div
@@ -204,43 +156,13 @@ const Login = (props: any) => {
           />
           <br />
           <br />
-
-          {/* <Link to="/"> */}
-          {/* <button
-              data-testid="btn-submit"
-              type="submit"
-              className="button__login text-sm p-0.5 h-10 w-56 bg-black rounded-full text-white"
-            >
-               <Link to="/"
-                  data-testid="btn-login"
-                >
-                  Login
-              </Link>
-              {/* Login */}
-          {/* </button> */}
-            {/* <Link to="/"
-              data-testid="btn-submit"
-              type="submit"
-              className="button__login text-sm p-0.5 h-10 w-56 bg-black rounded-full text-white"
-            > */}
-               <button
-                  data-testid="btn-submit"
-                  type="submit"
-                  className="button__login text-sm p-0.5 h-10 w-56 bg-black rounded-full text-white"
-                >
-                  Login
-                  {/* Login */}
-              </button>
-              {/* Login */}
-          {/* </Link> */}
-          {/* </Link> */}
-          {/* <button
+          <button
             data-testid="btn-submit"
             type="submit"
             className="button__login text-sm p-0.5 h-10 w-56 bg-black rounded-full text-white"
           >
             Login
-          </button> */}
+          </button>
           <br />
           <br />
           <br />
@@ -255,9 +177,6 @@ const Login = (props: any) => {
           <br />
           <p className="text-sm text-center">
             Don't have an account?
-            {/* <Link to="/signup" className=" text-sky-500">
-              &nbsp; Sign up
-            </Link> */}
             <button
               data-testid="btn-signup"
               type="submit"
