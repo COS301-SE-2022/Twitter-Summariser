@@ -54,8 +54,6 @@ export const getReport = middyfy(async (event: APIGatewayProxyEvent): Promise<AP
 
     const params = JSON.parse(event.body);
     const report = await ServicesLayer.reportService.getReport(params.reportID);
-    
-    
 
     return {
       statusCode: 200,

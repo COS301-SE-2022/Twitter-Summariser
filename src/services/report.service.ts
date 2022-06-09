@@ -45,21 +45,26 @@ export default class ReportService {
                     position: block.position,
                     style: style
                 };
-                // ob["block"].push(ob["text"] = block.richText);
-                // ob["block"].push(ob["position"] = block.position);
-                // ob["block"].push
-                // ob["style"] = style;
-
             }
-
             report.push(ob);
 
         });
         
         await Promise.all(promises);
         await ServicesLayer.reportBlockService.sortReportBlocks(report);
+        let rp: any;
 
-        item["Report"] = report;
+        for(var x=0; x<report.length*2+1; x++){
+            if(report[x]['position']==x){
+                rp.push(report[x]);
+            }else{
+                rp.push({blockType: "RICHTEXT", position: x, block: null});
+            }
+        }
+
+        item["Report"] = rp;
+        //item["Report"] = report;
+        result.Item.push({numBlocks: report.length*2+1});
         
         // const tweets = await ServicesLayer.tweetService.getTweets(item.resultSetID);
 
