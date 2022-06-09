@@ -30,7 +30,8 @@ jobs:
         run: |
           yarn
           yarn test -- --coverage --watchAll=false
-          cat ./coverage/lcov.info
+          ls
+          cat coverage/lcov.info
 
       # - name: Merge the coverage reports
       #   run: |
