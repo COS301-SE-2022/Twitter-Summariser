@@ -77,6 +77,7 @@ export default class ReportService {
                 rp.push({blockType: 'RICHTEXT', position: x, block: null});
                 count++;
             }
+            bl=false;
         }
 
         item["Report"] = rp;
