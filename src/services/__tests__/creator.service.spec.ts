@@ -49,7 +49,7 @@ describe("creator.service", () => {
         
         })
 
-        test("Creator table empty", async () => {
+        test("Get item from empty table", async () => {
             expect.assertions(1);
             
             awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({Items: []}));
