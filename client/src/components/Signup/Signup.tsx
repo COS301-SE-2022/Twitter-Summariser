@@ -192,7 +192,7 @@ const Signup = (props: any) => {
           <input
             data-testid="name-input"
             type="text"
-            placeholder="Name"
+            placeholder="Username"
             className=" w-56 h-10 border-gray-200 border rounded-md text-center text-sm"
             onChange={usernameHandler}
             value={enteredUsername}
