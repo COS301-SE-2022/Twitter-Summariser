@@ -30,9 +30,6 @@ jobs:
         run: |
           yarn
           yarn test -- --coverage --watchAll=false
-          cd coverage
-          ls
-          cat coverage/lcov.info
 
       # - name: Merge the coverage reports
       #   run: |
@@ -43,3 +40,4 @@ jobs:
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ${{ github.workspace }}/client/coverage/lcov.info
