@@ -1,17 +1,20 @@
-# BitByBit - Twitter Summariser
+<h1 align="center">BitByBit - Twitter Summariser</h1>
+
 ![image](https://user-images.githubusercontent.com/93042354/172893656-8d203066-4917-4131-900a-f7dfd18f7516.png)
 
 A progressive web app to generate an article on a given trend using curated Tweets.
 
-### SYSTEM REQUIREMENTS SPECIFICCATION AND PROJECT BOARD:
+### DOCUMENTATION AND PROJECT BOARD
+
 - [Twitter Summariser SRS](https://github.com/COS301-SE-2022/Twitter-Summariser/files/8684152/twitter-summariser-srs.pdf)
 - [Project Board](https://github.com/COS301-SE-2022/Twitter-Summariser/projects/1)
 
+### DEMO VIDEOS LINKS
 
-### DEMO VIDEO LINKS:
 - [Demo 1](https://drive.google.com/file/d/1LPuUmVU7ITBsx_G0VlAXqQpufLkrOZKe/view?usp=sharing)
 
-### BADGES:
+### BADGES
+
 ![Coveralls](https://img.shields.io/coveralls/github/COS301-SE-2022/Twitter-Summariser?label=Coverage&style=for-the-badge)
 ![GitHub repo size](https://img.shields.io/github/repo-size/COS301-SE-2022/Twitter-Summariser?style=for-the-badge)
 
@@ -25,7 +28,7 @@ A progressive web app to generate an article on a given trend using curated Twee
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/COS301-SE-2022/Twitter-Summariser?color=4CBB17&style=for-the-badge)
 ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/COS301-SE-2022/Twitter-Summariser?color=red&style=for-the-badge)
 
-# TEAM MEMBERS:
+# TEAM MEMBERS
 
 ## Isheanesu Dzingirai - DevOp
 
@@ -175,7 +178,6 @@ A progressive web app to generate an article on a given trend using curated Twee
  </p>
 </details>
 
-
 # Serverless - AWS Node.js Typescript
 
 This project has been generated using the `aws-nodejs-typescript` template from the [Serverless framework](https://www.serverless.com/).
@@ -271,7 +273,6 @@ The project code base is mainly located within the `src` folder. This folder is 
 ### Advanced usage
 
 Any tsconfig.json can be used, but if you do, set the environment variable `TS_NODE_CONFIG` for building the application, eg `TS_NODE_CONFIG=./tsconfig.app.json npx serverless webpack`
-
 
 ### Run DynamoDB and API Locally
 
