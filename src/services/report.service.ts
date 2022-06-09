@@ -60,9 +60,8 @@ export default class ReportService {
         var max =0;
         var count =0;
 
-        for(var y=0; y<report.length; y++){
-            max = report[y].position;
-        }
+        
+        max = report[report.length-1].position;
 
         for(var x=0; x<max; x++){
             for(var y=0; y<report.length; y++){
