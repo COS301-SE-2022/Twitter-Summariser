@@ -5,9 +5,14 @@ import { Key, useState } from "react";
 
 // importing mock data
 import Text from "../Text/Text";
+import DraftCard from "../DraftCard/DraftCard";
 
 function GenReport(props: any) {
   // const [{id}, changeID] = useState("");
+
+  let generate = 1;
+
+  console.log("generate is " + generate);
 
   // let { val } = useParams();
   const [state, setState] = useState([]);
@@ -25,75 +30,94 @@ function GenReport(props: any) {
   const genRep = async () => {
     // POST request using fetch with error handling
 
-    const requiredData = {
-      reportID: localStorage.getItem("draftReportId"),
-    };
+    if (generate === 1) {
+      const requiredData = {
+        reportID: localStorage.getItem("draftReportId"),
+      };
 
-    const requestOptions = {
-      method: "POST",
-      body: JSON.stringify(requiredData),
-    };
+      const requestOptions = {
+        method: "POST",
+        body: JSON.stringify(requiredData),
+      };
 
-    fetch(getReportEndpoint, requestOptions)
-      .then(async (response) => {
-        const isJson = response.headers
-          .get("content-type")
-          ?.includes("application/json");
+      fetch(getReportEndpoint, requestOptions)
+        .then(async (response) => {
+          const isJson = response.headers
+            .get("content-type")
+            ?.includes("application/json");
 
-        const data = isJson && (await response.json());
+          const data = isJson && (await response.json());
 
-        setState(data.report.Report);
-        setTitle(data.report.title);
-        setAuthor(data.report.author);
-        setDate(data.report.dateCreated.substring(0, 16));
-        // console.log(await data.report.dateCreated);
+          setState(data.report.Report);
+          setTitle(data.report.title);
+          setAuthor(data.report.author);
+          setDate(data.report.dateCreated.substring(0, 16));
+          // console.log(await data.report.dateCreated);
 
-        // check for error response
-        if (!response.ok) {
-          // error
+          // check for error response
+          if (!response.ok) {
+            // error
+            // signUpFailure(true);
+
+            return;
+          }
+
+          // await props.readyToLogIN();
+        })
+        .catch((error) => {
+          console.log("Error retrieving report");
           // signUpFailure(true);
+        });
+    }
 
-          return;
-        }
-
-        // await props.readyToLogIN();
-      })
-      .catch((error) => {
-        console.log("Error retrieving report");
-        // signUpFailure(true);
-      });
+    generate = 0;
   };
 
   genRep();
   // ###################################################################
 
+  console.log("generate is " + generate);
+
   // processing api response
   const apiResponse = [<div key={"begining div"}></div>];
 
-  let textPosition = 0;
+  let textPosition = -1;
   // console.log(state);
 
-  state.map((data: any, index: Key | null | undefined) =>
+  const increment = () => {
+    textPosition++;
+
+    return textPosition;
+  };
+
+  console.log("Size of the given array is " + state.length);
+
+  state.map((data: any, index: number) =>
     apiResponse.push(
       <div key={index}>
-        {/* {textPosition % 2 === 0 && textPosition} */}
-        {textPosition % 2 === 0 && (
-          <Text
-            keyValue={index}
-            textData={data}
-            tweetId={data.tweetId}
-            position={textPosition++}
-          />
+        {/* {data.blockType === "RICHTEXT" ? (
+          <Text keyValue={index} textData={data} position={data.position} />
+        ) : (
+          <Text keyValue={index} position={data.position - 1} />
         )}
-        {/* Text position is {textPosition} */}
-        {textPosition % 2 === 1 && (
-          <Tweet tweetData={data} position={textPosition++} />
-        )}
+        
+        {data.blockType === "TWEET" && (
+          <Tweet tweetData={data} position={data.position} />
+        )} */}
+
+        {/* {index % 2 === 0 && ( */}
+        <Text keyValue={index} data={data} position={index} />
+        {/* )} */}
+
+        {/* {index % 2 === 1 &&  */}
+        <Tweet data={data} position={index} />
+        {/* } */}
       </div>
     )
   );
 
   // console.log("Total content is " + textPosition);
+  // textPosition = 0;
 
   return (
     <div className="mt-4 p-4">
@@ -105,7 +129,7 @@ function GenReport(props: any) {
 
       <div className="grid grid-cols gap-4 content-center">
         {apiResponse}
-        <Text position={(textPosition += 1)} />
+        {/* <Text position={(textPosition += 1)} /> */}
       </div>
 
       <Link
