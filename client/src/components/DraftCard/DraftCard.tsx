@@ -2,7 +2,12 @@ import { Link } from "react-router-dom";
 
 const DraftCard = (props: any) => {
   const viewGenReport = () => {
-    localStorage.setItem("draftReportId", props.data.reportID);
+    if (localStorage.getItem("draftReportId")) {
+      localStorage.removeItem("draftReportId");
+      localStorage.setItem("draftReportId", props.data.reportID);
+    } else {
+      localStorage.setItem("draftReportId", props.data.reportID);
+    }
   };
 
   return (

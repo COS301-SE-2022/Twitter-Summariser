@@ -10,9 +10,9 @@ import DraftCard from "../DraftCard/DraftCard";
 function GenReport(props: any) {
   // const [{id}, changeID] = useState("");
 
-  let generate = 1;
+  // let generate = 1;
 
-  console.log("generate is " + generate);
+  // console.log("generate is " + generate);
 
   // let { val } = useParams();
   const [state, setState] = useState([]);
@@ -30,53 +30,55 @@ function GenReport(props: any) {
   const genRep = async () => {
     // POST request using fetch with error handling
 
-    if (generate === 1) {
-      const requiredData = {
-        reportID: localStorage.getItem("draftReportId"),
-      };
+    // if (generate === 1) {
+    const requiredData = {
+      reportID: localStorage.getItem("draftReportId"),
+    };
 
-      const requestOptions = {
-        method: "POST",
-        body: JSON.stringify(requiredData),
-      };
+    const requestOptions = {
+      method: "POST",
+      body: JSON.stringify(requiredData),
+    };
 
-      fetch(getReportEndpoint, requestOptions)
-        .then(async (response) => {
-          const isJson = response.headers
-            .get("content-type")
-            ?.includes("application/json");
+    fetch(getReportEndpoint, requestOptions)
+      .then(async (response) => {
+        const isJson = response.headers
+          .get("content-type")
+          ?.includes("application/json");
 
-          const data = isJson && (await response.json());
+        const data = isJson && (await response.json());
 
-          setState(data.report.Report);
-          setTitle(data.report.title);
-          setAuthor(data.report.author);
-          setDate(data.report.dateCreated.substring(0, 16));
-          // console.log(await data.report.dateCreated);
+        // console.log(data);
 
-          // check for error response
-          if (!response.ok) {
-            // error
-            // signUpFailure(true);
+        setState(data.report.Report);
+        setTitle(data.report.title);
+        setAuthor(data.report.author);
+        setDate(data.report.dateCreated.substring(0, 16));
+        // console.log(await data.report.dateCreated);
 
-            return;
-          }
-
-          // await props.readyToLogIN();
-        })
-        .catch((error) => {
-          console.log("Error retrieving report");
+        // check for error response
+        if (!response.ok) {
+          // error
           // signUpFailure(true);
-        });
-    }
 
-    generate = 0;
+          return;
+        }
+
+        // await props.readyToLogIN();
+      })
+      .catch((error) => {
+        console.log("Error retrieving report");
+        // signUpFailure(true);
+      });
+    // }
+
+    // generate = 0;
   };
 
   genRep();
   // ###################################################################
 
-  console.log("generate is " + generate);
+  // console.log("generate is " + generate);
 
   // processing api response
   const apiResponse = [<div key={"begining div"}></div>];
@@ -90,28 +92,15 @@ function GenReport(props: any) {
     return textPosition;
   };
 
-  console.log("Size of the given array is " + state.length);
+  // console.log("Size of the given array is " + state.length);
+  // console.log(state);
 
   state.map((data: any, index: number) =>
     apiResponse.push(
       <div key={index}>
-        {/* {data.blockType === "RICHTEXT" ? (
-          <Text keyValue={index} textData={data} position={data.position} />
-        ) : (
-          <Text keyValue={index} position={data.position - 1} />
-        )}
-        
-        {data.blockType === "TWEET" && (
-          <Tweet tweetData={data} position={data.position} />
-        )} */}
+        {data.blockType === "RICHTEXT" && <Text keyValue={index} data={data} />}
 
-        {/* {index % 2 === 0 && ( */}
-        <Text keyValue={index} data={data} position={index} />
-        {/* )} */}
-
-        {/* {index % 2 === 1 &&  */}
-        <Tweet data={data} position={index} />
-        {/* } */}
+        {data.blockType === "TWEET" && <Tweet data={data} />}
       </div>
     )
   );

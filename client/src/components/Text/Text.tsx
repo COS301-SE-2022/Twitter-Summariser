@@ -11,46 +11,20 @@ import {
 import { useState } from "react";
 
 const Text = (props: any) => {
-  //   const italic = " italic";
-  // console.log(props.tweetId);
-  // const [, setPosition] = useState("");
-  // setPosition(
-
-  // const [viewText, changeToText] = useState<Boolean>();
-  // const [viewEdit, changeToEdit] = useState<Boolean>();
-
-  // if (props.data.blockType === "RICHTEXT") {
-  //   // console.log("This is " + props.data.blockType);
-  //   // console.log(props.data.block.text);
-  //   // console.log("Hoping it's Text and it position is " + props.position);
-  //   // console.log(props.data);
-  //   changeToText(true);
-  //   changeToEdit(false);
-  // } else {
-  //   // console.log("This is " + props.data.blockType);
-  //   // console.log(props.data.block.text);
-  //   // console.log(
-  //   //   "Hoping it's a button to create text and it position is " + props.position
-  //   // );
-  //   // console.log(props.data);
-  //   changeToEdit(true);
-  //   changeToText(false);
+  // if (
+  //   props.data.blockType === "RICHTEXT" &&
+  //   props.position === props.data.position
+  // ) {
+  //   console.log("This is " + props.data.blockType);
+  //   console.log(props.data.block.text);
+  //   console.log("Hoping it's Text and it position is " + props.position);
+  //   console.log(props.data);
   // }
-
-  if (
-    props.data.blockType === "RICHTEXT" &&
-    props.position === props.data.position
-  ) {
-    console.log("This is " + props.data.blockType);
-    console.log(props.data.block.text);
-    console.log("Hoping it's Text and it position is " + props.position);
-    console.log(props.data);
-  }
 
   // console.log(props.position);
   // const val = props.pleaseIncrement;
 
-  const textPos = props.position;
+  const textPos = props.data.position;
 
   const [italic, setItalic] = useState("");
 
@@ -140,7 +114,7 @@ const Text = (props: any) => {
     changeReport(event.target.value);
   };
 
-  // ######################### API FOR SIGNING USERS UP ###############################################
+  // ######################### API FOR EDITING TEXT ###############################################
   const textEndpoint =
     "https://xprnnqlwwi.execute-api.us-east-1.amazonaws.com/dev/editBlock";
 
@@ -194,10 +168,42 @@ const Text = (props: any) => {
     editText(Text);
   };
 
+  let edit = false;
+  let style__ = "w-full h-24 mt-2 p-2";
+
+  if (props.data.block === null) {
+    edit = true;
+  } else {
+    edit = false;
+    // console.log(props.data);
+    style__ =
+      style__ +
+      props.data.block.style[0].italic +
+      props.data.block.style[0].bold +
+      props.data.block.style[0].size +
+      props.data.block.style[0].align +
+      props.data.block.style[0].colour;
+
+    style = style__;
+
+    // console.log(style__);
+  }
+
   return (
     <div>
-      {/* {viewText && <div>This is a Text</div>}
-      {viewEdit && (
+      {!edit && (
+        <div className="flex flex-col">
+          <div className={style}>{props.data.block.text}</div>
+          {/* <div className="flex flex-col mt-5 mb-5">
+            <div className="flex justify-center align-middle">
+              <button onClick={textEditorHandler}>
+                <AiFillEdit style={icon_style} />
+              </button>
+            </div>
+          </div> */}
+        </div>
+      )}
+      {edit && (
         <div key={props.keyValue}>
           {editor && (
             <div className="flex flex-col">
@@ -303,7 +309,7 @@ const Text = (props: any) => {
             </div>
           )}
         </div>
-      )} */}
+      )}
     </div>
   );
 };

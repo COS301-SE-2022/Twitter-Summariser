@@ -5,6 +5,10 @@ import HomeTweet from "../HomeTweet/HomeTweet";
 
 const Home = () => {
   // ################ all related to the search ############################
+
+  // localStorage.removeItem("resultSetId");
+  // localStorage.removeItem("draftReportId");
+
   const [enteredSearch, changeEnteredSearch] = useState("");
   const [resultSet, changeResultSet] = useState("");
   const [date, changeDate] = useState("");
@@ -41,6 +45,8 @@ const Home = () => {
           ?.includes("application/json");
 
         const data = isJson && (await response.json());
+
+        console.log(data);
 
         if (!response.ok) {
           // error
@@ -158,7 +164,10 @@ const Home = () => {
   let ind = 0;
 
   const viewGenReport = () => {
-    if (enteredSearch !== "") {
+    if (localStorage.getItem("draftReportId")) {
+      localStorage.removeItem("draftReportId");
+      localStorage.setItem("draftReportId", genReport);
+    } else {
       localStorage.setItem("draftReportId", genReport);
     }
   };
