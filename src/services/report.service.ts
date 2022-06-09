@@ -48,21 +48,42 @@ export default class ReportService {
                     position: block.position,
                     style: style
                 };
-                // ob["block"].push(ob["text"] = block.richText);
-                // ob["block"].push(ob["position"] = block.position);
-                // ob["block"].push
-                // ob["style"] = style;
-
             }
-
             report.push(ob);
 
         });
         
         await Promise.all(promises);
         await ServicesLayer.reportBlockService.sortReportBlocks(report);
+        let rp = [];
+        let bl =false;
+        var max =0;
+        var count =0;
 
-        item["Report"] = report;
+        for(var y=0; y<report.length; y++){
+            max = report[y].position;
+        }
+
+        for(var x=0; x<max; x++){
+            for(var y=0; y<report.length; y++){
+                if(report[y].position==x){
+                    rp.push(report[y]);
+                    bl=true;
+                    count++;
+                }
+            }
+            
+            if(!bl){
+                rp.push({blockType: 'RICHTEXT', position: x, block: null});
+                count++;
+            }
+            bl=false;
+        }
+
+        item["Report"] = rp;
+        item["numOfBlocks"] = count;
+        //item["Report"] = report;
+        // result.Item.push({numBlocks: report.length*2+1});
         
         // const tweets = await ServicesLayer.tweetService.getTweets(item.resultSetID);
 
