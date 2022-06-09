@@ -19,8 +19,8 @@ jobs:
       - name: Install all package dependencies
         run: yarn
 
-      - name: Generate coverage report for backend
-        run: yarn test -- --coverage
+      # - name: Generate coverage report for backend
+      #   run: yarn test -- --coverage
 
       - name: Changed to client directory and generate coverage for frontend
         run: |
