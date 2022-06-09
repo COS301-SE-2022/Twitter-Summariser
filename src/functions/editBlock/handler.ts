@@ -11,7 +11,7 @@ export const editBlock = middyfy(async (event: APIGatewayProxyEvent): Promise<AP
         let text: any;
         let styles: any;
 
-        if(params.reportBlockID==undefined){
+        if(params.reportBlockID=="-1"){
           var id = "BL-"+randomUUID();
           text = await ServicesLayer.reportBlockService.addReportBlock({reportBlockID: id, reportID: params.reportID, blockType: 'RICHTEXT', position: params.position, richText: params.text});
           var sid = "ST-"+randomUUID();
