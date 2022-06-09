@@ -1,5 +1,5 @@
 // import { Tweet } from 'react-twitter-widgets';
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Tweet from "../Tweet/Tweet";
 import { Key, useState } from "react";
 
@@ -20,13 +20,13 @@ function GenReport(props: any) {
   // ################ API FOR GETTING REPORT ###########################
 
   const getReportEndpoint =
-    "https://czbmusycz2.execute-api.us-east-1.amazonaws.com/dev/getReport";
+    "https://xprnnqlwwi.execute-api.us-east-1.amazonaws.com/dev/getReport";
 
   const genRep = async () => {
     // POST request using fetch with error handling
 
     const requiredData = {
-      reportID: localStorage.getItem("id"),
+      reportID: localStorage.getItem("draftReportId"),
     };
 
     const requestOptions = {
@@ -42,10 +42,10 @@ function GenReport(props: any) {
 
         const data = isJson && (await response.json());
 
-        setState(data.report.tweets);
+        setState(data.report.Report);
         setTitle(data.report.title);
         setAuthor(data.report.author);
-        // setDate(data.report.)
+        setDate(data.report.dateCreated.substring(0, 16));
         // console.log(await data.report.dateCreated);
 
         // check for error response
@@ -70,18 +70,25 @@ function GenReport(props: any) {
   // processing api response
   const apiResponse = [<div key={"begining div"}></div>];
 
-  let textPosition = -1;
+  let textPosition = 0;
   // console.log(state);
 
   state.map((data: any, index: Key | null | undefined) =>
     apiResponse.push(
       <div key={index}>
-        <Text
-          keyValue={index}
-          tweetId={data.tweetId}
-          position={(textPosition += 1)}
-        />
-        <Tweet tweetData={data} position={(textPosition += 1)} />
+        {/* {textPosition % 2 === 0 && textPosition} */}
+        {textPosition % 2 === 0 && (
+          <Text
+            keyValue={index}
+            textData={data}
+            tweetId={data.tweetId}
+            position={textPosition++}
+          />
+        )}
+        {/* Text position is {textPosition} */}
+        {textPosition % 2 === 1 && (
+          <Tweet tweetData={data} position={textPosition++} />
+        )}
       </div>
     )
   );
@@ -93,7 +100,7 @@ function GenReport(props: any) {
       <h1 className="text-3xl font-bold">{title}</h1>
       <br />
       <h2 className="italic font-bold">Created By: {author}</h2>
-      <h3 className="italic text-xs">Date Created: 13/05/2022</h3>
+      <h3 className="italic text-xs">Date Created: {date}</h3>
       <br />
 
       <div className="grid grid-cols gap-4 content-center">
