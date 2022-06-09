@@ -1,6 +1,7 @@
 import { useState } from "react";
-import Tweet from "../Tweet/Tweet";
+// import Tweet from "../Tweet/Tweet";
 import { Link } from "react-router-dom";
+import HomeTweet from "../HomeTweet/HomeTweet";
 
 const Home = () => {
   // ################ all related to the search ############################
@@ -149,7 +150,7 @@ const Home = () => {
       enteredSearch !== "" &&
       apiResponse.push(
         <div key={index}>
-          <Tweet tweetData={data} />
+          <HomeTweet tweetData={data} />
         </div>
       )
   );
