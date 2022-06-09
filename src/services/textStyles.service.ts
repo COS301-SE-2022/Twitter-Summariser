@@ -9,7 +9,7 @@ export default class TextStyleService {
     async getStyle(RBID: string): Promise <TextStyle[]> {
         const result = await this.docClient.query({
             TableName: this.TableName,
-            IndexName: "textStyleIndex",
+            IndexName: "textStylesIndex",
             KeyConditionExpression: 'reportBlockID = :reportBlockID',
             ExpressionAttributeValues: {
                 ":reportBlockID": RBID
