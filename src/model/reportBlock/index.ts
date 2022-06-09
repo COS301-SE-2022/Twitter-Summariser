@@ -3,7 +3,7 @@ export const ReportBlockTable = {
     Properties: {
         TableName: "ReportBlockTable",
         AttributeDefinitions: [{
-            AttributeName: "id",
+            AttributeName: "reportBlockID",
             AttributeType: "S"
         },
         {
@@ -11,7 +11,7 @@ export const ReportBlockTable = {
             AttributeType: "S"
         }],
         KeySchema: [{
-            AttributeName: "id",
+            AttributeName: "reportBlockID",
             KeyType: "HASH"
         }],
         GlobalSecondaryIndexes: [{

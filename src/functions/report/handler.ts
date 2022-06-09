@@ -54,8 +54,7 @@ export const getReport = middyfy(async (event: APIGatewayProxyEvent): Promise<AP
 
     const params = JSON.parse(event.body);
     const report = await ServicesLayer.reportService.getReport(params.reportID);
-    const blocksmid = await ServicesLayer.reportBlock.getReportBlocks(params.reportID);
-    const blocks = await ServicesLayer.reportBlock.sortReportBlocks(blocksmid);
+    
     
 
     return {
@@ -65,7 +64,7 @@ export const getReport = middyfy(async (event: APIGatewayProxyEvent): Promise<AP
         "Access-Control-Allow-Methods": '*',
         'Access-Control-Allow-Origin': '*',
       },
-      body: JSON.stringify({ report: report, blocks: blocks })
+      body: JSON.stringify({ report: report })
     }
   } catch (e) {
     return formatJSONResponse({

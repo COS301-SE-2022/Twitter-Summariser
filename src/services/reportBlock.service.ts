@@ -8,6 +8,7 @@ export default class ReportBlockService {
     constructor(private docClient: DocumentClient) { }
 
     async getReportBlock(reportBlockID: string): Promise<ReportBlock> {
+        
         const result = await this.docClient.get({
             TableName: this.TableName,
             Key: { "id": reportBlockID }
@@ -17,20 +18,24 @@ export default class ReportBlockService {
     }
 
 
-    async getReportBlocks(reportID: string): Promise<ReportBlock[]> {
+    async getReportBlocks(key: string) : Promise<ReportBlock[]> {
+        
         const result = await this.docClient.query({
             TableName: this.TableName,
             IndexName: "reportBlockIndex",
             KeyConditionExpression: 'reportID = :reportID',
             ExpressionAttributeValues: {
-                ":reportID": reportID
+                ":reportID": key
             }
         }).promise();
 
-        let blocks: ReportBlock[];
+        //console.log(result.Items);
+
+        let blocks : ReportBlock[];
         blocks = result.Items as ReportBlock[];
         this.sortReportBlocks(blocks);
 
+        // console.log(blocks);
         return blocks as ReportBlock[];
     }
 
@@ -44,13 +49,13 @@ export default class ReportBlockService {
         return reportBlock as ReportBlock;
     }
 
-    async sortReportBlocks(reportBlocks: ReportBlock[]): Promise<ReportBlock[]> {
-        reportBlocks.sort((a, b) => {
-            if (a['position'] > b['position']) return 1;
-            if (a['position'] < b['position']) return -1;
-            return 0;
-        });
-        return reportBlocks as ReportBlock[]
-    }
+   async sortReportBlocks(reportBlocks: any[]): Promise<any[]> {
+    reportBlocks.sort((a,b) => {
+        if (a['position'] > b['position']) return 1;
+        if (a['position'] < b['position']) return -1;
+        return 0;
+    });
+       return reportBlocks;
+   }
 
 }

@@ -1,5 +1,5 @@
 export default interface ReportBlock {
-    id: string,
+    reportBlockID: string,
     reportID: string,
     blockType: "TWEET"|"RICHTEXT",
     position: number,

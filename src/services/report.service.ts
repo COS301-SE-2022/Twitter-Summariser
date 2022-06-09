@@ -12,7 +12,7 @@ export default class ReportService {
     constructor (private docClient: DocumentClient) {}
 
     // get specific reports
-    async getReport(id: string) : Promise<Report> {
+    async getReport(id: string) : Promise<any> {
         const result = await this.docClient.get({
             TableName: this.TableName,
             Key: { "reportID": id}
@@ -20,15 +20,56 @@ export default class ReportService {
 
         const item = result.Item;
 
-        const tweets = await ServicesLayer.tweetService.getTweets(item.resultSetID);
+        const report = [];
 
-        item["tweets"] = tweets;
+        const reportBlocks = await ServicesLayer.reportBlockService.getReportBlocks(item.reportID);
+        
+        const promises = reportBlocks.map(async block => {
+            let type = block.blockType;
+            let ob = {};
+
+            ob["blockType"] = type;
+            ob["position"] = block.position;
+            
+            if (type === "TWEET") {
+                const tweet = await ServicesLayer.tweetService.getTweet(block.tweetID);
+                // console.log(tweet);
+                ob["block"]=tweet;    
+                // console.log(ob);          
+            }
+            else if (type === "RICHTEXT") {
+                
+                const style = await ServicesLayer.textStyleService.getStyle(block.reportBlockID);
+                ob["block"]={
+                    text: block.richText,
+                    position: block.position,
+                    style: style
+                };
+                // ob["block"].push(ob["text"] = block.richText);
+                // ob["block"].push(ob["position"] = block.position);
+                // ob["block"].push
+                // ob["style"] = style;
+
+            }
+
+            report.push(ob);
+
+        });
+        
+        await Promise.all(promises);
+        await ServicesLayer.reportBlockService.sortReportBlocks(report);
+
+        item["Report"] = report;
+        
+        // const tweets = await ServicesLayer.tweetService.getTweets(item.resultSetID);
+
+        // item["tweets"] = tweets;
 
         // console.log(result.Item);
 
         
 
-        return result.Item as Report;
+        return result.Item;
     }
 
     // get my reports
