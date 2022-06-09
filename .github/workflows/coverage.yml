@@ -40,7 +40,7 @@ jobs:
       #     cat ./coverage/lcov.info
 
       - name: Upload report to Coveralls
+        working-directory: client
         uses: coverallsapp/github-action@master
         with:
-          path-to-lcov: coverage/lcov.info
           github-token: ${{ secrets.GITHUB_TOKEN }}
