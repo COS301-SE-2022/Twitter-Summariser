@@ -25,7 +25,7 @@ describe("resultSet.service", () => {
                 searchPhrase: "Test Phrase",
                 sortOption: "verifiedLikes",
                 filterOption: "byLikes"
-            }
+            };
     
             awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({Item: testResultSet}));
     
@@ -37,6 +37,37 @@ describe("resultSet.service", () => {
             });
     
             expect(resultSet).toEqual(testResultSet);
+        });
+
+        test("Get item from empty table", async () => {
+            expect.assertions(1);
+
+            awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve(undefined));
+
+            try {
+                await ResultSetService.resultSetServices.getResultSet("1111", "Gsdds3we52823");
+            } catch (e) {
+                expect(e.message).toBe("result set with id: 1111 does not exist.");
+            }
+        });
+
+        test("Result set does not exist", async () => {
+            const testResultSet: ResultSet = {
+                id: "1111",
+                apiKey: "Gsdds3we52823",
+                dateCreated: "2022-01-01",
+                searchPhrase: "Test Phrase",
+                sortOption: "verifiedLikes",
+                filterOption: "byLikes"
+            };  
+    
+            awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({Item: testResultSet}));
+
+            try {
+                await ResultSetService.resultSetServices.getResultSet("1112", "Gsdds3we52823");
+            } catch (e) {
+                expect(e.message).toBe("result set with id: 1112 does not exist.");
+            }
         })
         
     })
