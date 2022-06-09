@@ -38,9 +38,8 @@ jobs:
       #     ls
       #     node tools/scripts/merge-reports.js
       #     cat ./coverage/lcov.info
-
+      - working-directory: client
       - name: Upload report to Coveralls
-        working-directory: client
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
