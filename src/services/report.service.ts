@@ -57,11 +57,11 @@ export default class ReportService {
         await ServicesLayer.reportBlockService.sortReportBlocks(report);
         let rp: any;
 
-        for(var x=0; x<report.length*2+1; x++){
-            if(report[x]['position']==x){
-                rp.push(report[x]);
-            }else{
-                rp.push({blockType: "RICHTEXT", position: x, block: null});
+        for(var x=0; x<report.length; x++){
+            for(var y=0; y<report.length; y++){
+                if(report[y]['position']==x){
+                    rp[x]=report[y];
+                }
             }
         }
 
