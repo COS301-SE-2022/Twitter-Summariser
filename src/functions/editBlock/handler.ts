@@ -8,14 +8,17 @@ export const editBlock = middyfy(async (event: APIGatewayProxyEvent): Promise<AP
     try {
         const params = JSON.parse(event.body);
 
+        let text: any;
+        let styles: any;
+
         if(params.reportBlockID==undefined){
           var id = "BL-"+randomUUID();
-          await ServicesLayer.reportBlockService.addReportBlock({reportBlockID: id, reportID: params.reportID, blockType: 'RICHTEXT', position: params.position, richText: params.text});
+          text = await ServicesLayer.reportBlockService.addReportBlock({reportBlockID: id, reportID: params.reportID, blockType: 'RICHTEXT', position: params.position, richText: params.text});
           var sid = "ST-"+randomUUID();
-          await ServicesLayer.textStyleService.addStyle({styleID: sid, reportBlockID: id, align: params.textStyle.Align, bold: params.textStyle.Bold, colour: params.textStyle.Color, italic: params.textStyle.Italic, size: params.textStyle.Size});
+          styles = await ServicesLayer.textStyleService.addStyle({styleID: sid, reportBlockID: id, align: params.textStyle.Align, bold: params.textStyle.Bold, colour: params.textStyle.Color, italic: params.textStyle.Italic, size: params.textStyle.Size});
         }else{
-          await ServicesLayer.reportBlockService.addReportBlock({reportBlockID: params.reportBlockID, reportID: params.reportID, blockType: 'RICHTEXT', position: params.position, richText: params.text});
-          await ServicesLayer.textStyleService.addStyle({styleID: params.styleID, reportBlockID: params.reportBlockID, align: params.textStyle.Align, bold: params.textStyle.Bold, colour: params.textStyle.Color, italic: params.textStyle.Italic, size: params.textStyle.Size});
+          text = await ServicesLayer.reportBlockService.addReportBlock({reportBlockID: params.reportBlockID, reportID: params.reportID, blockType: 'RICHTEXT', position: params.position, richText: params.text});
+          styles = await ServicesLayer.textStyleService.addStyle({styleID: params.styleID, reportBlockID: params.reportBlockID, align: params.textStyle.Align, bold: params.textStyle.Bold, colour: params.textStyle.Color, italic: params.textStyle.Italic, size: params.textStyle.Size});
         }
         
         return {
@@ -25,7 +28,7 @@ export const editBlock = middyfy(async (event: APIGatewayProxyEvent): Promise<AP
               "Access-Control-Allow-Methods": '*',
               'Access-Control-Allow-Origin': '*',
             },
-            body: JSON.stringify({})
+            body: JSON.stringify({text: text, styles: styles})
           }
           
     } catch (e) {
