@@ -63,7 +63,7 @@ export default class ReportService {
         for(var y=0; y<report.length; y++){
             max = report[y].position;
         }
-
+        
         for(var x=0; x<max; x++){
             for(var y=0; y<report.length; y++){
                 if(report[y].position==x){
