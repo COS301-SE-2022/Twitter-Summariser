@@ -56,12 +56,18 @@ export default class ReportService {
         await Promise.all(promises);
         await ServicesLayer.reportBlockService.sortReportBlocks(report);
         let rp = [];
+        let bl =false;
 
         for(var x=0; x<report.length; x++){
             for(var y=0; y<report.length; y++){
                 if(report[y].position==x){
                     rp.push(report[y]);
+                    bl=true;
                 }
+            }
+            
+            if(!bl){
+                rp.push({blockType: 'RICHTEXT', position: x, block: null});
             }
         }
 
