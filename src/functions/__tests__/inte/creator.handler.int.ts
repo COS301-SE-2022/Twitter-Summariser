@@ -13,15 +13,29 @@ describe('Given an authorised request WHEN the GET getAllCreators endpoint is ca
     });
 })
 
-describe('Given an unauthorised request WHEN the post signin endpoint is called', () => {
-    test('THEN it should respond with a 403', async () => {
+describe('Given an authorised request WHEN the post signin endpoint is called', () => {
+    test('THEN it should respond with a 200', async () => {
         const { statusCode } = await request.post("https://xprnnqlwwi.execute-api.us-east-1.amazonaws.com/dev/login");
         expect(statusCode).toBe(200);
         
     });
 
-    test('THEN it should respond with a healthy error', async () => {
+    test('THEN it should respond with a healthy body', async () => {
         const { body } = await request.post("https://xprnnqlwwi.execute-api.us-east-1.amazonaws.com/dev/login");
+        expect(body).toBeTruthy;
+    });
+})
+
+
+describe('Given an authorised request WHEN the post signup endpoint is called', () => {
+    test('THEN it should respond with a 200', async () => {
+        const { statusCode } = await request.post("https://xprnnqlwwi.execute-api.us-east-1.amazonaws.com/dev/signup");
+        expect(statusCode).toBe(200);
+        
+    });
+
+    test('THEN it should respond with a healthy body', async () => {
+        const { body } = await request.post("https://xprnnqlwwi.execute-api.us-east-1.amazonaws.com/dev/signup");
         expect(body).toBeTruthy;
     });
 })
