@@ -25,17 +25,3 @@ describe('Given an authorised request WHEN the post signin endpoint is called', 
         expect(body).toBeTruthy;
     });
 })
-
-
-describe('Given an authorised request WHEN the post signup endpoint is called', () => {
-    test('THEN it should respond with a 200', async () => {
-        const { statusCode } = await request.post("https://xprnnqlwwi.execute-api.us-east-1.amazonaws.com/dev/signup");
-        expect(statusCode).toBe(200);
-        
-    });
-
-    test('THEN it should respond with a healthy body', async () => {
-        const { body } = await request.post("https://xprnnqlwwi.execute-api.us-east-1.amazonaws.com/dev/signup");
-        expect(body).toBeTruthy;
-    });
-})
