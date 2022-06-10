@@ -21,7 +21,7 @@ describe('Given an unauthorised request WHEN the post signin endpoint is called'
     });
 
     test('THEN it should respond with a healthy error', async () => {
-        const { message } = await request.post("https://xprnnqlwwi.execute-api.us-east-1.amazonaws.com/dev/login");
-        expect(message).toBeTruthy;
+        const { body } = await request.post("https://xprnnqlwwi.execute-api.us-east-1.amazonaws.com/dev/login");
+        expect(body.message).toBeTruthy;
     });
 })
