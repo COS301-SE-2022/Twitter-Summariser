@@ -4,9 +4,7 @@
   "description": "Serverless aws-nodejs-typescript template",
   "main": "serverless.ts",
   "scripts": {
-    "test": "jest --config jest.unit.config.js",
-    "test:int": "jest --config jest.int.config.js",
-    "pretest:int": "docker-compose up -d dynamodb"
+    "test": "jest --config jest.config.js"
   },
   "engines": {
     "node": ">=14.15.0"
@@ -29,6 +27,7 @@
     "@types/bcryptjs": "^2.4.2",
     "@types/jest": "^27.5.1",
     "@types/node": "^14.14.25",
+    "@types/superagent": "^4.1.15",
     "esbuild": "^0.14.11",
     "glob": "^8.0.3",
     "jest": "^28.1.0",
