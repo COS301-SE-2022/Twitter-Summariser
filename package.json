@@ -4,8 +4,7 @@
   "description": "Serverless aws-nodejs-typescript template",
   "main": "serverless.ts",
   "scripts": {
-    "test": "jest --config jest.config.js",
-    "test:int": "jest --config jest.int.config.js"
+    "test": "jest --config jest.config.js"
   },
   "engines": {
     "node": ">=14.15.0"
