@@ -99,10 +99,11 @@ export const loginCreator = middyfy(async (event: APIGatewayProxyEvent): Promise
         };
 
     } catch (e) {
-        return formatJSONResponse({
-            status: 403,
-            message: e.message
-        });
+        return {
+            statusCode: 403,
+            headers: responseHeaders,
+            body: JSON.stringify({message: e.message})
+        };
     }
 
 })
