@@ -24,14 +24,14 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install package dependencies
+      - name: Install package dependencies for backend
         run: yarn
 
-      - name: Build the client
+      - name: Install package dependencies for the React App and build it
         run: |
           cd client
           yarn
-          CI=false yarn run build
+          yarn run build
 
       - name: Serverless deploy
         uses: serverless/github-action@v3
@@ -40,3 +40,8 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Invalidating Cloudfrount Cache
+        run: |
+        yarn add aws-cli
+        aws cloudfront create-invalidation --distribution-id E2MJZ6KHWRD9W0 --paths "/*" 
