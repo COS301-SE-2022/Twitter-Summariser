@@ -43,5 +43,5 @@ jobs:
 
       - name: Invalidating Cloudfrount Cache
         run: |
-        yarn add aws-cli
-        aws cloudfront create-invalidation --distribution-id E2MJZ6KHWRD9W0 --paths "/*" 
+          yarn add aws-cli
+          aws cloudfront create-invalidation --distribution-id E2MJZ6KHWRD9W0 --paths "/*" 
