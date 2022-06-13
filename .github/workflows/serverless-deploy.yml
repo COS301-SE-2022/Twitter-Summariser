@@ -43,5 +43,5 @@ jobs:
 
       - name: Invalidating Cloudfrount Cache
         run: |
-          npm i-g aws-cli
+          npm i -g aws-cli
           aws cloudfront create-invalidation --distribution-id E2MJZ6KHWRD9W0 --paths "/*" 
