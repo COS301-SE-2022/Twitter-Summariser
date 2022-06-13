@@ -4,14 +4,19 @@
 
 A progressive web app to generate an article on a given trend using curated Tweets.
 
-### DOCUMENTATION AND PROJECT BOARD
-
-- [Twitter Summariser SRS](https://github.com/COS301-SE-2022/Twitter-Summariser/files/8684152/twitter-summariser-srs.pdf)
+### PROJECT BOARD
 - [Project Board](https://github.com/COS301-SE-2022/Twitter-Summariser/projects/1)
 
-### DEMO VIDEOS LINKS
+### DEMO 1
+- [Twitter Summariser SRS V1](https://github.com/COS301-SE-2022/Twitter-Summariser/files/8684152/twitter-summariser-srs.pdf)
+- [Demo 1 Video](https://drive.google.com/file/d/1LPuUmVU7ITBsx_G0VlAXqQpufLkrOZKe/view?usp=sharing)
 
-- [Demo 1](https://drive.google.com/file/d/1LPuUmVU7ITBsx_G0VlAXqQpufLkrOZKe/view?usp=sharing)
+### DEMO 2
+- [Twitter Summariser SRS V2]()
+- [Architectural Requirements Document V1]()
+- [Demo 2 Video](https://drive.google.com/file/d/1-hZeVnyrBWiAW5kq7P9eLNwRzdFrK-3e/view?usp=sharing)
+- [Coding Standards V1]()
+- [User Manual V1]()
 
 ### BADGES
 
