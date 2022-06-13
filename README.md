@@ -12,11 +12,12 @@ A progressive web app to generate an article on a given trend using curated Twee
 - [Demo 1 Video](https://drive.google.com/file/d/1LPuUmVU7ITBsx_G0VlAXqQpufLkrOZKe/view?usp=sharing)
 
 ### DEMO 2
-- [Twitter Summariser SRS V2]()
-- [Architectural Requirements Document V1]()
+- [Twitter Summariser SRS V2](https://github.com/COS301-SE-2022/Twitter-Summariser/files/8888883/twitter_summariser_srs.pdf)
+- [Architectural Requirements Document V1](https://github.com/COS301-SE-2022/Twitter-Summariser/files/8888879/twitter_summariser_architecture_document.2.pdf)
 - [Demo 2 Video](https://drive.google.com/file/d/1-hZeVnyrBWiAW5kq7P9eLNwRzdFrK-3e/view?usp=sharing)
-- [Coding Standards V1]()
-- [User Manual V1]()
+- [Coding Standards V1](https://github.com/COS301-SE-2022/Twitter-Summariser/files/8888880/twitter_summariser_coding_standard_document.pdf)
+- [User Manual V1](https://github.com/COS301-SE-2022/Twitter-Summariser/files/8888884/twitter_summariser_user_manual.pdf)
+
 
 ### BADGES
 
