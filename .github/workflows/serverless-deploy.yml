@@ -31,7 +31,7 @@ jobs:
         run: |
           cd client
           yarn
-          yarn run build
+          CI=false yarn run build
 
       - name: Serverless deploy
         uses: serverless/github-action@v3
