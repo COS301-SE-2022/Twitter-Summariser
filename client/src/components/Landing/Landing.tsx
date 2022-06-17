@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Logo from "../Logo/Logo";
+import { CgProfile } from "react-icons/cg";
 
 import Navigation from "../Navigation/Navigation";
 import Home from "../Home/Home";
@@ -16,6 +17,8 @@ import PageNotFound from "../PageNotFound/PageNotFound";
 // importing styling
 import "./Landing.css";
 import ViewHistory from "../ViewHistory/ViewHistory";
+import MobileNavigation from "../MobileNavigation/MobileNavigation";
+import { useState } from "react";
 
 const Landing = (props: any) => {
   localStorage.removeItem("newUser");
@@ -25,14 +28,60 @@ const Landing = (props: any) => {
     props.takeToSigninPage();
   };
 
+  const [mobileClick, changeMobileClick] = useState(false);
+
+  const mobileClickHandler = () => {
+    changeMobileClick(!mobileClick);
+  };
+
+  // style for the icons
+  const style = { fontSize: "1.5rem" };
+
+  let style__ = "flex fixed justify-start z-20 w-full h-screen unclicked ";
+
+  if (mobileClick) {
+    style__ =
+      "flex fixed justify-start z-20 w-full h-screen unclicked clicked ";
+  } else {
+    style__ = "flex fixed justify-start z-20 w-full h-screen unclicked ";
+  }
+
   return (
     <BrowserRouter>
       <div
         data-testid="landing"
-        className="flex flex-row bg-white lg:ml-14 lg:mr-14 sm:ml-5 sm:mr-5 relative md:justify-around "
+        className="flex flex-row bg-white lg:ml-14 lg:mr-14 mini-tablet:ml-5 mini-tablet:mr-5 relative justify-center"
       >
+        <div className="items-center mini-tablet:hidden flex flex-row fixed top-0 left-0 right-0 w-full justify-between mb-8 h-14 bg-white text-black z-10 p-2">
+          <button onClick={mobileClickHandler}>
+            <CgProfile style={style} className="items-center" />
+          </button>
+          {/* <div className="">
+            
+          </div> */}
+
+          <div>
+            <Logo width="60.69px" height="54px" page="login" />
+          </div>
+        </div>
+        <div className={style__}>
+          <div className="w-3/5 bg-white z-20 flex items-center shadow-2xl shadow-black/75">
+            <MobileNavigation
+              logout={logout}
+              className="z-20"
+              handle={mobileClickHandler}
+              navState={mobileClick}
+            />
+          </div>
+          <button
+            className="w-2/5 z-20 opacity-75 bg-slate-400"
+            onClick={mobileClickHandler}
+          ></button>
+          {/* <div className="w-1/4"></div> */}
+        </div>
+
         {/* first container ######################################################################################################### */}
-        <div className="xl:basis-1/5 lg:basis-1/6 p-2 pt-5 flex-col hidden mini-tablet:block">
+        <div className="lg:w-1/5 w-20 p-2 pt-5 flex-col hidden mini-tablet:block h-screen border-r border-gray-200">
           {/* logo comes here */}
           <Logo width="60.69px" height="54px" page="landing" />
 
@@ -41,7 +90,7 @@ const Landing = (props: any) => {
         </div>
 
         {/* second container ######################################################################################################### */}
-        <div className="flex flex-col 2xl:basis-1/2 mini-tablet:basis-2/3 basis-full relative">
+        <div className="flex flex-col 2xl:w-1/2 mini-tablet:w-2/3 w-full relative">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/explore" element={<Explore />} />
@@ -57,7 +106,7 @@ const Landing = (props: any) => {
         </div>
 
         {/* third container ######################################################################################################### */}
-        <div className=" xl:flex xl:basis-1/4 xl:p-2 xl:pt-5 xl:relative xl:mr-14 hidden">
+        <div className=" xl:flex xl:w-1/4 xl:p-2 xl:pt-5 xl:relative xl:mr-14 hidden">
           <div className="fixed rounded bg-gray-200 h-2/3 ml-8 p-5 2xl:w-80 xl:w-64 ">
             <h1 className="text-xl font-bold">Drafts to report</h1>
             <div className="w-full flex flex-col"></div>
