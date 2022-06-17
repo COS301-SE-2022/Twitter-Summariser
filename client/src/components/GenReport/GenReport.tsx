@@ -109,7 +109,7 @@ function GenReport(props: any) {
   // textPosition = 0;
 
   return (
-    <div className="mt-4 p-4">
+    <div className="mt-16 p-4">
       <h1 className="text-3xl font-bold">{title}</h1>
       <br />
       <h2 className="italic font-bold">Created By: {author}</h2>
