@@ -175,7 +175,7 @@ const Home = () => {
   return (
     <div data-testid="home">
       {/* search */}
-      <div className="flex justify-center p-2 border-l border-r border-gray-200">
+      <div className="flex justify-center p-2 border-l border-r border-gray-200 mt-16 mini-tablet:mt-0">
         <div className="w-3/4 mb-3">
           <input
             data-testid="search"
@@ -277,7 +277,7 @@ const Home = () => {
         {apiResponse}
 
         {enteredSearch === "" && clicked === false && (
-          <div className="mt-4" key={(ind++).toString()}>
+          <div className="mt-2 p-4" key={(ind++).toString()}>
             <h1 className="text-2xl">Trends</h1>
           </div>
         )}
