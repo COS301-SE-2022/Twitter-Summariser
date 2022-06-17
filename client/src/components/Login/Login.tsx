@@ -58,8 +58,8 @@ const Login = (props: any) => {
           setWrongCredentialsStatus(true);
           setRightCredentialsStatus(false);
 
-          // changeEnteredUsername("");
-          // changeEnteredPassword("");
+          changeEnteredUsername("");
+          changeEnteredPassword("");
 
           return;
         }
