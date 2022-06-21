@@ -4,6 +4,7 @@ module.exports = {
     extend: {
       colors: {
         "twitter-color": "#00ACDF",
+        "twitter-color-hover": "#11C2F7",
       },
     },
     screens: {
