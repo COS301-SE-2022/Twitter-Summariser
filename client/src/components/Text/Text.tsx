@@ -11,19 +11,6 @@ import {
 import { useState } from "react";
 
 const Text = (props: any) => {
-  // if (
-  //   props.data.blockType === "RICHTEXT" &&
-  //   props.position === props.data.position
-  // ) {
-  //   console.log("This is " + props.data.blockType);
-  //   console.log(props.data.block.text);
-  //   console.log("Hoping it's Text and it position is " + props.position);
-  //   console.log(props.data);
-  // }
-
-  // console.log(props.position);
-  // const val = props.pleaseIncrement;
-
   const textPos = props.data.position;
 
   const [italic, setItalic] = useState("");
@@ -108,10 +95,16 @@ const Text = (props: any) => {
     setEditor(!editor);
   };
 
+  const [secondEditor, setSecondEditor] = useState(false);
+
+  const secondTextEditorHandler = () => {
+    setSecondEditor(!secondEditor);
+  };
+
   const [report, changeReport] = useState("");
 
   const textHandler = (event: any) => {
-    changeReport(event.target.value);
+    changeReport(event.target.value.trim());
   };
 
   // ######################### API FOR EDITING TEXT ###############################################
@@ -168,14 +161,33 @@ const Text = (props: any) => {
     editText(Text);
   };
 
-  let edit = false;
-  let style__ = "w-full h-24 mt-2 p-2";
+  const secondUpdate = () => {
+    // const Text = {
+    //   textStyle: {
+    //     Italic: italic,
+    //     Bold: bold,
+    //     Color: color,
+    //     Size: size,
+    //     Align: align,
+    //   },
+    //   text: report,
+    //   reportID: localStorage.getItem("draftReportId"),
+    //   position: textPos,
+    // };
+    // console.log(Text);
+    // editText(Text);
+    // does nothing at the moment
+    console.log("does nothing at the moment");
+  };
+
+  // let editButton = false;
+  let style__ = "w-full h-auto mt-2 p-2";
 
   if (props.data.block === null) {
-    edit = true;
+    // editButton = true;
   } else {
-    edit = false;
-    // console.log(props.data);
+    // editButton = false;
+    // console.log(props.data.block.text.length);
     style__ =
       style__ +
       props.data.block.style[0].italic +
@@ -184,26 +196,139 @@ const Text = (props: any) => {
       props.data.block.style[0].align +
       props.data.block.style[0].colour;
 
-    style = style__;
+    // style = style__;
 
     // console.log(style__);
   }
 
   return (
     <div>
-      {!edit && (
+      {props.data.block !== null && (
         <div className="flex flex-col">
-          <div className={style}>{props.data.block.text}</div>
-          {/* <div className="flex flex-col mt-5 mb-5">
-            <div className="flex justify-center align-middle">
-              <button onClick={textEditorHandler}>
+          {!secondEditor && (
+            <div className={style__}>{props.data.block.text.trim()}</div>
+          )}
+
+          {!secondEditor && (
+            <div className="flex justify-center align-middle mt-0 mb-5">
+              <button onClick={() => secondTextEditorHandler()}>
                 <AiFillEdit style={icon_style} />
               </button>
             </div>
-          </div> */}
+          )}
+
+          {secondEditor && (
+            <div className="flex flex-col">
+              <div className="flex justify-center align-middle">
+                <div className="flex flex-row w-1/3 justify-around pt-2  items-center">
+                  <button onClick={italicHandler}>
+                    <BiItalic style={icon_style} />
+                  </button>{" "}
+                  &nbsp;
+                  <button onClick={boldHandler}>
+                    <BiBold style={icon_style} />
+                  </button>
+                  &nbsp;{" "}
+                  {alignLeft && (
+                    <button onClick={() => alignHandler("left")}>
+                      {" "}
+                      <GrTextAlignLeft style={icon_style_2} />{" "}
+                    </button>
+                  )}
+                  {alignRight && (
+                    <button onClick={() => alignHandler("right")}>
+                      {" "}
+                      <GrTextAlignRight style={icon_style_2} />{" "}
+                    </button>
+                  )}
+                  {alignCenter && (
+                    <button onClick={() => alignHandler("center")}>
+                      {" "}
+                      <GrTextAlignCenter style={icon_style_2} />{" "}
+                    </button>
+                  )}
+                  {alignJustify && (
+                    <button onClick={() => alignHandler("justify")}>
+                      {" "}
+                      <BsJustify style={icon_style} />{" "}
+                    </button>
+                  )}
+                  &nbsp;&nbsp;
+                  <div className="flex flex-row">
+                    <AiOutlineFontSize style={icon_style} />
+                    <select
+                      className="text-black text-center text-xs"
+                      onChange={sizeHandler}
+                    >
+                      <option value=" text-xs">12px</option>
+                      <option value=" text-sm">14px</option>
+                      <option value=" text-base">16px</option>
+                      <option value=" text-lg">18px</option>
+                      <option value=" text-xl">20px</option>
+                      <option value=" text-2xl">24px</option>
+                      <option value=" text-3xl">30px</option>
+                      <option value=" text-4xl">36px</option>
+                      <option value=" text-5xl">48px</option>
+                      <option value=" text-6xl">64px</option>
+                    </select>
+                  </div>
+                  &nbsp;{" "}
+                  <div className="flex flex-row">
+                    <IoColorPaletteOutline style={icon_style} />
+                    <select
+                      className="text-black text-center text-xs"
+                      onChange={colorHandler}
+                    >
+                      <option value=" text-slate-600">slate</option>
+                      <option value=" text-zinc-600">gray</option>
+                      <option value=" text-red-600">red</option>
+                      <option value=" text-orange-600">orange</option>
+                      <option value=" text-green-600">green</option>
+                      <option value=" text-blue-600">blue</option>
+                      <option value=" text-pink-600">pink</option>
+                      <option value=" text-purple-600">purple</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-row items-center">
+                <div className="w-5/6">
+                  <textarea
+                    className={style}
+                    onChange={textHandler}
+                    value={props.data.block.text}
+                  ></textarea>
+                </div>
+
+                <div className="w-1/6 flex text-center justify-center">
+                  <button onClick={secondTextEditorHandler}>
+                    <MdDeleteOutline style={icon_style_3} />
+                  </button>
+                </div>
+              </div>
+              <div className="flex flex-row justify-center mb-2">
+                <button
+                  type="submit"
+                  onClick={secondTextEditorHandler}
+                  className="m-2 pl-2 pr-2 h-auto w-1/4 border border-gray-200 rounded-md hover:bg-gray-100"
+                >
+                  cancel
+                </button>
+                <button
+                  type="submit"
+                  onClick={secondUpdate}
+                  className="m-2 p-2 h-auto w-1/4 bg-twitter-color rounded-md text-white hover:bg-twitter-color-hover"
+                >
+                  Update
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       )}
-      {edit && (
+
+      {props.data.block === null && (
         <div key={props.keyValue}>
           {editor && (
             <div className="flex flex-col">

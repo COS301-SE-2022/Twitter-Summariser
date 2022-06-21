@@ -1,11 +1,11 @@
 // import { Tweet } from 'react-twitter-widgets';
 import { Link } from "react-router-dom";
 import Tweet from "../Tweet/Tweet";
-import { Key, useState } from "react";
+import { useState } from "react";
 
 // importing mock data
 import Text from "../Text/Text";
-import DraftCard from "../DraftCard/DraftCard";
+// import DraftCard from "../DraftCard/DraftCard";
 
 function GenReport(props: any) {
   // const [{id}, changeID] = useState("");
@@ -83,14 +83,14 @@ function GenReport(props: any) {
   // processing api response
   const apiResponse = [<div key={"begining div"}></div>];
 
-  let textPosition = -1;
+  // let textPosition = -1;
   // console.log(state);
 
-  const increment = () => {
-    textPosition++;
+  // const increment = () => {
+  //   textPosition++;
 
-    return textPosition;
-  };
+  //   return textPosition;
+  // };
 
   // console.log("Size of the given array is " + state.length);
   // console.log(state);
