@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Has Project check
-        if: github.event.pull_request.projects == null
+        if: github.event.pull_request.project == null
         run: |
           echo Yyou don't have a project assigned"
           exit 1
