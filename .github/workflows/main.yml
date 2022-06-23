@@ -3,6 +3,8 @@ name: "Twitter Summariser CI"
 on:
   pull_request:
     types: [opened, reopened, labeled]
+  push:
+    - develop
 
 jobs:
   milestone-check:
