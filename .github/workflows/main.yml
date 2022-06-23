@@ -65,11 +65,12 @@ jobs:
         with:
           filters: |
             backend:
-              - '**'
-              - '!client/**'
-              - '!.github/**'
-              - '!.dynamodb/**'
-              - '!tools/**'
+              - 'src/**'
+              - '*.json'
+              - '*.js'
+              - '*.ts'
+              - '*.nvmrc'
+              - 'yarn.lock'
             frontend:
               - 'client/**'
 
