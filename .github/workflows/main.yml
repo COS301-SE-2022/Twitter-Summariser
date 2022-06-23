@@ -65,7 +65,9 @@ jobs:
         with:
           filters: |
             backend:
-              - 'src/**'
+              - '**'
+              - '!client'
+              - '!.github'
             frontend:
               - 'client/**'
 
