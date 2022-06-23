@@ -7,7 +7,6 @@ import { TweetTable } from '@model/tweet';
 import { ReportTable } from '@model/report';
 import { ReportBlockTable } from '@model/reportBlock';
 import { TextStylesTable } from '@model/textStyles';
-
 import { getAllResultSet, getResultSet } from '@functions/resultSet';
 import { generateReport } from '@functions/generateReport';
 import { getAllMyReports, getAllReports, getReport } from '@functions/report';

@@ -2,7 +2,9 @@ name: "Twitter Summariser CI"
 
 on:
   pull_request:
-    types: [opened, reopened, labeled]
+    types: [opened, reopened, labeled, synchronize]
+  push:
+    branches: [develop, master]
 
 jobs:
   milestone-check:
@@ -12,16 +14,13 @@ jobs:
       - name: Has milestone check
         if: github.event.pull_request.milestone == null
         run: |
-          echo "you don't have a milestone"
+          echo Yyou don't have a milestone"
           exit 1
+
   label-check:
     name: Checks if labels are used
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checking out to the develop branch
-        uses: actions/checkout@v2
-
       - name: Has atleast one priority label
         uses: mheap/github-action-required-labels@v1
         with:
@@ -57,7 +56,24 @@ jobs:
           count: 1
           labels: "scope:ai, scope:cicd, scope:github-repo, scope:db, scope:frontend,scope:backend"
 
-  Build-and-Test:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      frontend: ${{ steps.filter.outputs.frontend }}
+      backend: ${{ steps.filter.outputs.backend }}
+    steps:
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            backend:
+              - 'src/**'
+            frontend:
+              - 'client/**'
+
+  frontend:
+    needs: changes
+    if: ${{ needs.changes.outputs.frontend == 'true' }}
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -81,8 +97,22 @@ jobs:
       - name: Run frontend tests
         run: yarn test --watchAll=false
 
-      - name: Run backend tests
-        run: |
-          cd ..
-          yarn
-          yarn test
+  backend:
+    needs: changes
+    if: ${{ needs.changes.outputs.backend == 'true' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout to develop branch
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14.x"
+
+      - name: Install all package dependencies
+        run: yarn
+
+      - name: Run the tests
+        run: yarn test
