@@ -66,6 +66,11 @@ jobs:
           filters: |
             backend:
               - 'src/**'
+              - '*.json'
+              - '*.js'
+              - '*.ts'
+              - '*.nvmrc'
+              - 'yarn.lock'
             frontend:
               - 'client/**'
 
