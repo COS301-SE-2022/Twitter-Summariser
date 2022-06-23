@@ -66,8 +66,10 @@ jobs:
           filters: |
             backend:
               - '**'
-              - '!client'
-              - '!.github'
+              - '!client/**'
+              - '!.github/**'
+              - '!.dynamodb/**'
+              - '!tools/**'
             frontend:
               - 'client/**'
 
