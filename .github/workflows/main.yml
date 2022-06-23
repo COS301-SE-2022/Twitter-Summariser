@@ -15,16 +15,6 @@ jobs:
           echo Yyou don't have a milestone"
           exit 1
 
-  project-check:
-    name: Checks if Project Board is used
-    runs-on: ubuntu-latest
-    steps:
-      - name: Has Project check
-        if: github.event.pull_request.project == null
-        run: |
-          echo Yyou don't have a project assigned"
-          exit 1
-
   label-check:
     name: Checks if labels are used
     runs-on: ubuntu-latest
