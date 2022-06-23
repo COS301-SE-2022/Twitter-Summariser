@@ -12,16 +12,23 @@ jobs:
       - name: Has milestone check
         if: github.event.pull_request.milestone == null
         run: |
-          echo "you don't have a milestone"
+          echo Yyou don't have a milestone"
           exit 1
+
+  project-check:
+    name: Checks if Project Board is used
+    runs-on: ubuntu-latest
+    steps:
+      - name: Has Project check
+        if: github.event.pull_request.projects == null
+        run: |
+          echo Yyou don't have a project assigned"
+          exit 1
+
   label-check:
     name: Checks if labels are used
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checking out to the develop branch
-        uses: actions/checkout@v2
-
       - name: Has atleast one priority label
         uses: mheap/github-action-required-labels@v1
         with:
