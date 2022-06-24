@@ -6,7 +6,7 @@ import { randomUUID } from "crypto";
 import ServicesLayer from "../../services";
 
 
-export const search = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+export const searchTweets = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const params = JSON.parse(event.body);
 

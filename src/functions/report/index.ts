@@ -1,21 +1,38 @@
 import { handlerPath } from "@libs/handler-resolver";
 
-export const getAllReports = {
-    handler: `${handlerPath(__dirname)}/handler.getAllReports`,
-    description: 'A function that returns all of the reports in the system.',
+//report generation
+export const generateReport = {
+    handler: `${handlerPath(__dirname)}/handler.generateReport`,
+    description: 'A function that generates a report.',
     events: [
         {
             http: {
-                method: 'get',
-                path: 'getAllReports/',
+                method: 'post',
+                path: 'generateReport/',
                 cors: true
             },
         },
     ],
 };
 
-export const getAllMyReports = {
-    handler: `${handlerPath(__dirname)}/handler.getAllMyReports`,
+//retreival of all reports
+export const getAllPublishedReports = {
+    handler: `${handlerPath(__dirname)}/handler.getAllPublishedReports`,
+    description: 'A function that returns all of the reports in the system.',
+    events: [
+        {
+            http: {
+                method: 'get',
+                path: 'getAllPublishedReports/',
+                cors: true
+            },
+        },
+    ],
+};
+
+//retrieval of drafts
+export const getAllMyDraftReports = {
+    handler: `${handlerPath(__dirname)}/handler.getAllMyDraftReports`,
     description: 'A function that returns all the users reports.',
     events: [
         {
@@ -28,6 +45,7 @@ export const getAllMyReports = {
     ],
 };
 
+//retrevial of a report
 export const getReport = {
     handler: `${handlerPath(__dirname)}/handler.getReport`,
     description: 'A function that returns the content of a specific report.',
@@ -36,6 +54,21 @@ export const getReport = {
             http: {
                 method: 'post',
                 path: 'getReport/',
+                cors: true
+            },
+        },
+    ],
+};
+
+//cloning of a report
+export const cloneReport = {
+    handler: `${handlerPath(__dirname)}/handler.cloneReport`,
+    description: 'A function that clones a report.',
+    events: [
+        {
+            http: {
+                method: 'get',
+                path: 'cloneReport/',
                 cors: true
             },
         },
