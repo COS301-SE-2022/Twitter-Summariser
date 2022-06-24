@@ -16,14 +16,14 @@ export const generateReport = {
 };
 
 //retreival of all reports
-export const getAllReports = {
-    handler: `${handlerPath(__dirname)}/handler.getAllReports`,
+export const getAllPublishedReports = {
+    handler: `${handlerPath(__dirname)}/handler.getAllPublishedReports`,
     description: 'A function that returns all of the reports in the system.',
     events: [
         {
             http: {
                 method: 'get',
-                path: 'getAllReports/',
+                path: 'getAllPublishedReports/',
                 cors: true
             },
         },

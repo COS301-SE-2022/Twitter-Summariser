@@ -8,7 +8,7 @@ import { ReportTable } from '@model/report';
 import { ReportBlockTable } from '@model/reportBlock';
 import { TextStylesTable } from '@model/textStyles';
 import { getAllResultSet, getResultSet } from '@functions/resultSet';
-import { getAllMyDraftReports, getAllReports, getReport, generateReport, cloneReport } from '@functions/report';
+import { getAllMyDraftReports, getAllPublishedReports, getReport, generateReport, cloneReport } from '@functions/report';
 import { editBlock } from '@functions/reportBlock';
 
 
@@ -61,7 +61,7 @@ const serverlessConfiguration: AWS = {
         getAllResultSet,
         getResultSet,
         generateReport,
-        getAllReports,
+        getAllPublishedReports,
         getAllMyDraftReports,
         getReport,
         editBlock,
