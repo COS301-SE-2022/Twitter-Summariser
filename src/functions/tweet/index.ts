@@ -1,13 +1,13 @@
 import { handlerPath } from '@libs/handler-resolver';
 
-export const search = {
-    handler: `${handlerPath(__dirname)}/handler.search`,
+export const searchTweets = {
+    handler: `${handlerPath(__dirname)}/handler.searchTweets`,
     description: 'Function that allows for the searcing of tweets on the twitter API',
     events: [
         {
             http: {
                 method: 'post',
-                path: 'search/',
+                path: 'searchTweets/',
                 cors: true
             },
         },

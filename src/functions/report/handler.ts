@@ -50,7 +50,7 @@ export const generateReport = middyfy(async (event: APIGatewayProxyEvent): Promi
 });
 
 //Retrieval of reports
-export const getAllMyReports = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+export const getAllMyDraftReports = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const params = JSON.parse(event.body);
     const reports = await ServicesLayer.reportService.getReports(params.apiKey);

@@ -31,8 +31,8 @@ export const getAllReports = {
 };
 
 //retrieval of drafts
-export const getAllMyReports = {
-    handler: `${handlerPath(__dirname)}/handler.getAllMyReports`,
+export const getAllMyDraftReports = {
+    handler: `${handlerPath(__dirname)}/handler.getAllMyDraftReports`,
     description: 'A function that returns all the users reports.',
     events: [
         {
