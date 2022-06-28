@@ -30,6 +30,36 @@ export const publishReport = {
     ],
 };
 
+//report publishing
+export const unpublishReport = {
+    handler: `${handlerPath(__dirname)}/handler.unpublishReport`,
+    description: 'A function that unpublishes a report.',
+    events: [
+        {
+            http: {
+                method: 'post',
+                path: 'unpublishReport/',
+                cors: true
+            },
+        },
+    ],
+};
+
+//share report
+export const shareReport = {
+    handler: `${handlerPath(__dirname)}/handler.shareReport`,
+    description: 'A function that shares a report.',
+    events: [
+        {
+            http: {
+                method: 'post',
+                path: 'shareReport/',
+                cors: true
+            },
+        },
+    ],
+};
+
 //retreival of all reports
 export const getAllPublishedReports = {
     handler: `${handlerPath(__dirname)}/handler.getAllPublishedReports`,
@@ -82,8 +112,53 @@ export const cloneReport = {
     events: [
         {
             http: {
-                method: 'get',
+                method: 'post',
                 path: 'cloneReport/',
+                cors: true
+            },
+        },
+    ],
+};
+
+//Adding a custom tweet
+export const addCustomTweet = {
+    handler: `${handlerPath(__dirname)}/handler.addCustomTweet`,
+    description: 'A function that adds customer tweets.',
+    events: [
+        {
+            http: {
+                method: 'post',
+                path: 'addCustomTweet/',
+                cors: true
+            },
+        },
+    ],
+};
+
+//Deleting a result set
+export const deleteResultSet = {
+    handler: `${handlerPath(__dirname)}/handler.deleteResultSet`,
+    description: 'A function that deletes a resultSet.',
+    events: [
+        {
+            http: {
+                method: 'post',
+                path: 'deleteResultSet/',
+                cors: true
+            },
+        },
+    ],
+};
+
+//Deleting a result report
+export const deleteDraftReport = {
+    handler: `${handlerPath(__dirname)}/handler.deleteDraftReport`,
+    description: 'A function that deletes a draft report.',
+    events: [
+        {
+            http: {
+                method: 'post',
+                path: 'deleteDraftReport/',
                 cors: true
             },
         },
