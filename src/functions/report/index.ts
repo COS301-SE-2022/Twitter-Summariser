@@ -30,6 +30,21 @@ export const publishReport = {
     ],
 };
 
+//share report
+export const shareReport = {
+    handler: `${handlerPath(__dirname)}/handler.shareReport`,
+    description: 'A function that shares a report.',
+    events: [
+        {
+            http: {
+                method: 'post',
+                path: 'shareReport/',
+                cors: true
+            },
+        },
+    ],
+};
+
 //retreival of all reports
 export const getAllPublishedReports = {
     handler: `${handlerPath(__dirname)}/handler.getAllPublishedReports`,
