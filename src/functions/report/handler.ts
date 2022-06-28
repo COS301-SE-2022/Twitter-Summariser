@@ -164,3 +164,47 @@ export const publishReport = middyfy(async (event: APIGatewayProxyEvent): Promis
     });
   }
 });
+
+//Adding a custom tweet
+export const addCustomTweet = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+  try {
+    const params = JSON.parse(event.body);
+
+    return {
+      statusCode: 200,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Methods': '*',
+        'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify('')
+    }
+  } catch (e) {
+    return formatJSONResponse({
+      statusCode: 500,
+      message: e
+    });
+  }
+});
+
+//Adding a custom tweet
+export const deleteResultSet = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+  try {
+    const params = JSON.parse(event.body);
+
+    return {
+      statusCode: 200,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Methods': '*',
+        'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify('')
+    }
+  } catch (e) {
+    return formatJSONResponse({
+      statusCode: 500,
+      message: e
+    });
+  }
+});
