@@ -21,6 +21,7 @@ describe("report.service", () => {
             const addedReport: Report = {
                 reportID: "1111",
                 resultSetID: "12222",
+                status: "DRAFT",
                 apiKey: "ABdggekj23",
                 dateCreated: "2022-01-01",
                 title: "This is my report",
@@ -39,6 +40,7 @@ describe("report.service", () => {
             const expected = {
                 reportID: "1111",
                 resultSetID: "12222",
+                status: "DRAFT",
                 apiKey: "ABdggekj23",
                 dateCreated: "2022-01-01",
                 numOfBlocks: 0,
@@ -66,6 +68,7 @@ describe("report.service", () => {
             const addedReport: Report = {
                 reportID: "1111",
                 resultSetID: "12222",
+                status: "DRAFT",
                 apiKey: "ABdggekj23",
                 dateCreated: "2022-01-01",
                 title: "This is my report",
@@ -88,6 +91,7 @@ describe("report.service", () => {
             const report: Report = {
                 reportID: "1111",
                 resultSetID: "12222",
+                status: "DRAFT",
                 apiKey: "ABdggekj23",
                 dateCreated: "2022-01-01",
                 title: "This is my report",
