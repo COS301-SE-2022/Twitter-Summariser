@@ -68,7 +68,10 @@ const serverlessConfiguration: AWS = {
         cloneReport,
         publishReport,
         shareReport,
-        addCustomTweet
+        addCustomTweet,
+        deleteDraftReport,
+        deleteResultSet,
+        unpublishReport
     },
 
     package: {
