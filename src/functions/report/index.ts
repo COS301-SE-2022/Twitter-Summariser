@@ -15,6 +15,21 @@ export const generateReport = {
     ],
 };
 
+//report publishing
+export const publishReport = {
+    handler: `${handlerPath(__dirname)}/handler.publishReport`,
+    description: 'A function that publishes a report.',
+    events: [
+        {
+            http: {
+                method: 'post',
+                path: 'publishReport/',
+                cors: true
+            },
+        },
+    ],
+};
+
 //retreival of all reports
 export const getAllPublishedReports = {
     handler: `${handlerPath(__dirname)}/handler.getAllPublishedReports`,
