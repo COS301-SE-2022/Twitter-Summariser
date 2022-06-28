@@ -30,6 +30,21 @@ export const publishReport = {
     ],
 };
 
+//report publishing
+export const unpublishReport = {
+    handler: `${handlerPath(__dirname)}/handler.unpublishReport`,
+    description: 'A function that unpublishes a report.',
+    events: [
+        {
+            http: {
+                method: 'post',
+                path: 'unpublishReport/',
+                cors: true
+            },
+        },
+    ],
+};
+
 //share report
 export const shareReport = {
     handler: `${handlerPath(__dirname)}/handler.shareReport`,
@@ -129,6 +144,21 @@ export const deleteResultSet = {
             http: {
                 method: 'post',
                 path: 'deleteResultSet/',
+                cors: true
+            },
+        },
+    ],
+};
+
+//Deleting a result report
+export const deleteDraftReport = {
+    handler: `${handlerPath(__dirname)}/handler.deleteDraftReport`,
+    description: 'A function that deletes a draft report.',
+    events: [
+        {
+            http: {
+                method: 'post',
+                path: 'deleteDraftReport/',
                 cors: true
             },
         },
