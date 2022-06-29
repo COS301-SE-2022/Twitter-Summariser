@@ -28,33 +28,44 @@ export default class CreatorService {
         return creator as Creator;
     }
 
-   async getCreator(email : string, password: string): Promise<Creator> {
-        const result = await this.docClient.query({
+    async getCreator(email : string, password: string): Promise<Creator> {
+            const result = await this.docClient.query({
+                TableName: this.TableName,
+                IndexName: "gsiIndex",
+                KeyConditionExpression: 'email = :email',
+                
+                ExpressionAttributeValues: {
+                    ":email": email
+                },
+                
+                
+            }).promise();
+
+            const creator=result.Items[0];
+
+            if (creator===undefined) {
+                throw new Error("creator "+email+" not found");
+            }
+
+            if (await bcrypt.compare(password, result.Items[0].password)===true) {
+                return creator as Creator;
+            } else {
+                throw new Error ("invalid credentials for user "+email);
+            }
+            
+            // return result.Items[0] as Creator;
+    }    
+
+    async getCreatorByKey(key: String): Promise<Creator> {
+        const creator = await this.docClient.query({
             TableName: this.TableName,
-            IndexName: "gsiIndex",
-            KeyConditionExpression: 'email = :email',
-            
+            KeyConditionExpression: "apiKey = :key",
             ExpressionAttributeValues: {
-                ":email": email
-            },
-            
-            
+                ":key": key
+            }
         }).promise();
 
-        const creator=result.Items[0];
-
-        if (creator===undefined) {
-            throw new Error("creator "+email+" not found");
-        }
-
-        if (await bcrypt.compare(password, result.Items[0].password)===true) {
-            return creator as Creator;
-        } else {
-            throw new Error ("invalid credentials for user "+email);
-        }
-        
-        // return result.Items[0] as Creator;
-   }    
-
+        return creator.Items[0] as Creator;
+    }
 
 }
