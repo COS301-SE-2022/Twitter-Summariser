@@ -146,6 +146,7 @@ export const getReport = middyfy(async (event: APIGatewayProxyEvent): Promise<AP
 export const publishReport = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const params = JSON.parse(event.body);
+    const result = ServicesLayer.reportService.updateReportStatus('PUBLISHED', params.reportID);
 
     return {
       statusCode: 200,
@@ -154,7 +155,7 @@ export const publishReport = middyfy(async (event: APIGatewayProxyEvent): Promis
         'Access-Control-Allow-Methods': '*',
         'Access-Control-Allow-Origin': '*',
       },
-      body: JSON.stringify('')
+      body: JSON.stringify(result)
     }
   } catch (e) {
     return formatJSONResponse({
