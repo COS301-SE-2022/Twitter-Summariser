@@ -8,4 +8,4 @@ export const clientV2 = new Twitter({
     bearer_token: process.env.BEARER_TOKEN
     //access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
     //access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
-})
+});

@@ -3,7 +3,7 @@ import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from "@libs/lambda";
 import ServicesLayer from "../../services";
 import { randomUUID } from "crypto";
-import reportModel from "@model/report/report.model";
+import { header } from "@functions/resources/APIresponse";
 
 // Generation of reports
 export const generateReport = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
@@ -34,11 +34,7 @@ export const generateReport = middyfy(async (event: APIGatewayProxyEvent): Promi
 
     return {
       statusCode: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Methods': '*',
-        'Access-Control-Allow-Origin': '*',
-      },
+      headers: header,
       body: JSON.stringify({ Report: report })
     }
 
@@ -60,11 +56,7 @@ export const getAllMyDraftReports = middyfy(async (event: APIGatewayProxyEvent):
     //const tweets = await ServicesLayer.tweetService.getTweets(params.resultSetID);
     return {
       statusCode: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Methods': '*',
-        'Access-Control-Allow-Origin': '*',
-      },
+      headers: header,
       body: JSON.stringify(reports)
     }
   } catch (e) {
@@ -82,11 +74,7 @@ export const getAllPublishedReports = middyfy(async (): Promise<APIGatewayProxyR
 
     return {
       statusCode: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Methods': '*',
-        'Access-Control-Allow-Origin': '*',
-      },
+      headers: header,
       body: JSON.stringify(reports)
     }
   } catch (e) {
@@ -104,11 +92,7 @@ export const shareReport = middyfy(async (event: APIGatewayProxyEvent): Promise<
     
     return {
       statusCode: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Methods': '*',
-        'Access-Control-Allow-Origin': '*',
-      },
+      headers: header,
       body: JSON.stringify('')
     }
   } catch (e) {
@@ -128,11 +112,7 @@ export const getReport = middyfy(async (event: APIGatewayProxyEvent): Promise<AP
 
     return {
       statusCode: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Methods': '*',
-        'Access-Control-Allow-Origin': '*',
-      },
+      headers: header,
       body: JSON.stringify({ report: report })
     }
   } catch (e) {
@@ -157,21 +137,13 @@ export const publishReport = middyfy(async (event: APIGatewayProxyEvent): Promis
 
     return {
       statusCode: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Methods': '*',
-        'Access-Control-Allow-Origin': '*',
-      },
+      headers: header,
       body: JSON.stringify(report)
     }
   } catch (e) {
     return {
       statusCode: 500,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Methods': '*',
-        'Access-Control-Allow-Origin': '*',
-      },
+      headers: header,
       body: JSON.stringify(e)
     };
   }
@@ -191,21 +163,13 @@ export const unpublishReport = middyfy(async (event: APIGatewayProxyEvent): Prom
 
     return {
       statusCode: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Methods': '*',
-        'Access-Control-Allow-Origin': '*',
-      },
+      headers: header,
       body: JSON.stringify(result)
     }
   } catch (e) {
     return {
       statusCode: 500,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Methods': '*',
-        'Access-Control-Allow-Origin': '*',
-      },
+      headers: header,
       body: JSON.stringify(e)
     };
   }
@@ -218,11 +182,7 @@ export const addCustomTweet = middyfy(async (event: APIGatewayProxyEvent): Promi
 
     return {
       statusCode: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Methods': '*',
-        'Access-Control-Allow-Origin': '*',
-      },
+      headers: header,
       body: JSON.stringify('')
     }
   } catch (e) {
@@ -241,11 +201,7 @@ export const deleteResultSet = middyfy(async (event: APIGatewayProxyEvent): Prom
 
     return {
       statusCode: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Methods': '*',
-        'Access-Control-Allow-Origin': '*',
-      },
+      headers: header,
       body: JSON.stringify(result)
     }
   } catch (e) {
@@ -270,21 +226,13 @@ export const deleteDraftReport = middyfy(async (event: APIGatewayProxyEvent): Pr
 
     return {
       statusCode: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Methods': '*',
-        'Access-Control-Allow-Origin': '*',
-      },
+      headers: header,
       body: JSON.stringify(report)
     }
   } catch (e) {
     return {
       statusCode: 500,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Methods': '*',
-        'Access-Control-Allow-Origin': '*',
-      },
+      headers: header,
       body: JSON.stringify(e)
     };
   }
