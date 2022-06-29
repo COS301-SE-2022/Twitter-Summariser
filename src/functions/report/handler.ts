@@ -4,7 +4,7 @@ import { middyfy } from '@libs/lambda';
 import ServicesLayer from "../../services";
 import { randomUUID } from "crypto";
 
-//Generation of reports
+// Generation of reports
 export const generateReport = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const params = JSON.parse(event.body);
@@ -49,7 +49,7 @@ export const generateReport = middyfy(async (event: APIGatewayProxyEvent): Promi
   }
 });
 
-//Retrieval of reports
+// Retrieval of reports
 export const getAllMyDraftReports = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const params = JSON.parse(event.body);
@@ -74,7 +74,7 @@ export const getAllMyDraftReports = middyfy(async (event: APIGatewayProxyEvent):
   }
 });
 
-//Retrieval of Published reports
+// Retrieval of Published reports
 export const getAllPublishedReports = middyfy(async (): Promise<APIGatewayProxyResult> => {
   try {
     const reports = ServicesLayer.reportService.getAllPublishedReports();
@@ -118,7 +118,7 @@ export const shareReport = middyfy(async (event: APIGatewayProxyEvent): Promise<
   }
 });
 
-//Get report function
+// Get report function
 export const getReport = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
 
@@ -142,7 +142,7 @@ export const getReport = middyfy(async (event: APIGatewayProxyEvent): Promise<AP
   }
 });
 
-//Pubishing of reports
+// Pubishing of reports
 export const publishReport = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const params = JSON.parse(event.body);
@@ -165,7 +165,7 @@ export const publishReport = middyfy(async (event: APIGatewayProxyEvent): Promis
   }
 });
 
-//Unpubishing of reports
+// Unpubishing of reports
 export const unpublishReport = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const params = JSON.parse(event.body);
@@ -188,7 +188,7 @@ export const unpublishReport = middyfy(async (event: APIGatewayProxyEvent): Prom
   }
 });
 
-//Adding a custom tweet
+// Adding a custom tweet
 export const addCustomTweet = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const params = JSON.parse(event.body);
@@ -210,7 +210,7 @@ export const addCustomTweet = middyfy(async (event: APIGatewayProxyEvent): Promi
   }
 });
 
-//Deleting a result set
+// Deleting a result set
 export const deleteResultSet = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const params = JSON.parse(event.body);
@@ -233,7 +233,7 @@ export const deleteResultSet = middyfy(async (event: APIGatewayProxyEvent): Prom
   }
 });
 
-//Deleting a report
+// Deleting a report
 export const deleteDraftReport = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const params = JSON.parse(event.body);
