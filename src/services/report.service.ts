@@ -129,4 +129,22 @@ export default class ReportService {
         return result.Attributes as Report;
     }
 
+    // get my reports
+    async getAllPublishedReports(): Promise<Report[]> {
+        const result = await this.docClient.query({
+            TableName: this.TableName,
+            IndexName: "reportIndex",
+            KeyConditionExpression: 'status = :status',
+            ExpressionAttributeValues: {
+                ":status": "PUBLISHED"
+            }
+        }).promise();
+
+        console.log(result.Items);
+    
+
+        // const tweets = await ServicesLayer.tweetService.getTweets(resultSetID);
+        return result.Items as Report[];
+    }
+
 }
