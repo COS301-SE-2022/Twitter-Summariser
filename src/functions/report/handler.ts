@@ -1,10 +1,11 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { formatJSONResponse } from '@libs/api-gateway';
-import { middyfy } from '@libs/lambda';
+import { middyfy } from "@libs/lambda";
 import ServicesLayer from "../../services";
 import { randomUUID } from "crypto";
+import reportModel from "@model/report/report.model";
 
-//Generation of reports
+// Generation of reports
 export const generateReport = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const params = JSON.parse(event.body);
@@ -49,7 +50,7 @@ export const generateReport = middyfy(async (event: APIGatewayProxyEvent): Promi
   }
 });
 
-//Retrieval of reports
+// Retrieval of reports
 export const getAllMyDraftReports = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const params = JSON.parse(event.body);
@@ -74,11 +75,10 @@ export const getAllMyDraftReports = middyfy(async (event: APIGatewayProxyEvent):
   }
 });
 
-// Published reports
-export const getAllPublishedReports = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+// Retrieval of Published reports
+export const getAllPublishedReports = middyfy(async (): Promise<APIGatewayProxyResult> => {
   try {
-    const params = JSON.parse(event.body);
-    const reports = ServicesLayer.reportService.getReports(params.apiKey);
+    const reports = ServicesLayer.reportService.getAllPublishedReports();
 
     return {
       statusCode: 200,
@@ -119,7 +119,7 @@ export const shareReport = middyfy(async (event: APIGatewayProxyEvent): Promise<
   }
 });
 
-//Get report function
+// Get report function
 export const getReport = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
 
@@ -143,10 +143,17 @@ export const getReport = middyfy(async (event: APIGatewayProxyEvent): Promise<AP
   }
 });
 
-//Pubishing of reports
+// Pubishing of reports
 export const publishReport = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const params = JSON.parse(event.body);
+    let report;
+
+    if(ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)){
+      report = ServicesLayer.reportService.updateReportStatus('PUBLISHED', params.reportID);
+    }else{
+      throw Error('Request not authorised.');
+    }
 
     return {
       statusCode: 200,
@@ -155,20 +162,32 @@ export const publishReport = middyfy(async (event: APIGatewayProxyEvent): Promis
         'Access-Control-Allow-Methods': '*',
         'Access-Control-Allow-Origin': '*',
       },
-      body: JSON.stringify('')
+      body: JSON.stringify(report)
     }
   } catch (e) {
-    return formatJSONResponse({
+    return {
       statusCode: 500,
-      message: e
-    });
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Methods': '*',
+        'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify(e)
+    };
   }
 });
 
-//Unpubishing of reports
+// Unpubishing of reports
 export const unpublishReport = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const params = JSON.parse(event.body);
+    let result;
+
+    if(ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)){
+      result = ServicesLayer.reportService.updateReportStatus('DRAFT', params.reportID);
+    }else{
+      throw Error('Request not authorised.');
+    }
 
     return {
       statusCode: 200,
@@ -177,17 +196,22 @@ export const unpublishReport = middyfy(async (event: APIGatewayProxyEvent): Prom
         'Access-Control-Allow-Methods': '*',
         'Access-Control-Allow-Origin': '*',
       },
-      body: JSON.stringify('')
+      body: JSON.stringify(result)
     }
   } catch (e) {
-    return formatJSONResponse({
+    return {
       statusCode: 500,
-      message: e
-    });
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Methods': '*',
+        'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify(e)
+    };
   }
 });
 
-//Adding a custom tweet
+// Adding a custom tweet
 export const addCustomTweet = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const params = JSON.parse(event.body);
@@ -209,10 +233,11 @@ export const addCustomTweet = middyfy(async (event: APIGatewayProxyEvent): Promi
   }
 });
 
-//Deleting a result set
+// Deleting a result set
 export const deleteResultSet = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const params = JSON.parse(event.body);
+    const result = ServicesLayer.resultSetServices.deleteResultSet(params.resultSetID);
 
     return {
       statusCode: 200,
@@ -221,7 +246,7 @@ export const deleteResultSet = middyfy(async (event: APIGatewayProxyEvent): Prom
         'Access-Control-Allow-Methods': '*',
         'Access-Control-Allow-Origin': '*',
       },
-      body: JSON.stringify('')
+      body: JSON.stringify(result)
     }
   } catch (e) {
     return formatJSONResponse({
@@ -231,10 +256,17 @@ export const deleteResultSet = middyfy(async (event: APIGatewayProxyEvent): Prom
   }
 });
 
-//Deleting a report
+// Deleting a report
 export const deleteDraftReport = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const params = JSON.parse(event.body);
+    let report;
+
+    if(ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)){
+      report = ServicesLayer.reportService.updateReportStatus('DELETED', params.reportID);
+    }else{
+      throw Error('Request not authorised.');
+    }
 
     return {
       statusCode: 200,
@@ -243,12 +275,17 @@ export const deleteDraftReport = middyfy(async (event: APIGatewayProxyEvent): Pr
         'Access-Control-Allow-Methods': '*',
         'Access-Control-Allow-Origin': '*',
       },
-      body: JSON.stringify('')
+      body: JSON.stringify(report)
     }
   } catch (e) {
-    return formatJSONResponse({
+    return {
       statusCode: 500,
-      message: e
-    });
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Methods': '*',
+        'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify(e)
+    };
   }
 });
