@@ -3,6 +3,7 @@ import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from "@libs/lambda";
 import ServicesLayer from "../../services";
 import { randomUUID } from "crypto";
+import reportModel from "@model/report/report.model";
 
 // Generation of reports
 export const generateReport = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
@@ -146,10 +147,9 @@ export const getReport = middyfy(async (event: APIGatewayProxyEvent): Promise<AP
 export const publishReport = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const params = JSON.parse(event.body);
-    let report = ServicesLayer.reportService.getReportHelper(params.reportID);
-    const apiKey = (await report).apiKey;
+    let report;
 
-    if(params.apiKey == apiKey){
+    if(ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)){
       report = ServicesLayer.reportService.updateReportStatus('PUBLISHED', params.reportID);
     }else{
       throw Error('Request not authorised.');
@@ -181,11 +181,10 @@ export const publishReport = middyfy(async (event: APIGatewayProxyEvent): Promis
 export const unpublishReport = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const params = JSON.parse(event.body);
-    let report = ServicesLayer.reportService.getReportHelper(params.reportID);
-    const apiKey = (await report).apiKey;
+    let result;
 
-    if(params.apiKey == apiKey){
-      report = ServicesLayer.reportService.updateReportStatus('DRAFT', params.reportID);
+    if(ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)){
+      result = ServicesLayer.reportService.updateReportStatus('DRAFT', params.reportID);
     }else{
       throw Error('Request not authorised.');
     }
@@ -197,7 +196,7 @@ export const unpublishReport = middyfy(async (event: APIGatewayProxyEvent): Prom
         'Access-Control-Allow-Methods': '*',
         'Access-Control-Allow-Origin': '*',
       },
-      body: JSON.stringify(report)
+      body: JSON.stringify(result)
     }
   } catch (e) {
     return {
@@ -261,10 +260,9 @@ export const deleteResultSet = middyfy(async (event: APIGatewayProxyEvent): Prom
 export const deleteDraftReport = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const params = JSON.parse(event.body);
-    let report = ServicesLayer.reportService.getReportHelper(params.reportID);
-    const apiKey = (await report).apiKey;
+    let report;
 
-    if(params.apiKey == apiKey){
+    if(ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)){
       report = ServicesLayer.reportService.updateReportStatus('DELETED', params.reportID);
     }else{
       throw Error('Request not authorised.');

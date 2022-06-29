@@ -130,6 +130,7 @@ export default class ReportService {
         return report as Report;
     }
 
+    // update Report
     async updateReportStatus(status: String, reportID: String): Promise<Report> {
         const result = await this.docClient.update({
             TableName: this.TableName,
@@ -160,6 +161,18 @@ export default class ReportService {
 
         // const tweets = await ServicesLayer.tweetService.getTweets(resultSetID);
         return result.Items as Report[];
+    }
+
+    // verify owner of report
+    async verifyOwner(reportID: string, apiKey1: string) : Promise<boolean>{
+        const report = this.getReportHelper(reportID);
+        const apiKey2 = (await report).apiKey;
+
+        if(apiKey1 == apiKey2){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }
