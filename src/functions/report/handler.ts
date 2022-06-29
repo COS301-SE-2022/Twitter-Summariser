@@ -214,6 +214,7 @@ export const addCustomTweet = middyfy(async (event: APIGatewayProxyEvent): Promi
 export const deleteResultSet = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const params = JSON.parse(event.body);
+    const result = ServicesLayer.resultSetServices.deleteResultSet(params.resultSetID);
 
     return {
       statusCode: 200,
@@ -222,7 +223,7 @@ export const deleteResultSet = middyfy(async (event: APIGatewayProxyEvent): Prom
         'Access-Control-Allow-Methods': '*',
         'Access-Control-Allow-Origin': '*',
       },
-      body: JSON.stringify('')
+      body: JSON.stringify(result)
     }
   } catch (e) {
     return formatJSONResponse({
