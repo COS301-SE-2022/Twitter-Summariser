@@ -82,16 +82,6 @@ export default class ReportService {
 
         item["Report"] = rp;
         item["numOfBlocks"] = count;
-        //item["Report"] = report;
-        // result.Item.push({numBlocks: report.length*2+1});
-        
-        // const tweets = await ServicesLayer.tweetService.getTweets(item.resultSetID);
-
-        // item["tweets"] = tweets;
-
-        // console.log(result.Item);
-
-        
 
         return result.Item;
     }
@@ -123,5 +113,23 @@ export default class ReportService {
         }).promise();
 
         return report as Report;
+    }
+
+    // get all published reports
+    async getAllPublishedReports(): Promise<Report[]> {
+        const result = await this.docClient.query({
+            TableName: this.TableName,
+            IndexName: "reportIndex",
+            KeyConditionExpression: 'status = :value',
+            ExpressionAttributeValues: {
+                ":value": "PUBLISHED"
+            }
+        }).promise();
+
+        console.log(result.Items);
+    
+
+        // const tweets = await ServicesLayer.tweetService.getTweets(resultSetID);
+        return result.Items as Report[];
     }
 }
