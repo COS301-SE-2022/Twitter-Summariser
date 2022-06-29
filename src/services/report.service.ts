@@ -115,21 +115,18 @@ export default class ReportService {
         return report as Report;
     }
 
-    // get all published reports
-    async getAllPublishedReports(): Promise<Report[]> {
-        const result = await this.docClient.query({
+    async updateReportStatus(status: String, reportID: String): Promise<Report> {
+        const result = await this.docClient.update({
             TableName: this.TableName,
-            IndexName: "reportIndex",
-            KeyConditionExpression: 'status = :value',
+            Key: {"reportID": reportID},
+            UpdateExpression: "SET status = :status",
             ExpressionAttributeValues: {
-                ":value": "PUBLISHED"
+                ":status": status
             }
+            
         }).promise();
 
-        console.log(result.Items);
-    
-
-        // const tweets = await ServicesLayer.tweetService.getTweets(resultSetID);
-        return result.Items as Report[];
+        return result.Attributes as Report;
     }
+
 }
