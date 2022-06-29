@@ -146,6 +146,9 @@ export const getReport = middyfy(async (event: APIGatewayProxyEvent): Promise<AP
 export const publishReport = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const params = JSON.parse(event.body);
+    const report = ServicesLayer.reportService.getReportHelper(params.reportID);
+    const apiKey = (await report).apiKey;
+
     const result = ServicesLayer.reportService.updateReportStatus('PUBLISHED', params.reportID);
 
     return {

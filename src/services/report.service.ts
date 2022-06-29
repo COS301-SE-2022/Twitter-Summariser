@@ -86,6 +86,21 @@ export default class ReportService {
         return result.Item;
     }
 
+    // get my report helper for backend
+    async getReportHelper(id: string): Promise<Report> {
+        const result = await this.docClient.get({
+            TableName: this.TableName,
+            Key: { "reportID": id}
+        }).promise();
+
+
+        console.log(result.Item);
+    
+
+        // const tweets = await ServicesLayer.tweetService.getTweets(resultSetID);
+        return result.Item as Report;
+    }
+
     // get my reports
     async getReports(key: string): Promise<Report[]> {
         const result = await this.docClient.query({
