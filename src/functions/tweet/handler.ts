@@ -1,7 +1,7 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
-import { clientV2 } from "../clients/twitterV2.client";
+import { clientV2 } from "../resources/twitterV2.client";
 import { randomUUID } from "crypto";
 import ServicesLayer from "../../services";
 
