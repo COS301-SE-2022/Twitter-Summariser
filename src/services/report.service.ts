@@ -124,4 +124,19 @@ export default class ReportService {
 
         return report as Report;
     }
+
+    async updateReportStatus(status: String, reportID: String): Promise<Report> {
+        const result = await this.docClient.update({
+            TableName: this.TableName,
+            Key: {"reportID": reportID},
+            UpdateExpression: "SET status = :status",
+            ExpressionAttributeValues: {
+                ":status": status
+            }
+            
+        }).promise();
+
+        return result.Attributes as Report;
+    }
+
 }
