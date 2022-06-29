@@ -261,7 +261,14 @@ export const deleteResultSet = middyfy(async (event: APIGatewayProxyEvent): Prom
 export const deleteDraftReport = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const params = JSON.parse(event.body);
-    const result = ServicesLayer.reportService.updateReportStatus('DELETED', params.reportID);
+    let report = ServicesLayer.reportService.getReportHelper(params.reportID);
+    const apiKey = (await report).apiKey;
+
+    if(params.apiKey == apiKey){
+      report = ServicesLayer.reportService.updateReportStatus('DELETED', params.reportID);
+    }else{
+      throw Error('Request not authorised.');
+    }
 
     return {
       statusCode: 200,
@@ -270,12 +277,17 @@ export const deleteDraftReport = middyfy(async (event: APIGatewayProxyEvent): Pr
         'Access-Control-Allow-Methods': '*',
         'Access-Control-Allow-Origin': '*',
       },
-      body: JSON.stringify(result)
+      body: JSON.stringify(report)
     }
   } catch (e) {
-    return formatJSONResponse({
+    return {
       statusCode: 500,
-      message: e
-    });
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Methods': '*',
+        'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify(e)
+    };
   }
 });
