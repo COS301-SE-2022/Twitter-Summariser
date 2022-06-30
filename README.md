@@ -33,7 +33,7 @@
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/COS301-SE-2022/Twitter-Summariser?color=4CBB17&style=for-the-badge)
 ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/COS301-SE-2022/Twitter-Summariser?color=red&style=for-the-badge)
 
-<br><br><br><br>
+<br><br>
 <h1 align="center" style="font-family: Jetbrains Mono">TEAM MEMBERS</h1>
 
 <h2  style="font-family: Jetbrains Mono">Isheanesu Dzingirai - Backend and Developer Operations</h2>
@@ -63,8 +63,6 @@
  </p>
 </details>
 <br>
-<br>
-
 
 <h2  style="font-family: Jetbrains Mono">Jonah Gasura - Frontend Engineer</h2>
 
@@ -92,7 +90,6 @@
 </p>
  </p>
 </details>
-<br>
 <br>
 
 <h2 style="font-family: Jetbrains Mono">Gabriel Shoderu - Designer, Frontend/UI Engineer</h2>
@@ -137,7 +134,6 @@
   </p>
   </details>
   <br>
-  <br>
 
 <h2 style="font-family: Jetbrains Mono">Batsirai Malcolm Dzimati: Backend/API Engineer</h2>
 
@@ -166,7 +162,6 @@
  </p>
 </details>
 <br>
-<br>
 
 <h2 style="font-family: Jetbrains Mono">Tlholo Koma - Team Leader, Data Engineer</h2>
 
@@ -194,8 +189,6 @@
 </p>
  </p>
 </details>
-<br>
-<br>
 <br>
 <br>
 
