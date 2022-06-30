@@ -63,8 +63,6 @@
  </p>
 </details>
 <br>
-<br>
-
 
 <h2  style="font-family: Jetbrains Mono">Jonah Gasura - Frontend Engineer</h2>
 
@@ -92,7 +90,6 @@
 </p>
  </p>
 </details>
-<br>
 <br>
 
 <h2 style="font-family: Jetbrains Mono">Gabriel Shoderu - Designer, Frontend/UI Engineer</h2>
@@ -137,7 +134,6 @@
   </p>
   </details>
   <br>
-  <br>
 
 <h2 style="font-family: Jetbrains Mono">Batsirai Malcolm Dzimati: Backend/API Engineer</h2>
 
@@ -165,7 +161,6 @@
 </p>
  </p>
 </details>
-<br>
 <br>
 
 <h2 style="font-family: Jetbrains Mono">Tlholo Koma - Team Leader, Data Engineer</h2>
