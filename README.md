@@ -1,25 +1,25 @@
-<h1 align="center">BitByBit - Twitter Summariser</h1>
+<strong><h1 align="center" style="font-family: Jetbrains Mono">BitByBit - Twitter Summariser</h1></strong>
 
 ![image](https://user-images.githubusercontent.com/93042354/172893656-8d203066-4917-4131-900a-f7dfd18f7516.png)
 
-A progressive web app to generate an article on a given trend using curated Tweets.
+<p align="center" style="font-family: Jetbrains Mono">A progressive web app to generate an article on a given trend using curated Tweets.</p>
 
-### PROJECT BOARD
-- [Project Board](https://github.com/COS301-SE-2022/Twitter-Summariser/projects/1)
+<strong><h3 style="font-family: Jetbrains Mono">PROJECT BOARD:</h3></strong>
+- <a href="https://github.com/COS301-SE-2022/Twitter-Summariser/projects/1" style="font-family: Jetbrains Mono">Project Board</a>
 
-### DEMO 1
-- [Twitter Summariser SRS V1](https://github.com/COS301-SE-2022/Twitter-Summariser/files/8684152/twitter-summariser-srs.pdf)
-- [Demo 1 Video](https://drive.google.com/file/d/1LPuUmVU7ITBsx_G0VlAXqQpufLkrOZKe/view?usp=sharing)
+<strong><h3 style="font-family: Jetbrains Mono" >DEMO 1:</h3></strong>
+- <a style="font-family: Jetbrains Mono" href="https://github.com/COS301-SE-2022/Twitter-Summariser/files/8684152/twitter-summariser-srs.pdf">Twitter Summariser SRS V1</a>
+- <a style="font-family: Jetbrains Mono" href="https://drive.google.com/file/d/1LPuUmVU7ITBsx_G0VlAXqQpufLkrOZKe/view?usp=sharing">Demo 1 Video</a>
 
-### DEMO 2
-- [Twitter Summariser SRS V2](https://github.com/COS301-SE-2022/Twitter-Summariser/files/8888883/twitter_summariser_srs.pdf)
-- [Architectural Requirements Document V1](https://github.com/COS301-SE-2022/Twitter-Summariser/files/8888879/twitter_summariser_architecture_document.2.pdf)
-- [Demo 2 Video](https://drive.google.com/file/d/1-hZeVnyrBWiAW5kq7P9eLNwRzdFrK-3e/view?usp=sharing)
-- [Coding Standards V1](https://github.com/COS301-SE-2022/Twitter-Summariser/files/8888880/twitter_summariser_coding_standard_document.pdf)
-- [User Manual V1](https://github.com/COS301-SE-2022/Twitter-Summariser/files/8888884/twitter_summariser_user_manual.pdf)
+<strong><h3 style="font-family: Jetbrains Mono">DEMO 2:</h3></strong>
+- <a style="font-family: Jetbrains Mono" href="https://github.com/COS301-SE-2022/Twitter-Summariser/files/8888883/twitter_summariser_srs.pdf">Twitter Summariser SRS V2</a>
+- <a style="font-family: Jetbrains Mono" href="https://github.com/COS301-SE-2022/Twitter-Summariser/files/8888879/twitter_summariser_architecture_document.2.pdf">Architectural Requirements Document V1</a>
+- <a style="font-family: Jetbrains Mono" href="https://drive.google.com/file/d/1-hZeVnyrBWiAW5kq7P9eLNwRzdFrK-3e/view?usp=sharing">Demo 2 Video</a>
+- <a style="font-family: Jetbrains Mono" href="https://github.com/COS301-SE-2022/Twitter-Summariser/files/8888880/twitter_summariser_coding_standard_document.pdf">Coding Standards V1</a>
+- <a style="font-family: Jetbrains Mono" href="https://github.com/COS301-SE-2022/Twitter-Summariser/files/8888884/twitter_summariser_user_manual.pdf">User Manual V1</a>
 
 
-### BADGES
+<strong><h3 style="font-family: Jetbrains Mono">BADGES:</h3></strong>
 ![Codecov](https://img.shields.io/codecov/c/github/COS301-SE-2022/Twitter-Summariser?label=CODECOV%20COVERAGE&style=for-the-badge)
 ![GitHub repo size](https://img.shields.io/github/repo-size/COS301-SE-2022/Twitter-Summariser?style=for-the-badge)
 
@@ -33,22 +33,24 @@ A progressive web app to generate an article on a given trend using curated Twee
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/COS301-SE-2022/Twitter-Summariser?color=4CBB17&style=for-the-badge)
 ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/COS301-SE-2022/Twitter-Summariser?color=red&style=for-the-badge)
 
-# TEAM MEMBERS
+<br><br><br><br>
+<h1 align="center" style="font-family: Jetbrains Mono">TEAM MEMBERS</h1>
 
-## Isheanesu Dzingirai - DevOp
+<h2  style="font-family: Jetbrains Mono">Isheanesu Dzingirai - Backend and Developer Operations</h2>
 
 <img src="https://user-images.githubusercontent.com/93042354/166635499-cd35d24b-5856-463e-8b60-b246e84c8ff1.jpeg" width=30% height = 30%> [![Isheanesu's GitHub stats](https://github-readme-stats.vercel.app/api?username=Zenthon)](https://github.com/anuraghazra/github-readme-stats)
 
 <details>
-  <summary>PERSONAL INFORMATION</summary>
+  <summary style="font-family: Jetbrains Mono"><strong>PERSONAL INFORMATION</strong></summary>
   <p>
-    <h3> About Me: </h3>
+    <h3 style="font-family: Jetbrains Mono"><strong>About Me: </strong></h3>
       <h4>Well-presented, highly focused, and intelligent final year computer science student passionate about data engineering and machine learning. Proficient in a range of modern technologies including Python, C++, and Java.</h4>
-    <h3 align="left">Languages and Tools:</h3>
-<p align="left"> <a href="https://angular.io" target="_blank" rel="noreferrer"> <img src="https://angular.io/assets/images/logos/angular/angular.svg" alt="angular" width="40" height="40"/> </a> <a href="https://angular.io" target="_blank" rel="noreferrer" </a> <a href="https://www.w3schools.com/cpp/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" alt="cplusplus" width="40" height="40"/> </a> <a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/> </a> <a href="https://git-scm.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> </a> <a href="https://graphql.org" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/graphql/graphql-icon.svg" alt="graphql" width="40" height="40"/> </a> <a href="https://www.w3.org/html/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/> </a> <a href="https://ionicframework.com" target="_blank" rel="noreferrer"> <img src="https://upload.wikimedia.org/wikipedia/commons/d/d1/Ionic_Logo.svg" alt="ionic" width="40" height="40"/> </a> <a href="https://www.java.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="java" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> </a> <a href="https://www.linux.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" alt="linux" width="40" height="40"/> </a> <a href="https://www.mysql.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="40" height="40"/> </a> <a href="https://nestjs.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nestjs/nestjs-plain.svg" alt="nestjs" width="40" height="40"/> </a> <a href="https://nodejs.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="40" height="40"/> </a> <a href="https://pandas.pydata.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/2ae2a900d2f041da66e950e4d48052658d850630/icons/pandas/pandas-original.svg" alt="pandas" width="40" height="40"/> </a> <a href="https://www.php.net" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/php/php-original.svg" alt="php" width="40" height="40"/> </a> <a href="https://www.postgresql.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original-wordmark.svg" alt="postgresql" width="40" height="40"/> </a> <a href="https://www.python.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/> </a> <a href="https://reactjs.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" width="40" height="40"/> </a> <a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="typescript" width="40" height="40"/> </a>
+      <br>
+    <h3  style="font-family: Jetbrains Mono"><strong>Languages and Tools: </strong></h3>
+<p align="left"> <a href="https://angular.io" target="_blank" rel="noreferrer"> <img src="https://angular.io/assets/images/logos/angular/angular.svg" alt="angular" width="40" height="40"/> </a> <a href="https://angular.io" target="_blank" rel="noreferrer" </a> <a href="https://www.w3schools.com/cpp/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" alt="cplusplus" width="40" height="40"/> </a> <a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/> </a> <a href="https://git-scm.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> </a> <a href="https://graphql.org" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/graphql/graphql-icon.svg" alt="graphql" width="40" height="40"/> </a> <a href="https://www.w3.org/html/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/> </a> <a href="https://ionicframework.com" target="_blank" rel="noreferrer"> <img src="https://upload.wikimedia.org/wikipedia/commons/d/d1/Ionic_Logo.svg" alt="ionic" width="40" height="40"/> </a> <a href="https://www.java.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="java" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> </a>  <a href="https://www.mysql.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="40" height="40"/> </a> <a href="https://nestjs.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nestjs/nestjs-plain.svg" alt="nestjs" width="40" height="40"/> </a> <a href="https://nodejs.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="40" height="40"/> </a> <a href="https://pandas.pydata.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/2ae2a900d2f041da66e950e4d48052658d850630/icons/pandas/pandas-original.svg" alt="pandas" width="40" height="40"/> </a> <a href="https://www.php.net" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/php/php-original.svg" alt="php" width="40" height="40"/> </a> <a href="https://www.postgresql.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original-wordmark.svg" alt="postgresql" width="40" height="40"/> </a> <a href="https://www.python.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/>  <a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="typescript" width="40" height="40"/> </a>
   </p>
 
-  <h3>Socials:</h3>
+  <h3 style="font-family: Jetbrains Mono"><strong>Socials: <strong></h3>
   <p align="left">
 <a href="https://github.com/zenthon" target="_blank">
 <img src=https://img.shields.io/badge/github-%2324292e.svg?&style=for-the-badge&logo=github&logoColor=white alt=github  />
@@ -60,20 +62,24 @@ A progressive web app to generate an article on a given trend using curated Twee
 </p>
  </p>
 </details>
+<br>
+<br>
 
-## Jonah Gasura - Frontend Engineer
+
+<h2  style="font-family: Jetbrains Mono">Jonah Gasura - Frontend Engineer</h2>
 
 <img src="https://user-images.githubusercontent.com/99664202/166660461-bc5065a1-ab7f-4b13-9875-44916f11b309.JPG" width=35% height = 35%> [![Jonah's GitHub stats](https://github-readme-stats.vercel.app/api?username=jonahgasura)](https://github.com/anuraghazra/github-readme-stats)
 
 <details>
-  <summary>PERSONAL INFORMATION</summary>
+  <summary style="font-family: Jetbrains Mono"><strong>PERSONAL INFORMATION</strong></summary>
   <p>
-    <h3> About Me: </h3>
+    <h3 style="font-family: Jetbrains Mono"><strong>About Me: </strong></h3>
       <h4>A highly motivated and passionate individual in my 3rd (final) year studying BSc Computer Science. Skills include experience with Java and C++ to develop object oriented programs as well and web development experience using HTML, CSS, Javascript and NodeJs as well as using frameworks such as Angular and Bootstrap.</h4>
-    <h3 align="left">Languages and Tools:</h3>
+      <br>
+    <h3 style="font-family: Jetbrains Mono"><strong>Languages and Tools: </strong></h3>
 <p align="left"> <a href="https://www.w3.org/html/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/> </a> </a> <a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> </a> <a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="typescript" width="40" height="40"/> </a> <a href="https://angular.io" target="_blank" rel="noreferrer"> <img src="https://angular.io/assets/images/logos/angular/angular.svg" alt="angular" width="40" height="40"/> </a> <a href="https://reactjs.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" width="40" height="40"/> </a> <a href="https://www.w3schools.com/cpp/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" alt="cplusplus" width="40" height="40"/>  <a href="https://git-scm.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> <a href="https://www.java.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="java" width="40" height="40"/> </a>  <a href="https://www.mysql.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="40" height="40"/> </a> <a href="https://nodejs.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="40" height="40"/> </a> = <a href="https://www.php.net" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/php/php-original.svg" alt="php" width="40" height="40"/> </a> <a href="https://www.python.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/> </a>
   </p>
-
+  <br>
   <h3>Socials:</h3>
   <p align="left">
 <a href="https://github.com/jonahgasura" target="_blank">
@@ -86,24 +92,25 @@ A progressive web app to generate an article on a given trend using curated Twee
 </p>
  </p>
 </details>
+<br>
+<br>
 
-## Gabriel Shoderu - Designer, Frontend/UI Engineer
+<h2 style="font-family: Jetbrains Mono">Gabriel Shoderu - Designer, Frontend/UI Engineer</h2>
 
 <img src="https://avatars.githubusercontent.com/u/85843032?v=4" width=25% height = 25%> ![Gabriel's GitHub stats](https://github-readme-stats.vercel.app/api?username=GO-Shoderu&show_icons=true)
 
 <details>
-  <summary>PERSONAL INFORMATION</summary>
+  <summary style="font-family: Jetbrains Mono"><strong>PERSONAL INFORMATION</strong></summary>
   <p>
-    <h3> About Me: </h3>
+    <h3 style="font-family: Jetbrains Mono"><strong>About Me: </strong></h3>
     <h4>Trying to save the world one line of code at a time</h4>
-    <h3 align="left">Languages, Frameworks, Libraries and Tools:</h3>
+    <br>
+    <h3 style="font-family: Jetbrains Mono"><strong>Languages, Frameworks and Tools: </strong></h3>
     <p align="left">
       <a href="https://angular.io" target="_blank" rel="noreferrer"> <img src="https://angular.io/assets/images/logos/angular/angular.svg" alt="angular" width="40" height="40"/> </a>
       <a href="https://angular.io" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/angularjs/angularjs-original-wordmark.svg" alt="angularjs" width="40" height="40"/> </a>
       <a href="https://nodejs.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="40" height="40"/> </a>
       <a href="https://reactjs.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" width="40" height="40"/> </a>
-    </p>
-    <p>
       <a href="https://www.w3schools.com/cpp/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" alt="cplusplus" width="40" height="40"/> </a>
       <a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="typescript" width="40" height="40"/> </a>
       <a href="https://www.python.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/> </a>
@@ -114,12 +121,11 @@ A progressive web app to generate an article on a given trend using curated Twee
       <a href="https://www.w3.org/html/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/> </a>
       <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> </a>
       <a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/> </a>
-    </p>
-    <p>
       <a href="https://www.linux.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" alt="linux" width="40" height="40"/> </a>  
       <a href="https://git-scm.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> </a>
     </p>
-    <h3>Socials:</h3>
+    <br>
+    <h3 style="font-family: Jetbrains Mono"><strong>Socials: </strong></h3>
     <p align="left">
       <a href="https://github.com/GO-Shoderu" target="_blank">
       <img src=https://img.shields.io/badge/github-%2324292e.svg?&style=for-the-badge&logo=github&logoColor=white alt=github  />
@@ -130,21 +136,24 @@ A progressive web app to generate an article on a given trend using curated Twee
     </p>
   </p>
   </details>
+  <br>
+  <br>
 
-## Batsirai Malcolm Dzimati: Backend/API Engineer
+<h2 style="font-family: Jetbrains Mono">Batsirai Malcolm Dzimati: Backend/API Engineer</h2>
 
-<img src="https://avatars.githubusercontent.com/u/63916731?s=400&u=337908eccfcfd61ec9748c0a677934d97f3563b9&v=4" width=30% height = 30%> [![Malcolm's GitHub stats](https://github-readme-stats.vercel.app/api?username=malcolmdzimati)](https://github.com/anuraghazra/github-readme-stats)
+<img src="https://avatars.githubusercontent.com/u/63916731?s=400&u=337908eccfcfd61ec9748c0a677934d97f3563b9&v=4" width=25% height=25%> [![Malcolm's GitHub stats](https://github-readme-stats.vercel.app/api?username=malcolmdzimati)](https://github.com/anuraghazra/github-readme-stats)
 
 <details>
-  <summary>PERSONAL INFORMATION</summary>
+  <summary style="font-family: Jetbrains Mono"><strong>PERSONAL INFORMATION</strong></summary>
   <p>
-    <h3> About Me: </h3>
+    <h3 style="font-family: Jetbrains Mono"><strong>About Me: </strong></h3>
       <h4>I am an eager and ambitious 20 year old, currently studying Computer Science at University of Pretoria, with a strong passion for technology and software, particularly with big data, data engineering, data science and machine learning. I am highly adaptive and believe anything can be accomplished with hard work and perseverance.</h4>
-    <h3 align="left">Languages and Tools:</h3>
+      <br>
+    <h3 style="font-family: Jetbrains Mono"><strong>Languages and Tools: </strong></h3>
 <p align="left"> <a href="https://www.w3schools.com/cpp/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" alt="cplusplus" width="40" height="40"/></a> <a href="https://www.w3schools.com/c/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/c/c-original.svg" alt="c" width="40" height="40"/></a><a href="https://www.r-project.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/r/r-original.svg" alt="R" width="40" height="40"/></a> <a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/> </a> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/> </a> <a href="https://www.java.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="java" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> </a> <a href="https://www.linux.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" alt="linux" width="40" height="40"/> </a> <a href="https://www.mysql.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="40" height="40"/> </a> <a href="https://nestjs.com/" target="_blank" rel="noreferrer"> <a href="https://www.php.net" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/php/php-original.svg" alt="php" width="40" height="40"/> </a> <a href="https://www.postgresql.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original-wordmark.svg" alt="postgresql" width="40" height="40"/> </a> <a href="https://www.python.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/> </a> <a href="https://reactjs.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" width="40" height="40"/> </a> <a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="typescript" width="40" height="40"/> </a><a href="https://www.latex-project.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/latex/latex-original.svg" alt="latex" width="40" height="40"/></a> <a href="https://git-scm.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> </a>
   </p>
-
-  <h3>Socials:</h3>
+  <br>
+  <h3 style="font-family: Jetbrains Mono"><strong>Socials: </strong></h3>
   <p align="left">
 <a href="https://github.com/malcolmdzimati" target="_blank">
 <img src=https://img.shields.io/badge/github-%2324292e.svg?&style=for-the-badge&logo=github&logoColor=white alt=github  />
@@ -156,21 +165,24 @@ A progressive web app to generate an article on a given trend using curated Twee
 </p>
  </p>
 </details>
+<br>
+<br>
 
-## Tlholo Koma - Team Leader, Data Engineer
+<h2 style="font-family: Jetbrains Mono">Tlholo Koma - Team Leader, Data Engineer</h2>
 
-<img src="https://avatars.githubusercontent.com/u/78565488?s=400&u=803481bfe6061328575d07a07750ef3504d2f1c2&v=4" width=30% height = 30%> [![Tlholo's GitHub stats](https://github-readme-stats.vercel.app/api?username=Ivy-Leet)](https://github.com/anuraghazra/github-readme-stats)
+<img src="https://avatars.githubusercontent.com/u/78565488?s=400&u=803481bfe6061328575d07a07750ef3504d2f1c2&v=4" width=25% height = 25%> [![Tlholo's GitHub stats](https://github-readme-stats.vercel.app/api?username=Ivy-Leet)](https://github.com/anuraghazra/github-readme-stats)
 
 <details>
-  <summary>PERSONAL INFORMATION</summary>
+  <summary style="font-family: Jetbrains Mono"><strong>PERSONAL INFORMATION</strong></summary>
   <p>
-    <h3> About Me: </h3>
+    <h3 style="font-family: Jetbrains Mono"><strong>About Me: </strong></h3>
       <h4> A persistent analyical individual who holds herself to a high level of integrity and discipline. I am confident about my work ethic and motivation to complete tasks with the best of my abilities. I find pleasure in solving problems and aspire to become a researcher in the field of Artificial Intelligence.</h4>
-    <h3 align="left">Languages and Tools:</h3>
+      <br>
+    <h3 style="font-family: Jetbrains Mono"><strong>Languages and Tools: </strong></h3>
 <p align="left"> <a href="https://angular.io" target="_blank" rel="noreferrer"> <img src="https://angular.io/assets/images/logos/angular/angular.svg" alt="angular" width="40" height="40"/> </a> <a href="https://angular.io" target="_blank" rel="noreferrer" </a> <a href="https://www.w3schools.com/cpp/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" alt="cplusplus" width="40" height="40"/> </a> <a href="https://www.w3schools.com/c/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/c/c-original.svg" alt="c" width="40" height="40"/></a> <a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/> </a> <a href="https://www.w3.org/html/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/> </a> <a href="https://ionicframework.com" target="_blank" rel="noreferrer"> <img src="https://upload.wikimedia.org/wikipedia/commons/d/d1/Ionic_Logo.svg" alt="ionic" width="40" height="40"/> </a> <a href="https://www.java.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="java" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> </a> <a href="https://www.linux.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" alt="linux" width="40" height="40"/> </a> <a href="https://www.mysql.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="40" height="40"/> </a> <a href="https://nodejs.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="40" height="40"/> </a> <a href="https://www.php.net" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/php/php-original.svg" alt="php" width="40" height="40"/> </a> </a> <a href="https://www.python.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/> </a> <a href="https://reactjs.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" width="40" height="40"/> </a> <a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="typescript" width="40" height="40"/> </a> <a href="https://www.latex-project.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/latex/latex-original.svg" alt="latex" width="40" height="40"/></a> <a href="https://git-scm.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> </a>
   </p>
-
-  <h3>Socials:</h3>
+  <br>
+  <h3 style="font-family: Jetbrains Mono"><strong>Socials: </strong></h3>
   <p align="left">
 <a href="https://github.com/Ivy-Leet" target="_blank">
 <img src=https://img.shields.io/badge/github-%2324292e.svg?&style=for-the-badge&logo=github&logoColor=white alt=github  />
@@ -182,6 +194,10 @@ A progressive web app to generate an article on a given trend using curated Twee
 </p>
  </p>
 </details>
+<br>
+<br>
+<br>
+<br>
 
 # Serverless - AWS Node.js Typescript
 
