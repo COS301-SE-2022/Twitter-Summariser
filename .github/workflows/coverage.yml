@@ -1,8 +1,10 @@
 name: "Coveralls Coverage"
 
 on:
-  push:
-    branches: [develop, master]
+  workflow_run:
+    wokrflow: ['Serverless Deploy']
+    types:
+      - completed
 
 jobs:
   Coverage:
