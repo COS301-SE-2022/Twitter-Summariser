@@ -2,7 +2,7 @@ name: "Coveralls Coverage"
 
 on:
   workflow_run:
-    workflow: ['Serverless Deploy']
+    workflows: ['Serverless Deploy']
     types:
       - completed
 
