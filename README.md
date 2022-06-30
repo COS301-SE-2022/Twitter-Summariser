@@ -33,7 +33,7 @@
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/COS301-SE-2022/Twitter-Summariser?color=4CBB17&style=for-the-badge)
 ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/COS301-SE-2022/Twitter-Summariser?color=red&style=for-the-badge)
 
-<br><br><br><br>
+<br><br>
 <h1 align="center" style="font-family: Jetbrains Mono">TEAM MEMBERS</h1>
 
 <h2  style="font-family: Jetbrains Mono">Isheanesu Dzingirai - Backend and Developer Operations</h2>
@@ -189,8 +189,6 @@
 </p>
  </p>
 </details>
-<br>
-<br>
 <br>
 <br>
 
