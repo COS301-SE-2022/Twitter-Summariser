@@ -1,15 +1,14 @@
 name: "Coveralls Coverage"
 
 on:
-  push:
-    branches: [develop, master]
+  workflow_run:
+    wokrflow: ['Serverless Deploy']
+    types:
+      - completed
 
 jobs:
   Coverage:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: client
 
     steps:
       - name: Checkout to devlop/master branch
@@ -23,16 +22,17 @@ jobs:
       - name: Install all package dependencies
         run: yarn
 
-      - name: Generate coverage report for backend
-        run: yarn test --coverage --watchAll=false
+      - name: Generate coverage report for backend files
+        run: yarn test -- --coverage
 
-      # - name: Changed to client directory and generate coverage for frontend
-      #   run: |
-      #     cd client
-      #     yarn
-      #     yarn test -- --coverage --watchAll=false
-      # - name: Merge the coverage reports
-        # run: |
-        #   node tools/scripts/merge-reports.js
-        #   cat ./coverage/lcov.info
-      - uses: codecov/codecov-action@v3
+      - name: Changed to client directory and generate coverage for frontend files
+        run: |
+          cd client
+          yarn
+          yarn test --coverage --watchAll=false
+
+      - name: Merge the coverage reports
+        run: node tools/scripts/merge-reports.js
+
+      - name: Upload the merged coverage reports to Codecov
+        uses: codecov/codecov-action@v3
