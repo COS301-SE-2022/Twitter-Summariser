@@ -193,7 +193,7 @@
 
 <h1 align="center" style="font-family: Jetbrains Mono"><strong>Serverless - AWS Node.js Typescript & React</strong></h1>
 
-<h2 style="font-family: Jetbrains Mono"><strong>Folder Structure: </strong></h2>
+<h2 style="font-family: Jetbrains Mono"><strong>Project Structure: </strong></h2>
 
 ```
 ├── README.md
@@ -220,7 +220,11 @@ For detailed instructions, please refer to the <a href="https://www.serverless.c
 
 <p style="font-family: Jetbrains Mono">Depending on your preferred package manager, follow the instructions below to deploy your project.
 
-> **Requirements:** NodeJS `lts/fermium (v.14.15.0)`. If you're using [nvm](https://github.com/nvm-sh/nvm), run `nvm use` to ensure you're using the same Node version in local and in your lambda's runtime.
+> **Requirements:**
+- NodeJS `lts/fermium (v.14.15.0)`. If you're using [nvm](https://github.com/nvm-sh/nvm), run `nvm use` to ensure you're using the same Node version in local and in your lambda's runtime.
+- AWS Account and configured AWS-CLI 
+- Docker (for offline use)
+- Java SDK/ JDK with version >= 11
 </p>
 <h3 style="font-family: Jetbrains Mono"> Using NPM</h3>
 
@@ -241,49 +245,35 @@ For detailed instructions, please refer to the <a href="https://www.serverless.c
 - Run `yarn sls deploy` to deploy this stack to AWS
 
 > :warning: Once deployed, opens a **public** endpoint within your AWS account resources. Anybody with the URL can actively execute the API Gateway endpoint and the corresponding lambda. You should protect this endpoint with the authentication method of your choice.
+<br>
 
-## Test your service
+<h2 style="font-family: Jetbrains Mono"><strong>2. Test your service: </strong></h2>
 
-This template contains a single lambda function triggered by an HTTP request made on the provisioned API Gateway REST API `/hello` route with `POST` method. The request body must be provided as `application/json`. The body structure is tested by API Gateway against `src/functions/hello/schema.ts` JSON-Schema definition: it must contain the `name` property.
+<p style="font-family: Jetbrains Mono">
+For all the lambda functions, they are triggered by an HTTP request made on the provisioned API Gateway REST API. The following can happen: </p>
 
-- requesting any other path than `/hello` with any other method than `POST` will result in API Gateway returning a `403` HTTP error code
-- sending a `POST` request to `/hello` with a payload **not** containing a string property named `name` will result in API Gateway returning a `400` HTTP error code
-- sending a `POST` request to `/hello` with a payload containing a string property named `name` will result in API Gateway returning a `200` HTTP status code with a message saluting the provided name and the detailed event processed by the lambda
+- requesting any other path than `/lambdaFunctionName` with any other method than `POST` will result in API Gateway returning a `403` HTTP error code
+- sending a `POST` request to `/lambdaFunctionName` with an incorrect payload will result in API Gateway returning a `400` HTTP error code
+- sending a `POST` request to `/lambdaFunctionName` with the correct payload will result in API Gateway returning a `200` HTTP status code with a response and the detailed event processed by the lambda
 
+<p style="font-family: Jetbrains Mono">Check the <a href="https://www.serverless.com/framework/docs/providers/aws/cli-reference/invoke-local/">sls invoke local command documentation</a> for more information.
+</p>
 
+<h3 style="font-family: Jetbrains Mono"><strong>Locally: </strong></h3>
+<p>To run the Twitter Summariser locally on your machine, do the following:
 
-### Locally
-
-In order to test the hello function locally, run the following command:
-
-- `npx sls invoke local -f folderName --path src/functions/folderName/mock.json` if you're using NPM
-- `yarn sls invoke local -f folderName --path src/functions/folderName/mock.json` if you're using Yarn
-
-Check the [sls invoke local command documentation](https://www.serverless.com/framework/docs/providers/aws/cli-reference/invoke-local/) for more information.
-
-### Remotely
-
-Copy and replace your `url` - found in Serverless `deploy` command output - and `name` parameter in the following `curl` command in your terminal or in Postman to test your newly deployed application.
-
-```
-curl --location --request POST 'https://myApiEndpoint/dev/folderName' \
---header 'Content-Type: application/json' \
---data-raw '{
-    ...
-}'
-```
-
-## Template features
-
-### Project structure
-
-
-
-
-
-### Run DynamoDB and API Locally
-
-1. Run docker on local machine
-2. Run command `serverless offline start`
+- Run docker locally on your machine.
+- If you do not have dynamodb-admin, install it by runninng `npm install -g dynamodb-admin` else go to the next step.
+- Run `docker compose up`
+- Run `sls offline start`
+- Run `dynamodb-admin`, open your browser and enter `http://localhost:8001`
+- Change to the client directory and run `yarn start` to launch the Twitter Summariser apllication.
 
 Note that the contents of the database gets wiped each time the docker container is stopped.
+
+<h3 style="font-family: Jetbrains Mono"><strong>Remotely: </strong></h3>
+Ensure you have run `serverless deploy` for the stack to be created for the Twitter-Summariser application to be hosted on.
+Next go to the <a href="https://aws.amazon.com/console/">Amazon Management Console</a> and do the following:
+
+- Go to CloudFrount and look for your distribution
+- Next copy the distribution `Domain name` and paste it in the browser and the Twitter Summariser should launch
