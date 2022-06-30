@@ -200,7 +200,7 @@
 ├── babel.config.js
 ├── client                      # contains code for frontend (React App)
 ├── docker-compose.yml          # configuration code for running docker locally
-├── .dynamodb                   # jar file for dynamobd to be used locally
+├── .dynamodb                   # jar file for dynamodb to be used locally
 ├── jest.config.js
 ├── .github                     # contains github actions workflow                
 ├── package.json                # contains scripts and dependencies for backend
