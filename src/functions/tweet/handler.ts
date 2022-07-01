@@ -1,9 +1,9 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
-import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
 import { clientV2 } from "../resources/twitterV2.client";
 import { randomUUID } from "crypto";
 import ServicesLayer from "../../services";
+import { header, statusCodes } from "@functions/resources/APIresponse";
 
 
 export const searchTweets = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
@@ -63,19 +63,16 @@ export const searchTweets = middyfy(async (event: APIGatewayProxyEvent): Promise
     
 
     return {
-      statusCode: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        "Access-Control-Allow-Methods": '*',
-        'Access-Control-Allow-Origin': '*',
-      },
+      statusCode: statusCodes.Successful,
+      headers: header,
       body: JSON.stringify({ resultSetID: id, tweets: result })
     }
 
   } catch (e) {
-    return formatJSONResponse({
-      statusCode: 500,
-      message: e
-    });
+    return {
+      statusCode: statusCodes.internalError,
+      headers: header,
+      body: JSON.stringify(e)
+    }
   }
 });
