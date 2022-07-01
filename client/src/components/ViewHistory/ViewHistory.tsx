@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import HomeTweet from "../HomeTweet/HomeTweet";
 
 const ViewHistory = () => {
-  console.log(localStorage.getItem("resultSetId"));
+  // console.log(localStorage.getItem("resultSetId"));
 
   const [searchPhrase, changePhrase] = useState("");
   const [sort, changeSort] = useState("");
@@ -37,7 +37,7 @@ const ViewHistory = () => {
           ?.includes("application/json");
 
         const data = isJson && (await response.json());
-        console.log(data.resultSet);
+        // console.log(data.resultSet);
 
         if (!response.ok) {
           // error
@@ -52,8 +52,8 @@ const ViewHistory = () => {
         changeFilter(await data.resultSet.filterOption);
         changeTweets(await data.Tweets);
       })
-      .catch((error) => {
-        console.log("Error Generating Report");
+      .catch(() => {
+        // console.log("Error Generating Report");
       });
   };
 
@@ -95,8 +95,8 @@ const ViewHistory = () => {
         changeGenReport(data.Report.reportID);
         changeClicked(true);
       })
-      .catch((error) => {
-        console.log("Error Generating Report");
+      .catch(() => {
+        // console.log("Error Generating Report");
       });
   };
 

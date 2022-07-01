@@ -1,10 +1,10 @@
 import "./Splash.css";
 import Logo from "../Logo/Logo";
 
-import { Link, useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const Splash = (props: any) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const signup = (event: any) => {
     event.preventDefault();

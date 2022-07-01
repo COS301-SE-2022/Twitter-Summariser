@@ -46,7 +46,7 @@ const Home = () => {
 
         const data = isJson && (await response.json());
 
-        console.log(data);
+        // console.log(data);
 
         if (!response.ok) {
           // error
@@ -63,8 +63,8 @@ const Home = () => {
           changeClicked(!clicked);
         }
       })
-      .catch((error) => {
-        console.log("Error Generating Report");
+      .catch(() => {
+        // console.log("Error Generating Report");
       });
   };
 
@@ -118,8 +118,8 @@ const Home = () => {
           return;
         }
       })
-      .catch((error) => {
-        console.log("Error Searching");
+      .catch(() => {
+        // console.log("Error Searching");
       });
   };
 

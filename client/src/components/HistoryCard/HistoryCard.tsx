@@ -7,7 +7,7 @@ const HistoryCard = (props: any) => {
   const icon_style_3 = { fontSize: "1.5rem", color: "red" };
 
   const setResultSet = () => {
-    console.log(props.data.id);
+    // console.log(props.data.id);
     localStorage.setItem("resultSetId", props.data.id);
   };
 
