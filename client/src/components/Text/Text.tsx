@@ -162,22 +162,23 @@ const Text = (props: any) => {
   };
 
   const secondUpdate = () => {
-    // const Text = {
-    //   textStyle: {
-    //     Italic: italic,
-    //     Bold: bold,
-    //     Color: color,
-    //     Size: size,
-    //     Align: align,
-    //   },
-    //   text: report,
-    //   reportID: localStorage.getItem("draftReportId"),
-    //   position: textPos,
-    // };
+    const Text = {
+      textStyle: {
+        Italic: italic,
+        Bold: bold,
+        Color: color,
+        Size: size,
+        Align: align,
+      },
+      text: report,
+      reportID: localStorage.getItem("draftReportId"),
+      position: textPos,
+    };
     // console.log(Text);
-    // editText(Text);
+    editText(Text);
+    setSecondEditor(!secondEditor);
     // does nothing at the moment
-    console.log("does nothing at the moment");
+    // console.log("does nothing at the moment");
   };
 
   // let editButton = false;

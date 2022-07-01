@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Logo from "../Logo/Logo";
-import { CgProfile } from "react-icons/cg";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 import Navigation from "../Navigation/Navigation";
 import Home from "../Home/Home";
@@ -52,9 +52,9 @@ const Landing = (props: any) => {
         data-testid="landing"
         className="flex flex-row bg-white lg:ml-14 lg:mr-14 mini-tablet:ml-5 mini-tablet:mr-5 relative justify-center"
       >
-        <div className="items-center mini-tablet:hidden flex flex-row fixed top-0 left-0 right-0 w-full justify-between mb-8 h-14 bg-white text-black z-10 p-2">
+        <div className="items-center mini-tablet:hidden flex flex-row fixed top-0 left-0 right-0 w-full justify-between mb-8 h-14 bg-white text-black z-10 pl-4 p-2">
           <button onClick={mobileClickHandler}>
-            <CgProfile style={style} className="items-center" />
+            <GiHamburgerMenu style={style} className="items-center" />
           </button>
           {/* <div className="">
             

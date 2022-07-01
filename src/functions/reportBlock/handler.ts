@@ -1,9 +1,10 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
-import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
 import ServicesLayer from "../../services";
 import { randomUUID } from "crypto";
+import { header, statusCodes } from "@functions/resources/APIresponse";
 
+//function for writing and editing text on textBox
 export const editBlock = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     try {
         const params = JSON.parse(event.body);
@@ -22,19 +23,16 @@ export const editBlock = middyfy(async (event: APIGatewayProxyEvent): Promise<AP
         }
         
         return {
-            statusCode: 200,
-            headers: {
-              'Content-Type': 'application/json',
-              "Access-Control-Allow-Methods": '*',
-              'Access-Control-Allow-Origin': '*',
-            },
+            statusCode: statusCodes.Successful,
+            headers: header,
             body: JSON.stringify({text: text, styles: styles})
           }
           
     } catch (e) {
-        return formatJSONResponse({
-         statusCode: 500,
-          message: e
-        });
+      return {
+        statusCode: statusCodes.internalError,
+        headers: header,
+        body: JSON.stringify(e)
+      }
       }
 });
