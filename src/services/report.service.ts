@@ -149,8 +149,11 @@ export default class ReportService {
     async getAllPublishedReports(): Promise<Report[]> {
         const result = await this.docClient.query({
             TableName: this.TableName,
-            IndexName: "reportIndex",
-            KeyConditionExpression: 'status = :status',
+            IndexName: "statusIndex",
+            KeyConditionExpression: '#status = :status',
+            ExpressionAttributeNames: {
+                "#status": "status"
+            },
             ExpressionAttributeValues: {
                 ":status": "PUBLISHED"
             }
@@ -158,8 +161,6 @@ export default class ReportService {
 
         console.log(result.Items);
     
-
-        // const tweets = await ServicesLayer.tweetService.getTweets(resultSetID);
         return result.Items as Report[];
     }
 
