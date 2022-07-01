@@ -46,7 +46,7 @@ const Signup = (props: any) => {
 
   // ######################### API FOR SIGNING USERS UP ###############################################
   const signUpEndpoint =
-    "https://xprnnqlwwi.execute-api.us-east-1.amazonaws.com/dev/signup";
+    "https://3vdykbiva3.execute-api.us-east-1.amazonaws.com/dev/signup";
 
   const signup = async (userValidatedData: any) => {
     const requestOptions = {
@@ -66,7 +66,7 @@ const Signup = (props: any) => {
         await props.readyToLogIN();
       })
       .catch((error) => {
-        console.log("Error Signing up");
+        // console.log("Error Signing up");
       });
   };
 
@@ -130,12 +130,12 @@ const Signup = (props: any) => {
       specialChar === false ||
       match === false
     ) {
-      console.log("It's false");
+      // console.log("It's false");
 
       setError(true);
     } else {
       setError(false);
-      console.log(userDetails);
+      // console.log(userDetails);
 
       signup(userDetails);
     }
