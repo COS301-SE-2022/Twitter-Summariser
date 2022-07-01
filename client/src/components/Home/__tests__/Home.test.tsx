@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import React from 'react';
+// import React from 'react';
 import Home from '../Home';
 
 describe('Rendering Tests For Components in Home', () => {
@@ -75,7 +75,7 @@ describe('Rendering Tests For Components in Home', () => {
 describe('Testing That Search Bar Receieves Input', () => {
     // Function that mocks data to the search bar and onChange Function is called
     it('Testing That Search bar Updates on User Input', () => {
-        const onChange = jest.fn(); // Mock function from jest to provide props
+        // const onChange = jest.fn(); // Mock function from jest to provide props
         render(<Home />); // Rendering search bar to search
         const searchInput = (screen.queryByTestId('search') as HTMLInputElement); // Sets search bar defualt text
         fireEvent.change(searchInput!, { target: { value: 'Test Search' } }); // runs the mock function to change and search text
