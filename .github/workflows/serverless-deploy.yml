@@ -11,9 +11,6 @@ jobs:
   Serverless-Deploy:
     if: ${{ github.event.pull_request.merged }}
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.x]
 
     steps:
       - name: Checkout to develop branch
@@ -22,7 +19,7 @@ jobs:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: "14.x"
 
       - name: Install package dependencies for backend
         run: yarn

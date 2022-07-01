@@ -3,7 +3,7 @@ import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from "@libs/lambda";
 import ServicesLayer from "../../services";
 import { randomUUID } from "crypto";
-import { header } from "@functions/resources/APIresponse";
+import { header, statusCodes } from "@functions/resources/APIresponse";
 
 // Generation of reports
 export const generateReport = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
@@ -33,16 +33,17 @@ export const generateReport = middyfy(async (event: APIGatewayProxyEvent): Promi
     const report = await ServicesLayer.reportService.addReport({ reportID: id, resultSetID: params.resultSetID, status: "DRAFT", title: title.searchPhrase, apiKey: params.apiKey, dateCreated: d.toString(), author: params.author });
 
     return {
-      statusCode: 200,
+      statusCode: statusCodes.Successful,
       headers: header,
       body: JSON.stringify({ Report: report })
     }
 
   } catch (e) {
-    return formatJSONResponse({
-      statusCode: 500,
-      message: e
-    });
+    return {
+      statusCode: statusCodes.internalError,
+      headers: header,
+      body: JSON.stringify(e)
+    }
   }
 });
 
@@ -55,15 +56,16 @@ export const getAllMyDraftReports = middyfy(async (event: APIGatewayProxyEvent):
 
     //const tweets = await ServicesLayer.tweetService.getTweets(params.resultSetID);
     return {
-      statusCode: 200,
+      statusCode: statusCodes.Successful,
       headers: header,
       body: JSON.stringify(reports)
     }
   } catch (e) {
-    return formatJSONResponse({
-      statusCode: 500,
-      message: e
-    });
+    return {
+      statusCode: statusCodes.internalError,
+      headers: header,
+      body: JSON.stringify(e)
+    }
   }
 });
 
@@ -73,15 +75,16 @@ export const getAllPublishedReports = middyfy(async (): Promise<APIGatewayProxyR
     const reports = await ServicesLayer.reportService.getAllPublishedReports();
 
     return {
-      statusCode: 200,
+      statusCode: statusCodes.Successful,
       headers: header,
       body: JSON.stringify(reports)
     }
   } catch (e) {
-    return formatJSONResponse({
-      statusCode: 500,
-      message: e
-    });
+    return {
+      statusCode: statusCodes.internalError,
+      headers: header,
+      body: JSON.stringify(e)
+    }
   }
 });
 
@@ -91,15 +94,16 @@ export const shareReport = middyfy(async (event: APIGatewayProxyEvent): Promise<
     const params = JSON.parse(event.body);
     
     return {
-      statusCode: 200,
+      statusCode: statusCodes.notImplemented,
       headers: header,
-      body: JSON.stringify('')
+      body: JSON.stringify('Not Yet done')
     }
   } catch (e) {
-    return formatJSONResponse({
-      statusCode: 500,
-      message: e
-    });
+    return {
+      statusCode: statusCodes.internalError,
+      headers: header,
+      body: JSON.stringify(e)
+    }
   }
 });
 
@@ -111,15 +115,16 @@ export const getReport = middyfy(async (event: APIGatewayProxyEvent): Promise<AP
     const report = await ServicesLayer.reportService.getReport(params.reportID);
 
     return {
-      statusCode: 200,
+      statusCode: statusCodes.Successful,
       headers: header,
       body: JSON.stringify({ report: report })
     }
   } catch (e) {
-    return formatJSONResponse({
-      statusCode: 500,
-      message: e
-    });
+    return {
+      statusCode: statusCodes.internalError,
+      headers: header,
+      body: JSON.stringify(e)
+    }
   }
 });
 
@@ -132,17 +137,21 @@ export const publishReport = middyfy(async (event: APIGatewayProxyEvent): Promis
     if(ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)){
       report = ServicesLayer.reportService.updateReportStatus('PUBLISHED', params.reportID);
     }else{
-      throw Error('Request not authorised.');
+      return {
+        statusCode: statusCodes.unauthorized,
+        headers: header,
+        body: JSON.stringify('Only owner can publish a report.')
+      }
     }
 
     return {
-      statusCode: 200,
+      statusCode: statusCodes.Successful,
       headers: header,
       body: JSON.stringify(report)
     }
   } catch (e) {
     return {
-      statusCode: 500,
+      statusCode: statusCodes.internalError,
       headers: header,
       body: JSON.stringify(e)
     };
@@ -158,17 +167,21 @@ export const unpublishReport = middyfy(async (event: APIGatewayProxyEvent): Prom
     if(ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)){
       result = ServicesLayer.reportService.updateReportStatus('DRAFT', params.reportID);
     }else{
-      throw Error('Request not authorised.');
+      return {
+        statusCode: statusCodes.unauthorized,
+        headers: header,
+        body: JSON.stringify('Only owner can unpublish a report')
+      }
     }
 
     return {
-      statusCode: 200,
+      statusCode: statusCodes.Successful,
       headers: header,
       body: JSON.stringify(result)
     }
   } catch (e) {
     return {
-      statusCode: 500,
+      statusCode: statusCodes.internalError,
       headers: header,
       body: JSON.stringify(e)
     };
@@ -181,15 +194,16 @@ export const addCustomTweet = middyfy(async (event: APIGatewayProxyEvent): Promi
     const params = JSON.parse(event.body);
 
     return {
-      statusCode: 200,
+      statusCode: statusCodes.notImplemented,
       headers: header,
-      body: JSON.stringify('')
+      body: JSON.stringify('Still working on')
     }
   } catch (e) {
-    return formatJSONResponse({
-      statusCode: 500,
-      message: e
-    });
+    return {
+      statusCode: statusCodes.internalError,
+      headers: header,
+      body: JSON.stringify(e)
+    }
   }
 });
 
@@ -200,15 +214,16 @@ export const deleteResultSet = middyfy(async (event: APIGatewayProxyEvent): Prom
     const result = ServicesLayer.resultSetServices.deleteResultSet(params.resultSetID);
 
     return {
-      statusCode: 200,
+      statusCode: statusCodes.Successful,
       headers: header,
       body: JSON.stringify(result)
     }
   } catch (e) {
-    return formatJSONResponse({
-      statusCode: 500,
-      message: e
-    });
+    return {
+      statusCode: statusCodes.internalError,
+      headers: header,
+      body: JSON.stringify(e)
+    }
   }
 });
 
@@ -221,17 +236,21 @@ export const deleteDraftReport = middyfy(async (event: APIGatewayProxyEvent): Pr
     if(ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)){
       report = ServicesLayer.reportService.updateReportStatus('DELETED', params.reportID);
     }else{
-      throw Error('Request not authorised.');
+      return {
+        statusCode: statusCodes.unauthorized,
+        headers: header,
+        body: JSON.stringify('Only owner can delete a draft report')
+      }
     }
 
     return {
-      statusCode: 200,
+      statusCode: statusCodes.Successful,
       headers: header,
       body: JSON.stringify(report)
     }
   } catch (e) {
     return {
-      statusCode: 500,
+      statusCode: statusCodes.internalError,
       headers: header,
       body: JSON.stringify(e)
     };

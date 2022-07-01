@@ -91,7 +91,7 @@ const Home = () => {
   // ######################### API FOR SEARCHING ###############################################
 
   const searchEndpoint =
-    "https://xprnnqlwwi.execute-api.us-east-1.amazonaws.com/dev/search";
+    "https://xprnnqlwwi.execute-api.us-east-1.amazonaws.com/dev/searchTweets";
 
   const searchTwitter = async (searchData: any) => {
     // POST request using fetch with error handling

@@ -1,4 +1,4 @@
-name: "Coveralls Coverage"
+name: "Codecov Coverage"
 
 on:
   workflow_run:

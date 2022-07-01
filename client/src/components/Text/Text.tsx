@@ -182,6 +182,7 @@ const Text = (props: any) => {
 
   // let editButton = false;
   let style__ = "w-full h-auto mt-2 p-2";
+  let tempText = "";
 
   if (props.data.block === null) {
     // editButton = true;
@@ -195,6 +196,8 @@ const Text = (props: any) => {
       props.data.block.style[0].size +
       props.data.block.style[0].align +
       props.data.block.style[0].colour;
+
+    tempText = props.data.block.text;
 
     // style = style__;
 
@@ -297,7 +300,7 @@ const Text = (props: any) => {
                   <textarea
                     className={style}
                     onChange={textHandler}
-                    value={props.data.block.text}
+                    defaultValue={props.data.block.text}
                   ></textarea>
                 </div>
 
