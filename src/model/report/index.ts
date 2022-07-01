@@ -10,6 +10,10 @@ export const ReportTable = {
         {
             AttributeName: "apiKey",
             AttributeType: "S"
+        },
+        {
+            AttributeName: "status",
+            AttributeType: "S"
         }
         
         ],
@@ -22,6 +26,20 @@ export const ReportTable = {
             IndexName: "reportIndex",
             KeySchema: [{
                 AttributeName: "apiKey",
+                KeyType: "HASH"
+            }],
+            Projection: {
+                ProjectionType: "ALL"
+            },
+            ProvisionedThroughput: {
+                ReadCapacityUnits: 5,
+                WriteCapacityUnits: 5
+            }
+        },
+        {
+            IndexName: "statusIndex",
+            KeySchema: [{
+                AttributeName: "status",
                 KeyType: "HASH"
             }],
             Projection: {
