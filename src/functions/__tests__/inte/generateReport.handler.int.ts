@@ -1,5 +1,8 @@
 import * as request from 'superagent';
-import { apiAcesspoint } from '@functions/__tests__/inte/resources'
+
+const apiAcesspoint = {
+    'development': 'https://xprnnqlwwi.execute-api.us-east-1.amazonaws.com/dev/'
+}
 
 describe('Given an authorised request WHEN the post generateReport endpoint is called', () => {
     test('THEN it should respond with a 200', async () => {
