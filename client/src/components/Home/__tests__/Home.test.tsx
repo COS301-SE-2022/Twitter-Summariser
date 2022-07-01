@@ -78,19 +78,17 @@ describe('Testing That Search Bar Receieves Input', () => {
         // const onChange = jest.fn(); // Mock function from jest to provide props
         render(<Home />); // Rendering search bar to search
         const searchInput = (screen.queryByTestId('search') as HTMLInputElement); // Sets search bar defualt text
-        fireEvent.change(searchInput!, { target: { value: 'Test Search' } }); // runs the mock function to change and search text
-        expect(searchInput!.value).toBe('Test Search'); // Checking The condition
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-        // expect(onChange).toHaveBeenCalled();
+        fireEvent.change(searchInput, { target: { value: 'Test Search' } }); // runs the mock function to change and search text
+        expect(searchInput.value).toBe('Test Search'); // Checking The condition
+        // expect(onChange).toHaveBeenCalled;
     });
 
     // // Function that tests that when typing in Search an onChange Function is called
     // it('Testing That onChange is called us user types into input', () => {
-    //     const onChange = jest.fn(); // Mock function from jest to provide props
+    //     // const onChange = jest.fn(); // Mock function from jest to provide props
     //     render(<Home />); // Rendering search bar to search
-    //     const searchInput = screen.queryByTestId('search'); // Sets search bar defualt text
-    //     fireEvent.change(searchInput!, { target: { value: 'Test Search' } }); // runs the mock function to change and search text
-    //     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    //     expect(onChange).toHasBeenCalled();
+    //     const searchInput = (screen.queryByTestId('search') as HTMLInputElement); // Sets search bar defualt text
+    //     fireEvent.change(searchInput, { target: { value: 'Test Search' } }); // runs the mock function to change and search text
+    //     // expect(onChange).toHasBeenCalled;
     // });
 });
