@@ -71,8 +71,8 @@ const Login = (props: any) => {
 
         props.userLoginDetails(await newData);
       })
-      .catch((error) => {
-        console.log("Error in credentials given");
+      .catch(() => {
+        // console.log("Error in credentials given");
         setWrongCredentialsStatus(true);
         setRightCredentialsStatus(false);
       });
