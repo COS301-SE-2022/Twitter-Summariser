@@ -67,7 +67,7 @@ function GenReport() {
         // await props.readyToLogIN();
       })
       .catch(() => {
-        console.log("Error retrieving report");
+        // console.log("Error retrieving report");
         // signUpFailure(true);
       });
     // }

@@ -46,7 +46,7 @@ const Home = () => {
 
         const data = isJson && (await response.json());
 
-        console.log(data);
+        // console.log(data);
 
         if (!response.ok) {
           // error
@@ -64,7 +64,7 @@ const Home = () => {
         }
       })
       .catch(() => {
-        console.log("Error Generating Report");
+        // console.log("Error Generating Report");
       });
   };
 
@@ -119,7 +119,7 @@ const Home = () => {
         }
       })
       .catch(() => {
-        console.log("Error Searching");
+        // console.log("Error Searching");
       });
   };
 

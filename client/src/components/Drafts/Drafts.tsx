@@ -39,7 +39,7 @@ function Drafts() {
         }
       })
       .catch(() => {
-        console.log("Error Getting History");
+        // console.log("Error Getting History");
       });
   };
 
