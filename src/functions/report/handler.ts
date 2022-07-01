@@ -72,7 +72,7 @@ export const getAllMyDraftReports = middyfy(async (event: APIGatewayProxyEvent):
 // Retrieval of Published reports
 export const getAllPublishedReports = middyfy(async (): Promise<APIGatewayProxyResult> => {
   try {
-    const reports = ServicesLayer.reportService.getAllPublishedReports();
+    const reports = await ServicesLayer.reportService.getAllPublishedReports();
 
     return {
       statusCode: statusCodes.Successful,
@@ -134,8 +134,8 @@ export const publishReport = middyfy(async (event: APIGatewayProxyEvent): Promis
     const params = JSON.parse(event.body);
     let report;
 
-    if(ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)){
-      report = ServicesLayer.reportService.updateReportStatus('PUBLISHED', params.reportID);
+    if(await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)){
+      report = await ServicesLayer.reportService.updateReportStatus('PUBLISHED', params.reportID);
     }else{
       return {
         statusCode: statusCodes.unauthorized,
@@ -211,7 +211,7 @@ export const addCustomTweet = middyfy(async (event: APIGatewayProxyEvent): Promi
 export const deleteResultSet = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const params = JSON.parse(event.body);
-    const result = ServicesLayer.resultSetServices.deleteResultSet(params.resultSetID);
+    const result = await ServicesLayer.resultSetServices.deleteResultSet(params.resultSetID);
 
     return {
       statusCode: statusCodes.Successful,
@@ -233,8 +233,8 @@ export const deleteDraftReport = middyfy(async (event: APIGatewayProxyEvent): Pr
     const params = JSON.parse(event.body);
     let report;
 
-    if(ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)){
-      report = ServicesLayer.reportService.updateReportStatus('DELETED', params.reportID);
+    if(await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)){
+      report = await ServicesLayer.reportService.updateReportStatus('DELETED', params.reportID);
     }else{
       return {
         statusCode: statusCodes.unauthorized,
