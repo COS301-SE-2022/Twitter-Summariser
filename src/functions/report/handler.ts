@@ -1,5 +1,4 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
-import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from "@libs/lambda";
 import ServicesLayer from "../../services";
 import { randomUUID } from "crypto";
@@ -164,8 +163,8 @@ export const unpublishReport = middyfy(async (event: APIGatewayProxyEvent): Prom
     const params = JSON.parse(event.body);
     let result;
 
-    if(ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)){
-      result = ServicesLayer.reportService.updateReportStatus('DRAFT', params.reportID);
+    if(await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)){
+      result = await ServicesLayer.reportService.updateReportStatus('DRAFT', params.reportID);
     }else{
       return {
         statusCode: statusCodes.unauthorized,
