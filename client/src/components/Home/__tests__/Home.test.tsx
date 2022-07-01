@@ -1,13 +1,10 @@
-import { fireEvent, queryByRole, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
-import ReactDOM from 'react-dom/client';
 import Home from '../Home';
 
 describe('Rendering Tests For Components in Home', () => {
     // Test to see if Home is rendered
     it('renders Home without crashing', () => {
-        const { getByTestId } = render(<Home />);
-        const home = screen.getByTestId('home');
         expect(home).toBeTruthy();
     });
 

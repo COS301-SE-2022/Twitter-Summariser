@@ -63,7 +63,7 @@ const Home = () => {
           changeClicked(!clicked);
         }
       })
-      .catch((error) => {
+      .catch(() => {
         console.log("Error Generating Report");
       });
   };
@@ -118,7 +118,7 @@ const Home = () => {
           return;
         }
       })
-      .catch((error) => {
+      .catch(() => {
         console.log("Error Searching");
       });
   };

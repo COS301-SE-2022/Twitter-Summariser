@@ -38,7 +38,7 @@ const History = () => {
           return;
         }
       })
-      .catch((error) => {
+      .catch(() => {
         console.log("Error Getting History");
       });
   };
