@@ -111,7 +111,16 @@ export const getReport = middyfy(async (event: APIGatewayProxyEvent): Promise<AP
   try {
 
     const params = JSON.parse(event.body);
+
     const report = await ServicesLayer.reportService.getReport(params.reportID);
+
+    if(report.status!='PUBLISHED' && (params.apiKey==undefined || params.apiKey!=report.apiKey)){
+      return {
+        statusCode: statusCodes.unauthorized,
+        headers: header,
+        body: JSON.stringify('not authorised to edit this report')
+      }
+    }
 
     return {
       statusCode: statusCodes.Successful,
@@ -233,7 +242,17 @@ export const deleteDraftReport = middyfy(async (event: APIGatewayProxyEvent): Pr
     let report;
 
     if(await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)){
-      report = await ServicesLayer.reportService.updateReportStatus('DELETED', params.reportID);
+      report = await ServicesLayer.reportService.getReport(params.reportID);
+
+      if(report.status=='DRAFT'){
+        report = await ServicesLayer.reportService.updateReportStatus('DELETED', params.reportID);
+      }else{
+        return {
+          statusCode: statusCodes.forbidden,
+          headers: header,
+          body: JSON.stringify('Only a draft report can be deleted')
+        }
+      }
     }else{
       return {
         statusCode: statusCodes.unauthorized,

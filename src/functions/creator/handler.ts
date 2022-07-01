@@ -3,28 +3,21 @@ import { middyfy } from '@libs/lambda';
 import CreatorServices from "../../services";
 
 import * as bcrypt from 'bcryptjs';
-import { formatJSONResponse } from "@libs/api-gateway";
-
-
-const responseHeaders = {
-    'Content-Type': 'application/json',
-    "Access-Control-Allow-Methods": '*',
-    'Access-Control-Allow-Origin': '*'
-}
+import { header, statusCodes } from "@functions/resources/APIresponse";
 
 export const getAllCreators = middyfy(async (): Promise<APIGatewayProxyResult> => {
     const creators = await CreatorServices.creatorService.getAllCreators();
     try {
         return {
-            statusCode: 200,
-            headers: responseHeaders,
+            statusCode: statusCodes.Successful,
+            headers: header,
             body: JSON.stringify(creators)
         }
     } catch (error) {
         console.log(error);
         return {
-            statusCode: 500,
-            headers: responseHeaders,
+            statusCode: statusCodes.internalError,
+            headers: header,
             body: JSON.stringify('Something went wrong')
         };
     }
@@ -63,8 +56,8 @@ export const addCreator = middyfy(async (event: APIGatewayProxyEvent): Promise<A
         }
 
         return {
-            statusCode: 200,
-            headers: responseHeaders,
+            statusCode: statusCodes.Successful,
+            headers: header,
             body: JSON.stringify(response)
         };
 
