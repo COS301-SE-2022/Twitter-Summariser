@@ -14,11 +14,10 @@ export const getAllCreators = middyfy(async (): Promise<APIGatewayProxyResult> =
             body: JSON.stringify(creators)
         }
     } catch (error) {
-        console.log(error);
         return {
             statusCode: statusCodes.internalError,
             headers: header,
-            body: JSON.stringify('Something went wrong')
+            body: JSON.stringify(error)
         };
     }
 
@@ -62,7 +61,6 @@ export const addCreator = middyfy(async (event: APIGatewayProxyEvent): Promise<A
         };
 
     } catch (e) {
-        console.log(e);
         return {
             statusCode: statusCodes.internalError,
             headers: header,
