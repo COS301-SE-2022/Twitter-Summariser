@@ -28,6 +28,8 @@ jobs:
         run: |
           cd client
           yarn
+          yarn lint:fix
+          yarn format
           CI=false yarn run build
 
       - name: Serverless deploy
