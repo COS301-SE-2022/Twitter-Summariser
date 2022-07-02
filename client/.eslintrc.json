@@ -24,6 +24,10 @@
         "prettier"
     ],
     "rules": {
+        "react/no-array-index-key": "off", // Comment the rule
+        "react/button-has-type": "off", // Comment the rule
+        "jsx-a11y/control-has-associated-label": "off", // Comment the rule
+        "react/jsx-no-useless-fragment": "off", // Comment the rule
         "no-plusplus": "off",
         "no-underscore-dangle": "off",
         "prefer-regex-literals": "off",
@@ -51,9 +55,9 @@
             }
         ],
         "no-shadow": "off",
-        "@typescript-eslint/no-shadow": [
-            "error"
-        ],
+        // "@typescript-eslint/no-shadow": [        //uncomment to enable
+        //     "error"                              
+        // ],
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
         "import/prefer-default-export": "off",
@@ -62,7 +66,7 @@
         "no-empty": "error",
         "no-console": "error",
         "no-unused-vars": "off",
-        "@typescript-eslint/no-unused-vars": "error",
+        // "@typescript-eslint/no-unused-vars": "error",        // Uncomment to enable
         "@typescript-eslint/no-explicit-any": "off",
         "react/destructuring-assignment": "off",
         "no-unused-expressions": "off",
