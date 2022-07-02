@@ -1,11 +1,11 @@
 .button__signup {
-  text-decoration: none;
-  margin: 4px 2px;
-  cursor: pointer;
+	text-decoration: none;
+	margin: 4px 2px;
+	cursor: pointer;
 }
 
 .button__login {
-  text-decoration: none;
-  margin: 4px 2px;
-  cursor: pointer;
+	text-decoration: none;
+	margin: 4px 2px;
+	cursor: pointer;
 }
