@@ -7,7 +7,7 @@ const HomeTweet = (props: any) => {
   // console.log("Tweet position is " + props.position);
 
   // style for the icons
-  const style_ = { color: "black", fontSize: "1rem" };
+  const iconStyle = { color: "black", fontSize: "1rem" };
 
   return (
     <div
@@ -30,16 +30,16 @@ const HomeTweet = (props: any) => {
 
       <div className="flex flex-row justify-around pt-3">
         <p className="flex flex-row text-sm items-center">
-          <FaRegCommentAlt style={style_} />
+          <FaRegCommentAlt style={iconStyle} />
           &nbsp;
           {parseInt(data.numComments, 10)}
         </p>
         <p className="flex flex-row text-sm items-center">
-          <AiOutlineRetweet style={style_} />
+          <AiOutlineRetweet style={iconStyle} />
           &nbsp; {parseInt(data.numRetweets, 10)}
         </p>
         <p className="flex flex-row text-sm items-center">
-          <AiOutlineHeart style={style_} />
+          <AiOutlineHeart style={iconStyle} />
           &nbsp;
           {parseInt(data.numLikes, 10)}
         </p>
