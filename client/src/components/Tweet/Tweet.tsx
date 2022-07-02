@@ -15,7 +15,7 @@ const Tweet = (props: any) => {
   // }
 
   // style for the icons
-  const style_ = { color: "black", fontSize: "1rem" };
+  const iconStyle = { color: "black", fontSize: "1rem" };
 
   return (
     // <div></div>
@@ -39,16 +39,16 @@ const Tweet = (props: any) => {
 
       <div className="flex flex-row justify-around pt-3">
         <p className="flex flex-row text-sm items-center">
-          <FaRegCommentAlt style={style_} />
+          <FaRegCommentAlt style={iconStyle} />
           &nbsp;
           {parseInt(data.block.numComments, 10)}
         </p>
         <p className="flex flex-row text-sm items-center">
-          <AiOutlineRetweet style={style_} />
+          <AiOutlineRetweet style={iconStyle} />
           &nbsp; {parseInt(data.block.numRetweets, 10)}
         </p>
         <p className="flex flex-row text-sm items-center">
-          <AiOutlineHeart style={style_} />
+          <AiOutlineHeart style={iconStyle} />
           &nbsp;
           {parseInt(data.block.numLikes, 10)}
         </p>
