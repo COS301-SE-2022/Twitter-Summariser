@@ -101,6 +101,19 @@ export const cloneReport = middyfy(async (event: APIGatewayProxyEvent): Promise<
         body: JSON.stringify('not authorised to edit this report')
       }
     }
+
+    let id: string;
+    id = "RT-";
+    id += randomUUID();
+
+    var dd = new Date();
+    var d = new Date(dd.toLocaleString() + "-02:00");
+
+    report.reportID=id;
+    report.apiKey=params.apiKey;
+    report.author=params.author;
+    report.status='DRAFT';
+    report.dateCreated=d.toString();
     
     return {
       statusCode: statusCodes.notImplemented,
