@@ -19,11 +19,14 @@
     },
     "plugins": [
         "react",
-        "react-hooks",
         "@typescript-eslint",
+        "react-hooks",
         "prettier"
     ],
     "rules": {
+        "no-plusplus": "off",
+        "no-underscore-dangle": "off",
+        "prefer-regex-literals": "off",
         "react/react-in-jsx-scope": "off",
         "no-use-before-define": "off",
         "@typescript-eslint/no-use-before-define": [
