@@ -65,8 +65,8 @@ const Signup = (props: any) => {
 
         await props.readyToLogIN();
       })
-      .catch((error) => {
-        // console.log("Error Signing up");
+      .catch(() => {
+        // console.l Signing up");
       });
   };
 
