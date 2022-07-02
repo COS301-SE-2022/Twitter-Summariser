@@ -91,6 +91,16 @@ export const getAllPublishedReports = middyfy(async (): Promise<APIGatewayProxyR
 export const shareReport = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const params = JSON.parse(event.body);
+
+    let report = await ServicesLayer.reportService.getReportHelper(params.reportID);
+
+    if(await ServicesLayer.reportService.verifyReportRetr(report.status, params.apiKey, report.apiKey)){
+      return {
+        statusCode: statusCodes.unauthorized,
+        headers: header,
+        body: JSON.stringify('not authorised to edit this report')
+      }
+    }
     
     return {
       statusCode: statusCodes.notImplemented,
