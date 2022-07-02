@@ -59,7 +59,11 @@
         "no-unused-vars": "off",
         "@typescript-eslint/no-unused-vars": "error",
         "@typescript-eslint/no-explicit-any": "off",
-        "react/destructuring-assignment": "off"
+        "react/destructuring-assignment": "off",
+        "quotes": [
+            "error",
+            "double"
+        ]
     },
     "settings": {
         "import/resolver": {
