@@ -29,8 +29,8 @@ jobs:
           cd client
           yarn
           yarn lint:fix
-          yarn format
           CI=false yarn run build
+          yarn format
 
       - name: Serverless deploy
         uses: serverless/github-action@v3
