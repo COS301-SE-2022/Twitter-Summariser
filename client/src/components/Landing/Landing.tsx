@@ -37,13 +37,13 @@ const Landing = (props: any) => {
   // style for the icons
   const style = { fontSize: "1.5rem" };
 
-  let style__ = "flex fixed justify-start z-20 w-full h-screen unclicked ";
+  let iconStyle = "flex fixed justify-start z-20 w-full h-screen unclicked ";
 
   if (mobileClick) {
-    style__ =
+    iconStyle =
       "flex fixed justify-start z-20 w-full h-screen unclicked clicked ";
   } else {
-    style__ = "flex fixed justify-start z-20 w-full h-screen unclicked ";
+    iconStyle = "flex fixed justify-start z-20 w-full h-screen unclicked ";
   }
 
   return (
@@ -57,14 +57,14 @@ const Landing = (props: any) => {
             <GiHamburgerMenu style={style} className="items-center" />
           </button>
           {/* <div className="">
-            
+
           </div> */}
 
           <div>
             <Logo width="60.69px" height="54px" page="login" />
           </div>
         </div>
-        <div className={style__}>
+        <div className={iconStyle}>
           <div className="w-3/5 bg-white z-20 flex items-center shadow-2xl shadow-black/75">
             <MobileNavigation
               logout={logout}

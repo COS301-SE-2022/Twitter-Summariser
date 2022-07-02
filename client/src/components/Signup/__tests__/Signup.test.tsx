@@ -17,50 +17,50 @@ describe('Rendering Tests For Components Signup', () => {
     // Testing to see if name input is rendered
     it('renders Name input without crashing', () => {
         render(<Signup />);
-        const name_input = screen.getByTestId('name-input');
-        expect(name_input).toBeTruthy();
+        const nameInput = screen.getByTestId('name-input');
+        expect(nameInput).toBeTruthy();
     });
 
     // Testing to see if email input is rendered
     it('renders Email input without crashing', () => {
         render(<Signup />);
-        const email_input = screen.getByTestId('email-input');
-        expect(email_input).toBeTruthy();
+        const emailInput = screen.getByTestId('email-input');
+        expect(emailInput).toBeTruthy();
     });
 
     // Testing to see if date input is rendered
     it('renders Date input without crashing', () => {
         render(<Signup />);
-        const date_input = screen.getByTestId('date-input');
-        expect(date_input).toBeTruthy();
+        const dateInput = screen.getByTestId('date-input');
+        expect(dateInput).toBeTruthy();
     });
 
     // Testing to see if password input is rendered
     it('renders Password input without crashing', () => {
         render(<Signup />);
-        const pass_input = screen.getByTestId('password-input');
-        expect(pass_input).toBeTruthy();
+        const passInput = screen.getByTestId('password-input');
+        expect(passInput).toBeTruthy();
     });
 
     // Testing to see if confirm password input is rendered
     it('renders Confirm Password input without crashing', () => {
         render(<Signup />);
-        const confirmPass_input = screen.getByTestId('confirm-password-input');
-        expect(confirmPass_input).toBeTruthy();
+        const confirmPassInput = screen.getByTestId('confirm-password-input');
+        expect(confirmPassInput).toBeTruthy();
     });
 
     // Testing to see if submit button is rendered
     it('renders Submit button without crashing', () => {
         render(<Signup />);
-        const btn_submit = screen.getByTestId('btn-submit');
-        expect(btn_submit).toBeTruthy();
+        const btnSubmit = screen.getByTestId('btn-submit');
+        expect(btnSubmit).toBeTruthy();
     });
 
     // Testing to see if sign in button is rendered
     it('renders Sign Up without crashing', () => {
         render(<Signup />);
-        const btn_signin = screen.getByTestId('btn-signin');
-        expect(btn_signin).toBeTruthy();
+        const btnSignIn = screen.getByTestId('btn-signin');
+        expect(btnSignIn).toBeTruthy();
     });
 });
 
@@ -70,18 +70,18 @@ describe('Testing That Input fields Receieves Input', () => {
     it('Testing That Name input Updates on User Input', () => {
         const onChange = jest.fn(); // Mock function from jest to provide props
         render(<Signup />); // Rendering signup page with relevant components
-        const name_input = (screen.queryByTestId('name-input') as HTMLInputElement); // Sets name input field to defualt text
-        fireEvent.change(name_input, { target: { value: 'Test Name' } }); // runs the mock function to change and input name
-        expect(name_input.value).toBe('Test Name'); // Checking The condition
+        const nameInput2 = (screen.queryByTestId('name-input') as HTMLInputElement); // Sets name input field to defualt text
+        fireEvent.change(nameInput2, { target: { value: 'Test Name' } }); // runs the mock function to change and input name
+        expect(nameInput2.value).toBe('Test Name'); // Checking The condition
         expect(onChange).toHaveBeenCalled;
     });
 
     it('Testing That Email input Updates on User Input', () => {
         const onChange = jest.fn(); // Mock function from jest to provide props
         render(<Signup />); // Rendering signup page with relevant components
-        const email_input = (screen.queryByTestId('email-input') as HTMLInputElement); // Sets email input field to defualt text
-        fireEvent.change(email_input, { target: { value: 'Test Email' } }); // runs the mock function to change and input email
-        expect(email_input.value).toBe('Test Email'); // Checking The condition
+        const emailInput2 = (screen.queryByTestId('email-input') as HTMLInputElement); // Sets email input field to defualt text
+        fireEvent.change(emailInput2, { target: { value: 'Test Email' } }); // runs the mock function to change and input email
+        expect(emailInput2.value).toBe('Test Email'); // Checking The condition
         expect(onChange).toHaveBeenCalled;
     });
 
@@ -97,18 +97,18 @@ describe('Testing That Input fields Receieves Input', () => {
     it('Testing That Password input Updates on User Input', () => {
         const onChange = jest.fn(); // Mock function from jest to provide props
         render(<Signup />); // Rendering login page with relevant components
-        const password_input = (screen.queryByTestId('password-input') as HTMLInputElement); // Sets password input field to defualt text
-        fireEvent.change(password_input, { target: { value: 'Test Password' } }); // runs the mock function to change and input password
-        expect(password_input.value).toBe('Test Password'); // Checking The condition
+        const passwordInput2 = (screen.queryByTestId('password-input') as HTMLInputElement); // Sets password input field to defualt text
+        fireEvent.change(passwordInput2, { target: { value: 'Test Password' } }); // runs the mock function to change and input password
+        expect(passwordInput2.value).toBe('Test Password'); // Checking The condition
         expect(onChange).toHaveBeenCalled;
     });
 
     it('Testing That Confirm Password input Updates on User Input', () => {
         const onChange = jest.fn(); // Mock function from jest to provide props
         render(<Signup />); // Rendering login page with relevant components
-        const confirm_password_input = (screen.queryByTestId('confirm-password-input') as HTMLInputElement); // Sets confirm password input field to defualt text
-        fireEvent.change(confirm_password_input, { target: { value: 'Test Confirm Password' } }); // runs the mock function to change and input password
-        expect(confirm_password_input.value).toBe('Test Confirm Password'); // Checking The condition
+        const confirmPasswordInput = (screen.queryByTestId('confirm-password-input') as HTMLInputElement); // Sets confirm password input field to defualt text
+        fireEvent.change(confirmPasswordInput, { target: { value: 'Test Confirm Password' } }); // runs the mock function to change and input password
+        expect(confirmPasswordInput.value).toBe('Test Confirm Password'); // Checking The condition
         expect(onChange).toHaveBeenCalled;
     });
 

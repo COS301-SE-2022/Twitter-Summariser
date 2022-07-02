@@ -14,7 +14,7 @@ const App = () => {
   // const [loginPage, setLoginPage] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [signupPage, setSignupPage] = useState(false);
-  const [user_api, changeUser_api] = useState("");
+  const [userApi, changeUserApi] = useState("");
 
   useEffect(() => {
     const storageUserLoggedInInformation =
@@ -33,7 +33,7 @@ const App = () => {
       localStorage.setItem("loggedUserEmail", props.email);
       setIsLoggedIn(true);
       setSignupPage(false);
-      changeUser_api(props.apiKey);
+      changeUserApi(props.apiKey);
       return;
     }
   };
@@ -43,7 +43,7 @@ const App = () => {
     setIsLoggedIn(false);
     setSignupPage(true);
 
-    changeUser_api("");
+    changeUserApi("");
   };
 
   const logInPage = () => {
@@ -56,7 +56,7 @@ const App = () => {
     setIsLoggedIn(false);
     setSignupPage(false);
 
-    changeUser_api("");
+    changeUserApi("");
   };
 
   const readyToLog = () => {
@@ -79,7 +79,7 @@ const App = () => {
 
       {/* Entry here based on Signup and Login decision  */}
       {isLoggedIn && (
-        <Landing userAPI={user_api} takeToSigninPage={logInPage} />
+        <Landing userAPI={userApi} takeToSigninPage={logInPage} />
       )}
     </div>
   );
