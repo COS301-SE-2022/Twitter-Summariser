@@ -1,7 +1,7 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
-import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
 import ServicesLayer from "../../services";
+import { header, statusCodes } from "@functions/resources/APIresponse";
 
 export const getAllResultSet = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
@@ -11,19 +11,16 @@ export const getAllResultSet = middyfy(async (event: APIGatewayProxyEvent): Prom
     console.log(resultSet);
 
     return {
-      statusCode: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        "Access-Control-Allow-Methods": '*',
-        'Access-Control-Allow-Origin': '*',
-      },
+      statusCode: statusCodes.Successful,
+      headers: header,
       body: JSON.stringify(resultSet)
     }
   } catch (e) {
-    return formatJSONResponse({
-      statusCode: 500,
-      message: e
-    });
+    return {
+      statusCode: statusCodes.internalError,
+      headers: header,
+      body: JSON.stringify(e)
+    }
   }
 });
 
@@ -35,18 +32,15 @@ export const getResultSet = middyfy(async (event: APIGatewayProxyEvent): Promise
     const resultSet = await ServicesLayer.resultSetServices.getResultSet(params.resultSetID, params.apiKey);
 
     return {
-      statusCode: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        "Access-Control-Allow-Methods": '*',
-        'Access-Control-Allow-Origin': '*',
-      },
+      statusCode: statusCodes.Successful,
+      headers: header,
       body: JSON.stringify({ resultSet, Tweets: tweets })
     }
   } catch (e) {
-    return formatJSONResponse({
-      statusCode: 500,
-      message: e
-    });
+    return {
+      statusCode: statusCodes.internalError,
+      headers: header,
+      body: JSON.stringify(e)
+    }
   }
 });
