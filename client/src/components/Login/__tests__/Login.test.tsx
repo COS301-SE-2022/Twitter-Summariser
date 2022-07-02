@@ -1,9 +1,5 @@
-/* eslint-disable jest/valid-expect */
-/* eslint-disable @typescript-eslint/no-unused-expressions */
+
 import { fireEvent, render, screen } from '@testing-library/react';
-
-// import ReactDOM from 'react-dom';
-
 import Login from '../Login';
 
 describe('Rendering Tests For Components in Login', () => {
@@ -50,7 +46,7 @@ describe('Rendering Tests For Components in Login', () => {
     });
 });
 
-    // Tests that the input fields recieve text correctly
+// Tests that the input fields recieve text correctly
 describe('Testing That Input fields Receieves Input', () => {
     // Function that mocks data to the input fields and onChange Function is called
     it('Testing That Username input Updates on User Input', () => {
