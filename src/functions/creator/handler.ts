@@ -73,9 +73,23 @@ export const loginCreator = middyfy(async (event: APIGatewayProxyEvent): Promise
     const params = JSON.parse(event.body);
 
     try {
-        const creator = await CreatorServices.creatorService.getCreator(
-            params.email, params.password
-        )
+        const creator = await CreatorServices.creatorService.getCreator(params.email, params.password)
+
+        if (creator===undefined) {
+            return {
+                statusCode: statusCodes.forbidden,
+                headers: header,
+                body: JSON.stringify("creator "+params.email+" not found")
+            };
+        }
+
+        if (await bcrypt.compare(params.password, creator.password)!=true) {
+            return {
+                statusCode: statusCodes.forbidden,
+                headers: header,
+                body: JSON.stringify("invalid credentials for user "+params.email)
+            };
+        }
 
         const response = {
             apiKey: creator.apiKey,
