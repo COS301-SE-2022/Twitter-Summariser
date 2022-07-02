@@ -14,8 +14,6 @@ export const generateReport = middyfy(async (event: APIGatewayProxyEvent): Promi
 
     //console.log(tweets);
 
-    var bid = 'BK-';
-
     let id: string;
     id = "RT-";
     id += randomUUID();
@@ -25,7 +23,7 @@ export const generateReport = middyfy(async (event: APIGatewayProxyEvent): Promi
     var x = 1;
 
     for (var i = 0; i < tweets.length; i++) {
-      await ServicesLayer.reportBlockService.addReportBlock({ reportBlockID: bid + randomUUID(), reportID: id, blockType: "TWEET", position: x, tweetID: tweets[i]["tweetId"] });
+      await ServicesLayer.reportBlockService.addReportBlock({ reportBlockID: 'BK-' + randomUUID(), reportID: id, blockType: "TWEET", position: x, tweetID: tweets[i]["tweetId"] });
       x = x + 2;
     }
 
@@ -92,7 +90,9 @@ export const cloneReport = middyfy(async (event: APIGatewayProxyEvent): Promise<
   try {
     const params = JSON.parse(event.body);
 
+    //Getting report copy
     let report = await ServicesLayer.reportService.getReportHelper(params.reportID);
+    const oldReportId = report.reportID;
 
     if(await ServicesLayer.reportService.verifyReportRetr(report.status, params.apiKey, report.apiKey)){
       return {
@@ -102,6 +102,7 @@ export const cloneReport = middyfy(async (event: APIGatewayProxyEvent): Promise<
       }
     }
 
+    // Cloning report
     let id: string;
     id = "RT-";
     id += randomUUID();
@@ -114,6 +115,17 @@ export const cloneReport = middyfy(async (event: APIGatewayProxyEvent): Promise<
     report.author=params.author;
     report.status='DRAFT';
     report.dateCreated=d.toString();
+
+    await ServicesLayer.reportService.addReport(report);
+
+    // Getting and Cloning blocks
+    let blocks = await ServicesLayer.reportBlockService.getReportBlocks(oldReportId);
+
+    const newBlocks = blocks.map(async block => {
+      var temp = Object.assign({}, block);
+      temp.reportID=id;
+      temp.reportBlockID='BK-' + randomUUID();
+    });
     
     return {
       statusCode: statusCodes.notImplemented,
