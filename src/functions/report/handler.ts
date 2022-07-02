@@ -93,6 +93,7 @@ export const cloneReport = middyfy(async (event: APIGatewayProxyEvent): Promise<
     //Getting report copy
     let report = await ServicesLayer.reportService.getReportHelper(params.reportID);
     const oldReportId = report.reportID;
+    const owner = report.apiKey;
 
     if(await ServicesLayer.reportService.verifyReportRetr(report.status, params.apiKey, report.apiKey)){
       return {
@@ -128,15 +129,21 @@ export const cloneReport = middyfy(async (event: APIGatewayProxyEvent): Promise<
 
       // Getting and cloning text
       if(temp.blockType==='RICHTEXT'){
-        let style = await ServicesLayer.textStyleService.getStyle(block.reportBlockID);
+        let style = await ServicesLayer.textStyleService.getStyle(block.reportBlockID)[0];
         style.textStylesID = "ST-"+randomUUID();
         style.reportBlockID = temp.reportBlockID;
         await ServicesLayer.textStyleService.addStyle(style);
       }
       
+      await ServicesLayer.reportBlockService.addReportBlock(temp);
       return temp;
     });
     
+    //Cloning result set and tweets
+    let resultSet = await ServicesLayer.resultSetServices.getResultSet(oldReportId, owner);
+    resultSet.apiKey = params.apiKey;
+    //resultSet.id=
+
     return {
       statusCode: statusCodes.notImplemented,
       headers: header,

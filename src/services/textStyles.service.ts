@@ -6,7 +6,7 @@ export default class TextStyleService {
 
     constructor (private docClient: DocumentClient) {}
 
-    async getStyle(RBID: string): Promise <TextStyle> {
+    async getStyle(RBID: string): Promise <TextStyle[]> {
         const result = await this.docClient.query({
             TableName: this.TableName,
             IndexName: "textStylesIndex",
@@ -16,7 +16,7 @@ export default class TextStyleService {
             }
         }).promise();
 
-        return result.Items[0] as TextStyle;
+        return result.Items as TextStyle[];
     }
 
     async addStyle(style: TextStyle): Promise<TextStyle> {
