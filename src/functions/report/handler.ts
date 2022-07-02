@@ -114,7 +114,7 @@ export const getReport = middyfy(async (event: APIGatewayProxyEvent): Promise<AP
 
     const report = await ServicesLayer.reportService.getReport(params.reportID);
 
-    if(report.status!='PUBLISHED' && (params.apiKey==undefined || params.apiKey!=report.apiKey)){
+    if(await ServicesLayer.reportService.verifyReportRetr(report.status, params.apiKey, report.apiKey)){
       return {
         statusCode: statusCodes.unauthorized,
         headers: header,

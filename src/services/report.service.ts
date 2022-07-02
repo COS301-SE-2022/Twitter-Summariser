@@ -176,4 +176,12 @@ export default class ReportService {
         }
     }
 
+    // verify report retrieval
+    async verifyReportRetr(status: string, apiKey: string, owner: string) : Promise<boolean>{
+        if(status!='PUBLISHED' && (apiKey==undefined || apiKey!=owner)){
+            return true;
+        }
+        return false;
+    }
+
 }
