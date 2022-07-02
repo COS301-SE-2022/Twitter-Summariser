@@ -4,7 +4,7 @@ import { MdDeleteOutline } from "react-icons/md";
 const HistoryCard = (props: any) => {
   // console.log(props.data);
 
-  const icon_style_3 = { fontSize: "1.5rem", color: "red" };
+  const iconStyle3 = { fontSize: "1.5rem", color: "red" };
 
   const setResultSet = () => {
     // console.log(props.data.id);
@@ -36,7 +36,7 @@ const HistoryCard = (props: any) => {
         </div>
 
         <div className=" ml-2" data-bs-toggle="tooltip" title="Delete History">
-          <MdDeleteOutline style={icon_style_3} />
+          <MdDeleteOutline style={iconStyle3} />
         </div>
       </div>
     </div>
