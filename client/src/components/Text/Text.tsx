@@ -125,7 +125,7 @@ const Text = (props: any) => {
 
         const data = isJson && (await response.json());
 
-        console.log(await data);
+        // console.log(await data);
 
         // check for error response
         if (!response.ok) {
@@ -135,8 +135,8 @@ const Text = (props: any) => {
         }
       })
       .catch((error) => {
-        console.log("Error Updating Text");
-        console.log(error);
+        // console.log("Error Updating Text");
+        // console.log(error);
       });
   };
 
@@ -156,7 +156,7 @@ const Text = (props: any) => {
       position: textPos,
     };
 
-    console.log(Text);
+    // console.log(Text);
 
     editText(Text);
   };

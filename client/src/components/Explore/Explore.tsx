@@ -72,8 +72,11 @@ function Explore() {
             <h1 className="text-2xl">Explore</h1>
 
             <div className="mt-4 flex flex-row flex-wrap justify-center">
-              {tweeter.explore.map((data) => (
-                <div className="m-4 w-1/4 h-20 bg-gray-400 rounded-md flex flex-col p-2">
+              {tweeter.explore.map((data, index) => (
+                <div
+                    className="m-4 w-1/4 h-20 bg-gray-400 rounded-md flex flex-col p-2"
+                    key = {index}
+                >
                   <div className="">
                     <button type="submit">
                       <p className="font-bold">{data.title}</p>

@@ -36,7 +36,7 @@ const Login = (props: any) => {
   // ######################### API FOR LOGGING USERS IN ###############################################
 
   const loginEndpoint =
-    "https://xprnnqlwwi.execute-api.us-east-1.amazonaws.com/dev/login";
+    "https://3vdykbiva3.execute-api.us-east-1.amazonaws.com/dev/login";
 
   const checkCredentials = (userCredentials: any) => {
     const requestOptions = {
@@ -71,8 +71,8 @@ const Login = (props: any) => {
 
         props.userLoginDetails(await newData);
       })
-      .catch((error) => {
-        console.log("Error in credentials given");
+      .catch(() => {
+        // console.log("Error in credentials given");
         setWrongCredentialsStatus(true);
         setRightCredentialsStatus(false);
       });
@@ -176,7 +176,7 @@ const Login = (props: any) => {
           <br />
           <br />
           <p className="text-sm text-center">
-            Don't have an account?
+            Do not have an account?
             <button
               data-testid="btn-signup"
               type="submit"

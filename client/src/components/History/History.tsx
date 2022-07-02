@@ -38,8 +38,8 @@ const History = () => {
           return;
         }
       })
-      .catch((error) => {
-        console.log("Error Getting History");
+      .catch(() => {
+        // console.log("Error Getting History");
       });
   };
 

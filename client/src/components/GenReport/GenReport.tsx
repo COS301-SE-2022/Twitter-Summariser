@@ -7,7 +7,7 @@ import { useState } from "react";
 import Text from "../Text/Text";
 // import DraftCard from "../DraftCard/DraftCard";
 
-function GenReport(props: any) {
+function GenReport() {
   // const [{id}, changeID] = useState("");
 
   // let generate = 1;
@@ -66,8 +66,8 @@ function GenReport(props: any) {
 
         // await props.readyToLogIN();
       })
-      .catch((error) => {
-        console.log("Error retrieving report");
+      .catch(() => {
+        // console.log("Error retrieving report");
         // signUpFailure(true);
       });
     // }
