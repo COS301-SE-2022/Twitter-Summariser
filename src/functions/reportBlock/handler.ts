@@ -13,7 +13,7 @@ export const editBlock = middyfy(async (event: APIGatewayProxyEvent): Promise<AP
         let styles: any;
 
         if(params.reportBlockID==undefined){
-          var id = "BL-"+randomUUID();
+          var id = "BK-"+randomUUID();
           text = await ServicesLayer.reportBlockService.addReportBlock({reportBlockID: id, reportID: params.reportID, blockType: 'RICHTEXT', position: params.position, richText: params.text});
           var sid = "ST-"+randomUUID();
           styles = await ServicesLayer.textStyleService.addStyle({textStylesID: sid, reportBlockID: id, align: params.textStyle.Align, bold: params.textStyle.Bold, colour: params.textStyle.Color, italic: params.textStyle.Italic, size: params.textStyle.Size});

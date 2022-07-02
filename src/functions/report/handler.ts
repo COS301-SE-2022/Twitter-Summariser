@@ -125,6 +125,16 @@ export const cloneReport = middyfy(async (event: APIGatewayProxyEvent): Promise<
       var temp = Object.assign({}, block);
       temp.reportID=id;
       temp.reportBlockID='BK-' + randomUUID();
+
+      // Getting and cloning text
+      if(temp.blockType==='RICHTEXT'){
+        let style = await ServicesLayer.textStyleService.getStyle(block.reportBlockID);
+        style.textStylesID = "ST-"+randomUUID();
+        style.reportBlockID = temp.reportBlockID;
+        await ServicesLayer.textStyleService.addStyle(style);
+      }
+      
+      return temp;
     });
     
     return {
