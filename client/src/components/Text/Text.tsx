@@ -85,9 +85,9 @@ const Text = (props: any) => {
 
   let style = "w-full h-24 mt-2 p-2" + italic + bold + color + size + align;
 
-  const icon_style = { fontSize: "1.2rem" };
-  const icon_style_2 = { fontSize: "1rem" };
-  const icon_style_3 = { fontSize: "1.5rem", color: "red" };
+  const iconStyle = { fontSize: "1.2rem" };
+  const iconStyle2 = { fontSize: "1rem" };
+  const iconStyle3 = { fontSize: "1.5rem", color: "red" };
 
   const [editor, setEditor] = useState(false);
 
@@ -134,7 +134,7 @@ const Text = (props: any) => {
           return;
         }
       })
-      .catch((error) => {
+      .catch(() => {
         // console.log("Error Updating Text");
         // console.log(error);
       });
@@ -182,27 +182,27 @@ const Text = (props: any) => {
   };
 
   // let editButton = false;
-  let style__ = "w-full h-auto mt-2 p-2";
-  let tempText = "";
+  let style2 = "w-full h-auto mt-2 p-2";
+  // let tempText = "";
 
   if (props.data.block === null) {
     // editButton = true;
   } else {
     // editButton = false;
     // console.log(props.data.block.text.length);
-    style__ =
-      style__ +
+    style2 =
+      style2 +
       props.data.block.style[0].italic +
       props.data.block.style[0].bold +
       props.data.block.style[0].size +
       props.data.block.style[0].align +
       props.data.block.style[0].colour;
 
-    tempText = props.data.block.text;
+    // tempText = props.data.block.text;
 
-    // style = style__;
+    // style = style2;
 
-    // console.log(style__);
+    // console.log(style2);
   }
 
   return (
@@ -210,13 +210,13 @@ const Text = (props: any) => {
       {props.data.block !== null && (
         <div className="flex flex-col">
           {!secondEditor && (
-            <div className={style__}>{props.data.block.text.trim()}</div>
+            <div className={style2}>{props.data.block.text.trim()}</div>
           )}
 
           {!secondEditor && (
             <div className="flex justify-center align-middle mt-0 mb-5">
-              <button onClick={() => secondTextEditorHandler()}>
-                <AiFillEdit style={icon_style} />
+              <button type="button" onClick={() => secondTextEditorHandler()}>
+                <AiFillEdit style={iconStyle} />
               </button>
             </div>
           )}
@@ -225,41 +225,41 @@ const Text = (props: any) => {
             <div className="flex flex-col">
               <div className="flex justify-center align-middle">
                 <div className="flex flex-row w-1/3 justify-around pt-2  items-center">
-                  <button onClick={italicHandler}>
-                    <BiItalic style={icon_style} />
+                  <button type="button" onClick={italicHandler}>
+                    <BiItalic style={iconStyle} />
                   </button>{" "}
                   &nbsp;
-                  <button onClick={boldHandler}>
-                    <BiBold style={icon_style} />
+                  <button type="button" onClick={boldHandler}>
+                    <BiBold style={iconStyle} />
                   </button>
                   &nbsp;{" "}
                   {alignLeft && (
-                    <button onClick={() => alignHandler("left")}>
+                    <button type="button" onClick={() => alignHandler("left")}>
                       {" "}
-                      <GrTextAlignLeft style={icon_style_2} />{" "}
+                      <GrTextAlignLeft style={iconStyle2} />{" "}
                     </button>
                   )}
                   {alignRight && (
-                    <button onClick={() => alignHandler("right")}>
+                    <button type="button" onClick={() => alignHandler("right")}>
                       {" "}
-                      <GrTextAlignRight style={icon_style_2} />{" "}
+                      <GrTextAlignRight style={iconStyle2} />{" "}
                     </button>
                   )}
                   {alignCenter && (
-                    <button onClick={() => alignHandler("center")}>
+                    <button type="button" onClick={() => alignHandler("center")}>
                       {" "}
-                      <GrTextAlignCenter style={icon_style_2} />{" "}
+                      <GrTextAlignCenter style={iconStyle2} />{" "}
                     </button>
                   )}
                   {alignJustify && (
-                    <button onClick={() => alignHandler("justify")}>
+                    <button type="button" onClick={() => alignHandler("justify")}>
                       {" "}
-                      <BsJustify style={icon_style} />{" "}
+                      <BsJustify style={iconStyle} />{" "}
                     </button>
                   )}
                   &nbsp;&nbsp;
                   <div className="flex flex-row">
-                    <AiOutlineFontSize style={icon_style} />
+                    <AiOutlineFontSize style={iconStyle} />
                     <select
                       className="text-black text-center text-xs"
                       onChange={sizeHandler}
@@ -278,7 +278,7 @@ const Text = (props: any) => {
                   </div>
                   &nbsp;{" "}
                   <div className="flex flex-row">
-                    <IoColorPaletteOutline style={icon_style} />
+                    <IoColorPaletteOutline style={iconStyle} />
                     <select
                       className="text-black text-center text-xs"
                       onChange={colorHandler}
@@ -306,8 +306,8 @@ const Text = (props: any) => {
                 </div>
 
                 <div className="w-1/6 flex text-center justify-center">
-                  <button onClick={secondTextEditorHandler}>
-                    <MdDeleteOutline style={icon_style_3} />
+                  <button type="button" onClick={secondTextEditorHandler}>
+                    <MdDeleteOutline style={iconStyle3} />
                   </button>
                 </div>
               </div>
@@ -338,41 +338,41 @@ const Text = (props: any) => {
             <div className="flex flex-col">
               <div className="flex justify-center align-middle">
                 <div className="flex flex-row w-1/3 justify-around pt-2  items-center">
-                  <button onClick={italicHandler}>
-                    <BiItalic style={icon_style} />
+                  <button type="button" onClick={italicHandler}>
+                    <BiItalic style={iconStyle} />
                   </button>{" "}
                   &nbsp;
-                  <button onClick={boldHandler}>
-                    <BiBold style={icon_style} />
+                  <button type="button" onClick={boldHandler}>
+                    <BiBold style={iconStyle} />
                   </button>
                   &nbsp;{" "}
                   {alignLeft && (
-                    <button onClick={() => alignHandler("left")}>
+                    <button type="button" onClick={() => alignHandler("left")}>
                       {" "}
-                      <GrTextAlignLeft style={icon_style_2} />{" "}
+                      <GrTextAlignLeft style={iconStyle2} />{" "}
                     </button>
                   )}
                   {alignRight && (
-                    <button onClick={() => alignHandler("right")}>
+                    <button type="button" onClick={() => alignHandler("right")}>
                       {" "}
-                      <GrTextAlignRight style={icon_style_2} />{" "}
+                      <GrTextAlignRight style={iconStyle2} />{" "}
                     </button>
                   )}
                   {alignCenter && (
-                    <button onClick={() => alignHandler("center")}>
+                    <button type="button" onClick={() => alignHandler("center")}>
                       {" "}
-                      <GrTextAlignCenter style={icon_style_2} />{" "}
+                      <GrTextAlignCenter style={iconStyle2} />{" "}
                     </button>
                   )}
                   {alignJustify && (
-                    <button onClick={() => alignHandler("justify")}>
+                    <button type="button" onClick={() => alignHandler("justify")}>
                       {" "}
-                      <BsJustify style={icon_style} />{" "}
+                      <BsJustify style={iconStyle} />{" "}
                     </button>
                   )}
                   &nbsp;&nbsp;
                   <div className="flex flex-row">
-                    <AiOutlineFontSize style={icon_style} />
+                    <AiOutlineFontSize style={iconStyle} />
                     <select
                       className="text-black text-center text-xs"
                       onChange={sizeHandler}
@@ -391,7 +391,7 @@ const Text = (props: any) => {
                   </div>
                   &nbsp;{" "}
                   <div className="flex flex-row">
-                    <IoColorPaletteOutline style={icon_style} />
+                    <IoColorPaletteOutline style={iconStyle} />
                     <select
                       className="text-black text-center text-xs"
                       onChange={colorHandler}
@@ -415,8 +415,8 @@ const Text = (props: any) => {
                 </div>
 
                 <div className="w-1/6 flex text-center justify-center">
-                  <button onClick={textEditorHandler}>
-                    <MdDeleteOutline style={icon_style_3} />
+                  <button type="button" onClick={textEditorHandler}>
+                    <MdDeleteOutline style={iconStyle3} />
                   </button>
                 </div>
               </div>
@@ -431,8 +431,8 @@ const Text = (props: any) => {
           {!editor && (
             <div className="flex flex-col mt-5 mb-5">
               <div className="flex justify-center align-middle">
-                <button onClick={textEditorHandler}>
-                  <AiFillEdit style={icon_style} />
+                <button type="button" onClick={textEditorHandler}>
+                  <AiFillEdit style={iconStyle} />
                 </button>
               </div>
             </div>

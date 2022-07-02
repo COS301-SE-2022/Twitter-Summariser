@@ -31,15 +31,15 @@ describe('Rendering Tests For Components in Home', () => {
     // Testing to see if Search button is rendered
     it('renders Submit button without crashing', () => {
         render(<Home />);
-        const btn_search = screen.getByTestId('btn-search');
-        expect(btn_search).toBeTruthy();
+        const btnSearch = screen.getByTestId('btn-search');
+        expect(btnSearch).toBeTruthy();
     });
 
     // Testing to see if Generate button is rendered
     it('renders Generate button without crashing', () => {
         render(<Home />);
-        const btn_generate = screen.getByTestId('btn-generate');
-        expect(btn_generate).toBeTruthy();
+        const btnGenerate = screen.getByTestId('btn-generate');
+        expect(btnGenerate).toBeTruthy();
     });
 
     // Testing to see if Generated report button is rendered
@@ -52,22 +52,22 @@ describe('Rendering Tests For Components in Home', () => {
     // Testing to see if Num Tweets dropdown is rendered
     it('renders Num Tweets filter without crashing', () => {
         render(<Home />);
-        const select_num_tweets = screen.getByTestId('select-num-tweets');
-        expect(select_num_tweets).toBeTruthy();
+        const selectNumTweets = screen.getByTestId('select-num-tweets');
+        expect(selectNumTweets).toBeTruthy();
     });
 
     // Testing to see if filter dropdown is rendered
     it('renders filter options without crashing', () => {
         render(<Home />);
-        const select_filter = screen.getByTestId('select-filter');
-        expect(select_filter).toBeTruthy();
+        const selectFilter = screen.getByTestId('select-filter');
+        expect(selectFilter).toBeTruthy();
     });
 
     // Testing to see if sort dropdown is rendered
     it('renders sort options without crashing', () => {
         render(<Home />);
-        const select_sort = screen.getByTestId('select-sort');
-        expect(select_sort).toBeTruthy();
+        const selectSort = screen.getByTestId('select-sort');
+        expect(selectSort).toBeTruthy();
     });
 });
 
