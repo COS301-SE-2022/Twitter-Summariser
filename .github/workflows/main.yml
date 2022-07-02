@@ -95,7 +95,10 @@ jobs:
         run: yarn
 
       - name: Build the React App
-        run: CI=false yarn run build
+        run: |
+          CI=false yarn lint:fix
+          CI=false yarn format
+          CI=false yarn run build
 
       - name: Run frontend tests
         run: yarn test --watchAll=false
