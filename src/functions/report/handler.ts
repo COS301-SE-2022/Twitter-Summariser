@@ -87,8 +87,8 @@ export const getAllPublishedReports = middyfy(async (): Promise<APIGatewayProxyR
   }
 });
 
-// Share report
-export const shareReport = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+// clone report function
+export const cloneReport = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const params = JSON.parse(event.body);
 
@@ -101,6 +101,25 @@ export const shareReport = middyfy(async (event: APIGatewayProxyEvent): Promise<
         body: JSON.stringify('not authorised to edit this report')
       }
     }
+    
+    return {
+      statusCode: statusCodes.notImplemented,
+      headers: header,
+      body: JSON.stringify('Not Yet done')
+    }
+  } catch (e) {
+    return {
+      statusCode: statusCodes.internalError,
+      headers: header,
+      body: JSON.stringify(e)
+    }
+  }
+});
+
+// Share report
+export const shareReport = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+  try {
+    const params = JSON.parse(event.body);
     
     return {
       statusCode: statusCodes.notImplemented,
