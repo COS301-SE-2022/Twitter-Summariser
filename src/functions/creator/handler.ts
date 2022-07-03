@@ -73,7 +73,7 @@ export const loginCreator = middyfy(async (event: APIGatewayProxyEvent): Promise
     const params = JSON.parse(event.body);
 
     try {
-        const creator = await CreatorServices.creatorService.getCreator(params.email, params.password)
+        const creator = await CreatorServices.creatorService.getCreator(params.email)
 
         if (creator===undefined) {
             return {
