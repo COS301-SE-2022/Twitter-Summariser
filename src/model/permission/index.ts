@@ -1,7 +1,7 @@
-export const PermissionsTable = {
+export const PermissionTable = {
     Type: "AWS::DynamoDB::Table",
     Properties: {
-        TableName: "PermissionsTable",
+        TableName: "PermissionTable",
         AttributeDefinitions: [{
             AttributeName: "reportID",
             AttributeType: "S"
