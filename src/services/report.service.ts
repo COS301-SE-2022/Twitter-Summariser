@@ -119,6 +119,42 @@ export default class ReportService {
         return result.Items as Report[];
     }
 
+    async getDraftReports(key: string): Promise<Report[]> {
+        const result = await this.docClient.query({
+            TableName: this.TableName,
+            IndexName: "reportIndex",
+            KeyConditionExpression: "apiKey = :apiKey",
+            FilterExpression: "#status = :status",
+            ExpressionAttributeValues: {
+                ":apiKey": key,
+                ":status": "DRAFT"
+            },
+            ExpressionAttributeNames: {
+                "#status": "status"
+            }
+        }).promise();
+
+        return result.Items as Report[];
+    }
+
+    async getAllPublishedReports(): Promise<Report[]> {
+        const result = await this.docClient.query({
+            TableName: this.TableName,
+            IndexName: "statusIndex",
+            KeyConditionExpression: '#status = :status',
+            ExpressionAttributeNames: {
+                "#status": "status"
+            },
+            ExpressionAttributeValues: {
+                ":status": "PUBLISHED"
+            }
+        }).promise();
+
+        console.log(result.Items);
+    
+        return result.Items as Report[];
+    }
+
     // store reports
     async addReport(report: Report): Promise<Report> {
         // console.log(report);
@@ -146,23 +182,7 @@ export default class ReportService {
     }
 
     // get my reports
-    async getAllPublishedReports(): Promise<Report[]> {
-        const result = await this.docClient.query({
-            TableName: this.TableName,
-            IndexName: "statusIndex",
-            KeyConditionExpression: '#status = :status',
-            ExpressionAttributeNames: {
-                "#status": "status"
-            },
-            ExpressionAttributeValues: {
-                ":status": "PUBLISHED"
-            }
-        }).promise();
-
-        console.log(result.Items);
     
-        return result.Items as Report[];
-    }
 
     // verify owner of report
     async verifyOwner(reportID: string, apiKey1: string) : Promise<boolean>{
