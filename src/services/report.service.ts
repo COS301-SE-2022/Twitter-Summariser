@@ -123,12 +123,13 @@ export default class ReportService {
         const result = await this.docClient.query({
             TableName: this.TableName,
             IndexName: "reportIndex",
-            KeyConditionExpression: "#apiKey = :apiKey AND #status = 'DRAFT'",
+            KeyConditionExpression: "apiKey = :apiKey",
+            FilterExpression: "#status = :status",
             ExpressionAttributeValues: {
-                "#apiKey": key
+                ":apiKey": key,
+                ":status": "DRAFT"
             },
             ExpressionAttributeNames: {
-                "#apiKey": "apiKey",
                 "#status": "status"
             }
         }).promise();
