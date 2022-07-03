@@ -33,6 +33,7 @@ export default class ReportService {
 
             ob["blockType"] = type;
             ob["position"] = block.position;
+            ob["reportBlockID"] = block.reportBlockID;
             
             if (type === "TWEET") {
                 const tweet = await ServicesLayer.tweetService.getTweet(block.tweetID);
