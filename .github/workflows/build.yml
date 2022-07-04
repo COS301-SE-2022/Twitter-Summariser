@@ -94,8 +94,14 @@ jobs:
       - name: Install all package dependencies
         run:  yarn
 
+      - name: Lint the frontend code
+        run:  yarn lint:fix
+
       - name: Build the React App
         run:  CI=false yarn run build
+
+      - name: Format the code with Prettier
+        run:  yarn format
 
       - name: Run frontend tests
         run:  yarn test --watchAll=false
