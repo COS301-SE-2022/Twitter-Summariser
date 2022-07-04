@@ -147,6 +147,13 @@ export const cloneReport = middyfy(async (event: APIGatewayProxyEvent): Promise<
     resultSet.id = "RS-"+randomUUID;
     await ServicesLayer.resultSetServices.addResultSet(resultSet);
 
+    //cloning tweets
+    let tweets = await ServicesLayer.tweetService.getTweets(oldRSid);
+    tweets.map(async tweet =>{
+      tweet.resultSetId=resultSet.id;
+
+      await ServicesLayer.tweetService.addTweet(tweet);
+    });
 
     return {
       statusCode: statusCodes.notImplemented,
