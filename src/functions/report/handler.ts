@@ -123,7 +123,7 @@ export const cloneReport = middyfy(async (event: APIGatewayProxyEvent): Promise<
     // Getting and Cloning blocks
     let blocks = await ServicesLayer.reportBlockService.getReportBlocks(oldReportId);
 
-    const newBlocks = blocks.map(async block => {
+    blocks.map(async block => {
       var temp = Object.assign({}, block);
       temp.reportID=id;
       temp.reportBlockID='BK-' + randomUUID();
@@ -140,15 +140,18 @@ export const cloneReport = middyfy(async (event: APIGatewayProxyEvent): Promise<
       return temp;
     });
     
-    //Cloning result set and tweets
+    //Cloning result set 
     let resultSet = await ServicesLayer.resultSetServices.getResultSet(oldReportId, owner);
     resultSet.apiKey = params.apiKey;
-    //resultSet.id=
+    var oldRSid = resultSet.id;
+    resultSet.id = "RS-"+randomUUID;
+    await ServicesLayer.resultSetServices.addResultSet(resultSet);
+
 
     return {
       statusCode: statusCodes.notImplemented,
       headers: header,
-      body: JSON.stringify('Not Yet done')
+      body: JSON.stringify(report)
     }
   } catch (e) {
     return {
