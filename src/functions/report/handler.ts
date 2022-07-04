@@ -25,17 +25,16 @@ export const generateReport = middyfy(
 			const d = new Date(`${dd.toLocaleString()  }-02:00`);
 
 			let x = 1;
-
-			for (let i = 0; i < tweets.length; i++) {
+			tweets.map( async tweet=> {
 				await ServicesLayer.reportBlockService.addReportBlock({
 					reportBlockID: `BK-${  randomUUID()}`,
 					reportID: id,
 					blockType: "TWEET",
 					position: x,
-					tweetID: tweets[i].tweetId
+					tweetID: tweet.tweetId
 				});
 				x += 2;
-			}
+			});
 
 			const report = await ServicesLayer.reportService.addReport({
 				reportID: id,
@@ -386,7 +385,7 @@ export const deleteDraftReport = middyfy(
 			if (await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)) {
 				report = await ServicesLayer.reportService.getReport(params.reportID);
 
-				if (report.status == "DRAFT") {
+				if (report.status === "DRAFT") {
 					report = await ServicesLayer.reportService.updateReportStatus(
 						"DELETED",
 						params.reportID
