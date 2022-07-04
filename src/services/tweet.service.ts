@@ -45,6 +45,7 @@ export default class TweetService {
 	}
 
 	async addTweets(data: any, includes: any, numTweets: number, GID: string): Promise<Tweet[]> {
+		this.TableName;
 		const tweetList: Tweet[] = [];
 		for (let i = 0; i < numTweets; i++) {
 			if (i in includes.users) {
@@ -65,6 +66,7 @@ export default class TweetService {
 	}
 
 	async sortTweets(tweets: Tweet[], sortBy: string): Promise<Tweet[]> {
+		this.TableName;
 		if (sortBy === "byLikes") {
 			tweets.sort((a, b) => {
 				if (a.numLikes < b.numLikes) return 1;

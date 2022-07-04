@@ -29,7 +29,7 @@ export default class ReportService {
 
 		const promises = reportBlocks.map(async (block) => {
 			const type = block.blockType;
-			const ob = {};
+			const ob = {} as any;
 
 			ob.blockType = type;
 			ob.position = block.position;
@@ -196,6 +196,7 @@ export default class ReportService {
 
 	// verify report retrieval
 	async verifyReportRetr(status: string, apiKey: string, owner: string): Promise<boolean> {
+		this.TableName;
 		if (status !== "PUBLISHED" && (apiKey === undefined || apiKey !== owner)) {
 			return true;
 		}
