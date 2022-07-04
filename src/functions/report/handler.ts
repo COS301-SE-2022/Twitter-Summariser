@@ -1,8 +1,8 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { middyfy } from "@libs/lambda";
-import ServicesLayer from "../../services";
 import { randomUUID } from "crypto";
 import { header, statusCodes } from "@functions/resources/APIresponse";
+import ServicesLayer from "../../services";
 
 // Generation of reports
 export const generateReport = middyfy(
@@ -16,25 +16,25 @@ export const generateReport = middyfy(
 				params.apiKey
 			);
 
-			//console.log(tweets);
+			// console.log(tweets);
 
 			let id: string;
 			id = "RT-";
 			id += randomUUID();
-			var dd = new Date();
-			var d = new Date(dd.toLocaleString() + "-02:00");
+			const dd = new Date();
+			const d = new Date(`${dd.toLocaleString()  }-02:00`);
 
-			var x = 1;
+			let x = 1;
 
-			for (var i = 0; i < tweets.length; i++) {
+			for (let i = 0; i < tweets.length; i++) {
 				await ServicesLayer.reportBlockService.addReportBlock({
-					reportBlockID: "BK-" + randomUUID(),
+					reportBlockID: `BK-${  randomUUID()}`,
 					reportID: id,
 					blockType: "TWEET",
 					position: x,
-					tweetID: tweets[i]["tweetId"]
+					tweetID: tweets[i].tweetId
 				});
-				x = x + 2;
+				x += 2;
 			}
 
 			const report = await ServicesLayer.reportService.addReport({
@@ -71,7 +71,7 @@ export const getAllMyDraftReports = middyfy(
 			const params = JSON.parse(event.body);
 			const reports = await ServicesLayer.reportService.getDraftReports(params.apiKey);
 
-			//const tweets = await ServicesLayer.tweetService.getTweets(params.resultSetID);
+			// const tweets = await ServicesLayer.tweetService.getTweets(params.resultSetID);
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
@@ -112,8 +112,8 @@ export const cloneReport = middyfy(
 		try {
 			const params = JSON.parse(event.body);
 
-			//Getting report copy
-			let report = await ServicesLayer.reportService.getReportHelper(params.reportID);
+			// Getting report copy
+			const report = await ServicesLayer.reportService.getReportHelper(params.reportID);
 			const oldReportId = report.reportID;
 			const owner = report.apiKey;
 
@@ -136,8 +136,8 @@ export const cloneReport = middyfy(
 			id = "RT-";
 			id += randomUUID();
 
-			var dd = new Date();
-			var d = new Date(dd.toLocaleString() + "-02:00");
+			const dd = new Date();
+			const d = new Date(`${dd.toLocaleString()  }-02:00`);
 
 			report.reportID = id;
 			report.apiKey = params.apiKey;
@@ -148,19 +148,19 @@ export const cloneReport = middyfy(
 			await ServicesLayer.reportService.addReport(report);
 
 			// Getting and Cloning blocks
-			let blocks = await ServicesLayer.reportBlockService.getReportBlocks(oldReportId);
+			const blocks = await ServicesLayer.reportBlockService.getReportBlocks(oldReportId);
 
 			blocks.map(async (block) => {
-				var temp = Object.assign({}, block);
+				const temp = { ...block};
 				temp.reportID = id;
-				temp.reportBlockID = "BK-" + randomUUID();
+				temp.reportBlockID = `BK-${  randomUUID()}`;
 
 				// Getting and cloning text
 				if (temp.blockType === "RICHTEXT") {
-					let style = await ServicesLayer.textStyleService.getStyle(
+					const style = await ServicesLayer.textStyleService.getStyle(
 						block.reportBlockID
 					)[0];
-					style.textStylesID = "ST-" + randomUUID();
+					style.textStylesID = `ST-${  randomUUID()}`;
 					style.reportBlockID = temp.reportBlockID;
 					await ServicesLayer.textStyleService.addStyle(style);
 				}
@@ -169,15 +169,15 @@ export const cloneReport = middyfy(
 				return temp;
 			});
 
-			//Cloning result set
-			let resultSet = await ServicesLayer.resultSetServices.getResultSet(oldReportId, owner);
+			// Cloning result set
+			const resultSet = await ServicesLayer.resultSetServices.getResultSet(oldReportId, owner);
 			resultSet.apiKey = params.apiKey;
-			var oldRSid = resultSet.id;
-			resultSet.id = "RS-" + randomUUID;
+			const oldRSid = resultSet.id;
+			resultSet.id = `RS-${  randomUUID}`;
 			await ServicesLayer.resultSetServices.addResultSet(resultSet);
 
-			//cloning tweets
-			let tweets = await ServicesLayer.tweetService.getTweets(oldRSid);
+			// cloning tweets
+			const tweets = await ServicesLayer.tweetService.getTweets(oldRSid);
 			tweets.map(async (tweet) => {
 				tweet.resultSetId = resultSet.id;
 
@@ -203,9 +203,9 @@ export const cloneReport = middyfy(
 
 // Share report
 export const shareReport = middyfy(
-	async (/*event: APIGatewayProxyEvent*/): Promise<APIGatewayProxyResult> => {
+	async (/* event: APIGatewayProxyEvent */): Promise<APIGatewayProxyResult> => {
 		try {
-			//const params = JSON.parse(event.body);
+			// const params = JSON.parse(event.body);
 
 			return {
 				statusCode: statusCodes.notImplemented,
@@ -247,7 +247,7 @@ export const getReport = middyfy(
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify({ report: report })
+				body: JSON.stringify({ report })
 			};
 		} catch (e) {
 			return {
@@ -333,9 +333,9 @@ export const unpublishReport = middyfy(
 
 // Adding a custom tweet
 export const addCustomTweet = middyfy(
-	async (/*event: APIGatewayProxyEvent*/): Promise<APIGatewayProxyResult> => {
+	async (/* event: APIGatewayProxyEvent */): Promise<APIGatewayProxyResult> => {
 		try {
-			//const params = JSON.parse(event.body);
+			// const params = JSON.parse(event.body);
 
 			return {
 				statusCode: statusCodes.notImplemented,

@@ -7,7 +7,9 @@ const putFn = jest.fn().mockImplementation(() => ({ promise: awsSdkPromiseRespon
 const queryFn = jest.fn().mockImplementation(() => ({ promise: awsSdkPromiseResponse }));
 export class DocumentClient {
 	get = getFn;
+
 	put = putFn;
+
 	query = queryFn;
 }
 

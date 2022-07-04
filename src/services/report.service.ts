@@ -1,12 +1,12 @@
 import { DocumentClient } from "aws-sdk/clients/dynamodb";
 import Report from "@model/report/report.model";
 
-import ServicesLayer from "../services";
+import ServicesLayer from ".";
 
 export default class ReportService {
 	// add function to get all published reports
 
-	private TableName: string = "ReportTable";
+	private TableName = "ReportTable";
 
 	constructor(private docClient: DocumentClient) {}
 
@@ -19,7 +19,7 @@ export default class ReportService {
 			})
 			.promise();
 
-		if (result == undefined) throw new Error("report with id: " + id + " does not exist");
+		if (result == undefined) throw new Error(`report with id: ${  id  } does not exist`);
 
 		const item = result.Item;
 
@@ -28,24 +28,24 @@ export default class ReportService {
 		const reportBlocks = await ServicesLayer.reportBlockService.getReportBlocks(item.reportID);
 
 		const promises = reportBlocks.map(async (block) => {
-			let type = block.blockType;
-			let ob = {};
+			const type = block.blockType;
+			const ob = {};
 
-			ob["blockType"] = type;
-			ob["position"] = block.position;
-			ob["reportBlockID"] = block.reportBlockID;
+			ob.blockType = type;
+			ob.position = block.position;
+			ob.reportBlockID = block.reportBlockID;
 
 			if (type === "TWEET") {
 				const tweet = await ServicesLayer.tweetService.getTweet(block.tweetID);
 				// console.log(tweet);
-				ob["block"] = tweet;
+				ob.block = tweet;
 				// console.log(ob);
 			} else if (type === "RICHTEXT") {
 				const style = await ServicesLayer.textStyleService.getStyle(block.reportBlockID);
-				ob["block"] = {
+				ob.block = {
 					text: block.richText,
 					position: block.position,
-					style: style
+					style
 				};
 			}
 			report.push(ob);
@@ -53,16 +53,16 @@ export default class ReportService {
 
 		await Promise.all(promises);
 		await ServicesLayer.reportBlockService.sortReportBlocks(report);
-		let rp = [];
+		const rp = [];
 		let bl = false;
-		var max = 0;
-		var count = 0;
+		let max = 0;
+		let count = 0;
 
 		for (var y = 0; y < report.length; y++) {
 			max = report[y].position;
 		}
 
-		for (var x = 0; x < max; x++) {
+		for (let x = 0; x < max; x++) {
 			for (var y = 0; y < report.length; y++) {
 				if (report[y].position == x) {
 					rp.push(report[y]);
@@ -78,8 +78,8 @@ export default class ReportService {
 			bl = false;
 		}
 
-		item["Report"] = rp;
-		item["numOfBlocks"] = count;
+		item.Report = rp;
+		item.numOfBlocks = count;
 
 		return result.Item;
 	}
@@ -172,11 +172,11 @@ export default class ReportService {
 	}
 
 	// update Report
-	async updateReportStatus(status: String, reportID: String): Promise<Report> {
+	async updateReportStatus(status: string, reportID: string): Promise<Report> {
 		const result = await this.docClient
 			.update({
 				TableName: this.TableName,
-				Key: { reportID: reportID },
+				Key: { reportID },
 				UpdateExpression: "SET status = :status",
 				ExpressionAttributeValues: {
 					":status": status
@@ -196,9 +196,9 @@ export default class ReportService {
 
 		if (apiKey1 == apiKey2) {
 			return true;
-		} else {
+		} 
 			return false;
-		}
+		
 	}
 
 	// verify report retrieval

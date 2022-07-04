@@ -2,7 +2,7 @@ import { DocumentClient } from "aws-sdk/clients/dynamodb";
 import TextStyle from "@model/textStyles/textStyles.model";
 
 export default class TextStyleService {
-	private TableName: string = "TextStylesTable";
+	private TableName = "TextStylesTable";
 
 	constructor(private docClient: DocumentClient) {}
 

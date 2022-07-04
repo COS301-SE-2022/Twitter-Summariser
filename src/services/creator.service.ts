@@ -2,7 +2,7 @@ import { DocumentClient } from "aws-sdk/clients/dynamodb";
 import Creator from "@model/creator/creator.model";
 
 export default class CreatorService {
-	private TableName: string = "CreatorTable";
+	private TableName = "CreatorTable";
 
 	constructor(private docClient: DocumentClient) {}
 
@@ -43,7 +43,7 @@ export default class CreatorService {
 		return result.Items[0] as Creator;
 	}
 
-	async getCreatorByKey(key: String): Promise<Creator> {
+	async getCreatorByKey(key: string): Promise<Creator> {
 		const creator = await this.docClient
 			.query({
 				TableName: this.TableName,

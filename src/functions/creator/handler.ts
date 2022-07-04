@@ -1,9 +1,9 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { middyfy } from "@libs/lambda";
-import CreatorServices from "../../services";
 
 import * as bcrypt from "bcryptjs";
 import { header, statusCodes } from "@functions/resources/APIresponse";
+import CreatorServices from "../../services";
 
 export const getAllCreators = middyfy(async (): Promise<APIGatewayProxyResult> => {
 	const creators = await CreatorServices.creatorService.getAllCreators();
@@ -39,7 +39,7 @@ export const addCreator = middyfy(
 
 		try {
 			const creator = await CreatorServices.creatorService.addCreator({
-				apiKey: apiKey,
+				apiKey,
 				email: params.email,
 				username: params.username,
 				password: hashedPass,
@@ -79,15 +79,15 @@ export const loginCreator = middyfy(
 				return {
 					statusCode: statusCodes.unauthorized,
 					headers: header,
-					body: JSON.stringify("creator " + params.email + " not found")
+					body: JSON.stringify(`creator ${  params.email  } not found`)
 				};
 			}
 
-			if ((await bcrypt.compare(params.password, creator.password)) != true) {
+			if ((await bcrypt.compare(params.password, creator.password)) !== true) {
 				return {
 					statusCode: statusCodes.unauthorized,
 					headers: header,
-					body: JSON.stringify("invalid credentials for user " + params.email)
+					body: JSON.stringify(`invalid credentials for user ${  params.email}`)
 				};
 			}
 

@@ -5,13 +5,13 @@ export const header = {
 };
 
 export const statusCodes = {
-	//Sucess:
+	// Sucess:
 	Successful: 200,
 	created: 201,
 	accepted: 202,
 	no_content: 204,
 
-	//client errors:
+	// client errors:
 	badRequest: 400,
 	unauthorized: 401,
 	forbidden: 403,
@@ -20,7 +20,7 @@ export const statusCodes = {
 	gone: 410,
 	notAcceptiable: 406,
 
-	//Server errors:
+	// Server errors:
 	internalError: 500,
 	notImplemented: 501,
 	badGateway: 502

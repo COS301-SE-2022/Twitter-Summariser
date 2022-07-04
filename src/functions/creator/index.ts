@@ -1,4 +1,5 @@
 import { handlerPath } from "@libs/handler-resolver";
+
 export const getAllCreators = {
 	handler: `${handlerPath(__dirname)}/handler.getAllCreators`,
 	description: "A function that returns all the creators in the system.",

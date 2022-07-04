@@ -1,9 +1,9 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { middyfy } from "@libs/lambda";
-import { clientV2 } from "../resources/twitterV2.client";
 import { randomUUID } from "crypto";
-import ServicesLayer from "../../services";
 import { header, statusCodes } from "@functions/resources/APIresponse";
+import { clientV2 } from "../resources/twitterV2.client";
+import ServicesLayer from "../../services";
 
 export const searchTweets = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
@@ -20,7 +20,7 @@ export const searchTweets = middyfy(
 			}
 
 			const { meta, data, includes } = await clientV2.get("tweets/search/recent", {
-				query: params.keyword + filter + " -is:retweet lang:en",
+				query: `${params.keyword + filter  } -is:retweet lang:en`,
 				max_results: "100",
 				tweet: {
 					fields: ["public_metrics", "author_id", "created_at"]
@@ -31,8 +31,8 @@ export const searchTweets = middyfy(
 				}
 			});
 
-			var dd = new Date();
-			var d = new Date(dd.toLocaleString() + "-02:00");
+			const dd = new Date();
+			const d = new Date(`${dd.toLocaleString()  }-02:00`);
 
 			let id: string;
 			id = "RS-";
@@ -41,7 +41,7 @@ export const searchTweets = middyfy(
 			const tweetlist = await ServicesLayer.tweetService.addTweets(
 				data,
 				includes,
-				meta["result_count"],
+				meta.result_count,
 				id
 			);
 			const sortedList = await ServicesLayer.tweetService.sortTweets(
@@ -51,7 +51,7 @@ export const searchTweets = middyfy(
 			const result = sortedList.slice(0, params.numOfTweets);
 
 			ServicesLayer.resultSetServices.addResultSet({
-				id: id,
+				id,
 				apiKey: params.apiKey,
 				dateCreated: d.toString(),
 				searchPhrase: params.keyword,
@@ -59,7 +59,7 @@ export const searchTweets = middyfy(
 				filterOption: params.filterBy
 			});
 
-			for (var i = 0; i < result.length; i++) {
+			for (let i = 0; i < result.length; i++) {
 				console.log(result[i]);
 				await ServicesLayer.tweetService.addTweet(result[i]);
 			}

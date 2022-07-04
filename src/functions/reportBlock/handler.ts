@@ -1,10 +1,10 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { middyfy } from "@libs/lambda";
-import ServicesLayer from "../../services";
 import { randomUUID } from "crypto";
 import { header, statusCodes } from "@functions/resources/APIresponse";
+import ServicesLayer from "../../services";
 
-//function for writing and editing text on textBox
+// function for writing and editing text on textBox
 export const editBlock = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
@@ -14,7 +14,7 @@ export const editBlock = middyfy(
 			let styles: any;
 
 			if (params.reportBlockID == undefined) {
-				var id = "BK-" + randomUUID();
+				const id = `BK-${  randomUUID()}`;
 				text = await ServicesLayer.reportBlockService.addReportBlock({
 					reportBlockID: id,
 					reportID: params.reportID,
@@ -22,7 +22,7 @@ export const editBlock = middyfy(
 					position: params.position,
 					richText: params.text
 				});
-				var sid = "ST-" + randomUUID();
+				const sid = `ST-${  randomUUID()}`;
 				styles = await ServicesLayer.textStyleService.addStyle({
 					textStylesID: sid,
 					reportBlockID: id,
@@ -54,7 +54,7 @@ export const editBlock = middyfy(
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify({ text: text, styles: styles })
+				body: JSON.stringify({ text, styles })
 			};
 		} catch (e) {
 			return {

@@ -1,9 +1,9 @@
 import Creator from "@model/creator/creator.model";
+import * as bcrypt from "bcryptjs";
 import CreatorServices from "..";
 
 import { DocumentClient, awsSdkPromiseResponse } from "../../__mocks__/aws-sdk";
 
-import * as bcrypt from "bcryptjs";
 
 const db = new DocumentClient();
 

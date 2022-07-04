@@ -2,7 +2,7 @@ import { DocumentClient } from "aws-sdk/clients/dynamodb";
 import ResultSet from "@model/resultSet/resultSet.model";
 
 export default class ResultSetService {
-	private TableName: string = "ResultSetTable";
+	private TableName = "ResultSetTable";
 
 	constructor(private docClient: DocumentClient) {}
 
@@ -27,13 +27,13 @@ export default class ResultSetService {
 			.get({
 				TableName: this.TableName,
 				Key: {
-					id: id,
+					id,
 					apiKey: key
 				}
 			})
 			.promise();
 
-		if (result == undefined) throw new Error("result set with id: " + id + " does not exist.");
+		if (result === undefined) throw new Error(`result set with id: ${  id  } does not exist.`);
 
 		return result.Item as ResultSet;
 	}
@@ -49,12 +49,12 @@ export default class ResultSetService {
 		return resultSet as ResultSet;
 	}
 
-	async deleteResultSet(resultSetID: String) {
+	async deleteResultSet(resultSetID: string) {
 		await this.docClient
 			.delete({
 				TableName: this.TableName,
 				Key: {
-					resultSetID: resultSetID
+					resultSetID
 				}
 			})
 			.promise();

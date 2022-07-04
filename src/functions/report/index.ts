@@ -1,6 +1,6 @@
 import { handlerPath } from "@libs/handler-resolver";
 
-//report generation
+// report generation
 export const generateReport = {
 	handler: `${handlerPath(__dirname)}/handler.generateReport`,
 	description: "A function that generates a report.",
@@ -15,7 +15,7 @@ export const generateReport = {
 	]
 };
 
-//report publishing
+// report publishing
 export const publishReport = {
 	handler: `${handlerPath(__dirname)}/handler.publishReport`,
 	description: "A function that publishes a report.",
@@ -30,7 +30,7 @@ export const publishReport = {
 	]
 };
 
-//report publishing
+// report publishing
 export const unpublishReport = {
 	handler: `${handlerPath(__dirname)}/handler.unpublishReport`,
 	description: "A function that unpublishes a report.",
@@ -45,7 +45,7 @@ export const unpublishReport = {
 	]
 };
 
-//share report
+// share report
 export const shareReport = {
 	handler: `${handlerPath(__dirname)}/handler.shareReport`,
 	description: "A function that shares a report.",
@@ -60,7 +60,7 @@ export const shareReport = {
 	]
 };
 
-//retreival of all reports
+// retreival of all reports
 export const getAllPublishedReports = {
 	handler: `${handlerPath(__dirname)}/handler.getAllPublishedReports`,
 	description: "A function that returns all of the reports in the system.",
@@ -75,7 +75,7 @@ export const getAllPublishedReports = {
 	]
 };
 
-//retrieval of drafts
+// retrieval of drafts
 export const getAllMyDraftReports = {
 	handler: `${handlerPath(__dirname)}/handler.getAllMyDraftReports`,
 	description: "A function that returns all the users reports.",
@@ -90,7 +90,7 @@ export const getAllMyDraftReports = {
 	]
 };
 
-//retrevial of a report
+// retrevial of a report
 export const getReport = {
 	handler: `${handlerPath(__dirname)}/handler.getReport`,
 	description: "A function that returns the content of a specific report.",
@@ -105,7 +105,7 @@ export const getReport = {
 	]
 };
 
-//cloning of a report
+// cloning of a report
 export const cloneReport = {
 	handler: `${handlerPath(__dirname)}/handler.cloneReport`,
 	description: "A function that clones a report.",
@@ -120,7 +120,7 @@ export const cloneReport = {
 	]
 };
 
-//Adding a custom tweet
+// Adding a custom tweet
 export const addCustomTweet = {
 	handler: `${handlerPath(__dirname)}/handler.addCustomTweet`,
 	description: "A function that adds customer tweets.",
@@ -135,7 +135,7 @@ export const addCustomTweet = {
 	]
 };
 
-//Deleting a result set
+// Deleting a result set
 export const deleteResultSet = {
 	handler: `${handlerPath(__dirname)}/handler.deleteResultSet`,
 	description: "A function that deletes a resultSet.",
@@ -150,7 +150,7 @@ export const deleteResultSet = {
 	]
 };
 
-//Deleting a result report
+// Deleting a result report
 export const deleteDraftReport = {
 	handler: `${handlerPath(__dirname)}/handler.deleteDraftReport`,
 	description: "A function that deletes a draft report.",

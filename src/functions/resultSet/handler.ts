@@ -1,7 +1,7 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { middyfy } from "@libs/lambda";
-import ServicesLayer from "../../services";
 import { header, statusCodes } from "@functions/resources/APIresponse";
+import ServicesLayer from "../../services";
 
 export const getAllResultSet = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
