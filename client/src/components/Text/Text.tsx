@@ -9,6 +9,8 @@ import { useState } from "react";
 function Text(props: any) {
 	const textPos = props.data.position;
 
+	// console.log(props.data);
+
 	const [italic, setItalic] = useState("");
 
 	const italicHandler = () => {
@@ -104,7 +106,15 @@ function Text(props: any) {
 	};
 
 	// ######################### API FOR EDITING TEXT ###############################################
-	const textEndpoint = "https://xprnnqlwwi.execute-api.us-east-1.amazonaws.com/dev/editBlock";
+
+	const endpointLink = String(localStorage.getItem("endpointLink"));
+	let textEndpoint = endpointLink;
+	textEndpoint += "editBlock";
+
+	// using localhost
+	// const textEndpoint = "http://localhost:4000/dev/editBlock";
+
+	// let data;
 
 	const editText = async (text: any) => {
 		const requestOptions = {
@@ -163,13 +173,13 @@ function Text(props: any) {
 			},
 			text: report,
 			reportID: localStorage.getItem("draftReportId"),
+			styleID: props.data.block.style[0].textStylesID,
+			reportBlockID: props.data.reportBlockID,
 			position: textPos
 		};
 		// console.log(Text);
 		editText(propsSecondUpdate);
 		setSecondEditor(!secondEditor);
-		// does nothing at the moment
-		// console.log("does nothing at the moment");
 	};
 
 	// let editButton = false;
