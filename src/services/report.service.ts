@@ -19,7 +19,7 @@ export default class ReportService {
 			})
 			.promise();
 
-		if (result == undefined) throw new Error(`report with id: ${  id  } does not exist`);
+		if (result === undefined) throw new Error(`report with id: ${  id  } does not exist`);
 
 		const item = result.Item;
 
@@ -29,7 +29,7 @@ export default class ReportService {
 
 		const promises = reportBlocks.map(async (block) => {
 			const type = block.blockType;
-			const ob = {};
+			const ob = Object.assign({});
 
 			ob.blockType = type;
 			ob.position = block.position;
@@ -58,13 +58,13 @@ export default class ReportService {
 		let max = 0;
 		let count = 0;
 
-		for (var y = 0; y < report.length; y++) {
+		for (let y = 0; y < report.length; y++) {
 			max = report[y].position;
 		}
 
 		for (let x = 0; x < max; x++) {
-			for (var y = 0; y < report.length; y++) {
-				if (report[y].position == x) {
+			for (let y = 0; y < report.length; y++) {
+				if (report[y].position === x) {
 					rp.push(report[y]);
 					bl = true;
 					count++;
@@ -194,7 +194,7 @@ export default class ReportService {
 		const report = this.getReportHelper(reportID);
 		const apiKey2 = (await report).apiKey;
 
-		if (apiKey1 == apiKey2) {
+		if (apiKey1 === apiKey2) {
 			return true;
 		} 
 			return false;
@@ -203,7 +203,7 @@ export default class ReportService {
 
 	// verify report retrieval
 	async verifyReportRetr(status: string, apiKey: string, owner: string): Promise<boolean> {
-		if (status != "PUBLISHED" && (apiKey == undefined || apiKey != owner)) {
+		if (status !== "PUBLISHED" && (apiKey === undefined || apiKey !== owner)) {
 			return true;
 		}
 		return false;
