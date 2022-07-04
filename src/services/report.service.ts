@@ -1,207 +1,205 @@
 import { DocumentClient } from "aws-sdk/clients/dynamodb";
 import Report from "@model/report/report.model";
 
-import ServicesLayer from "../services";
+import ServicesLayer from ".";
 
 export default class ReportService {
+	// add function to get all published reports
 
-    // add function to get all published reports
+	private TableName = "ReportTable";
 
-    private TableName: string = "ReportTable";
+	constructor(private docClient: DocumentClient) {}
 
-    constructor (private docClient: DocumentClient) {}
+	// get specific reports
+	async getReport(id: string): Promise<any> {
+		const result = await this.docClient
+			.get({
+				TableName: this.TableName,
+				Key: { reportID: id }
+			})
+			.promise();
 
-    // get specific reports
-    async getReport(id: string) : Promise<any> {
-        const result = await this.docClient.get({
-            TableName: this.TableName,
-            Key: { "reportID": id}
-        }).promise();
+		if (result === undefined) throw new Error(`report with id: ${id} does not exist`);
 
-        if (result == undefined)
-            throw new Error("report with id: "+id+ " does not exist");
-            
-        const item = result.Item;
+		const item = result.Item;
 
-        const report = [];
+		const report = [];
 
-        const reportBlocks = await ServicesLayer.reportBlockService.getReportBlocks(item.reportID);
-        
-        const promises = reportBlocks.map(async block => {
-            let type = block.blockType;
-            let ob = {};
+		const reportBlocks = await ServicesLayer.reportBlockService.getReportBlocks(item.reportID);
 
-            ob["blockType"] = type;
-            ob["position"] = block.position;
-            ob["reportBlockID"] = block.reportBlockID;
-            
-            if (type === "TWEET") {
-                const tweet = await ServicesLayer.tweetService.getTweet(block.tweetID);
-                // console.log(tweet);
-                ob["block"]=tweet;    
-                // console.log(ob);          
-            }else if (type === "RICHTEXT") {
-                
-                const style = await ServicesLayer.textStyleService.getStyle(block.reportBlockID);
-                ob["block"]={
-                    text: block.richText,
-                    position: block.position,
-                    style: style
-                };
-            }
-            report.push(ob);
+		const promises = reportBlocks.map(async (block) => {
+			const type = block.blockType;
+			const ob = {} as any;
 
-        });
-        
-        await Promise.all(promises);
-        await ServicesLayer.reportBlockService.sortReportBlocks(report);
-        let rp = [];
-        let bl =false;
-        var max =0;
-        var count =0;
+			ob.blockType = type;
+			ob.position = block.position;
+			ob.reportBlockID = block.reportBlockID;
 
-        for(var y=0; y<report.length; y++){
-            max = report[y].position;
-        }
-        
-        for(var x=0; x<max; x++){
-            for(var y=0; y<report.length; y++){
-                if(report[y].position==x){
-                    rp.push(report[y]);
-                    bl=true;
-                    count++;
-                }
-            }
-            
-            if(!bl){
-                rp.push({blockType: 'RICHTEXT', position: x, block: null});
-                count++;
-            }
-            bl=false;
-        }
+			if (type === "TWEET") {
+				const tweet = await ServicesLayer.tweetService.getTweet(block.tweetID);
+				// console.log(tweet);
+				ob.block = tweet;
+				// console.log(ob);
+			} else if (type === "RICHTEXT") {
+				const style = await ServicesLayer.textStyleService.getStyle(block.reportBlockID);
+				ob.block = {
+					text: block.richText,
+					position: block.position,
+					style
+				};
+			}
+			report.push(ob);
+		});
 
-        item["Report"] = rp;
-        item["numOfBlocks"] = count;
+		await Promise.all(promises);
+		await ServicesLayer.reportBlockService.sortReportBlocks(report);
+		const rp = [];
+		let bl = false;
+		let max = 0;
+		let count = 0;
 
-        return result.Item;
-    }
+		for (let y = 0; y < report.length; y++) {
+			max = report[y].position;
+		}
 
-    // get my report helper for backend
-    async getReportHelper(id: string): Promise<Report> {
-        const result = await this.docClient.get({
-            TableName: this.TableName,
-            Key: { "reportID": id}
-        }).promise();
+		for (let x = 0; x < max; x++) {
+			for (let y = 0; y < report.length; y++) {
+				if (report[y].position === x) {
+					rp.push(report[y]);
+					bl = true;
+					count++;
+				}
+			}
 
+			if (!bl) {
+				rp.push({ blockType: "RICHTEXT", position: x, block: null });
+				count++;
+			}
+			bl = false;
+		}
 
-        console.log(result.Item);
-    
+		item.Report = rp;
+		item.numOfBlocks = count;
 
-        // const tweets = await ServicesLayer.tweetService.getTweets(resultSetID);
-        return result.Item as Report;
-    }
+		return result.Item;
+	}
 
-    // get my reports
-    async getReports(key: string): Promise<Report[]> {
-        const result = await this.docClient.query({
-            TableName: this.TableName,
-            IndexName: "reportIndex",
-            KeyConditionExpression: 'apiKey = :apiKey',
-            ExpressionAttributeValues: {
-                ":apiKey": key
-            }
-        }).promise();
+	// get my report helper for backend
+	async getReportHelper(id: string): Promise<Report> {
+		const result = await this.docClient
+			.get({
+				TableName: this.TableName,
+				Key: { reportID: id }
+			})
+			.promise();
 
-        console.log(result.Items);
-    
+		// const tweets = await ServicesLayer.tweetService.getTweets(resultSetID);
+		return result.Item as Report;
+	}
 
-        // const tweets = await ServicesLayer.tweetService.getTweets(resultSetID);
-        return result.Items as Report[];
-    }
+	// get my reports
+	async getReports(key: string): Promise<Report[]> {
+		const result = await this.docClient
+			.query({
+				TableName: this.TableName,
+				IndexName: "reportIndex",
+				KeyConditionExpression: "apiKey = :apiKey",
+				ExpressionAttributeValues: {
+					":apiKey": key
+				}
+			})
+			.promise();
 
-    async getDraftReports(key: string): Promise<Report[]> {
-        const result = await this.docClient.query({
-            TableName: this.TableName,
-            IndexName: "reportIndex",
-            KeyConditionExpression: "apiKey = :apiKey",
-            FilterExpression: "#status = :status",
-            ExpressionAttributeValues: {
-                ":apiKey": key,
-                ":status": "DRAFT"
-            },
-            ExpressionAttributeNames: {
-                "#status": "status"
-            }
-        }).promise();
+		// const tweets = await ServicesLayer.tweetService.getTweets(resultSetID);
+		return result.Items as Report[];
+	}
 
-        return result.Items as Report[];
-    }
+	async getDraftReports(key: string): Promise<Report[]> {
+		const result = await this.docClient
+			.query({
+				TableName: this.TableName,
+				IndexName: "reportIndex",
+				KeyConditionExpression: "apiKey = :apiKey",
+				FilterExpression: "#status = :status",
+				ExpressionAttributeValues: {
+					":apiKey": key,
+					":status": "DRAFT"
+				},
+				ExpressionAttributeNames: {
+					"#status": "status"
+				}
+			})
+			.promise();
 
-    async getAllPublishedReports(): Promise<Report[]> {
-        const result = await this.docClient.query({
-            TableName: this.TableName,
-            IndexName: "statusIndex",
-            KeyConditionExpression: '#status = :status',
-            ExpressionAttributeNames: {
-                "#status": "status"
-            },
-            ExpressionAttributeValues: {
-                ":status": "PUBLISHED"
-            }
-        }).promise();
+		return result.Items as Report[];
+	}
 
-        console.log(result.Items);
-    
-        return result.Items as Report[];
-    }
+	async getAllPublishedReports(): Promise<Report[]> {
+		const result = await this.docClient
+			.query({
+				TableName: this.TableName,
+				IndexName: "statusIndex",
+				KeyConditionExpression: "#status = :status",
+				ExpressionAttributeNames: {
+					"#status": "status"
+				},
+				ExpressionAttributeValues: {
+					":status": "PUBLISHED"
+				}
+			})
+			.promise();
 
-    // store reports
-    async addReport(report: Report): Promise<Report> {
-        // console.log(report);
-        await this.docClient.put({
-            TableName: this.TableName,
-            Item: report
-        }).promise();
+		return result.Items as Report[];
+	}
 
-        return report as Report;
-    }
+	// store reports
+	async addReport(report: Report): Promise<Report> {
+		// console.log(report);
+		await this.docClient
+			.put({
+				TableName: this.TableName,
+				Item: report
+			})
+			.promise();
 
-    // update Report
-    async updateReportStatus(status: String, reportID: String): Promise<Report> {
-        const result = await this.docClient.update({
-            TableName: this.TableName,
-            Key: {"reportID": reportID},
-            UpdateExpression: "SET status = :status",
-            ExpressionAttributeValues: {
-                ":status": status
-            }
-            
-        }).promise();
+		return report as Report;
+	}
 
-        return result.Attributes as Report;
-    }
+	// update Report
+	async updateReportStatus(status: string, reportID: string): Promise<Report> {
+		const result = await this.docClient
+			.update({
+				TableName: this.TableName,
+				Key: { reportID },
+				UpdateExpression: "SET status = :status",
+				ExpressionAttributeValues: {
+					":status": status
+				}
+			})
+			.promise();
 
-    // get my reports
-    
+		return result.Attributes as Report;
+	}
 
-    // verify owner of report
-    async verifyOwner(reportID: string, apiKey1: string) : Promise<boolean>{
-        const report = this.getReportHelper(reportID);
-        const apiKey2 = (await report).apiKey;
+	// get my reports
 
-        if(apiKey1 == apiKey2){
-            return true;
-        }else{
-            return false;
-        }
-    }
+	// verify owner of report
+	async verifyOwner(reportID: string, apiKey1: string): Promise<boolean> {
+		const report = this.getReportHelper(reportID);
+		const apiKey2 = (await report).apiKey;
 
-    // verify report retrieval
-    async verifyReportRetr(status: string, apiKey: string, owner: string) : Promise<boolean>{
-        if(status!='PUBLISHED' && (apiKey==undefined || apiKey!=owner)){
-            return true;
-        }
-        return false;
-    }
+		if (apiKey1 === apiKey2) {
+			return true;
+		}
+		return false;
+	}
 
+	// verify report retrieval
+	async verifyReportRetr(status: string, apiKey: string, owner: string): Promise<boolean> {
+		this.TableName;
+		if (status !== "PUBLISHED" && (apiKey === undefined || apiKey !== owner)) {
+			return true;
+		}
+		return false;
+	}
 }
