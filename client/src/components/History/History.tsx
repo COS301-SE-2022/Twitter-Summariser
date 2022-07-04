@@ -9,8 +9,12 @@ function History() {
 
 	// ######################### API FOR GETTING HISTORY #####################
 
-	const getAllResultSetEndpoint =
-		"https://xprnnqlwwi.execute-api.us-east-1.amazonaws.com/dev/getAllResultSet";
+	const endpointLink = String(localStorage.getItem("endpointLink"));
+	let getAllResultSetEndpoint = endpointLink;
+	getAllResultSetEndpoint += "getAllResultSet";
+
+	// using localhost
+	// const getAllResultSetEndpoint = "http://localhost:4000/dev/getAllResultSet";
 
 	const getHistory = async () => {
 		const apiData = {

@@ -23,8 +23,12 @@ function Home() {
 
 	// ################ API FOR GENERATE REPORT ###########################
 
-	const genReportEndpoint =
-		"https://xprnnqlwwi.execute-api.us-east-1.amazonaws.com/dev/generateReport";
+	const endpointLink = String(localStorage.getItem("endpointLink"));
+	let genReportEndpoint = endpointLink;
+	genReportEndpoint += "generateReport";
+
+	// using localhost
+	// const genReportEndpoint = "http://localhost:4000/dev/generateReport";
 
 	const genRep = async () => {
 		const searchData = {
@@ -88,8 +92,11 @@ function Home() {
 
 	// ######################### API FOR SEARCHING ###############################################
 
-	const searchEndpoint =
-		"https://xprnnqlwwi.execute-api.us-east-1.amazonaws.com/dev/searchTweets";
+	let searchEndpoint = endpointLink;
+	searchEndpoint += "searchTweets";
+
+	// using localhost
+	// const searchEndpoint = "http://localhost:4000/dev/searchTweets";
 
 	const searchTwitter = async (searchData: any) => {
 		// POST request using fetch with error handling
@@ -129,6 +136,8 @@ function Home() {
 			filterBy: filter
 		};
 
+		// console.log(searchData);
+
 		if (enteredSearch !== "") {
 			// calling the api__Handler
 			searchTwitter(searchData);
@@ -149,7 +158,7 @@ function Home() {
 		(data) =>
 			enteredSearch !== "" &&
 			apiResponse.push(
-				<div key={data}>
+				<div key={data.tweetId}>
 					<HomeTweet tweetData={data} />
 				</div>
 			)
