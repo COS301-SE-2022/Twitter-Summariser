@@ -44,11 +44,11 @@ export const generateReport = middyfy(async (event: APIGatewayProxyEvent): Promi
   }
 });
 
-// Retrieval of reports
+// Retrieval of user draft reports
 export const getAllMyDraftReports = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const params = JSON.parse(event.body);
-    const reports = await ServicesLayer.reportService.getReports(params.apiKey);
+    const reports = await ServicesLayer.reportService.getDraftReports(params.apiKey);
 
 
     //const tweets = await ServicesLayer.tweetService.getTweets(params.resultSetID);
@@ -65,6 +65,7 @@ export const getAllMyDraftReports = middyfy(async (event: APIGatewayProxyEvent):
     }
   }
 });
+
 
 // Retrieval of Published reports
 export const getAllPublishedReports = middyfy(async (): Promise<APIGatewayProxyResult> => {
