@@ -9,7 +9,6 @@ export const getAllResultSet = middyfy(
 			const params = JSON.parse(event.body);
 
 			const resultSet = await ServicesLayer.resultSetServices.getResultSets(params.apiKey);
-			console.log(resultSet);
 
 			return {
 				statusCode: statusCodes.Successful,

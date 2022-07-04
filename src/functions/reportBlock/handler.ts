@@ -13,7 +13,7 @@ export const editBlock = middyfy(
 			let text: any;
 			let styles: any;
 
-			if (params.reportBlockID == undefined) {
+			if (params.reportBlockID === undefined) {
 				const id = `BK-${  randomUUID()}`;
 				text = await ServicesLayer.reportBlockService.addReportBlock({
 					reportBlockID: id,
