@@ -50,6 +50,7 @@
 		"json-schema-to-ts": "^1.5.0",
 		"path": "^0.12.7",
 		"prettier": "^2.7.1",
+		"react": "^18.2.0",
 		"serverless": "^3.0.0",
 		"serverless-dynamodb-local": "^0.2.40",
 		"serverless-esbuild": "^1.29.0",
