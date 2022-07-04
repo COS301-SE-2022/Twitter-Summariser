@@ -77,7 +77,7 @@ export const loginCreator = middyfy(async (event: APIGatewayProxyEvent): Promise
 
         if (creator===undefined) {
             return {
-                statusCode: statusCodes.forbidden,
+                statusCode: statusCodes.unauthorized,
                 headers: header,
                 body: JSON.stringify("creator "+params.email+" not found")
             };
@@ -85,7 +85,7 @@ export const loginCreator = middyfy(async (event: APIGatewayProxyEvent): Promise
 
         if (await bcrypt.compare(params.password, creator.password)!=true) {
             return {
-                statusCode: statusCodes.forbidden,
+                statusCode: statusCodes.unauthorized,
                 headers: header,
                 body: JSON.stringify("invalid credentials for user "+params.email)
             };

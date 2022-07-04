@@ -40,8 +40,7 @@ export default class ReportService {
                 // console.log(tweet);
                 ob["block"]=tweet;    
                 // console.log(ob);          
-            }
-            else if (type === "RICHTEXT") {
+            }else if (type === "RICHTEXT") {
                 
                 const style = await ServicesLayer.textStyleService.getStyle(block.reportBlockID);
                 ob["block"]={
@@ -195,6 +194,14 @@ export default class ReportService {
         }else{
             return false;
         }
+    }
+
+    // verify report retrieval
+    async verifyReportRetr(status: string, apiKey: string, owner: string) : Promise<boolean>{
+        if(status!='PUBLISHED' && (apiKey==undefined || apiKey!=owner)){
+            return true;
+        }
+        return false;
     }
 
 }
