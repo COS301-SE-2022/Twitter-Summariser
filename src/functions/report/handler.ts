@@ -66,7 +66,6 @@ export const getAllMyDraftReports = middyfy(async (event: APIGatewayProxyEvent):
   }
 });
 
-
 // Retrieval of Published reports
 export const getAllPublishedReports = middyfy(async (): Promise<APIGatewayProxyResult> => {
   try {
@@ -256,6 +255,7 @@ export const unpublishReport = middyfy(async (event: APIGatewayProxyEvent): Prom
 
     if(await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)){
       result = await ServicesLayer.reportService.updateReportStatus('DRAFT', params.reportID);
+      delete result.apiKey;
     }else{
       return {
         statusCode: statusCodes.unauthorized,
@@ -342,6 +342,8 @@ export const deleteDraftReport = middyfy(async (event: APIGatewayProxyEvent): Pr
         body: JSON.stringify('Only owner can delete a draft report')
       }
     }
+
+    delete report.apiKey;
 
     return {
       statusCode: statusCodes.Successful,
