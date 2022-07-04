@@ -29,7 +29,7 @@ export default class ReportService {
 
 		const promises = reportBlocks.map(async (block) => {
 			const type = block.blockType;
-			const ob = Object.assign({});
+			let ob = {};
 
 			ob.blockType = type;
 			ob.position = block.position;
@@ -93,8 +93,6 @@ export default class ReportService {
 			})
 			.promise();
 
-		console.log(result.Item);
-
 		// const tweets = await ServicesLayer.tweetService.getTweets(resultSetID);
 		return result.Item as Report;
 	}
@@ -111,8 +109,6 @@ export default class ReportService {
 				}
 			})
 			.promise();
-
-		console.log(result.Items);
 
 		// const tweets = await ServicesLayer.tweetService.getTweets(resultSetID);
 		return result.Items as Report[];
@@ -152,8 +148,6 @@ export default class ReportService {
 				}
 			})
 			.promise();
-
-		console.log(result.Items);
 
 		return result.Items as Report[];
 	}
