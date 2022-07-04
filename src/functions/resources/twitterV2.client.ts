@@ -1,6 +1,7 @@
-import Twitter from "twitter-v2"
+import Twitter from "twitter-v2";
+import * as dotenv from 'dotenv';
 
-require('dotenv').config();
+dotenv.config();
 
 export const clientV2 = new Twitter({
     //consumer_key: process.env.TWITTER_CONSUMER_KEY,

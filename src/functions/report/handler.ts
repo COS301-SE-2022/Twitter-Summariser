@@ -29,6 +29,8 @@ export const generateReport = middyfy(async (event: APIGatewayProxyEvent): Promi
 
     const report = await ServicesLayer.reportService.addReport({ reportID: id, resultSetID: params.resultSetID, status: "DRAFT", title: title.searchPhrase, apiKey: params.apiKey, dateCreated: d.toString(), author: params.author });
 
+    delete report.apiKey;
+    
     return {
       statusCode: statusCodes.Successful,
       headers: header,
@@ -153,6 +155,8 @@ export const cloneReport = middyfy(async (event: APIGatewayProxyEvent): Promise<
 
       await ServicesLayer.tweetService.addTweet(tweet);
     });
+
+    delete report.apiKey;
 
     return {
       statusCode: statusCodes.notImplemented,
