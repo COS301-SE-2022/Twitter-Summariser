@@ -7,39 +7,40 @@ on:
       - completed
 
 jobs:
-  Coverage:
-    on-success:
-      runs-on: ubuntu-latest
+  on-success:
+    name: Get code coverage and upload to codecov
+    runs-on: ubuntu-latest
 
-      if: ${{ github.event.workflow_run.conclusion == 'success' }}
-      steps:
-        - name: Checkout to devlop/master branch
-          uses: actions/checkout@v2
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Checkout to devlop/master branch
+        uses: actions/checkout@v2
 
-        - name: Setup Node.js
-          uses: actions/setup-node@v2
-          with:
-            node-version: "14.x"
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14.x"
 
-        - name: Install all package dependencies
-          run: yarn
+      - name: Install all package dependencies
+        run: yarn
 
-        - name: Generate coverage report for backend files
-          run: yarn test -- --coverage
+      - name: Generate coverage report for backend files
+        run: yarn test -- --coverage
 
-        - name: Changed to client directory and generate coverage for frontend files
-          run: |
-            cd client
-            yarn
-            yarn test --coverage --watchAll=false
+      - name: Changed to client directory and generate coverage for frontend files
+        run: |
+          cd client
+          yarn
+          yarn test --coverage --watchAll=false
 
-        - name: Merge the coverage reports
-          run: node tools/scripts/merge-reports.js
+      - name: Merge the coverage reports
+        run: node tools/scripts/merge-reports.js
 
-        - name: Upload the merged coverage reports to Codecov
-          uses: codecov/codecov-action@v3
+      - name: Upload the merged coverage reports to Codecov
+        uses: codecov/codecov-action@v3
 
-    on-failure:
+  on-failure:
+    name: Serverless Deploy Failed
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     steps:
