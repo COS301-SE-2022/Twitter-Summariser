@@ -33,7 +33,7 @@ export default class ResultSetService {
 			})
 			.promise();
 
-		if (result === undefined) throw new Error(`result set with id: ${  id  } does not exist.`);
+		if (result === undefined) throw new Error(`result set with id: ${id} does not exist.`);
 
 		return result.Item as ResultSet;
 	}

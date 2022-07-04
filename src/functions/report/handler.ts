@@ -22,12 +22,12 @@ export const generateReport = middyfy(
 			id = "RT-";
 			id += randomUUID();
 			const dd = new Date();
-			const d = new Date(`${dd.toLocaleString()  }-02:00`);
+			const d = new Date(`${dd.toLocaleString()}-02:00`);
 
 			let x = 1;
-			tweets.map( async tweet=> {
+			tweets.map(async (tweet) => {
 				await ServicesLayer.reportBlockService.addReportBlock({
-					reportBlockID: `BK-${  randomUUID()}`,
+					reportBlockID: `BK-${randomUUID()}`,
 					reportID: id,
 					blockType: "TWEET",
 					position: x,
@@ -136,7 +136,7 @@ export const cloneReport = middyfy(
 			id += randomUUID();
 
 			const dd = new Date();
-			const d = new Date(`${dd.toLocaleString()  }-02:00`);
+			const d = new Date(`${dd.toLocaleString()}-02:00`);
 
 			report.reportID = id;
 			report.apiKey = params.apiKey;
@@ -150,16 +150,16 @@ export const cloneReport = middyfy(
 			const blocks = await ServicesLayer.reportBlockService.getReportBlocks(oldReportId);
 
 			blocks.map(async (block) => {
-				const temp = { ...block};
+				const temp = { ...block };
 				temp.reportID = id;
-				temp.reportBlockID = `BK-${  randomUUID()}`;
+				temp.reportBlockID = `BK-${randomUUID()}`;
 
 				// Getting and cloning text
 				if (temp.blockType === "RICHTEXT") {
 					const style = await ServicesLayer.textStyleService.getStyle(
 						block.reportBlockID
 					)[0];
-					style.textStylesID = `ST-${  randomUUID()}`;
+					style.textStylesID = `ST-${randomUUID()}`;
 					style.reportBlockID = temp.reportBlockID;
 					await ServicesLayer.textStyleService.addStyle(style);
 				}
@@ -169,10 +169,13 @@ export const cloneReport = middyfy(
 			});
 
 			// Cloning result set
-			const resultSet = await ServicesLayer.resultSetServices.getResultSet(oldReportId, owner);
+			const resultSet = await ServicesLayer.resultSetServices.getResultSet(
+				oldReportId,
+				owner
+			);
 			resultSet.apiKey = params.apiKey;
 			const oldRSid = resultSet.id;
-			resultSet.id = `RS-${  randomUUID}`;
+			resultSet.id = `RS-${randomUUID}`;
 			await ServicesLayer.resultSetServices.addResultSet(resultSet);
 
 			// cloning tweets

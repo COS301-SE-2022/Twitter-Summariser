@@ -79,7 +79,7 @@ export const loginCreator = middyfy(
 				return {
 					statusCode: statusCodes.unauthorized,
 					headers: header,
-					body: JSON.stringify(`creator ${  params.email  } not found`)
+					body: JSON.stringify(`creator ${params.email} not found`)
 				};
 			}
 
@@ -87,7 +87,7 @@ export const loginCreator = middyfy(
 				return {
 					statusCode: statusCodes.unauthorized,
 					headers: header,
-					body: JSON.stringify(`invalid credentials for user ${  params.email}`)
+					body: JSON.stringify(`invalid credentials for user ${params.email}`)
 				};
 			}
 

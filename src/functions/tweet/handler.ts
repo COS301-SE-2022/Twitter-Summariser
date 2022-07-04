@@ -20,7 +20,7 @@ export const searchTweets = middyfy(
 			}
 
 			const { meta, data, includes } = await clientV2.get("tweets/search/recent", {
-				query: `${params.keyword + filter  } -is:retweet lang:en`,
+				query: `${params.keyword + filter} -is:retweet lang:en`,
 				max_results: "100",
 				tweet: {
 					fields: ["public_metrics", "author_id", "created_at"]
@@ -32,7 +32,7 @@ export const searchTweets = middyfy(
 			});
 
 			const dd = new Date();
-			const d = new Date(`${dd.toLocaleString()  }-02:00`);
+			const d = new Date(`${dd.toLocaleString()}-02:00`);
 
 			let id: string;
 			id = "RS-";
@@ -59,7 +59,7 @@ export const searchTweets = middyfy(
 				filterOption: params.filterBy
 			});
 
-			result.map(async res => {
+			result.map(async (res) => {
 				await ServicesLayer.tweetService.addTweet(res);
 			});
 

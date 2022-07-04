@@ -19,7 +19,7 @@ export default class ReportService {
 			})
 			.promise();
 
-		if (result === undefined) throw new Error(`report with id: ${  id  } does not exist`);
+		if (result === undefined) throw new Error(`report with id: ${id} does not exist`);
 
 		const item = result.Item;
 
@@ -29,7 +29,7 @@ export default class ReportService {
 
 		const promises = reportBlocks.map(async (block) => {
 			const type = block.blockType;
-			let ob = {};
+			const ob = {};
 
 			ob.blockType = type;
 			ob.position = block.position;
@@ -190,9 +190,8 @@ export default class ReportService {
 
 		if (apiKey1 === apiKey2) {
 			return true;
-		} 
-			return false;
-		
+		}
+		return false;
 	}
 
 	// verify report retrieval

@@ -4,7 +4,6 @@ import CreatorServices from "..";
 
 import { DocumentClient, awsSdkPromiseResponse } from "../../__mocks__/aws-sdk";
 
-
 const db = new DocumentClient();
 
 describe("creator.service", () => {

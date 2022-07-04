@@ -14,7 +14,7 @@ export const editBlock = middyfy(
 			let styles: any;
 
 			if (params.reportBlockID === undefined) {
-				const id = `BK-${  randomUUID()}`;
+				const id = `BK-${randomUUID()}`;
 				text = await ServicesLayer.reportBlockService.addReportBlock({
 					reportBlockID: id,
 					reportID: params.reportID,
@@ -22,7 +22,7 @@ export const editBlock = middyfy(
 					position: params.position,
 					richText: params.text
 				});
-				const sid = `ST-${  randomUUID()}`;
+				const sid = `ST-${randomUUID()}`;
 				styles = await ServicesLayer.textStyleService.addStyle({
 					textStylesID: sid,
 					reportBlockID: id,
