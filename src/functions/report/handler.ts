@@ -225,6 +225,7 @@ export const publishReport = middyfy(async (event: APIGatewayProxyEvent): Promis
 
     if(await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)){
       report = await ServicesLayer.reportService.updateReportStatus('PUBLISHED', params.reportID);
+      delete report.apiKey;
     }else{
       return {
         statusCode: statusCodes.unauthorized,
