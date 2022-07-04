@@ -11,9 +11,9 @@ export const searchTweets = middyfy(
 			const params = JSON.parse(event.body);
 
 			let filter: string;
-			if (params.filterBy == "noneReply") {
+			if (params.filterBy === "noneReply") {
 				filter = " -is:reply";
-			} else if (params.filterBy == "verifiedTweets") {
+			} else if (params.filterBy === "verifiedTweets") {
 				filter = " is:verified";
 			} else {
 				filter = "";
@@ -59,10 +59,9 @@ export const searchTweets = middyfy(
 				filterOption: params.filterBy
 			});
 
-			for (let i = 0; i < result.length; i++) {
-				console.log(result[i]);
-				await ServicesLayer.tweetService.addTweet(result[i]);
-			}
+			result.map(async res => {
+				await ServicesLayer.tweetService.addTweet(res);
+			});
 
 			return {
 				statusCode: statusCodes.Successful,
