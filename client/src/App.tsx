@@ -8,78 +8,80 @@ import "./index.css";
 
 // main Application component in which different page sub-components will be contained
 function App() {
-	// const navigate = useNavigate();
-	localStorage.setItem(
-		"endpointLink",
-		"https://3vdykbiva3.execute-api.us-east-1.amazonaws.com/dev/"
-	);
+    // const navigate = useNavigate();
 
-	// const [loginPage, setLoginPage] = useState(true);
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
-	const [signupPage, setSignupPage] = useState(false);
-	const [userApi, changeUserApi] = useState("");
+    const d = "";
+    localStorage.setItem(
+        "endpointLink",
+        "https://3vdykbiva3.execute-api.us-east-1.amazonaws.com/dev/"
+    );
 
-	useEffect(() => {
-		const storageUserLoggedInInformation = localStorage.getItem("loggedUserApi");
+    // const [loginPage, setLoginPage] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [signupPage, setSignupPage] = useState(false);
+    const [userApi, changeUserApi] = useState("");
 
-		if (storageUserLoggedInInformation) {
-			setIsLoggedIn(true);
-		}
-	}, []);
+    useEffect(() => {
+        const storageUserLoggedInInformation = localStorage.getItem("loggedUserApi");
 
-	// retrieving user login details
-	const loginHandler = (props: any) => {
-		if (props.login === "true") {
-			localStorage.setItem("loggedUserApi", props.apiKey);
-			localStorage.setItem("loggedUserName", props.username);
-			localStorage.setItem("loggedUserEmail", props.email);
-			setIsLoggedIn(true);
-			setSignupPage(false);
-			changeUserApi(props.apiKey);
-		}
-	};
+        if (storageUserLoggedInInformation) {
+            setIsLoggedIn(true);
+        }
+    }, []);
 
-	const signUpPage = () => {
-		localStorage.setItem("loggedUserApi", "0");
-		setIsLoggedIn(false);
-		setSignupPage(true);
+    // retrieving user login details
+    const loginHandler = (props: any) => {
+        if (props.login === "true") {
+            localStorage.setItem("loggedUserApi", props.apiKey);
+            localStorage.setItem("loggedUserName", props.username);
+            localStorage.setItem("loggedUserEmail", props.email);
+            setIsLoggedIn(true);
+            setSignupPage(false);
+            changeUserApi(props.apiKey);
+        }
+    };
 
-		changeUserApi("");
-	};
+    const signUpPage = () => {
+        localStorage.setItem("loggedUserApi", "0");
+        setIsLoggedIn(false);
+        setSignupPage(true);
 
-	const logInPage = () => {
-		localStorage.removeItem("loggedUserApi");
-		localStorage.removeItem("loggedUserName");
-		localStorage.removeItem("loggedUserEmail");
-		localStorage.removeItem("id");
-		localStorage.removeItem("resultSetId");
-		localStorage.removeItem("draftReportId");
-		setIsLoggedIn(false);
-		setSignupPage(false);
+        changeUserApi("");
+    };
 
-		changeUserApi("");
-	};
+    const logInPage = () => {
+        localStorage.removeItem("loggedUserApi");
+        localStorage.removeItem("loggedUserName");
+        localStorage.removeItem("loggedUserEmail");
+        localStorage.removeItem("id");
+        localStorage.removeItem("resultSetId");
+        localStorage.removeItem("draftReportId");
+        setIsLoggedIn(false);
+        setSignupPage(false);
 
-	const readyToLog = () => {
-		localStorage.removeItem("loggedUserApi");
-		localStorage.setItem("newUser", "true");
-		setSignupPage(false);
-	};
+        changeUserApi("");
+    };
 
-	return (
-		<div className="">
-			{/* Login */}
-			{!localStorage.getItem("loggedUserApi") && (
-				<Login userLoginDetails={loginHandler} takeToSignupPage={signUpPage} />
-			)}
+    const readyToLog = () => {
+        localStorage.removeItem("loggedUserApi");
+        localStorage.setItem("newUser", "true");
+        setSignupPage(false);
+    };
 
-			{/* Signup */}
-			{signupPage && <Signup takeToSigninPage={logInPage} readyToLogIN={readyToLog} />}
+    return (
+        <div className="">
+            {/* Login */}
+            {!localStorage.getItem("loggedUserApi") && (
+                <Login userLoginDetails={loginHandler} takeToSignupPage={signUpPage} />
+            )}
 
-			{/* Entry here based on Signup and Login decision  */}
-			{isLoggedIn && <Landing userAPI={userApi} takeToSigninPage={logInPage} />}
-		</div>
-	);
+            {/* Signup */}
+            {signupPage && <Signup takeToSigninPage={logInPage} readyToLogIN={readyToLog} />}
+
+            {/* Entry here based on Signup and Login decision  */}
+            {isLoggedIn && <Landing userAPI={userApi} takeToSigninPage={logInPage} />}
+        </div>
+    );
 }
 
 export default App;
