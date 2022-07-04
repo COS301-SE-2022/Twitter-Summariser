@@ -8,31 +8,39 @@ on:
 
 jobs:
   Coverage:
+    on-success:
+      runs-on: ubuntu-latest
+
+      if: ${{ github.event.workflow_run.conclusion == 'success' }}
+      steps:
+        - name: Checkout to devlop/master branch
+          uses: actions/checkout@v2
+
+        - name: Setup Node.js
+          uses: actions/setup-node@v2
+          with:
+            node-version: "14.x"
+
+        - name: Install all package dependencies
+          run: yarn
+
+        - name: Generate coverage report for backend files
+          run: yarn test -- --coverage
+
+        - name: Changed to client directory and generate coverage for frontend files
+          run: |
+            cd client
+            yarn
+            yarn test --coverage --watchAll=false
+
+        - name: Merge the coverage reports
+          run: node tools/scripts/merge-reports.js
+
+        - name: Upload the merged coverage reports to Codecov
+          uses: codecov/codecov-action@v3
+
+    on-failure:
     runs-on: ubuntu-latest
-
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     steps:
-      - name: Checkout to devlop/master branch
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: "14.x"
-
-      - name: Install all package dependencies
-        run: yarn
-
-      - name: Generate coverage report for backend files
-        run: yarn test -- --coverage
-
-      - name: Changed to client directory and generate coverage for frontend files
-        run: |
-          cd client
-          yarn
-          yarn test --coverage --watchAll=false
-
-      - name: Merge the coverage reports
-        run: node tools/scripts/merge-reports.js
-
-      - name: Upload the merged coverage reports to Codecov
-        uses: codecov/codecov-action@v3
+      - run: echo 'The Serverless-Deploy workflow failed'

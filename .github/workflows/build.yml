@@ -92,16 +92,19 @@ jobs:
           node-version: "14.x"
 
       - name: Install all package dependencies
-        run: yarn
+        run:  yarn
+
+      - name: Lint the frontend code
+        run:  yarn lint:fix
 
       - name: Build the React App
-        run: |
-          yarn lint:fix
-          CI=false yarn run build
-          yarn format
+        run:  CI=false yarn run build
+
+      - name: Format the code with Prettier
+        run:  yarn format
 
       - name: Run frontend tests
-        run: yarn test --watchAll=false
+        run:  yarn test --watchAll=false
 
   backend:
     needs: changes

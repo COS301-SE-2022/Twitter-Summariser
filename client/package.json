@@ -28,9 +28,8 @@
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
-        "test-eslint": "npx eslint \"src/**\" --fix",
         "lint:fix": "eslint --fix \"src/**\"",
-        "format": "prettier --write \"src/**\"",
+        "format": "prettier --write \"src/**\" --config .prettierrc",
         "eject": "react-scripts eject"
     },
     "eslintConfig": {
