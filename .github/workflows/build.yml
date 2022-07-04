@@ -100,10 +100,10 @@ jobs:
       - name: Build the React App
         run:  CI=false yarn run build
 
-      - name: Format the code with Prettier
-        run:  |
-          cd ..
-          yarn format
+      # - name: Format the code with Prettier
+      #   run:  |
+      #     cd ..
+      #     yarn format
 
       - name: Run frontend tests
         run:  yarn test --watchAll=false
