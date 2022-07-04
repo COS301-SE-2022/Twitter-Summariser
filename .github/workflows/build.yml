@@ -94,7 +94,10 @@ jobs:
           node-version: "14.x"
 
       - name: Install all backend package dependencies
-        run: yarn
+        run:  |
+          yarn
+          cd client
+          yarn
 
       - name: Run the linter and attempt to fix errors
         run: yarn lint:fix
