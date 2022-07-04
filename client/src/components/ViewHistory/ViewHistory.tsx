@@ -16,8 +16,12 @@ function ViewHistory() {
 
 	// ################ API FOR GET RESULT SET REPORT ###########################
 
-	const getResultSetEndpoint =
-		"https://xprnnqlwwi.execute-api.us-east-1.amazonaws.com/dev/getResultSet";
+	const endpointLink = String(localStorage.getItem("endpointLink"));
+	let getResultSetEndpoint = endpointLink;
+	getResultSetEndpoint += "getResultSet";
+
+	// using localhost
+	// const getResultSetEndpoint = "http://localhost:4000/dev/getResultSet";
 
 	const getResultSet = async () => {
 		const resultSetData = {
@@ -60,8 +64,11 @@ function ViewHistory() {
 
 	// ################ API FOR GENERATE REPORT ###########################
 
-	const genReportEndpoint =
-		"https://xprnnqlwwi.execute-api.us-east-1.amazonaws.com/dev/generateReport";
+	let genReportEndpoint = endpointLink;
+	genReportEndpoint += "generateReport";
+
+	// using localhost
+	// const genReportEndpoint = "http://localhost:4000/dev/generateReport";
 
 	const genRep = async () => {
 		const searchData = {
@@ -110,7 +117,7 @@ function ViewHistory() {
 
 	tweets.map((data) =>
 		apiResponse.push(
-			<div key={data}>
+			<div key={data.tweetId}>
 				<HomeTweet tweetData={data} />
 			</div>
 		)

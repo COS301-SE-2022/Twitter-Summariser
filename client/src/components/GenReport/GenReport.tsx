@@ -24,14 +24,19 @@ function GenReport() {
 
 	// ################ API FOR GETTING REPORT ###########################
 
-	const getReportEndpoint =
-		"https://xprnnqlwwi.execute-api.us-east-1.amazonaws.com/dev/getReport";
+	const endpointLink = String(localStorage.getItem("endpointLink"));
+	let getReportEndpoint = endpointLink;
+	getReportEndpoint += "getReport";
 
-	const genRep = async () => {
+	// using localhost
+	// const getReportEndpoint = "http://localhost:4000/dev/getReport";
+
+	const getRep = async () => {
 		// POST request using fetch with error handling
 
 		// if (generate === 1) {
 		const requiredData = {
+			apiKey: localStorage.getItem("loggedUserApi"),
 			reportID: localStorage.getItem("draftReportId")
 		};
 
@@ -71,7 +76,7 @@ function GenReport() {
 		// generate = 0;
 	};
 
-	genRep();
+	getRep();
 	// ###################################################################
 
 	// console.log("generate is " + generate);
@@ -93,7 +98,7 @@ function GenReport() {
 
 	state.map((data: any, index: number) =>
 		apiResponse.push(
-			<div key={data}>
+			<div key={data.position}>
 				{data.blockType === "RICHTEXT" && <Text keyValue={index} data={data} />}
 
 				{data.blockType === "TWEET" && <Tweet data={data} />}

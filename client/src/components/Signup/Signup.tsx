@@ -45,7 +45,13 @@ function Signup(props: any) {
 	};
 
 	// ######################### API FOR SIGNING USERS UP ###############################################
-	const signUpEndpoint = "https://3vdykbiva3.execute-api.us-east-1.amazonaws.com/dev/signup";
+
+	const endpointLink = String(localStorage.getItem("endpointLink"));
+	let signUpEndpoint = endpointLink;
+	signUpEndpoint += "signup";
+
+	// using localhost
+	// const signUpEndpoint = "http://localhost:4000/dev/signup";
 
 	const signup = async (userValidatedData: any) => {
 		const requestOptions = {
