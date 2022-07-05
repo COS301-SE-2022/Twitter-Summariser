@@ -27,7 +27,6 @@ function App() {
         }
     }, []);
 
-
     // retrieving user login details
     const loginHandler = (props: any) => {
         if (props.login === "true") {

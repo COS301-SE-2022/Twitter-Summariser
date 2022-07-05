@@ -1,6 +1,7 @@
 name: "Twitter Summariser CI"
 
 on:
+  workflow_call:
   pull_request:
     types: [opened, reopened, labeled, synchronize]
 
