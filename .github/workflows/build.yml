@@ -132,6 +132,12 @@ jobs:
       - name: Build the React App
         run:  yarn run build
 
+      - name: Upload build folder as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: twitter-summariser-build
+          path: client/build/
+
   backend:
     name: Testing of backend
     needs: lint-and-format
