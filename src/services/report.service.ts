@@ -205,4 +205,15 @@ export default class ReportService {
 		
 	}
 
+	async deleteReport(id: string) {
+		await this.docClient
+			.delete({
+				TableName: this.TableName,
+				Key: {
+					reportID: id,
+				}
+			})
+			.promise();
+	}
+
 }
