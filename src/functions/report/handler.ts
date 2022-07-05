@@ -30,7 +30,7 @@ export const generateReport = middyfy(
 					reportBlockID: `BK-${randomUUID()}`,
 					reportID: id,
 					blockType: "TWEET",
-					position: x+=2,
+					position: (x += 2),
 					tweetID: tweet.tweetId
 				});
 				// x += 2;
@@ -205,9 +205,32 @@ export const cloneReport = middyfy(
 
 // Share report
 export const shareReport = middyfy(
-	async (/* event: APIGatewayProxyEvent */): Promise<APIGatewayProxyResult> => {
+	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
-			// const params = JSON.parse(event.body);
+			const params = JSON.parse(event.body);
+
+			if (await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)) {
+				const shareTo = await ServicesLayer.creatorService.getCreator(params.email);
+				if (shareTo !== undefined) {
+					await ServicesLayer.permissionService.addPermission({
+						apiKey: shareTo.apiKey,
+						reportID: params.reportID,
+						type: params.type
+					});
+				} else {
+					return {
+						statusCode: statusCodes.badRequest,
+						headers: header,
+						body: JSON.stringify("User is not found within system.")
+					};
+				}
+			} else {
+				return {
+					statusCode: statusCodes.unauthorized,
+					headers: header,
+					body: JSON.stringify("Only report owner can share a report.")
+				};
+			}
 
 			return {
 				statusCode: statusCodes.notImplemented,
