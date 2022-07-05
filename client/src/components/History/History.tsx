@@ -1,6 +1,9 @@
 import { useState } from "react";
 import HistoryCard from "../HistoryCard/HistoryCard";
 
+// importing link
+import link from "../../resources/links.json";
+
 function History() {
 	// localStorage.removeItem("resultSetId");
 	// localStorage.removeItem("draftReportId");
@@ -9,8 +12,7 @@ function History() {
 
 	// ######################### API FOR GETTING HISTORY #####################
 
-	const endpointLink = String(localStorage.getItem("endpointLink"));
-	let getAllResultSetEndpoint = endpointLink;
+	let getAllResultSetEndpoint = String(link.endpointLink);
 	getAllResultSetEndpoint += "getAllResultSet";
 
 	// using localhost

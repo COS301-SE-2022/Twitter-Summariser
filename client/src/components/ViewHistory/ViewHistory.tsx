@@ -3,6 +3,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import HomeTweet from "../HomeTweet/HomeTweet";
 
+// importing link
+import link from "../../resources/links.json";
+
 function ViewHistory() {
 	// console.log(localStorage.getItem("resultSetId"));
 
@@ -16,8 +19,7 @@ function ViewHistory() {
 
 	// ################ API FOR GET RESULT SET REPORT ###########################
 
-	const endpointLink = String(localStorage.getItem("endpointLink"));
-	let getResultSetEndpoint = endpointLink;
+	let getResultSetEndpoint = String(link.endpointLink);
 	getResultSetEndpoint += "getResultSet";
 
 	// using localhost
@@ -64,7 +66,7 @@ function ViewHistory() {
 
 	// ################ API FOR GENERATE REPORT ###########################
 
-	let genReportEndpoint = endpointLink;
+	let genReportEndpoint = String(link.endpointLink);
 	genReportEndpoint += "generateReport";
 
 	// using localhost
