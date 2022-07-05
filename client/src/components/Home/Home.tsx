@@ -1,7 +1,7 @@
 import { useState } from "react";
 // import Tweet from "../Tweet/Tweet";
 import { Link } from "react-router-dom";
-import HomeTweet from "../HomeTweet/HomeTweet";
+// import HomeTweet from "../HomeTweet/HomeTweet";
 import { Tweet } from 'react-twitter-widgets'
 
 function Home() {
