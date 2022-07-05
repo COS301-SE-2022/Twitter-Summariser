@@ -156,7 +156,7 @@ export default class ReportService {
 	async getSharedReports(key: string): Promise<Report[]> {
 		const permissions: Permission[] = await ServicesLayer.permissionService.getPermissions(key);
 
-		let results: Report[] = [];
+		const results: Report[] = [];
 
 		const promises = permissions.map(async (permission) => {
 			const id = permission.reportID;
