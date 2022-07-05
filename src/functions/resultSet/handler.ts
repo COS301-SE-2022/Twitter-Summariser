@@ -57,7 +57,8 @@ export const deleteResultSet = middyfy(
 		try {
 			const params = JSON.parse(event.body);
 			const result = await ServicesLayer.resultSetServices.deleteResultSet(
-				params.resultSetID
+				params.resultSetID,
+				params.apiKey
 			);
 
 			return {

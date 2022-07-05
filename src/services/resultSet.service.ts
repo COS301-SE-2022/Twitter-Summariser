@@ -49,12 +49,13 @@ export default class ResultSetService {
 		return resultSet as ResultSet;
 	}
 
-	async deleteResultSet(resultSetID: string) {
+	async deleteResultSet(id: string, key: string) {
 		await this.docClient
 			.delete({
 				TableName: this.TableName,
 				Key: {
-					resultSetID
+					"id": id,
+					"apiKey": key
 				}
 			})
 			.promise();
