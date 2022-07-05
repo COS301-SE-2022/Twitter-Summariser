@@ -51,4 +51,15 @@ export default class PermissionService {
 
         return result.Attributes as Permission;
     }
+
+    async deletePermission(id: string, key: string) {
+        await this.docClient.delete({
+            TableName: this.TableName,
+            Key: {
+                "reportID": id,
+                "apiKey": key
+            }
+        }).promise();
+    }
+
 }
