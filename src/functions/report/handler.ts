@@ -233,9 +233,9 @@ export const shareReport = middyfy(
 			}
 
 			return {
-				statusCode: statusCodes.notImplemented,
+				statusCode: statusCodes.no_content,
 				headers: header,
-				body: JSON.stringify("Not Yet done")
+				body: JSON.stringify('')
 			};
 		} catch (e) {
 			return {
