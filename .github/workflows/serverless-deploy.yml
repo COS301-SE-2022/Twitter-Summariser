@@ -26,6 +26,9 @@ jobs:
           name: twitter-summariser-build
           path: client/build
 
+      - name: Install package dependencies for backend
+        run: yarn
+
       - name: Serverless deploy
         uses: serverless/github-action@v3
         with:
