@@ -50,3 +50,27 @@ export const getResultSet = middyfy(
 		}
 	}
 );
+
+// Deleting a result set
+export const deleteResultSet = middyfy(
+	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+		try {
+			const params = JSON.parse(event.body);
+			const result = await ServicesLayer.resultSetServices.deleteResultSet(
+				params.resultSetID
+			);
+
+			return {
+				statusCode: statusCodes.Successful,
+				headers: header,
+				body: JSON.stringify(result)
+			};
+		} catch (e) {
+			return {
+				statusCode: statusCodes.internalError,
+				headers: header,
+				body: JSON.stringify(e)
+			};
+		}
+	}
+);
