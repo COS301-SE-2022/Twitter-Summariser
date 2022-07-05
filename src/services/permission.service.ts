@@ -22,4 +22,17 @@ export default class PermissionService {
 
         return permission as Permission
     }
+
+    async getPermissions(key: String): Promise<Permission[]> {
+        const result = await this.docClient.query({
+            TableName: this.TableName,
+            IndexName: "permissionIndex",
+            KeyConditionExpression: "apiKey = :apiKey",
+            ExpressionAttributeValues: {
+                ":apiKey": key
+            }
+        }).promise();
+
+        return result.Items as Permission[];
+    }
 }
