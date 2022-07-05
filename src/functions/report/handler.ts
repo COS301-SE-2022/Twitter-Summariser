@@ -46,6 +46,9 @@ export const generateReport = middyfy(
 				author: params.author
 			});
 
+			// Adding permissions
+			await ServicesLayer.permissionService.addPermission({apiKey: params.apiKey, reportID: id, type: 'OWNER'});
+
 			delete report.apiKey;
 
 			return {
