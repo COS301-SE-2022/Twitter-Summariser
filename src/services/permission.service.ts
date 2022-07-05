@@ -2,7 +2,7 @@ import { DocumentClient } from "aws-sdk/clients/dynamodb";
 import Permission from "@model/permission/permissions.model";
 
 export default class PermissionService {
-	private TableName = "PermissionsTable";
+    private TableName = "PermissionTable";
 
 	constructor(private docClient: DocumentClient) {}
 
