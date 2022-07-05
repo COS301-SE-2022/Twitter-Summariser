@@ -235,7 +235,7 @@ export const shareReport = middyfy(
 			return {
 				statusCode: statusCodes.no_content,
 				headers: header,
-				body: JSON.stringify('')
+				body: JSON.stringify("")
 			};
 		} catch (e) {
 			return {
@@ -278,7 +278,7 @@ export const getReport = middyfy(
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify({ report: report, permission: per.type })
+				body: JSON.stringify({ report, permission: per.type })
 			};
 		} catch (e) {
 			return {
