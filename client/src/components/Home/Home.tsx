@@ -2,6 +2,7 @@ import { useState } from "react";
 // import Tweet from "../Tweet/Tweet";
 import { Link } from "react-router-dom";
 import HomeTweet from "../HomeTweet/HomeTweet";
+import { Tweet } from 'react-twitter-widgets'
 
 function Home() {
 	// ################ all related to the search ############################
@@ -158,8 +159,11 @@ function Home() {
 		(data) =>
 			enteredSearch !== "" &&
 			apiResponse.push(
-				<div key={data.tweetId}>
-					<HomeTweet tweetData={data} />
+				// <div key={data.tweetId}>
+				// 	<HomeTweet tweetData={data} />
+				// </div>
+				<div className=" w-full border-l border-gray-200 flex flex-col p-3 items-center" key={data.tweetId}  >
+					<Tweet tweetId = {data.tweetId} />
 				</div>
 			)
 	);
