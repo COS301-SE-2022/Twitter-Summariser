@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import { MdDeleteOutline } from "react-icons/md";
 
+// importing link
+import link from "../../resources/links.json";
+
 function HistoryCard(props: any) {
 	// console.log(props.data);
 
@@ -10,6 +13,51 @@ function HistoryCard(props: any) {
 		// console.log(props.data.id);
 		localStorage.setItem("resultSetId", props.data.id);
 	};
+
+	const deleteHandler = (event: any) => {
+		event.preventDefault();
+
+		const resultDetails = {
+			resultSetID: props.data.id,
+			apiKey: props.data.apiKey
+		};
+
+		deleteResult(resultDetails);
+	};
+
+		// ######################### API FOR DELETING RESULT SET ###############################################
+
+	let deleteResultSetEndpoint = String(link.endpointLink);
+	deleteResultSetEndpoint += "deleteResultSet";
+
+	const deleteResult = (resultInfo: any) => {
+		const requestOptions = {
+			method: "POST",
+			body: JSON.stringify(resultInfo)
+		};
+
+		fetch(deleteResultSetEndpoint, requestOptions)
+			.then(async (response) => {
+				const isJson = response.headers.get("content-type")?.includes("application/json");
+
+				isJson && (await response.json());
+
+				// check for error response
+				if (!response.ok) {
+					// error
+
+					return;
+				}
+			})
+			.catch(() => {
+			});
+	};
+
+
+	// #######################################################################
+
+
+
 
 	return (
 		<div className="">
@@ -33,13 +81,13 @@ function HistoryCard(props: any) {
 					</div>
 				</div>
 
-				<div
-					className=" pl-4 flex flex-row justify-center items-center"
-					data-bs-toggle="tooltip"
-					title="Delete History"
-				>
-					<MdDeleteOutline style={iconStyle3} />
-				</div>
+
+				<button type="button" onClick={deleteHandler}>
+					<div className=" ml-2" data-bs-toggle="tooltip" title="Delete History">
+						<MdDeleteOutline style={iconStyle3}  />
+					</div>
+				</button>
+
 			</div>
 		</div>
 	);
