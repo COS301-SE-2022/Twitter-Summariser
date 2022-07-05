@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import Tweet from "../Tweet/Tweet";
 
+// importing link
+import link from "../../resources/links.json";
+
 // importing mock data
 import Text from "../Text/Text";
 // import DraftCard from "../DraftCard/DraftCard";
@@ -24,8 +27,7 @@ function GenReport() {
 
 	// ################ API FOR GETTING REPORT ###########################
 
-	const endpointLink = String(localStorage.getItem("endpointLink"));
-	let getReportEndpoint = endpointLink;
+	let getReportEndpoint = String(link.endpointLink);
 	getReportEndpoint += "getReport";
 
 	// using localhost

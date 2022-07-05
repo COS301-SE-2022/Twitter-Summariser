@@ -6,6 +6,9 @@ import { MdDeleteOutline } from "react-icons/md";
 import { GrTextAlignCenter, GrTextAlignLeft, GrTextAlignRight } from "react-icons/gr";
 import { useState } from "react";
 
+// importing link
+import link from "../../resources/links.json";
+
 function Text(props: any) {
 	const textPos = props.data.position;
 
@@ -107,8 +110,7 @@ function Text(props: any) {
 
 	// ######################### API FOR EDITING TEXT ###############################################
 
-	const endpointLink = String(localStorage.getItem("endpointLink"));
-	let textEndpoint = endpointLink;
+	let textEndpoint = String(link.endpointLink);
 	textEndpoint += "editBlock";
 
 	// using localhost
