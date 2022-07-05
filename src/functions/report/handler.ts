@@ -46,6 +46,9 @@ export const generateReport = middyfy(
 				author: params.author
 			});
 
+			// Adding permissions
+			await ServicesLayer.permissionService.addPermission({apiKey: params.apiKey, reportID: id, type: 'OWNER'});
+
 			delete report.apiKey;
 
 			return {
@@ -235,7 +238,7 @@ export const shareReport = middyfy(
 			return {
 				statusCode: statusCodes.no_content,
 				headers: header,
-				body: JSON.stringify('')
+				body: JSON.stringify("")
 			};
 		} catch (e) {
 			return {
@@ -253,7 +256,7 @@ export const getReport = middyfy(
 		try {
 			const params = JSON.parse(event.body);
 
-			const report = await ServicesLayer.reportService.getReport(params.reportID);
+			let report = await ServicesLayer.reportService.getReportHelper(params.reportID);
 
 			if (
 				await ServicesLayer.permissionService.verifyReportRetr(
@@ -273,10 +276,12 @@ export const getReport = middyfy(
 				params.reportID,
 				params.apiKey
 			);
+
+			report = await ServicesLayer.reportService.getReport(params.reportID);
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify({ report: report, permission: per.type })
+				body: JSON.stringify({ report, permission: per.type })
 			};
 		} catch (e) {
 			return {
