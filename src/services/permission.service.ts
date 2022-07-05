@@ -26,4 +26,14 @@ export default class PermissionService {
 
 		return permission as Permission;
 	}
+
+	// verify report retrieval
+	async verifyReportRetr(status: string, apiKey: string, reportID: string): Promise<boolean> {
+		this.TableName;
+		const per = await this.getPermission(reportID, apiKey);
+		if (status !== "PUBLISHED" && per === undefined) {
+			return true;
+		}
+		return false;
+	}
 }

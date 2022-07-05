@@ -117,16 +117,16 @@ export const cloneReport = middyfy(
 			const owner = report.apiKey;
 
 			if (
-				await ServicesLayer.reportService.verifyReportRetr(
+				await ServicesLayer.permissionService.verifyReportRetr(
 					report.status,
 					params.apiKey,
-					report.apiKey
+					report.reportID
 				)
 			) {
 				return {
 					statusCode: statusCodes.unauthorized,
 					headers: header,
-					body: JSON.stringify("not authorised to edit this report")
+					body: JSON.stringify("not authorised to clone this report")
 				};
 			}
 
@@ -256,10 +256,10 @@ export const getReport = middyfy(
 			const report = await ServicesLayer.reportService.getReport(params.reportID);
 
 			if (
-				await ServicesLayer.reportService.verifyReportRetr(
+				await ServicesLayer.permissionService.verifyReportRetr(
 					report.status,
 					params.apiKey,
-					report.apiKey
+					report.reportID
 				)
 			) {
 				return {
@@ -269,10 +269,11 @@ export const getReport = middyfy(
 				};
 			}
 
+			const per = await ServicesLayer.permissionService.getPermission(params.reportID, params.apiKey)
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify({ report })
+				body: JSON.stringify({ report: report, permission:  per.type})
 			};
 		} catch (e) {
 			return {

@@ -191,13 +191,5 @@ export default class ReportService {
 		}
 		return false;
 	}
-
-	// verify report retrieval
-	async verifyReportRetr(status: string, apiKey: string, owner: string): Promise<boolean> {
-		this.TableName;
-		if (status !== "PUBLISHED" && (apiKey === undefined || apiKey !== owner)) {
-			return true;
-		}
-		return false;
-	}
+	
 }
