@@ -212,7 +212,7 @@ export const shareReport = middyfy(
 		try {
 			const params = JSON.parse(event.body);
 
-			if (await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)) {
+			if (await ServicesLayer.permissionService.verifyOwner(params.reportID, params.apiKey)) {
 				const shareTo = await ServicesLayer.creatorService.getCreator(params.email);
 				if (shareTo !== undefined) {
 					await ServicesLayer.permissionService.addPermission({
@@ -300,7 +300,7 @@ export const publishReport = middyfy(
 			const params = JSON.parse(event.body);
 			let report;
 
-			if (await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)) {
+			if (await ServicesLayer.permissionService.verifyOwner(params.reportID, params.apiKey)) {
 				report = await ServicesLayer.reportService.updateReportStatus(
 					"PUBLISHED",
 					params.reportID
@@ -334,9 +334,9 @@ export const unpublishReport = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
 			const params = JSON.parse(event.body);
-			let result;
+			let result : any;
 
-			if (await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)) {
+			if (await ServicesLayer.permissionService.verifyOwner(params.reportID, params.apiKey)) {
 				result = await ServicesLayer.reportService.updateReportStatus(
 					"DRAFT",
 					params.reportID
@@ -417,7 +417,7 @@ export const deleteDraftReport = middyfy(
 			const params = JSON.parse(event.body);
 			let report;
 
-			if (await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)) {
+			if (await ServicesLayer.permissionService.verifyOwner(params.reportID, params.apiKey)) {
 				report = await ServicesLayer.reportService.getReport(params.reportID);
 
 				if (report.status === "DRAFT") {
