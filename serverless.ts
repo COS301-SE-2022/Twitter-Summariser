@@ -129,15 +129,15 @@ const serverlessConfiguration: AWS = {
 		}
 	},
 
-    resources: {
-        Resources: {
-            CreatorTable,
-            ResultSetTable,
-            TweetTable,
-            ReportTable,
-            ReportBlockTable,
-            TextStylesTable,
-            PermissionTable,
+	resources: {
+		Resources: {
+			CreatorTable,
+			ResultSetTable,
+			TweetTable,
+			ReportTable,
+			ReportBlockTable,
+			TextStylesTable,
+			PermissionTable,
 
 			TwitterSummariserApp: {
 				Type: "AWS::S3::Bucket",

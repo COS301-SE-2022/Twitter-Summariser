@@ -200,23 +200,12 @@ export default class ReportService {
 		return result.Attributes as Report;
 	}
 
-	// get my reports
-
 	// verify owner of report
 	async verifyOwner(reportID: string, apiKey1: string): Promise<boolean> {
 		const report = this.getReportHelper(reportID);
 		const apiKey2 = (await report).apiKey;
 
 		if (apiKey1 === apiKey2) {
-			return true;
-		}
-		return false;
-	}
-
-	// verify report retrieval
-	async verifyReportRetr(status: string, apiKey: string, owner: string): Promise<boolean> {
-		this.TableName;
-		if (status !== "PUBLISHED" && (apiKey === undefined || apiKey !== owner)) {
 			return true;
 		}
 		return false;

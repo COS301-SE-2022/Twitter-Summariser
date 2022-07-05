@@ -1,5 +1,5 @@
 import { DocumentClient } from "aws-sdk/clients/dynamodb";
-import Permission from "@model/permission/permissions.model"
+import Permission from "@model/permission/permissions.model";
 
 export default class PermissionService {
     private TableName = "PermissionsTable";
@@ -12,17 +12,28 @@ export default class PermissionService {
             Key: {"reportID": id, "apiKey": key}
         }).promise();
 
-        return result.Item as Permission;
-    }
+		return result.Item as Permission;
+	}
 
-    async addPermission(permission: Permission): Promise<Permission> {
-        await this.docClient.put({
-            TableName: this.TableName,
-            Item: permission
-        }).promise();
+	async addPermission(permission: Permission): Promise<Permission> {
+		await this.docClient
+			.put({
+				TableName: this.TableName,
+				Item: permission
+			})
+			.promise();
 
         return permission as Permission
     }
+
+    // verify report retrieval
+	async verifyReportRetr(status: string, apiKey: string, reportID: string): Promise<boolean> {
+		const per = await this.getPermission(reportID, apiKey);
+		if (status !== "PUBLISHED" && per === undefined) {
+			return true;
+		}
+		return false;
+	}
 
     async getPermissions(key: string): Promise<Permission[]> {
         const result = await this.docClient.query({
