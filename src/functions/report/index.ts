@@ -135,21 +135,6 @@ export const addCustomTweet = {
 	]
 };
 
-// Deleting a result set
-export const deleteResultSet = {
-	handler: `${handlerPath(__dirname)}/handler.deleteResultSet`,
-	description: "A function that deletes a resultSet.",
-	events: [
-		{
-			http: {
-				method: "post",
-				path: "deleteResultSet/",
-				cors: true
-			}
-		}
-	]
-};
-
 // Deleting a result report
 export const deleteDraftReport = {
 	handler: `${handlerPath(__dirname)}/handler.deleteDraftReport`,
