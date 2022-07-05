@@ -2,7 +2,7 @@ import { useState } from "react";
 // import Tweet from "../Tweet/Tweet";
 import { Link } from "react-router-dom";
 // import HomeTweet from "../HomeTweet/HomeTweet";
-import { Tweet } from 'react-twitter-widgets'
+import { Tweet } from "react-twitter-widgets";
 
 // importing link
 import link from "../../resources/links.json";
@@ -164,8 +164,8 @@ function Home() {
 				// <div key={data.tweetId}>
 				// 	<HomeTweet tweetData={data} />
 				// </div>
-				<div className=" w-full border border-gray-200 p-3" key={data.tweetId}  >
-					<Tweet tweetId = {data.tweetId}/>
+				<div className=" w-full border border-gray-200 p-3" key={data.tweetId}>
+					<Tweet options={{ align: "center", width: "" }} tweetId={data.tweetId} />
 				</div>
 			)
 	);

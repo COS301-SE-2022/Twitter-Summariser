@@ -12,8 +12,8 @@ function HistoryCard(props: any) {
 	};
 
 	return (
-		<div>
-			<div className="flex flex-row justify-between items-center">
+		<div className="">
+			<div className="m-4 w-auto h-20 p-2 flex flex-row justify-between items-center">
 				<div className="">
 					<div className="">
 						<Link to="/viewHistory">
@@ -33,7 +33,11 @@ function HistoryCard(props: any) {
 					</div>
 				</div>
 
-				<div className=" ml-2" data-bs-toggle="tooltip" title="Delete History">
+				<div
+					className=" pl-4 flex flex-row justify-center items-center"
+					data-bs-toggle="tooltip"
+					title="Delete History"
+				>
 					<MdDeleteOutline style={iconStyle3} />
 				</div>
 			</div>
