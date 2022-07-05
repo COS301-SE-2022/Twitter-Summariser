@@ -61,8 +61,8 @@ function Drafts() {
 						<div className="mt-4 flex flex-row flex-wrap justify-center">
 							{draft.map((data) => (
 								<div
-									className="m-4 w-auto h-auto bg-gray-400 rounded-md flex flex-col p-2"
-									key={data}
+									className="m-4 w-auto h-auto bg-gray-400 hover:bg-gray-300 rounded-md flex flex-col p-2"
+									key={data.reportID}
 								>
 									<DraftCard data={data} />
 								</div>

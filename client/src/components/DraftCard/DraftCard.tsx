@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { MdDeleteOutline } from "react-icons/md";
 
 function DraftCard(props: any) {
 	const viewGenReport = () => {
@@ -10,14 +11,18 @@ function DraftCard(props: any) {
 		}
 	};
 
+	const iconStyle3 = { fontSize: "1.5rem", color: "red" };
+
 	return (
 		<div>
-			<Link to="/genReport">
-				<div className="m-4 w-auto h-20 bg-gray-400 rounded-md flex flex-col p-2">
+			<div className="m-4 w-auto h-20 rounded-md flex flex-row justify-between items-center p-2">
+				<div className="">
 					<div className="">
-						<button data-testid="btn-report" type="submit" onClick={viewGenReport}>
-							<p className="font-bold">{props.data.title}</p>
-						</button>
+						<Link to="/genReport">
+							<button data-testid="btn-report" type="submit" onClick={viewGenReport}>
+								<p className="font-bold">{props.data.title}</p>
+							</button>
+						</Link>
 					</div>
 					<div className="mt-2">
 						<p className="italic text-xs">Author: {props.data.author}</p>
@@ -28,7 +33,15 @@ function DraftCard(props: any) {
 						</p>
 					</div>
 				</div>
-			</Link>
+
+				<div
+					className=" pl-4 flex flex-row justify-center items-center"
+					data-bs-toggle="tooltip"
+					title="Delete History"
+				>
+					<MdDeleteOutline style={iconStyle3} />
+				</div>
+			</div>
 		</div>
 	);
 }
