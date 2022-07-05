@@ -84,7 +84,6 @@ jobs:
   frontend:
     name: Testing and building of frontend
     needs: lint-and-format
-    if: ${{ needs.changes.outputs.frontend == 'true' }}
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -117,7 +116,6 @@ jobs:
   backend:
     name: Testing of backend
     needs: lint-and-format
-    if: ${{ needs.changes.outputs.backend == 'true' }}
     runs-on: ubuntu-latest
 
     steps:
