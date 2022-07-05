@@ -105,6 +105,21 @@ export const getReport = {
 	]
 };
 
+// retrevial of a shared report
+export const getSharedReport = {
+	handler: `${handlerPath(__dirname)}/handler.getSharedReport`,
+	description: "A function that returns reports shared to a user",
+	events: [
+		{
+			http: {
+				method: "post",
+				path: "getSharedReport/",
+				cors: true
+			}
+		}
+	]
+};
+
 // cloning of a report
 export const cloneReport = {
 	handler: `${handlerPath(__dirname)}/handler.cloneReport`,

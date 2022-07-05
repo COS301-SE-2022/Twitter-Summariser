@@ -432,3 +432,26 @@ export const deleteDraftReport = middyfy(
 		}
 	}
 );
+
+// get share report
+export const getSharedReports = middyfy(
+	async ( event: APIGatewayProxyEvent ): Promise<APIGatewayProxyResult> => {
+		try {
+			const params = JSON.parse(event.body);
+
+			const re = await ServicesLayer.reportService.getSharedReports(params.apiKey);
+
+			return {
+				statusCode: statusCodes.Successful,
+				headers: header,
+				body: JSON.stringify(re)
+			};
+		} catch (e) {
+			return {
+				statusCode: statusCodes.internalError,
+				headers: header,
+				body: JSON.stringify(e)
+			};
+		}
+	}
+);

@@ -19,7 +19,8 @@ import {
 	shareReport,
 	addCustomTweet,
 	unpublishReport,
-	deleteDraftReport
+	deleteDraftReport,
+	getSharedReport
 } from "@functions/report";
 import { editBlock } from "@functions/reportBlock";
 
@@ -84,7 +85,8 @@ const serverlessConfiguration: AWS = {
 		addCustomTweet,
 		deleteDraftReport,
 		deleteResultSet,
-		unpublishReport
+		unpublishReport,
+		getSharedReport
 	},
 
 	package: {
