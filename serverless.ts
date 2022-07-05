@@ -7,6 +7,7 @@ import { TweetTable } from "@model/tweet";
 import { ReportTable } from "@model/report";
 import { ReportBlockTable } from "@model/reportBlock";
 import { TextStylesTable } from "@model/textStyles";
+import { PermissionTable } from "@model/permission";
 import { getAllResultSet, getResultSet } from "@functions/resultSet";
 import {
 	getAllMyDraftReports,
@@ -128,14 +129,15 @@ const serverlessConfiguration: AWS = {
 		}
 	},
 
-	resources: {
-		Resources: {
-			CreatorTable,
-			ResultSetTable,
-			TweetTable,
-			ReportTable,
-			ReportBlockTable,
-			TextStylesTable,
+    resources: {
+        Resources: {
+            CreatorTable,
+            ResultSetTable,
+            TweetTable,
+            ReportTable,
+            ReportBlockTable,
+            TextStylesTable,
+            PermissionTable,
 
 			TwitterSummariserApp: {
 				Type: "AWS::S3::Bucket",
