@@ -9,7 +9,7 @@ on:
 
 jobs:
   use-build:
-    uses: COS301-SE-2022/Twitter-Summariser/.github/workflows/build.yml@main
+    uses: COS301-SE-2022/Twitter-Summariser/.github/workflows/build.yml@develop
 
   Serverless-Deploy:
     needs: use-build
