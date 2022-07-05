@@ -24,16 +24,16 @@ export const generateReport = middyfy(
 			const dd = new Date();
 			const d = new Date(`${dd.toLocaleString()}-02:00`);
 
-			let x = 1;
+			let x = -1;
 			tweets.map(async (tweet) => {
 				await ServicesLayer.reportBlockService.addReportBlock({
 					reportBlockID: `BK-${randomUUID()}`,
 					reportID: id,
 					blockType: "TWEET",
-					position: x,
+					position: x+=2,
 					tweetID: tweet.tweetId
 				});
-				x += 2;
+				// x += 2;
 			});
 
 			const report = await ServicesLayer.reportService.addReport({
