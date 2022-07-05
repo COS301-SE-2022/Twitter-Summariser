@@ -1,5 +1,6 @@
 import { DocumentClient } from "aws-sdk/clients/dynamodb";
 import Report from "@model/report/report.model";
+import Permission from "@model/permission/permissions.model";
 
 import ServicesLayer from ".";
 
@@ -150,6 +151,24 @@ export default class ReportService {
 			.promise();
 
 		return result.Items as Report[];
+	}
+	
+	async getSharedReports(key: string): Promise<Report[]> {
+		const permissions: Permission[] = await ServicesLayer.permissionService.getPermissions(key);
+
+		const results: Report[] = [];
+
+		const promises = permissions.map(async (permission) => {
+			const id = permission.reportID;
+
+			const report = await this.getReportHelper(id);
+
+			results.push(report);
+		})
+
+		await Promise.all(promises);
+
+		return results as Report[];
 	}
 
 	// store reports
