@@ -92,7 +92,7 @@ function Landing(props: any) {
 				</div>
 
 				{/* second container ######################################################################################################### */}
-				<div className="flex flex-col 2xl:w-1/2 mini-tablet:w-2/3 w-full relative">
+				<div className="flex flex-col 2xl:w-1/4 mini-tablet:w-1/3 w-full relative">
 					<Routes>
 						<Route path="/" element={<Home />} />
 						<Route path="/explore" element={<Explore />} />
