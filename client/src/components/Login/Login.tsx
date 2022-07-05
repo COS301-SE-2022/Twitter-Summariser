@@ -5,6 +5,9 @@ import { AiOutlineCheckCircle } from "react-icons/ai";
 import { useState } from "react";
 import Logo from "../Logo/Logo";
 
+// importing link
+import link from "../../resources/links.json";
+
 function Login(props: any) {
 	// const navigate = useNavigate();
 	const [wrongCredentials, setWrongCredentialsStatus] = useState(false);
@@ -35,12 +38,8 @@ function Login(props: any) {
 
 	// ######################### API FOR LOGGING USERS IN ###############################################
 
-	const endpointLink = String(localStorage.getItem("endpointLink"));
-	let loginEndpoint = endpointLink;
+	let loginEndpoint = String(link.endpointLink);
 	loginEndpoint += "login";
-
-	// using localhost
-	// const loginEndpoint = "http://localhost:4000/dev/login";
 
 	const checkCredentials = (userCredentials: any) => {
 		const requestOptions = {

@@ -3,6 +3,9 @@ import { BiErrorCircle } from "react-icons/bi";
 import { useState, useEffect } from "react";
 import Logo from "../Logo/Logo";
 
+// importing link
+import link from "../../resources/links.json";
+
 function Signup(props: any) {
 	// username retrieval
 	const [enteredUsername, changeEnteredUsername] = useState("");
@@ -46,12 +49,8 @@ function Signup(props: any) {
 
 	// ######################### API FOR SIGNING USERS UP ###############################################
 
-	const endpointLink = String(localStorage.getItem("endpointLink"));
-	let signUpEndpoint = endpointLink;
+	let signUpEndpoint = String(link.endpointLink);
 	signUpEndpoint += "signup";
-
-	// using localhost
-	// const signUpEndpoint = "http://localhost:4000/dev/signup";
 
 	const signup = async (userValidatedData: any) => {
 		const requestOptions = {
