@@ -1,6 +1,9 @@
 import { useState } from "react";
 import DraftCard from "../DraftCard/DraftCard";
 
+// importing link
+import link from "../../resources/links.json";
+
 function Drafts() {
 	const [draft, changeDraft] = useState<any[]>([]);
 
@@ -9,8 +12,7 @@ function Drafts() {
 
 	// ######################### API FOR GETTING HISTORY #####################
 
-	const endpointLink = String(localStorage.getItem("endpointLink"));
-	let getAllMyDraftReportsEndpoint = endpointLink;
+	let getAllMyDraftReportsEndpoint = String(link.endpointLink);
 	getAllMyDraftReportsEndpoint += "getAllMyReports";
 
 	// using localhost
