@@ -230,22 +230,22 @@ function Home() {
 					>
 						<option>-</option>
 						<option value="verifiedTweets">Verified Tweets</option>
-						<option value="noneReply">non-replies</option>
+						<option value="noneReply">Non-Replies</option>
 					</select>
 				</div>
 
 				{/* this is for the sorting options */}
 				<div className="flex flex-row flex-wrap w-1/3 justify-center">
-					<p className="">Sort:</p> &nbsp;
+					<p className="">Sort By:</p> &nbsp;
 					<select
 						data-testid="select-sort"
 						className=" text-black text-center"
 						onChange={sortHandler}
 					>
 						<option>-</option>
-						<option value="byLikes">by likes</option>
-						<option value="byComments">by comments</option>
-						<option value="byRetweets">by re-tweets</option>
+						<option value="byLikes">Likes</option>
+						<option value="byComments">Comments</option>
+						<option value="byRetweets">Re-tweets</option>
 					</select>
 				</div>
 
