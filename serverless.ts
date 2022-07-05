@@ -8,7 +8,7 @@ import { ReportTable } from "@model/report";
 import { ReportBlockTable } from "@model/reportBlock";
 import { TextStylesTable } from "@model/textStyles";
 import { PermissionTable } from "@model/permission";
-import { getAllResultSet, getResultSet } from "@functions/resultSet";
+import { getAllResultSet, getResultSet, deleteResultSet } from "@functions/resultSet";
 import {
 	getAllMyDraftReports,
 	getAllPublishedReports,
@@ -19,8 +19,7 @@ import {
 	shareReport,
 	addCustomTweet,
 	unpublishReport,
-	deleteDraftReport,
-	deleteResultSet
+	deleteDraftReport
 } from "@functions/report";
 import { editBlock } from "@functions/reportBlock";
 
