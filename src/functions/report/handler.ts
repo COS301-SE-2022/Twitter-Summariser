@@ -269,11 +269,14 @@ export const getReport = middyfy(
 				};
 			}
 
-			const per = await ServicesLayer.permissionService.getPermission(params.reportID, params.apiKey)
+			const per = await ServicesLayer.permissionService.getPermission(
+				params.reportID,
+				params.apiKey
+			);
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify({ report: report, permission:  per.type})
+				body: JSON.stringify({ report: report, permission: per.type })
 			};
 		} catch (e) {
 			return {

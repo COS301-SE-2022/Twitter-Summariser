@@ -191,5 +191,4 @@ export default class ReportService {
 		}
 		return false;
 	}
-	
 }
