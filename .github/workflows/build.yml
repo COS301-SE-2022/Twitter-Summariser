@@ -136,7 +136,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: twitter-summariser-build
-          path: build/
+          path: client/build/
 
   backend:
     name: Testing of backend
