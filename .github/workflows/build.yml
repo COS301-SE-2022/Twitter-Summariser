@@ -56,32 +56,8 @@ jobs:
           count: 1
           labels: "scope:ai, scope:cicd, scope:github-repo, scope:db, scope:frontend,scope:backend"
 
-  changes:
-    name: Check if any frontend and backend files have been changed
-    runs-on: ubuntu-latest
-
-    outputs:
-      frontend: ${{ steps.filter.outputs.frontend }}
-      backend: ${{ steps.filter.outputs.backend }}
-
-    steps:
-      - uses: dorny/paths-filter@v2
-        id: filter
-        with:
-          filters: |
-            backend:
-              - 'src/**'
-              - '*.json'
-              - '*.js'
-              - '*.ts'
-              - '*.nvmrc'
-              - 'yarn.lock'
-            frontend:
-              - 'client/**'
-
   lint-and-format:
     name: Attempt to lints and format all code in the repository
-    needs:  changes
     runs-on: ubuntu-latest
 
     steps:
