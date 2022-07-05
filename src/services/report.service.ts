@@ -152,7 +152,7 @@ export default class ReportService {
 
 		return result.Items as Report[];
 	}
-	
+
 	async getSharedReports(key: string): Promise<Report[]> {
 		const permissions: Permission[] = await ServicesLayer.permissionService.getPermissions(key);
 
@@ -164,7 +164,7 @@ export default class ReportService {
 			const report = await this.getReportHelper(id);
 
 			results.push(report);
-		})
+		});
 
 		await Promise.all(promises);
 
