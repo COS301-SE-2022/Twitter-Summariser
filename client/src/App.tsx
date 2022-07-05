@@ -9,7 +9,6 @@ import "./index.css";
 // main Application component in which different page sub-components will be contained
 function App() {
 	// const navigate = useNavigate();
-
 	localStorage.setItem(
 		"endpointLink",
 		"https://3vdykbiva3.execute-api.us-east-1.amazonaws.com/dev/"

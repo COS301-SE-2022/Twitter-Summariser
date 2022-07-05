@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+/* eslint-disable jest/valid-expect */
 import { fireEvent, render, screen } from "@testing-library/react";
-
 // import ReactDOM from 'react-dom';
 
 import Signup from "../Signup";

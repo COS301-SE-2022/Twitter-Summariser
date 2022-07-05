@@ -1,0 +1,10 @@
+node_modules
+
+# Ignore artifacts:
+build
+coverage
+.github
+.esbuild
+.dynamodb
+.serverless
+*.md

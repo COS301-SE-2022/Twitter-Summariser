@@ -1,46 +1,52 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
-import { middyfy } from '@libs/lambda';
-import ServicesLayer from "../../services";
+import { middyfy } from "@libs/lambda";
 import { header, statusCodes } from "@functions/resources/APIresponse";
+import ServicesLayer from "../../services";
 
-export const getAllResultSet = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  try {
-    const params = JSON.parse(event.body);
+export const getAllResultSet = middyfy(
+	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+		try {
+			const params = JSON.parse(event.body);
 
-    const resultSet = await ServicesLayer.resultSetServices.getResultSets(params.apiKey);
-    console.log(resultSet);
+			const resultSet = await ServicesLayer.resultSetServices.getResultSets(params.apiKey);
 
-    return {
-      statusCode: statusCodes.Successful,
-      headers: header,
-      body: JSON.stringify(resultSet)
-    }
-  } catch (e) {
-    return {
-      statusCode: statusCodes.internalError,
-      headers: header,
-      body: JSON.stringify(e)
-    }
-  }
-});
+			return {
+				statusCode: statusCodes.Successful,
+				headers: header,
+				body: JSON.stringify(resultSet)
+			};
+		} catch (e) {
+			return {
+				statusCode: statusCodes.internalError,
+				headers: header,
+				body: JSON.stringify(e)
+			};
+		}
+	}
+);
 
-export const getResultSet = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  try {
-    const params = JSON.parse(event.body);
+export const getResultSet = middyfy(
+	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+		try {
+			const params = JSON.parse(event.body);
 
-    const tweets = await ServicesLayer.tweetService.getTweets(params.resultSetID);
-    const resultSet = await ServicesLayer.resultSetServices.getResultSet(params.resultSetID, params.apiKey);
+			const tweets = await ServicesLayer.tweetService.getTweets(params.resultSetID);
+			const resultSet = await ServicesLayer.resultSetServices.getResultSet(
+				params.resultSetID,
+				params.apiKey
+			);
 
-    return {
-      statusCode: statusCodes.Successful,
-      headers: header,
-      body: JSON.stringify({ resultSet, Tweets: tweets })
-    }
-  } catch (e) {
-    return {
-      statusCode: statusCodes.internalError,
-      headers: header,
-      body: JSON.stringify(e)
-    }
-  }
-});
+			return {
+				statusCode: statusCodes.Successful,
+				headers: header,
+				body: JSON.stringify({ resultSet, Tweets: tweets })
+			};
+		} catch (e) {
+			return {
+				statusCode: statusCodes.internalError,
+				headers: header,
+				body: JSON.stringify(e)
+			};
+		}
+	}
+);

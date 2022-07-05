@@ -7,9 +7,11 @@ on:
       - completed
 
 jobs:
-  Coverage:
+  on-success:
+    name: Get code coverage and upload to codecov
     runs-on: ubuntu-latest
 
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Checkout to devlop/master branch
         uses: actions/checkout@v2
@@ -36,3 +38,10 @@ jobs:
 
       - name: Upload the merged coverage reports to Codecov
         uses: codecov/codecov-action@v3
+
+  on-failure:
+    name: Serverless Deploy Failed
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - run: echo 'The Serverless-Deploy workflow failed'

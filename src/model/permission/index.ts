@@ -1,29 +1,33 @@
-export const TweetTable = {
+export const PermissionTable = {
 	Type: "AWS::DynamoDB::Table",
 	Properties: {
-		TableName: "TweetTable",
+		TableName: "PermissionTable",
 		AttributeDefinitions: [
 			{
-				AttributeName: "tweetId",
+				AttributeName: "reportID",
 				AttributeType: "S"
 			},
 			{
-				AttributeName: "resultSetId",
+				AttributeName: "apiKey",
 				AttributeType: "S"
 			}
 		],
 		KeySchema: [
 			{
-				AttributeName: "tweetId",
+				AttributeName: "reportID",
 				KeyType: "HASH"
+			},
+			{
+				AttributeName: "apiKey",
+				KeyType: "RANGE"
 			}
 		],
 		GlobalSecondaryIndexes: [
 			{
-				IndexName: "tweetIndex",
+				IndexName: "permissionsIndex",
 				KeySchema: [
 					{
-						AttributeName: "resultSetId",
+						AttributeName: "apiKey",
 						KeyType: "HASH"
 					}
 				],
