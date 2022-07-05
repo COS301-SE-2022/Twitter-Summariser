@@ -212,7 +212,7 @@ export const shareReport = middyfy(
 		try {
 			const params = JSON.parse(event.body);
 
-			if (await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)) {
+			if (await ServicesLayer.permissionService.verifyOwner(params.reportID, params.apiKey)) {
 				const shareTo = await ServicesLayer.creatorService.getCreator(params.email);
 				if (shareTo !== undefined) {
 					await ServicesLayer.permissionService.addPermission({
@@ -300,7 +300,7 @@ export const publishReport = middyfy(
 			const params = JSON.parse(event.body);
 			let report;
 
-			if (await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)) {
+			if (await ServicesLayer.permissionService.verifyOwner(params.reportID, params.apiKey)) {
 				report = await ServicesLayer.reportService.updateReportStatus(
 					"PUBLISHED",
 					params.reportID
@@ -334,9 +334,9 @@ export const unpublishReport = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
 			const params = JSON.parse(event.body);
-			let result;
+			let result : any;
 
-			if (await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)) {
+			if (await ServicesLayer.permissionService.verifyOwner(params.reportID, params.apiKey)) {
 				result = await ServicesLayer.reportService.updateReportStatus(
 					"DRAFT",
 					params.reportID
@@ -386,30 +386,6 @@ export const addCustomTweet = middyfy(
 	}
 );
 
-// Deleting a result set
-export const deleteResultSet = middyfy(
-	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-		try {
-			const params = JSON.parse(event.body);
-			const result = await ServicesLayer.resultSetServices.deleteResultSet(
-				params.resultSetID
-			);
-
-			return {
-				statusCode: statusCodes.Successful,
-				headers: header,
-				body: JSON.stringify(result)
-			};
-		} catch (e) {
-			return {
-				statusCode: statusCodes.internalError,
-				headers: header,
-				body: JSON.stringify(e)
-			};
-		}
-	}
-);
-
 // Deleting a report
 export const deleteDraftReport = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
@@ -417,7 +393,7 @@ export const deleteDraftReport = middyfy(
 			const params = JSON.parse(event.body);
 			let report;
 
-			if (await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)) {
+			if (await ServicesLayer.permissionService.verifyOwner(params.reportID, params.apiKey)) {
 				report = await ServicesLayer.reportService.getReport(params.reportID);
 
 				if (report.status === "DRAFT") {
@@ -446,6 +422,29 @@ export const deleteDraftReport = middyfy(
 				statusCode: statusCodes.Successful,
 				headers: header,
 				body: JSON.stringify(report)
+			};
+		} catch (e) {
+			return {
+				statusCode: statusCodes.internalError,
+				headers: header,
+				body: JSON.stringify(e)
+			};
+		}
+	}
+);
+
+// get share report
+export const getSharedReports = middyfy(
+	async ( event: APIGatewayProxyEvent ): Promise<APIGatewayProxyResult> => {
+		try {
+			const params = JSON.parse(event.body);
+
+			const re = await ServicesLayer.reportService.getSharedReports(params.apiKey);
+
+			return {
+				statusCode: statusCodes.Successful,
+				headers: header,
+				body: JSON.stringify(re)
 			};
 		} catch (e) {
 			return {

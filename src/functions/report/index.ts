@@ -105,6 +105,21 @@ export const getReport = {
 	]
 };
 
+// retrevial of a shared report
+export const getSharedReport = {
+	handler: `${handlerPath(__dirname)}/handler.getSharedReport`,
+	description: "A function that returns reports shared to a user",
+	events: [
+		{
+			http: {
+				method: "post",
+				path: "getSharedReport/",
+				cors: true
+			}
+		}
+	]
+};
+
 // cloning of a report
 export const cloneReport = {
 	handler: `${handlerPath(__dirname)}/handler.cloneReport`,
@@ -129,21 +144,6 @@ export const addCustomTweet = {
 			http: {
 				method: "post",
 				path: "addCustomTweet/",
-				cors: true
-			}
-		}
-	]
-};
-
-// Deleting a result set
-export const deleteResultSet = {
-	handler: `${handlerPath(__dirname)}/handler.deleteResultSet`,
-	description: "A function that deletes a resultSet.",
-	events: [
-		{
-			http: {
-				method: "post",
-				path: "deleteResultSet/",
 				cors: true
 			}
 		}
