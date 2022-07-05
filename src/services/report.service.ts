@@ -181,8 +181,6 @@ export default class ReportService {
 		return result.Attributes as Report;
 	}
 
-	// get my reports
-
 	// verify owner of report
 	async verifyOwner(reportID: string, apiKey1: string): Promise<boolean> {
 		const report = this.getReportHelper(reportID);
