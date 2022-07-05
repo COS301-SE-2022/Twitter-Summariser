@@ -253,7 +253,7 @@ export const getReport = middyfy(
 		try {
 			const params = JSON.parse(event.body);
 
-			const report = await ServicesLayer.reportService.getReport(params.reportID);
+			let report = await ServicesLayer.reportService.getReportHelper(params.reportID);
 
 			if (
 				await ServicesLayer.permissionService.verifyReportRetr(
@@ -273,6 +273,8 @@ export const getReport = middyfy(
 				params.reportID,
 				params.apiKey
 			);
+
+			report = await ServicesLayer.reportService.getReport(params.reportID);
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
