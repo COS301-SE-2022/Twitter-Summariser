@@ -9,15 +9,6 @@ import "./index.css";
 // main Application component in which different page sub-components will be contained
 function App() {
 	// const navigate = useNavigate();
-	localStorage.setItem(
-		"endpointLink",
-		"https://3vdykbiva3.execute-api.us-east-1.amazonaws.com/dev/"
-	);
-
-	// localStorage.setItem(
-	// 	"endpointLink",
-	// 	"http://localhost:4000/dev/"
-	// );
 
 	// const [loginPage, setLoginPage] = useState(true);
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
