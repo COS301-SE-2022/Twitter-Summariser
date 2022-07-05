@@ -8,7 +8,6 @@ import reportWebVitals from "./reportWebVitals";
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
 root.render(<App />);
-
 // const cors = require("cors");
 // const corsOptions = {
 //   origin: "http://localhost:3000",

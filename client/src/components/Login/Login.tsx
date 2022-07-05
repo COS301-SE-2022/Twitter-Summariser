@@ -35,7 +35,12 @@ function Login(props: any) {
 
 	// ######################### API FOR LOGGING USERS IN ###############################################
 
-	const loginEndpoint = "https://3vdykbiva3.execute-api.us-east-1.amazonaws.com/dev/login";
+	const endpointLink = String(localStorage.getItem("endpointLink"));
+	let loginEndpoint = endpointLink;
+	loginEndpoint += "login";
+
+	// using localhost
+	// const loginEndpoint = "http://localhost:4000/dev/login";
 
 	const checkCredentials = (userCredentials: any) => {
 		const requestOptions = {

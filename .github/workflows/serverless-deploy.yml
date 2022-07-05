@@ -8,7 +8,11 @@ on:
       - closed
 
 jobs:
+  use-build:
+    uses: COS301-SE-2022/Twitter-Summariser/.github/workflows/build.yml@develop
+
   Serverless-Deploy:
+    needs: use-build
     if: ${{ github.event.pull_request.merged }}
     runs-on: ubuntu-latest
 
@@ -16,21 +20,14 @@ jobs:
       - name: Checkout to develop branch
         uses: actions/checkout@v2
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - name: Download the Twitter Summariser artifact
+        uses: actions/download-artifact@master
         with:
-          node-version: "14.x"
+          name: twitter-summariser-build
+          path: client/build
 
       - name: Install package dependencies for backend
         run: yarn
-
-      - name: Install package dependencies for the React App and build it
-        run: |
-          cd client
-          yarn
-          yarn lint:fix
-          CI=false yarn run build
-          yarn format
 
       - name: Serverless deploy
         uses: serverless/github-action@v3

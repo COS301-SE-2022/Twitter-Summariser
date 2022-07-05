@@ -9,8 +9,12 @@ function Drafts() {
 
 	// ######################### API FOR GETTING HISTORY #####################
 
-	const getAllMyReportsEndpoint =
-		"https://xprnnqlwwi.execute-api.us-east-1.amazonaws.com/dev/getAllMyReports";
+	const endpointLink = String(localStorage.getItem("endpointLink"));
+	let getAllMyDraftReportsEndpoint = endpointLink;
+	getAllMyDraftReportsEndpoint += "getAllMyReports";
+
+	// using localhost
+	// const getAllMyDraftReportsEndpoint = "http://localhost:4000/dev/getAllMyReports";
 
 	const getHistory = async () => {
 		const apiData = {
@@ -22,7 +26,7 @@ function Drafts() {
 			body: JSON.stringify(apiData)
 		};
 
-		fetch(getAllMyReportsEndpoint, requestOptions)
+		fetch(getAllMyDraftReportsEndpoint, requestOptions)
 			.then(async (response) => {
 				const isJson = response.headers.get("content-type")?.includes("application/json");
 

@@ -1,6 +1,7 @@
 name: "Twitter Summariser CI"
 
 on:
+  workflow_call:
   pull_request:
     types: [opened, reopened, labeled, synchronize]
 
@@ -8,6 +9,7 @@ jobs:
   milestone-check:
     name: Checks if milestone is used
     runs-on: ubuntu-latest
+
     steps:
       - name: Has milestone check
         if: github.event.pull_request.milestone == null
@@ -18,6 +20,7 @@ jobs:
   label-check:
     name: Checks if labels are used
     runs-on: ubuntu-latest
+
     steps:
       - name: Has atleast one priority label
         uses: mheap/github-action-required-labels@v1
@@ -55,10 +58,13 @@ jobs:
           labels: "scope:ai, scope:cicd, scope:github-repo, scope:db, scope:frontend,scope:backend"
 
   changes:
+    name: Check if any frontend and backend files have been changed
     runs-on: ubuntu-latest
+
     outputs:
       frontend: ${{ steps.filter.outputs.frontend }}
       backend: ${{ steps.filter.outputs.backend }}
+
     steps:
       - uses: dorny/paths-filter@v2
         id: filter
@@ -74,8 +80,35 @@ jobs:
             frontend:
               - 'client/**'
 
+  lint-and-format:
+    name: Attempt to lints and format all code in the repository
+    needs:  changes
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout to develop branch
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14.x"
+
+      - name: Install all backend package dependencies
+        run:  |
+          yarn
+          cd client
+          yarn
+
+      - name: Run the linter and attempt to fix errors
+        run: yarn lint:fix
+
+      - name: Run Prettier and fomat the code
+        run:  yarn format
+
   frontend:
-    needs: changes
+    name: Testing and building of frontend
+    needs: lint-and-format
     if: ${{ needs.changes.outputs.frontend == 'true' }}
     runs-on: ubuntu-latest
     defaults:
@@ -91,20 +124,24 @@ jobs:
         with:
           node-version: "14.x"
 
-      - name: Install all package dependencies
-        run: yarn
-
-      - name: Build the React App
-        run: |
-          yarn lint:fix
-          CI=false yarn run build
-          yarn format
+      - name: Install all frontend package dependencies
+        run:  yarn
 
       - name: Run frontend tests
-        run: yarn test --watchAll=false
+        run:  yarn test
+
+      - name: Build the React App
+        run:  yarn run build
+
+      - name: Upload build folder as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: twitter-summariser-build
+          path: client/build/
 
   backend:
-    needs: changes
+    name: Testing of backend
+    needs: lint-and-format
     if: ${{ needs.changes.outputs.backend == 'true' }}
     runs-on: ubuntu-latest
 
@@ -117,8 +154,45 @@ jobs:
         with:
           node-version: "14.x"
 
-      - name: Install all package dependencies
+      - name: Install all backend package dependencies
         run: yarn
 
       - name: Run the tests
         run: yarn test
+
+  Serverless-Deploy:
+    # needs: use-build
+    if: ${{ github.event.pull_request.merged }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout to develop branch
+        uses: actions/checkout@v2
+
+      - name: Download the Twitter Summariser artifact
+        uses: actions/download-artifact@master
+        with:
+          name: twitter-summariser-build
+          path: client/build
+
+      - name: Install package dependencies for backend
+        run: yarn
+
+      - name: Serverless deploy
+        uses: serverless/github-action@v3
+        with:
+          args: deploy
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Invalidating Cloudfrount Cache
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-east-1
+        run: |
+          npm i -g aws-cli
+          npm i -g aws-sdk
+          npm i @aws-cdk/aws-cloudfront
+          aws cloudfront create-invalidation --distribution-id E39QEC4D07PM46 --paths "/*" 
