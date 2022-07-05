@@ -8,11 +8,7 @@ on:
       - closed
 
 jobs:
-  use-build:
-    uses: COS301-SE-2022/Twitter-Summariser/.github/workflows/build.yml@develop
-
   Serverless-Deploy:
-    needs: use-build
     if: ${{ github.event.pull_request.merged }}
     runs-on: ubuntu-latest
 
@@ -21,8 +17,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Download the Twitter Summariser artifact
-        uses: actions/download-artifact@master
+        uses: dawidd6/action-download-artifact@v2
         with:
+          workflow: build.yml
           name: twitter-summariser-build
           path: client/build
 
