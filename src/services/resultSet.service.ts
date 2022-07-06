@@ -54,8 +54,8 @@ export default class ResultSetService {
 			.delete({
 				TableName: this.TableName,
 				Key: {
-					"id": id,
-					"apiKey": key
+					id,
+					apiKey: key
 				}
 			})
 			.promise();

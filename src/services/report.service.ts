@@ -136,19 +136,21 @@ export default class ReportService {
 	}
 
 	async getPublishedReports(key: string): Promise<Report[]> {
-		const result = await this.docClient.query({
-			TableName: this.TableName,
-			IndexName: "reportIndex",
-			KeyConditionExpression: "apiKey = :apiKey",
-			FilterExpression: "#status = :status",
-			ExpressionAttributeValues: {
-				":apiKey": key,
-				":status": "PUBLISHED"
-			},
-			ExpressionAttributeNames: {
-				"#status": "status"
-			}
-		}).promise();
+		const result = await this.docClient
+			.query({
+				TableName: this.TableName,
+				IndexName: "reportIndex",
+				KeyConditionExpression: "apiKey = :apiKey",
+				FilterExpression: "#status = :status",
+				ExpressionAttributeValues: {
+					":apiKey": key,
+					":status": "PUBLISHED"
+				},
+				ExpressionAttributeNames: {
+					"#status": "status"
+				}
+			})
+			.promise();
 
 		return result.Items as Report[];
 	}
@@ -204,12 +206,11 @@ export default class ReportService {
 
 	// update Report
 	async updateReportStatus(status: string, reportID: string) {
-	
 		await this.docClient
 			.update({
 				TableName: this.TableName,
-				Key: { 
-					"reportID": reportID 
+				Key: {
+					reportID
 				},
 				UpdateExpression: "SET #status = :status",
 				ExpressionAttributeNames: {
@@ -220,7 +221,6 @@ export default class ReportService {
 				}
 			})
 			.promise();
-		
 	}
 
 	async deleteReport(id: string) {
@@ -228,10 +228,9 @@ export default class ReportService {
 			.delete({
 				TableName: this.TableName,
 				Key: {
-					reportID: id,
+					reportID: id
 				}
 			})
 			.promise();
 	}
-
 }
