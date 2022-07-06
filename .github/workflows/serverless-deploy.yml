@@ -13,16 +13,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout to develop branch
+      - name: Checkout to develop/master branch
         uses: actions/checkout@v2
 
-      - name: Download the Twitter Summariser artifact
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          workflow: build.yml
-          name: client-artifacts
-          path: client/build
-
+      - name: Build the client
+        run:  |
+          cd client
+          yarn
+          CI=false yarn run build
+    
       - name: Install package dependencies for backend
         run: yarn
 
