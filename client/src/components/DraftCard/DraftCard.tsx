@@ -5,7 +5,7 @@ import { MdDeleteOutline } from "react-icons/md";
 import link from "../../resources/links.json";
 
 function DraftCard(props: any) {
-		// console.log(props);
+	// console.log(props);
 
 	const viewGenReport = () => {
 		if (localStorage.getItem("draftReportId")) {
@@ -29,7 +29,7 @@ function DraftCard(props: any) {
 		deleteDraft(resultDetails);
 	};
 
-			// ######################### API FOR DELETING RESULT SET ###############################################
+	// ######################### API FOR DELETING RESULT SET ###############################################
 
 	let deleteDraftEndpoint = String(link.endpointLink);
 	deleteDraftEndpoint += "deleteDraftReport";
@@ -53,15 +53,10 @@ function DraftCard(props: any) {
 					return;
 				}
 			})
-			.catch(() => {
-			});
+			.catch(() => {});
 	};
 
-
 	// #######################################################################
-
-
-
 
 	return (
 		<div>
@@ -93,7 +88,6 @@ function DraftCard(props: any) {
 						<MdDeleteOutline style={iconStyle3} />
 					</div>
 				</button>
-
 			</div>
 		</div>
 	);

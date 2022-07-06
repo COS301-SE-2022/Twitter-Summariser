@@ -34,8 +34,6 @@ function Drafts() {
 
 				const data = isJson && (await response.json());
 
-
-
 				changeDraft(await data);
 				// console.log(data[0].status);
 
@@ -53,19 +51,18 @@ function Drafts() {
 
 	// #######################################################################
 
-
 	//EXTRACTING REQUIRED DATA
-	let newDraft = draft.filter(function(data){
-		return data.status === "DRAFT";
-	}).map(function(data){
-		return data;
-	})
+	let newDraft = draft
+		.filter(function (data) {
+			return data.status === "DRAFT";
+		})
+		.map(function (data) {
+			return data;
+		});
 
 	// if(newDraft.length !== 0){
 	// 	console.log("new draft is not empty");
 	// }
-
-
 
 	return (
 		<div>

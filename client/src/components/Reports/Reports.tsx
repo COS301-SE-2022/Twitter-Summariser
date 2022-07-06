@@ -7,7 +7,7 @@ import ReportCard from "../ReportCard/ReportCard";
 import link from "../../resources/links.json";
 
 function Reports() {
-		const [report, changeReport] = useState<any[]>([]);
+	const [report, changeReport] = useState<any[]>([]);
 
 	// localStorage.removeItem("resultSetId");
 	// localStorage.removeItem("draftReportId");
@@ -53,11 +53,13 @@ function Reports() {
 	// #######################################################################
 
 	//EXTRACTING REQUIRED DATA
-	let newReport = report.filter(function(data){
-		return data.status !== "DRAFT";
-	}).map(function(data){
-		return data;
-	})
+	let newReport = report
+		.filter(function (data) {
+			return data.status !== "DRAFT";
+		})
+		.map(function (data) {
+			return data;
+		});
 
 	// if(newReport.length === 0){
 	// 	console.log("new report is empty");
@@ -71,7 +73,10 @@ function Reports() {
 					<h1 className="text-3xl">My Reports</h1>
 
 					<div className="mt-4 flex flex-row flex-wrap justify-center">
-						<div data-testid="reports" className="mt-4 flex flex-row flex-wrap justify-center">
+						<div
+							data-testid="reports"
+							className="mt-4 flex flex-row flex-wrap justify-center"
+						>
 							{newReport.map((data) => (
 								<div
 									className="m-4 w-auto h-auto bg-gray-400 hover:bg-gray-300 rounded-md flex flex-col p-2"
@@ -86,7 +91,6 @@ function Reports() {
 			</div>
 		</div>
 	);
-
 
 	// const [enteredSearch, changeEnteredSearch] = useState("");
 
@@ -104,19 +108,19 @@ function Reports() {
 	// 					data-testid="search"
 	// 					type="search"
 	// 					className="
-  //               nosubmit
-  //               w-full
-  //               px-3
-  //               py-1.5
-  //               text-lg
-  //               font-normal
-  //               text-gray-700
-  //               bg-clip-padding
-  //               border border-solid border-gray-300
-  //               rounded-lg
-  //               focus:text-gray-700 focus:bg-white focus:border-twitter-blue focus:outline-none
-  //               bg-gray-200
-  //             "
+	//               nosubmit
+	//               w-full
+	//               px-3
+	//               py-1.5
+	//               text-lg
+	//               font-normal
+	//               text-gray-700
+	//               bg-clip-padding
+	//               border border-solid border-gray-300
+	//               rounded-lg
+	//               focus:text-gray-700 focus:bg-white focus:border-twitter-blue focus:outline-none
+	//               bg-gray-200
+	//             "
 	// 					value={enteredSearch}
 	// 					onChange={searchHandler}
 	// 					placeholder="search your published report..."

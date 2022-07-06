@@ -2,7 +2,7 @@ import { DocumentClient } from "aws-sdk/clients/dynamodb";
 import Permission from "@model/permission/permissions.model";
 
 export default class PermissionService {
-    private TableName = "PermissionTable";
+	private TableName = "PermissionTable";
 
 	constructor(private docClient: DocumentClient) {}
 
@@ -41,7 +41,7 @@ export default class PermissionService {
 	async verifyEditor(reportID: string, apiKey: string): Promise<boolean> {
 		const per = await this.getPermission(reportID, apiKey);
 
-		return (per.type==='OWNER' || per.type==='EDITOR');
+		return per.type === "OWNER" || per.type === "EDITOR";
 	}
 
 	async getPermissions(key: string): Promise<Permission[]> {
@@ -63,7 +63,7 @@ export default class PermissionService {
 	async verifyOwner(reportID: string, apiKey: string): Promise<boolean> {
 		const per = await this.getPermission(reportID, apiKey);
 
-		return (per.type==='OWNER');
+		return per.type === "OWNER";
 	}
 
 	async updatePermission(id: string, key: string, perm: string): Promise<Permission> {
