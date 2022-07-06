@@ -389,25 +389,15 @@ export const deleteReport = middyfy(
 			const params = JSON.parse(event.body);
 
 			if (await ServicesLayer.permissionService.verifyOwner(params.reportID, params.apiKey)) {
-				const report = await ServicesLayer.reportService.getReportHelper(params.reportID);
-
-				if (report.status === "DRAFT") {
 					await ServicesLayer.reportService.updateReportStatus(
 						"DELETED",
 						params.reportID
 					);
-				} else {
-					return {
-						statusCode: statusCodes.forbidden,
-						headers: header,
-						body: JSON.stringify("Only a draft report can be deleted")
-					};
-				}
 			} else {
 				return {
 					statusCode: statusCodes.unauthorized,
 					headers: header,
-					body: JSON.stringify("Only owner can delete a draft report")
+					body: JSON.stringify("Only owner can delete a report")
 				};
 			}
 
