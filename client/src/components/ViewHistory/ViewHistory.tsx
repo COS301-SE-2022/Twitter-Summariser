@@ -128,7 +128,7 @@ function ViewHistory() {
 
     tweets.map((data) =>
         apiResponse.push(
-            <div className=" w-full border border-gray-200 p-3" key={data.position}>
+            <div className=" w-full border border-gray-200 p-3" key={data.reportID}>
                 <Tweet
                     options={{ align: "center", width: "" }}
                     tweetId={data.tweetId}
