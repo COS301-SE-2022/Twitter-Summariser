@@ -14,11 +14,8 @@ function Reports() {
 
 	// ######################### API FOR GETTING HISTORY #####################
 
-	let getAllMyReportsEndpoint =
-		process.env.NODE_ENV === "development"
-			? String(link.localhostLink)
-			: String(link.serverLink);
-	getAllMyReportsEndpoint += "getAllMyReports";
+    let getAllMyReportsEndpoint = process.env.NODE_ENV === 'development' ? String(link.localhostLink) : String(link.serverLink);
+    getAllMyReportsEndpoint += "getAllMyPublishedReports";
 
 	// using localhost
 	// const getAllMyDraftReportsEndpoint = "http://localhost:4000/dev/getAllMyReports";
@@ -55,18 +52,19 @@ function Reports() {
 
 	// #######################################################################
 
-	//EXTRACTING REQUIRED DATA
-	let newReport = report
-		.filter(function (data) {
-			return data.status !== "DRAFT";
-		})
-		.map(function (data) {
-			return data;
-		});
+    //EXTRACTING REQUIRED DATA
+    // let newReport = report.filter(function (data) {
+    //     return data.status === "DRAFT";
+    // }).map(function (data) {
+    //     return data;
+    // })
 
-	// if(newReport.length === 0){
-	// 	console.log("new report is empty");
-	// }
+    // console.log(report);
+
+
+    // if(newReport.length === 0){
+    // 	console.log("new report is empty");
+    // }
 
 	return (
 		<div data-testid="report">
@@ -80,7 +78,7 @@ function Reports() {
 							data-testid="reports"
 							className="mt-4 flex flex-row flex-wrap justify-center"
 						>
-							{newReport.map((data) => (
+							{report.map((data) => (
 								<div
 									className="m-4 w-auto h-auto bg-gray-400 hover:bg-gray-300 rounded-md flex flex-col p-2"
 									key={data.reportID}

@@ -21,7 +21,7 @@ function Explore() {
         const apiData = {}; //empty json
 
         const requestOptions = {
-            method: "GET",
+            method: "POST",
             body: JSON.stringify(apiData)
         };
 
@@ -48,9 +48,9 @@ function Explore() {
     // #######################################################################
 
 
-		// if(report.length === 0){
-		// 	console.log("empty array");
-		// }
+		//if(report.length === 0){
+		//	console.log("empty array");
+		//}
 
 	return (
 		 <div data-testid="report">
