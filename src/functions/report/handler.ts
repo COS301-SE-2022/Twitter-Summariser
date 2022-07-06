@@ -332,14 +332,12 @@ export const unpublishReport = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
 			const params = JSON.parse(event.body);
-			let result : any;
 
 			if (await ServicesLayer.permissionService.verifyOwner(params.reportID, params.apiKey)) {
-				result = await ServicesLayer.reportService.updateReportStatus(
+				await ServicesLayer.reportService.updateReportStatus(
 					"DRAFT",
 					params.reportID
 				);
-				delete result.apiKey;
 			} else {
 				return {
 					statusCode: statusCodes.unauthorized,
@@ -349,9 +347,9 @@ export const unpublishReport = middyfy(
 			}
 
 			return {
-				statusCode: statusCodes.Successful,
+				statusCode: statusCodes.no_content,
 				headers: header,
-				body: JSON.stringify(result)
+				body: JSON.stringify('')
 			};
 		} catch (e) {
 			return {
