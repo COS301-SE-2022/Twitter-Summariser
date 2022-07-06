@@ -135,6 +135,24 @@ export default class ReportService {
 		return result.Items as Report[];
 	}
 
+	async getPublishedReports(key: string): Promise<Report[]> {
+		const result = await this.docClient.query({
+			TableName: this.TableName,
+			IndexName: "reportIndex",
+			KeyConditionExpression: "apiKey = :apiKey",
+			FilterExpression: "#status = :status",
+			ExpressionAttributeValues: {
+				":apiKey": key,
+				":status": "PUBLISHED"
+			},
+			ExpressionAttributeNames: {
+				"#status": "status"
+			}
+		}).promise();
+
+		return result.Items as Report[];
+	}
+
 	async getAllPublishedReports(): Promise<Report[]> {
 		const result = await this.docClient
 			.query({
