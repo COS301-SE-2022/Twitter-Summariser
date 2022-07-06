@@ -32,6 +32,9 @@ jobs:
           name: backend-artifact
           path: coverage
 
+      - name: Install glob dependency
+        run:  yarn add -D glob
+
       - name: Merge the coverage reports
         run: node tools/scripts/merge-reports.js
 
