@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { MdDeleteOutline } from "react-icons/md";
+import Report from "../../resources/Report.png";
 
 // importing link
 import link from "../../resources/links.json";
@@ -64,36 +65,26 @@ function DraftCard(props: any) {
 
 
     return (
-        <div>
-            <div className="m-4 w-auto h-20 rounded-md flex flex-row justify-between items-center p-2">
-                <div className="">
-                    <div className="">
-                        <Link to="/genReport">
+        <div className="p-4 w-full text-center bg-white  border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+            <h1 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white">{props.data.title}</h1>
+            <br></br>
+            <p className="mb-5 text-base text-gray-500 sm:text-lg dark:text-gray-400">Author: {props.data.author}</p>
+            <p className="mb-5 text-base text-gray-500 sm:text-lg dark:text-gray-400">Date: {props.data.dateCreated.substring(0, 16)}</p>
+            <div className="justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
+                <Link to="/genReport">
+                    <a href="#" className="w-full sm:w-auto bg-gray-800 hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-400 dark:focus:ring-gray-700">
+                        <div className="text-left">
                             <button data-testid="btn-report" type="submit" onClick={viewGenReport}>
-                                <p className="font-bold">{props.data.title}</p>
+                                <p className="font-bold">VIEW REPORT</p>
                             </button>
-                        </Link>
-                    </div>
-                    <div className="mt-2">
-                        <p className="italic text-xs">Author: {props.data.author}</p>
-                    </div>
-                    <div className="">
-                        <p className="italic text-xs">
-                            Created on: {props.data.dateCreated.substring(0, 16)}
-                        </p>
-                    </div>
-                </div>
-
-                <button type="button" onClick={deleteDraftHandler}>
-                    <div
-                        className=" pl-4 flex flex-row justify-center items-center"
-                        data-bs-toggle="tooltip"
-                        title="Delete History"
-                    >
-                        <MdDeleteOutline style={iconStyle3} />
-                    </div>
-                </button>
-
+                        </div>
+                    </a>
+                </Link>
+                <a className="w-full sm:w-auto bg-gray-800 hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-400 dark:focus:ring-gray-700">
+                    <button data-testid="btn-report" type="submit" onClick={deleteDraftHandler}>
+                        <p className="font-bold">DELETE REPORT</p>
+                    </button>
+                </a>
             </div>
         </div>
     );
