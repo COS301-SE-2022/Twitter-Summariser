@@ -394,7 +394,7 @@ export const deleteReport = middyfy(
 			let report;
 
 			if (await ServicesLayer.permissionService.verifyOwner(params.reportID, params.apiKey)) {
-				report = await ServicesLayer.reportService.getReport(params.reportID);
+				report = await ServicesLayer.reportService.getReportHelper(params.reportID);
 
 				if (report.status === "DRAFT") {
 					report = await ServicesLayer.reportService.updateReportStatus(

@@ -1,7 +1,12 @@
 // import { Tweet } from 'react-twitter-widgets';
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { useState } from "react";
-import Tweet from "../Tweet/Tweet";
+// import Tweet from "../Tweet/Tweet";
+import { Link } from "react-router-dom";
+import { Tweet } from "react-twitter-widgets";
+
+// importing link
+import link from "../../resources/links.json";
 
 // importing mock data
 import Text from "../Text/Text";
@@ -24,18 +29,19 @@ function GenReport() {
 
 	// ################ API FOR GETTING REPORT ###########################
 
-	const endpointLink = String(localStorage.getItem("endpointLink"));
-	let getReportEndpoint = endpointLink;
+	let getReportEndpoint = String(link.endpointLink);
 	getReportEndpoint += "getReport";
 
 	// using localhost
 	// const getReportEndpoint = "http://localhost:4000/dev/getReport";
 
+	let requiredData: { apiKey: string | null; reportID: string | null };
+
 	const getRep = async () => {
 		// POST request using fetch with error handling
 
 		// if (generate === 1) {
-		const requiredData = {
+		requiredData = {
 			apiKey: localStorage.getItem("loggedUserApi"),
 			reportID: localStorage.getItem("draftReportId")
 		};
@@ -79,57 +85,82 @@ function GenReport() {
 	getRep();
 	// ###################################################################
 
-	// console.log("generate is " + generate);
+	// ######################### API FOR PUBLISHING REPORT ###############################################
+
+	let publishEndpoint = String(link.endpointLink);
+	publishEndpoint += "publishReport";
+
+	const publishReport = (resultInfo: any) => {
+		const requestOptions = {
+			method: "POST",
+			body: JSON.stringify(resultInfo)
+		};
+
+		fetch(publishEndpoint, requestOptions).then(async (response) => {
+			const isJson = response.headers.get("content-type")?.includes("application/json");
+
+			isJson && (await response.json());
+		});
+	};
+
+	// #######################################################################
+
+	const publishHandler = (event: any) => {
+		event.preventDefault();
+
+		publishReport(requiredData);
+	};
 
 	// processing api response
 	const apiResponse = [<div key="begining div" />];
 
-	// let textPosition = -1;
-	// console.log(state);
-
-	// const increment = () => {
-	//   textPosition++;
-
-	//   return textPosition;
-	// };
-
-	// console.log("Size of the given array is " + state.length);
-	// console.log(state);
-
 	state.map((data: any, index: number) =>
 		apiResponse.push(
-			<div key={data.position}>
-				{data.blockType === "RICHTEXT" && <Text keyValue={index} data={data} />}
+			<div className="" key={data.position}>
+				{data.blockType === "RICHTEXT" && (
+					<div className="">
+						{" "}
+						<Text keyValue={index} data={data} />{" "}
+					</div>
+				)}
 
-				{data.blockType === "TWEET" && <Tweet data={data} />}
+				{data.blockType === "TWEET" && (
+					<div className=" w-full border border-gray-200 p-3" key={data.position}>
+						<Tweet
+							options={{ align: "center", width: "" }}
+							tweetId={data.block.tweetId}
+						/>
+					</div>
+				)}
 			</div>
 		)
 	);
 
-	// console.log("Total content is " + textPosition);
-	// textPosition = 0;
-
 	return (
-		<div className="mt-16 p-4">
-			<h1 className="text-3xl font-bold">{title}</h1>
-			<br />
-			<h2 className="italic font-bold">Created By: {author}</h2>
-			<h3 className="italic text-xs">Date Created: {date}</h3>
-			<br />
-
-			<div className="grid grid-cols gap-4 content-center">
-				{apiResponse}
-				{/* <Text position={(textPosition += 1)} /> */}
+		<div className="mt-16 ">
+			<div className="p-4">
+				<h1 className="text-3xl font-bold">{title}</h1>
+				<br />
+				<h2 className="italic font-bold">Created By: {author}</h2>
+				<h3 className="italic text-xs">Date Created: {date}</h3>
 			</div>
 
-			<Link
-				to="/"
-				type="submit"
-				className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded button"
-			>
-				{" "}
-				PUBLISH REPORT
-			</Link>
+			<br />
+
+			<div className="grid grid-cols gap-4 content-center">{apiResponse}</div>
+
+			<div className="flex justify-center mb-4">
+				<Link to="/getPublishedReport">
+					<button
+						onClick={publishHandler}
+						type="submit"
+						className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded button text-center"
+					>
+						{" "}
+						PUBLISH REPORT
+					</button>
+				</Link>
+			</div>
 		</div>
 	);
 }

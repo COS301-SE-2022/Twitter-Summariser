@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import { MdDeleteOutline } from "react-icons/md";
 
+// importing link
+import link from "../../resources/links.json";
+
 function HistoryCard(props: any) {
 	// console.log(props.data);
 
@@ -11,9 +14,40 @@ function HistoryCard(props: any) {
 		localStorage.setItem("resultSetId", props.data.id);
 	};
 
+	// ######################### API FOR DELETING RESULT SET ###############################################
+
+	let deleteResultSetEndpoint = String(link.endpointLink);
+	deleteResultSetEndpoint += "deleteResultSet";
+
+	const deleteResult = (resultInfo: any) => {
+		const requestOptions = {
+			method: "POST",
+			body: JSON.stringify(resultInfo)
+		};
+
+		fetch(deleteResultSetEndpoint, requestOptions).then(async (response) => {
+			const isJson = response.headers.get("content-type")?.includes("application/json");
+
+			isJson && (await response.json());
+		});
+	};
+
+	// #######################################################################
+
+	const deleteHandler = (event: any) => {
+		event.preventDefault();
+
+		const resultDetails = {
+			resultSetID: props.data.id,
+			apiKey: props.data.apiKey
+		};
+
+		deleteResult(resultDetails);
+	};
+
 	return (
-		<div>
-			<div className="flex flex-row justify-between items-center">
+		<div className="">
+			<div className="m-4 w-auto h-20 p-2 flex flex-row justify-between items-center">
 				<div className="">
 					<div className="">
 						<Link to="/viewHistory">
@@ -33,9 +67,11 @@ function HistoryCard(props: any) {
 					</div>
 				</div>
 
-				<div className=" ml-2" data-bs-toggle="tooltip" title="Delete History">
-					<MdDeleteOutline style={iconStyle3} />
-				</div>
+				<button type="button" onClick={deleteHandler}>
+					<div className=" ml-2" data-bs-toggle="tooltip" title="Delete History">
+						<MdDeleteOutline style={iconStyle3} />
+					</div>
+				</button>
 			</div>
 		</div>
 	);

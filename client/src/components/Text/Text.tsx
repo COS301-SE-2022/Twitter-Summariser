@@ -3,8 +3,11 @@ import { BsJustify } from "react-icons/bs";
 import { AiOutlineFontSize, AiFillEdit } from "react-icons/ai";
 import { IoColorPaletteOutline } from "react-icons/io5";
 import { MdDeleteOutline } from "react-icons/md";
-import { GrTextAlignCenter, GrTextAlignLeft, GrTextAlignRight } from "react-icons/gr";
+import { GrTextAlignCenter, GrTextAlignLeft, GrTextAlignRight, GrAdd } from "react-icons/gr";
 import { useState } from "react";
+
+// importing link
+import link from "../../resources/links.json";
 
 function Text(props: any) {
 	const textPos = props.data.position;
@@ -81,7 +84,7 @@ function Text(props: any) {
 		setColor(event.target.value);
 	};
 
-	const style = `w-full h-24 mt-2 p-2${italic}${bold}${color}${size}${align}`;
+	const style = `border border-gray-300 w-full h-24 mt-2 p-2${italic}${bold}${color}${size}${align}`;
 
 	const iconStyle = { fontSize: "1.2rem" };
 	const iconStyle2 = { fontSize: "1rem" };
@@ -107,8 +110,7 @@ function Text(props: any) {
 
 	// ######################### API FOR EDITING TEXT ###############################################
 
-	const endpointLink = String(localStorage.getItem("endpointLink"));
-	let textEndpoint = endpointLink;
+	let textEndpoint = String(link.endpointLink);
 	textEndpoint += "editBlock";
 
 	// using localhost
@@ -213,7 +215,11 @@ function Text(props: any) {
 					{!secondEditor && <div className={style2}>{props.data.block.text.trim()}</div>}
 
 					{!secondEditor && (
-						<div className="flex justify-center align-middle mt-0 mb-5">
+						<div
+							className="flex justify-center align-middle mt-0 mb-5"
+							data-bs-toggle="tooltip"
+							title="Update Text"
+						>
 							<button type="button" onClick={() => secondTextEditorHandler()}>
 								<AiFillEdit style={iconStyle} />
 							</button>
@@ -421,29 +427,46 @@ function Text(props: any) {
 							</div>
 
 							<div className="flex flex-row items-center">
-								<div className="w-5/6">
+								<div className="w-full">
 									<textarea className={style} onChange={textHandler} />
 								</div>
 
-								<div className="w-1/6 flex text-center justify-center">
+								{/* <div className="w-1/6 flex text-center justify-center">
 									<button type="button" onClick={textEditorHandler}>
 										<MdDeleteOutline style={iconStyle3} />
 									</button>
-								</div>
+								</div> */}
 							</div>
 
-							<button type="submit" onClick={update} className="mt-2">
-								Update
-							</button>
+							<div className="flex flex-row justify-center mb-2">
+								<button
+									type="submit"
+									onClick={textEditorHandler}
+									className="m-2 pl-2 pr-2 h-auto w-1/4 border border-gray-200 rounded-md hover:bg-gray-100"
+								>
+									cancel
+								</button>
+								<button
+									type="submit"
+									onClick={update}
+									className="m-2 p-2 h-auto w-1/5 bg-twitter-color rounded-md text-white hover:bg-twitter-color-hover"
+								>
+									Update
+								</button>
+							</div>
 							<br />
 						</div>
 					)}
 
 					{!editor && (
 						<div className="flex flex-col mt-5 mb-5">
-							<div className="flex justify-center align-middle">
+							<div
+								className="flex justify-center align-middle"
+								data-bs-toggle="tooltip"
+								title="Add text"
+							>
 								<button type="button" onClick={textEditorHandler}>
-									<AiFillEdit style={iconStyle} />
+									<GrAdd style={iconStyle} />
 								</button>
 							</div>
 						</div>

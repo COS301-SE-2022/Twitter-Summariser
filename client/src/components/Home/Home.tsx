@@ -2,7 +2,10 @@ import { useState } from "react";
 // import Tweet from "../Tweet/Tweet";
 import { Link } from "react-router-dom";
 // import HomeTweet from "../HomeTweet/HomeTweet";
-import { Tweet } from 'react-twitter-widgets'
+import { Tweet } from "react-twitter-widgets";
+
+// importing link
+import link from "../../resources/links.json";
 
 function Home() {
 	// ################ all related to the search ############################
@@ -24,8 +27,7 @@ function Home() {
 
 	// ################ API FOR GENERATE REPORT ###########################
 
-	const endpointLink = String(localStorage.getItem("endpointLink"));
-	let genReportEndpoint = endpointLink;
+	let genReportEndpoint = String(link.endpointLink);
 	genReportEndpoint += "generateReport";
 
 	// using localhost
@@ -93,7 +95,7 @@ function Home() {
 
 	// ######################### API FOR SEARCHING ###############################################
 
-	let searchEndpoint = endpointLink;
+	let searchEndpoint = String(link.endpointLink);
 	searchEndpoint += "searchTweets";
 
 	// using localhost
@@ -162,8 +164,8 @@ function Home() {
 				// <div key={data.tweetId}>
 				// 	<HomeTweet tweetData={data} />
 				// </div>
-				<div className=" w-full border-l border-gray-200 flex flex-col p-3 items-center" key={data.tweetId}  >
-					<Tweet tweetId = {data.tweetId} />
+				<div className=" w-full border border-gray-200 p-3" key={data.tweetId}>
+					<Tweet options={{ align: "center", width: "" }} tweetId={data.tweetId} />
 				</div>
 			)
 	);

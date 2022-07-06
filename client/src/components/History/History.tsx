@@ -1,6 +1,9 @@
 import { useState } from "react";
 import HistoryCard from "../HistoryCard/HistoryCard";
 
+// importing link
+import link from "../../resources/links.json";
+
 function History() {
 	// localStorage.removeItem("resultSetId");
 	// localStorage.removeItem("draftReportId");
@@ -9,8 +12,7 @@ function History() {
 
 	// ######################### API FOR GETTING HISTORY #####################
 
-	const endpointLink = String(localStorage.getItem("endpointLink"));
-	let getAllResultSetEndpoint = endpointLink;
+	let getAllResultSetEndpoint = String(link.endpointLink);
 	getAllResultSetEndpoint += "getAllResultSet";
 
 	// using localhost
@@ -59,8 +61,8 @@ function History() {
 						<div className="mt-4 flex flex-row flex-wrap justify-center">
 							{history.map((data) => (
 								<div
-									className="m-4 w-auto h-auto bg-gray-400 rounded-md flex flex-col p-2"
-									key={data}
+									className="m-4 w-auto h-auto bg-gray-400 hover:bg-gray-300 rounded-md flex flex-col p-2"
+									key={data.id}
 								>
 									<HistoryCard data={data} />
 								</div>

@@ -1,6 +1,9 @@
 import { useState } from "react";
 import DraftCard from "../DraftCard/DraftCard";
 
+// importing link
+import link from "../../resources/links.json";
+
 function Drafts() {
 	const [draft, changeDraft] = useState<any[]>([]);
 
@@ -9,8 +12,7 @@ function Drafts() {
 
 	// ######################### API FOR GETTING HISTORY #####################
 
-	const endpointLink = String(localStorage.getItem("endpointLink"));
-	let getAllMyDraftReportsEndpoint = endpointLink;
+	let getAllMyDraftReportsEndpoint = String(link.endpointLink);
 	getAllMyDraftReportsEndpoint += "getAllMyReports";
 
 	// using localhost
@@ -59,8 +61,8 @@ function Drafts() {
 						<div className="mt-4 flex flex-row flex-wrap justify-center">
 							{draft.map((data) => (
 								<div
-									className="m-4 w-auto h-auto bg-gray-400 rounded-md flex flex-col p-2"
-									key={data}
+									className="m-4 w-auto h-auto bg-gray-400 hover:bg-gray-300 rounded-md flex flex-col p-2"
+									key={data.reportID}
 								>
 									<DraftCard data={data} />
 								</div>
