@@ -4,21 +4,21 @@ import { MdDeleteOutline } from "react-icons/md";
 // importing link
 import link from "../../resources/links.json";
 
-function DraftCard(props: any) {
+function ReportCard(props: any) {
 		// console.log(props);
 
-	const viewGenReport = () => {
-		if (localStorage.getItem("draftReportId")) {
-			localStorage.removeItem("draftReportId");
-			localStorage.setItem("draftReportId", props.data.reportID);
+	const viewReport = () => {
+		if (localStorage.getItem("reportId")) {
+			localStorage.removeItem("reportId");
+			localStorage.setItem("reportId", props.data.reportID);
 		} else {
-			localStorage.setItem("draftReportId", props.data.reportID);
+			localStorage.setItem("reportId", props.data.reportID);
 		}
 	};
 
 	const iconStyle3 = { fontSize: "1.5rem", color: "red" };
 
-	const deleteDraftHandler = (event: any) => {
+	const deleteReportHandler = (event: any) => {
 		event.preventDefault();
 
 		const resultDetails = {
@@ -26,21 +26,21 @@ function DraftCard(props: any) {
 			apiKey: props.data.apiKey
 		};
 
-		deleteDraft(resultDetails);
+		deleteReport(resultDetails);
 	};
 
 			// ######################### API FOR DELETING RESULT SET ###############################################
 
-	let deleteDraftEndpoint = String(link.endpointLink);
-	deleteDraftEndpoint += "deleteDraftReport";
+	let deleteReportEndpoint = String(link.endpointLink);
+	deleteReportEndpoint += "deleteReport";
 
-	const deleteDraft = (resultInfo: any) => {
+	const deleteReport = (resultInfo: any) => {
 		const requestOptions = {
 			method: "POST",
 			body: JSON.stringify(resultInfo)
 		};
 
-		fetch(deleteDraftEndpoint, requestOptions)
+		fetch(deleteReportEndpoint, requestOptions)
 			.then(async (response) => {
 				const isJson = response.headers.get("content-type")?.includes("application/json");
 
@@ -68,8 +68,8 @@ function DraftCard(props: any) {
 			<div className="m-4 w-auto h-20 rounded-md flex flex-row justify-between items-center p-2">
 				<div className="">
 					<div className="">
-						<Link to="/genReport">
-							<button data-testid="btn-report" type="submit" onClick={viewGenReport}>
+						<Link to="/getPublishedReport">
+							<button data-testid="btn-report" type="submit" onClick={viewReport}>
 								<p className="font-bold">{props.data.title}</p>
 							</button>
 						</Link>
@@ -84,11 +84,11 @@ function DraftCard(props: any) {
 					</div>
 				</div>
 
-				<button type="button" onClick={deleteDraftHandler}>
+				<button type="button" onClick={deleteReportHandler}>
 					<div
 						className=" pl-4 flex flex-row justify-center items-center"
 						data-bs-toggle="tooltip"
-						title="Delete History"
+						title="Delete Report"
 					>
 						<MdDeleteOutline style={iconStyle3} />
 					</div>
@@ -99,6 +99,6 @@ function DraftCard(props: any) {
 	);
 }
 
-export default DraftCard;
+export default ReportCard;
 
 // changeDate(await data.Report.dateCreated.substring(0, 10));
