@@ -1,7 +1,8 @@
 import { useState } from "react";
 // import Tweet from "../Tweet/Tweet";
 import { Link } from "react-router-dom";
-import HomeTweet from "../HomeTweet/HomeTweet";
+// import HomeTweet from "../HomeTweet/HomeTweet";
+import { Tweet } from "react-twitter-widgets";
 
 // importing link
 import link from "../../resources/links.json";
@@ -117,10 +118,21 @@ function ViewHistory() {
     // processing api response
     const apiResponse = [<div key="begining div" />];
 
+    // tweets.map((data) =>
+    //     apiResponse.push(
+    //         <div key={data.tweetId}>
+    //             <HomeTweet tweetData={data} />
+    //         </div>
+    //     )
+    // );
+
     tweets.map((data) =>
         apiResponse.push(
-            <div key={data.tweetId}>
-                <HomeTweet tweetData={data} />
+            <div className=" w-full border border-gray-200 p-3" key={data.position}>
+                <Tweet
+                    options={{ align: "center", width: "" }}
+                    tweetId={data.tweetId}
+                />
             </div>
         )
     );

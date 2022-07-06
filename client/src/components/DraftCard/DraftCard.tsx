@@ -32,7 +32,7 @@ function DraftCard(props: any) {
     // ######################### API FOR DELETING RESULT SET ###############################################
 
     let deleteDraftEndpoint = process.env.NODE_ENV === 'development' ? String(link.localhostLink) : String(link.serverLink);
-    deleteDraftEndpoint += "deleteDraftReport";
+    deleteDraftEndpoint += "deleteReport";
 
     const deleteDraft = (resultInfo: any) => {
         const requestOptions = {
