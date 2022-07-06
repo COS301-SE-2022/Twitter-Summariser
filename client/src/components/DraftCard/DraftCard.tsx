@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom";
 import { MdDeleteOutline } from "react-icons/md";
 
+// importing link
+import link from "../../resources/links.json";
+
 function DraftCard(props: any) {
+		// console.log(props);
+
 	const viewGenReport = () => {
 		if (localStorage.getItem("draftReportId")) {
 			localStorage.removeItem("draftReportId");
@@ -12,6 +17,51 @@ function DraftCard(props: any) {
 	};
 
 	const iconStyle3 = { fontSize: "1.5rem", color: "red" };
+
+	const deleteDraftHandler = (event: any) => {
+		event.preventDefault();
+
+		const resultDetails = {
+			reportID: props.data.reportID,
+			apiKey: props.data.apiKey
+		};
+
+		deleteDraft(resultDetails);
+	};
+
+			// ######################### API FOR DELETING RESULT SET ###############################################
+
+	let deleteDraftEndpoint = String(link.endpointLink);
+	deleteDraftEndpoint += "deleteDraftReport";
+
+	const deleteDraft = (resultInfo: any) => {
+		const requestOptions = {
+			method: "POST",
+			body: JSON.stringify(resultInfo)
+		};
+
+		fetch(deleteDraftEndpoint, requestOptions)
+			.then(async (response) => {
+				const isJson = response.headers.get("content-type")?.includes("application/json");
+
+				isJson && (await response.json());
+
+				// check for error response
+				if (!response.ok) {
+					// error
+
+					return;
+				}
+			})
+			.catch(() => {
+			});
+	};
+
+
+	// #######################################################################
+
+
+
 
 	return (
 		<div>
@@ -34,13 +84,16 @@ function DraftCard(props: any) {
 					</div>
 				</div>
 
-				<div
-					className=" pl-4 flex flex-row justify-center items-center"
-					data-bs-toggle="tooltip"
-					title="Delete History"
-				>
-					<MdDeleteOutline style={iconStyle3} />
-				</div>
+				<button type="button" onClick={deleteDraftHandler}>
+					<div
+						className=" pl-4 flex flex-row justify-center items-center"
+						data-bs-toggle="tooltip"
+						title="Delete History"
+					>
+						<MdDeleteOutline style={iconStyle3} />
+					</div>
+				</button>
+
 			</div>
 		</div>
 	);
