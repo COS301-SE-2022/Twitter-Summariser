@@ -436,12 +436,14 @@ export const getSharedReports = middyfy(
 export const getAllMyPublishedReports = middyfy(
 	async ( event: APIGatewayProxyEvent ): Promise<APIGatewayProxyResult> => {
 		try {
-			// const params = JSON.parse(event.body);
+			const params = JSON.parse(event.body);
+
+			const reports = await ServicesLayer.reportService.getPublishedReports(params.apiKey);
 
 			return {
-				statusCode: statusCodes.notImplemented,
+				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify("Still working on")
+				body: JSON.stringify(reports)
 			};
 		} catch (e) {
 			return {
