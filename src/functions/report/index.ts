@@ -67,7 +67,7 @@ export const getAllPublishedReports = {
 	events: [
 		{
 			http: {
-				method: "get",
+				method: "post",
 				path: "getAllPublishedReports/",
 				cors: true
 			}
