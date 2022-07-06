@@ -68,7 +68,7 @@ function Home() {
 				if (enteredSearch !== "") {
 					changeCreateTitle(enteredSearch);
 					changeEnteredSearch("");
-					changeClicked(!clicked);
+					changeClicked(true);
 				}
 			})
 			.catch(() => {
@@ -149,6 +149,7 @@ function Home() {
 
 		if (enteredSearch !== "") {
 			// calling the api__Handler
+			changeClicked(false);
 			searchTwitter(searchData);
 		}
 	};
@@ -163,17 +164,16 @@ function Home() {
 	// processing api response
 	const apiResponse = [<div key="begining div" />];
 
-	searchResponse.map(
-		(data) =>
-			enteredSearch !== "" &&
-			apiResponse.push(
-				// <div key={data.tweetId}>
-				// 	<HomeTweet tweetData={data} />
-				// </div>
-				<div className=" w-full border border-gray-200 p-3" key={data.tweetId}>
-					<Tweet options={{ align: "center", width: "" }} tweetId={data.tweetId} />
-				</div>
-			)
+	searchResponse.map((data) =>
+		// enteredSearch !== "" &&
+		apiResponse.push(
+			// <div key={data.tweetId}>
+			// 	<HomeTweet tweetData={data} />
+			// </div>
+			<div className=" w-full border border-gray-200 p-3" key={data.tweetId}>
+				<Tweet options={{ align: "center", width: "" }} tweetId={data.tweetId} />
+			</div>
+		)
 	);
 
 	let ind = 0;
@@ -289,17 +289,15 @@ function Home() {
 
 			{/* Api response comes here */}
 			<div data-testid="result" className="flex flex-col">
-				{apiResponse}
-
-				{enteredSearch === "" && clicked === false && (
-					<div className="mt-2 p-4" key={(ind++).toString()}>
-						<h1 className="text-2xl">Trends</h1>
-					</div>
-				)}
+				{/* {enteredSearch === "" && clicked === false && (
+                    <div className="mt-2 p-4" key={(ind++).toString()}>
+                        <h1 className="text-2xl">Trends</h1>
+                    </div>
+                )} */}
 
 				{clicked && (
 					<div className="mt-4 flex flex-col flex-wrap justify-center">
-						<h1 className="text-2xl">Newly created report</h1>
+						<h1 className="text-2xl ml-2">Newly created report</h1>
 						<Link to="/genReport">
 							<div className="m-4 w-1/4 h-20 bg-gray-400 rounded-md flex flex-col p-2">
 								<div className="">
@@ -323,6 +321,8 @@ function Home() {
 						</Link>
 					</div>
 				)}
+
+				{apiResponse}
 			</div>
 		</div>
 	);
