@@ -156,7 +156,8 @@ function Text(props: any) {
             },
             text: report,
             reportID: localStorage.getItem("draftReportId"),
-            position: textPos
+            position: textPos,
+            apiKey: localStorage.getItem("loggedUserApi")
         };
 
         // console.log(Text);
@@ -177,7 +178,8 @@ function Text(props: any) {
             reportID: localStorage.getItem("draftReportId"),
             styleID: props.data.block.style[0].textStylesID,
             reportBlockID: props.data.reportBlockID,
-            position: textPos
+            position: textPos,
+            apiKey: localStorage.getItem("loggedUserApi")
         };
         // console.log(Text);
         editText(propsSecondUpdate);
