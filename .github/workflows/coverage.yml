@@ -8,7 +8,7 @@ on:
 
 jobs:
   on-success:
-    name: Get code coverage and upload to codecov
+    name: Upload code coverage to codecov
     runs-on: ubuntu-latest
 
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
@@ -16,31 +16,21 @@ jobs:
       - name: Checkout to devlop/master branch
         uses: actions/checkout@v2
 
-      - name: Download the Twitter Summariser artifact
+      - name: Download the client coverage artifact
         uses: dawidd6/action-download-artifact@v2
         with:
           workflow: build.yml
+          workflow_conclusion: success
           name: client-artifacts
-          path: |
-            client/build
-            client/coverage
+          path: client/coverage
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
+      - name: Download the backend coverage artifact
+        uses: dawidd6/action-download-artifact@v2
         with:
-          node-version: "14.x"
-
-      - name: Install all package dependencies
-        run: yarn
-
-      - name: Generate coverage report for backend files
-        run: yarn test -- --coverage
-
-      - name: Changed to client directory and generate coverage for frontend files
-        run: |
-          cd client
-          yarn
-          yarn test --coverage --watchAll=false
+          workflow: build.yml
+          workflow_conclusion: success
+          name: backend-artifact
+          path: coverage
 
       - name: Merge the coverage reports
         run: node tools/scripts/merge-reports.js
