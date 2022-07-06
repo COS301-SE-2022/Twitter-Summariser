@@ -72,8 +72,14 @@ export const deleteReportBlock = middyfy(
 		try {
 			const params = JSON.parse(event.body);
 
-			if(await ServicesLa){
+			if(await ServicesLayer.permissionService.verifyEditor(params.reportID, params.apiKey)){
 				await ServicesLayer.reportBlockService.deleteReportBlock(params.reportBlockID);
+			}else{
+				return {
+					statusCode: statusCodes.unauthorized,
+					headers: header,
+					body: JSON.stringify("Don't have enough permissions to edit this report.")
+				};
 			}
 
 			return {
