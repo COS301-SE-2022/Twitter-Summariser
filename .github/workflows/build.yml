@@ -102,16 +102,16 @@ jobs:
         run:  yarn
 
       - name: Run frontend tests
-        run:  yarn test
+        run:  yarn test --coverage --watchAll=false
 
       - name: Build the React App
         run:  yarn run build
 
-      - name: Upload build folder as artifact
+      - name: Upload client coverage folder as artifact
         uses: actions/upload-artifact@v3
         with:
-          name: twitter-summariser-build
-          path: client/build/
+          name: client-artifact
+          path: client/coverage/
 
   backend:
     name: Testing of backend
@@ -131,4 +131,10 @@ jobs:
         run: yarn
 
       - name: Run the tests
-        run: yarn test
+        run: yarn test -- --coverage
+
+      - name: Upload backend coverage folder as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: backend-artifact
+          path: coverage/
