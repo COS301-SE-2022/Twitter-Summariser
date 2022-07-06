@@ -16,6 +16,15 @@ jobs:
       - name: Checkout to devlop/master branch
         uses: actions/checkout@v2
 
+      - name: Download the Twitter Summariser artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: build.yml
+          name: client-artifacts
+          path: |
+            client/build
+            client/coverage
+
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
