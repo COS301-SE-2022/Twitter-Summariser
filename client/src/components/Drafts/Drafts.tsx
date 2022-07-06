@@ -16,7 +16,7 @@ function Drafts() {
 		process.env.NODE_ENV === "development"
 			? String(link.localhostLink)
 			: String(link.serverLink);
-	getAllMyDraftReportsEndpoint += "getAllMyReports";
+	getAllMyDraftReportsEndpoint += "getAllMyDraftReports";
 
 	// using localhost
 	// const getAllMyDraftReportsEndpoint = "http://localhost:4000/dev/getAllMyReports";

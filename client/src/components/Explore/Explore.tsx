@@ -21,7 +21,7 @@ function Explore() {
         const apiData = {}; //empty json
 
         const requestOptions = {
-            method: "GET",
+            method: "POST",
             body: JSON.stringify(apiData)
         };
 
