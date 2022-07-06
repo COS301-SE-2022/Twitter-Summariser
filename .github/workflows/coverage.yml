@@ -21,7 +21,7 @@ jobs:
         with:
           workflow: build.yml
           workflow_conclusion: success
-          name: client-artifacts
+          name: client-artifact
           path: client/coverage
 
       - name: Download the backend coverage artifact
