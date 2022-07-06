@@ -151,14 +151,29 @@ export const addCustomTweet = {
 };
 
 // Deleting a result report
-export const deleteDraftReport = {
-	handler: `${handlerPath(__dirname)}/handler.deleteDraftReport`,
-	description: "A function that deletes a draft report.",
+export const deleteReport = {
+	handler: `${handlerPath(__dirname)}/handler.deleteReport`,
+	description: "A function that deletes a report.",
 	events: [
 		{
 			http: {
 				method: "post",
-				path: "deleteDraftReport/",
+				path: "deleteReport/",
+				cors: true
+			}
+		}
+	]
+};
+
+// Deleting a result report
+export const deleteReportBlock = {
+	handler: `${handlerPath(__dirname)}/handler.deleteReportBlock`,
+	description: "A function that deletes a report a block.",
+	events: [
+		{
+			http: {
+				method: "post",
+				path: "deleteReportBlock/",
 				cors: true
 			}
 		}

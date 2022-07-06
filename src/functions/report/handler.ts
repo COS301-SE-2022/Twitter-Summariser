@@ -189,8 +189,6 @@ export const cloneReport = middyfy(
 				await ServicesLayer.tweetService.addTweet(tweet);
 			});
 
-			delete report.apiKey;
-
 			return {
 				statusCode: statusCodes.notImplemented,
 				headers: header,
@@ -298,14 +296,12 @@ export const publishReport = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
 			const params = JSON.parse(event.body);
-			let report;
 
 			if (await ServicesLayer.permissionService.verifyOwner(params.reportID, params.apiKey)) {
-				report = await ServicesLayer.reportService.updateReportStatus(
+				await ServicesLayer.reportService.updateReportStatus(
 					"PUBLISHED",
 					params.reportID
 				);
-				delete report.apiKey;
 			} else {
 				return {
 					statusCode: statusCodes.unauthorized,
@@ -315,9 +311,9 @@ export const publishReport = middyfy(
 			}
 
 			return {
-				statusCode: statusCodes.Successful,
+				statusCode: statusCodes.no_content,
 				headers: header,
-				body: JSON.stringify(report)
+				body: JSON.stringify('')
 			};
 		} catch (e) {
 			return {
@@ -334,14 +330,12 @@ export const unpublishReport = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
 			const params = JSON.parse(event.body);
-			let result : any;
 
 			if (await ServicesLayer.permissionService.verifyOwner(params.reportID, params.apiKey)) {
-				result = await ServicesLayer.reportService.updateReportStatus(
+				await ServicesLayer.reportService.updateReportStatus(
 					"DRAFT",
 					params.reportID
 				);
-				delete result.apiKey;
 			} else {
 				return {
 					statusCode: statusCodes.unauthorized,
@@ -351,9 +345,9 @@ export const unpublishReport = middyfy(
 			}
 
 			return {
-				statusCode: statusCodes.Successful,
+				statusCode: statusCodes.no_content,
 				headers: header,
-				body: JSON.stringify(result)
+				body: JSON.stringify('')
 			};
 		} catch (e) {
 			return {
@@ -387,41 +381,28 @@ export const addCustomTweet = middyfy(
 );
 
 // Deleting a report
-export const deleteDraftReport = middyfy(
+export const deleteReport = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
 			const params = JSON.parse(event.body);
-			let report;
 
 			if (await ServicesLayer.permissionService.verifyOwner(params.reportID, params.apiKey)) {
-				report = await ServicesLayer.reportService.getReportHelper(params.reportID);
-
-				if (report.status === "DRAFT") {
-					report = await ServicesLayer.reportService.updateReportStatus(
+					await ServicesLayer.reportService.updateReportStatus(
 						"DELETED",
 						params.reportID
 					);
-				} else {
-					return {
-						statusCode: statusCodes.forbidden,
-						headers: header,
-						body: JSON.stringify("Only a draft report can be deleted")
-					};
-				}
 			} else {
 				return {
 					statusCode: statusCodes.unauthorized,
 					headers: header,
-					body: JSON.stringify("Only owner can delete a draft report")
+					body: JSON.stringify("Only owner can delete a report")
 				};
 			}
 
-			delete report.apiKey;
-
 			return {
-				statusCode: statusCodes.Successful,
+				statusCode: statusCodes.no_content,
 				headers: header,
-				body: JSON.stringify(report)
+				body: JSON.stringify('')
 			};
 		} catch (e) {
 			return {
