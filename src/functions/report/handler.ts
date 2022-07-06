@@ -47,7 +47,11 @@ export const generateReport = middyfy(
 			});
 
 			// Adding permissions
-			await ServicesLayer.permissionService.addPermission({apiKey: params.apiKey, reportID: id, type: 'OWNER'});
+			await ServicesLayer.permissionService.addPermission({
+				apiKey: params.apiKey,
+				reportID: id,
+				type: "OWNER"
+			});
 
 			delete report.apiKey;
 
@@ -298,10 +302,7 @@ export const publishReport = middyfy(
 			const params = JSON.parse(event.body);
 
 			if (await ServicesLayer.permissionService.verifyOwner(params.reportID, params.apiKey)) {
-				await ServicesLayer.reportService.updateReportStatus(
-					"PUBLISHED",
-					params.reportID
-				);
+				await ServicesLayer.reportService.updateReportStatus("PUBLISHED", params.reportID);
 			} else {
 				return {
 					statusCode: statusCodes.unauthorized,
@@ -313,7 +314,7 @@ export const publishReport = middyfy(
 			return {
 				statusCode: statusCodes.no_content,
 				headers: header,
-				body: JSON.stringify('')
+				body: JSON.stringify("")
 			};
 		} catch (e) {
 			return {
@@ -332,10 +333,7 @@ export const unpublishReport = middyfy(
 			const params = JSON.parse(event.body);
 
 			if (await ServicesLayer.permissionService.verifyOwner(params.reportID, params.apiKey)) {
-				await ServicesLayer.reportService.updateReportStatus(
-					"DRAFT",
-					params.reportID
-				);
+				await ServicesLayer.reportService.updateReportStatus("DRAFT", params.reportID);
 			} else {
 				return {
 					statusCode: statusCodes.unauthorized,
@@ -347,7 +345,7 @@ export const unpublishReport = middyfy(
 			return {
 				statusCode: statusCodes.no_content,
 				headers: header,
-				body: JSON.stringify('')
+				body: JSON.stringify("")
 			};
 		} catch (e) {
 			return {
@@ -387,10 +385,7 @@ export const deleteReport = middyfy(
 			const params = JSON.parse(event.body);
 
 			if (await ServicesLayer.permissionService.verifyOwner(params.reportID, params.apiKey)) {
-					await ServicesLayer.reportService.updateReportStatus(
-						"DELETED",
-						params.reportID
-					);
+				await ServicesLayer.reportService.updateReportStatus("DELETED", params.reportID);
 			} else {
 				return {
 					statusCode: statusCodes.unauthorized,
@@ -402,7 +397,7 @@ export const deleteReport = middyfy(
 			return {
 				statusCode: statusCodes.no_content,
 				headers: header,
-				body: JSON.stringify('')
+				body: JSON.stringify("")
 			};
 		} catch (e) {
 			return {
@@ -416,7 +411,7 @@ export const deleteReport = middyfy(
 
 // get share report
 export const getSharedReports = middyfy(
-	async ( event: APIGatewayProxyEvent ): Promise<APIGatewayProxyResult> => {
+	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
 			const params = JSON.parse(event.body);
 
@@ -426,6 +421,29 @@ export const getSharedReports = middyfy(
 				statusCode: statusCodes.Successful,
 				headers: header,
 				body: JSON.stringify(re)
+			};
+		} catch (e) {
+			return {
+				statusCode: statusCodes.internalError,
+				headers: header,
+				body: JSON.stringify(e)
+			};
+		}
+	}
+);
+
+// Adding a custom tweet
+export const getAllMyPublishedReports = middyfy(
+	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+		try {
+			const params = JSON.parse(event.body);
+
+			const reports = await ServicesLayer.reportService.getPublishedReports(params.apiKey);
+
+			return {
+				statusCode: statusCodes.Successful,
+				headers: header,
+				body: JSON.stringify(reports)
 			};
 		} catch (e) {
 			return {

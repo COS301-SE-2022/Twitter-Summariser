@@ -13,7 +13,12 @@ export const editBlock = middyfy(
 			let text: any;
 			let styles: any;
 
-			if(!(await ServicesLayer.permissionService.verifyEditor(params.reportID, params.apiKey))){
+			if (
+				!(await ServicesLayer.permissionService.verifyEditor(
+					params.reportID,
+					params.apiKey
+				))
+			) {
 				return {
 					statusCode: statusCodes.unauthorized,
 					headers: header,
@@ -80,9 +85,11 @@ export const deleteReportBlock = middyfy(
 		try {
 			const params = JSON.parse(event.body);
 
-			if(await ServicesLayer.permissionService.verifyEditor(params.reportID, params.apiKey)){
+			if (
+				await ServicesLayer.permissionService.verifyEditor(params.reportID, params.apiKey)
+			) {
 				await ServicesLayer.reportBlockService.deleteReportBlock(params.reportBlockID);
-			}else{
+			} else {
 				return {
 					statusCode: statusCodes.unauthorized,
 					headers: header,
@@ -93,7 +100,7 @@ export const deleteReportBlock = middyfy(
 			return {
 				statusCode: statusCodes.no_content,
 				headers: header,
-				body: JSON.stringify('')
+				body: JSON.stringify("")
 			};
 		} catch (e) {
 			return {

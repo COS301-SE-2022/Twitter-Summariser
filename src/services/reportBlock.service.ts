@@ -52,10 +52,12 @@ export default class ReportBlockService {
 	}
 
 	async deleteReportBlock(id: string) {
-		await this.docClient.delete({
-			TableName: this.TableName,
-			Key: { "reportBlockID": id }
-		}).promise();
+		await this.docClient
+			.delete({
+				TableName: this.TableName,
+				Key: { reportBlockID: id }
+			})
+			.promise();
 	}
 
 	async sortReportBlocks(reportBlocks: any[]): Promise<any[]> {
