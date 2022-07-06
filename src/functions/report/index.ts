@@ -165,3 +165,17 @@ export const deleteReport = {
 	]
 };
 
+// Deleting a result report
+export const getAllMyPublishedReports = {
+	handler: `${handlerPath(__dirname)}/handler.getAllMyPublishedReports`,
+	description: "A function that retrieves all of a users published reports.",
+	events: [
+		{
+			http: {
+				method: "post",
+				path: "getAllMyPublishedReports/",
+				cors: true
+			}
+		}
+	]
+};
