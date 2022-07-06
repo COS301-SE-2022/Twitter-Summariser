@@ -164,3 +164,18 @@ export const deleteReport = {
 		}
 	]
 };
+
+// Deleting a result report
+export const deleteReportBlock = {
+	handler: `${handlerPath(__dirname)}/handler.deleteReportBlock`,
+	description: "A function that deletes a report a block.",
+	events: [
+		{
+			http: {
+				method: "post",
+				path: "deleteReportBlock/",
+				cors: true
+			}
+		}
+	]
+};
