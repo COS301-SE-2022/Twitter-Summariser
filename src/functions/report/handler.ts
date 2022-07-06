@@ -387,7 +387,7 @@ export const addCustomTweet = middyfy(
 );
 
 // Deleting a report
-export const deleteDraftReport = middyfy(
+export const deleteReport = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
 			const params = JSON.parse(event.body);
@@ -415,8 +415,6 @@ export const deleteDraftReport = middyfy(
 					body: JSON.stringify("Only owner can delete a draft report")
 				};
 			}
-
-			delete report.apiKey;
 
 			return {
 				statusCode: statusCodes.Successful,
