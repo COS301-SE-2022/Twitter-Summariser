@@ -189,8 +189,6 @@ export const cloneReport = middyfy(
 				await ServicesLayer.tweetService.addTweet(tweet);
 			});
 
-			delete report.apiKey;
-
 			return {
 				statusCode: statusCodes.notImplemented,
 				headers: header,
@@ -391,13 +389,12 @@ export const deleteReport = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
 			const params = JSON.parse(event.body);
-			let report;
 
 			if (await ServicesLayer.permissionService.verifyOwner(params.reportID, params.apiKey)) {
-				report = await ServicesLayer.reportService.getReportHelper(params.reportID);
+				const report = await ServicesLayer.reportService.getReportHelper(params.reportID);
 
 				if (report.status === "DRAFT") {
-					report = await ServicesLayer.reportService.updateReportStatus(
+					await ServicesLayer.reportService.updateReportStatus(
 						"DELETED",
 						params.reportID
 					);
@@ -417,9 +414,9 @@ export const deleteReport = middyfy(
 			}
 
 			return {
-				statusCode: statusCodes.Successful,
+				statusCode: statusCodes.no_content,
 				headers: header,
-				body: JSON.stringify(report)
+				body: JSON.stringify('')
 			};
 		} catch (e) {
 			return {
