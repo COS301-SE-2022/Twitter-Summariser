@@ -2,7 +2,7 @@
 // import { Link } from "react-router-dom";
 import { useState } from "react";
 // import Tweet from "../Tweet/Tweet";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
 
 // importing link
@@ -13,6 +13,7 @@ import Text from "../Text/Text";
 // import DraftCard from "../DraftCard/DraftCard";
 
 function GenReport() {
+    const navigate = useNavigate();
 	// const [{id}, changeID] = useState("");
 
 	// let generate = 1;
@@ -100,18 +101,14 @@ function GenReport() {
 			body: JSON.stringify(resultInfo)
 		};
 
-		fetch(publishEndpoint, requestOptions)
-			.then(async (response) => {
-				response.headers.get("content-type")?.includes("application/json");
+        fetch(publishEndpoint, requestOptions).then(async (response) => {
+           response.headers.get("content-type")?.includes("application/json");
 
-				// const data = isJson && (await response.json());
+            // isJson && (await response.json());
+        });
 
-				// return data;
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	};
+        navigate("/getPublishedReport");
+    };
 
 	// #######################################################################
 

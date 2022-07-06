@@ -12,8 +12,11 @@ function Drafts() {
 
     // ######################### API FOR GETTING HISTORY #####################
 
-    let getAllMyDraftReportsEndpoint = process.env.NODE_ENV === 'development' ? String(link.localhostLink) : String(link.serverLink);
-    getAllMyDraftReportsEndpoint += "getAllMyReports";
+	let getAllMyDraftReportsEndpoint =
+		process.env.NODE_ENV === "development"
+			? String(link.localhostLink)
+			: String(link.serverLink);
+	getAllMyDraftReportsEndpoint += "getAllMyDraftReports";
 
     // using localhost
     // const getAllMyDraftReportsEndpoint = "http://localhost:4000/dev/getAllMyReports";
