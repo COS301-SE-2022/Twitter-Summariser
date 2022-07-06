@@ -34,7 +34,10 @@ function Drafts() {
 
 				const data = isJson && (await response.json());
 
+
+
 				changeDraft(await data);
+				// console.log(data[0].status);
 
 				// check for error response
 				if (!response.ok) {
@@ -50,6 +53,20 @@ function Drafts() {
 
 	// #######################################################################
 
+
+	//EXTRACTING REQUIRED DATA
+	let newDraft = draft.filter(function(data){
+		return data.status === "DRAFT";
+	}).map(function(data){
+		return data;
+	})
+
+	// if(newDraft.length !== 0){
+	// 	console.log("new draft is not empty");
+	// }
+
+
+
 	return (
 		<div>
 			{/* Api response comes here */}
@@ -59,7 +76,7 @@ function Drafts() {
 
 					<div className="mt-4 flex flex-row flex-wrap justify-center">
 						<div className="mt-4 flex flex-row flex-wrap justify-center">
-							{draft.map((data) => (
+							{newDraft.map((data) => (
 								<div
 									className="m-4 w-auto h-auto bg-gray-400 hover:bg-gray-300 rounded-md flex flex-col p-2"
 									key={data.reportID}
