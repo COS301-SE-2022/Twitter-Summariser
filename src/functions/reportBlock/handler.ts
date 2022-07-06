@@ -75,7 +75,7 @@ export const deleteReportBlock = middyfy(
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify()
+				body: JSON.stringify('')
 			};
 		} catch (e) {
 			return {
