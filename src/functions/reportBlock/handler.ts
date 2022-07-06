@@ -72,8 +72,10 @@ export const deleteReportBlock = middyfy(
 		try {
 			const params = JSON.parse(event.body);
 
+			await ServicesLayer.reportBlockService.deleteReportBlock(params.apiKay);
+
 			return {
-				statusCode: statusCodes.Successful,
+				statusCode: statusCodes.no_content,
 				headers: header,
 				body: JSON.stringify('')
 			};
