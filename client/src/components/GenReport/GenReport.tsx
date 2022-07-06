@@ -97,9 +97,9 @@ function GenReport() {
         };
 
         fetch(publishEndpoint, requestOptions).then(async (response) => {
-            const isJson = response.headers.get("content-type")?.includes("application/json");
+           response.headers.get("content-type")?.includes("application/json");
 
-            isJson && (await response.json());
+            // isJson && (await response.json());
         });
     };
 

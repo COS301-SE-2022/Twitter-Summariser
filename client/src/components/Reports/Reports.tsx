@@ -15,7 +15,7 @@ function Reports() {
     // ######################### API FOR GETTING HISTORY #####################
 
     let getAllMyReportsEndpoint = process.env.NODE_ENV === 'development' ? String(link.localhostLink) : String(link.serverLink);
-    getAllMyReportsEndpoint += "getAllMyReports";
+    getAllMyReportsEndpoint += "getAllMyPublishedReports";
 
     // using localhost
     // const getAllMyDraftReportsEndpoint = "http://localhost:4000/dev/getAllMyReports";
@@ -54,10 +54,13 @@ function Reports() {
 
     //EXTRACTING REQUIRED DATA
     let newReport = report.filter(function (data) {
-        return data.status !== "DRAFT";
+        return data.status === "DRAFT";
     }).map(function (data) {
         return data;
     })
+
+    console.log(report);
+
 
     // if(newReport.length === 0){
     // 	console.log("new report is empty");
