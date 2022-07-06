@@ -43,4 +43,4 @@ jobs:
           npm i -g aws-cli
           npm i -g aws-sdk
           npm i @aws-cdk/aws-cloudfront
-          aws cloudfront create-invalidation --distribution-id E39QEC4D07PM46 --paths "/*" 
+          aws cloudfront create-invalidation --distribution-id E10A4MW2FBT3U5 --paths "/*" 
