@@ -22,7 +22,7 @@ import {
 	deleteReport,
 	getSharedReport
 } from "@functions/report";
-import { editBlock } from "@functions/reportBlock";
+import { editBlock, deleteReportBlock } from "@functions/reportBlock";
 
 const serverlessConfiguration: AWS = {
 	service: "twitter-summariser",
@@ -86,7 +86,8 @@ const serverlessConfiguration: AWS = {
 		deleteReport,
 		deleteResultSet,
 		unpublishReport,
-		getSharedReport
+		getSharedReport,
+		deleteReportBlock
 	},
 
 	package: {
