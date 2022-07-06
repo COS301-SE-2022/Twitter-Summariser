@@ -83,7 +83,7 @@ export const getAllMyDraftReports = {
 		{
 			http: {
 				method: "post",
-				path: "getAllMyReports/",
+				path: "getAllMyDraftReports/",
 				cors: true
 			}
 		}
