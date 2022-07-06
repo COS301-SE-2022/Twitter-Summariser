@@ -13,6 +13,14 @@ export const editBlock = middyfy(
 			let text: any;
 			let styles: any;
 
+			if(!(await ServicesLayer.permissionService.verifyEditor(params.reportID, params.apiKey))){
+				return {
+					statusCode: statusCodes.unauthorized,
+					headers: header,
+					body: JSON.stringify("Don't have enough permissions to edit this report.")
+				};
+			}
+
 			if (params.reportBlockID === undefined) {
 				const id = `BK-${randomUUID()}`;
 				text = await ServicesLayer.reportBlockService.addReportBlock({
@@ -72,7 +80,15 @@ export const deleteReportBlock = middyfy(
 		try {
 			const params = JSON.parse(event.body);
 
-			await ServicesLayer.reportBlockService.deleteReportBlock(params.apiKay);
+			if(await ServicesLayer.permissionService.verifyEditor(params.reportID, params.apiKey)){
+				await ServicesLayer.reportBlockService.deleteReportBlock(params.reportBlockID);
+			}else{
+				return {
+					statusCode: statusCodes.unauthorized,
+					headers: header,
+					body: JSON.stringify("Don't have enough permissions to edit this report.")
+				};
+			}
 
 			return {
 				statusCode: statusCodes.no_content,

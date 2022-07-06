@@ -37,6 +37,13 @@ export default class PermissionService {
 		return false;
 	}
 
+	// verify editoral rights of report
+	async verifyEditor(reportID: string, apiKey: string): Promise<boolean> {
+		const per = await this.getPermission(reportID, apiKey);
+
+		return (per.type==='OWNER' || per.type==='EDITOR');
+	}
+
 	async getPermissions(key: string): Promise<Permission[]> {
 		const result = await this.docClient
 			.query({
