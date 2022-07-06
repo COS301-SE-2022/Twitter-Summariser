@@ -14,18 +14,7 @@ function HistoryCard(props: any) {
 		localStorage.setItem("resultSetId", props.data.id);
 	};
 
-	const deleteHandler = (event: any) => {
-		event.preventDefault();
-
-		const resultDetails = {
-			resultSetID: props.data.id,
-			apiKey: props.data.apiKey
-		};
-
-		deleteResult(resultDetails);
-	};
-
-		// ######################### API FOR DELETING RESULT SET ###############################################
+	// ######################### API FOR DELETING RESULT SET ###############################################
 
 	let deleteResultSetEndpoint = String(link.endpointLink);
 	deleteResultSetEndpoint += "deleteResultSet";
@@ -36,28 +25,25 @@ function HistoryCard(props: any) {
 			body: JSON.stringify(resultInfo)
 		};
 
-		fetch(deleteResultSetEndpoint, requestOptions)
-			.then(async (response) => {
-				const isJson = response.headers.get("content-type")?.includes("application/json");
+		fetch(deleteResultSetEndpoint, requestOptions).then(async (response) => {
+			const isJson = response.headers.get("content-type")?.includes("application/json");
 
-				isJson && (await response.json());
-
-				// check for error response
-				if (!response.ok) {
-					// error
-
-					return;
-				}
-			})
-			.catch(() => {
-			});
+			isJson && (await response.json());
+		});
 	};
-
 
 	// #######################################################################
 
+	const deleteHandler = (event: any) => {
+		event.preventDefault();
 
+		const resultDetails = {
+			resultSetID: props.data.id,
+			apiKey: props.data.apiKey
+		};
 
+		deleteResult(resultDetails);
+	};
 
 	return (
 		<div className="">
@@ -81,13 +67,11 @@ function HistoryCard(props: any) {
 					</div>
 				</div>
 
-
 				<button type="button" onClick={deleteHandler}>
 					<div className=" ml-2" data-bs-toggle="tooltip" title="Delete History">
-						<MdDeleteOutline style={iconStyle3}  />
+						<MdDeleteOutline style={iconStyle3} />
 					</div>
 				</button>
-
 			</div>
 		</div>
 	);

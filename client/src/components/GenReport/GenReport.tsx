@@ -2,7 +2,7 @@
 // import { Link } from "react-router-dom";
 import { useState } from "react";
 // import Tweet from "../Tweet/Tweet";
-
+import { Link } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
 
 // importing link
@@ -27,8 +27,6 @@ function GenReport() {
 	// console.log(localStorage.getItem("id"));
 	// console.log(val);
 
-
-
 	// ################ API FOR GETTING REPORT ###########################
 
 	let getReportEndpoint = String(link.endpointLink);
@@ -37,13 +35,13 @@ function GenReport() {
 	// using localhost
 	// const getReportEndpoint = "http://localhost:4000/dev/getReport";
 
-	let requiredData: { apiKey: string | null; reportID: string | null; };
+	let requiredData: { apiKey: string | null; reportID: string | null };
 
 	const getRep = async () => {
 		// POST request using fetch with error handling
 
 		// if (generate === 1) {
-		 requiredData = {
+		requiredData = {
 			apiKey: localStorage.getItem("loggedUserApi"),
 			reportID: localStorage.getItem("draftReportId")
 		};
@@ -87,13 +85,7 @@ function GenReport() {
 	getRep();
 	// ###################################################################
 
-	const publishHandler = (event: any) => {
-		event.preventDefault();
-
-		publishReport(requiredData);
-	};
-
-		// ######################### API FOR PUBLISHING REPORT ###############################################
+	// ######################### API FOR PUBLISHING REPORT ###############################################
 
 	let publishEndpoint = String(link.endpointLink);
 	publishEndpoint += "publishReport";
@@ -104,55 +96,45 @@ function GenReport() {
 			body: JSON.stringify(resultInfo)
 		};
 
-		fetch(publishEndpoint, requestOptions)
-			.then(async (response) => {
-				const isJson = response.headers.get("content-type")?.includes("application/json");
+		fetch(publishEndpoint, requestOptions).then(async (response) => {
+			const isJson = response.headers.get("content-type")?.includes("application/json");
 
-				isJson && (await response.json());
-
-				// check for error response
-				if (!response.ok) {
-					// error
-
-					return;
-				}
-			})
-			.catch(() => {
-			});
+			isJson && (await response.json());
+		});
 	};
-
 
 	// #######################################################################
 
-	// console.log("generate is " + generate);
+	const publishHandler = (event: any) => {
+		event.preventDefault();
+
+		publishReport(requiredData);
+	};
 
 	// processing api response
 	const apiResponse = [<div key="begining div" />];
 
-	// let textPosition = -1;
-	// console.log(state);
-
-	// const increment = () => {
-	//   textPosition++;
-
-	//   return textPosition;
-	// };
-
-	// console.log("Size of the given array is " + state.length);
-	// console.log(state);
-
 	state.map((data: any, index: number) =>
 		apiResponse.push(
 			<div className="" key={data.position}>
-				{data.blockType === "RICHTEXT" && <div className="" > <Text keyValue={index} data={data} /> </div>}
+				{data.blockType === "RICHTEXT" && (
+					<div className="">
+						{" "}
+						<Text keyValue={index} data={data} />{" "}
+					</div>
+				)}
 
-				{data.blockType === "TWEET" && <div className=" w-full border border-gray-200 p-3" key={data.position}><Tweet options={{ align: "center", width: "" }} tweetId={data.block.tweetId} /></div>}
+				{data.blockType === "TWEET" && (
+					<div className=" w-full border border-gray-200 p-3" key={data.position}>
+						<Tweet
+							options={{ align: "center", width: "" }}
+							tweetId={data.block.tweetId}
+						/>
+					</div>
+				)}
 			</div>
 		)
 	);
-
-	// console.log("Total content is " + textPosition);
-	// textPosition = 0;
 
 	return (
 		<div className="mt-16 ">
@@ -165,22 +147,20 @@ function GenReport() {
 
 			<br />
 
-			<div className="grid grid-cols gap-4 content-center">
-				{apiResponse}
-				{/* <Text position={(textPosition += 1)} /> */}
-			</div>
+			<div className="grid grid-cols gap-4 content-center">{apiResponse}</div>
 
-			<div className="flex justify-center" >
-				<button
-					onClick={publishHandler}
-					type="submit"
-					className="w-1/3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded button text-center"
-				>
-					{" "}
-					PUBLISH REPORT
-				</button>
+			<div className="flex justify-center mb-4">
+				<Link to="/getPublishedReport">
+					<button
+						onClick={publishHandler}
+						type="submit"
+						className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded button text-center"
+					>
+						{" "}
+						PUBLISH REPORT
+					</button>
+				</Link>
 			</div>
-
 		</div>
 	);
 }
