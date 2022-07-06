@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ReportCard from "../ReportCard/ReportCard";
+import ExploreCard from "../ExploreCard/ExploreCard";
 // importing mock data
 // import tweeter from "../../mock.json";
 
@@ -66,7 +66,7 @@ function Explore() {
                                     className="m-4 w-auto h-auto bg-gray-400 hover:bg-gray-300 rounded-md flex flex-col p-2"
                                     key={data.reportID}
                                 >
-                                    <ReportCard data={data} />
+                                    <ExploreCard data={data} />
                                 </div>
                             ))}
                         </div>
