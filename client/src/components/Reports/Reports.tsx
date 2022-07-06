@@ -64,14 +64,14 @@ function Reports() {
 	// }
 
 	return (
-		<div>
+		<div data-testid="report">
 			{/* Api response comes here */}
 			<div className=" mt-16 p-3 border-l border-gray-200">
 				<div className=" mt-4">
 					<h1 className="text-3xl">My Reports</h1>
 
 					<div className="mt-4 flex flex-row flex-wrap justify-center">
-						<div className="mt-4 flex flex-row flex-wrap justify-center">
+						<div data-testid="reports" className="mt-4 flex flex-row flex-wrap justify-center">
 							{newReport.map((data) => (
 								<div
 									className="m-4 w-auto h-auto bg-gray-400 hover:bg-gray-300 rounded-md flex flex-col p-2"
