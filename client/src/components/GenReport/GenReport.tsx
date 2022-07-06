@@ -38,16 +38,13 @@ function GenReport() {
 	// using localhost
 	// const getReportEndpoint = "http://localhost:4000/dev/getReport";
 
-	let requiredData: { apiKey: string | null; reportID: string | null };
+	const requiredData = {
+		apiKey: localStorage.getItem("loggedUserApi"),
+		reportID: localStorage.getItem("draftReportId")
+	};
 
 	const getRep = async () => {
 		// POST request using fetch with error handling
-
-		// if (generate === 1) {
-		requiredData = {
-			apiKey: localStorage.getItem("loggedUserApi"),
-			reportID: localStorage.getItem("draftReportId")
-		};
 
 		const requestOptions = {
 			method: "POST",
@@ -94,6 +91,7 @@ function GenReport() {
 		process.env.NODE_ENV === "development"
 			? String(link.localhostLink)
 			: String(link.serverLink);
+
 	publishEndpoint += "publishReport";
 
 	const publishReport = (resultInfo: any) => {
@@ -102,11 +100,17 @@ function GenReport() {
 			body: JSON.stringify(resultInfo)
 		};
 
-		fetch(publishEndpoint, requestOptions).then(async (response) => {
-			const isJson = response.headers.get("content-type")?.includes("application/json");
+		fetch(publishEndpoint, requestOptions)
+			.then(async (response) => {
+				response.headers.get("content-type")?.includes("application/json");
 
-			isJson && (await response.json());
-		});
+				// const data = isJson && (await response.json());
+
+				// return data;
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	};
 
 	// #######################################################################
