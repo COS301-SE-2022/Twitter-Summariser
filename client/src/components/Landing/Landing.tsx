@@ -14,6 +14,7 @@ import History from "../History/History";
 import Profile from "../Profile/Profile";
 import GenReport from "../GenReport/GenReport";
 import PageNotFound from "../PageNotFound/PageNotFound";
+import GetPublishedReport from "../GetPublishedReport/GetPublishedReport";
 
 // importing styling
 import "./Landing.css";
@@ -101,6 +102,7 @@ function Landing(props: any) {
 						<Route path="/shared" element={<Shared />} />
 						<Route path="/profile" element={<Profile />} />
 						<Route path="/genReport" element={<GenReport />} />
+						<Route path="/getPublishedReport" element={<GetPublishedReport />} />
 						<Route path="*" element={<PageNotFound />} />
 						<Route path="/history" element={<History />} />
 						<Route path="/viewHistory" element={<ViewHistory />} />
