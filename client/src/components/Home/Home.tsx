@@ -176,7 +176,7 @@ function Home() {
 		)
 	);
 
-	let ind = 0;
+	// let ind = 0;
 
 	const viewGenReport = () => {
 		if (localStorage.getItem("draftReportId")) {
