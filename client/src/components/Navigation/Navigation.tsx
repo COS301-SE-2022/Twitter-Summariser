@@ -50,7 +50,7 @@ function Navigation(props: any) {
 						<div className="items-end pt-1 ">
 							<TiDocumentText style={style} />
 						</div>
-						<div className="hidden lg:block">&nbsp; My Reports</div>
+						<div className="hidden lg:block">&nbsp; Published</div>
 					</Link>
 				</div>
 
