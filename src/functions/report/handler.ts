@@ -434,7 +434,7 @@ export const getSharedReports = middyfy(
 
 // Adding a custom tweet
 export const getAllMyPublishedReports = middyfy(
-	async ( event: APIGatewayProxyEvent ): Promise<APIGatewayProxyResult> => {
+	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
 			const params = JSON.parse(event.body);
 
