@@ -16,8 +16,6 @@ export const generateReport = middyfy(
 				params.apiKey
 			);
 
-			// console.log(tweets);
-
 			let id: string;
 			id = "RT-";
 			id += randomUUID();
@@ -52,8 +50,6 @@ export const generateReport = middyfy(
 				reportID: id,
 				type: "OWNER"
 			});
-
-			delete report.apiKey;
 
 			return {
 				statusCode: statusCodes.Successful,
