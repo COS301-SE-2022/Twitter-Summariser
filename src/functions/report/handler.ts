@@ -10,11 +10,11 @@ export const generateReport = middyfy(
 		try {
 			const params = JSON.parse(event.body);
 
-			const tweets = await ServicesLayer.tweetService.getTweets(params.resultSetID);
 			const title = await ServicesLayer.resultSetServices.getResultSet(
 				params.resultSetID,
 				params.apiKey
 			);
+			const tweets = title.tweets;
 
 			let id: string;
 			id = "RT-";
@@ -22,6 +22,7 @@ export const generateReport = middyfy(
 			const dd = new Date();
 			const d = new Date(`${dd.toLocaleString()}-02:00`);
 
+			// Adding blocks
 			let x = -1;
 			tweets.map(async (tweet) => {
 				await ServicesLayer.reportBlockService.addReportBlock({
@@ -29,7 +30,7 @@ export const generateReport = middyfy(
 					reportID: id,
 					blockType: "TWEET",
 					position: (x += 2),
-					tweetID: tweet.tweetId
+					tweetID: tweet
 				});
 				// x += 2;
 			});
