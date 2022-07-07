@@ -62,10 +62,6 @@ export const searchTweets = middyfy(
 				tweets: tweetIDs
 			});
 
-			result.map(async (res) => {
-				await ServicesLayer.tweetService.addTweet(res);
-			});
-
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,

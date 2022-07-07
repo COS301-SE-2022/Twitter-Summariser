@@ -44,7 +44,7 @@ export default class TweetService {
 		return tweet as Tweet;
 	}
 
-	async addTweets(data: any, includes: any, numTweets: number, GID: string): Promise<Tweet[]> {
+	async addTweets(data: any, includes: any, numTweets: number): Promise<Tweet[]> {
 		this.TableName;
 		const tweetList: Tweet[] = [];
 		for (let i = 0; i < numTweets; i++) {
@@ -90,6 +90,7 @@ export default class TweetService {
 	}
 
 	async createArray(tweets: Tweet[]): Promise<string[]>{
+		this.TableName;
 		let result: string[];
 		tweets.map(async tweet =>{
 			result.push(tweet.tweetId);
