@@ -37,9 +37,11 @@ export default class ReportService {
 			ob.reportBlockID = block.reportBlockID;
 
 			if (type === "TWEET") {
-				const tweet = await ServicesLayer.tweetService.getTweet(block.tweetID);
+				// const tweet = await ServicesLayer.tweetService.getTweet(block.tweetID);
 				// console.log(tweet);
-				ob.block = tweet;
+				ob.block = {
+					tweetID: block.tweetID
+				}
 				// console.log(ob);
 			} else if (type === "RICHTEXT") {
 				const style = await ServicesLayer.textStyleService.getStyle(block.reportBlockID);
