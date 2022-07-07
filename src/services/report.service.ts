@@ -37,12 +37,9 @@ export default class ReportService {
 			ob.reportBlockID = block.reportBlockID;
 
 			if (type === "TWEET") {
-				// const tweet = await ServicesLayer.tweetService.getTweet(block.tweetID);
-				// console.log(tweet);
 				ob.block = {
 					tweetID: block.tweetID
 				}
-				// console.log(ob);
 			} else if (type === "RICHTEXT") {
 				const style = await ServicesLayer.textStyleService.getStyle(block.reportBlockID);
 				ob.block = {
@@ -58,17 +55,17 @@ export default class ReportService {
 		await ServicesLayer.reportBlockService.sortReportBlocks(report);
 		const rp = [];
 		let bl = false;
-		let max = 0;
 		let count = 0;
+		let max;
 
 		for (let y = 0; y < report.length; y++) {
 			max = report[y].position;
 		}
 
-		for (let x = 0; x < max; x++) {
-			for (let y = 0; y < report.length; y++) {
-				if (report[y].position === x) {
-					rp.push(report[y]);
+		for (let x = 0; x < max+1; x++) {
+			if (report[count]!==undefined) {
+				if (report[count].position === x) {
+					rp.push(report[count]);
 					bl = true;
 					count++;
 				}
