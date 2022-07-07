@@ -5,5 +5,5 @@ export default interface ResultSet {
 	searchPhrase: string;
 	sortOption: string;
 	filterOption: string;
-	tweets: string[];
+	tweets?: string[];
 }
