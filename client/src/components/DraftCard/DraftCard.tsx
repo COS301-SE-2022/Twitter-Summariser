@@ -65,25 +65,48 @@ function DraftCard(props: any) {
 
 
     return (
-        <div className="p-4 w-full text-center bg-white  border shadow-md sm:p-8 ">
-            <h1 className="mb-2 text-3xl font-bold text-gray-900 ">{props.data.title}</h1>
-            <br></br>
-            <p className="mb-5 text-base text-gray-500 sm:text-lg ">Author: {props.data.author}</p>
-            <p className="mb-5 text-base text-gray-500 sm:text-lg ">Date: {props.data.dateCreated.substring(0, 16)}</p>
-            <div className="justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
-                <Link to="/genReport">
-                    <div className="w-full sm:w-auto bg-gray-800 hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-400 dark:focus:ring-gray-700">
-                        <div className="text-left">
-                            <button data-testid="btn-report" type="submit" onClick={viewGenReport}>
-                                <p className="font-bold">VIEW REPORT</p>
-                            </button>
+        <div className="border shadow-md rounded-lg text-center overflow-hidden w-full transform hover:shadow-2xl hover:scale-105 transition duration-200 ease-in ">
+            <div className="container px-3 mx-auto">
+                <div>
+                    <div
+                        className="grid grid-cols-1  justify-evenly gap-10 pt-10"
+                    >
+                        <div
+                            id="plan"
+                            className=""
+                        >
+                            <div id="title" className="w-full py-5 border-b border-gray-800">
+                                <h2 className="font-bold text-3xl text-black">{props.data.title}</h2>
+                            </div>
+                            <div id="content" className="">
+
+                                <div id="contain" className="leading-8 mb-10 text-lg font-light">
+                                    <br></br>
+                                    <ul>
+                                        <li>Author: {props.data.author}</li>
+                                        <li>Date of Creation: {props.data.dateCreated.substring(0, 16)}</li>
+                                    </ul>
+                                    <br></br>
+                                    <div className="justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
+                                        <Link to="/genReport">
+                                            <div className="w-full sm:w-auto bg-gray-800 hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-400 dark:focus:ring-gray-700">
+                                                <div className="text-left">
+                                                    <button data-testid="btn-report" type="submit" onClick={viewGenReport}>
+                                                        <p className="font-bold">VIEW REPORT</p>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                        <div className="w-full sm:w-auto bg-gray-800 hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-400 dark:focus:ring-gray-700">
+                                            <button data-testid="btn-report" type="submit" onClick={deleteDraftHandler}>
+                                                <p className="font-bold">DELETE REPORT</p>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </Link>
-                <div className="w-full sm:w-auto bg-gray-800 hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-400 dark:focus:ring-gray-700">
-                    <button data-testid="btn-report" type="submit" onClick={deleteDraftHandler}>
-                        <p className="font-bold">DELETE REPORT</p>
-                    </button>
                 </div>
             </div>
         </div>
