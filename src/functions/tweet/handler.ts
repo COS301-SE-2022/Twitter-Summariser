@@ -42,7 +42,6 @@ export const searchTweets = middyfy(
 				data,
 				includes,
 				meta.result_count,
-				id
 			);
 			
 			const sortedList = await ServicesLayer.tweetService.sortTweets(

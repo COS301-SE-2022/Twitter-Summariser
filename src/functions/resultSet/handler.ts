@@ -30,7 +30,6 @@ export const getResultSet = middyfy(
 		try {
 			const params = JSON.parse(event.body);
 
-			const tweets = await ServicesLayer.tweetService.getTweets(params.resultSetID);
 			const resultSet = await ServicesLayer.resultSetServices.getResultSet(
 				params.resultSetID,
 				params.apiKey
@@ -39,7 +38,7 @@ export const getResultSet = middyfy(
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify({ resultSet, Tweets: tweets })
+				body: JSON.stringify( resultSet )
 			};
 		} catch (e) {
 			return {
