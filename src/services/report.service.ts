@@ -56,9 +56,13 @@ export default class ReportService {
 		const rp = [];
 		let bl = false;
 		let count = 0;
-		const max = report[report.length-1].position+1;
+		let max;
 
-		for (let x = 0; x < max; x++) {
+		for (let y = 0; y < report.length; y++) {
+			max = report[y].position;
+		}
+
+		for (let x = 0; x < max+1; x++) {
 			if (report[count]!==undefined) {
 				if (report[count].position === x) {
 					rp.push(report[count]);
