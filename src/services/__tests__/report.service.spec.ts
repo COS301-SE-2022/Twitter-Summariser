@@ -180,6 +180,19 @@ describe("report.service", () => {
 			expect(reports).toEqual(expected);
 
 		})
+
+		test("Get reports from empty table",async () => {
+
+			expect.assertions(1);
+
+			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve(undefined));
+
+			try {
+				await ReportService.reportService.getReports("ABdggekj23");
+			} catch (e) {
+				expect(e.message).toBe("no reports found");
+			}
+		})
 	})
 
 	describe("addReport", () => {
