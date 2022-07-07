@@ -179,7 +179,7 @@ describe("report.service", () => {
 
 			expect(reports).toEqual(expected);
 
-		})
+		});
 
 		test("Get reports from empty table",async () => {
 
@@ -192,7 +192,56 @@ describe("report.service", () => {
 			} catch (e) {
 				expect(e.message).toBe("no reports found");
 			}
-		})
+		});
+
+		test("Reports don't exist", async () => {
+			const addedReports: Report[] = [
+				{
+					reportID: "1111",
+					resultSetID: "12222",
+					status: "DRAFT",
+					apiKey: "ABgT78ggekj23",
+					dateCreated: "2022-01-01",
+					title: "This is my report",
+					author: "Test"
+				},
+				{
+					reportID: "1112",
+					resultSetID: "12232",
+					status: "DRAFT",
+					apiKey: "ABPlgekj23",
+					dateCreated: "2022-01-01",
+					title: "This is my other report",
+					author: "Test"
+				},
+				{
+					reportID: "1113",
+					resultSetID: "12422",
+					status: "PUBLISHED",
+					apiKey: "ABdglIgekj23",
+					dateCreated: "2022-01-01",
+					title: "This is my other other report",
+					author: "Test"
+				},
+				{
+					reportID: "1114",
+					resultSetID: "13222",
+					status: "DRAFT",
+					apiKey: "AJJgekj23",
+					dateCreated: "2022-01-01",
+					title: "This is my other other other report",
+					author: "Test"
+				}
+			];
+
+			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Items: addedReports }));
+
+			try {
+				await ReportService.reportService.getReports("ABdggekj23");
+			} catch (e) {
+				expect(e.message).toBe("report with id: 1111 does not exist");
+			}
+		});
 	})
 
 	describe("addReport", () => {
