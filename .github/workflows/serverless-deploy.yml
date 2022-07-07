@@ -16,7 +16,12 @@ jobs:
       - name: Checkout to develop/master branch
         uses: actions/checkout@v2
 
-      - name: Build the client
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: "14.x"
+
+      - name: Build the Twitter Summariser App
         run:  |
           cd client
           yarn
@@ -38,8 +43,8 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: us-east-1
-        run: |
-          npm i -g aws-cli
-          npm i -g aws-sdk
-          npm i @aws-cdk/aws-cloudfront
-          aws cloudfront create-invalidation --distribution-id E10A4MW2FBT3U5 --paths "/*" 
+        # run: |
+        #   npm i -g aws-cli
+        #   npm i -g aws-sdk
+        #   npm i @aws-cdk/aws-cloudfront
+          # aws cloudfront create-invalidation --distribution-id E10A4MW2FBT3U5 --paths "/*" 
