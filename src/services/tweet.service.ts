@@ -44,21 +44,21 @@ export default class TweetService {
 		return tweet as Tweet;
 	}
 
-	async addTweets(data: any, includes: any, numTweets: number, GID: string): Promise<Tweet[]> {
+	async addTweets(data: any, includes: any, numTweets: number): Promise<Tweet[]> {
 		this.TableName;
 		const tweetList: Tweet[] = [];
 		for (let i = 0; i < numTweets; i++) {
 			if (i in includes.users) {
 				tweetList.push({
-					username: includes.users[i].username,
-					fullname: includes.users[i].name,
-					dateOT: data[i].created_at,
+					//username: includes.users[i].username,
+					//fullname: includes.users[i].name,
+					//dateOT: data[i].created_at,
 					numComments: data[i].public_metrics.reply_count,
 					numLikes: data[i].public_metrics.like_count,
 					numRetweets: data[i].public_metrics.retweet_count,
-					text: data[i].text,
+					//text: data[i].text,
 					tweetId: data[i].id,
-					resultSetId: GID
+					//resultSetId: GID
 				});
 			}
 		}
@@ -87,5 +87,14 @@ export default class TweetService {
 			});
 		}
 		return tweets;
+	}
+
+	async createArray(tweets: Tweet[]): Promise<string[]>{
+		this.TableName;
+		let result: string[];
+		tweets.map(async tweet =>{
+			result.push(tweet.tweetId);
+		});
+		return result;
 	}
 }

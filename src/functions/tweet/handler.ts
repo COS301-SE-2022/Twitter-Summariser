@@ -44,11 +44,13 @@ export const searchTweets = middyfy(
 				meta.result_count,
 				id
 			);
+			
 			const sortedList = await ServicesLayer.tweetService.sortTweets(
 				tweetlist,
 				params.sortBy
 			);
 			const result = sortedList.slice(0, params.numOfTweets);
+			const tweetIDs= await ServicesLayer.tweetService.createArray(result);
 
 			ServicesLayer.resultSetServices.addResultSet({
 				id,
@@ -56,11 +58,8 @@ export const searchTweets = middyfy(
 				dateCreated: d.toString(),
 				searchPhrase: params.keyword,
 				sortOption: params.sortBy,
-				filterOption: params.filterBy
-			});
-
-			result.map(async (res) => {
-				await ServicesLayer.tweetService.addTweet(res);
+				filterOption: params.filterBy,
+				tweets: tweetIDs
 			});
 
 			return {
