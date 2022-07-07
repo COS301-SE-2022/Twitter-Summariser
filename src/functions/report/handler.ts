@@ -30,7 +30,7 @@ export const generateReport = middyfy(
 					reportID: id,
 					blockType: "TWEET",
 					position: (x += 2),
-					tweetID: tweet.tweetId
+					tweetID: tweet
 				});
 				// x += 2;
 			});
