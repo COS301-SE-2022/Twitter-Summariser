@@ -63,10 +63,10 @@ export default class ReportService {
 		}
 
 		let y = 0;
-		for (let x = 0; x < max+1; x++) {
+		for (let x = 0; x < max+2; x++) {
 			if (report[y]!==undefined) {
 				if (report[y].position === x) {
-					rp.push(report[x]);
+					rp.push(report[y]);
 					bl = true;
 					count++;
 					y++;

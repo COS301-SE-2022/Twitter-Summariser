@@ -255,7 +255,7 @@ export const getReport = middyfy(
 		try {
 			const params = JSON.parse(event.body);
 
-			let report = await ServicesLayer.reportService.getReportHelper(params.reportID);
+			let report: any = await ServicesLayer.reportService.getReportHelper(params.reportID);
 
 			if (
 				await ServicesLayer.permissionService.verifyReportRetr(
@@ -277,10 +277,11 @@ export const getReport = middyfy(
 			);
 
 			report = await ServicesLayer.reportService.getReport(params.reportID);
+			report.permission=per.type;
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify({ report, permission: per.type })
+				body: JSON.stringify({ report })
 			};
 		} catch (e) {
 			return {
