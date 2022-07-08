@@ -72,7 +72,7 @@ function GetPublishedReport() {
                     <div className=" w-full border border-gray-200 p-3" key={data.position}>
                         <Tweet
                             options={{ align: "center", width: "" }}
-                            tweetId={data.block.tweetId}
+                            tweetId={data.block.tweetID}
                         />
                     </div>
                 )}
