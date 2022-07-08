@@ -29,22 +29,20 @@ describe("creator.service", () => {
 				dateRegistered: "2022-01-01T00:00:00.000Z"
 			};
 
-			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Items: [test] }));
+			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Item: [test] }));
 
 			const creator: Creator = await CreatorServices.creatorService.getCreator(
 				"test@gmail.com"
 			);
 
-			expect(db.query).toHaveBeenCalledWith({
+			expect(db.get).toHaveBeenCalledWith({
 				TableName: "CreatorTable",
-				IndexName: "gsiIndex",
-				KeyConditionExpression: "email = :email",
-				ExpressionAttributeValues: {
-					":email": "test@gmail.com"
+				Key: {
+					email: "test@gmail.com"
 				}
 			});
 
-			expect(creator).toEqual(test);
+			expect(creator).toEqual([test]);
 		});
 
 		test("Get item from empty table", async () => {
@@ -125,7 +123,15 @@ describe("creator.service", () => {
 			};
 
 			await CreatorServices.creatorService.addCreator(creator);
-			expect(db.put).toHaveBeenCalledWith({ TableName: "CreatorTable", Item: creator });
+			expect(db.put).toHaveBeenCalledWith(
+				{ 
+					TableName: "CreatorTable", 
+					Item: creator ,
+					ConditionExpression: "email <> :email",
+					ExpressionAttributeValues: {
+						":email": "test@gmail.com"
+					}
+				});
 		});
 	});
 });
