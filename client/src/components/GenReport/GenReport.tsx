@@ -116,6 +116,8 @@ function GenReport() {
 		event.preventDefault();
 
 		publishReport(requiredData);
+		let draftId = String(localStorage.getItem("draftReportId"));
+		localStorage.setItem("reportId", draftId);
 	};
 
 	// processing api response

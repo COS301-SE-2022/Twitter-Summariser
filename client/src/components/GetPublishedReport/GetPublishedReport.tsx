@@ -6,13 +6,14 @@ import { Tweet } from "react-twitter-widgets";
 import link from "../../resources/links.json";
 
 // importing mock data
-import Text from "../Text/Text";
+import PublishedText from "../PublishedText/PublishedText";
 
 function GetPublishedReport() {
 	const [state, setState] = useState([]);
 	const [title, setTitle] = useState("");
 	const [author, setAuthor] = useState("");
 	const [date, setDate] = useState("");
+	const [stat, setStat] = useState("");
 
 	// ################ API FOR GETTING REPORT ###########################
 
@@ -28,7 +29,7 @@ function GetPublishedReport() {
 		// POST request using fetch with error handling
 		requiredData = {
 			apiKey: localStorage.getItem("loggedUserApi"),
-			reportID: localStorage.getItem("draftReportId")
+			reportID: localStorage.getItem("reportId")
 		};
 
 		const requestOptions = {
@@ -41,16 +42,18 @@ function GetPublishedReport() {
 
 			const data = isJson && (await response.json());
 
-			// console.log(data);
+			setStat(data.report.status);
 
 			setState(data.report.Report);
 			setTitle(data.report.title);
 			setAuthor(data.report.author);
 			setDate(data.report.dateCreated.substring(0, 16));
+
 		});
 	};
 
 	getRep();
+	// console.log(state);
 
 	// processing api response
 	const apiResponse = [<div key="begining div" />];
@@ -61,7 +64,7 @@ function GetPublishedReport() {
 				{data.blockType === "RICHTEXT" && (
 					<div className="">
 						{" "}
-						<Text keyValue={index} data={data} />{" "}
+						<PublishedText keyValue={index} data={data} status={stat} />{" "}
 					</div>
 				)}
 
@@ -76,6 +79,9 @@ function GetPublishedReport() {
 			</div>
 		)
 	);
+
+
+
 
 	return (
 		<div className="mt-16 ">
