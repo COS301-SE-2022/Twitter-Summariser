@@ -195,5 +195,77 @@ describe("reportBlock.service", () => {
         });
     });
 
+    describe("sortReportBlocks", () => {
 
+        test("sort report blocks",async () => {
+            const addedReportBlocks: ReportBlock[] = [
+                {
+                    reportBlockID: "9001",
+                    reportID: "1111",
+                    blockType: "RICHTEXT",
+                    position: 7,
+                    richText: "Testing"
+                },
+                {
+                    reportBlockID: "9002",
+                    reportID: "1111",
+                    blockType: "TWEET",
+                    position: 0,
+                    tweetID: "115752"
+                },
+                {
+                    reportBlockID: "9000",
+                    reportID: "1111",
+                    blockType: "TWEET",
+                    position: 5,
+                    tweetID: "124756"
+                },
+                {
+                    reportBlockID: "9007",
+                    reportID: "1111",
+                    blockType: "RICHTEXT",
+                    position: 1,
+                    richText: "Testing with sentence"
+                }
+            ];
+            
+            
+            const sorted = await ReportBlockService.reportBlockService.sortReportBlocks(addedReportBlocks);
+            
+            const expected: ReportBlock[] = [
+                {
+                    reportBlockID: "9002",
+                    reportID: "1111",
+                    blockType: "TWEET",
+                    position: 0,
+                    tweetID: "115752"
+                },
+                {
+                    reportBlockID: "9007",
+                    reportID: "1111",
+                    blockType: "RICHTEXT",
+                    position: 1,
+                    richText: "Testing with sentence"
+                },
+                {
+                    reportBlockID: "9000",
+                    reportID: "1111",
+                    blockType: "TWEET",
+                    position: 5,
+                    tweetID: "124756"
+                },
+                {
+                    reportBlockID: "9001",
+                    reportID: "1111",
+                    blockType: "RICHTEXT",
+                    position: 7,
+                    richText: "Testing"
+                }
+            ];
+
+            expect(sorted).toEqual(expected);
+        })
+        
+        
+    })
 })
