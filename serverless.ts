@@ -3,7 +3,6 @@ import { getAllCreators, addCreator, loginCreator } from "@functions/creator";
 import { searchTweets } from "@functions/tweet";
 import { CreatorTable } from "@model/creator/index";
 import { ResultSetTable } from "@model/resultSet";
-import { TweetTable } from "@model/tweet";
 import { ReportTable } from "@model/report";
 import { ReportBlockTable } from "@model/reportBlock";
 import { TextStylesTable } from "@model/textStyles";
@@ -137,7 +136,6 @@ const serverlessConfiguration: AWS = {
 		Resources: {
 			CreatorTable,
 			ResultSetTable,
-			TweetTable,
 			ReportTable,
 			ReportBlockTable,
 			TextStylesTable,

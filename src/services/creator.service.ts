@@ -22,7 +22,11 @@ export default class CreatorService {
 		await this.docClient
 			.put({
 				TableName: this.TableName,
-				Item: creator
+				Item: creator,
+				ConditionExpression: "email <> :email",
+				ExpressionAttributeValues: {
+					":email": creator.email
+				}
 			})
 			.promise();
 		return creator as Creator;
@@ -30,23 +34,22 @@ export default class CreatorService {
 
 	async getCreator(email: string): Promise<Creator> {
 		const result = await this.docClient
-			.query({
+			.get({
 				TableName: this.TableName,
-				IndexName: "gsiIndex",
-				KeyConditionExpression: "email = :email",
-				ExpressionAttributeValues: {
-					":email": email
+				Key: {
+					email: email
 				}
 			})
 			.promise();
 
-		return result.Items[0] as Creator;
+		return result.Item as Creator;
 	}
 
 	async getCreatorByKey(key: string): Promise<Creator> {
 		const creator = await this.docClient
 			.query({
 				TableName: this.TableName,
+				IndexName: "gsiIndex",
 				KeyConditionExpression: "apiKey = :key",
 				ExpressionAttributeValues: {
 					":key": key

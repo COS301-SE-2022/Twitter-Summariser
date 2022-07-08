@@ -1,51 +1,9 @@
-import { DocumentClient } from "aws-sdk/clients/dynamodb";
 import Tweet from "@model/tweet/tweet.model";
 
 export default class TweetService {
-	private TableName = "TweetTable";
-
-	constructor(private docClient: DocumentClient) {}
-
-	async getTweet(id: string): Promise<Tweet> {
-		const result = await this.docClient
-			.get({
-				TableName: this.TableName,
-				Key: { tweetId: id }
-			})
-			.promise();
-
-		return result.Item as Tweet;
-	}
-
-	async getTweets(rsId: string): Promise<Tweet[]> {
-		const result = await this.docClient
-			.query({
-				TableName: this.TableName,
-				IndexName: "tweetIndex",
-				KeyConditionExpression: "resultSetId = :resultSetId",
-
-				ExpressionAttributeValues: {
-					":resultSetId": rsId
-				}
-			})
-			.promise();
-
-		return result.Items as Tweet[];
-	}
-
-	async addTweet(tweet: Tweet): Promise<Tweet> {
-		await this.docClient
-			.put({
-				TableName: this.TableName,
-				Item: tweet
-			})
-			.promise();
-
-		return tweet as Tweet;
-	}
 
 	async addTweets(data: any, includes: any, numTweets: number): Promise<Tweet[]> {
-		this.TableName;
+		this;
 		const tweetList: Tweet[] = [];
 		for (let i = 0; i < numTweets; i++) {
 			if (i in includes.users) {
@@ -66,7 +24,7 @@ export default class TweetService {
 	}
 
 	async sortTweets(tweets: Tweet[], sortBy: string): Promise<Tweet[]> {
-		this.TableName;
+		this;
 		if (sortBy === "byLikes") {
 			tweets.sort((a, b) => {
 				if (a.numLikes < b.numLikes) return 1;
@@ -90,7 +48,7 @@ export default class TweetService {
 	}
 
 	async createArray(tweets: Tweet[]): Promise<string[]>{
-		this.TableName;
+		this;
 		const result=[];
 		tweets.map(async tweet =>{
 			result.push(tweet.tweetId);
