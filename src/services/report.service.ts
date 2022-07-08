@@ -112,6 +112,8 @@ export default class ReportService {
 			})
 			.promise();
 
+		if (result === undefined) throw new Error(`no reports found`);
+
 		// const tweets = await ServicesLayer.tweetService.getTweets(resultSetID);
 		return result.Items as Report[];
 	}
