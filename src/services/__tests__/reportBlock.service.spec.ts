@@ -46,6 +46,25 @@ describe("reportBlock.service", () => {
             expect(reportBlock).toEqual(expected);
 
         })
+    });
+
+    describe("addReportBlock", () => {
+        test("Add Report Block", async () => {
+            const reportBlock: ReportBlock = {
+                reportBlockID: "9000",
+                reportID: "1111",
+                blockType: "RICHTEXT",
+                position: 0,
+                richText: "Testing"
+            };
+
+            await ReportBlockService.reportBlockService.addReportBlock(reportBlock);
+            
+            expect(db.put).toHaveBeenCalledWith({
+                TableName: "ReportBlockTable",
+                Item: reportBlock
+            })
+        })
     })
 
 
