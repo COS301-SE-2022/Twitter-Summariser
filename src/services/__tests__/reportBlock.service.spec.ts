@@ -128,7 +128,7 @@ describe("reportBlock.service", () => {
             
             expect(reportBlocks).toEqual(expected);
         })
-    })
+    });
 
     describe("addReportBlock", () => {
         test("Add Report Block", async () => {
@@ -146,6 +146,52 @@ describe("reportBlock.service", () => {
                 TableName: "ReportBlockTable",
                 Item: reportBlock
             });
+        });
+    });
+
+    describe("deleteReportBlock", () => {
+        test("Delete report block",async () => {
+            const addedReportBlocks: ReportBlock[] = [
+                {
+                    reportBlockID: "9001",
+                    reportID: "1111",
+                    blockType: "RICHTEXT",
+                    position: 7,
+                    richText: "Testing"
+                },
+                {
+                    reportBlockID: "9002",
+                    reportID: "1111",
+                    blockType: "TWEET",
+                    position: 0,
+                    tweetID: "115752"
+                },
+                {
+                    reportBlockID: "9000",
+                    reportID: "1111",
+                    blockType: "TWEET",
+                    position: 5,
+                    tweetID: "124756"
+                },
+                {
+                    reportBlockID: "9007",
+                    reportID: "1111",
+                    blockType: "RICHTEXT",
+                    position: 1,
+                    richText: "Testing with sentence"
+                }
+            ];
+            
+            awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Items: addedReportBlocks }));
+            
+            await ReportBlockService.reportBlockService.deleteReportBlock("9000");
+
+            expect(db.delete).toHaveBeenCalledWith({
+                TableName: "ReportBlockTable",
+                Key: {
+                    reportBlockID: "9000"
+                }
+            });            
         });
     });
 
