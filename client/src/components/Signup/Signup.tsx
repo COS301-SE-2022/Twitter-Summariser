@@ -148,7 +148,7 @@ function Signup(props: any) {
     };
 
     return (
-        <div data-testid="signup" className="flex justify-center flex-col items-center h-screen">
+        <div data-testid="signup" className="flex justify-center flex-col items-center h-screen w-full">
             <div>
                 <Logo width="136px" height="121px" page="login" />
             </div>
@@ -188,40 +188,37 @@ function Signup(props: any) {
                         data-testid="name-input"
                         type="text"
                         placeholder="Username"
-                        className=" w-56 h-10 border-gray-200 border rounded-md text-center text-sm focus:outline-none focus:ring focus:border-blue-500"
+                        className="mb-4 w-56 h-8 border-gray-200 border rounded-md text-center text-sm focus:outline-none focus:ring focus:border-blue-500"
                         onChange={usernameHandler}
                         value={enteredUsername}
                     />
-                    <br />
                     {/* unacceptable email notification */}
                     {/*  */}
                     <input
                         data-testid="email-input"
                         type="text"
                         placeholder="Email"
-                        className=" w-56 h-10 border-gray-200 border rounded-md text-center text-sm focus:outline-none focus:ring focus:border-blue-500"
+                        className="mb-4 w-56 h-8 border-gray-200 border rounded-md text-center text-sm focus:outline-none focus:ring focus:border-blue-500"
                         onChange={emailHandler}
                         value={enteredEmail}
                     />
-                    <br />
                     {/* less than 18 notification */}
                     {/*  */}
                     <input
                         data-testid="date-input"
                         type="date"
-                        className=" w-56 h-10 border-gray-200 border rounded-md text-center text-sm text-gray-800 focus:outline-none focus:ring focus:border-blue-500"
+                        className="mb-4 w-56 h-8 border-gray-200 border rounded-md text-center text-sm text-gray-800 focus:outline-none focus:ring focus:border-blue-500"
                         onChange={dateChangeHandler}
                         value={enteredDate}
                     />
-                    <br />
                     {/* incorrect password notification  */}
                     {/*  */}
-                    <div className="flex flex-row">
+                    <div className="flex md:flex-row flex-col">
                         <input
                             data-testid="password-input"
                             type="password"
                             placeholder="Password"
-                            className=" w-fit h-10 border-gray-200 border rounded-md text-center text-sm focus:outline-none focus:ring focus:border-blue-500"
+                            className=" w-56 h-8 border-gray-200 border rounded-md text-center text-sm focus:outline-none focus:ring focus:border-blue-500"
                             onChange={passwordHandler}
                             value={enteredPassword}
                         />
@@ -230,16 +227,15 @@ function Signup(props: any) {
                             data-testid="confirm-password-input"
                             type="password"
                             placeholder="Confirm Password"
-                            className=" w-fit h-10 border-gray-200 border rounded-md text-center text-sm focus:outline-none focus:ring focus:border-blue-500"
+                            className="mb-4 w-56 h-8 border-gray-200 border rounded-md text-center text-sm focus:outline-none focus:ring focus:border-blue-500"
                             onChange={passwordConfirmHandler}
                             value={enteredConfirmPassword}
                         />
                     </div>
-                    <br />
                     <button
                         data-testid="btn-submit"
                         type="submit"
-                        className="button__login text-sm p-0.5 h-10 w-56 bg-black rounded-full text-white hover:bg-black/75 group hover:shadow"
+                        className="button__login mb-4 text-sm p-0.5 h-10 w-56 bg-black rounded-full text-white hover:bg-black/75 group hover:shadow"
                     >
                         Sign up
                     </button>
