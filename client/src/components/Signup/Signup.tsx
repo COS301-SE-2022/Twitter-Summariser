@@ -188,7 +188,7 @@ function Signup(props: any) {
                         data-testid="name-input"
                         type="text"
                         placeholder="Username"
-                        className="mb-4 w-56 h-8 border-gray-200 border rounded-md text-center text-sm focus:outline-none focus:ring focus:border-blue-500"
+                        className="mb-3 w-56 h-10 border-gray-200 border rounded-md text-center text-sm focus:outline-none focus:ring focus:border-blue-500"
                         onChange={usernameHandler}
                         value={enteredUsername}
                     />
@@ -198,7 +198,7 @@ function Signup(props: any) {
                         data-testid="email-input"
                         type="text"
                         placeholder="Email"
-                        className="mb-4 w-56 h-8 border-gray-200 border rounded-md text-center text-sm focus:outline-none focus:ring focus:border-blue-500"
+                        className="mb-3 w-56 h-10 border-gray-200 border rounded-md text-center text-sm focus:outline-none focus:ring focus:border-blue-500"
                         onChange={emailHandler}
                         value={enteredEmail}
                     />
@@ -207,7 +207,7 @@ function Signup(props: any) {
                     <input
                         data-testid="date-input"
                         type="date"
-                        className="mb-4 w-56 h-8 border-gray-200 border rounded-md text-center text-sm text-gray-800 focus:outline-none focus:ring focus:border-blue-500"
+                        className="mb-3 w-56 h-10 border-gray-200 border rounded-md text-center text-sm text-gray-800 focus:outline-none focus:ring focus:border-blue-500"
                         onChange={dateChangeHandler}
                         value={enteredDate}
                     />
@@ -218,7 +218,7 @@ function Signup(props: any) {
                             data-testid="password-input"
                             type="password"
                             placeholder="Password"
-                            className=" w-56 h-8 border-gray-200 border rounded-md text-center text-sm focus:outline-none focus:ring focus:border-blue-500"
+                            className=" w-56 h-10 border-gray-200 border rounded-md text-center text-sm focus:outline-none focus:ring focus:border-blue-500"
                             onChange={passwordHandler}
                             value={enteredPassword}
                         />
@@ -227,7 +227,7 @@ function Signup(props: any) {
                             data-testid="confirm-password-input"
                             type="password"
                             placeholder="Confirm Password"
-                            className="mb-4 w-56 h-8 border-gray-200 border rounded-md text-center text-sm focus:outline-none focus:ring focus:border-blue-500"
+                            className="mb-3 w-56 h-10 border-gray-200 border rounded-md text-center text-sm focus:outline-none focus:ring focus:border-blue-500"
                             onChange={passwordConfirmHandler}
                             value={enteredConfirmPassword}
                         />
@@ -235,7 +235,7 @@ function Signup(props: any) {
                     <button
                         data-testid="btn-submit"
                         type="submit"
-                        className="button__login mb-4 text-sm p-0.5 h-10 w-56 bg-black rounded-full text-white hover:bg-black/75 group hover:shadow"
+                        className="button__login mb-3 text-sm p-0.5 h-10 w-56 bg-black rounded-full text-white hover:bg-black/75 group hover:shadow"
                     >
                         Sign up
                     </button>
