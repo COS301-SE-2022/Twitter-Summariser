@@ -134,7 +134,7 @@ function Login(props: any) {
                         data-testid="username-input"
                         type="text"
                         placeholder=" Email"
-                        className=" w-56 h-10 border-gray-200 border rounded-md text-center text-sm"
+                        className=" w-56 h-10 border-gray-200 border rounded-md text-center text-sm focus:outline-none focus:ring focus:border-blue-500"
                         onChange={usernameHandler}
                         value={enteredUsername}
                     />
@@ -143,7 +143,7 @@ function Login(props: any) {
                         data-testid="password-input"
                         type="password"
                         placeholder="Password"
-                        className=" w-56 h-10 border-gray-200 border rounded-md text-center text-sm"
+                        className=" w-56 h-10 border-gray-200 border rounded-md text-center text-sm focus:outline-none focus:ring focus:border-blue-500"
                         onChange={passwordHandler}
                         value={enteredPassword}
                     />
@@ -152,7 +152,7 @@ function Login(props: any) {
                     <button
                         data-testid="btn-submit"
                         type="submit"
-                        className="button__login text-sm p-0.5 h-10 w-56 bg-black rounded-full text-white"
+                        className="button__login text-sm p-0.5 h-10 w-56 bg-black rounded-full text-white hover:bg-black/75 group hover:shadow"
                     >
                         Login
                     </button>
@@ -163,7 +163,7 @@ function Login(props: any) {
                         <button
                             data-testid="btn-signup"
                             type="submit"
-                            className=" text-sky-500"
+                            className=" text-sky-500 hover:text-sky-800"
                             onClick={signup}
                         >
                             &nbsp; Sign up

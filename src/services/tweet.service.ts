@@ -91,7 +91,7 @@ export default class TweetService {
 
 	async createArray(tweets: Tweet[]): Promise<string[]>{
 		this.TableName;
-		let result=[];
+		const result=[];
 		tweets.map(async tweet =>{
 			result.push(tweet.tweetId);
 		});

@@ -14,7 +14,7 @@ export const generateReport = middyfy(
 				params.resultSetID,
 				params.apiKey
 			);
-			const tweets = title.tweets;
+			const {tweets} = title;
 
 			let id: string;
 			id = "RT-";
