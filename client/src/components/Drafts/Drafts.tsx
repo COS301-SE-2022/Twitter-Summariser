@@ -23,7 +23,7 @@ function Drafts() {
 
     const getHistory = async () => {
         const apiData = {
-            apiKey: localStorage.getItem("loggedUserApi")
+            apiKey: localStorage.getItem("key")
         };
 
         const requestOptions = {
