@@ -14,12 +14,8 @@ export const CreatorTable = {
 		],
 		KeySchema: [
 			{
-				AttributeName: "apiKey",
-				KeyType: "HASH"
-			},
-			{
 				AttributeName: "email",
-				KeyType: "RANGE"
+				KeyType: "HASH"
 			}
 		],
 		GlobalSecondaryIndexes: [
@@ -27,12 +23,8 @@ export const CreatorTable = {
 				IndexName: "gsiIndex",
 				KeySchema: [
 					{
-						AttributeName: "email",
-						KeyType: "HASH"
-					},
-					{
 						AttributeName: "apiKey",
-						KeyType: "RANGE"
+						KeyType: "HASH"
 					}
 				],
 				Projection: {
