@@ -10,13 +10,11 @@ export const generateReport = middyfy(
 		try {
 			const params = JSON.parse(event.body);
 
-			const tweets = await ServicesLayer.tweetService.getTweets(params.resultSetID);
 			const title = await ServicesLayer.resultSetServices.getResultSet(
 				params.resultSetID,
 				params.apiKey
 			);
-
-			// console.log(tweets);
+			const {tweets} = title;
 
 			let id: string;
 			id = "RT-";
@@ -24,6 +22,7 @@ export const generateReport = middyfy(
 			const dd = new Date();
 			const d = new Date(`${dd.toLocaleString()}-02:00`);
 
+			// Adding blocks
 			let x = -1;
 			tweets.map(async (tweet) => {
 				await ServicesLayer.reportBlockService.addReportBlock({
@@ -31,7 +30,7 @@ export const generateReport = middyfy(
 					reportID: id,
 					blockType: "TWEET",
 					position: (x += 2),
-					tweetID: tweet.tweetId
+					tweetID: tweet
 				});
 				// x += 2;
 			});
@@ -52,8 +51,6 @@ export const generateReport = middyfy(
 				reportID: id,
 				type: "OWNER"
 			});
-
-			delete report.apiKey;
 
 			return {
 				statusCode: statusCodes.Successful,
@@ -258,7 +255,7 @@ export const getReport = middyfy(
 		try {
 			const params = JSON.parse(event.body);
 
-			let report = await ServicesLayer.reportService.getReportHelper(params.reportID);
+			let report: any = await ServicesLayer.reportService.getReportHelper(params.reportID);
 
 			if (
 				await ServicesLayer.permissionService.verifyReportRetr(
@@ -280,10 +277,11 @@ export const getReport = middyfy(
 			);
 
 			report = await ServicesLayer.reportService.getReport(params.reportID);
+			report.permission=per.type;
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify({ report, permission: per.type })
+				body: JSON.stringify({ report })
 			};
 		} catch (e) {
 			return {

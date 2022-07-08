@@ -37,10 +37,9 @@ export default class ReportService {
 			ob.reportBlockID = block.reportBlockID;
 
 			if (type === "TWEET") {
-				const tweet = await ServicesLayer.tweetService.getTweet(block.tweetID);
-				// console.log(tweet);
-				ob.block = tweet;
-				// console.log(ob);
+				ob.block = {
+					tweetID: block.tweetID
+				}
 			} else if (type === "RICHTEXT") {
 				const style = await ServicesLayer.textStyleService.getStyle(block.reportBlockID);
 				ob.block = {
@@ -56,19 +55,21 @@ export default class ReportService {
 		await ServicesLayer.reportBlockService.sortReportBlocks(report);
 		const rp = [];
 		let bl = false;
-		let max = 0;
 		let count = 0;
+		let max;
 
 		for (let y = 0; y < report.length; y++) {
 			max = report[y].position;
 		}
 
-		for (let x = 0; x < max; x++) {
-			for (let y = 0; y < report.length; y++) {
+		let y = 0;
+		for (let x = 0; x < max+2; x++) {
+			if (report[y]!==undefined) {
 				if (report[y].position === x) {
 					rp.push(report[y]);
 					bl = true;
 					count++;
+					y++;
 				}
 			}
 
@@ -110,6 +111,8 @@ export default class ReportService {
 				}
 			})
 			.promise();
+
+		if (result === undefined) throw new Error(`no reports found`);
 
 		// const tweets = await ServicesLayer.tweetService.getTweets(resultSetID);
 		return result.Items as Report[];

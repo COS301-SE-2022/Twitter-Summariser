@@ -83,7 +83,6 @@ jobs:
 
   frontend:
     name: Testing and building of frontend
-    needs: lint-and-format
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -115,7 +114,6 @@ jobs:
 
   backend:
     name: Testing of backend
-    needs: lint-and-format
     runs-on: ubuntu-latest
 
     steps:
