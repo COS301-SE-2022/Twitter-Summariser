@@ -115,11 +115,16 @@ function GenReport() {
     const publishHandler = (event: any) => {
         event.preventDefault();
 
-        publishReport(requiredData);
-    };
+		publishReport(requiredData);
+		let draftId = String(localStorage.getItem("draftReportId"));
+		localStorage.setItem("reportId", draftId);
+	};
 
     // processing api response
     const apiResponse = [<div key="begining div" />];
+
+		console.log(state);
+
 
     state.map((data: any, index: number) =>
         apiResponse.push(
@@ -135,7 +140,7 @@ function GenReport() {
                     <div className=" w-full border border-gray-200 p-3" key={data.position}>
                         <Tweet
                             options={{ align: "center", width: "" }}
-                            tweetId={data.block.tweetId}
+                            tweetId={data.block.tweetID}
                         />
                     </div>
                 )}

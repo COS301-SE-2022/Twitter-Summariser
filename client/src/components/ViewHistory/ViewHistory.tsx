@@ -45,7 +45,7 @@ function ViewHistory() {
                 const isJson = response.headers.get("content-type")?.includes("application/json");
 
                 const data = isJson && (await response.json());
-                // console.log(data.resultSet);
+                console.log(data);
 
                 if (!response.ok) {
                     // error
@@ -54,11 +54,14 @@ function ViewHistory() {
                 }
 
                 // changeDate(await data.Report.dateCreated.substring(0, 10));
-                changePhrase(await data.resultSet.searchPhrase);
-                changeDate(await data.resultSet.dateCreated.substring(0, 16));
-                changeSort(await data.resultSet.sortOption);
-                changeFilter(await data.resultSet.filterOption);
-                changeTweets(await data.Tweets);
+                changeTweets(await data.tweets);
+                changePhrase(await data.searchPhrase);
+                changeDate(await data.dateCreated.substring(0, 16));
+                changeSort(await data.sortOption);
+                changeFilter(await data.filterOption);
+
+                // console.log(data);
+
             })
             .catch(() => {
                 // console.log("Error Generating Report");
@@ -134,11 +137,14 @@ function ViewHistory() {
 
     tweets.map((data) =>
         apiResponse.push(
-            <div className=" w-full border border-gray-200 p-3" key={data.reportID}>
-                <Tweet options={{ align: "center", width: "" }} tweetId={data.tweetId} />
+            <div className=" w-full border border-gray-200 p-3" key={data}>
+                <Tweet options={{ align: "center", width: "" }} tweetId={data} />
             </div>
         )
     );
+
+    // console.log(tweets);
+
 
     // let ind = 0;
 

@@ -9,6 +9,7 @@ export const generateReport = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
 			const params = JSON.parse(event.body);
+			// console.log("IN HERE");
 
 			const title = await ServicesLayer.resultSetServices.getResultSet(
 				params.resultSetID,
