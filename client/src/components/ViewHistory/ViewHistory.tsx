@@ -8,221 +8,227 @@ import { Tweet } from "react-twitter-widgets";
 import link from "../../resources/links.json";
 
 function ViewHistory() {
-	// console.log(localStorage.getItem("resultSetId"));
+    // console.log(localStorage.getItem("resultSetId"));
 
-	const [searchPhrase, changePhrase] = useState("");
-	const [sort, changeSort] = useState("");
-	const [filter, changeFilter] = useState("");
-	const [date, changeDate] = useState("");
-	const [tweets, changeTweets] = useState<any[]>([]);
-	const [genReport, changeGenReport] = useState("");
-	const [clicked, changeClicked] = useState(false);
+    const [searchPhrase, changePhrase] = useState("");
+    const [sort, changeSort] = useState("");
+    const [filter, changeFilter] = useState("");
+    const [date, changeDate] = useState("");
+    const [tweets, changeTweets] = useState<any[]>([]);
+    const [genReport, changeGenReport] = useState("");
+    const [clicked, changeClicked] = useState(false);
 
-	// ################ API FOR GET RESULT SET REPORT ###########################
+    // ################ API FOR GET RESULT SET REPORT ###########################
 
-	let getResultSetEndpoint =
-		process.env.NODE_ENV === "development"
-			? String(link.localhostLink)
-			: String(link.serverLink);
-	getResultSetEndpoint += "getResultSet";
+    let getResultSetEndpoint =
+        process.env.NODE_ENV === "development"
+            ? String(link.localhostLink)
+            : String(link.serverLink);
+    getResultSetEndpoint += "getResultSet";
 
-	// using localhost
-	// const getResultSetEndpoint = "http://localhost:4000/dev/getResultSet";
+    // using localhost
+    // const getResultSetEndpoint = "http://localhost:4000/dev/getResultSet";
 
-	const getResultSet = async () => {
-		const resultSetData = {
-			apiKey: localStorage.getItem("loggedUserApi"),
-			resultSetID: localStorage.getItem("resultSetId")
-		};
+    const getResultSet = async () => {
+        const resultSetData = {
+            apiKey: localStorage.getItem("key"),
+            resultSetID: localStorage.getItem("resultSetId")
+        };
 
-		const requestOptions = {
-			method: "POST",
-			body: JSON.stringify(resultSetData)
-		};
+        const requestOptions = {
+            method: "POST",
+            body: JSON.stringify(resultSetData)
+        };
 
-		fetch(getResultSetEndpoint, requestOptions)
-			.then(async (response) => {
-				const isJson = response.headers.get("content-type")?.includes("application/json");
+        fetch(getResultSetEndpoint, requestOptions)
+            .then(async (response) => {
+                const isJson = response.headers.get("content-type")?.includes("application/json");
 
-				const data = isJson && (await response.json());
-				// console.log(data.resultSet);
+                const data = isJson && (await response.json());
+                console.log(data);
 
-				if (!response.ok) {
-					// error
+                if (!response.ok) {
+                    // error
 
-					return;
-				}
+                    return;
+                }
 
-				// changeDate(await data.Report.dateCreated.substring(0, 10));
-				changePhrase(await data.resultSet.searchPhrase);
-				changeDate(await data.resultSet.dateCreated.substring(0, 16));
-				changeSort(await data.resultSet.sortOption);
-				changeFilter(await data.resultSet.filterOption);
-				changeTweets(await data.Tweets);
-			})
-			.catch(() => {
-				// console.log("Error Generating Report");
-			});
-	};
+                // changeDate(await data.Report.dateCreated.substring(0, 10));
+                changeTweets(await data.tweets);
+                changePhrase(await data.searchPhrase);
+                changeDate(await data.dateCreated.substring(0, 16));
+                changeSort(await data.sortOption);
+                changeFilter(await data.filterOption);
 
-	getResultSet();
-	// ###################################################################
+                // console.log(data);
 
-	// ################ API FOR GENERATE REPORT ###########################
+            })
+            .catch(() => {
+                // console.log("Error Generating Report");
+            });
+    };
 
-	let genReportEndpoint =
-		process.env.NODE_ENV === "development"
-			? String(link.localhostLink)
-			: String(link.serverLink);
-	genReportEndpoint += "generateReport";
+    getResultSet();
+    // ###################################################################
 
-	// using localhost
-	// const genReportEndpoint = "http://localhost:4000/dev/generateReport";
+    // ################ API FOR GENERATE REPORT ###########################
 
-	const genRep = async () => {
-		const searchData = {
-			apiKey: localStorage.getItem("loggedUserApi"),
-			author: localStorage.getItem("loggedUserName"),
-			resultSetID: localStorage.getItem("resultSetId")
-		};
+    let genReportEndpoint =
+        process.env.NODE_ENV === "development"
+            ? String(link.localhostLink)
+            : String(link.serverLink);
+    genReportEndpoint += "generateReport";
 
-		const requestOptions = {
-			method: "POST",
-			body: JSON.stringify(searchData)
-		};
+    // using localhost
+    // const genReportEndpoint = "http://localhost:4000/dev/generateReport";
 
-		fetch(genReportEndpoint, requestOptions)
-			.then(async (response) => {
-				const isJson = response.headers.get("content-type")?.includes("application/json");
+    const genRep = async () => {
+        const searchData = {
+            apiKey: localStorage.getItem("key"),
+            author: localStorage.getItem("username"),
+            resultSetID: localStorage.getItem("resultSetId")
+        };
 
-				const data = isJson && (await response.json());
+        const requestOptions = {
+            method: "POST",
+            body: JSON.stringify(searchData)
+        };
 
-				if (!response.ok) {
-					// error
+        fetch(genReportEndpoint, requestOptions)
+            .then(async (response) => {
+                const isJson = response.headers.get("content-type")?.includes("application/json");
 
-					return;
-				}
+                const data = isJson && (await response.json());
 
-				changeDate(await data.Report.dateCreated.substring(0, 10));
-				changeGenReport(data.Report.reportID);
-				changeClicked(true);
-			})
-			.catch(() => {
-				// console.log("Error Generating Report");
-			});
-	};
+                if (!response.ok) {
+                    // error
 
-	// ###################################################################
+                    return;
+                }
 
-	// tweet options
-	const tweetOptions = [];
+                changeDate(await data.Report.dateCreated.substring(0, 10));
+                changeGenReport(data.Report.reportID);
+                changeClicked(true);
+            })
+            .catch(() => {
+                // console.log("Error Generating Report");
+            });
+    };
 
-	for (let index = 1; index <= 100; index++) {
-		tweetOptions.push(<option key={index.toString()}>{index}</option>);
-	}
+    // ###################################################################
 
-	// processing api response
-	const apiResponse = [<div key="begining div" />];
+    // tweet options
+    const tweetOptions = [];
 
-	// tweets.map((data) =>
-	//     apiResponse.push(
-	//         <div key={data.tweetId}>
-	//             <HomeTweet tweetData={data} />
-	//         </div>
-	//     )
-	// );
+    for (let index = 1; index <= 100; index++) {
+        tweetOptions.push(<option key={index.toString()}>{index}</option>);
+    }
 
-	tweets.map((data) =>
-		apiResponse.push(
-			<div className=" w-full border border-gray-200 p-3" key={data.reportID}>
-				<Tweet options={{ align: "center", width: "" }} tweetId={data.tweetId} />
-			</div>
-		)
-	);
+    // processing api response
+    const apiResponse = [<div key="begining div" />];
 
-	// let ind = 0;
+    // tweets.map((data) =>
+    //     apiResponse.push(
+    //         <div key={data.tweetId}>
+    //             <HomeTweet tweetData={data} />
+    //         </div>
+    //     )
+    // );
 
-	const viewGenReport = () => {
-		// if (enteredSearch !== "") {
-		localStorage.setItem("draftReportId", genReport);
-		// }
-	};
+    tweets.map((data) =>
+        apiResponse.push(
+            <div className=" w-full border border-gray-200 p-3" key={data}>
+                <Tweet options={{ align: "center", width: "" }} tweetId={data} />
+            </div>
+        )
+    );
 
-	return (
-		<div>
-			{!clicked && (
-				<div>
-					<div className="flex flex-col flex-wrap justify-around pt-3 pb-3 ">
-						{/*  */}
-						<h1 className="text-3xl mt-12">{searchPhrase}</h1>
+    // console.log(tweets);
 
-						<div className="flex flex-col mt-4">
-							<div className="flex flex-row flex-wrap w-auto font-light text-sm italic">
-								<p>Date searched:</p> &nbsp;
-								<p>{date}</p>
-							</div>
 
-							<div className="flex flex-row">
-								<div className="flex flex-row flex-wrap w-auto text-sm">
-									<p className="">Filtered by:</p> &nbsp;
-									<p>{filter}</p>
-								</div>
+    // let ind = 0;
 
-								{/* this is for the sorting options */}
-								<div className="flex flex-row flex-wrap w-auto text-sm ml-3">
-									<p className="">Sorted:</p> &nbsp;
-									<p>{sort}</p>
-								</div>
-							</div>
-							{/* this is for the Fitlering options */}
-						</div>
-					</div>
+    const viewGenReport = () => {
+        // if (enteredSearch !== "") {
+        localStorage.setItem("draftReportId", genReport);
+        // }
+    };
 
-					<div data-testid="result" className="flex flex-col">
-						{apiResponse}
-						<br />
-						<div className="flex flex-row w-full justify-center pt-3">
-							<button
-								data-testid="btn-generate"
-								type="submit"
-								className="button w-3/4 text-lg p-0.5"
-								onClick={genRep}
-							>
-								Generate Report
-							</button>
-						</div>
-					</div>
-				</div>
-			)}
+    return (
+        <div>
+            {!clicked && (
+                <div>
+                    <div className="flex flex-col flex-wrap justify-around pt-3 pb-3 ">
+                        {/*  */}
+                        <h1 className="text-3xl mt-12">{searchPhrase}</h1>
 
-			{clicked && (
-				<div className="mt-4 flex flex-col flex-wrap justify-center">
-					<h1 className="text-2xl">Newly created report</h1>
-					<Link to="/genReport">
-						<div className="m-4 w-1/4 h-20 bg-gray-400 rounded-md flex flex-col p-2">
-							<div className="">
-								<button
-									data-testid="btn-report"
-									type="submit"
-									onClick={viewGenReport}
-								>
-									<p className="font-bold">{searchPhrase}</p>
-								</button>
-							</div>
-							<div className="mt-2">
-								<p className="italic text-xs">
-									{localStorage.getItem("loggedUserName")}
-								</p>
-							</div>
-							<div className="">
-								<p className="italic text-xs">{date}</p>
-							</div>
-						</div>
-					</Link>
-				</div>
-			)}
-		</div>
-	);
+                        <div className="flex flex-col mt-4">
+                            <div className="flex flex-row flex-wrap w-auto font-light text-sm italic">
+                                <p>Date searched:</p> &nbsp;
+                                <p>{date}</p>
+                            </div>
+
+                            <div className="flex flex-row">
+                                <div className="flex flex-row flex-wrap w-auto text-sm">
+                                    <p className="">Filtered by:</p> &nbsp;
+                                    <p>{filter}</p>
+                                </div>
+
+                                {/* this is for the sorting options */}
+                                <div className="flex flex-row flex-wrap w-auto text-sm ml-3">
+                                    <p className="">Sorted:</p> &nbsp;
+                                    <p>{sort}</p>
+                                </div>
+                            </div>
+                            {/* this is for the Fitlering options */}
+                        </div>
+                    </div>
+
+                    <div data-testid="result" className="flex flex-col">
+                        {apiResponse}
+                        <br />
+                        <div className="flex flex-row w-full justify-center pt-3">
+                            <button
+                                data-testid="btn-generate"
+                                type="submit"
+                                className="button w-3/4 text-lg p-0.5"
+                                onClick={genRep}
+                            >
+                                Generate Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {clicked && (
+                <div className="mt-4 flex flex-col flex-wrap justify-center">
+                    <h1 className="text-2xl">Newly created report</h1>
+                    <Link to="/genReport">
+                        <div className="m-4 w-1/4 h-20 bg-gray-400 rounded-md flex flex-col p-2">
+                            <div className="">
+                                <button
+                                    data-testid="btn-report"
+                                    type="submit"
+                                    onClick={viewGenReport}
+                                >
+                                    <p className="font-bold">{searchPhrase}</p>
+                                </button>
+                            </div>
+                            <div className="mt-2">
+                                <p className="italic text-xs">
+                                    {localStorage.getItem("username")}
+                                </p>
+                            </div>
+                            <div className="">
+                                <p className="italic text-xs">{date}</p>
+                            </div>
+                        </div>
+                    </Link>
+                </div>
+            )}
+        </div>
+    );
 }
 
 export default ViewHistory;

@@ -2,80 +2,60 @@ import { useState, useEffect } from "react";
 import Landing from "./components/Landing/Landing";
 import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
-// import Splash from "./components/Splash/Splash";
 import "./index.css";
-// import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 
 // main Application component in which different page sub-components will be contained
 function App() {
-	// const navigate = useNavigate();
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [signupPage, setSignupPage] = useState(false);
+    const [userApi, changeUserApi] = useState("");
 
-	// const [loginPage, setLoginPage] = useState(true);
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
-	const [signupPage, setSignupPage] = useState(false);
-	const [userApi, changeUserApi] = useState("");
+    useEffect(() => {
+        const storageUserLoggedInInformation = localStorage.getItem("key");
+        if (storageUserLoggedInInformation) {
+            setIsLoggedIn(true);
+        }
+    }, []);
 
-	useEffect(() => {
-		const storageUserLoggedInInformation = localStorage.getItem("loggedUserApi");
+    // retrieving user login details
+    const loginHandler = (props: any) => {
+        if (props.login === "true") {
+            localStorage.setItem("key", props.apiKey);
+            localStorage.setItem("username", props.username);
+            localStorage.setItem("email", props.email);
+            setIsLoggedIn(true);
+            setSignupPage(false);
+            changeUserApi(props.apiKey);
+        }
+    };
 
-		if (storageUserLoggedInInformation) {
-			setIsLoggedIn(true);
-		}
-	}, []);
+    const signUpPage = () => {
+        setIsLoggedIn(false);
+        setSignupPage(true);
+    };
 
-	// retrieving user login details
-	const loginHandler = (props: any) => {
-		if (props.login === "true") {
-			localStorage.setItem("loggedUserApi", props.apiKey);
-			localStorage.setItem("loggedUserName", props.username);
-			localStorage.setItem("loggedUserEmail", props.email);
-			setIsLoggedIn(true);
-			setSignupPage(false);
-			changeUserApi(props.apiKey);
-		}
-	};
+    const logInPage = () => {
+        localStorage.clear();
+        setIsLoggedIn(false);
+        setSignupPage(false);
+    };
 
-	const signUpPage = () => {
-		localStorage.setItem("loggedUserApi", "0");
-		setIsLoggedIn(false);
-		setSignupPage(true);
+    const readyToLog = () => {
+        localStorage.setItem("newUser", "true");
+        setSignupPage(false);
+    };
 
-		changeUserApi("");
-	};
+    return (
+        <div className="">
+            {!localStorage.getItem("key") && !signupPage && (<Login userLoginDetails={loginHandler} takeToSignupPage={signUpPage} />)}
 
-	const logInPage = () => {
-		localStorage.removeItem("loggedUserApi");
-		localStorage.removeItem("loggedUserName");
-		localStorage.removeItem("loggedUserEmail");
-		localStorage.removeItem("id");
-		localStorage.removeItem("resultSetId");
-		localStorage.removeItem("draftReportId");
-		setIsLoggedIn(false);
-		setSignupPage(false);
+            {/* Signup */}
+            {signupPage && <Signup takeToSigninPage={logInPage} readyToLogIN={readyToLog} />}
 
-		changeUserApi("");
-	};
-
-	const readyToLog = () => {
-		localStorage.removeItem("loggedUserApi");
-		localStorage.setItem("newUser", "true");
-		setSignupPage(false);
-	};
-
-	return (
-		<div className="">
-			{/* Login */}
-			{!localStorage.getItem("loggedUserApi") && (
-				<Login userLoginDetails={loginHandler} takeToSignupPage={signUpPage} />
-			)}
-
-			{/* Signup */}
-			{signupPage && <Signup takeToSigninPage={logInPage} readyToLogIN={readyToLog} />}
-
-			{/* Entry here based on Signup and Login decision  */}
-			{isLoggedIn && <Landing userAPI={userApi} takeToSigninPage={logInPage} />}
-		</div>
-	);
+            {/* Entry here based on Signup and Login decision  */}
+            {isLoggedIn && <Landing userAPI={userApi} takeToSigninPage={logInPage} />}
+        </div>
+    );
 }
 
 export default App;
