@@ -6,13 +6,14 @@ import { Tweet } from "react-twitter-widgets";
 import link from "../../resources/links.json";
 
 // importing mock data
-import Text from "../Text/Text";
+import PublishedText from "../PublishedText/PublishedText";
 
 function GetPublishedReport() {
-    const [state, setState] = useState([]);
-    const [title, setTitle] = useState("");
-    const [author, setAuthor] = useState("");
-    const [date, setDate] = useState("");
+	const [state, setState] = useState([]);
+	const [title, setTitle] = useState("");
+	const [author, setAuthor] = useState("");
+	const [date, setDate] = useState("");
+	const [stat, setStat] = useState("");
 
     // ################ API FOR GETTING REPORT ###########################
 
@@ -28,7 +29,7 @@ function GetPublishedReport() {
         // POST request using fetch with error handling
         requiredData = {
             apiKey: localStorage.getItem("key"),
-            reportID: localStorage.getItem("draftReportId")
+            reportID: localStorage.getItem("reportId")
         };
 
         const requestOptions = {
@@ -41,35 +42,37 @@ function GetPublishedReport() {
 
             const data = isJson && (await response.json());
 
-            // console.log(data);
+			setStat(data.report.status);
 
-            setState(data.report.Report);
-            setTitle(data.report.title);
-            setAuthor(data.report.author);
-            setDate(data.report.dateCreated.substring(0, 16));
-        });
-    };
+			setState(data.report.Report);
+			setTitle(data.report.title);
+			setAuthor(data.report.author);
+			setDate(data.report.dateCreated.substring(0, 16));
 
-    getRep();
+		});
+	};
+
+	getRep();
+	// console.log(state);
 
     // processing api response
     const apiResponse = [<div key="begining div" />];
 
-    state.map((data: any, index: number) =>
-        apiResponse.push(
-            <div className="" key={data.position}>
-                {data.blockType === "RICHTEXT" && (
-                    <div className="">
-                        {" "}
-                        <Text keyValue={index} data={data} />{" "}
-                    </div>
-                )}
+	state.map((data: any, index: number) =>
+		apiResponse.push(
+			<div className="" key={data.position}>
+				{data.blockType === "RICHTEXT" && (
+					<div className="">
+						{" "}
+						<PublishedText keyValue={index} data={data} status={stat} />{" "}
+					</div>
+				)}
 
                 {data.blockType === "TWEET" && (
                     <div className=" w-full border border-gray-200 p-3" key={data.position}>
                         <Tweet
                             options={{ align: "center", width: "" }}
-                            tweetId={data.block.tweetId}
+                            tweetId={data.block.tweetID}
                         />
                     </div>
                 )}
@@ -77,14 +80,17 @@ function GetPublishedReport() {
         )
     );
 
-    return (
-        <div className="mt-16 ">
-            <div className="p-4">
-                <h1 className="text-3xl font-bold">{title}</h1>
-                <br />
-                <h2 className="italic font-bold">Created By: {author}</h2>
-                <h3 className="italic text-xs">Date Created: {date}</h3>
-            </div>
+
+
+
+	return (
+		<div className="mt-16 ">
+			<div className="p-4">
+				<h1 className="text-3xl font-bold">{title}</h1>
+				<br />
+				<h2 className="italic font-bold">Created By: {author}</h2>
+				<h3 className="italic text-xs">Date Created: {date}</h3>
+			</div>
 
             <br />
 
