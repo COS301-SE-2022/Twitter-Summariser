@@ -6,7 +6,7 @@ function Logo(props: any) {
             {props.page === "login" ? (
                 <div data-testid="logo" className="">
                     <img
-                        src="assets/logo.jpeg"
+                        src="assets/logo.png"
                         alt="Twitter Summariser Logo"
                         width={props.width}
                         height={props.height}
@@ -15,7 +15,7 @@ function Logo(props: any) {
             ) : (
                 <div data-testid="logo" className="fixed 2xl:ml-14 lg:ml-3">
                     <img
-                        src="assets/logo.jpeg"
+                        src="assets/logo.png"
                         alt="Twitter Summariser Logo"
                         width={props.width}
                         height={props.height}
