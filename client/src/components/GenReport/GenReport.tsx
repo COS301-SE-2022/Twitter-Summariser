@@ -180,7 +180,7 @@ function GenReport() {
 			.then(async (response) => {
 				const isJson = response.headers.get("content-type")?.includes("application/json");
 
-				const data = isJson && (await response.json());
+				isJson && (await response.json());
 
 				// check for error response
 				if (response.status === 200) {
