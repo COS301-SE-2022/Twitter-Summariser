@@ -1,7 +1,4 @@
-// import { Tweet } from 'react-twitter-widgets';
-// import { Link } from "react-router-dom";
 import { useState } from "react";
-// import Tweet from "../Tweet/Tweet";
 import { Link, useNavigate } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
 
@@ -10,171 +7,293 @@ import link from "../../resources/links.json";
 
 // importing mock data
 import Text from "../Text/Text";
-// import DraftCard from "../DraftCard/DraftCard";
+
+// importing icons
+import { BsShare } from "react-icons/bs";
+import { BiErrorCircle } from "react-icons/bi";
+import { MdDeleteOutline } from "react-icons/md";
+import { AiOutlineCheckCircle } from "react-icons/ai";
 
 function GenReport() {
-    const navigate = useNavigate();
-    // const [{id}, changeID] = useState("");
+	const navigate = useNavigate();
 
-    // let generate = 1;
+	// style for the icons
+	const style = { fontSize: "1.3rem" };
+	const style__ = { fontSize: "1.5rem", color: "green" };
+	const iconStyle3 = { fontSize: "1.5rem", color: "red" };
 
-    // console.log("generate is " + generate);
+	const [state, setState] = useState([]);
+	const [title, setTitle] = useState("");
+	const [author, setAuthor] = useState("");
+	const [date, setDate] = useState("");
 
-    // let { val } = useParams();
-    const [state, setState] = useState([]);
-    const [title, setTitle] = useState("");
-    const [author, setAuthor] = useState("");
-    const [date, setDate] = useState("");
-    // console.log(localStorage.getItem("id"));
-    // console.log(val);
+	// for starting up sharing
+	const [share, setShare] = useState(false);
+	const [successfulShare, setSuccessfulShare] = useState(false);
+	const [enteredShare, changeEnteredShare] = useState("");
 
-    // ################ API FOR GETTING REPORT ###########################
+	const shareHandler = () => {
+		setShare(!share);
+	};
 
-    let getReportEndpoint =
-        process.env.NODE_ENV === "development"
-            ? String(link.localhostLink)
-            : String(link.serverLink);
-    getReportEndpoint += "getReport";
+	const [NAN, changeNAN] = useState(false);
 
-    // using localhost
-    // const getReportEndpoint = "http://localhost:4000/dev/getReport";
+	const enteredShareHandler = (event: any) => {
+		console.log(event.target.value);
 
-    const requiredData = {
-        apiKey: localStorage.getItem("key"),
-        reportID: localStorage.getItem("draftReportId")
-    };
+		changeEnteredShare(event.target.value);
+	};
 
-    const getRep = async () => {
-        // POST request using fetch with error handling
+	// ################ API FOR GETTING REPORT ###########################
 
-        const requestOptions = {
-            method: "POST",
-            body: JSON.stringify(requiredData)
-        };
+	let getReportEndpoint =
+		process.env.NODE_ENV === "development"
+			? String(link.localhostLink)
+			: String(link.serverLink);
+	getReportEndpoint += "getReport";
 
-        fetch(getReportEndpoint, requestOptions)
-            .then(async (response) => {
-                const isJson = response.headers.get("content-type")?.includes("application/json");
+	// using localhost
+	// const getReportEndpoint = "http://localhost:4000/dev/getReport";
 
-                const data = isJson && (await response.json());
+	const requiredData = {
+		apiKey: localStorage.getItem("key"),
+		reportID: localStorage.getItem("draftReportId")
+	};
 
-                // console.log(data);
+	const getRep = async () => {
+		// POST request using fetch with error handling
 
-                setState(data.report.Report);
-                setTitle(data.report.title);
-                setAuthor(data.report.author);
-                setDate(data.report.dateCreated.substring(0, 16));
-                // console.log(await data.report.dateCreated);
+		const requestOptions = {
+			method: "POST",
+			body: JSON.stringify(requiredData)
+		};
 
-                // check for error response
-                if (!response.ok) {
-                    // error
-                    // signUpFailure(true);
-                }
+		fetch(getReportEndpoint, requestOptions)
+			.then(async (response) => {
+				const isJson = response.headers.get("content-type")?.includes("application/json");
 
-                // await props.readyToLogIN();
-            })
-            .catch(() => {
-                // console.log("Error retrieving report");
-                // signUpFailure(true);
-            });
-        // }
+				const data = isJson && (await response.json());
 
-        // generate = 0;
-    };
+				setState(data.report.Report);
+				setTitle(data.report.title);
+				setAuthor(data.report.author);
+				setDate(data.report.dateCreated.substring(0, 16));
 
-    getRep();
-    // ###################################################################
+				// check for error response
+				if (!response.ok) {
+					// error
+				}
+			})
+			.catch(() => {});
+		// }
 
-    // ######################### API FOR PUBLISHING REPORT ###############################################
+		// generate = 0;
+	};
 
-    let publishEndpoint =
-        process.env.NODE_ENV === "development"
-            ? String(link.localhostLink)
-            : String(link.serverLink);
+	getRep();
+	// ###################################################################
 
-    publishEndpoint += "publishReport";
+	// ######################### API FOR PUBLISHING REPORT ###############################################
 
-    const publishReport = (resultInfo: any) => {
-        const requestOptions = {
-            method: "POST",
-            body: JSON.stringify(resultInfo)
-        };
+	let publishEndpoint =
+		process.env.NODE_ENV === "development"
+			? String(link.localhostLink)
+			: String(link.serverLink);
 
-        fetch(publishEndpoint, requestOptions).then(async (response) => {
-            response.headers.get("content-type")?.includes("application/json");
+	publishEndpoint += "publishReport";
 
-            // isJson && (await response.json());
-        });
+	const publishReport = (resultInfo: any) => {
+		const requestOptions = {
+			method: "POST",
+			body: JSON.stringify(resultInfo)
+		};
 
-        navigate("/getPublishedReport");
-    };
+		fetch(publishEndpoint, requestOptions).then(async (response) => {
+			response.headers.get("content-type")?.includes("application/json");
 
-    // #######################################################################
+			// isJson && (await response.json());
+		});
 
-    const publishHandler = (event: any) => {
-        event.preventDefault();
+		navigate("/getPublishedReport");
+	};
+
+	// #######################################################################
+
+	const publishHandler = (event: any) => {
+		event.preventDefault();
 
 		publishReport(requiredData);
 		let draftId = String(localStorage.getItem("draftReportId"));
 		localStorage.setItem("reportId", draftId);
 	};
 
-    // processing api response
-    const apiResponse = [<div key="begining div" />];
+	// processing api response
+	const apiResponse = [<div key="begining div" />];
 
-		console.log(state);
+	// console.log(state);
 
+	state.map((data: any, index: number) =>
+		apiResponse.push(
+			<div className="" key={data.position}>
+				{data.blockType === "RICHTEXT" && (
+					<div className="">
+						{" "}
+						<Text keyValue={index} data={data} />{" "}
+					</div>
+				)}
 
-    state.map((data: any, index: number) =>
-        apiResponse.push(
-            <div className="" key={data.position}>
-                {data.blockType === "RICHTEXT" && (
-                    <div className="">
-                        {" "}
-                        <Text keyValue={index} data={data} />{" "}
-                    </div>
-                )}
+				{data.blockType === "TWEET" && (
+					<div className=" w-full border border-gray-200 p-3" key={data.position}>
+						<Tweet
+							options={{ align: "center", width: "" }}
+							tweetId={data.block.tweetID}
+						/>
+					</div>
+				)}
+			</div>
+		)
+	);
 
-                {data.blockType === "TWEET" && (
-                    <div className=" w-full border border-gray-200 p-3" key={data.position}>
-                        <Tweet
-                            options={{ align: "center", width: "" }}
-                            tweetId={data.block.tweetID}
-                        />
-                    </div>
-                )}
-            </div>
-        )
-    );
+	// compiling share information
+	const requiredDataForShare = {
+		apiKey: localStorage.getItem("key"),
+		reportID: localStorage.getItem("draftReportId"),
+		email: enteredShare
+	};
 
-    return (
-        <div className="mt-16 ">
-            <div className="p-4">
-                <h1 className="text-3xl font-bold">{title}</h1>
-                <br />
-                <h2 className="italic font-bold">Created By: {author}</h2>
-                <h3 className="italic text-xs">Date Created: {date}</h3>
-            </div>
+	let shareEndpoint =
+		process.env.NODE_ENV === "development"
+			? String(link.localhostLink)
+			: String(link.serverLink);
 
-            <br />
+	shareEndpoint += "shareReport";
 
-            <div className="grid grid-cols gap-4 content-center">{apiResponse}</div>
+	const shareReport = async (repData: any) => {
+		// POST request using fetch with error handling
 
-            <div className="flex justify-center mb-4">
-                <Link to="/getPublishedReport">
-                    <button
-                        onClick={publishHandler}
-                        type="submit"
-                        className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded button text-center"
-                    >
-                        {" "}
-                        PUBLISH REPORT
-                    </button>
-                </Link>
-            </div>
-        </div>
-    );
+		const requestOptions = {
+			method: "POST",
+			body: JSON.stringify(repData)
+		};
+
+		fetch(shareEndpoint, requestOptions)
+			.then(async (response) => {
+				const isJson = response.headers.get("content-type")?.includes("application/json");
+
+				isJson && (await response.json());
+
+				// check for error response
+				if (response.status === 200) {
+					// error
+					console.log("got here");
+
+					changeNAN(false);
+					setSuccessfulShare(true);
+					setShare(false);
+				} else {
+					changeNAN(true);
+				}
+			})
+			.catch(() => {});
+	};
+
+	const shareSearchHandler = () => {
+		console.log("Share search");
+
+		if (enteredShare !== "") {
+			shareReport(requiredDataForShare);
+		}
+	};
+
+	return (
+		<div className="mt-16 ">
+			<div className="flex flex-row justify-between">
+				<div className="ml-2 p-4">
+					<h1 className="text-3xl font-bold">{title}</h1>
+					<br />
+					<h2 className="italic font-bold">Created By: {author}</h2>
+					<h3 className="italic text-xs">Date Created: {date}</h3>
+				</div>
+
+				<div className="flex flex-row items-end p-4 justify-between">
+					<div className="">
+						<button>
+							<BsShare style={style} onClick={shareHandler} />
+						</button>
+					</div>
+					<div className="">&nbsp;</div>
+					<div className="p-1">
+						<MdDeleteOutline style={iconStyle3} />
+					</div>
+				</div>
+			</div>
+
+			{share && (
+				<div className="flex flex-col">
+					{NAN && (
+						<div className="flex flex-row border-2 border-red-500 rounded-md bg-red-300 h-auto w-2/4 ml-6 p-2">
+							<BiErrorCircle style={style} />
+							<p>User Does not Exist</p>
+						</div>
+					)}
+					<div className="ml-2 p-4 flex flex-row">
+						<input
+							data-testid="search"
+							type="search"
+							className="
+                nosubmit
+                w-3/4
+                px-3
+                py-1.5
+                text-lg
+                font-normal
+                text-gray-700
+                bg-clip-padding
+                border border-solid border-gray-300
+                rounded-lg
+                focus:text-gray-700 focus:bg-white focus:border-twitter-blue focus:outline-none
+                bg-gray-200
+              "
+							onChange={enteredShareHandler}
+							placeholder="enter user email ..."
+						/>
+						<button
+							data-testid="btn-search"
+							type="submit"
+							className="button w-1/4 text-lg p-0.5"
+							onClick={shareSearchHandler}
+						>
+							Share
+						</button>
+					</div>
+				</div>
+			)}
+
+			{successfulShare && (
+				<div className="flex flex-row border-2 border-green-700 rounded-md bg-green-300 h-auto w-auto w-2/4 ml-6 p-2">
+					<AiOutlineCheckCircle style={style__} />
+					<p>Report shared successfully</p>
+				</div>
+			)}
+
+			<br />
+
+			<div className="grid grid-cols gap-4 content-center">{apiResponse}</div>
+
+			<div className="flex justify-center mb-4">
+				<Link to="/getPublishedReport">
+					<button
+						onClick={publishHandler}
+						type="submit"
+						className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded button text-center"
+					>
+						{" "}
+						PUBLISH REPORT
+					</button>
+				</Link>
+			</div>
+		</div>
+	);
 }
 
 export default GenReport;
