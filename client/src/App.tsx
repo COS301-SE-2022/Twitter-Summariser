@@ -46,7 +46,7 @@ function App() {
 	};
 
 	return (
-		<div className="">
+					<div className="">
 			{!localStorage.getItem("key") && !signupPage && (
 				<Login userLoginDetails={loginHandler} takeToSignupPage={signUpPage} />
 			)}
