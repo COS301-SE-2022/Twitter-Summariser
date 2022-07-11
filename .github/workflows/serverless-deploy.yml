@@ -16,16 +16,12 @@ jobs:
       - name: Checkout to develop/master branch
         uses: actions/checkout@v2
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - name: Download the Twitter Summariser artifact
+        uses: dawidd6/action-download-artifact@v2
         with:
-          node-version: "14.x"
-
-      - name: Build the Twitter Summariser App
-        run:  |
-          cd client
-          yarn
-          CI=false yarn run build
+          workflow: build.yml
+          name: client-artifact
+          path: client/build
     
       - name: Install package dependencies for backend
         run: yarn
