@@ -117,12 +117,12 @@ function Login(props: any) {
 			</div>
 			{rightCredentials && (
 				<div>
-					<br />
-					<br />
+					{/* <br />
+					<br /> */}
 				</div>
 			)}
 			{localStorage.getItem("newUser") && (
-				<div className="flex flex-row border-2 border-green-700 rounded-md bg-green-300 h-auto w-auto m-4 mb-5 p-2">
+				<div className="flex flex-row border-2 border-green-700 rounded-md bg-green-300 h-auto w-auto m-4 mb- p-2">
 					<AiOutlineCheckCircle style={style__} />
 					<p>Ready to Explore Twitter Summarizer</p>
 				</div>
