@@ -145,3 +145,4 @@ jobs:
         uses: creyD/prettier_action@v4.2
         with:
           prettier_options: --write . --config .prettierrc
+          commit_message: "🎨(CICD): All code has been formatted!"
