@@ -81,6 +81,12 @@ jobs:
       - name: Run Prettier and fomat the code
         run:  yarn format
 
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Apply formatting changes
+          branch: ${{ github.head_ref }}
+
   frontend:
     name: Testing and building of frontend
     needs: lint-and-format
