@@ -35,7 +35,7 @@ function App() {
 	};
 
 	const logInPage = () => {
-		localStorage.clear();
+			localStorage.clear();
 		setIsLoggedIn(false);
 		setSignupPage(false);
 	};
