@@ -7,10 +7,10 @@ import "./index.css";
 // main Application component in which different page sub-components will be contained
 function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
-	const [signupPage, setSignupPage] = useState(false);
+		const [signupPage, setSignupPage] = useState(false);
 	const [userApi, changeUserApi] = useState("");
 
-	useEffect(() => {
+			useEffect(() => {
 		const storageUserLoggedInInformation = localStorage.getItem("key");
 		if (storageUserLoggedInInformation) {
 			setIsLoggedIn(true);
@@ -19,7 +19,7 @@ function App() {
 
 	// retrieving user login details
 	const loginHandler = (props: any) => {
-		if (props.login === "true") {
+					if (props.login === "true") {
 			localStorage.setItem("key", props.apiKey);
 			localStorage.setItem("username", props.username);
 			localStorage.setItem("email", props.email);
@@ -30,13 +30,13 @@ function App() {
 	};
 
 	const signUpPage = () => {
-		setIsLoggedIn(false);
+				setIsLoggedIn(false);
 		setSignupPage(true);
 	};
 
 	const logInPage = () => {
 		localStorage.clear();
-		setIsLoggedIn(false);
+				setIsLoggedIn(false);
 		setSignupPage(false);
 	};
 
