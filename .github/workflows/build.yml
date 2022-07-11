@@ -5,7 +5,7 @@ on:
     types: [opened, reopened, labeled, synchronize]
 
 jobs:
-  milestone-check:
+  Milestone-Check:
     name: Checks if milestone is used
     runs-on: ubuntu-latest
 
@@ -16,7 +16,7 @@ jobs:
           echo Yyou don't have a milestone"
           exit 1
 
-  label-check:
+  Label-Check:
     name: Checks if labels are used
     runs-on: ubuntu-latest
 
@@ -58,7 +58,7 @@ jobs:
 
   
 
-  frontend:
+  Frontend:
     name: Testing and building of frontend
     runs-on: ubuntu-latest
     defaults:
@@ -90,7 +90,7 @@ jobs:
           name: client-artifact
           path: client/coverage/
 
-  backend:
+  Backend:
     name: Testing of backend
     runs-on: ubuntu-latest
 
@@ -116,9 +116,9 @@ jobs:
           name: backend-artifact
           path: coverage/
 
-  lint-and-format:
+  Lint-and-Format:
     name: Attempt to lints and format all code in the repository
-    needs: [frontend, backend]
+    needs: [Frontend, Backend]
     runs-on: ubuntu-latest
 
     steps:
