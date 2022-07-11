@@ -85,68 +85,66 @@ jobs:
         uses: creyD/prettier_action@v4.2
         with:
           prettier_options: --write . --config .prettierrc
-          only_changed: True
           same_commit: True
-          # commit_message: "🎨(CICD): All code has been formatted!"
 
-  # frontend:
-  #   name: Testing and building of frontend
-  #   needs: lint-and-format
-  #   runs-on: ubuntu-latest
-  #   defaults:
-  #     run:
-  #       working-directory: client
+  frontend:
+    name: Testing and building of frontend
+    needs: lint-and-format
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: client
 
-  #   steps:
-  #     - name: Checkout to develop branch
-  #       uses: actions/checkout@v2
+    steps:
+      - name: Checkout to develop branch
+        uses: actions/checkout@v2
 
-  #     - name: Setup Node.js
-  #       uses: actions/setup-node@v2
-  #       with:
-  #         node-version: "16.x"
-  #         cache: 'yarn'
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16.x"
+          cache: 'yarn'
 
-  #     - name: Install all frontend package dependencies
-  #       run:  yarn
+      - name: Install all frontend package dependencies
+        run:  yarn
 
-  #     - name: Run frontend tests
-  #       run:  yarn test --coverage --watchAll=false
+      - name: Run frontend tests
+        run:  yarn test --coverage --watchAll=false
 
-  #     - name: Build the React App
-  #       run:  yarn run build
+      - name: Build the React App
+        run:  yarn run build
 
-  #     - name: Upload client coverage folder & build forder as an artifact
-  #       uses: actions/upload-artifact@v3
-  #       with:
-  #         name: client-artifact
-  #         path: |
-  #           client/coverage/
-  #           client/build/
+      - name: Upload client coverage folder & build forder as an artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: client-artifact
+          path: |
+            client/coverage/
+            client/build/
           
-  # backend:
-  #   name: Testing of backend
-  #   needs: lint-and-format
-  #   runs-on: ubuntu-latest
+  backend:
+    name: Testing of backend
+    needs: lint-and-format
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - name: Checkout to develop branch
-  #       uses: actions/checkout@v2
+    steps:
+      - name: Checkout to develop branch
+        uses: actions/checkout@v2
 
-  #     - name: Setup Node.js
-  #       uses: actions/setup-node@v2
-  #       with:
-  #         node-version: "16.x"
-  #         cache: 'yarn'
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16.x"
+          cache: 'yarn'
 
-  #     - name: Install all backend package dependencies
-  #       run: yarn
+      - name: Install all backend package dependencies
+        run: yarn
 
-  #     - name: Run the tests
-  #       run: yarn test -- --coverage
+      - name: Run the tests
+        run: yarn test -- --coverage
 
-  #     - name: Upload backend coverage folder as artifact
-  #       uses: actions/upload-artifact@v3
-  #       with:
-  #         name: backend-artifact
-  #         path: coverage/
+      - name: Upload backend coverage folder as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: backend-artifact
+          path: coverage/
