@@ -7,23 +7,23 @@ import "./index.css";
 // main Application component in which different page sub-components will be contained
 function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
-			const [signupPage, setSignupPage] = useState(false);
+	const [signupPage, setSignupPage] = useState(false);
 	const [userApi, changeUserApi] = useState("");
 
 	useEffect(() => {
 		const storageUserLoggedInInformation = localStorage.getItem("key");
 		if (storageUserLoggedInInformation) {
 			setIsLoggedIn(true);
-					}
+		}
 	}, []);
 
 	// retrieving user login details
 	const loginHandler = (props: any) => {
-					if (props.login === "true") {
+		if (props.login === "true") {
 			localStorage.setItem("key", props.apiKey);
 			localStorage.setItem("username", props.username);
 			localStorage.setItem("email", props.email);
-						setIsLoggedIn(true);
+			setIsLoggedIn(true);
 			setSignupPage(false);
 			changeUserApi(props.apiKey);
 		}
@@ -31,22 +31,22 @@ function App() {
 
 	const signUpPage = () => {
 		setIsLoggedIn(false);
-				setSignupPage(true);
+		setSignupPage(true);
 	};
 
 	const logInPage = () => {
-			localStorage.clear();
+		localStorage.clear();
 		setIsLoggedIn(false);
 		setSignupPage(false);
 	};
 
 	const readyToLog = () => {
 		localStorage.setItem("newUser", "true");
-				setSignupPage(false);
+		setSignupPage(false);
 	};
 
 	return (
-					<div className="">
+		<div className="">
 			{!localStorage.getItem("key") && !signupPage && (
 				<Login userLoginDetails={loginHandler} takeToSignupPage={signUpPage} />
 			)}
