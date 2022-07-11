@@ -65,6 +65,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: ${{ github.head_ref }}
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
@@ -84,7 +85,9 @@ jobs:
         uses: creyD/prettier_action@v4.2
         with:
           prettier_options: --write . --config .prettierrc
-          commit_message: "🎨(CICD): All code has been formatted!"
+          only_changed: True
+          same_commit: True
+          # commit_message: "🎨(CICD): All code has been formatted!"
 
   frontend:
     name: Testing and building of frontend
