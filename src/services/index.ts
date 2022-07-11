@@ -12,7 +12,7 @@ const creatorService = new CreatorService(dynamoDBClient());
 const resultSetServices = new ResultSetService(dynamoDBClient());
 const reportBlockService = new ReportBlockService(dynamoDBClient());
 const textStyleService = new TextStyleService(dynamoDBClient());
-const tweetService= new TweetService();
+const tweetService = new TweetService();
 const permissionService = new PermissionService(dynamoDBClient());
 
 export default {

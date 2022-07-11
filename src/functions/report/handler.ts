@@ -15,7 +15,7 @@ export const generateReport = middyfy(
 				params.resultSetID,
 				params.apiKey
 			);
-			const {tweets} = title;
+			const { tweets } = title;
 
 			let id: string;
 			id = "RT-";
@@ -278,7 +278,7 @@ export const getReport = middyfy(
 			);
 
 			report = await ServicesLayer.reportService.getReport(params.reportID);
-			report.permission=per.type;
+			report.permission = per.type;
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
