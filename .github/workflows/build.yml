@@ -75,11 +75,13 @@ jobs:
           cd client
           yarn
 
+      - name: Run Prettier and fomat the code
+        run:  yarn format
+
       - name: Run the linter and attempt to fix errors
         run: yarn lint:fix
 
-      - name: Run Prettier and fomat the code
-        run:  yarn format
+      
 
   frontend:
     name: Testing and building of frontend
