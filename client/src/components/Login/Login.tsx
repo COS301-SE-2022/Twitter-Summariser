@@ -168,7 +168,7 @@ function Login(props: any) {
 						<button
 							data-testid="btn-signup"
 							type="submit"
-							className="text-[#0096C7] text-sky-500 hover:text-[#03045E]"
+							className="text-[#0096C7] hover:text-[#03045E]"
 							onClick={signup}
 						>
 							&nbsp; Sign up
