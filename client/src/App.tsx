@@ -8,7 +8,7 @@ import "./index.css";
 function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [signupPage, setSignupPage] = useState(false);
-	const [userApi, changeUserApi] = useState("");
+			const [userApi, changeUserApi] = useState("");
 
 	useEffect(() => {
 		const storageUserLoggedInInformation = localStorage.getItem("key");
@@ -29,7 +29,7 @@ function App() {
 		}
 	};
 
-	const signUpPage = () => {
+			const signUpPage = () => {
 		setIsLoggedIn(false);
 		setSignupPage(true);
 	};
@@ -38,11 +38,11 @@ function App() {
 		localStorage.clear();
 		setIsLoggedIn(false);
 		setSignupPage(false);
-	};
+			};
 
 	const readyToLog = () => {
 		localStorage.setItem("newUser", "true");
-		setSignupPage(false);
+				setSignupPage(false);
 	};
 
 	return (
@@ -51,7 +51,7 @@ function App() {
 				<Login userLoginDetails={loginHandler} takeToSignupPage={signUpPage} />
 			)}
 
-			{/* Signup */}
+					{/* Signup */}
 			{signupPage && <Signup takeToSigninPage={logInPage} readyToLogIN={readyToLog} />}
 
 			{/* Entry here based on Signup and Login decision  */}

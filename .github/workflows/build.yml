@@ -56,7 +56,7 @@ jobs:
           count: 1
           labels: "scope:ai, scope:cicd, scope:github-repo, scope:db, scope:frontend,scope:backend"
 
-  lint-and-format:
+  lint-test:
     name: Attempt to lints and format all code in the repository
     runs-on: ubuntu-latest
 
@@ -81,16 +81,9 @@ jobs:
       - name: Run the linter and attempt to fix errors
         run: yarn lint:fix
 
-      - name: Run Prettier and fomat the code
-        uses: creyD/prettier_action@v4.2
-        with:
-          prettier_options: --write . --config .prettierrc
-          only_changed: true
-          commit_message: "🎨(CICD): All code has been formatted!"
-
   frontend:
     name: Testing and building of frontend
-    needs: lint-and-format
+    needs: lint-test
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -122,7 +115,7 @@ jobs:
 
   backend:
     name: Testing of backend
-    needs: lint-and-format
+    needs: lint-test
     runs-on: ubuntu-latest
 
     steps:
