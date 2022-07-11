@@ -7,7 +7,7 @@ import "./index.css";
 // main Application component in which different page sub-components will be contained
 function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
-	const [signupPage, setSignupPage] = useState(false);
+			const [signupPage, setSignupPage] = useState(false);
 	const [userApi, changeUserApi] = useState("");
 
 	useEffect(() => {
