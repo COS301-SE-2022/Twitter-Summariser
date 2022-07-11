@@ -30,7 +30,7 @@ jobs:
       - name: Install package dependencies for backend
         run: yarn
 
-      - name: Serverless deploy
+      - name: Serverless Deploy
         uses: serverless/github-action@v3
         with:
           args: deploy
