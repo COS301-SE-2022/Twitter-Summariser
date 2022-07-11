@@ -1,0 +1,146 @@
+name: "Twitter Summariser CI"
+
+on:
+  pull_request:
+    types: [opened, reopened, labeled, synchronize]
+
+jobs:
+  milestone-check:
+    name: Checks if milestone is used
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Has milestone check
+        if: github.event.pull_request.milestone == null
+        run: |
+          echo Yyou don't have a milestone"
+          exit 1
+
+  label-check:
+    name: Checks if labels are used
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Has atleast one priority label
+        uses: mheap/github-action-required-labels@v1
+        with:
+          mode: minimum
+          count: 1
+          labels: "priority:high, priority:low, priority:medium"
+
+      - name: Has atleast one type label
+        uses: mheap/github-action-required-labels@v1
+        with:
+          mode: minimum
+          count: 1
+          labels: "type:bug, type:change, type:documentation, type:enhance, type:fix, type:meeting, type:test"
+
+      - name: Has atleast one status label
+        uses: mheap/github-action-required-labels@v1
+        with:
+          mode: minimum
+          count: 1
+          labels: "status:needs-tests, status:not-ready, status:ready"
+
+      - name: Has atleast one role label
+        uses: mheap/github-action-required-labels@v1
+        with:
+          mode: minimum
+          count: 1
+          labels: "role:frontend-engineer, role:business-analyst, role:backend-engineer, role:dev-op, role:team-lead, role:tester, role:designer"
+
+      - name: Has atleast one scope label
+        uses: mheap/github-action-required-labels@v1
+        with:
+          mode: minimum
+          count: 1
+          labels: "scope:ai, scope:cicd, scope:github-repo, scope:db, scope:frontend,scope:backend"
+
+  lint-and-format:
+    name: Attempt to lints and format all code in the repository
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout to develop branch
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14.x"
+
+      - name: Install all backend package dependencies
+        run:  |
+          yarn
+          cd client
+          yarn
+
+      - name: Run the linter and attempt to fix errors
+        run: yarn lint:fix
+
+      - name: Run Prettier and fomat the code
+        uses: creyD/prettier_action@v4.2
+        with:
+          prettier_options: --write . --config .prettierrc
+          only_changed: true
+          same_commit: true
+
+  frontend:
+    name: Testing and building of frontend
+    needs: lint-and-format
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: client
+
+    steps:
+      - name: Checkout to develop branch
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14.x"
+
+      - name: Install all frontend package dependencies
+        run:  yarn
+
+      - name: Run frontend tests
+        run:  yarn test --coverage --watchAll=false
+
+      - name: Build the React App
+        run:  yarn run build
+
+      - name: Upload client coverage folder as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: client-artifact
+          path: client/coverage/
+
+  backend:
+    name: Testing of backend
+    needs: lint-and-format
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout to develop branch
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14.x"
+
+      - name: Install all backend package dependencies
+        run: yarn
+
+      - name: Run the tests
+        run: yarn test -- --coverage
+
+      - name: Upload backend coverage folder as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: backend-artifact
+          path: coverage/
