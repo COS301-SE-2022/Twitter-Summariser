@@ -11,69 +11,74 @@ function Explore() {
 
 	// ######################### API FOR GETTING HISTORY #####################
 
-    let getAllReportsEndpoint = process.env.NODE_ENV === 'development' ? String(link.localhostLink) : String(link.serverLink);
-    getAllReportsEndpoint += "getAllPublishedReports";
+	let getAllReportsEndpoint =
+		process.env.NODE_ENV === "development"
+			? String(link.localhostLink)
+			: String(link.serverLink);
+	getAllReportsEndpoint += "getAllPublishedReports";
 
-    // using localhost
-    // const getAllMyDraftReportsEndpoint = "http://localhost:4000/dev/getAllMyReports";
+	// using localhost
+	// const getAllMyDraftReportsEndpoint = "http://localhost:4000/dev/getAllMyReports";
 
-    const getReports = async () => {
-        const apiData = {}; //empty json
+	const getReports = async () => {
+		const apiData = {}; //empty json
 
-        const requestOptions = {
-            method: "POST",
-            body: JSON.stringify(apiData)
-        };
+		const requestOptions = {
+			method: "POST",
+			body: JSON.stringify(apiData)
+		};
 
-        fetch(getAllReportsEndpoint, requestOptions)
-            .then(async (response) => {
-                const isJson = response.headers.get("content-type")?.includes("application/json");
+		fetch(getAllReportsEndpoint, requestOptions)
+			.then(async (response) => {
+				const isJson = response.headers.get("content-type")?.includes("application/json");
 
-                const data = isJson && (await response.json());
+				const data = isJson && (await response.json());
 
-                changeReport(await data);
+				changeReport(await data);
 
-                // check for error response
-                if (!response.ok) {
-                    // error
-                }
-            })
-            .catch(() => {
-                // console.log("Error Getting History");
-            });
-    };
+				// check for error response
+				if (!response.ok) {
+					// error
+				}
+			})
+			.catch(() => {
+				// console.log("Error Getting History");
+			});
+	};
 
-    getReports();
+	getReports();
 
-    // #######################################################################
+	// #######################################################################
 
-
-		//if(report.length === 0){
-		//	console.log("empty array");
-		//}
+	//if(report.length === 0){
+	//	console.log("empty array");
+	//}
 
 	return (
-		 <div data-testid="report">
-            {/* Api response comes here */}
-            <div className=" mt-16 p-3 border-l border-gray-200">
-                <div className=" mt-4">
-                    <h1 className="text-3xl">Explore</h1>
+		<div data-testid="report">
+			{/* Api response comes here */}
+			<div className=" mt-16 p-3 border-l border-gray-200">
+				<div className=" mt-4">
+					<h1 className="text-3xl">Explore</h1>
 
-                    <div className="mt-4 flex flex-row flex-wrap justify-center">
-                        <div data-testid="reports" className="mt-4 flex flex-row flex-wrap justify-center">
-                            {report.map((data) => (
-                                <div
-                                    className="m-4 w-auto h-auto bg-gray-400 hover:bg-gray-300 rounded-md flex flex-col p-2"
-                                    key={data.reportID}
-                                >
-                                    <ExploreCard data={data} />
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+					<div className="mt-4 flex flex-row flex-wrap justify-center">
+						<div
+							data-testid="reports"
+							className="mt-4 flex flex-row flex-wrap justify-center"
+						>
+							{report.map((data) => (
+								<div
+									className="m-4 w-auto h-auto bg-gray-400 hover:bg-gray-300 rounded-md flex flex-col p-2"
+									key={data.reportID}
+								>
+									<ExploreCard data={data} />
+								</div>
+							))}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
 		// <div>
 		// 	{/* search */}
@@ -82,19 +87,19 @@ function Explore() {
 		// 			<input
 		// 				type="search"
 		// 				className="
-    //             nosubmit
-    //             w-full
-    //             px-3
-    //             py-1.5
-    //             text-lg
-    //             font-normal
-    //             text-gray-700
-    //             bg-clip-padding
-    //             border border-solid border-gray-300
-    //             rounded-lg
-    //             focus:text-gray-700 focus:bg-white focus:border-twitter-blue focus:outline-none
-    //             bg-gray-200
-    //           "
+		//             nosubmit
+		//             w-full
+		//             px-3
+		//             py-1.5
+		//             text-lg
+		//             font-normal
+		//             text-gray-700
+		//             bg-clip-padding
+		//             border border-solid border-gray-300
+		//             rounded-lg
+		//             focus:text-gray-700 focus:bg-white focus:border-twitter-blue focus:outline-none
+		//             bg-gray-200
+		//           "
 		// 				value={enteredSearch}
 		// 				onChange={searchHandler}
 		// 				placeholder="search twitter summarizer..."

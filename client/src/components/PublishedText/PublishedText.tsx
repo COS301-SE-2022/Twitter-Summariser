@@ -1,23 +1,14 @@
-
-
-
 function PublishedText(props: any) {
-
 	// console.log(props.data);
 
-
 	// ######################### API FOR EDITING TEXT ###############################################
-
 
 	// using localhost
 	// const textEndpoint = "http://localhost:4000/dev/editBlock";
 
 	// let data;
 
-
 	// #############################################################################
-
-
 
 	// let editButton = false;
 	let style2 = "w-full h-auto mt-2 p-2";

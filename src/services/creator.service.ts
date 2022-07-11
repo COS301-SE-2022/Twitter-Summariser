@@ -37,7 +37,7 @@ export default class CreatorService {
 			.get({
 				TableName: this.TableName,
 				Key: {
-					email: email
+					email
 				}
 			})
 			.promise();

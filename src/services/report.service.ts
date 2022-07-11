@@ -39,7 +39,7 @@ export default class ReportService {
 			if (type === "TWEET") {
 				ob.block = {
 					tweetID: block.tweetID
-				}
+				};
 			} else if (type === "RICHTEXT") {
 				const style = await ServicesLayer.textStyleService.getStyle(block.reportBlockID);
 				ob.block = {
@@ -63,8 +63,8 @@ export default class ReportService {
 		}
 
 		let y = 0;
-		for (let x = 0; x < max+2; x++) {
-			if (report[y]!==undefined) {
+		for (let x = 0; x < max + 2; x++) {
+			if (report[y] !== undefined) {
 				if (report[y].position === x) {
 					rp.push(report[y]);
 					bl = true;

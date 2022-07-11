@@ -1,7 +1,6 @@
 import Tweet from "@model/tweet/tweet.model";
 
 export default class TweetService {
-
 	async addTweets(data: any, includes: any, numTweets: number): Promise<Tweet[]> {
 		this;
 		const tweetList: Tweet[] = [];
@@ -15,7 +14,7 @@ export default class TweetService {
 					numLikes: data[i].public_metrics.like_count,
 					numRetweets: data[i].public_metrics.retweet_count,
 					// text: data[i].text,
-					tweetId: data[i].id,
+					tweetId: data[i].id
 					// resultSetId: GID
 				});
 			}
@@ -47,10 +46,10 @@ export default class TweetService {
 		return tweets;
 	}
 
-	async createArray(tweets: Tweet[]): Promise<string[]>{
+	async createArray(tweets: Tweet[]): Promise<string[]> {
 		this;
-		const result=[];
-		tweets.map(async tweet =>{
+		const result = [];
+		tweets.map(async (tweet) => {
 			result.push(tweet.tweetId);
 		});
 		return result;

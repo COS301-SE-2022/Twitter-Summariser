@@ -38,7 +38,7 @@ export const getResultSet = middyfy(
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify( resultSet )
+				body: JSON.stringify(resultSet)
 			};
 		} catch (e) {
 			return {

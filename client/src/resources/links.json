@@ -1,4 +1,4 @@
 {
-    "serverLink": "https://is39kwo5qe.execute-api.us-east-1.amazonaws.com/dev/",
-    "localhostLink": "http://localhost:4000/dev/"
+	"serverLink": "https://is39kwo5qe.execute-api.us-east-1.amazonaws.com/dev/",
+	"localhostLink": "http://localhost:4000/dev/"
 }

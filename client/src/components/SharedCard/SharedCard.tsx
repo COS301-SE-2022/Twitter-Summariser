@@ -16,7 +16,6 @@ function SharedCard(props: any) {
 		}
 	};
 
-
 	return (
 		<div>
 			<div className="m-4 w-auto h-20 rounded-md flex flex-row justify-between items-center p-2">
