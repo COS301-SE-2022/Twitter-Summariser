@@ -7,10 +7,10 @@ import "./index.css";
 // main Application component in which different page sub-components will be contained
 function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
-			const [signupPage, setSignupPage] = useState(false);
-				const [userApi, changeUserApi] = useState("");
-	
-			useEffect(() => {
+	const [signupPage, setSignupPage] = useState(false);
+	const [userApi, changeUserApi] = useState("");
+
+	useEffect(() => {
 		const storageUserLoggedInInformation = localStorage.getItem("key");
 		if (storageUserLoggedInInformation) {
 			setIsLoggedIn(true);
@@ -34,7 +34,7 @@ function App() {
 		setSignupPage(true);
 	};
 
-			const logInPage = () => {
+	const logInPage = () => {
 		localStorage.clear();
 		setIsLoggedIn(false);
 		setSignupPage(false);
