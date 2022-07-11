@@ -63,6 +63,8 @@ jobs:
     steps:
       - name: Checkout to develop branch
         uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
@@ -79,7 +81,10 @@ jobs:
         run: yarn lint:fix
 
       - name: Run Prettier and fomat the code
-        run:  yarn format
+        uses: creyD/prettier_action@v4.2
+        with:
+          prettier_options: --write . --config .prettierrc
+          commit_message: "🎨(CICD): All code has been formatted!"
 
   frontend:
     name: Testing and building of frontend
