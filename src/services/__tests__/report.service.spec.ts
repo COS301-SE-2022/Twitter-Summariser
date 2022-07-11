@@ -85,7 +85,7 @@ describe("report.service", () => {
 	});
 
 	describe("getReports", () => {
-		test("Get Reports",async () => {
+		test("Get Reports", async () => {
 			const addedReports: Report[] = [
 				{
 					reportID: "1111",
@@ -178,11 +178,9 @@ describe("report.service", () => {
 			];
 
 			expect(reports).toEqual(expected);
-
 		});
 
-		test("Get reports from empty table",async () => {
-
+		test("Get reports from empty table", async () => {
 			expect.assertions(1);
 
 			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve(undefined));
@@ -242,10 +240,10 @@ describe("report.service", () => {
 				expect(e.message).toBe("report with id: 1111 does not exist");
 			}
 		});
-	})
+	});
 
 	describe("getDraftReports", () => {
-		test("Get draft reports",async () => {
+		test("Get draft reports", async () => {
 			const addedReports: Report[] = [
 				{
 					reportID: "1111",
@@ -288,7 +286,7 @@ describe("report.service", () => {
 			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Items: addedReports }));
 
 			const reports = await ReportService.reportService.getDraftReports("ABdggekj23");
-			
+
 			expect(db.query).toHaveBeenCalledWith({
 				TableName: "ReportTable",
 				IndexName: "reportIndex",
@@ -302,7 +300,7 @@ describe("report.service", () => {
 					"#status": "status"
 				}
 			});
-	
+
 			const expected: Report[] = [
 				{
 					reportID: "1111",
@@ -341,11 +339,10 @@ describe("report.service", () => {
 					author: "Test"
 				}
 			];
-	
+
 			expect(reports).toEqual(expected);
 		});
-		
-	})
+	});
 
 	describe("addReport", () => {
 		test("Add Report", async () => {
