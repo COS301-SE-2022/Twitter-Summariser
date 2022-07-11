@@ -86,7 +86,7 @@ jobs:
         with:
           prettier_options: --write . --config .prettierrc
           only_changed: true
-          same_commit: true
+          commit-message: "🎨(CICD): All code has been formatted!"
 
   frontend:
     name: Testing and building of frontend
