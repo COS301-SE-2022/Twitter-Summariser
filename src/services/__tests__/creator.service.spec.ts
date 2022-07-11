@@ -123,15 +123,14 @@ describe("creator.service", () => {
 			};
 
 			await CreatorServices.creatorService.addCreator(creator);
-			expect(db.put).toHaveBeenCalledWith(
-				{ 
-					TableName: "CreatorTable", 
-					Item: creator ,
-					ConditionExpression: "email <> :email",
-					ExpressionAttributeValues: {
-						":email": "test@gmail.com"
-					}
-				});
+			expect(db.put).toHaveBeenCalledWith({
+				TableName: "CreatorTable",
+				Item: creator,
+				ConditionExpression: "email <> :email",
+				ExpressionAttributeValues: {
+					":email": "test@gmail.com"
+				}
+			});
 		});
 	});
 });
