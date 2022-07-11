@@ -116,10 +116,8 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: client-artifact
-          path: |
-            client/coverage/
-            client/build/
-          
+          path: client/coverage/
+                    
   backend:
     name: Testing of backend
     needs: lint-and-format
