@@ -117,8 +117,8 @@ function Login(props: any) {
 			</div>
 			{rightCredentials && (
 				<div>
-					{/* <br />
-					<br /> */}
+					<br />
+					{/* <br /> */}
 				</div>
 			)}
 			{localStorage.getItem("newUser") && (
@@ -157,7 +157,7 @@ function Login(props: any) {
 					<button
 						data-testid="btn-submit"
 						type="submit"
-						className="button__login text-lg p-0.5 h-10 w-56 bg-[#023E8A] rounded-full text-[#D5F3F9] hover:bg-[#03045E] group hover:shadow"
+						className="button__login text-lg p-0.5 h-10 w-56 bg-dark-cornflower-blue rounded-full text-[#D5F3F9] hover:bg-[#03045E] group hover:shadow"
 					>
 						Login
 					</button>
