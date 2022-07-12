@@ -51,6 +51,27 @@ describe("textStyles.service", () => {
             };
 
             expect(textStyle).toEqual(expected);
-        })
-    })
+        });
+    });
+
+    describe("addStyle", () => {
+        test("add Text Style",async () => {
+            const textStyle: TextStyle = {
+                textStylesID: "4111",
+                reportBlockID: "700",
+                align: "center",
+                bold: "no",
+                colour: "black",
+                italic: "yes",
+                size: "12pt"
+            };
+
+            await TextStyleService.textStyleService.addStyle(textStyle);
+            
+            expect(db.put).toHaveBeenCalledWith({
+                TableName: "TextStylesTable",
+                Item: textStyle
+            });
+        });
+    });
 })
