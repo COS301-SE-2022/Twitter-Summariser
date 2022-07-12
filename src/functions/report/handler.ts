@@ -119,7 +119,6 @@ export const cloneReport = middyfy(
 			// Getting report copy
 			const report = await ServicesLayer.reportService.getReportHelper(params.reportID);
 			const oldReportId = report.reportID;
-			const owner = report.apiKey;
 
 			if (
 				await ServicesLayer.permissionService.verifyReportRetr(

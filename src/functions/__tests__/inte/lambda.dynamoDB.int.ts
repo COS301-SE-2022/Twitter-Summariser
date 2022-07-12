@@ -1,7 +1,7 @@
 import { lambda } from "@functions/__tests__/inte/resources";
 import serviceLayer from "../../../services/index";
 
-/*describe(" ", async () => {
+/* describe(" ", async () => {
 	// Creation of table
 	await dynamoDB
 		.put({
@@ -47,28 +47,28 @@ import serviceLayer from "../../../services/index";
 			Key: "sample.txt"
 		})
 		.promise();
-});*/
+}); */
 
-describe("Checks the correct writing of a creator to a database.",async () => {
-
+describe("Checks the correct writing of a creator to a database.", async () => {
 	// Envoking Lambda function
-    const creator = await lambda.invoke({
-        FunctionName: "addCreator",
-        Payload: JSON.stringify({
-			email: "test@gmail.com",
-			username: "Integration Test",
-			password: "IntegrationTest@",
-			dateOfBirth: "2001/01/01"
+	const creator = await lambda
+		.invoke({
+			FunctionName: "addCreator",
+			Payload: JSON.stringify({
+				email: "test@gmail.com",
+				username: "Integration Test",
+				password: "IntegrationTest@",
+				dateOfBirth: "2001/01/01"
+			})
 		})
-    }).promise();
+		.promise();
 
 	// reading from database
 	const databaseRead = await serviceLayer.creatorService.getCreator("test@gmail.com");
 
 	// Checking return status
-	expect(creator.StatusCode===200);
+	expect(creator.StatusCode === 200);
 
-	
 	// Checks if write was valid
-	expect(creator.$response.data["apiKey"]===databaseRead.apiKey);
-})
+	expect(creator.$response.data === databaseRead);
+});
