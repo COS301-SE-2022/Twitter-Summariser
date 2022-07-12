@@ -16,10 +16,11 @@ jobs:
       - name: Checkout to develop/master branch
         uses: actions/checkout@v2
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: "14.x"
+          node-version: "16.x"
+          cache: 'yarn'
 
       - name: Build the Twitter Summariser App
         run:  |
@@ -30,7 +31,7 @@ jobs:
       - name: Install package dependencies for backend
         run: yarn
 
-      - name: Serverless deploy
+      - name: Serverless Deploy
         uses: serverless/github-action@v3
         with:
           args: deploy
@@ -47,4 +48,4 @@ jobs:
           npm i -g aws-cli
           npm i -g aws-sdk
           npm i @aws-cdk/aws-cloudfront
-          aws cloudfront create-invalidation --distribution-id E23Y7FN0JRVKIU --paths "/*" 
+          aws cloudfront create-invalidation --distribution-id E1SMKKY29H5MJB --paths "/*" 

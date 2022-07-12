@@ -41,15 +41,15 @@ export const searchTweets = middyfy(
 			const tweetlist = await ServicesLayer.tweetService.addTweets(
 				data,
 				includes,
-				meta.result_count,
+				meta.result_count
 			);
-			
+
 			const sortedList = await ServicesLayer.tweetService.sortTweets(
 				tweetlist,
 				params.sortBy
 			);
 			const result = sortedList.slice(0, params.numOfTweets);
-			const tweetIDs= await ServicesLayer.tweetService.createArray(result);
+			const tweetIDs = await ServicesLayer.tweetService.createArray(result);
 
 			ServicesLayer.resultSetServices.addResultSet({
 				id,

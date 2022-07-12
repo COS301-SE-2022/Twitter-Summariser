@@ -15,32 +15,32 @@ function GetPublishedReport() {
 	const [date, setDate] = useState("");
 	const [stat, setStat] = useState("");
 
-    // ################ API FOR GETTING REPORT ###########################
+	// ################ API FOR GETTING REPORT ###########################
 
-    let getReportEndpoint =
-        process.env.NODE_ENV === "development"
-            ? String(link.localhostLink)
-            : String(link.serverLink);
-    getReportEndpoint += "getReport";
+	let getReportEndpoint =
+		process.env.NODE_ENV === "development"
+			? String(link.localhostLink)
+			: String(link.serverLink);
+	getReportEndpoint += "getReport";
 
-    let requiredData: { apiKey: string | null; reportID: string | null };
+	let requiredData: { apiKey: string | null; reportID: string | null };
 
-    const getRep = async () => {
-        // POST request using fetch with error handling
-        requiredData = {
-            apiKey: localStorage.getItem("key"),
-            reportID: localStorage.getItem("reportId")
-        };
+	const getRep = async () => {
+		// POST request using fetch with error handling
+		requiredData = {
+			apiKey: localStorage.getItem("key"),
+			reportID: localStorage.getItem("reportId")
+		};
 
-        const requestOptions = {
-            method: "POST",
-            body: JSON.stringify(requiredData)
-        };
+		const requestOptions = {
+			method: "POST",
+			body: JSON.stringify(requiredData)
+		};
 
-        fetch(getReportEndpoint, requestOptions).then(async (response) => {
-            const isJson = response.headers.get("content-type")?.includes("application/json");
+		fetch(getReportEndpoint, requestOptions).then(async (response) => {
+			const isJson = response.headers.get("content-type")?.includes("application/json");
 
-            const data = isJson && (await response.json());
+			const data = isJson && (await response.json());
 
 			setStat(data.report.status);
 
@@ -48,15 +48,14 @@ function GetPublishedReport() {
 			setTitle(data.report.title);
 			setAuthor(data.report.author);
 			setDate(data.report.dateCreated.substring(0, 16));
-
 		});
 	};
 
 	getRep();
 	// console.log(state);
 
-    // processing api response
-    const apiResponse = [<div key="begining div" />];
+	// processing api response
+	const apiResponse = [<div key="begining div" />];
 
 	state.map((data: any, index: number) =>
 		apiResponse.push(
@@ -68,20 +67,17 @@ function GetPublishedReport() {
 					</div>
 				)}
 
-                {data.blockType === "TWEET" && (
-                    <div className=" w-full border border-gray-200 p-3" key={data.position}>
-                        <Tweet
-                            options={{ align: "center", width: "" }}
-                            tweetId={data.block.tweetID}
-                        />
-                    </div>
-                )}
-            </div>
-        )
-    );
-
-
-
+				{data.blockType === "TWEET" && (
+					<div className=" w-full border border-gray-200 p-3" key={data.position}>
+						<Tweet
+							options={{ align: "center", width: "" }}
+							tweetId={data.block.tweetID}
+						/>
+					</div>
+				)}
+			</div>
+		)
+	);
 
 	return (
 		<div className="mt-16 ">
@@ -92,11 +88,11 @@ function GetPublishedReport() {
 				<h3 className="italic text-xs">Date Created: {date}</h3>
 			</div>
 
-            <br />
+			<br />
 
-            <div className="grid grid-cols gap-4 content-center">{apiResponse}</div>
-        </div>
-    );
+			<div className="grid grid-cols gap-4 content-center">{apiResponse}</div>
+		</div>
+	);
 }
 
 export default GetPublishedReport;
