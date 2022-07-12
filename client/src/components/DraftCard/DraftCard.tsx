@@ -63,55 +63,53 @@ function DraftCard(props: any) {
 	// #######################################################################
 
 	return (
-		<div className="border shadow-md rounded-lg text-center overflow-hidden w-full transform hover:shadow-2xl hover:scale-105 transition duration-200 ease-in ">
-			<div className="container px-3 mx-auto">
+		<div className="p-8 bg-white border rounded-lg transform hover:shadow-2xl hover:scale-105 transition duration-200 ease-in">
+			<div className="flex items-center justify-center">
+				<p aria-label="Author" title="Author" className="mr-3 ">
+					<img
+						src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
+						alt="avatar"
+						className="object-cover w-10 h-10 rounded-full shadow-sm"
+					/>
+				</p>
 				<div>
-					<div className="grid grid-cols-1  justify-evenly gap-10 pt-10">
-						<div id="plan" className="">
-							<div id="title" className="w-full py-5 border-b border-gray-800">
-								<h2 className="font-bold text-3xl text-black">
-									{props.data.title}
-								</h2>
-							</div>
-							<div id="content" className="">
-								<div id="contain" className="leading-8 mb-10 text-lg font-light">
-									<br></br>
-									<ul>
-										<li>Author: {props.data.author}</li>
-										<li>
-											Date of Creation:{" "}
-											{props.data.dateCreated.substring(0, 16)}
-										</li>
-									</ul>
-									<br></br>
-									<div className="justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
-										<Link to="/genReport">
-											<div className="w-full sm:w-auto bg-gray-800 hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-400 dark:focus:ring-gray-700">
-												<div className="text-left">
-													<button
-														data-testid="btn-report"
-														type="submit"
-														onClick={viewGenReport}
-													>
-														<p className="font-bold">VIEW REPORT</p>
-													</button>
-												</div>
-											</div>
-										</Link>
-										<div className="w-full sm:w-auto bg-gray-800 hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-400 dark:focus:ring-gray-700">
-											<button
-												data-testid="btn-report"
-												type="submit"
-												onClick={deleteDraftHandler}
-											>
-												<p className="font-bold">DELETE REPORT</p>
-											</button>
-										</div>
-									</div>
-								</div>
-							</div>
+					<p
+						aria-label="Author"
+						title="Author"
+						className="font-semibold text-gray-800 transition-colors duration-200 hover:text-deep-purple-accent-400"
+					>
+						{props.data.author}
+					</p>
+					<p className="text-sm font-medium leading-4 text-gray-600">Author</p>
+				</div>
+			</div>
+			<br></br>
+
+			<p
+				aria-label="Article"
+				title="Jingle Bells"
+				className="flex items-center justify-center inline-block mb-3 text-2xl font-bold leading-5 text-black transition-colors duration-200 hover:text-deep-purple-accent-400"
+			>
+				{props.data.title}
+			</p>
+			<p className="flex mb-3 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase">
+				<span className=" font-semiboldtext-deep-purple-accent-400">Draft Report - </span>
+				{props.data.dateCreated.substring(4, 16)}
+			</p>
+			<div className="justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
+				<Link to="/genReport">
+					<div className="w-full rounded-full sm:w-auto bg-twitter-color hover:bg-twitter-color-hover focus:ring-4 focus:outline-none focus:ring-gray-300 text-white inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-400 dark:focus:ring-gray-700">
+						<div className="text-left">
+							<button data-testid="btn-report" type="submit" onClick={viewGenReport}>
+								<p className="font-bold">VIEW REPORT</p>
+							</button>
 						</div>
 					</div>
+				</Link>
+				<div className="w-full sm:w-auto bg-twitter-color hover:bg-twitter-color-hover focus:ring-4 focus:outline-none focus:ring-gray-300 text-white inline-flex items-center justify-center rounded-full px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-400 dark:focus:ring-gray-700">
+					<button data-testid="btn-report" type="submit" onClick={deleteDraftHandler}>
+						<p className="font-bold">DELETE REPORT</p>
+					</button>
 				</div>
 			</div>
 		</div>

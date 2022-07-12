@@ -4,7 +4,7 @@ function Logo(props: any) {
 	return (
 		<>
 			{props.page === "login" ? (
-				<div data-testid="logo" className="">
+				<div data-testid="logo" className="pt-2 pr-2">
 					<img
 						src="assets/logo.png"
 						alt="Twitter Summariser Logo"
