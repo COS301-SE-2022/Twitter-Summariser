@@ -1,5 +1,7 @@
-import { lambda } from "@functions/__tests__/inte/resources";
+import * as AWS from "aws-sdk";
 import serviceLayer from "../../../services/index";
+
+const lambda = new AWS.Lambda();
 
 /* describe(" ", async () => {
 	// Creation of table
