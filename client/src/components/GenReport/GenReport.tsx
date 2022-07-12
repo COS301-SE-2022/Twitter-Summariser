@@ -361,7 +361,7 @@ function GenReport() {
 					<button
 						onClick={publishHandler}
 						type="submit"
-						className="button__publish text-lg p-0.5 h-10 w-56 bg-[#023E8A] rounded-full text-[#D5F3F9] hover:bg-[#03045E] group hover:shadow"
+						className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded button text-center"
 					>
 						{" "}
 						PUBLISH REPORT
