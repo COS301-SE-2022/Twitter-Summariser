@@ -1,5 +1,5 @@
 import { lambda } from "@functions/__tests__/inte/resources";
-import CreatorService from "src/services/creator.service";
+import serviceLayer from "../../../services/index";
 
 /*describe(" ", async () => {
 	// Creation of table
@@ -50,6 +50,8 @@ import CreatorService from "src/services/creator.service";
 });*/
 
 describe("",async () => {
+
+	// Envoking Lambda function
     const creator = await lambda.invoke({
         FunctionName: "addCreator",
         Payload: JSON.stringify({
@@ -60,5 +62,8 @@ describe("",async () => {
 		})
     }).promise();
 
-	
+	// reading from database
+	const databaseRead = await serviceLayer.creatorService.getCreator("test@gmail.com");
+
+	expect(creator.apiKey===databaseRead.apiKey);
 })
