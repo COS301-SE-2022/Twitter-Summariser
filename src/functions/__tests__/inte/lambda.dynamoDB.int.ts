@@ -50,8 +50,15 @@ import CreatorService from "src/services/creator.service";
 });*/
 
 describe("",async () => {
-    await lambda.invoke({
+    const creator = await lambda.invoke({
         FunctionName: "addCreator",
-        
-    })
+        Payload: JSON.stringify({
+			email: "test@gmail.com",
+			username: "Integration Test",
+			password: "IntegrationTest@",
+			dateOfBirth: "2001/01/01"
+		})
+    }).promise();
+
+	
 })
