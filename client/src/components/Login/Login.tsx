@@ -111,18 +111,18 @@ function Login(props: any) {
 				<Logo width="136px" height="121px" page="login" />
 			</div>
 			<div>
-				<h1 className="text-center text-xl font-bold">
-					Sign in to the<br></br>Twitter Summariser
+				<h1 className="text-[#023E8A] text-center text-xl font-bold">
+					Sign in to <br></br>Twitter Summariser
 				</h1>
 			</div>
 			{rightCredentials && (
 				<div>
 					<br />
-					<br />
+					{/* <br /> */}
 				</div>
 			)}
 			{localStorage.getItem("newUser") && (
-				<div className="flex flex-row border-2 border-green-700 rounded-md bg-green-300 h-auto w-auto m-4 mb-5 p-2">
+				<div className="flex flex-row border-2 border-green-700 rounded-md bg-green-300 h-auto w-auto m-4 mb- p-2">
 					<AiOutlineCheckCircle style={style__} />
 					<p>Ready to Explore Twitter Summarizer</p>
 				</div>
@@ -139,7 +139,7 @@ function Login(props: any) {
 						data-testid="username-input"
 						type="text"
 						placeholder=" Email"
-						className=" w-56 h-10 border-gray-200 border rounded-md text-center text-sm focus:outline-none focus:ring focus:border-blue-500"
+						className="w-56 h-10 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E]"
 						onChange={usernameHandler}
 						value={enteredUsername}
 					/>
@@ -148,7 +148,7 @@ function Login(props: any) {
 						data-testid="password-input"
 						type="password"
 						placeholder="Password"
-						className=" w-56 h-10 border-gray-200 border rounded-md text-center text-sm focus:outline-none focus:ring focus:border-blue-500"
+						className=" w-56 h-10 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A]"
 						onChange={passwordHandler}
 						value={enteredPassword}
 					/>
@@ -157,18 +157,18 @@ function Login(props: any) {
 					<button
 						data-testid="btn-submit"
 						type="submit"
-						className="button__login text-sm p-0.5 h-10 w-56 bg-black rounded-full text-white hover:bg-black/75 group hover:shadow"
+						className="button__login text-lg p-0.5 h-10 w-56 bg-dark-cornflower-blue rounded-full text-[#D5F3F9] hover:bg-[#03045E] group hover:shadow"
 					>
 						Login
 					</button>
 					<br />
 					<br />
-					<p className="text-sm text-center">
+					<p className="text-[#03045E] text-md text-center">
 						Do not have an account?
 						<button
 							data-testid="btn-signup"
 							type="submit"
-							className=" text-sky-500 hover:text-sky-800"
+							className="text-[#0096C7] hover:text-[#03045E]"
 							onClick={signup}
 						>
 							&nbsp; Sign up
