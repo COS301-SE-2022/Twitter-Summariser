@@ -91,4 +91,4 @@ describe("Rendering Tests For Components in Home", () => {
 	//     fireEvent.change(searchInput, { target: { value: 'Test Search' } }); // runs the mock function to change and search text
 	//     // expect(onChange).toHasBeenCalled;
 	// });
-});
+// });
