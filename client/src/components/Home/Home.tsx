@@ -8,11 +8,7 @@ import { Tweet } from "react-twitter-widgets";
 import link from "../../resources/links.json";
 
 function Home() {
-	// ################ all related to the search ############################
-
-	// localStorage.removeItem("resultSetId");
-	// localStorage.removeItem("draftReportId");
-
+	// ################ all related to the search ############################d
 	const [enteredSearch, changeEnteredSearch] = useState("");
 	const [resultSet, changeResultSet] = useState("");
 	const [date, changeDate] = useState("");

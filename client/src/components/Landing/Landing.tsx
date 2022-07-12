@@ -55,10 +55,7 @@ function Landing(props: any) {
 					<button type="button" onClick={mobileClickHandler}>
 						<GiHamburgerMenu style={style} className="items-center" />
 					</button>
-					{/* <div className="">
-
-          </div> */}
-
+					<strong>{localStorage.getItem("page")}</strong>
 					<div>
 						<Logo width="60.69px" height="54px" page="login" />
 					</div>

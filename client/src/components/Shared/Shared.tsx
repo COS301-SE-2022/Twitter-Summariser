@@ -54,7 +54,7 @@ function Shared() {
 			{/* Api response comes here */}
 			<div className=" mt-16 p-3 border-l border-gray-200">
 				<div className=" mt-4">
-					<h1 className="text-3xl">Shared With Me</h1>
+					<h1 className="text-3xl hidden lg:block">Shared With Me</h1>
 
 					<div className="mt-4 flex flex-row flex-wrap justify-center">
 						<div
