@@ -46,4 +46,4 @@ jobs:
           AWS_DEFAULT_REGION: us-east-1
         run: |
           npm i @aws-cdk/aws-cloudfront
-          aws cloudfront create-invalidation --distribution-id E23Y7FN0JRVKIU --paths "/*" 
+          aws cloudfront create-invalidation --distribution-id E2PDE56PM048W2 --paths "/*" 
