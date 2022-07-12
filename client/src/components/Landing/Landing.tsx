@@ -112,8 +112,8 @@ function Landing(props: any) {
 
 				{/* third container ######################################################################################################### */}
 				<div className=" xl:flex xl:w-1/4 xl:p-2 xl:pt-5 xl:relative xl:mr-14 hidden">
-					<div className="fixed rounded bg-gray-200 h-2/3 ml-8 p-5 2xl:w-80 xl:w-64 ">
-						<h1 className="text-xl font-bold">Drafts to report</h1>
+					<div className="fixed rounded bg-white h-2/3 ml-8 p-5 2xl:w-80 xl:w-64 ">
+						<h1 className="text-xl font-bold text-[#03045E]">Recent Drafts</h1>
 						<div className="w-full flex flex-col" />
 					</div>
 				</div>
