@@ -180,7 +180,7 @@ const serverlessConfiguration: AWS = {
                         Origins: [
                             {
                                 DomainName: "twitter-summariser-clone.s3.amazonaws.com",
-                                Id: "TwitterSummariserApp",
+                                Id: "TwitterSummariserAppClone",
                                 CustomOriginConfig: {
                                     HTTPPort: 80,
                                     HTTPSPort: 443,
