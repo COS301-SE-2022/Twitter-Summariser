@@ -1,13 +1,13 @@
-import { dynamoDB, lambda, s3 } from "@functions/__tests__/inte/resources";
+import { lambda } from "@functions/__tests__/inte/resources";
+import CreatorService from "src/services/creator.service";
 
-describe(" ", async () => {
+/*describe(" ", async () => {
 	// Creation of table
 	await dynamoDB
 		.put({
 			TableName: "Users",
 			Item: {
-				HashKey: "userID",
-				isAmin: true
+				HashKey: "userID"
 			}
 		})
 		.promise();
@@ -47,4 +47,11 @@ describe(" ", async () => {
 			Key: "sample.txt"
 		})
 		.promise();
-});
+});*/
+
+describe("",async () => {
+    await lambda.invoke({
+        FunctionName: "addCreator",
+        
+    })
+})
