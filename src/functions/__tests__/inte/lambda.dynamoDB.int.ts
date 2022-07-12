@@ -10,4 +10,9 @@ describe(" ", async () => {
 			}
 		})
 		.promise();
+
+    await dynamoDB.delete({
+        TableName: "Users",
+        Key: { HashKey: "userID"}
+    }).promise();
 });
