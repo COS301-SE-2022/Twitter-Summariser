@@ -15,11 +15,11 @@ describe("Rendering Tests For Components in Home", () => {
     });
 
     // Testing to see if Search bar is rendered
-    it("renders Search bar without crashing", () => {
-        render(<Home />);
-        const input = screen.getByTestId("search");
-        expect(input).toBeTruthy();
-    });
+    // it("renders Search bar without crashing", () => {
+    //     render(<Home />);
+    //     const input = screen.getByTestId("search");
+    //     expect(input).toBeTruthy();
+    // });
 
     // Testing to see if Results are render on to page is rendered
     it("renders result div without crashing", () => {
