@@ -204,7 +204,7 @@ function Home() {
                 bg-clip-padding
                 border border-solid border-gray-300
                 rounded-lg
-                focus:text-gray-700 focus:bg-white focus:border-twitter-blue focus:outline-none
+                focus:text-gray-700 focus:bg-white focus:ring focus:border-[#023E8A] focus:outline-none
                 bg-gray-200
               "
 						value={enteredSearch}
@@ -218,11 +218,11 @@ function Home() {
 			<div className="flex flex-row flex-wrap justify-around pt-3 pb-3 border border-gray-200 items-center">
 				{/*  */}
 
-				<div className="flex flex-row flex-wrap w-1/3 justify-center">
+				<div className="flex flex-row flex-wrap w-1/3 justify-center text-lg text-[#023E8A] font-medium">
 					<p>Tweets:</p> &nbsp;
 					<select
 						data-testid="select-num-tweets"
-						className=" text-black"
+						className=" text-[#023E8A] focus:ring focus:text-[#0077B6]"
 						value={noOfTweets}
 						onChange={tweetHandler}
 					>
@@ -231,11 +231,11 @@ function Home() {
 				</div>
 
 				{/* this is for the Fitlering options */}
-				<div className="flex flex-row flex-wrap w-1/3 justify-center">
+				<div className="flex flex-row flex-wrap w-1/3 justify-center text-lg text-[#023E8A] font-medium">
 					<p className="">Filter:</p> &nbsp;
 					<select
 						data-testid="select-filter"
-						className=" text-black text-center"
+						className=" text-[#023E8A] text-center focus:ring focus:text-[#0077B6]"
 						onChange={filterHandler}
 					>
 						<option>-</option>
@@ -245,11 +245,11 @@ function Home() {
 				</div>
 
 				{/* this is for the sorting options */}
-				<div className="flex flex-row flex-wrap w-1/3 justify-center">
+				<div className="flex flex-row flex-wrap w-1/3 justify-center text-lg text-[#023E8A] font-medium">
 					<p className="">Sort By:</p> &nbsp;
 					<select
 						data-testid="select-sort"
-						className=" text-black text-center"
+						className=" text-[#023E8A] text-center focus:ring focus:text-[#0077B6]"
 						onChange={sortHandler}
 					>
 						<option>-</option>
@@ -264,7 +264,7 @@ function Home() {
 					<button
 						data-testid="btn-search"
 						type="submit"
-						className="button w-3/4 text-lg p-0.5"
+						className="button__search text-xl p-0.5 h-10 w-56 bg-[#023E8A] rounded-full text-[#D5F3F9] hover:bg-[#03045E] group hover:shadow"
 						onClick={search}
 					>
 						Search
@@ -277,7 +277,7 @@ function Home() {
 					<button
 						data-testid="btn-generate"
 						type="submit"
-						className="button w-3/4 text-lg p-0.5"
+						className="button__generate text-xl p-0.5 h-10 w-56 bg-[#023E8A] rounded-full text-[#D5F3F9] hover:bg-[#03045E] group hover:shadow"
 						onClick={genRep}
 					>
 						Generate Report
