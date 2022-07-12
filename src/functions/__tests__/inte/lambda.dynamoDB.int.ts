@@ -39,4 +39,12 @@ describe(" ", async () => {
 			Key: { HashKey: "userID" }
 		})
 		.promise();
+
+	// Deleting s3 Object
+	await s3
+		.deleteObject({
+			Bucket: "admin-files",
+			Key: "sample.txt"
+		})
+		.promise();
 });
