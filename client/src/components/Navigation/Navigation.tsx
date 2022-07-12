@@ -23,7 +23,7 @@ function Navigation(props: any) {
 	};
 
 	return (
-		<div className="pt-2 text-lg fixed top-20 lg:w-40 sm:w-10 2xl:ml-14 xl:ml-3 md:ml-5">
+		<div className="text-2xl relative top-20 lg:w-40 sm:w-10 2xl:ml-14 xl:ml-3 md:ml-5">
 			<nav>
 				<div className="pt-4 flex flex-row " key={(1).toString()}>
 					<Link to="/" className="flex flex-row">
@@ -46,7 +46,7 @@ function Navigation(props: any) {
 
 				<div className="pt-4 flex flex-row " key={(3).toString()}>
 					<Link to="/reports" className="flex flex-row">
-						<div className="items-end pt-1 ">
+						<div className="items-center pt-1 ">
 							<TiDocumentText style={style} />
 						</div>
 						<div className="hidden lg:block">&nbsp; Published</div>

@@ -83,7 +83,7 @@ function Landing(props: any) {
 				</div>
 
 				{/* first container ######################################################################################################### */}
-				<div className="lg:w-1/5 w-20 p-2 pt-5 flex-col hidden mini-tablet:block h-screen border-r border-gray-200">
+				<div className="lg:w-1/5 w-20 p-2 pt-5 flex-col hidden mini-tablet:block h-screen">
 					{/* logo comes here */}
 					<Logo width="60.69px" height="54px" page="landing" />
 
@@ -92,7 +92,7 @@ function Landing(props: any) {
 				</div>
 
 				{/* second container ######################################################################################################### */}
-				<div className="flex flex-col 2xl:w-1/2 mini-tablet:w-2/3 w-full relative">
+				<div className="flex flex-col 2xl:w-2/5 mini-tablet:w-2/5 w-full border-l border-r relative">
 					<Routes>
 						<Route element={<ProtectedRoutes />}>
 							<Route path="/" element={<Home />} />

@@ -70,7 +70,7 @@ function Drafts() {
 	return (
 		<div>
 			{/* Api response comes here */}
-			<div className=" mt-16 p-3 border-l border-gray-200">
+			<div className=" mt-16 p-3 ">
 				<div className=" mt-4">
 					<h1 className="text-3xl">Drafts</h1>
 

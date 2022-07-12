@@ -168,8 +168,8 @@ function Home() {
 			// <div key={data.tweetId}>
 			// 	<HomeTweet tweetData={data} />
 			// </div>
-			<div className=" w-full border border-gray-200 p-3" key={data.tweetId}>
-				<Tweet options={{ align: "center", width: "" }} tweetId={data.tweetId} />
+			<div className="" key={data.tweetId}>
+				<Tweet options={{ align: "center" }} tweetId={data.tweetId} />
 			</div>
 		)
 	);
@@ -188,34 +188,44 @@ function Home() {
 	return (
 		<div data-testid="home">
 			{/* search */}
-			<div className="flex justify-center p-2 border-l border-r border-gray-200 mt-16 mini-tablet:mt-0">
-				<div className="w-3/4 mb-3">
+			<div className="flex justify-center p-8 mini-tablet:mt-0">
+				<label
+					htmlFor="default-search"
+					className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
+				>
+					Search
+				</label>
+				<div className="relative w-screen">
+					<div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+						<svg
+							className="w-5 h-5 text-gray-500 dark:text-gray-400"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+							xmlns="http://www.w3.org/2000/svg"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+							></path>
+						</svg>
+					</div>
 					<input
-						data-testid="search"
 						type="search"
-						className="
-                nosubmit
-                w-full
-                px-3
-                py-1.5
-                text-lg
-                font-normal
-                text-gray-700
-                bg-clip-padding
-                border border-solid border-gray-300
-                rounded-lg
-                focus:text-gray-700 focus:bg-white focus:border-twitter-blue focus:outline-none
-                bg-gray-200
-              "
+						id="default-search"
+						className="p-3 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-full border-gray-200 border focus:outline-none focus:ring focus:border-blue-500"
 						value={enteredSearch}
 						onChange={searchHandler}
-						placeholder="search twitter..."
+						placeholder="Search Twitter..."
+						required
 					/>
 				</div>
 			</div>
 
 			{/* certain options and search button comes here */}
-			<div className="flex flex-row flex-wrap justify-around pt-3 pb-3 border border-gray-200 items-center">
+			<div className="flex flex-row flex-wrap justify-around">
 				{/*  */}
 
 				<div className="flex flex-row flex-wrap w-1/3 justify-center">
@@ -258,9 +268,11 @@ function Home() {
 						<option value="byRetweets">Re-tweets</option>
 					</select>
 				</div>
+			</div>
 
-				{/* this is for the search button */}
-				<div className="flex flex-row w-1/3 justify-center pt-3">
+			{/* this is for the search button */}
+			<div className="flex flex-row flex-wrap justify-around pt-3 pb-3 items-center">
+				<div className="flex flex-row w-1/3 justify-center items-center pt-3">
 					<button
 						data-testid="btn-search"
 						type="submit"
@@ -272,7 +284,7 @@ function Home() {
 				</div>
 			</div>
 
-			<div className="flex flex-row flex-wrap justify-around pt-3 pb-3 border border-gray-200 items-center">
+			<div className="flex flex-row flex-wrap justify-around pt-3 pb-3 items-center">
 				<div className="flex flex-row w-1/3 justify-center pt-3">
 					<button
 						data-testid="btn-generate"
@@ -287,12 +299,6 @@ function Home() {
 
 			{/* Api response comes here */}
 			<div data-testid="result" className="flex flex-col">
-				{/* {enteredSearch === "" && clicked === false && (
-                    <div className="mt-2 p-4" key={(ind++).toString()}>
-                        <h1 className="text-2xl">Trends</h1>
-                    </div>
-                )} */}
-
 				{clicked && (
 					<div className="mt-4 flex flex-col flex-wrap justify-center">
 						<h1 className="text-2xl ml-2">Newly created report</h1>
