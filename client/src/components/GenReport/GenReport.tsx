@@ -40,8 +40,15 @@ function GenReport() {
 
 	const enteredShareHandler = (event: any) => {
 		console.log(event.target.value);
+		changeNAN(false);
 
 		changeEnteredShare(event.target.value);
+	};
+
+	const [type, changeType] = useState("VIEWER");
+
+	const typeHandler = (event: any) => {
+		changeType(event.target.value);
 	};
 
 	// ################ API FOR GETTING REPORT ###########################
@@ -158,7 +165,8 @@ function GenReport() {
 	const requiredDataForShare = {
 		apiKey: localStorage.getItem("key"),
 		reportID: localStorage.getItem("draftReportId"),
-		email: enteredShare
+		email: enteredShare,
+		type: type
 	};
 
 	let shareEndpoint =
@@ -180,28 +188,31 @@ function GenReport() {
 			.then(async (response) => {
 				const isJson = response.headers.get("content-type")?.includes("application/json");
 
-				isJson && (await response.json());
+				const data = isJson && (await response.json());
+
+				// console.log(data);
 
 				// check for error response
-				if (response.status === 200) {
+				if (data) {
 					// error
-					console.log("got here");
+					// console.log("line 197");
+
+					changeNAN(true);
+				} else {
+					// console.log("got here");
 
 					changeNAN(false);
 					setSuccessfulShare(true);
 					setShare(false);
-				} else {
-					changeNAN(true);
 				}
 			})
 			.catch(() => {});
 	};
 
 	const shareSearchHandler = () => {
-		console.log("Share search");
-
 		if (enteredShare !== "") {
 			shareReport(requiredDataForShare);
+			// console.log(requiredDataForShare);
 		}
 	};
 
@@ -228,7 +239,7 @@ function GenReport() {
 				</div>
 			</div>
 
-			{share && (
+			{/* {share && (
 				<div className="flex flex-col">
 					{NAN && (
 						<div className="flex flex-row border-2 border-red-500 rounded-md bg-red-300 h-auto w-2/4 ml-6 p-2">
@@ -265,6 +276,71 @@ function GenReport() {
 						>
 							Share
 						</button>
+					</div>
+				</div>
+			)} */}
+
+			{/* search */}
+			{share && (
+				<div className="flex flex-col">
+					{NAN && (
+						<div className="flex flex-row border-2 border-red-500 rounded-md bg-red-300 h-auto w-2/4 ml-6 p-2">
+							<BiErrorCircle style={style} />
+							<p>User Does not Exist</p>
+						</div>
+					)}
+					<div className="flex justify-center p-2 border-l border-r border-gray-200 mt-16 mini-tablet:mt-0">
+						<div className="w-3/4 mb-3">
+							<input
+								data-testid="search"
+								type="search"
+								className="
+                nosubmit
+                w-full
+                px-3
+                py-1.5
+                text-lg
+                font-normal
+                text-gray-700
+                bg-clip-padding
+                border border-solid border-gray-300
+                rounded-lg
+                focus:text-gray-700 focus:bg-white focus:border-twitter-blue focus:outline-none
+                bg-gray-200
+              "
+								onChange={enteredShareHandler}
+								placeholder="enter user email ..."
+							/>
+						</div>
+					</div>
+
+					<div className="flex flex-col flex-wrap justify-around pt-3 pb-3 border border-gray-200 items-center">
+						{/*  */}
+
+						{/* this is for the Fitlering options */}
+						<div className="flex flex-row flex-wrap w-1/3 justify-center">
+							<p className="">Allow User to: </p> &nbsp;
+							<select
+								data-testid="select-filter"
+								className=" text-black text-center"
+								onChange={typeHandler}
+							>
+								<option value="VIEWER">View</option>
+								<option value="EDITOR">Edit</option>
+							</select>
+						</div>
+
+						{/* this is for the search button */}
+						<div className="flex flex-row w-1/3 justify-center pt-3">
+							<button
+								data-testid="btn-search"
+								type="submit"
+								className="button w-3/4 text-lg p-0.5"
+								onClick={shareSearchHandler}
+							>
+								Share
+							</button>
+						</div>
 					</div>
 				</div>
 			)}

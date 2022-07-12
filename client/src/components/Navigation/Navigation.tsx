@@ -14,7 +14,7 @@ function Navigation(props: any) {
 	const navigate = useNavigate();
 
 	// style for the icons
-	const style = { fontSize: "1.5rem", color: "#023E8A" };
+	const style = { fontSize: "1.5rem" };
 
 	const logout = () => {
 		// Logout in navigation calling logout in landing
@@ -23,15 +23,15 @@ function Navigation(props: any) {
 	};
 
 	return (
-		<div className="pt-2 text-lg fixed top-20 lg:w-40 sm:w-10 2xl:ml-14 xl:ml-3 md:ml-5">
+		<div className="text-2xl relative top-20 lg:w-40 sm:w-10 2xl:ml-14 xl:ml-3 md:ml-5">
 			<nav>
-				<div className="pt-4 flex flex-row" key={(1).toString()}>
+				<div className="pt-4 flex flex-row " key={(1).toString()}>
 					<Link to="/" className="flex flex-row">
-						<div className="items-end pt">
+						<div className="items-end pt ">
 							<GoHome style={style} />
 							{/* <GoHome /> */}
 						</div>
-						<div className="hidden lg:block text-xl text-[#023E8A] hover:text-[#03045E] hover:font-semibold">&nbsp; Home</div>
+						<div className="hidden lg:block">&nbsp; Home</div>
 					</Link>
 				</div>
 
@@ -40,16 +40,16 @@ function Navigation(props: any) {
 						<div className="items-end pt-1 ">
 							<BiHash style={style} />
 						</div>
-						<div className="hidden lg:block text-xl text-[#023E8A] hover:text-[#03045E] hover:font-semibold">&nbsp; Explore</div>
+						<div className="hidden lg:block">&nbsp; Explore</div>
 					</Link>
 				</div>
 
 				<div className="pt-4 flex flex-row " key={(3).toString()}>
 					<Link to="/reports" className="flex flex-row">
-						<div className="items-end pt-1 ">
+						<div className="items-center pt-1 ">
 							<TiDocumentText style={style} />
 						</div>
-						<div className="hidden lg:block text-xl text-[#023E8A] hover:text-[#03045E] hover:font-semibold">&nbsp; Published</div>
+						<div className="hidden lg:block">&nbsp; Published</div>
 					</Link>
 				</div>
 
@@ -58,7 +58,7 @@ function Navigation(props: any) {
 						<div className="items-end pt-1 ">
 							<RiDraftLine style={style} />
 						</div>
-						<div className="hidden lg:block text-xl text-[#023E8A] hover:text-[#03045E] hover:font-semibold">&nbsp; Drafts</div>
+						<div className="hidden lg:block">&nbsp; Drafts</div>
 					</Link>
 				</div>
 
@@ -67,7 +67,7 @@ function Navigation(props: any) {
 						<div className="items-end pt-1 ">
 							<BsShare style={style} />
 						</div>
-						<div className="hidden lg:block text-xl text-[#023E8A] hover:text-[#03045E] hover:font-semibold">&nbsp; Shared</div>
+						<div className="hidden lg:block">&nbsp; Shared</div>
 					</Link>
 				</div>
 
@@ -76,7 +76,7 @@ function Navigation(props: any) {
 						<div className="items-end pt-1 ">
 							<AiOutlineHistory style={style} />
 						</div>
-						<div className="hidden lg:block text-xl text-[#023E8A] hover:text-[#03045E] hover:font-semibold">&nbsp; History</div>
+						<div className="hidden lg:block">&nbsp; History</div>
 					</Link>
 				</div>
 
@@ -85,7 +85,7 @@ function Navigation(props: any) {
 						<div className="items-end pt-1 ">
 							<CgProfile style={style} />
 						</div>
-						<div className="hidden lg:block text-xl text-[#023E8A] hover:text-[#03045E] hover:font-semibold">
+						<div className="hidden lg:block">
 							&nbsp; {localStorage.getItem("username")}
 						</div>
 					</Link>
@@ -96,7 +96,7 @@ function Navigation(props: any) {
 						<div className="items-end pt-1 ">
 							<HiOutlineLogin style={style} />
 						</div>
-						<div className="hidden lg:block text-xl text-[#023E8A] hover:text-[#03045E] hover:font-semibold">&nbsp; Logout</div>
+						<div className="hidden lg:block">&nbsp; Logout</div>
 					</button>
 				</div>
 			</nav>

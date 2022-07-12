@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+
 import { Tweet } from "react-twitter-widgets";
 
 // importing link
@@ -9,8 +9,6 @@ import link from "../../resources/links.json";
 import PublishedText from "../PublishedText/PublishedText";
 
 function GetPublishedReport() {
-	const navigate = useNavigate();
-
 	const [state, setState] = useState([]);
 	const [title, setTitle] = useState("");
 	const [author, setAuthor] = useState("");
@@ -54,40 +52,6 @@ function GetPublishedReport() {
 	};
 
 	getRep();
-
-	// ######################### API FOR PUBLISHING REPORT ###############################################
-
-	let unpublishEndpoint =
-		process.env.NODE_ENV === "development"
-			? String(link.localhostLink)
-			: String(link.serverLink);
-
-	unpublishEndpoint += "unpublishReport";
-
-	const unpublishReport = (resultInfo: any) => {
-		const requestOptions = {
-			method: "POST",
-			body: JSON.stringify(resultInfo)
-		};
-
-		fetch(unpublishEndpoint, requestOptions).then(async (response) => {
-			response.headers.get("content-type")?.includes("application/json");
-
-			// isJson && (await response.json());
-		});
-
-		navigate("/genReport");
-	};
-
-	// #######################################################################
-	const unpublishHandler = (event: any) => {
-		event.preventDefault();
-
-		unpublishReport(requiredData);
-		let reportId = String(localStorage.getItem("reportId"));
-		localStorage.setItem("draftReportId", reportId);
-	};
-
 	// console.log(state);
 
 	// processing api response
@@ -127,19 +91,6 @@ function GetPublishedReport() {
 			<br />
 
 			<div className="grid grid-cols gap-4 content-center">{apiResponse}</div>
-
-			<div className="flex justify-center mb-4">
-				<Link to="/genReport">
-					<button
-						onClick={unpublishHandler}
-						type="submit"
-						className="button__unpublish text-lg p-0.5 h-10 w-56 bg-[#023E8A] rounded-full text-[#D5F3F9] hover:bg-[#03045E] group hover:shadow"
-					>
-						{" "}
-						UNPUBLISH REPORT
-					</button>
-				</Link>
-			</div>
 		</div>
 	);
 }

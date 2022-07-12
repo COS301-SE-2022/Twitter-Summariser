@@ -55,10 +55,7 @@ function Landing(props: any) {
 					<button type="button" onClick={mobileClickHandler}>
 						<GiHamburgerMenu style={style} className="items-center" />
 					</button>
-					{/* <div className="">
-
-          </div> */}
-
+					<strong>{localStorage.getItem("page")}</strong>
 					<div>
 						<Logo width="60.69px" height="54px" page="login" />
 					</div>
@@ -83,7 +80,7 @@ function Landing(props: any) {
 				</div>
 
 				{/* first container ######################################################################################################### */}
-				<div className="lg:w-1/5 w-20 p-2 pt-5 flex-col hidden mini-tablet:block h-screen border-r border-white">
+				<div className="lg:w-1/5 w-20 p-2 pt-5 flex-col hidden mini-tablet:block h-screen">
 					{/* logo comes here */}
 					<Logo width="60.69px" height="54px" page="landing" />
 
@@ -92,7 +89,7 @@ function Landing(props: any) {
 				</div>
 
 				{/* second container ######################################################################################################### */}
-				<div className="flex flex-col 2xl:w-1/2 mini-tablet:w-2/3 w-full relative">
+				<div className="flex flex-col 2xl:w-2/5 mini-tablet:w-2/5 w-full border-l border-r relative">
 					<Routes>
 						<Route element={<ProtectedRoutes />}>
 							<Route path="/" element={<Home />} />
@@ -111,12 +108,12 @@ function Landing(props: any) {
 				</div>
 
 				{/* third container ######################################################################################################### */}
-				{/* <div className=" xl:flex xl:w-1/4 xl:p-2 xl:pt-5 xl:relative xl:mr-14 hidden">
-					<div className="fixed rounded bg-white h-2/3 ml-8 p-5 2xl:w-80 xl:w-64 ">
-						<h1 className="text-xl font-bold text-[#03045E]">Recent Drafts</h1>
+				<div className=" xl:flex xl:w-1/4 xl:p-2 xl:pt-5 xl:relative xl:mr-14 hidden">
+					<div className="fixed rounded bg-gray-200 h-2/3 ml-8 p-5 2xl:w-80 xl:w-64 ">
+						<h1 className="text-xl font-bold">Drafts to report</h1>
 						<div className="w-full flex flex-col" />
 					</div>
-				</div> */}
+				</div>
 			</div>
 		</BrowserRouter>
 	);
