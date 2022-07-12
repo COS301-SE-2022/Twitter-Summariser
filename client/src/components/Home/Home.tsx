@@ -8,11 +8,7 @@ import { Tweet } from "react-twitter-widgets";
 import link from "../../resources/links.json";
 
 function Home() {
-    // ################ all related to the search ############################
-
-    // localStorage.removeItem("resultSetId");
-    // localStorage.removeItem("draftReportId");
-
+    // ################ all related to the search ############################d
     const [enteredSearch, changeEnteredSearch] = useState("");
     const [resultSet, changeResultSet] = useState("");
     const [date, changeDate] = useState("");
@@ -187,92 +183,8 @@ function Home() {
 
     return (
         <div data-testid="home">
-            {/* search */}
-            <div className="flex justify-center p-8 mini-tablet:mt-0">
-
-                <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300" >Search</label>
-                <div className="relative w-screen">
-                    <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                        <svg className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                    </div>
-                    <input type="search" id="default-search" className="p-3 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-full border-gray-200 border focus:outline-none focus:ring focus:border-blue-500" value={enteredSearch}
-                        onChange={searchHandler}
-                        placeholder="Search Twitter..." required />
-                </div>
-            </div>
-
-            {/* certain options and search button comes here */}
-            <div className="flex flex-row flex-wrap justify-around">
-                {/*  */}
-
-                <div className="flex flex-row flex-wrap w-1/3 justify-center">
-                    <p>Tweets:</p> &nbsp;
-                    <select
-                        data-testid="select-num-tweets"
-                        className=" text-black"
-                        value={noOfTweets}
-                        onChange={tweetHandler}
-                    >
-                        {tweetOptions}
-                    </select>
-                </div>
-
-                {/* this is for the Fitlering options */}
-                <div className="flex flex-row flex-wrap w-1/3 justify-center">
-                    <p className="">Filter:</p> &nbsp;
-                    <select
-                        data-testid="select-filter"
-                        className=" text-black text-center"
-                        onChange={filterHandler}
-                    >
-                        <option>-</option>
-                        <option value="verifiedTweets">Verified Tweets</option>
-                        <option value="noneReply">Non-Replies</option>
-                    </select>
-                </div>
-
-                {/* this is for the sorting options */}
-                <div className="flex flex-row flex-wrap w-1/3 justify-center">
-                    <p className="">Sort By:</p> &nbsp;
-                    <select
-                        data-testid="select-sort"
-                        className=" text-black text-center"
-                        onChange={sortHandler}
-                    >
-                        <option>-</option>
-                        <option value="byLikes">Likes</option>
-                        <option value="byComments">Comments</option>
-                        <option value="byRetweets">Re-tweets</option>
-                    </select>
-                </div>
-            </div>
-
-            {/* this is for the search button */}
-            <div className="flex flex-row flex-wrap justify-around pt-3 pb-3 items-center">
-                <div className="flex flex-row w-1/3 justify-center items-center pt-3">
-                    <button
-                        data-testid="btn-search"
-                        type="submit"
-                        className="button w-3/4 text-lg p-0.5"
-                        onClick={search}
-                    >
-                        Search
-                    </button>
-                </div>
-            </div>
-
-
-            <div className="flex flex-row flex-wrap justify-around pt-3 pb-3 items-center">
-                <div className="flex flex-row w-1/3 justify-center pt-3">
-                    <button
-                        data-testid="btn-generate"
-                        type="submit"
-                        className="button w-3/4 text-lg p-0.5"
-                        onClick={genRep}
-                    >
-                        Generate Report
-                    </button>
-                </div>
+            <div className="contflex justify-center items-center w-full border-b text-center mt-8  mini-tablet:mt-0 pt-2">
+                Hello
             </div>
 
             {/* Api response comes here */}
