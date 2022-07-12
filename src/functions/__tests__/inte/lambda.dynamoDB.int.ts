@@ -49,7 +49,7 @@ import serviceLayer from "../../../services/index";
 		.promise();
 });*/
 
-describe("",async () => {
+describe("Checks the correct writing of a creator to a database.",async () => {
 
 	// Envoking Lambda function
     const creator = await lambda.invoke({
@@ -65,5 +65,10 @@ describe("",async () => {
 	// reading from database
 	const databaseRead = await serviceLayer.creatorService.getCreator("test@gmail.com");
 
-	expect(creator.apiKey===databaseRead.apiKey);
+	// Checking return status
+	expect(creator.StatusCode===200);
+
+	
+	// Checks if write was valid
+	expect(creator.$response.data["apiKey"]===databaseRead.apiKey);
 })
