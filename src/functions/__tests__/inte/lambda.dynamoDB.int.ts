@@ -1,4 +1,4 @@
-import { dynamoDB, lambda } from "@functions/__tests__/inte/resources";
+import { dynamoDB, lambda, s3 } from "@functions/__tests__/inte/resources";
 
 describe(" ", async () => {
 	// Creation of table
@@ -21,6 +21,14 @@ describe(" ", async () => {
 				filename: "sample.txt",
 				content: "ok"
 			})
+		})
+		.promise();
+
+	// Creating S3 Bucket Object
+	const s3Object = await s3
+		.getObject({
+			Bucket: "admin-files",
+			Key: "sample.txt"
 		})
 		.promise();
 
