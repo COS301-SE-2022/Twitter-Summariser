@@ -188,18 +188,18 @@ function GenReport() {
 			.then(async (response) => {
 				const isJson = response.headers.get("content-type")?.includes("application/json");
 
-				isJson && (await response.json());
+				const data = isJson && (await response.json());
 
-				console.log(data);
+				// console.log(data);
 
 				// check for error response
 				if (data) {
 					// error
-					console.log("line 197");
+					// console.log("line 197");
 
 					changeNAN(true);
 				} else {
-					console.log("got here");
+					// console.log("got here");
 
 					changeNAN(false);
 					setSuccessfulShare(true);
