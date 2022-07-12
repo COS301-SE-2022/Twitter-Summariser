@@ -63,17 +63,17 @@ function DraftCard(props: any) {
 	// #######################################################################
 
 	return (
-		<div className="border shadow-md rounded-lg text-center overflow-hidden w-full transform hover:shadow-2xl hover:scale-105 transition duration-200 ease-in ">
+		<div className="border shadow-md rounded-lg text-center overflow-hidden w-full transform hover:shadow-2xl hover:scale-105 transition duration-200 ease-in hover:ring">
 			<div className="container px-3 mx-auto">
 				<div>
 					<div className="grid grid-cols-1  justify-evenly gap-10 pt-10">
 						<div id="plan" className="">
 							<div id="title" className="w-full py-5 border-b border-gray-800">
-								<h2 className="font-bold text-3xl text-black">
+								<h2 className="font-bold text-3xl text-[#023E8A]">
 									{props.data.title}
 								</h2>
 							</div>
-							<div id="content" className="">
+							<div id="content" className="text-[#03045E]">
 								<div id="contain" className="leading-8 mb-10 text-lg font-light">
 									<br></br>
 									<ul>
@@ -86,8 +86,8 @@ function DraftCard(props: any) {
 									<br></br>
 									<div className="justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
 										<Link to="/genReport">
-											<div className="w-full sm:w-auto bg-gray-800 hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-400 dark:focus:ring-gray-700">
-												<div className="text-left">
+											<div className="button__view text-md p-0.5 h-10 w-40 bg-[#023E8A] rounded-full text-[#D5F3F9] hover:bg-[#03045E] group hover:shadow text-center">
+												<div className="text-center">
 													<button
 														data-testid="btn-report"
 														type="submit"
@@ -98,7 +98,7 @@ function DraftCard(props: any) {
 												</div>
 											</div>
 										</Link>
-										<div className="w-full sm:w-auto bg-gray-800 hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-400 dark:focus:ring-gray-700">
+										<div className="button__delete text-md p-0.5 h-10 w-40 bg-[#023E8A] rounded-full text-[#D5F3F9] hover:bg-[#03045E] group hover:shadow text-center">
 											<button
 												data-testid="btn-report"
 												type="submit"
