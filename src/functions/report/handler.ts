@@ -171,9 +171,8 @@ export const cloneReport = middyfy(
 					style.textStylesID = `ST-${randomUUID()}`;
 					style.reportBlockID = temp.reportBlockID;
 					await ServicesLayer.textStyleService.addStyle(style);
-				}else{
-
-					// Cloning Tweet 
+				} else {
+					// Cloning Tweet
 					temp.tweetID = block.tweetID;
 				}
 
