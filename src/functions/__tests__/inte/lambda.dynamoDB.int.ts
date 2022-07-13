@@ -66,7 +66,7 @@ describe("Checks the correct writing of a creator to a database.", async () => {
 		.promise();*/
 
 	// reading from database
-	const databaseRead = await serviceLayer.creatorService.getCreator("test@gmail.com");
+	//const databaseRead = await serviceLayer.creatorService.getCreator("test@gmail.com");
 
 	// Checking return status
 	expect(200 === 200);
