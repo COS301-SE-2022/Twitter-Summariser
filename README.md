@@ -224,7 +224,6 @@ For detailed instructions, please refer to the <a href="https://www.serverless.c
 - NodeJS `lts/fermium (v.14.15.0)`. If you're using [nvm](https://github.com/nvm-sh/nvm), run `nvm use` to ensure you're using the same Node version in local and in your lambda's runtime.
 - AWS Account and configured AWS-CLI 
 - Docker (for offline use)
-- Java SDK/ JDK with version >= 11
 </p>
 <h3 style="font-family: Jetbrains Mono"> Using NPM</h3>
 
