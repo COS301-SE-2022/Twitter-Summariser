@@ -1,14 +1,18 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import { Tweet } from "react-twitter-widgets";
 
 // importing link
 import link from "../../resources/links.json";
+import Button from "../Button/Button";
 
 // importing mock data
 import PublishedText from "../PublishedText/PublishedText";
 
 function GetPublishedReport() {
+	const navigate = useNavigate();
+
 	const [state, setState] = useState([]);
 	const [title, setTitle] = useState("");
 	const [author, setAuthor] = useState("");
@@ -51,7 +55,44 @@ function GetPublishedReport() {
 		});
 	};
 
+	// console.log(state);
+
+
 	getRep();
+
+	// ######################### API FOR UNPUBLISHING REPORT ###############################################
+
+	let unpublishEndpoint =
+		process.env.NODE_ENV === "development"
+			? String(link.localhostLink)
+			: String(link.serverLink);
+
+	unpublishEndpoint += "unpublishReport";
+
+	const unpublishReport = (resultInfo: any) => {
+		const requestOptions = {
+			method: "POST",
+			body: JSON.stringify(resultInfo)
+		};
+
+		fetch(unpublishEndpoint, requestOptions).then(async (response) => {
+			response.headers.get("content-type")?.includes("application/json");
+
+			// isJson && (await response.json());
+		});
+
+		navigate("/genReport");
+	};
+
+	// #######################################################################
+	// const unpublishHandler = (event: any) => {
+		const unpublishHandler = (event: any) => {
+		// event.preventDefault();
+
+		unpublishReport(requiredData);
+		let reportId = String(localStorage.getItem("reportId"));
+		localStorage.setItem("draftReportId", reportId);
+	};
 	// console.log(state);
 
 	// processing api response
@@ -91,6 +132,11 @@ function GetPublishedReport() {
 			<br />
 
 			<div className="grid grid-cols gap-4 content-center">{apiResponse}</div>
+			<div className="flex justify-center mb-4">
+				<Link to="/genReport">
+					<Button text="Unpublish Report" size="large" handle={unpublishHandler} type="unpublish" />
+				</Link>
+			</div>
 		</div>
 	);
 }

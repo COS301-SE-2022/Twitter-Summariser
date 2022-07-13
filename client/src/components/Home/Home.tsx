@@ -6,6 +6,7 @@ import { Tweet } from "react-twitter-widgets";
 
 // importing link
 import link from "../../resources/links.json";
+import Button from "../Button/Button";
 
 function Home() {
 	// ################ all related to the search ############################d
@@ -269,27 +270,29 @@ function Home() {
 			{/* this is for the search button */}
 			<div className="flex flex-row flex-wrap justify-around pt-3 pb-3 items-center">
 				<div className="flex flex-row w-1/3 justify-center items-center pt-3">
-					<button
+					{/* <button
 						data-testid="btn-search"
 						type="submit"
 						className="button w-3/4 text-lg p-0.5"
 						onClick={search}
 					>
 						Search
-					</button>
+					</button> */}
+					<Button text="Search" size="large" handle={search} type="search" />
 				</div>
 			</div>
 
 			<div className="flex flex-row flex-wrap justify-around pt-3 pb-3 items-center">
 				<div className="flex flex-row w-1/3 justify-center pt-3">
-					<button
+					{/* <button
 						data-testid="btn-generate"
 						type="submit"
 						className="button w-3/4 text-lg p-0.5"
 						onClick={genRep}
 					>
 						Generate Report
-					</button>
+					</button> */}
+					<Button text="Generate Report" size="large" handle={genRep} type="generate" />
 				</div>
 			</div>
 

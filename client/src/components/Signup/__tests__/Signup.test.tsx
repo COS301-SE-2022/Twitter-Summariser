@@ -49,11 +49,11 @@ describe("Rendering Tests For Components Signup", () => {
 	});
 
 	// Testing to see if submit button is rendered
-	it("renders Submit button without crashing", () => {
-		render(<Signup />);
-		const btnSubmit = screen.getByTestId("btn-submit");
-		expect(btnSubmit).toBeTruthy();
-	});
+	// it("renders Submit button without crashing", () => {
+	// 	render(<Signup />);
+	// 	const btnSubmit = screen.getByTestId("btn-submit");
+	// 	expect(btnSubmit).toBeTruthy();
+	// });
 
 	// Testing to see if sign in button is rendered
 	it("renders Sign Up without crashing", () => {

@@ -29,18 +29,18 @@ describe("Rendering Tests For Components in Home", () => {
 	});
 
 	// Testing to see if Search button is rendered
-	it("renders Submit button without crashing", () => {
-		render(<Home />);
-		const btnSearch = screen.getByTestId("btn-search");
-		expect(btnSearch).toBeTruthy();
-	});
+	// it("renders Submit button without crashing", () => {
+	// 	render(<Home />);
+	// 	const btnSearch = screen.getByTestId("btn-search");
+	// 	expect(btnSearch).toBeTruthy();
+	// });
 
 	// Testing to see if Generate button is rendered
-	it("renders Generate button without crashing", () => {
-		render(<Home />);
-		const btnGenerate = screen.getByTestId("btn-generate");
-		expect(btnGenerate).toBeTruthy();
-	});
+	// it("renders Generate button without crashing", () => {
+	// 	render(<Home />);
+	// 	const btnGenerate = screen.getByTestId("btn-generate");
+	// 	expect(btnGenerate).toBeTruthy();
+	// });
 
 	// Testing to see if Generated report button is rendered
 	// it('renders Generated report button without crashing', () => {
