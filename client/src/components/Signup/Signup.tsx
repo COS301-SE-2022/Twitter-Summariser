@@ -5,6 +5,7 @@ import Logo from "../Logo/Logo";
 
 // importing link
 import link from "../../resources/links.json";
+import Button from "../Button/Button";
 
 function Signup(props: any) {
 	// username retrieval
@@ -235,13 +236,14 @@ function Signup(props: any) {
 							value={enteredConfirmPassword}
 						/>
 					</div>
-					<button
+					{/* <button
 						data-testid="btn-submit"
 						type="submit"
 						className="button__login mb-3 text-lg p-0.5 h-10 w-56 bg-[#023E8A] rounded-full text-[#D5F3F9] hover:bg-[#03045E] group hover:shadow"
 					>
 						Sign up
-					</button>
+					</button> */}
+					<Button text="Sign Up" size="large" handle={submitHandler} type="signup" />
 					<br />
 					<p className="text-[#03045E] text-md text-center">
 						Already have an account?

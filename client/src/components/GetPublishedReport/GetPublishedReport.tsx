@@ -55,6 +55,9 @@ function GetPublishedReport() {
 		});
 	};
 
+	// console.log(state);
+
+
 	getRep();
 
 	// ######################### API FOR UNPUBLISHING REPORT ###############################################
@@ -82,8 +85,9 @@ function GetPublishedReport() {
 	};
 
 	// #######################################################################
-	const unpublishHandler = (event: any) => {
-		event.preventDefault();
+	// const unpublishHandler = (event: any) => {
+		const unpublishHandler = (event: any) => {
+		// event.preventDefault();
 
 		unpublishReport(requiredData);
 		let reportId = String(localStorage.getItem("reportId"));

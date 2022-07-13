@@ -127,8 +127,9 @@ function GenReport() {
 
 	// #######################################################################
 
-	const publishHandler = (event: any) => {
-		event.preventDefault();
+	// const publishHandler = (event: any) => {
+		const publishHandler = () => {
+		// event.preventDefault();
 
 		publishReport(requiredData);
 		let draftId = String(localStorage.getItem("draftReportId"));
