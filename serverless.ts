@@ -30,7 +30,7 @@ const serverlessConfiguration: AWS = {
     plugins: [
         "serverless-esbuild",
         "serverless-dynamodb-local",
-        "serverless-s3-sync",
+        // "serverless-s3-sync",
         "serverless-offline"
     ],
     provider: {
@@ -120,12 +120,12 @@ const serverlessConfiguration: AWS = {
             stages: "dev"
         },
 
-        s3Sync: [
-            {
-                bucketName: "twitter-summariser",
-                localDir: "client/build/"
-            }
-        ],
+        // s3Sync: [
+        //     {
+        //         bucketName: "twitter-summariser",
+        //         localDir: "client/build/"
+        //     }
+        // ],
 
         "serverless-offline": {
             httpPort: 4000
