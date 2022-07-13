@@ -6,6 +6,7 @@ import { Tweet } from "react-twitter-widgets";
 
 // importing link
 import link from "../../resources/links.json";
+import Button from "../Button/Button";
 
 function Home() {
     // ################ all related to the search ############################d
@@ -270,64 +271,67 @@ function Home() {
                 {/* this is for the search button */}
                 <div className="flex flex-row flex-wrap justify-around pt-3 pb-3 items-center">
                     <div className="flex flex-row w-1/3 justify-center items-center pt-3">
-                        <button
-                            data-testid="btn-search"
-                            type="submit"
-                            className="button w-3/4 text-lg p-0.5"
-                            onClick={search}
-                        >
-                            Search
-                        </button>
+                        {/* <button
+						data-testid="btn-search"
+						type="submit"
+						className="button w-3/4 text-lg p-0.5"
+						onClick={search}
+					>
+						Search
+					</button> */}
+                        <Button text="Search" size="large" handle={search} type="search" />
                     </div>
                 </div>
 
                 <div className="flex flex-row flex-wrap justify-around pt-3 pb-3 items-center">
                     <div className="flex flex-row w-1/3 justify-center pt-3">
-                        <button
-                            data-testid="btn-generate"
-                            type="submit"
-                            className="button w-3/4 text-lg p-0.5"
-                            onClick={genRep}
-                        >
-                            Generate Report
-                        </button>
+                        {/* <button
+						data-testid="btn-generate"
+						type="submit"
+						className="button w-3/4 text-lg p-0.5"
+						onClick={genRep}
+					>
+						Generate Report
+					</button> */}
+                        <Button text="Generate Report" size="large" handle={genRep} type="generate" />
                     </div>
                 </div>
-            </div>
 
-            {/* Api response comes here */}
-            <div data-testid="result" className="flex flex-col">
-                {clicked && (
-                    <div className="mt-4 flex flex-col flex-wrap justify-center">
-                        <h1 className="text-2xl ml-2">Newly created report</h1>
-                        <Link to="/genReport">
-                            <div className="m-4 w-1/4 h-20 bg-gray-400 rounded-md flex flex-col p-2">
-                                <div className="">
-                                    <button
-                                        data-testid="btn-report"
-                                        type="submit"
-                                        onClick={viewGenReport}
-                                    >
-                                        <p className="font-bold">{createTitle}</p>
-                                    </button>
+                {/* Api response comes here */}
+                <div data-testid="result" className="flex flex-col">
+                    {clicked && (
+                        <div className="mt-4 flex flex-col flex-wrap justify-center">
+                            <h1 className="text-2xl ml-2">Newly created report</h1>
+                            <Link to="/genReport">
+                                <div className="m-4 w-1/4 h-20 bg-gray-400 rounded-md flex flex-col p-2">
+                                    <div className="">
+                                        <button
+                                            data-testid="btn-report"
+                                            type="submit"
+                                            onClick={viewGenReport}
+                                        >
+                                            <p className="font-bold">{createTitle}</p>
+                                        </button>
+                                    </div>
+                                    <div className="mt-2">
+                                        <p className="italic text-xs">
+                                            {localStorage.getItem("username")}
+                                        </p>
+                                    </div>
+                                    <div className="">
+                                        <p className="italic text-xs">{date}</p>
+                                    </div>
                                 </div>
-                                <div className="mt-2">
-                                    <p className="italic text-xs">
-                                        {localStorage.getItem("username")}
-                                    </p>
-                                </div>
-                                <div className="">
-                                    <p className="italic text-xs">{date}</p>
-                                </div>
-                            </div>
-                        </Link>
-                    </div>
-                )}
+                            </Link>
+                        </div>
+                    )}
 
-                {apiResponse}
+                    {apiResponse}
+                </div>
             </div>
         </div>
     );
+
 }
 
 export default Home;
