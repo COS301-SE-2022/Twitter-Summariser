@@ -77,12 +77,12 @@ function MobileNavigation(props: any) {
 					<Link
 						to="/reports"
 						className="flex flex-row"
-						onClick={() => pageHandler("My Reports")}
+						onClick={() => pageHandler("Published")}
 					>
 						<div className="items-end pt-1 ">
 							<TiDocumentText style={style} />
 						</div>
-						<div>&nbsp; My Reports</div>
+						<div>&nbsp; Published</div>
 					</Link>
 				</div>
 
@@ -116,7 +116,7 @@ function MobileNavigation(props: any) {
 					<Link
 						to="/history"
 						className="flex flex-row"
-						onClick={() => pageHandler("History")}
+						onClick={() => pageHandler("Search History")}
 					>
 						<div className="items-end pt-1 ">
 							<AiOutlineHistory style={style} />

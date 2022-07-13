@@ -16,6 +16,10 @@ function Navigation(props: any) {
 	// style for the icons
 	const style = { fontSize: "1.5rem" };
 
+	const pageHandler = (prop: string) => {
+		localStorage.setItem("page", prop);
+	};
+
 	const logout = () => {
 		// Logout in navigation calling logout in landing
 		props.logout();
@@ -26,7 +30,7 @@ function Navigation(props: any) {
 		<div className="text-2xl relative top-20 lg:w-40 sm:w-10 2xl:ml-14 xl:ml-3 md:ml-5">
 			<nav>
 				<div className="pt-4 flex flex-row " key={(1).toString()}>
-					<Link to="/" className="flex flex-row">
+					<Link to="/" className="flex flex-row" onClick={() => pageHandler("Home")}>
 						<div className="items-end pt ">
 							<GoHome style={style} />
 							{/* <GoHome /> */}
@@ -36,7 +40,11 @@ function Navigation(props: any) {
 				</div>
 
 				<div className="pt-4 flex flex-row " key={(2).toString()}>
-					<Link to="/explore" className="flex flex-row">
+					<Link
+						to="/explore"
+						className="flex flex-row"
+						onClick={() => pageHandler("Explore")}
+					>
 						<div className="items-end pt-1 ">
 							<BiHash style={style} />
 						</div>
@@ -45,7 +53,11 @@ function Navigation(props: any) {
 				</div>
 
 				<div className="pt-4 flex flex-row " key={(3).toString()}>
-					<Link to="/reports" className="flex flex-row">
+					<Link
+						to="/reports"
+						className="flex flex-row"
+						onClick={() => pageHandler("Published")}
+					>
 						<div className="items-center pt-1 ">
 							<TiDocumentText style={style} />
 						</div>
@@ -54,7 +66,11 @@ function Navigation(props: any) {
 				</div>
 
 				<div className="pt-4 flex flex-row" key={(4).toString()}>
-					<Link to="/drafts" className="flex flex-row">
+					<Link
+						to="/drafts"
+						className="flex flex-row"
+						onClick={() => pageHandler("Drafts")}
+					>
 						<div className="items-end pt-1 ">
 							<RiDraftLine style={style} />
 						</div>
@@ -63,7 +79,11 @@ function Navigation(props: any) {
 				</div>
 
 				<div className="pt-4 flex flex-row " key={(5).toString()}>
-					<Link to="/shared" className="flex flex-row">
+					<Link
+						to="/shared"
+						className="flex flex-row"
+						onClick={() => pageHandler("Shared Reports")}
+					>
 						<div className="items-end pt-1 ">
 							<BsShare style={style} />
 						</div>
@@ -72,7 +92,11 @@ function Navigation(props: any) {
 				</div>
 
 				<div className="pt-4 flex flex-row " key={(6).toString()}>
-					<Link to="/history" className="flex flex-row">
+					<Link
+						to="/history"
+						className="flex flex-row"
+						onClick={() => pageHandler("Search History")}
+					>
 						<div className="items-end pt-1 ">
 							<AiOutlineHistory style={style} />
 						</div>
@@ -81,7 +105,11 @@ function Navigation(props: any) {
 				</div>
 
 				<div className="pt-4 flex flex-row " key={(7).toString()}>
-					<Link to="/profile" className="flex flex-row">
+					<Link
+						to="/profile"
+						className="flex flex-row"
+						onClick={() => pageHandler("Profile")}
+					>
 						<div className="items-end pt-1 ">
 							<CgProfile style={style} />
 						</div>

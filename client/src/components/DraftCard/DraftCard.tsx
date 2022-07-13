@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 // importing link
 import link from "../../resources/links.json";
+import Button from "../Button/Button";
 
 function DraftCard(props: any) {
 	// console.log(props);
@@ -19,8 +20,9 @@ function DraftCard(props: any) {
 
 	// const iconStyle3 = { fontSize: "1.5rem", color: "red" };
 
+	// const deleteDraftHandler = (event: any) => {
 	const deleteDraftHandler = (event: any) => {
-		event.preventDefault();
+		// event.preventDefault();
 
 		const resultDetails = {
 			reportID: props.data.reportID,
@@ -98,18 +100,22 @@ function DraftCard(props: any) {
 			</p>
 			<div className="justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
 				<Link to="/genReport">
-					<div className="w-full rounded-full sm:w-auto bg-twitter-color hover:bg-twitter-color-hover focus:ring-4 focus:outline-none focus:ring-gray-300 text-white inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-400 dark:focus:ring-gray-700">
+					{/* <div className="w-full rounded-full sm:w-auto bg-twitter-color hover:bg-twitter-color-hover focus:ring-4 focus:outline-none focus:ring-gray-300 text-white inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-400 dark:focus:ring-gray-700"> */}
+					<div className="w-full rounded-full sm:w-auto focus:ring-4 focus:outline-none inline-flex items-center justify-center px-4 py-2.5 ">
 						<div className="text-left">
-							<button data-testid="btn-report" type="submit" onClick={viewGenReport}>
+							{/* <button data-testid="btn-report" type="submit" onClick={viewGenReport}>
 								<p className="font-bold">VIEW REPORT</p>
-							</button>
+							</button> */}
+							<Button text="View Report" size="small" handle={viewGenReport} type="view" />
 						</div>
 					</div>
 				</Link>
-				<div className="w-full sm:w-auto bg-twitter-color hover:bg-twitter-color-hover focus:ring-4 focus:outline-none focus:ring-gray-300 text-white inline-flex items-center justify-center rounded-full px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-400 dark:focus:ring-gray-700">
-					<button data-testid="btn-report" type="submit" onClick={deleteDraftHandler}>
+				{/* <div className="w-full sm:w-auto bg-twitter-color hover:bg-twitter-color-hover focus:ring-4 focus:outline-none focus:ring-gray-300 text-white inline-flex items-center justify-center rounded-full px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-400 dark:focus:ring-gray-700"> */}
+				<div className="w-full rounded-full sm:w-auto focus:ring-4 focus:outline-none inline-flex items-center justify-center px-4 py-2.5 ">
+					{/* <button data-testid="btn-report" type="submit" onClick={deleteDraftHandler}>
 						<p className="font-bold">DELETE REPORT</p>
-					</button>
+					</button> */}
+					<Button text="Delete Report" size="small" handle={deleteDraftHandler} type="delete" />
 				</div>
 			</div>
 		</div>

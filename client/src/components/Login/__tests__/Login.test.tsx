@@ -26,11 +26,11 @@ describe("Rendering Tests For Components in Login", () => {
 	});
 
 	// Testing to see if submit button is rendered
-	it("renders Submit button without crashing", () => {
-		render(<Login />);
-		const btnSubmit = screen.getByTestId("btn-submit");
-		expect(btnSubmit).toBeTruthy();
-	});
+	// it("renders Submit button without crashing", () => {
+	// 	render(<Login />);
+	// 	const btnSubmit = screen.getByTestId("btn-submit");
+	// 	expect(btnSubmit).toBeTruthy();
+	// });
 
 	// Testing to see if forgot password button is rendered
 	// it("renders Forgot Password button without crashing", () => {
