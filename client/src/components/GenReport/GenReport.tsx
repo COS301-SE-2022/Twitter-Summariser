@@ -13,6 +13,7 @@ import { BsShare } from "react-icons/bs";
 import { BiErrorCircle } from "react-icons/bi";
 import { MdDeleteOutline } from "react-icons/md";
 import { AiOutlineCheckCircle } from "react-icons/ai";
+import Button from "../Button/Button";
 
 function GenReport() {
 	const navigate = useNavigate();
@@ -358,14 +359,15 @@ function GenReport() {
 
 			<div className="flex justify-center mb-4">
 				<Link to="/getPublishedReport">
-					<button
+					{/* <button
 						onClick={publishHandler}
 						type="submit"
 						className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded button text-center"
 					>
 						{" "}
 						PUBLISH REPORT
-					</button>
+					</button> */}
+					<Button text="Publish Report" size="large" handle={publishHandler} type="publish" />
 				</Link>
 			</div>
 		</div>
