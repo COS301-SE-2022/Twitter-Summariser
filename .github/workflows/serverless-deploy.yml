@@ -9,6 +9,7 @@ on:
 
 jobs:
   Serverless-Deploy:
+    name: Deploying Twitter Summariser to AWS
     if: ${{ github.event.pull_request.merged }}
     runs-on: ubuntu-latest
 
@@ -19,7 +20,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "16.x"
+          node-version: "14.x"
           cache: 'yarn'
 
       - name: Build the Twitter Summariser App
@@ -45,7 +46,5 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: us-east-1
         run: |
-          npm i -g aws-cli
-          npm i -g aws-sdk
           npm i @aws-cdk/aws-cloudfront
-          aws cloudfront create-invalidation --distribution-id E1SMKKY29H5MJB --paths "/*" 
+          aws cloudfront create-invalidation --distribution-id E2PDE56PM048W2 --paths "/*" 

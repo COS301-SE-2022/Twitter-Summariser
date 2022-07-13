@@ -5,59 +5,8 @@ on:
     types: [opened, reopened, labeled, synchronize]
 
 jobs:
-  Milestone-Check:
-    name: Checks if milestone is used
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Has milestone check
-        if: github.event.pull_request.milestone == null
-        run: |
-          echo Yyou don't have a milestone"
-          exit 1
-
-  Label-Check:
-    name: Checks if labels are used
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Has atleast one priority label
-        uses: mheap/github-action-required-labels@v1
-        with:
-          mode: minimum
-          count: 1
-          labels: "priority:high, priority:low, priority:medium"
-
-      - name: Has atleast one type label
-        uses: mheap/github-action-required-labels@v1
-        with:
-          mode: minimum
-          count: 1
-          labels: "type:bug, type:change, type:documentation, type:enhance, type:fix, type:meeting, type:test"
-
-      - name: Has atleast one status label
-        uses: mheap/github-action-required-labels@v1
-        with:
-          mode: minimum
-          count: 1
-          labels: "status:needs-tests, status:not-ready, status:ready"
-
-      - name: Has atleast one role label
-        uses: mheap/github-action-required-labels@v1
-        with:
-          mode: minimum
-          count: 1
-          labels: "role:frontend-engineer, role:business-analyst, role:backend-engineer, role:dev-op, role:team-lead, role:tester, role:designer"
-
-      - name: Has atleast one scope label
-        uses: mheap/github-action-required-labels@v1
-        with:
-          mode: minimum
-          count: 1
-          labels: "scope:ai, scope:cicd, scope:github-repo, scope:db, scope:frontend,scope:backend"
-
-  Lint-Test:
-    name: Attempt to lints all code in the repository
+  lint-and-format:
+    name: Attempt to lints and format all code in the repository
     runs-on: ubuntu-latest
 
     steps:
@@ -94,7 +43,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "16.x"
+          node-version: "14.x"
           cache: 'yarn'
 
       - name: Install all frontend package dependencies
