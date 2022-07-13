@@ -397,7 +397,7 @@ export const deleteReport = middyfy(
 );
 
 // get share report
-export const getSharedReports = middyfy(
+export const getSharedReport = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
 			const params = JSON.parse(event.body);
