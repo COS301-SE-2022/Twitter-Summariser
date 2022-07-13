@@ -25,7 +25,7 @@ import {
 import { editBlock, deleteReportBlock } from "@functions/reportBlock";
 
 const serverlessConfiguration: AWS = {
-    service: "twitter-summariser-clone",
+    service: "twitter-summariser",
     frameworkVersion: "3",
     plugins: [
         "serverless-esbuild",
@@ -122,7 +122,7 @@ const serverlessConfiguration: AWS = {
 
         s3Sync: [
             {
-                bucketName: "twitter-summariser-clone",
+                bucketName: "twitter-summariser",
                 localDir: "client/build/"
             }
         ],
@@ -141,10 +141,10 @@ const serverlessConfiguration: AWS = {
             TextStylesTable,
             PermissionTable,
 
-            TwitterSummariserAppClone: {
+            TwitterSummariserApp: {
                 Type: "AWS::S3::Bucket",
                 Properties: {
-                    BucketName: "twitter-summariser-clone",
+                    BucketName: "twitter-summariser",
                     AccessControl: "PublicRead",
                     WebsiteConfiguration: {
                         IndexDocument: "index.html",
@@ -157,7 +157,7 @@ const serverlessConfiguration: AWS = {
                 Type: "AWS::S3::BucketPolicy",
                 Properties: {
                     Bucket: {
-                        Ref: "TwitterSummariserAppClone"
+                        Ref: "TwitterSummariserApp"
                     },
                     PolicyDocument: {
                         Version: "2012-10-17",
@@ -166,7 +166,7 @@ const serverlessConfiguration: AWS = {
                             Effect: "Allow",
                             Principal: "*",
                             Action: "s3:GetObject",
-                            Resource: "arn:aws:s3:::twitter-summariser-clone/*"
+                            Resource: "arn:aws:s3:::twitter-summariser/*"
                         }
                     }
                 }
@@ -179,8 +179,8 @@ const serverlessConfiguration: AWS = {
                         DefaultRootObject: "index.html",
                         Origins: [
                             {
-                                DomainName: "twitter-summariser-clone.s3.amazonaws.com",
-                                Id: "TwitterSummariserAppClone",
+                                DomainName: "twitter-summariser.s3.amazonaws.com",
+                                Id: "TwitterSummariserApp",
                                 CustomOriginConfig: {
                                     HTTPPort: 80,
                                     HTTPSPort: 443,
@@ -210,7 +210,7 @@ const serverlessConfiguration: AWS = {
                                 "PUT"
                             ],
 
-                            TargetOriginId: "TwitterSummariserAppClone",
+                            TargetOriginId: "TwitterSummariserApp",
 
                             ForwardedValues: {
                                 QueryString: false,
