@@ -119,7 +119,6 @@ export const cloneReport = middyfy(
 			// Getting report copy
 			const report = await ServicesLayer.reportService.getReportHelper(params.reportID);
 			const oldReportId = report.reportID;
-			const owner = report.apiKey;
 
 			if (
 				await ServicesLayer.permissionService.verifyReportRetr(
@@ -151,7 +150,7 @@ export const cloneReport = middyfy(
 
 			await ServicesLayer.reportService.addReport(report);
 
-			// Getting and Cloning blocks
+			// Getting blocks
 			const blocks = await ServicesLayer.reportBlockService.getReportBlocks(oldReportId);
 
 			blocks.map(async (block) => {
@@ -159,36 +158,25 @@ export const cloneReport = middyfy(
 				temp.reportID = id;
 				temp.reportBlockID = `BK-${randomUUID()}`;
 
-				// Getting and cloning text
+				// Cloning blocks
 				if (temp.blockType === "RICHTEXT") {
+					// Cloning Text
+					temp.richText = block.richText;
+
+					// Cloning styles
 					const style = await ServicesLayer.textStyleService.getStyle(
 						block.reportBlockID
 					)[0];
 					style.textStylesID = `ST-${randomUUID()}`;
 					style.reportBlockID = temp.reportBlockID;
 					await ServicesLayer.textStyleService.addStyle(style);
+				} else {
+					// Cloning Tweet
+					temp.tweetID = block.tweetID;
 				}
 
 				await ServicesLayer.reportBlockService.addReportBlock(temp);
 				return temp;
-			});
-
-			// Cloning result set
-			const resultSet = await ServicesLayer.resultSetServices.getResultSet(
-				oldReportId,
-				owner
-			);
-			resultSet.apiKey = params.apiKey;
-			const oldRSid = resultSet.id;
-			resultSet.id = `RS-${randomUUID}`;
-			await ServicesLayer.resultSetServices.addResultSet(resultSet);
-
-			// cloning tweets
-			const tweets = await ServicesLayer.tweetService.getTweets(oldRSid);
-			tweets.map(async (tweet) => {
-				tweet.resultSetId = resultSet.id;
-
-				await ServicesLayer.tweetService.addTweet(tweet);
 			});
 
 			return {
@@ -409,7 +397,7 @@ export const deleteReport = middyfy(
 );
 
 // get share report
-export const getSharedReports = middyfy(
+export const getSharedReport = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
 			const params = JSON.parse(event.body);
