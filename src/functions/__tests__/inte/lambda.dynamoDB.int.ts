@@ -1,7 +1,7 @@
-import * as AWS from "aws-sdk";
+// import * as AWS from "aws-sdk";
 import serviceLayer from "../../../services/index";
 
-const lambda = new AWS.Lambda();
+// const lambda = new AWS.Lambda();
 
 /* describe(" ", async () => {
 	// Creation of table
@@ -53,7 +53,7 @@ const lambda = new AWS.Lambda();
 
 describe("Checks the correct writing of a creator to a database.", async () => {
 	// Envoking Lambda function
-	/*const creator = await lambda
+	/* const creator = await lambda
 		.invoke({
 			FunctionName: "addCreator",
 			Payload: JSON.stringify({
@@ -63,14 +63,14 @@ describe("Checks the correct writing of a creator to a database.", async () => {
 				dateOfBirth: "2001/01/01"
 			})
 		})
-		.promise();*/
+		.promise(); */
 
 	// reading from database
-	//const databaseRead = await serviceLayer.creatorService.getCreator("test@gmail.com");
+	const databaseRead = await serviceLayer.creatorService.getCreator("test@gmail.com");
 
 	// Checking return status
-	expect(200 === 200);
+	expect(databaseRead!==undefined);
 
 	// Checks if write was valid
-	//expect(creator.$response.data === databaseRead);
+	// expect(creator.$response.data === databaseRead);
 });
