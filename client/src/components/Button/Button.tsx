@@ -14,6 +14,11 @@ function Button(props: any) {
 		props.handle();
 	};
 
+	const type = (): boolean => {
+		if (props.type === "authentication") return false
+		else return true;
+	}
+
 	return (
 		<div>
 			{!size() && (
@@ -26,7 +31,16 @@ function Button(props: any) {
 					{buttonText}
 				</button>
 			)}
-			{size() && (
+			{size() && !type() && ( //authentication large button - no onclick
+				<button
+					data-testid={props.testid}
+					type="submit"
+					className={largeStyle}
+				>
+					{buttonText}
+				</button>
+			)}
+			{size() && type() && ( //not authentication large button - has onclick
 				<button
 					data-testid="btn-large"
 					type="submit"
