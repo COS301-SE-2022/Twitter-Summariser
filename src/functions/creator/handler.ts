@@ -1,4 +1,4 @@
-import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
+import { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from "aws-lambda";
 import { middyfy } from "@libs/lambda";
 import * as bcrypt from "bcryptjs";
 import { header, statusCodes } from "@functions/resources/APIresponse";
@@ -8,7 +8,7 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 
-export const getAllCreators = middyfy(async (): Promise<APIGatewayProxyResult> => {
+export const getAllCreators = middyfy(async (): Promise<APIGatewayProxyResultV2> => {
     const creators = await CreatorServices.creatorService.getAllCreators();
     try {
         return {
@@ -26,7 +26,7 @@ export const getAllCreators = middyfy(async (): Promise<APIGatewayProxyResult> =
 });
 
 export const addCreator = middyfy(
-    async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+    async (event: APIGatewayProxyEventV2): Promise<APIGatewayProxyResultV2> => {
         let apiKey: string;
         const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         apiKey = "";
@@ -71,7 +71,7 @@ export const addCreator = middyfy(
 );
 
 export const loginCreator = middyfy(
-    async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+    async (event: APIGatewayProxyEventV2): Promise<APIGatewayProxyResultV2> => {
         const params = JSON.parse(event.body);
 
         if (!params.email || !params.password) {
@@ -106,7 +106,7 @@ export const loginCreator = middyfy(
                         },
                         process.env.ACCESS_TOKEN_SECRET,
                         {
-                            expiresIn: "1h"
+                            expiresIn: "1m"
                         }
 
                     );

@@ -1,4 +1,5 @@
 import type { AWS } from "@serverless/typescript";
+import { verifyJWT } from "@functions/authorizers";
 import { getAllCreators, addCreator, loginCreator } from "@functions/creator";
 import { searchTweets } from "@functions/tweet";
 import { CreatorTable } from "@model/creator/index";
@@ -68,6 +69,7 @@ const serverlessConfiguration: AWS = {
 
     // import the function via paths
     functions: {
+        verifyJWT,
         getAllCreators,
         addCreator,
         loginCreator,
