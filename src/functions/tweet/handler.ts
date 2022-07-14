@@ -76,3 +76,23 @@ export const searchTweets = middyfy(
 	}
 );
 
+// Adding a custom tweet
+export const addCustomTweet = middyfy(
+	async (/* event: APIGatewayProxyEvent */): Promise<APIGatewayProxyResult> => {
+		try {
+			// const params = JSON.parse(event.body);
+
+			return {
+				statusCode: statusCodes.notImplemented,
+				headers: header,
+				body: JSON.stringify("Still working on")
+			};
+		} catch (e) {
+			return {
+				statusCode: statusCodes.internalError,
+				headers: header,
+				body: JSON.stringify(e)
+			};
+		}
+	}
+);
