@@ -76,17 +76,3 @@ export const searchTweets = middyfy(
 	}
 );
 
-// Adding a custom tweet
-export const addCustomTweet = {
-	handler: `${handlerPath(__dirname)}/handler.addCustomTweet`,
-	description: "A function that adds customer tweets.",
-	events: [
-		{
-			http: {
-				method: "post",
-				path: "addCustomTweet/",
-				cors: true
-			}
-		}
-	]
-};
