@@ -27,7 +27,7 @@ function Navigation(props: any) {
 	};
 
 	return (
-		<div className="text-2xl relative top-20 lg:w-40 sm:w-10 2xl:ml-14 xl:ml-3 md:ml-5">
+		<div className="text-2xl fixed top-20 mt-5 lg:w-40 sm:w-10 2xl:ml-14 xl:ml-3 md:ml-5">
 			<nav>
 				<div className="pt-4 flex flex-row " key={(1).toString()}>
 					<Link to="/" className="flex flex-row" onClick={() => pageHandler("Home")}>
