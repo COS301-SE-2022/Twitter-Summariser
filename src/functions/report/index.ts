@@ -135,21 +135,6 @@ export const cloneReport = {
 	]
 };
 
-// Adding a custom tweet
-export const addCustomTweet = {
-	handler: `${handlerPath(__dirname)}/handler.addCustomTweet`,
-	description: "A function that adds customer tweets.",
-	events: [
-		{
-			http: {
-				method: "post",
-				path: "addCustomTweet/",
-				cors: true
-			}
-		}
-	]
-};
-
 // Deleting a result report
 export const deleteReport = {
 	handler: `${handlerPath(__dirname)}/handler.deleteReport`,
