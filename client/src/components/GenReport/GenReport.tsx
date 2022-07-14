@@ -128,7 +128,7 @@ function GenReport() {
 	// #######################################################################
 
 	// const publishHandler = (event: any) => {
-		const publishHandler = () => {
+	const publishHandler = () => {
 		// event.preventDefault();
 
 		publishReport(requiredData);
@@ -368,7 +368,12 @@ function GenReport() {
 						{" "}
 						PUBLISH REPORT
 					</button> */}
-					<Button text="Publish Report" size="large" handle={publishHandler} type="publish" />
+					<Button
+						text="Publish Report"
+						size="large"
+						handle={publishHandler}
+						type="publish"
+					/>
 				</Link>
 			</div>
 		</div>

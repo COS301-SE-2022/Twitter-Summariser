@@ -106,7 +106,12 @@ function DraftCard(props: any) {
 							{/* <button data-testid="btn-report" type="submit" onClick={viewGenReport}>
 								<p className="font-bold">VIEW REPORT</p>
 							</button> */}
-							<Button text="View Report" size="small" handle={viewGenReport} type="view" />
+							<Button
+								text="View Report"
+								size="small"
+								handle={viewGenReport}
+								type="view"
+							/>
 						</div>
 					</div>
 				</Link>
@@ -115,7 +120,12 @@ function DraftCard(props: any) {
 					{/* <button data-testid="btn-report" type="submit" onClick={deleteDraftHandler}>
 						<p className="font-bold">DELETE REPORT</p>
 					</button> */}
-					<Button text="Delete Report" size="small" handle={deleteDraftHandler} type="delete" />
+					<Button
+						text="Delete Report"
+						size="small"
+						handle={deleteDraftHandler}
+						type="delete"
+					/>
 				</div>
 			</div>
 		</div>

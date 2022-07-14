@@ -57,7 +57,6 @@ function GetPublishedReport() {
 
 	// console.log(state);
 
-
 	getRep();
 
 	// ######################### API FOR UNPUBLISHING REPORT ###############################################
@@ -86,7 +85,7 @@ function GetPublishedReport() {
 
 	// #######################################################################
 	// const unpublishHandler = (event: any) => {
-		const unpublishHandler = (event: any) => {
+	const unpublishHandler = (event: any) => {
 		// event.preventDefault();
 
 		unpublishReport(requiredData);
@@ -134,7 +133,12 @@ function GetPublishedReport() {
 			<div className="grid grid-cols gap-4 content-center">{apiResponse}</div>
 			<div className="flex justify-center mb-4">
 				<Link to="/genReport">
-					<Button text="Unpublish Report" size="large" handle={unpublishHandler} type="unpublish" />
+					<Button
+						text="Unpublish Report"
+						size="large"
+						handle={unpublishHandler}
+						type="unpublish"
+					/>
 				</Link>
 			</div>
 		</div>
