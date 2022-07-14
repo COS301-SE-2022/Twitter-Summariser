@@ -243,7 +243,7 @@ function Signup(props: any) {
 					>
 						Sign up
 					</button> */}
-					<Button text="Sign Up" size="large" handle={submitHandler} type="signup" />
+					<Button text="Sign Up" size="large" type="authentication" testid="btn-submit" />
 					<br />
 					<p className="text-[#03045E] text-md text-center">
 						Already have an account?
