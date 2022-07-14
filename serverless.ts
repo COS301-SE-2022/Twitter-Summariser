@@ -1,6 +1,6 @@
 import type { AWS } from "@serverless/typescript";
 import { getAllCreators, addCreator, loginCreator } from "@functions/creator";
-import { searchTweets } from "@functions/tweet";
+import { searchTweets, addCustomTweet } from "@functions/tweet";
 import { CreatorTable } from "@model/creator/index";
 import { ResultSetTable } from "@model/resultSet";
 import { ReportTable } from "@model/report";
@@ -16,7 +16,6 @@ import {
     cloneReport,
     publishReport,
     shareReport,
-    addCustomTweet,
     unpublishReport,
     deleteReport,
     getSharedReport,

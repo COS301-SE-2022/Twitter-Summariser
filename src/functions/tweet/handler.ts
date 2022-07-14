@@ -78,9 +78,9 @@ export const searchTweets = middyfy(
 
 // Adding a custom tweet
 export const addCustomTweet = middyfy(
-	async (/* event: APIGatewayProxyEvent */): Promise<APIGatewayProxyResult> => {
+	async ( event: APIGatewayProxyEvent ): Promise<APIGatewayProxyResult> => {
 		try {
-			// const params = JSON.parse(event.body);
+			const params = JSON.parse(event.body);
 
 			return {
 				statusCode: statusCodes.notImplemented,
