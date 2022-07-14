@@ -7,7 +7,7 @@ import Logo from "../Logo/Logo";
 
 // importing link
 import link from "../../resources/links.json";
-//import Button from "../Button/Button";
+import Button from "../Button/Button";
 
 function Login(props: any) {
 	// const navigate = useNavigate();
@@ -156,14 +156,14 @@ function Login(props: any) {
 					/>
 					<br />
 					<br />
-					<button
+					{/* <button
 						data-testid="btn-submit"
 						type="submit"
 						className="button__login text-lg p-0.5 h-10 w-56 bg-dark-cornflower-blue rounded-full text-[#D5F3F9] hover:bg-[#03045E] group hover:shadow"
 					>
 						Login
-					</button>
-					{/* <Button text="Login" size="large" handle={submitHandler} type="login" /> */}
+					</button> */}
+					<Button text="Login" size="large" type="authentication" testid="btn-submit" />
 					{/* <br /> */}
 					<br />
 					<p className="text-[#03045E] text-md text-center">
