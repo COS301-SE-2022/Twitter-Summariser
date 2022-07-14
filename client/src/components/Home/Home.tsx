@@ -384,40 +384,40 @@ function Home() {
 
                 {loading && <div className="flex flex-row justify-center my-2">{loadIcon}</div>}
                 {/* Api response comes here */}
-                < div data - testid="result" className = "flex flex-col" >
-                {clicked && (
-                    <div className="mt-4 flex flex-col flex-wrap justify-center">
-                        <h1 className="text-2xl ml-2">Newly created report</h1>
-                        <Link to="/genReport">
-                            <div className="m-4 w-1/4 h-20 bg-gray-400 rounded-md flex flex-col p-2">
-                                <div className="">
-                                    <button
-                                        data-testid="btn-report"
-                                        type="submit"
-                                        onClick={viewGenReport}
-                                    >
-                                        <p className="font-bold">{createTitle}</p>
-                                    </button>
+                < div data-testid="result" className="flex flex-col" >
+                    {clicked && (
+                        <div className="mt-4 flex flex-col flex-wrap justify-center">
+                            <h1 className="text-2xl ml-2">Newly created report</h1>
+                            <Link to="/genReport">
+                                <div className="m-4 w-1/4 h-20 bg-gray-400 rounded-md flex flex-col p-2">
+                                    <div className="">
+                                        <button
+                                            data-testid="btn-report"
+                                            type="submit"
+                                            onClick={viewGenReport}
+                                        >
+                                            <p className="font-bold">{createTitle}</p>
+                                        </button>
+                                    </div>
+                                    <div className="mt-2">
+                                        <p className="italic text-xs">
+                                            {localStorage.getItem("username")}
+                                        </p>
+                                    </div>
+                                    <div className="">
+                                        <p className="italic text-xs">{date}</p>
+                                    </div>
                                 </div>
-                                <div className="mt-2">
-                                    <p className="italic text-xs">
-                                        {localStorage.getItem("username")}
-                                    </p>
-                                </div>
-                                <div className="">
-                                    <p className="italic text-xs">{date}</p>
-                                </div>
-                            </div>
-                        </Link>
-                    </div>
-                )
-                }
+                            </Link>
+                        </div>
+                    )
+                    }
 
-                {apiResponse}
+                    {apiResponse}
+                </div >
             </div >
         </div >
-		</div >
-	);
+    );
 }
 
 export default Home;
