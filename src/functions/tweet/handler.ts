@@ -82,10 +82,17 @@ export const addCustomTweet = middyfy(
 		try {
 			const params = JSON.parse(event.body);
 
+			const { data } = await clientV2.get("tweets/search/recent", {
+				query: `url:+${params.url}`,
+				tweet: {
+					fields: ["public_metrics", "author_id", "created_at"]
+				}
+			});
+
 			return {
-				statusCode: statusCodes.notImplemented,
+				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify("Still working on")
+				body: JSON.stringify(data)
 			};
 		} catch (e) {
 			return {
