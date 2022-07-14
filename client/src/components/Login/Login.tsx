@@ -7,7 +7,7 @@ import Logo from "../Logo/Logo";
 
 // importing link
 import link from "../../resources/links.json";
-import Button from "../Button/Button";
+//import Button from "../Button/Button";
 
 function Login(props: any) {
 	// const navigate = useNavigate();
