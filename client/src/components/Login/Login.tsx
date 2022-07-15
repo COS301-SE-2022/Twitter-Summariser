@@ -1,87 +1,55 @@
 import "./Login.css";
 import { BiErrorCircle } from "react-icons/bi";
 import { AiOutlineCheckCircle } from "react-icons/ai";
-
 import { useState } from "react";
 import Logo from "../Logo/Logo";
-
-// importing link
-import link from "../../resources/links.json";
 import Button from "../Button/Button";
+import axios from "../../api/axios";
 
 function Login(props: any) {
-    // const navigate = useNavigate();
     const [wrongCredentials, setWrongCredentialsStatus] = useState(false);
     const [rightCredentials, setRightCredentialsStatus] = useState(true);
+    const [enteredUsername, changeEnteredUsername] = useState("");
+    const [enteredPassword, changeEnteredPassword] = useState("");
 
     const style = { fontSize: "1.5rem", color: "red" };
     const style__ = { fontSize: "1.5rem", color: "green" };
 
-    // username retrieval
-    const [enteredUsername, changeEnteredUsername] = useState("");
-
-    // username retrieval update
     const usernameHandler = (event: any) => {
         changeEnteredUsername(event.target.value);
         setWrongCredentialsStatus(false);
         setRightCredentialsStatus(true);
     };
 
-    // password retrieval
-    const [enteredPassword, changeEnteredPassword] = useState("");
-
-    // password retrieval update
     const passwordHandler = (event: any) => {
         changeEnteredPassword(event.target.value);
         setWrongCredentialsStatus(false);
         setRightCredentialsStatus(true);
     };
 
-    // ######################### API FOR LOGGING USERS IN ###############################################
-
-    let loginEndpoint =
-        process.env.NODE_ENV === "development"
-            ? String(link.localhostLink)
-            : String(link.serverLink);
-    loginEndpoint += "login";
-
-    const checkCredentials = (userCredentials: any) => {
-        const requestOptions = {
-            method: "POST",
-            body: JSON.stringify(userCredentials)
-        };
-
-        fetch(loginEndpoint, requestOptions)
-            .then(async (response) => {
-                const isJson = response.headers.get("content-type")?.includes("application/json");
-
-                const data = isJson && (await response.json());
-
-                // check for error response
-                if (!response.ok) {
-                    // error
-                    setWrongCredentialsStatus(true);
-                    setRightCredentialsStatus(false);
-                    changeEnteredUsername("");
-                    changeEnteredPassword("");
-                } else {
-                    // success
-                    props.userLoginDetails(
-                        await {
-                            ...data,
-                            login: "true"
-                        }
-                    );
-                    localStorage.setItem("page", "Home");
+    const checkCredentials = async (userCredentials: any) => {
+        try {
+            const response = await axios.post("login",
+                JSON.stringify(userCredentials), {
+                withCredentials: true
+            });
+            props.userLoginDetails(
+                {
+                    ...response.data.accessToken,
+                    login: "true"
                 }
-            })
-            .catch(() => {
+            );
+            localStorage.setItem("page", "Home");
+        } catch (err) {
+            if ((err as Error).message === "Request failed with status code 401") {
+                setWrongCredentialsStatus(true);
+                setRightCredentialsStatus(false);
+            } else {
                 setWrongCredentialsStatus(false);
                 setRightCredentialsStatus(false);
-            });
+            }
+        }
     };
-
-    // #######################################################################
 
     const submitHandler = (event: any) => {
         event.preventDefault();
@@ -90,17 +58,12 @@ function Login(props: any) {
             email: enteredUsername,
             password: enteredPassword
         };
-
         checkCredentials(userDetails);
     };
 
     const signup = (event: any) => {
         event.preventDefault();
-
-        const sign = {
-            signup: true
-        };
-
+        const sign = { signup: true };
         props.takeToSignupPage(sign);
     };
 
@@ -133,6 +96,13 @@ function Login(props: any) {
                 <div className="flex flex-row border-2 border-red-500 rounded-md bg-red-300 h-auto w-auto m-4 mb-5 p-2">
                     <BiErrorCircle style={style} />
                     <p>Invalid username or password</p>
+                </div>
+            )}
+
+            {!wrongCredentials && !rightCredentials && (
+                <div className="flex flex-row border-2 border-red-500 rounded-md bg-red-300 h-auto w-auto m-4 mb-5 p-2">
+                    <BiErrorCircle style={style} />
+                    <p>Something went wrong with the server</p>
                 </div>
             )}
             <div>
