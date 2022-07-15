@@ -2,9 +2,9 @@ import { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from "aws-lambda";
 import { middyfy } from "@libs/lambda";
 import * as bcrypt from "bcryptjs";
 import { header, statusCodes } from "@functions/resources/APIresponse";
-import CreatorServices from "../../services";
 import jwt from "jsonwebtoken";
 import * as dotenv from "dotenv";
+import CreatorServices from "../../services";
 
 dotenv.config();
 
@@ -80,83 +80,78 @@ export const loginCreator = middyfy(
                 headers: header,
                 body: JSON.stringify({ 'error': 'Missing username or password' })
             };
-        } else {
-            try {
-                const creator = await CreatorServices.creatorService.getCreator(params.email);
+        }
+        try {
+            const creator = await CreatorServices.creatorService.getCreator(params.email);
 
-                if (creator === undefined) {
-                    return {
-                        statusCode: statusCodes.unauthorized,
-                        headers: header,
-                        body: JSON.stringify(`creator ${params.email} not found`)
-                    };
-                } else if ((await bcrypt.compare(params.password, creator.password)) !== true) {
-                    return {
-                        statusCode: statusCodes.unauthorized,
-                        headers: header,
-                        body: JSON.stringify(`Invalid password for user ${params.email}`)
-                    };
-                } else {
-                    // Create the Access Token
-                    const accessToken = jwt.sign(
-                        {
-                            email: creator.email,
-                            username: creator.username,
-                            apiKey: creator.apiKey
-                        },
-                        process.env.ACCESS_TOKEN_SECRET,
-                        {
-                            expiresIn: "1m"
-                        }
-
-                    );
-
-                    // Create the Refresh Token
-                    const refreshToken = jwt.sign(
-                        {
-                            email: creator.email,
-                            username: creator.username,
-                            apiKey: creator.apiKey
-                        },
-                        process.env.REFRESH_TOKEN_SECRET,
-                        {
-                            expiresIn: "1d"
-                        }
-
-                    );
-
-                    // Update Creator in DB
-                    const isCreatorUpdated = await CreatorServices.creatorService.updateCreator(creator.email, refreshToken);
-
-                    if (isCreatorUpdated === true) {
-                        return {
-                            statusCode: statusCodes.Successful,
-                            headers: {
-                                ...header,
-                                "Set-Cookie": "JWT=" + refreshToken + "; HttpOnly; Max-Age=" + 24 * 60 * 60 * 1000
-                            },
-                            body: JSON.stringify({
-                                apiKey: creator.apiKey,
-                                email: creator.email,
-                                username: creator.username,
-                                accessToken: accessToken
-                            })
-                        };
-                    } else {
-                        return {
-                            statusCode: statusCodes.internalError,
-                            headers: header,
-                            body: JSON.stringify(`Error updating creator ${creator.email}; ${isCreatorUpdated}`)
-                        };
-                    }
-                }
-            } catch (e) {
+            if (creator === undefined) {
                 return {
-                    statusCode: statusCodes.internalError,
+                    statusCode: statusCodes.unauthorized,
                     headers: header,
-                    body: JSON.stringify({ message: e.message })
+                    body: JSON.stringify(`creator ${params.email} not found`)
                 };
             }
+            if ((await bcrypt.compare(params.password, creator.password)) !== true) {
+                return {
+                    statusCode: statusCodes.unauthorized,
+                    headers: header,
+                    body: JSON.stringify(`Invalid password for user ${params.email}`)
+                };
+            }
+            // Create the Access Token
+            const accessToken = jwt.sign(
+                {
+                    email: creator.email,
+                    username: creator.username,
+                    apiKey: creator.apiKey
+                },
+                process.env.ACCESS_TOKEN_SECRET,
+                {
+                    expiresIn: "1m"
+                }
+
+            );
+
+            // Create the Refresh Token
+            const refreshToken = jwt.sign(
+                {
+                    email: creator.email,
+                    username: creator.username,
+                    apiKey: creator.apiKey
+                },
+                process.env.REFRESH_TOKEN_SECRET,
+                {
+                    expiresIn: "1d"
+                }
+
+            );
+
+            // Update Creator in DB
+            const isCreatorUpdated = await CreatorServices.creatorService.updateCreator(creator.email, refreshToken);
+
+            if (isCreatorUpdated === true) {
+                const cookieString = `refreshToken=${refreshToken}; HttpOnly; max-age=${24 * 60 * 60 * 1000}`;
+                return {
+                    statusCode: statusCodes.Successful,
+                    headers: {
+                        ...header,
+                        "Set-Cookie": cookieString
+                    },
+                    body: JSON.stringify({ accessToken })
+                };
+            }
+            return {
+                statusCode: statusCodes.internalError,
+                headers: header,
+                body: JSON.stringify(`Error updating creator ${creator.email}; ${isCreatorUpdated}`)
+            };
+
+        } catch (e) {
+            return {
+                statusCode: statusCodes.internalError,
+                headers: header,
+                body: JSON.stringify({ message: e.message })
+            };
         }
     }
 );
