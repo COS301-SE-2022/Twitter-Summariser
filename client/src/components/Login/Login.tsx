@@ -75,6 +75,7 @@ function Login(props: any) {
             <div>
                 <Logo width="136px" height="121px" page="login" />
             </div>
+            <br />
             <div>
                 <h1 className="text-[#023E8A] text-center text-xl font-bold">
                     Sign in to <br></br>Twitter Summariser
@@ -83,7 +84,6 @@ function Login(props: any) {
             {rightCredentials && (
                 <div>
                     <br />
-                    {/* <br /> */}
                 </div>
             )}
             {localStorage.getItem("newUser") && (
@@ -126,13 +126,6 @@ function Login(props: any) {
                     />
                     <br />
                     <br />
-                    {/* <button
-						data-testid="btn-submit"
-						type="submit"
-						className="button__login text-lg p-0.5 h-10 w-56 bg-dark-cornflower-blue rounded-full text-[#D5F3F9] hover:bg-[#03045E] group hover:shadow"
-					>
-						Login
-					</button> */}
                     <Button text="Login" size="large" type="authentication" testid="btn-submit" />
                     {/* <br /> */}
                     <br />
