@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import Landing from "./components/Landing/Landing";
 import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
-import "./index.css";
 
 // main Application component in which different page sub-components will be contained
 function App() {
