@@ -13,6 +13,7 @@ import { BsShare } from "react-icons/bs";
 import { BiErrorCircle } from "react-icons/bi";
 import { MdDeleteOutline } from "react-icons/md";
 import { AiOutlineCheckCircle } from "react-icons/ai";
+import { GrCopy } from "react-icons/gr";
 import Button from "../Button/Button";
 
 function GenReport() {
@@ -22,6 +23,7 @@ function GenReport() {
 	const style = { fontSize: "1.3rem" };
 	const style__ = { fontSize: "1.5rem", color: "green" };
 	const iconStyle3 = { fontSize: "1.5rem", color: "red" };
+	const iconStyle4 = { fontSize: "1.8rem", color: "red" };
 
 	const [state, setState] = useState([]);
 	const [title, setTitle] = useState("");
@@ -128,7 +130,7 @@ function GenReport() {
 	// #######################################################################
 
 	// const publishHandler = (event: any) => {
-		const publishHandler = () => {
+	const publishHandler = () => {
 		// event.preventDefault();
 
 		publishReport(requiredData);
@@ -229,14 +231,18 @@ function GenReport() {
 				</div>
 
 				<div className="flex flex-row items-end p-4 justify-between">
-					<div className="">
+					<div className="" data-bs-toggle="tooltip" title="Share Report">
 						<button>
 							<BsShare style={style} onClick={shareHandler} />
 						</button>
 					</div>
-					<div className="">&nbsp;</div>
-					<div className="p-1">
-						<MdDeleteOutline style={iconStyle3} />
+					<div className="">&nbsp;&nbsp;</div>
+					<div className="p-1" data-bs-toggle="tooltip" title="Clone Report">
+						<GrCopy style={iconStyle3} />
+					</div>
+					<div className=""></div>
+					<div className="p-1" data-bs-toggle="tooltip" title="Delete Report">
+						<MdDeleteOutline style={iconStyle4} />
 					</div>
 				</div>
 			</div>
@@ -368,7 +374,12 @@ function GenReport() {
 						{" "}
 						PUBLISH REPORT
 					</button> */}
-					<Button text="Publish Report" size="large" handle={publishHandler} type="publish" />
+					<Button
+						text="Publish Report"
+						size="large"
+						handle={publishHandler}
+						type="publish"
+					/>
 				</Link>
 			</div>
 		</div>
