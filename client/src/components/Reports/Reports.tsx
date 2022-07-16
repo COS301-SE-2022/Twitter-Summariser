@@ -30,7 +30,10 @@ function Reports() {
 
         const requestOptions = {
             method: "POST",
-            body: JSON.stringify(apiData)
+            body: JSON.stringify(apiData),
+            headers: {
+                "Authorization": `${localStorage.getItem("token")}`,
+            }
         };
 
         fetch(getAllMyReportsEndpoint, requestOptions)

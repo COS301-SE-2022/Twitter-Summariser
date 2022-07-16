@@ -75,7 +75,10 @@ function GenReport() {
 
 		const requestOptions = {
 			method: "POST",
-			body: JSON.stringify(requiredData)
+			body: JSON.stringify(requiredData),
+			headers: {
+				Authorization: `${localStorage.getItem("token")}`
+			}
 		};
 
 		fetch(getReportEndpoint, requestOptions)
@@ -115,7 +118,10 @@ function GenReport() {
 	const publishReport = (resultInfo: any) => {
 		const requestOptions = {
 			method: "POST",
-			body: JSON.stringify(resultInfo)
+			body: JSON.stringify(resultInfo),
+			headers: {
+				Authorization: `${localStorage.getItem("token")}`
+			}
 		};
 
 		fetch(publishEndpoint, requestOptions).then(async (response) => {
@@ -185,7 +191,10 @@ function GenReport() {
 
 		const requestOptions = {
 			method: "POST",
-			body: JSON.stringify(repData)
+			body: JSON.stringify(repData),
+			headers: {
+				Authorization: `${localStorage.getItem("token")}`
+			}
 		};
 
 		fetch(shareEndpoint, requestOptions)

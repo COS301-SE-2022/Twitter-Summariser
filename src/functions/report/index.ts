@@ -9,7 +9,11 @@ export const generateReport = {
 			http: {
 				method: "post",
 				path: "generateReport/",
-				cors: true
+				cors: true,
+				authorizer: {
+					name: "verifyJWT",
+					type: "Token"
+				}
 			}
 		}
 	]
@@ -24,7 +28,11 @@ export const publishReport = {
 			http: {
 				method: "post",
 				path: "publishReport/",
-				cors: true
+				cors: true,
+				authorizer: {
+					name: "verifyJWT",
+					type: "Token"
+				}
 			}
 		}
 	]
@@ -39,7 +47,11 @@ export const unpublishReport = {
 			http: {
 				method: "post",
 				path: "unpublishReport/",
-				cors: true
+				cors: true,
+				authorizer: {
+					name: "verifyJWT",
+					type: "Token"
+				}
 			}
 		}
 	]
@@ -54,7 +66,11 @@ export const shareReport = {
 			http: {
 				method: "post",
 				path: "shareReport/",
-				cors: true
+				cors: true,
+				authorizer: {
+					name: "verifyJWT",
+					type: "Token"
+				}
 			}
 		}
 	]
@@ -84,7 +100,11 @@ export const getAllMyDraftReports = {
 			http: {
 				method: "post",
 				path: "getAllMyDraftReports/",
-				cors: true
+				cors: true,
+				authorizer: {
+					name: "verifyJWT",
+					type: "Token"
+				}
 			}
 		}
 	]
@@ -114,7 +134,11 @@ export const getSharedReport = {
 			http: {
 				method: "post",
 				path: "getSharedReport/",
-				cors: true
+				cors: true,
+				authorizer: {
+					name: "verifyJWT",
+					type: "Token"
+				}
 			}
 		}
 	]
@@ -129,7 +153,11 @@ export const cloneReport = {
 			http: {
 				method: "post",
 				path: "cloneReport/",
-				cors: true
+				cors: true,
+				authorizer: {
+					name: "verifyJWT",
+					type: "Token"
+				}
 			}
 		}
 	]
@@ -144,7 +172,11 @@ export const addCustomTweet = {
 			http: {
 				method: "post",
 				path: "addCustomTweet/",
-				cors: true
+				cors: true,
+				authorizer: {
+					name: "verifyJWT",
+					type: "Token"
+				}
 			}
 		}
 	]
@@ -159,7 +191,11 @@ export const deleteReport = {
 			http: {
 				method: "post",
 				path: "deleteReport/",
-				cors: true
+				cors: true,
+				authorizer: {
+					name: "verifyJWT",
+					type: "Token"
+				}
 			}
 		}
 	]
@@ -174,7 +210,11 @@ export const getAllMyPublishedReports = {
 			http: {
 				method: "post",
 				path: "getAllMyPublishedReports/",
-				cors: true
+				cors: true,
+				authorizer: {
+					name: "verifyJWT",
+					type: "Token"
+				}
 			}
 		}
 	]
