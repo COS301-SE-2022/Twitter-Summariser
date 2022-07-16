@@ -131,7 +131,13 @@ function Signup(props: any) {
                         required
                         placeholder="Username"
                         autoComplete="off"
-                        className="w-60 h-10 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E]"
+                        className={
+                            validUsername && enteredUsername
+                                ? "w-60 h-10 border-gray-200 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-green-200"
+                                : !validUsername && enteredUsername
+                                    ? "w-60 h-10 border-gray-200 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-red-200"
+                                    : "w-60 h-10 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E]"
+                        }
                         onChange={usernameHandler}
                         value={enteredUsername}
                         aria-invalid={validUsername ? "true" : "false"}
@@ -154,9 +160,11 @@ function Signup(props: any) {
                         placeholder="Email"
                         autoComplete="off"
                         className={
-                            validEmail
-                                ? "mb-3 w-60 h-10 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] mb-6"
-                                : "mb-3 w-60 h-10 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] mb-4"
+                            validEmail && enteredEmail
+                                ? "w-60 h-10 border-gray-200 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-green-200 mb-6"
+                                : !validEmail && enteredEmail
+                                    ? "w-60 h-10 border-gray-200 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-red-200 mb-6"
+                                    : "w-60 h-10 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] mb-6"
                         }
                         onChange={emailHandler}
                         value={enteredEmail}
@@ -178,7 +186,13 @@ function Signup(props: any) {
                             type="password"
                             placeholder="Password"
                             autoComplete="new-password"
-                            className=" w-60 h-10 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] "
+                            className={
+                                validPassword && enteredPassword
+                                    ? "w-60 h-10 border-gray-200 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-green-200"
+                                    : !validPassword && enteredPassword
+                                        ? "w-60 h-10 border-gray-200 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-red-200"
+                                        : "w-60 h-10 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E]"
+                            }
                             onChange={passwordHandler}
                             value={enteredPassword}
                             aria-invalid={validPassword ? "true" : "false"}
@@ -206,7 +220,13 @@ function Signup(props: any) {
                             type="password"
                             placeholder="Confirm Password"
                             autoComplete="off"
-                            className="mb-3 w-60 h-10 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E]"
+                            className={
+                                validConfirmPassword && enteredConfirmPassword
+                                    ? "w-60 h-10 border-gray-200 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-green-200 mb-3"
+                                    : !validConfirmPassword && enteredConfirmPassword
+                                        ? "w-60 h-10 border-gray-200 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-red-200 mb-3"
+                                        : "w-60 h-10 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] mb-3"
+                            }
                             onChange={passwordConfirmHandler}
                             value={enteredConfirmPassword}
                             aria-invalid={validPassword ? "true" : "false"}
@@ -214,21 +234,26 @@ function Signup(props: any) {
                             onBlur={() => setConfirmPasswordFocus(false)}
                         />
                     </div>
-                    {((confirmPasswordFocus && enteredConfirmPassword && !validConfirmPassword) || (!confirmPasswordFocus && !validConfirmPassword)) && (
-                        <div className="flex flex-col flex-row border-2 rounded-md bg-gray-100 h-auto w-60 p-2 mb-4 items-center text-sm">
-                            <div className="flex flex-col">
-                                <p>
-                                    <strong>The passwords do not match</strong>
-                                </p>
+                    {((confirmPasswordFocus && enteredConfirmPassword && !validConfirmPassword) ||
+                        (!confirmPasswordFocus &&
+                            !validConfirmPassword &&
+                            enteredConfirmPassword)) && (
+                            <div className="flex flex-col flex-row border-2 rounded-md bg-gray-100 h-auto w-60 p-2 mb-4 items-center text-sm">
+                                <div className="flex flex-col">
+                                    <p>The passwords do not match</p>
+                                </div>
                             </div>
-                        </div>
-                    )}
+                        )}
                     <Button
                         text="Sign Up"
                         size="large"
                         type="authentication"
                         testid="btn-submit"
-                        disableId={(!validUsername || !validEmail || !validPassword || !validConfirmPassword) ? "true" : "false"}
+                        disableId={
+                            !validUsername || !validEmail || !validPassword || !validConfirmPassword
+                                ? "true"
+                                : "false"
+                        }
                     />
                     <br />
                     <p className="text-[#03045E] text-md text-center">
