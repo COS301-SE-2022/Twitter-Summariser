@@ -72,10 +72,7 @@
         "@typescript-eslint/no-useless-constructor": [
             "error"
         ],
-        "no-restricted-syntax": "off",
-        "@typescript-eslint/no-restricted-syntax": [
-            "error"
-        ]
+        "no-restricted-syntax": "off"
     },
     "settings": {
         "import/resolver": {
