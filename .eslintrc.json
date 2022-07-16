@@ -58,7 +58,8 @@
 		"@typescript-eslint/no-unused-expressions": "off",
 		"no-param-reassign": "off",
 		"no-useless-constructor": "off",
-		"@typescript-eslint/no-useless-constructor": ["error"]
+		"@typescript-eslint/no-useless-constructor": ["error"],
+		"no-restricted-syntax": "off"
 	},
 	"settings": {
 		"import/resolver": {

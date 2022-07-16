@@ -8,7 +8,11 @@ export const editBlock = {
 			http: {
 				method: "post",
 				path: "editBlock/",
-				cors: true
+				cors: true,
+				authorizer: {
+					name: "verifyJWT",
+					type: "Token"
+				}
 			}
 		}
 	]
@@ -23,7 +27,11 @@ export const deleteReportBlock = {
 			http: {
 				method: "post",
 				path: "deleteReportBlock/",
-				cors: true
+				cors: true,
+				authorizer: {
+					name: "verifyJWT",
+					type: "Token"
+				}
 			}
 		}
 	]

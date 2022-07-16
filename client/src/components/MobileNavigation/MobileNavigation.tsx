@@ -1,13 +1,11 @@
 import { GoHome } from "react-icons/go";
 import { BiHash } from "react-icons/bi";
 import { TiDocumentText } from "react-icons/ti";
-// import { FaRegClone } from "react-icons/fa";
 import { RiDraftLine } from "react-icons/ri";
 import { CgProfile } from "react-icons/cg";
 import { BsShare } from "react-icons/bs";
 import { HiOutlineLogin } from "react-icons/hi";
 import { AiOutlineHistory } from "react-icons/ai";
-
 import { Link, useNavigate } from "react-router-dom";
 
 function MobileNavigation(props: any) {
