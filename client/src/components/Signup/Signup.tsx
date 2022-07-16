@@ -1,14 +1,12 @@
 import "./Signup.css";
 import { BiErrorCircle } from "react-icons/bi";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Logo from "../Logo/Logo";
 import Button from "../Button/Button";
 import axios from "../../api/axios";
+import { AxiosError } from "axios";
 
 function Signup(props: any) {
-    const usernameRef = useRef<HTMLInputElement>(null);
-    const errRef = useRef();
-
     const [enteredUsername, changeEnteredUsername] = useState("");
     const [validUsername, setValidUsername] = useState(false);
     const [usernameFocus, setUsernameFocus] = useState(false);
@@ -26,14 +24,12 @@ function Signup(props: any) {
     const [confirmPasswordFocus, setConfirmPasswordFocus] = useState(false);
 
     const [errorMessage, setErrorMessage] = useState("");
-    const [success, setSuccess] = useState(false);
-
-    useEffect(() => {
-        usernameRef.current?.focus();
-    }, []);
+    const [errorStatus, setError] = useState(false);
+    const style = { fontSize: "2rem", color: "red" };
 
     useEffect(() => {
         setValidUsername(/^[a-zA-Z0-9]{4,16}$/.test(enteredUsername));
+        setError(false);
     }, [enteredUsername]);
 
     useEffect(() => {
@@ -42,6 +38,7 @@ function Signup(props: any) {
                 enteredEmail
             )
         );
+        setError(false);
     }, [enteredEmail]);
 
     useEffect(() => {
@@ -51,44 +48,31 @@ function Signup(props: any) {
             )
         );
         setValidConfirmPassword(enteredPassword === enteredConfirmPassword);
+        setError(false);
     }, [enteredPassword, enteredConfirmPassword]);
 
     useEffect(() => {
         setErrorMessage("");
     }, [enteredUsername, enteredEmail, enteredPassword, enteredConfirmPassword]);
 
-    const usernameHandler = (event: any) => {
-        changeEnteredUsername(event.target.value);
-    };
-
-    const emailHandler = (event: any) => {
-        changeEnteredEmail(event.target.value);
-    };
-
-    const passwordHandler = (event: any) => {
-        changeEnteredPassword(event.target.value);
-    };
-
-    const passwordConfirmHandler = (event: any) => {
-        changeEnteredConfirmPassword(event.target.value);
-    };
-
     const signup = async (userValidatedData: any) => {
+        setErrorMessage("");
+        setError(false);
         try {
             await axios.post("signup", JSON.stringify(userValidatedData), {
                 withCredentials: true
             });
             await props.readyToLogIN();
-        } catch (error) { }
+        } catch (error) {
+            setError(true);
+            if ((error as AxiosError).request.status === 0) {
+                setErrorMessage("Something went wrong. Please try again later.");
+            }
+            else {
+                setErrorMessage(JSON.parse((error as AxiosError).request.response).error);
+            }
+        }
     };
-
-    // #############################################################################
-
-    // ########## CHECKING PASSWORD INPUT ################
-    // creating variables for security checks
-
-    const [errorStatus, setError] = useState(true);
-    const style = { fontSize: "2rem", color: "orange" };
 
     const submitHandler = (event: any) => {
         event.preventDefault();
@@ -120,6 +104,12 @@ function Signup(props: any) {
             </div>
             <br />
             <div>
+                {errorStatus && (
+                    <div className="flex flex-row border-2 border-red-500 rounded-md bg-red-300 h-auto w-60 m-4 mb-5 p-2">
+                        <BiErrorCircle style={style} />
+                        <p className="p-1 pl-2">{errorMessage}</p>
+                    </div>
+                )}
                 <form
                     onSubmit={submitHandler}
                     action=""
@@ -138,7 +128,7 @@ function Signup(props: any) {
                                     ? "w-60 h-10 border-gray-200 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-red-200"
                                     : "w-60 h-10 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E]"
                         }
-                        onChange={usernameHandler}
+                        onChange={(event) => changeEnteredUsername(event.target.value)}
                         value={enteredUsername}
                         aria-invalid={validUsername ? "true" : "false"}
                         onFocus={() => setUsernameFocus(true)}
@@ -166,7 +156,7 @@ function Signup(props: any) {
                                     ? "w-60 h-10 border-gray-200 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-red-200 mb-6"
                                     : "w-60 h-10 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] mb-6"
                         }
-                        onChange={emailHandler}
+                        onChange={(event) => changeEnteredEmail(event.target.value)}
                         value={enteredEmail}
                         aria-invalid={validEmail ? "true" : "false"}
                         onFocus={() => setEmailFocus(true)}
@@ -193,7 +183,7 @@ function Signup(props: any) {
                                         ? "w-60 h-10 border-gray-200 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-red-200"
                                         : "w-60 h-10 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E]"
                             }
-                            onChange={passwordHandler}
+                            onChange={(event) => changeEnteredPassword(event.target.value)}
                             value={enteredPassword}
                             aria-invalid={validPassword ? "true" : "false"}
                             onFocus={() => setPasswordFocus(true)}
@@ -227,7 +217,7 @@ function Signup(props: any) {
                                         ? "w-60 h-10 border-gray-200 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-red-200 mb-3"
                                         : "w-60 h-10 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] mb-3"
                             }
-                            onChange={passwordConfirmHandler}
+                            onChange={(event) => changeEnteredConfirmPassword(event.target.value)}
                             value={enteredConfirmPassword}
                             aria-invalid={validPassword ? "true" : "false"}
                             onFocus={() => setConfirmPasswordFocus(true)}
