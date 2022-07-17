@@ -10,9 +10,9 @@ function Drafts() {
 	// handling loading things.........
 	const [loading, changeLoading] = useState(true);
 
-	const loadingHandler = () => {
-		changeLoading(!loading);
-	};
+	// const loadingHandler = () => {
+	// 	changeLoading(!loading);
+	// };
 
 	const loadIcon = (
 		<svg
