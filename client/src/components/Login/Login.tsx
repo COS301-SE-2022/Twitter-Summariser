@@ -4,7 +4,7 @@ import { AiOutlineCheckCircle } from "react-icons/ai";
 import { useEffect, useState, useContext } from "react";
 import Logo from "../Logo/Logo";
 import Button from "../Button/Button";
-import axios from "../../api/Axios";
+import axios from "../../api/config_axios";
 import AuthContext from "../../context/AuthProvider";
 
 function Login(props: any) {
