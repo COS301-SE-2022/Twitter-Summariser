@@ -1,4 +1,4 @@
-import { useNavigate, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import MobileNavigation from "../components/MobileNavigation";
@@ -7,7 +7,6 @@ import Navigation from "../components/Navigation";
 import "./styles/Landing.css";
 
 function Landing() {
-    const navigate = useNavigate();
 
     const logout = () => {
 
