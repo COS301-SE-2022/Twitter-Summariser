@@ -1,63 +1,44 @@
-import { useState, useEffect } from "react";
-import Landing from "./components/Landing/Landing";
-import Login from "./components/Login/Login";
-import Signup from "./components/Signup/Signup";
+import { Routes, Route } from "react-router-dom";
+import RequiredAuth from "./auth/RequiredAuth";
+import Layout from "./pages/Layout";
+import Landing from "./pages/Landing";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import PageNotFound from "./pages/PageNotFound";
+import Home from "./components/Home";
+import Explore from "./components/Explore";
+import Reports from "./components/Reports";
+import Drafts from "./components/Drafts";
+import Shared from "./components/Shared";
+import History from "./components/History";
+import Profile from "./components/Profile";
+import GenReport from "./components/GenReport";
+import GetPublishedReport from "./components/GetPublishedReport";
+import ViewHistory from "./components/ViewHistory";
 
-// main Application component in which different page sub-components will be contained
 function App() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [signupPage, setSignupPage] = useState(false);
-    const [userApi, changeUserApi] = useState("");
-
-    useEffect(() => {
-        const storageUserLoggedInInformation = localStorage.getItem("key");
-        if (storageUserLoggedInInformation) {
-            setIsLoggedIn(true);
-        }
-    }, []);
-
-    // retrieving user login details
-    const loginHandler = (props: any) => {
-        console.log("In here")
-        if (props.login === "true") {
-            localStorage.setItem("key", props.apiKey);
-            localStorage.setItem("username", props.username);
-            localStorage.setItem("email", props.email);
-            localStorage.setItem("token", props.accessToken);
-            setIsLoggedIn(true);
-            setSignupPage(false);
-            changeUserApi(props.apiKey);
-        }
-    };
-
-    const signUpPage = () => {
-        setIsLoggedIn(false);
-        setSignupPage(true);
-    };
-
-    const logInPage = () => {
-        localStorage.clear();
-        setIsLoggedIn(false);
-        setSignupPage(false);
-    };
-
-    const readyToLog = () => {
-        localStorage.setItem("newUser", "true");
-        setSignupPage(false);
-    };
-
     return (
-        <div className="">
-            {!localStorage.getItem("key") && !signupPage && (
-                <Login userLoginDetails={loginHandler} takeToSignupPage={signUpPage} />
-            )}
-
-            {/* Signup */}
-            {signupPage && <Signup takeToSigninPage={logInPage} readyToLogIN={readyToLog} />}
-
-            {/* Entry here based on Signup and Login decision  */}
-            {isLoggedIn && <Landing userAPI={userApi} takeToSigninPage={logInPage} />}
-        </div>
+        <Routes>
+            <Route path="/" element={<Layout />} >
+                <Route path="login" element={<Login />} />
+                <Route path="signup" element={<Signup />} />
+                <Route element={<RequiredAuth />} >
+                    <Route path="/" element={<Landing />}>
+                        <Route path="/" element={<Home />} />
+                        <Route path="explore" element={<Explore />} />
+                        <Route path="reports" element={<Reports />} />
+                        <Route path="drafts" element={<Drafts />} />
+                        <Route path="shared" element={<Shared />} />
+                        <Route path="profile" element={<Profile />} />
+                        <Route path="genReport" element={<GenReport />} />
+                        <Route path="getPublishedReport" element={<GetPublishedReport />} />
+                        <Route path="history" element={<History />} />
+                        <Route path="viewHistory" element={<ViewHistory />} />
+                    </Route>
+                </Route>
+                <Route path="*" element={<PageNotFound />} />
+            </Route>
+        </Routes>
     );
 }
 

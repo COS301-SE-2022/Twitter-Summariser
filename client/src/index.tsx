@@ -5,13 +5,18 @@ import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 import { AuthProvider } from "./context/AuthProvider";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
 root.render(
-    <AuthProvider>
-        <App />
-    </AuthProvider>
+	<BrowserRouter>
+		<AuthProvider>
+			<Routes>
+				<Route path="/*" element={<App />} />
+			</Routes>
+		</AuthProvider>
+	</BrowserRouter>
 );
 // const cors = require("cors");
 // const corsOptions = {
