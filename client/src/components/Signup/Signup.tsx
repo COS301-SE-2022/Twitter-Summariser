@@ -3,7 +3,7 @@ import { BiErrorCircle } from "react-icons/bi";
 import { useState, useEffect } from "react";
 import Logo from "../Logo/Logo";
 import Button from "../Button/Button";
-import axios from "../../api/config_axios";
+import axios from "../../api/ConfigAxios";
 import { AxiosError } from "axios";
 
 function Signup(props: any) {
