@@ -47,4 +47,11 @@ export default class ScheduleService {
             }
         }).promise();
     }
+
+    async deleteScheduleSetting(id: string) {
+        await this.docCLient.delete({
+            TableName: this.TableName,
+            Key: { id }
+        }).promise();
+    }
 }
