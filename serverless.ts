@@ -8,6 +8,7 @@ import { ReportTable } from "@model/report";
 import { ReportBlockTable } from "@model/reportBlock";
 import { TextStylesTable } from "@model/textStyles";
 import { PermissionTable } from "@model/permission";
+import { ScheduleTable } from "@model/schedule";
 import { getAllResultSet, getResultSet, deleteResultSet } from "@functions/resultSet";
 import {
 	getAllMyDraftReports,
@@ -142,6 +143,7 @@ const serverlessConfiguration: AWS = {
 			ReportBlockTable,
 			TextStylesTable,
 			PermissionTable,
+			ScheduleTable,
 
 			TwitterSummariserApp: {
 				Type: "AWS::S3::Bucket",
