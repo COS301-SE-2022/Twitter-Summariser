@@ -295,14 +295,8 @@ function Signup(props: any) {
                     <br />
                     <p className="text-[#03045E] text-md text-center">
                         Already have an account?
-                        <button
-                            data-testid="btn-signin"
-                            type="submit"
-                            className=" text-[#0096C7] "
-                            onClick={signin}
-                        >
-                            &nbsp; Sign in
-                        </button>
+
+                        &nbsp; <a href="login">Sign in</a>
                     </p>
                 </form>
             </div>
