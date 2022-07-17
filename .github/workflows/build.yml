@@ -45,6 +45,7 @@ jobs:
 
       - name: Install all frontend package dependencies
         run:  |
+          cd client
           yarn
           yarn test --coverage --watchAll=false
 
