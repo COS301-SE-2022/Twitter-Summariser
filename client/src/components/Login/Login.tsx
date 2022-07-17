@@ -1,14 +1,14 @@
 import "./Login.css";
 import { BiErrorCircle } from "react-icons/bi";
 import { AiOutlineCheckCircle } from "react-icons/ai";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import Logo from "../Logo/Logo";
 import Button from "../Button/Button";
 import axios from "../../api/ConfigAxios";
-import AuthContext from "../../context/AuthProvider";
+import useAuth from "../../hooks/useAuth";
 
 function Login(props: any) {
-    const { setIsAuthenticated } = useContext(AuthContext);
+    const { setIsAuthenticated } = useAuth();
     const [wrongCredentials, setWrongCredentialsStatus] = useState(false);
     const [rightCredentials, setRightCredentialsStatus] = useState(true);
 
@@ -74,7 +74,7 @@ function Login(props: any) {
                 withCredentials: true
             });
 
-            setIsAuthenticated(response.data)
+            setIsAuthenticated(response.data);
             props.userLoginDetails({
                 ...response.data,
                 login: "true"
@@ -211,14 +211,7 @@ function Login(props: any) {
                     <br />
                     <p className="text-[#03045E] text-md text-center">
                         Do not have an account?
-                        <button
-                            data-testid="btn-signup"
-                            type="submit"
-                            className="text-[#0096C7] hover:text-[#03045E]"
-                            onClick={signup}
-                        >
-                            &nbsp; Sign up
-                        </button>
+                        &nbsp; <a href="signup">Sign up</a>
                     </p>
                 </form>
             </div>
