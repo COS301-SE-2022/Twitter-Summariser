@@ -1,12 +1,15 @@
 import "./Login.css";
 import { BiErrorCircle } from "react-icons/bi";
 import { AiOutlineCheckCircle } from "react-icons/ai";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Logo from "../Logo/Logo";
 import Button from "../Button/Button";
-import axios from "../../api/axios";
+import AuthContext from "../../context/AuthProvider";
+import axios from "../../api/Axios";
+
 
 function Login(props: any) {
+    const { setIsAuthenticated } = useContext(AuthContext);
     const [wrongCredentials, setWrongCredentialsStatus] = useState(false);
     const [rightCredentials, setRightCredentialsStatus] = useState(true);
 
@@ -46,6 +49,7 @@ function Login(props: any) {
                 withCredentials: true
             });
 
+            setIsAuthenticated(response.data);
             props.userLoginDetails({
                 ...response.data,
                 login: "true"
