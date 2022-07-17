@@ -1,10 +1,10 @@
 import { Routes, Route } from "react-router-dom";
 import RequiredAuth from "./auth/RequiredAuth";
-import Layout from "./components/Layout";
-import Landing from "./components/Landing/Landing";
-import Login from "./components/Login/Login";
-import Signup from "./components/Signup/Signup";
-import Missing from "./components/Missing";
+import Layout from "./pages/Layout";
+import Landing from "./pages/Landing";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Missing from "./pages/Missing";
 
 function App() {
     return (

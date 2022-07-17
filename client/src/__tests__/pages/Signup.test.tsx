@@ -3,7 +3,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 // import ReactDOM from 'react-dom';
 
-import Signup from "../../components/Signup/Signup";
+import Signup from "../../pages/Signup";
 
 describe("Rendering Tests For Components Signup", () => {
     // Test to see if Signup is rendered

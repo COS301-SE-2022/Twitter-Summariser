@@ -1,9 +1,9 @@
-import "./Signup.css";
+import "./styles/Signup.css";
 import { BiErrorCircle } from "react-icons/bi";
 import { useState, useEffect } from "react";
-import Logo from "../Logo/Logo";
-import Button from "../Button/Button";
-import axios from "../../api/ConfigAxios";
+import Logo from "../components/Logo/Logo";
+import Button from "../components/Button/Button";
+import axios from "../api/ConfigAxios";
 import { AxiosError } from "axios";
 
 function Signup(props: any) {

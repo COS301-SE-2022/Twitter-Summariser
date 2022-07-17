@@ -1,11 +1,11 @@
-import "./Login.css";
+import "./styles/Login.css";
 import { BiErrorCircle } from "react-icons/bi";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { useEffect, useState } from "react";
-import Logo from "../Logo/Logo";
-import Button from "../Button/Button";
-import axios from "../../api/ConfigAxios";
-import useAuth from "../../hooks/useAuth";
+import Logo from "../components/Logo/Logo";
+import Button from "../components/Button/Button";
+import axios from "../api/ConfigAxios";
+import useAuth from "../hooks/useAuth";
 
 function Login(props: any) {
     const { setIsAuthenticated } = useAuth();

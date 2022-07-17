@@ -1,25 +1,25 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useState } from "react";
-import Logo from "../Logo/Logo";
-import Navigation from "../Navigation/Navigation";
-import Home from "../Home/Home";
-import Explore from "../Explore/Explore";
-import Reports from "../Reports/Reports";
-import Drafts from "../Drafts/Drafts";
-import Shared from "../Shared/Shared";
-import History from "../History/History";
-import Profile from "../Profile/Profile";
-import GenReport from "../GenReport/GenReport";
-import PageNotFound from "../PageNotFound/PageNotFound";
-import GetPublishedReport from "../GetPublishedReport/GetPublishedReport";
+import Logo from "../components/Logo/Logo";
+import Navigation from "../components/Navigation/Navigation";
+import Home from "../components/Home/Home";
+import Explore from "../components/Explore/Explore";
+import Reports from "../components/Reports/Reports";
+import Drafts from "../components/Drafts/Drafts";
+import Shared from "../components/Shared/Shared";
+import History from "../components/History/History";
+import Profile from "../components/Profile/Profile";
+import GenReport from "../components/GenReport/GenReport";
+import PageNotFound from "../components/PageNotFound/PageNotFound";
+import GetPublishedReport from "../components/GetPublishedReport/GetPublishedReport";
 
 // importing styling
-import "./Landing.css";
-import ViewHistory from "../ViewHistory/ViewHistory";
-import MobileNavigation from "../MobileNavigation/MobileNavigation";
-import RequiredAuth from "../../auth/RequiredAuth";
-import Layout from "../Layout";
+import "./styles/Landing.css";
+import ViewHistory from "../components/ViewHistory/ViewHistory";
+import MobileNavigation from "../components/MobileNavigation/MobileNavigation";
+import RequiredAuth from "../auth/RequiredAuth";
+import Layout from "./Layout";
 
 function Landing(props: any) {
     localStorage.removeItem("newUser");

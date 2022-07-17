@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable jest/valid-expect */
 import { fireEvent, render, screen } from "@testing-library/react";
-import Login from "../../components/Login/Login";
+import Login from "../../pages/Login";
 
 describe("Rendering Tests For Components in Login", () => {
     // Test to see if Landing is rendered
