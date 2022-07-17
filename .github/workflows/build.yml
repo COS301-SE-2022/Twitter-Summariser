@@ -32,9 +32,6 @@ jobs:
   Frontend:
     name: Testing and building of frontend
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: client
 
     steps:
       - name: Checkout to develop branch
@@ -47,7 +44,10 @@ jobs:
           cache: 'yarn'
 
       - name: Install all frontend package dependencies
-        run:  yarn
+        run:  |
+          yarn
+          yarn test --coverage --watchAll=false
+
 
       # - name: Run frontend tests
       #   run:  yarn test --coverage --watchAll=false
