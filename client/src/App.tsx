@@ -4,7 +4,17 @@ import Layout from "./pages/Layout";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import Missing from "./pages/Missing";
+import PageNotFound from "./pages/PageNotFound";
+import Home from "./components/Home";
+import Explore from "./components/Explore";
+import Reports from "./components/Reports";
+import Drafts from "./components/Drafts";
+import Shared from "./components/Shared";
+import History from "./components/History";
+import Profile from "./components/Profile";
+import GenReport from "./components/GenReport";
+import GetPublishedReport from "./components/GetPublishedReport";
+import ViewHistory from "./components/ViewHistory";
 
 function App() {
     return (
@@ -13,9 +23,20 @@ function App() {
                 <Route path="login" element={<Login />} />
                 <Route path="signup" element={<Signup />} />
                 <Route element={<RequiredAuth />} >
-                    <Route path="/" element={<Landing />} />
+                    <Route path="/" element={<Landing />}>
+                        <Route path="/" element={<Home />} />
+                        <Route path="explore" element={<Explore />} />
+                        <Route path="reports" element={<Reports />} />
+                        <Route path="drafts" element={<Drafts />} />
+                        <Route path="shared" element={<Shared />} />
+                        <Route path="profile" element={<Profile />} />
+                        <Route path="genReport" element={<GenReport />} />
+                        <Route path="getPublishedReport" element={<GetPublishedReport />} />
+                        <Route path="history" element={<History />} />
+                        <Route path="viewHistory" element={<ViewHistory />} />
+                    </Route>
                 </Route>
-                <Route path="*" element={<Missing />} />
+                <Route path="*" element={<PageNotFound />} />
             </Route>
         </Routes>
     );

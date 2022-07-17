@@ -1,12 +1,15 @@
 import "./styles/Signup.css";
 import { BiErrorCircle } from "react-icons/bi";
 import { useState, useEffect } from "react";
-import Logo from "../components/Logo/Logo";
-import Button from "../components/Button/Button";
+import Logo from "../components/Logo";
+import Button from "../components/Button";
 import axios from "../api/ConfigAxios";
 import { AxiosError } from "axios";
+import { useNavigate } from "react-router-dom";
 
-function Signup(props: any) {
+function Signup() {
+    const navigate = useNavigate();
+
     const [enteredUsername, changeEnteredUsername] = useState("");
     const [validUsername, setValidUsername] = useState(false);
     const [usernameFocus, setUsernameFocus] = useState(false);
@@ -81,15 +84,15 @@ function Signup(props: any) {
         setErrorMessage("");
     }, [enteredUsername, enteredEmail, enteredPassword, enteredConfirmPassword]);
 
-    const signup = async (userValidatedData: any) => {
+    const SignUp = async (userValidatedData: any) => {
         setErrorMessage("");
         setError(false);
         try {
             await axios.post("signup", JSON.stringify(userValidatedData), {
                 withCredentials: true
             });
-            await props.readyToLogIN();
             changeLoading(false);
+            navigate("/login");
         } catch (error) {
             setError(true);
             changeLoading(false);
@@ -109,12 +112,12 @@ function Signup(props: any) {
             password: enteredPassword
         };
         loadingHandler();
-        signup(userDetails);
+        SignUp(userDetails);
     };
 
     const signin = (event: any) => {
         event.preventDefault();
-        props.takeToSigninPage();
+        navigate("/login");
     };
 
     return (
@@ -295,8 +298,14 @@ function Signup(props: any) {
                     <br />
                     <p className="text-[#03045E] text-md text-center">
                         Already have an account?
-
-                        &nbsp; <a href="login">Sign in</a>
+                        <button
+                            data-testid="btn-signin"
+                            type="submit"
+                            className=" text-[#0096C7] "
+                            onClick={signin}
+                        >
+                            &nbsp; Sign in
+                        </button>
                     </p>
                 </form>
             </div>

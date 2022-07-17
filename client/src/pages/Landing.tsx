@@ -1,32 +1,16 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { GiHamburgerMenu } from "react-icons/gi";
+import { useNavigate, Outlet } from "react-router-dom";
 import { useState } from "react";
-import Logo from "../components/Logo/Logo";
-import Navigation from "../components/Navigation/Navigation";
-import Home from "../components/Home/Home";
-import Explore from "../components/Explore/Explore";
-import Reports from "../components/Reports/Reports";
-import Drafts from "../components/Drafts/Drafts";
-import Shared from "../components/Shared/Shared";
-import History from "../components/History/History";
-import Profile from "../components/Profile/Profile";
-import GenReport from "../components/GenReport/GenReport";
-import PageNotFound from "../components/PageNotFound/PageNotFound";
-import GetPublishedReport from "../components/GetPublishedReport/GetPublishedReport";
-
-// importing styling
+import { GiHamburgerMenu } from "react-icons/gi";
+import MobileNavigation from "../components/MobileNavigation";
+import Logo from "../components/Logo";
+import Navigation from "../components/Navigation";
 import "./styles/Landing.css";
-import ViewHistory from "../components/ViewHistory/ViewHistory";
-import MobileNavigation from "../components/MobileNavigation/MobileNavigation";
-import RequiredAuth from "../auth/RequiredAuth";
-import Layout from "./Layout";
 
-function Landing(props: any) {
-    localStorage.removeItem("newUser");
+function Landing() {
+    const navigate = useNavigate();
 
     const logout = () => {
-        // Executing logout from Landing page
-        props.takeToSigninPage();
+
     };
 
     const [mobileClick, changeMobileClick] = useState(false);
@@ -90,7 +74,7 @@ function Landing(props: any) {
 
             {/* second container ######################################################################################################### */}
             <div className="flex flex-col 2xl:w-2/5 mini-tablet:w-2/5 w-full border-l border-r relative">
-                <Drafts />
+                <Outlet />
             </div>
 
             {/* third container ######################################################################################################### */}
@@ -100,7 +84,7 @@ function Landing(props: any) {
                     <div className="w-full flex flex-col" />
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 

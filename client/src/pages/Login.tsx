@@ -2,13 +2,16 @@ import "./styles/Login.css";
 import { BiErrorCircle } from "react-icons/bi";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { useEffect, useState } from "react";
-import Logo from "../components/Logo/Logo";
-import Button from "../components/Button/Button";
+import Logo from "../components/Logo";
+import Button from "../components/Button";
 import axios from "../api/ConfigAxios";
 import useAuth from "../hooks/useAuth";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function Login(props: any) {
-    const { setIsAuthenticated } = useAuth();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const { setAuth } = useAuth();
     const [wrongCredentials, setWrongCredentialsStatus] = useState(false);
     const [rightCredentials, setRightCredentialsStatus] = useState(true);
 
@@ -74,15 +77,19 @@ function Login(props: any) {
                 withCredentials: true
             });
 
-            setIsAuthenticated(response.data);
-            props.userLoginDetails({
-                ...response.data,
-                login: "true"
-            });
-
             changeLoading(false);
-
+            localStorage.setItem("username", response.data.username);
+            localStorage.setItem("token", response.data.accessToken);
+            localStorage.setItem("key", response.data.apiKey);
+            localStorage.setItem("email", response.data.email);
             localStorage.setItem("page", "Home");
+            const username = response.data.username;
+            const accessToken = response.data.accessToken;
+            const apiKey = response.data.apiKey;
+            const email = response.data.email;
+            await setAuth({ username, accessToken, apiKey, email });
+            navigate("/")
+
         } catch (err) {
             if ((err as Error).message === "Request failed with status code 401") {
                 setWrongCredentialsStatus(true);
@@ -113,8 +120,7 @@ function Login(props: any) {
 
     const signup = (event: any) => {
         event.preventDefault();
-        const sign = { signup: true };
-        props.takeToSignupPage(sign);
+        navigate("/signup");
     };
 
     return (
@@ -211,7 +217,14 @@ function Login(props: any) {
                     <br />
                     <p className="text-[#03045E] text-md text-center">
                         Do not have an account?
-                        &nbsp; <a href="signup">Sign up</a>
+                        <button
+                            data-testid="btn-signup"
+                            type="submit"
+                            className="text-[#0096C7] hover:text-[#03045E]"
+                            onClick={signup}
+                        >
+                            &nbsp; Sign up
+                        </button>
                     </p>
                 </form>
             </div>
