@@ -14,4 +14,17 @@ export default class ScheduleService {
 
         return result.Item as Schedule;
     }
+
+    async getShedules(key: string): Promise<Schedule[]> {
+        const result = await this.docCLient.query({
+            TableName: this.TableName,
+            IndexName: "scheduleIndex",
+            KeyConditionExpression: "apiKey = :apiKey",
+            ExpressionAttributeValues: {
+                ":apiKey": key
+            }
+        }).promise();
+
+        return result.Items as Schedule[];
+    }
 }
