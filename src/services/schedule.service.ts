@@ -36,4 +36,15 @@ export default class ScheduleService {
 
         return scheduleSetting as Schedule;
     }
+
+    async updateScheduleSetting(id: string, date: Date) {
+        await this.docCLient.update({
+            TableName: this.TableName,
+            Key : { id },
+            UpdateExpression: "set lastGenerated = :lastGenerated",
+            ExpressionAttributeValues: {
+                ":lastGenerated": date
+            }
+        }).promise();
+    }
 }
