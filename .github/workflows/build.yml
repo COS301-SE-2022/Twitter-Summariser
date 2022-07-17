@@ -50,7 +50,9 @@ jobs:
         run:  yarn
 
       - name: Run frontend tests
-        run:  CI=false yarn test --coverage --watchAll=false
+        run:  yarn test --coverage --watchAll=false
+        env:
+          CI: false
 
       - name: Build the React App
         run:  yarn run build
