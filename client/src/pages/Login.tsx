@@ -6,11 +6,10 @@ import Logo from "../components/Logo";
 import Button from "../components/Button";
 import axios from "../api/ConfigAxios";
 import useAuth from "../hooks/useAuth";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Login(props: any) {
     const navigate = useNavigate();
-    const location = useLocation();
     const { setAuth } = useAuth();
     const [wrongCredentials, setWrongCredentialsStatus] = useState(false);
     const [rightCredentials, setRightCredentialsStatus] = useState(true);
