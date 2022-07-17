@@ -27,4 +27,13 @@ export default class ScheduleService {
 
         return result.Items as Schedule[];
     }
+
+    async addScheduleSetting(scheduleSetting: Schedule): Promise<Schedule> {
+        await this.docCLient.put({
+            TableName: this.TableName,
+            Item: scheduleSetting
+        }).promise();
+
+        return scheduleSetting as Schedule;
+    }
 }
