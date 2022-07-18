@@ -83,7 +83,7 @@ export const addCustomTweet = middyfy(
 			const params = JSON.parse(event.body);
 
 			const { data } = await clientV2.get("tweets/search/recent", {
-				query: `url:+${params.url}`,
+				query: `url:${params.url}`,
 				tweet: {
 					fields: ["public_metrics", "author_id", "created_at"]
 				}
