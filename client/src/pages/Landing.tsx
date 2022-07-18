@@ -1,15 +1,21 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import MobileNavigation from "../components/MobileNavigation";
 import Logo from "../components/Logo";
 import Navigation from "../components/Navigation";
 import "./styles/Landing.css";
+import useAuth from "../hooks/useAuth";
 
 function Landing() {
+    const { setAuth } = useAuth();
+    const navigate = useNavigate();
+
 
     const logout = () => {
-
+        setAuth({});
+        localStorage.clear();
+        navigate("/login");
     };
 
     const [mobileClick, changeMobileClick] = useState(false);
