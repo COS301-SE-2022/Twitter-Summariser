@@ -17,7 +17,7 @@ import { GrCopy } from "react-icons/gr";
 import Button from "./Button";
 
 // Axios stuffs
-import axios from "../api/ConfigAxios";
+//import axios from "../api/ConfigAxios";
 
 function GenReport() {
 	const navigate = useNavigate();
