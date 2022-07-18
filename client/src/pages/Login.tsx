@@ -6,11 +6,22 @@ import Logo from "../components/Logo";
 import Button from "../components/Button";
 import axios from "../api/ConfigAxios";
 import useAuth from "../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
-function Login(props: any) {
+interface LocationState {
+    from: {
+        pathname: string;
+    }
+}
+
+function Login() {
     const navigate = useNavigate();
     const { setAuth } = useAuth();
+
+    const isSignup = sessionStorage.getItem("isSignup") === "true";
+    sessionStorage.removeItem("isSignup");
+    const from = (useLocation().state as LocationState).from.pathname || "/";
+
     const [wrongCredentials, setWrongCredentialsStatus] = useState(false);
     const [rightCredentials, setRightCredentialsStatus] = useState(true);
 
@@ -81,13 +92,28 @@ function Login(props: any) {
             localStorage.setItem("token", response.data.accessToken);
             localStorage.setItem("key", response.data.apiKey);
             localStorage.setItem("email", response.data.email);
-            localStorage.setItem("page", "Home");
+
+            if (from === "/")
+                localStorage.setItem("page", "Home");
+            else if (from === "/drafts")
+                localStorage.setItem("page", "Drafts");
+            else if (from === "/explore")
+                localStorage.setItem("page", "Explore");
+            else if (from === "/profile")
+                localStorage.setItem("page", "Profile");
+            else if (from === "/reports")
+                localStorage.setItem("page", "Published Reports");
+            else if (from === "/shared")
+                localStorage.setItem("page", "Shared Reports");
+            else if (from === "/history")
+                localStorage.setItem("page", "Search History");
+
             const username = response.data.username;
             const accessToken = response.data.accessToken;
             const apiKey = response.data.apiKey;
             const email = response.data.email;
             await setAuth({ username, accessToken, apiKey, email });
-            navigate("/")
+            navigate(from, { replace: true });
 
         } catch (err) {
             if ((err as Error).message === "Request failed with status code 401") {
@@ -136,12 +162,8 @@ function Login(props: any) {
                     Sign in to <br></br>Twitter Summariser
                 </h1>
             </div>
-            {rightCredentials && (
-                <div>
-                    <br />
-                </div>
-            )}
-            {localStorage.getItem("newUser") && (
+            {!isSignup && (<br />)}
+            {isSignup && (
                 <div className="flex flex-row border-2 border-green-700 rounded-md bg-green-300 h-auto mini-tablet:w-auto w-60 m-4 mb- p-2">
                     <AiOutlineCheckCircle style={style__} className="mini-tablet:mt-0 mt-3" />
                     <p className="pl-5 items-center justify-center">
