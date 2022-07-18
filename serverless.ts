@@ -11,19 +11,6 @@ import { PermissionTable } from "@model/permission";
 import { ScheduleTable } from "@model/schedule";
 import { getAllResultSet, getResultSet, deleteResultSet } from "@functions/resultSet";
 import {
-<<<<<<< HEAD
-    getAllMyDraftReports,
-    getAllPublishedReports,
-    getReport,
-    generateReport,
-    cloneReport,
-    publishReport,
-    shareReport,
-    unpublishReport,
-    deleteReport,
-    getSharedReport,
-    getAllMyPublishedReports
-=======
 	getAllMyDraftReports,
 	getAllPublishedReports,
 	getReport,
@@ -31,12 +18,10 @@ import {
 	cloneReport,
 	publishReport,
 	shareReport,
-	addCustomTweet,
 	unpublishReport,
 	deleteReport,
 	getSharedReport,
 	getAllMyPublishedReports
->>>>>>> df48ca991cf65adf0bb53c144ce78ace8756bcc7
 } from "@functions/report";
 import { editBlock, deleteReportBlock } from "@functions/reportBlock";
 

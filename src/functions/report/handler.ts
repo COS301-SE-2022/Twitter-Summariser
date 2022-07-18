@@ -240,11 +240,12 @@ export const getReport = middyfy(
 			let report: any = await ServicesLayer.reportService.getReportHelper(params.reportID);
 
 			if (
-				await ServicesLayer.permissionService.verifyReportRetr(
+				(await ServicesLayer.permissionService.verifyReportRetr(
 					report.status,
 					params.apiKey,
 					report.reportID
-				) || await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)
+				)) ||
+				(await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey))
 			) {
 				return {
 					statusCode: statusCodes.unauthorized,

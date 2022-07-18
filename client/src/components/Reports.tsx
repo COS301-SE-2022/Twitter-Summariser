@@ -106,7 +106,10 @@ function Reports() {
 					<h1 className="text-3xl hidden lg:block">My Reports</h1>
 
 					<div className="mt-4 flex flex-row flex-wrap justify-center">
-						<div  data-testid="reports" className="mt-4 flex flex-row flex-wrap justify-center">
+						<div
+							data-testid="reports"
+							className="mt-4 flex flex-row flex-wrap justify-center"
+						>
 							{loading && <div>{loadIcon}</div>}
 
 							{!loading &&
