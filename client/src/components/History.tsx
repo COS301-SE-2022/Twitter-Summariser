@@ -96,7 +96,7 @@ function History() {
 
 							{!loading &&
 								(history.length === 0 ? (
-									<div>You have no draft at the moment </div>
+									<div>You have no searches at the moment </div>
 								) : (
 									history.map((data) => (
 										<div
