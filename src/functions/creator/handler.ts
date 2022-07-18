@@ -145,7 +145,7 @@ export const loginCreator = middyfy(
                 },
                 process.env.ACCESS_TOKEN_SECRET,
                 {
-                    expiresIn: "1d"
+                    expiresIn: "30s"
                 }
             );
 
@@ -158,7 +158,7 @@ export const loginCreator = middyfy(
                 },
                 process.env.REFRESH_TOKEN_SECRET,
                 {
-                    expiresIn: "1d"
+                    expiresIn: "1m"
                 }
             );
 
@@ -169,13 +169,13 @@ export const loginCreator = middyfy(
             );
 
             if (isCreatorUpdated === true) {
-                const cookieString = `refreshToken=${refreshToken}; HttpOnly; max-age=${24 * 60 * 60 * 1000
+                const cookieString = `refreshToken=${refreshToken}; Path=/; HttpOnly; max-age=${24 * 60 * 60 * 1000
                     }`;
                 return {
                     statusCode: statusCodes.Successful,
                     headers: {
                         ...header,
-                        "Set-Cookie": cookieString
+                        "set-cookie": cookieString
                     },
                     body: JSON.stringify({
                         accessToken,
@@ -201,10 +201,11 @@ export const loginCreator = middyfy(
 );
 
 export const refreshToken = async (event, _context, callback) => {
-    const cookies = event.headers.cookie;
-    if (!cookies?.includes("refreshToken")) {
+    const cookies = event.headers.Cookie || event.headers.cookie;
+
+    if (!cookies?.includes("refreshToken"))
         return callback(null, { statusCode: statusCodes.unauthorized, headers: header, body: JSON.stringify({ message: "Missing important token" }) });
-    }
+
 
     const token = cookies.split("refreshToken=")[1].split(";")[0];
 
@@ -212,9 +213,9 @@ export const refreshToken = async (event, _context, callback) => {
     for (const creator of creatorsArray) {
         if (creator.RefreshAccessToken === token) {
             jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
-                if (err || decoded.username !== creator.username) {
+                if (err || decoded.username !== creator.username)
                     return callback(null, { statusCode: statusCodes.unauthorized, headers: header, body: JSON.stringify({ message: "Invalid token" }) });
-                }
+
                 const accessToken = jwt.sign(
                     {
                         email: creator.email,
@@ -227,6 +228,7 @@ export const refreshToken = async (event, _context, callback) => {
                     }
                 );
                 const cookieString = `refreshToken=${token}; HttpOnly; max-age=${24 * 60 * 60 * 1000}`;
+
                 return callback(null, {
                     statusCode: statusCodes.Successful,
                     headers: {
@@ -243,13 +245,14 @@ export const refreshToken = async (event, _context, callback) => {
             });
         }
     }
+
     return callback(null, { statusCode: statusCodes.unauthorized, headers: header, body: JSON.stringify({ message: "Invalid token" }) });
 }
 
 export const logoutCreator = async (event, _context, callback) => {
-    const cookieString = event.headers.cookie;
+    const cookieString = event.headers.Cookie || event.headers.cookie;
 
-    if (!cookieString.includes("refreshToken"))
+    if (!cookieString?.includes("refreshToken"))
         return callback(null, { statusCode: statusCodes.no_content, headers: header });
 
     const token = cookieString.split("refreshToken=")[1].split(";")[0];
