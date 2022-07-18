@@ -244,7 +244,7 @@ export const getReport = middyfy(
 					report.status,
 					params.apiKey,
 					report.reportID
-				)
+				) || await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)
 			) {
 				return {
 					statusCode: statusCodes.unauthorized,
