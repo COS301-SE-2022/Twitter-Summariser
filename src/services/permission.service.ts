@@ -41,7 +41,7 @@ export default class PermissionService {
 	async verifyEditor(reportID: string, apiKey: string): Promise<boolean> {
 		const per = await this.getPermission(reportID, apiKey);
 
-		return per.type === "OWNER" || per.type === "EDITOR";
+		return per.type === "EDITOR";
 	}
 
 	async getPermissions(key: string): Promise<Permission[]> {
@@ -57,13 +57,6 @@ export default class PermissionService {
 			.promise();
 
 		return result.Items as Permission[];
-	}
-
-	// verify owner of report
-	async verifyOwner(reportID: string, apiKey: string): Promise<boolean> {
-		const per = await this.getPermission(reportID, apiKey);
-
-		return per.type === "OWNER";
 	}
 
 	async updatePermission(id: string, key: string, perm: string): Promise<Permission> {

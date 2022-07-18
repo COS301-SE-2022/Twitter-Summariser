@@ -17,29 +17,29 @@ import GetPublishedReport from "./components/GetPublishedReport";
 import ViewHistory from "./components/ViewHistory";
 
 function App() {
-    return (
-        <Routes>
-            <Route path="/" element={<Layout />} >
-                <Route path="login" element={<Login />} />
-                <Route path="signup" element={<Signup />} />
-                <Route element={<RequiredAuth />} >
-                    <Route path="/" element={<Landing />}>
-                        <Route path="/" element={<Home />} />
-                        <Route path="explore" element={<Explore />} />
-                        <Route path="reports" element={<Reports />} />
-                        <Route path="drafts" element={<Drafts />} />
-                        <Route path="shared" element={<Shared />} />
-                        <Route path="profile" element={<Profile />} />
-                        <Route path="genReport" element={<GenReport />} />
-                        <Route path="getPublishedReport" element={<GetPublishedReport />} />
-                        <Route path="history" element={<History />} />
-                        <Route path="viewHistory" element={<ViewHistory />} />
-                    </Route>
-                </Route>
-                <Route path="*" element={<PageNotFound />} />
-            </Route>
-        </Routes>
-    );
+	return (
+		<Routes>
+			<Route path="/" element={<Layout />}>
+				<Route path="login" element={<Login />} />
+				<Route path="signup" element={<Signup />} />
+				<Route element={<RequiredAuth />}>
+					<Route path="/" element={<Landing />}>
+						<Route path="/" element={<Home />} />
+						<Route path="explore" element={<Explore />} />
+						<Route path="reports" element={<Reports />} />
+						<Route path="drafts" element={<Drafts />} />
+						<Route path="shared" element={<Shared />} />
+						<Route path="profile" element={<Profile />} />
+						<Route path="genReport" element={<GenReport />} />
+						<Route path="getPublishedReport" element={<GetPublishedReport />} />
+						<Route path="history" element={<History />} />
+						<Route path="viewHistory" element={<ViewHistory />} />
+					</Route>
+				</Route>
+				<Route path="*" element={<PageNotFound />} />
+			</Route>
+		</Routes>
+	);
 }
 
 export default App;

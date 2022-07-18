@@ -6,6 +6,7 @@ import ResultSetService from "./resultSet.service";
 import TextStyleService from "./textStyles.service";
 import PermissionService from "./permission.service";
 import TweetService from "./tweet.service";
+import ScheduleService from "./schedule.service";
 
 const reportService = new ReportService(dynamoDBClient());
 const creatorService = new CreatorService(dynamoDBClient());
@@ -14,6 +15,7 @@ const reportBlockService = new ReportBlockService(dynamoDBClient());
 const textStyleService = new TextStyleService(dynamoDBClient());
 const tweetService = new TweetService();
 const permissionService = new PermissionService(dynamoDBClient());
+const scheduleService = new ScheduleService(dynamoDBClient());
 
 export default {
 	creatorService,
@@ -22,5 +24,6 @@ export default {
 	reportService,
 	reportBlockService,
 	textStyleService,
-	permissionService
+	permissionService,
+	scheduleService
 };

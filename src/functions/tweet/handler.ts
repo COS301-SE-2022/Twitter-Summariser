@@ -75,3 +75,31 @@ export const searchTweets = middyfy(
 		}
 	}
 );
+
+// Adding a custom tweet
+export const addCustomTweet = middyfy(
+	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+		try {
+			const params = JSON.parse(event.body);
+
+			const { data } = await clientV2.get("tweets/search/recent", {
+				query: `url:${params.url}`,
+				tweet: {
+					fields: ["public_metrics", "author_id", "created_at"]
+				}
+			});
+
+			return {
+				statusCode: statusCodes.Successful,
+				headers: header,
+				body: JSON.stringify(data)
+			};
+		} catch (e) {
+			return {
+				statusCode: statusCodes.internalError,
+				headers: header,
+				body: JSON.stringify(e)
+			};
+		}
+	}
+);
