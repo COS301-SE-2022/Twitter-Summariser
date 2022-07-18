@@ -81,7 +81,7 @@ function ExploreCard(props: any) {
 			</p>
 			<p className="flex mb-3 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase">
 				<span className=" font-semiboldtext-deep-purple-accent-400">
-					Draft Report - {props.data.dateCreated.substring(4, 16)}
+					Published Report - {props.data.dateCreated.substring(4, 16)}
 				</span>
 			</p>
 			<div className="justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
