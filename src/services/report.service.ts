@@ -3,6 +3,7 @@ import Report from "@model/report/report.model";
 import Permission from "@model/permission/permissions.model";
 
 import ServicesLayer from ".";
+import { api } from "@functions/__tests__/inte/resources";
 
 export default class ReportService {
 	// add function to get all published reports
@@ -235,5 +236,12 @@ export default class ReportService {
 				}
 			})
 			.promise();
+	}
+
+	// verify owner of report
+	async verifyOwner(reportID: string, apiKey: string): Promise<boolean> {
+		const per = await this.getReport(reportID); 
+
+		return per.apiKey === apiKey;
 	}
 }
