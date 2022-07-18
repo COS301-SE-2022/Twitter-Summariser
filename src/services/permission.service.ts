@@ -31,10 +31,11 @@ export default class PermissionService {
 	// verify report retrieval
 	async verifyReportRetr(status: string, apiKey: string, reportID: string): Promise<boolean> {
 		const per = await this.getPermission(reportID, apiKey);
+
 		if (status !== "PUBLISHED" && per === undefined) {
-			return true;
+			return false;
 		}
-		return false;
+		return true;
 	}
 
 	// verify editoral rights of report
