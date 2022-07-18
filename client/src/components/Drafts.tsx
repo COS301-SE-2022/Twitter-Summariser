@@ -1,18 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DraftCard from "./DraftCard";
-
-// importing link
-import link from "../resources/links.json";
+import axios from "../api/ConfigAxios";
 
 function Drafts() {
     const [draft, changeDraft] = useState<any[]>([]);
-
-    // handling loading things.........
     const [loading, changeLoading] = useState(true);
 
-    // const loadingHandler = () => {
-    // 	changeLoading(!loading);
-    // };
+    useEffect(() => {
+        let isMounted = true;
+        const controller = new AbortController();
+
+        const getHistory = async () => {
+            try {
+                const response = await axios.post("getAllMyDraftReports", JSON.stringify({ apiKey: localStorage.getItem("key") }), { signal: controller.signal, headers: { "Authorization": `${localStorage.getItem("token")}` } });
+                console.log(response.data);
+                isMounted && changeDraft(response.data);
+                changeLoading(false);
+
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        getHistory();
+
+        return () => {
+            isMounted = false;
+            controller.abort();
+        }
+
+    }, []);
+
 
     const loadIcon = (
         <svg
@@ -32,57 +50,6 @@ function Drafts() {
             />
         </svg>
     );
-
-    // localStorage.removeItem("resultSetId");
-    // localStorage.removeItem("draftReportId");
-
-    // ######################### API FOR GETTING HISTORY #####################
-
-    let getAllMyDraftReportsEndpoint =
-        process.env.NODE_ENV === "development"
-            ? String(link.localhostLink)
-            : String(link.serverLink);
-    getAllMyDraftReportsEndpoint += "getAllMyDraftReports";
-
-    // using localhost
-    // const getAllMyDraftReportsEndpoint = "http://localhost:4000/dev/getAllMyReports";
-
-    const getHistory = async () => {
-        const apiData = {
-            apiKey: localStorage.getItem("key")
-        };
-
-        const requestOptions = {
-            method: "POST",
-            body: JSON.stringify(apiData),
-            headers: {
-                Authorization: `${localStorage.getItem("token")}`
-            }
-        };
-
-        fetch(getAllMyDraftReportsEndpoint, requestOptions)
-            .then(async (response) => {
-                const isJson = response.headers.get("content-type")?.includes("application/json");
-
-                const data = isJson && (await response.json());
-
-                changeDraft(await data);
-                // console.log(data[0].status);
-                changeLoading(false);
-
-                // check for error response
-                if (!response.ok) {
-                    // error
-                }
-            })
-            .catch(() => {
-                // console.log("Error Getting History");
-            });
-    };
-
-    getHistory();
-
-    // #######################################################################
 
     //EXTRACTING REQUIRED DATA
     let newDraft = draft
