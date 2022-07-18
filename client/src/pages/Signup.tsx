@@ -92,7 +92,8 @@ function Signup() {
                 withCredentials: true
             });
             changeLoading(false);
-            navigate("/login");
+            sessionStorage.setItem("isSignup", "true");
+            navigate("/");
         } catch (error) {
             setError(true);
             changeLoading(false);
@@ -117,7 +118,7 @@ function Signup() {
 
     const signin = (event: any) => {
         event.preventDefault();
-        navigate("/login");
+        navigate("/", { replace: true });
     };
 
     return (

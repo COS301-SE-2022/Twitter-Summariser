@@ -17,6 +17,9 @@ interface LocationState {
 function Login() {
     const navigate = useNavigate();
     const { setAuth } = useAuth();
+
+    const isSignup = sessionStorage.getItem("isSignup") === "true";
+    sessionStorage.removeItem("isSignup");
     const from = (useLocation().state as LocationState).from.pathname || "/";
 
     const [wrongCredentials, setWrongCredentialsStatus] = useState(false);
@@ -159,12 +162,8 @@ function Login() {
                     Sign in to <br></br>Twitter Summariser
                 </h1>
             </div>
-            {rightCredentials && (
-                <div>
-                    <br />
-                </div>
-            )}
-            {localStorage.getItem("newUser") && (
+            {!isSignup && (<br />)}
+            {isSignup && (
                 <div className="flex flex-row border-2 border-green-700 rounded-md bg-green-300 h-auto mini-tablet:w-auto w-60 m-4 mb- p-2">
                     <AiOutlineCheckCircle style={style__} className="mini-tablet:mt-0 mt-3" />
                     <p className="pl-5 items-center justify-center">
