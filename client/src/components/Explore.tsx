@@ -1,10 +1,5 @@
 import { useEffect, useState } from "react";
 import ExploreCard from "./ExploreCard";
-// importing mock data
-// import tweeter from "../../mock.json";
-
-// importing link
-import link from "../resources/links.json";
 import axios from "../api/ConfigAxios";
 
 function Explore() {
