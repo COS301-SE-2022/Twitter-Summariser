@@ -202,7 +202,7 @@ export const loginCreator = middyfy(
 
 export const refreshToken = async (event, _context, callback) => {
     const cookies = event.headers.cookie;
-    if (!cookies.includes("refreshToken")) {
+    if (!cookies?.includes("refreshToken")) {
         return callback(null, { statusCode: statusCodes.unauthorized, headers: header, body: JSON.stringify({ message: "Missing important token" }) });
     }
 
@@ -246,13 +246,19 @@ export const refreshToken = async (event, _context, callback) => {
     return callback(null, { statusCode: statusCodes.unauthorized, headers: header, body: JSON.stringify({ message: "Invalid token" }) });
 }
 
-export const logoutCreator = middyfy(async (event: APIGatewayProxyEventV2): Promise<APIGatewayProxyResultV2> => {
-    const cookieString = event.cookies;
-    console.log(cookieString);
+export const logoutCreator = async (event, _context, callback) => {
+    const cookieString = event.headers.cookie;
 
-    return {
-        statusCode: statusCodes.Successful,
-        headers: header,
-        body: JSON.stringify({ message: "Logout successful" })
-    };
-});
+    if (!cookieString.includes("refreshToken"))
+        return callback(null, { statusCode: statusCodes.no_content, headers: header });
+
+    const token = cookieString.split("refreshToken=")[1].split(";")[0];
+    const creatorsArray = await CreatorServices.creatorService.getAllCreators();
+
+    for (const creator of creatorsArray)
+        if (creator.RefreshAccessToken === token)
+            CreatorServices.creatorService.updateCreator(creator.email, "");
+
+    const cookie = `refreshToken=; HttpOnly; max-age=0`;
+    return callback(null, { statusCode: statusCodes.no_content, headers: { ...header, "Set-Cookie": cookie } });
+}

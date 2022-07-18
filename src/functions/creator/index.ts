@@ -61,7 +61,7 @@ export const loginCreator = {
 };
 
 export const logoutCreator = {
-    handler: `${handlerPath(__dirname)}/handler.logout`,
+    handler: `${handlerPath(__dirname)}/handler.logoutCreator`,
     description: "A function that logouts the creator.",
     events: [
         {
