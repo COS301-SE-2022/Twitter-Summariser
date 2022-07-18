@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { MdDeleteOutline } from "react-icons/md";
+// import { MdDeleteOutline } from "react-icons/md";
 
 // importing link
 import link from "../resources/links.json";
@@ -17,7 +17,7 @@ function ReportCard(props: any) {
 		}
 	};
 
-	const iconStyle3 = { fontSize: "1.5rem", color: "red" };
+	// const iconStyle3 = { fontSize: "1.5rem", color: "red" };
 
 	const deleteReportHandler = (event: any) => {
 		event.preventDefault();
