@@ -41,7 +41,7 @@ export default class PermissionService {
 	async verifyEditor(reportID: string, apiKey: string): Promise<boolean> {
 		const per = await this.getPermission(reportID, apiKey);
 
-		return per.type === "OWNER" || per.type === "EDITOR";
+		return per.type === "EDITOR";
 	}
 
 	async getPermissions(key: string): Promise<Permission[]> {
