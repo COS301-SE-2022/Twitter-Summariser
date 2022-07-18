@@ -20,7 +20,7 @@ function Login() {
 
     const isSignup = sessionStorage.getItem("isSignup") === "true";
     sessionStorage.removeItem("isSignup");
-    const from = (useLocation().state as LocationState).from.pathname || "/";
+    const from = (useLocation().state as LocationState)?.from.pathname || "/";
 
     const [wrongCredentials, setWrongCredentialsStatus] = useState(false);
     const [rightCredentials, setRightCredentialsStatus] = useState(true);
