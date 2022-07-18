@@ -8,7 +8,11 @@ export const getAllResultSet = {
 			http: {
 				method: "post",
 				path: "getAllResultSet/",
-				cors: true
+				cors: true,
+				authorizer: {
+					name: "verifyJWT",
+					type: "Token"
+				}
 			}
 		}
 	]
@@ -23,7 +27,11 @@ export const getResultSet = {
 			http: {
 				method: "post",
 				path: "getResultSet/",
-				cors: true
+				cors: true,
+				authorizer: {
+					name: "verifyJWT",
+					type: "Token"
+				}
 			}
 		}
 	]
@@ -38,7 +46,11 @@ export const deleteResultSet = {
 			http: {
 				method: "post",
 				path: "deleteResultSet/",
-				cors: true
+				cors: true,
+				authorizer: {
+					name: "verifyJWT",
+					type: "Token"
+				}
 			}
 		}
 	]

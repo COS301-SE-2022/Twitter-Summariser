@@ -25,7 +25,6 @@ describe("creator.service", () => {
 				email: "test@gmail.com",
 				username: "test",
 				password: hashed,
-				dateOfBirth: "2002-01-08",
 				dateRegistered: "2022-01-01T00:00:00.000Z"
 			};
 
@@ -118,7 +117,6 @@ describe("creator.service", () => {
 				email: "test@gmail.com",
 				username: "test",
 				password: "password",
-				dateOfBirth: "2002-01-08",
 				dateRegistered: "2022-01-01T00:00:00.000Z"
 			};
 

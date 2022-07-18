@@ -7,7 +7,12 @@ export const getAllCreators = {
 		{
 			http: {
 				method: "get",
-				path: "creator/"
+				path: "creator/",
+				cors: true,
+				authorizer: {
+					name: "verifyJWT",
+					type: "Token"
+				}
 			}
 		}
 	]

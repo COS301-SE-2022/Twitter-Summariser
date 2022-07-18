@@ -48,7 +48,7 @@ export default class PermissionService {
 		const result = await this.docClient
 			.query({
 				TableName: this.TableName,
-				IndexName: "permissionIndex",
+				IndexName: "permissionsIndex",
 				KeyConditionExpression: "apiKey = :apiKey",
 				ExpressionAttributeValues: {
 					":apiKey": key

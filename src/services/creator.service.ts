@@ -59,4 +59,24 @@ export default class CreatorService {
 
 		return creator.Items[0] as Creator;
 	}
+
+	async updateCreator(email: string, token: string): Promise<boolean> {
+		return this.docClient
+			.update({
+				TableName: this.TableName,
+				Key: {
+					email
+				},
+				UpdateExpression: "set #RefreshAccessToken = :RefreshAccessToken",
+				ExpressionAttributeNames: {
+					"#RefreshAccessToken": "RefreshAccessToken"
+				},
+				ExpressionAttributeValues: {
+					":RefreshAccessToken": token
+				}
+			})
+			.promise()
+			.then(() => true)
+			.catch((err) => err);
+	}
 }
