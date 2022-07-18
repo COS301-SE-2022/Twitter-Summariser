@@ -46,13 +46,6 @@ export const generateReport = middyfy(
 				author: params.author
 			});
 
-			// Adding permissions
-			await ServicesLayer.permissionService.addPermission({
-				apiKey: params.apiKey,
-				reportID: id,
-				type: "OWNER"
-			});
-
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
@@ -200,7 +193,7 @@ export const shareReport = middyfy(
 		try {
 			const params = JSON.parse(event.body);
 
-			if (await ServicesLayer.permissionService.verifyOwner(params.reportID, params.apiKey)) {
+			if (await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)) {
 				const shareTo = await ServicesLayer.creatorService.getCreator(params.email);
 				if (shareTo !== undefined) {
 					await ServicesLayer.permissionService.addPermission({
@@ -247,11 +240,12 @@ export const getReport = middyfy(
 			let report: any = await ServicesLayer.reportService.getReportHelper(params.reportID);
 
 			if (
-				await ServicesLayer.permissionService.verifyReportRetr(
+				(await ServicesLayer.permissionService.verifyReportRetr(
 					report.status,
 					params.apiKey,
 					report.reportID
-				)
+				)) ||
+				(await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey))
 			) {
 				return {
 					statusCode: statusCodes.unauthorized,
@@ -288,7 +282,7 @@ export const publishReport = middyfy(
 		try {
 			const params = JSON.parse(event.body);
 
-			if (await ServicesLayer.permissionService.verifyOwner(params.reportID, params.apiKey)) {
+			if (await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)) {
 				await ServicesLayer.reportService.updateReportStatus("PUBLISHED", params.reportID);
 			} else {
 				return {
@@ -319,7 +313,7 @@ export const unpublishReport = middyfy(
 		try {
 			const params = JSON.parse(event.body);
 
-			if (await ServicesLayer.permissionService.verifyOwner(params.reportID, params.apiKey)) {
+			if (await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)) {
 				await ServicesLayer.reportService.updateReportStatus("DRAFT", params.reportID);
 			} else {
 				return {
@@ -344,34 +338,13 @@ export const unpublishReport = middyfy(
 	}
 );
 
-// Adding a custom tweet
-export const addCustomTweet = middyfy(
-	async (/* event: APIGatewayProxyEvent */): Promise<APIGatewayProxyResult> => {
-		try {
-			// const params = JSON.parse(event.body);
-
-			return {
-				statusCode: statusCodes.notImplemented,
-				headers: header,
-				body: JSON.stringify("Still working on")
-			};
-		} catch (e) {
-			return {
-				statusCode: statusCodes.internalError,
-				headers: header,
-				body: JSON.stringify(e)
-			};
-		}
-	}
-);
-
 // Deleting a report
 export const deleteReport = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
 			const params = JSON.parse(event.body);
 
-			if (await ServicesLayer.permissionService.verifyOwner(params.reportID, params.apiKey)) {
+			if (await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)) {
 				await ServicesLayer.reportService.updateReportStatus("DELETED", params.reportID);
 			} else {
 				return {

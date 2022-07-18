@@ -4,26 +4,26 @@ import { /*fireEvent,*/ render, screen } from "@testing-library/react";
 import Reports from "../../components/Reports";
 
 describe("Rendering Tests For Components in Reports", () => {
-    // Test to see if Report is rendered
-    it("renders reports without crashing", () => {
-        render(<Reports />);
-        const home = screen.getByTestId("report");
-        expect(home).toBeTruthy();
-    });
+	// Test to see if Report is rendered
+	it("renders reports without crashing", () => {
+		render(<Reports />);
+		const home = screen.getByTestId("report");
+		expect(home).toBeTruthy();
+	});
 
-    // Testing to see if Search bar is rendered
-    // it("renders search bar without crashing", () => {
-    // 	render(<Reports />);
-    // 	const input = screen.getByTestId("search");
-    // 	expect(input).toBeTruthy();
-    // });
+	// Testing to see if Search bar is rendered
+	// it("renders search bar without crashing", () => {
+	// 	render(<Reports />);
+	// 	const input = screen.getByTestId("search");
+	// 	expect(input).toBeTruthy();
+	// });
 
-    // Testing to see if Results are render on to page is rendered
-    it("renders results div without crashing", () => {
-        render(<Reports />);
-        const input = screen.getByTestId("reports");
-        expect(input).toBeTruthy();
-    });
+	// Testing to see if Results are render on to page is rendered
+	it("renders results div without crashing", () => {
+		render(<Reports />);
+		const input = screen.getByTestId("reports");
+		expect(input).toBeTruthy();
+	});
 });
 
 // Tests that the search bar recieves text correctly
