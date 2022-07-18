@@ -159,8 +159,8 @@ function Home() {
             apiKey: localStorage.getItem("key"),
             keyword: enteredSearch,
             numOfTweets: noOfTweets,
-            sortBy: sort,
-            filterBy: filter
+            sortBy: sort === "-" ? "-" : sort,
+            filterBy: filter === "-" ? "-" : filter
         };
 
         // console.log(searchData);
