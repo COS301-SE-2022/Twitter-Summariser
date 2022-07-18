@@ -6,7 +6,7 @@ import Logo from "../components/Logo";
 import Button from "../components/Button";
 import axios from "../api/ConfigAxios";
 import useAuth from "../hooks/useAuth";
-import { useNavigate, Link, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 interface LocationState {
     from: {
