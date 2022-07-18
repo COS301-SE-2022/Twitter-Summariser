@@ -1,13 +1,14 @@
 import type { AWS } from "@serverless/typescript";
 import { verifyJWT } from "@functions/authorizers";
 import { getAllCreators, addCreator, loginCreator } from "@functions/creator";
-import { searchTweets } from "@functions/tweet";
+import { searchTweets, addCustomTweet } from "@functions/tweet";
 import { CreatorTable } from "@model/creator/index";
 import { ResultSetTable } from "@model/resultSet";
 import { ReportTable } from "@model/report";
 import { ReportBlockTable } from "@model/reportBlock";
 import { TextStylesTable } from "@model/textStyles";
 import { PermissionTable } from "@model/permission";
+import { ScheduleTable } from "@model/schedule";
 import { getAllResultSet, getResultSet, deleteResultSet } from "@functions/resultSet";
 import {
 	getAllMyDraftReports,
@@ -17,7 +18,6 @@ import {
 	cloneReport,
 	publishReport,
 	shareReport,
-	addCustomTweet,
 	unpublishReport,
 	deleteReport,
 	getSharedReport,
@@ -142,6 +142,7 @@ const serverlessConfiguration: AWS = {
 			ReportBlockTable,
 			TextStylesTable,
 			PermissionTable,
+			ScheduleTable,
 
 			TwitterSummariserApp: {
 				Type: "AWS::S3::Bucket",

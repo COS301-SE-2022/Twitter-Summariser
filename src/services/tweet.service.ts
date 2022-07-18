@@ -15,7 +15,6 @@ export default class TweetService {
 					numRetweets: data[i].public_metrics.retweet_count,
 					// text: data[i].text,
 					tweetId: data[i].id
-					// resultSetId: GID
 				});
 			}
 		}

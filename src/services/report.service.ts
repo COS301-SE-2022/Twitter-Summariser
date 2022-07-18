@@ -236,4 +236,11 @@ export default class ReportService {
 			})
 			.promise();
 	}
+
+	// verify owner of report
+	async verifyOwner(reportID: string, apiKey: string): Promise<boolean> {
+		const per = await this.getReport(reportID);
+
+		return per.apiKey === apiKey;
+	}
 }
