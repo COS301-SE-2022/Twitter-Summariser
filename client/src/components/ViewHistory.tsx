@@ -1,16 +1,10 @@
-import { useState } from "react";
-// import Tweet from "../Tweet/Tweet";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-// import HomeTweet from "../HomeTweet/HomeTweet";
 import { Tweet } from "react-twitter-widgets";
-
-// importing link
-import link from "../resources/links.json";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Button from "./Button";
 
 function ViewHistory() {
-	// console.log(localStorage.getItem("resultSetId"));
-
 	const [searchPhrase, changePhrase] = useState("");
 	const [sort, changeSort] = useState("");
 	const [filter, changeFilter] = useState("");
@@ -18,22 +12,93 @@ function ViewHistory() {
 	const [tweets, changeTweets] = useState<any[]>([]);
 	const [genReport, changeGenReport] = useState("");
 	const [clicked, changeClicked] = useState(false);
-
-	// handling loading things.........
-	// const [loading, changeLoading] = useState(false);
-
-	// const loadingHandler = () => {
-	// 	changeLoading(!loading);
-	// };
-
 	const [generateLoading, changeGenerateLoading] = useState(false);
+	const [pageLoading, changePageLoading] = useState(true);
+	const axiosPrivate = useAxiosPrivate();
+	const controller = new AbortController();
 
 	const generateLoadingHandler = () => {
 		changeGenerateLoading(!generateLoading);
 	};
 
-	// handling loading things.........
-	const [pageLoading, changePageLoading] = useState(true);
+	useEffect(() => {
+		let isMounted: boolean = true;
+		getResultSet(isMounted);
+
+		return () => {
+			isMounted = false;
+			controller.abort();
+		};
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	const getResultSet = async (isMounted: boolean) => {
+		const resultSetData = {
+			apiKey: localStorage.getItem("key"),
+			resultSetID: localStorage.getItem("resultSetId")
+		};
+
+		try {
+			const response = await axiosPrivate.post(
+				"getResultSet",
+				JSON.stringify(resultSetData),
+				{ signal: controller.signal }
+			);
+			isMounted && changePageLoading(false);
+			isMounted && changeTweets(response.data.tweets);
+			isMounted && changePhrase(response.data.searchPhrase);
+			isMounted && changeDate(response.data.dateCreated.substring(0, 16));
+			isMounted && changeSort(response.data.sortOption);
+			isMounted && changeFilter(response.data.filterOption);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const genRep = async () => {
+		const searchData = {
+			apiKey: localStorage.getItem("key"),
+			author: localStorage.getItem("username"),
+			resultSetID: localStorage.getItem("resultSetId")
+		};
+
+		try {
+			const response = await axiosPrivate.post("generateReport", JSON.stringify(searchData), {
+				signal: controller.signal
+			});
+			changeGenerateLoading(false);
+			changeDate(await response.data.Report.dateCreated.substring(0, 10));
+			changeGenReport(response.data.Report.reportID);
+			changeClicked(true);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const generate = () => {
+		generateLoadingHandler();
+		genRep();
+	};
+
+	const viewGenReport = () => {
+		localStorage.setItem("draftReportId", genReport);
+	};
+
+	const tweetOptions = [];
+	const apiResponse = [<div key="begining div" />];
+
+	for (let index = 1; index <= 100; index++) {
+		tweetOptions.push(<option key={index.toString()}>{index}</option>);
+	}
+
+	tweets.map((data) =>
+		apiResponse.push(
+			<div className=" w-full border border-gray-200 p-3" key={data}>
+				<Tweet options={{ align: "center", width: "" }} tweetId={data} />
+			</div>
+		)
+	);
 
 	const loadIcon = (
 		<svg
@@ -53,156 +118,6 @@ function ViewHistory() {
 			/>
 		</svg>
 	);
-
-	// ################ API FOR GET RESULT SET REPORT ###########################
-
-	let getResultSetEndpoint =
-		process.env.NODE_ENV === "development"
-			? String(link.localhostLink)
-			: String(link.serverLink);
-	getResultSetEndpoint += "getResultSet";
-
-	// using localhost
-	// const getResultSetEndpoint = "http://localhost:4000/dev/getResultSet";
-
-	const getResultSet = async () => {
-		const resultSetData = {
-			apiKey: localStorage.getItem("key"),
-			resultSetID: localStorage.getItem("resultSetId")
-		};
-
-		const requestOptions = {
-			method: "POST",
-			body: JSON.stringify(resultSetData),
-			headers: {
-				Authorization: `${localStorage.getItem("token")}`
-			}
-		};
-
-		fetch(getResultSetEndpoint, requestOptions)
-			.then(async (response) => {
-				const isJson = response.headers.get("content-type")?.includes("application/json");
-
-				const data = isJson && (await response.json());
-				console.log(data);
-				changePageLoading(false);
-
-				if (!response.ok) {
-					// error
-
-					return;
-				}
-
-				// changeDate(await data.Report.dateCreated.substring(0, 10));
-				changeTweets(await data.tweets);
-				changePhrase(await data.searchPhrase);
-				changeDate(await data.dateCreated.substring(0, 16));
-				changeSort(await data.sortOption);
-				changeFilter(await data.filterOption);
-
-				// console.log(data);
-			})
-			.catch(() => {
-				// console.log("Error Generating Report");
-			});
-	};
-
-	getResultSet();
-	// ###################################################################
-
-	// ################ API FOR GENERATE REPORT ###########################
-
-	let genReportEndpoint =
-		process.env.NODE_ENV === "development"
-			? String(link.localhostLink)
-			: String(link.serverLink);
-	genReportEndpoint += "generateReport";
-
-	// using localhost
-	// const genReportEndpoint = "http://localhost:4000/dev/generateReport";
-
-	const genRep = async () => {
-		const searchData = {
-			apiKey: localStorage.getItem("key"),
-			author: localStorage.getItem("username"),
-			resultSetID: localStorage.getItem("resultSetId")
-		};
-
-		const requestOptions = {
-			method: "POST",
-			body: JSON.stringify(searchData),
-			headers: {
-				Authorization: `${localStorage.getItem("token")}`
-			}
-		};
-
-		fetch(genReportEndpoint, requestOptions)
-			.then(async (response) => {
-				const isJson = response.headers.get("content-type")?.includes("application/json");
-
-				const data = isJson && (await response.json());
-
-				changeGenerateLoading(false);
-
-				if (!response.ok) {
-					// error
-
-					return;
-				}
-
-				changeDate(await data.Report.dateCreated.substring(0, 10));
-				changeGenReport(data.Report.reportID);
-				changeClicked(true);
-			})
-			.catch(() => {
-				// console.log("Error Generating Report");
-			});
-	};
-
-	// ###################################################################
-
-	const generate = () => {
-		// if (apiResponse.length > 1) {
-		generateLoadingHandler();
-		genRep();
-		// }
-	};
-
-	// tweet options
-	const tweetOptions = [];
-
-	for (let index = 1; index <= 100; index++) {
-		tweetOptions.push(<option key={index.toString()}>{index}</option>);
-	}
-
-	// processing api response
-	const apiResponse = [<div key="begining div" />];
-
-	// tweets.map((data) =>
-	//     apiResponse.push(
-	//         <div key={data.tweetId}>
-	//             <HomeTweet tweetData={data} />
-	//         </div>
-	//     )
-	// );
-
-	tweets.map((data) =>
-		apiResponse.push(
-			<div className=" w-full border border-gray-200 p-3" key={data}>
-				<Tweet options={{ align: "center", width: "" }} tweetId={data} />
-			</div>
-		)
-	);
-
-	// console.log(tweets);
-
-	// let ind = 0;
-
-	const viewGenReport = () => {
-		// if (enteredSearch !== "") {
-		localStorage.setItem("draftReportId", genReport);
-		// }
-	};
 
 	return (
 		<div>
