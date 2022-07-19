@@ -1,55 +1,31 @@
-import { Link } from "react-router-dom";
-// import { MdDeleteOutline } from "react-icons/md";
-
-// importing link
-import link from "../resources/links.json";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Button from "./Button";
 
 function HistoryCard(props: any) {
-	// console.log(props.data);
-
-	// const iconStyle3 = { fontSize: "1.5rem", color: "red" };
+	const axiosPrivate = useAxiosPrivate();
+	const navigate = useNavigate();
+	const location = useLocation();
+	const controller = new AbortController();
 
 	const setResultSet = () => {
-		// console.log(props.data.id);
 		localStorage.setItem("resultSetId", props.data.id);
 	};
 
-	// ######################### API FOR DELETING RESULT SET ###############################################
-
-	let deleteResultSetEndpoint =
-		process.env.NODE_ENV === "development"
-			? String(link.localhostLink)
-			: String(link.serverLink);
-	deleteResultSetEndpoint += "deleteResultSet";
-
-	const deleteResult = (resultInfo: any) => {
-		const requestOptions = {
-			method: "POST",
-			body: JSON.stringify(resultInfo),
-			headers: {
-				Authorization: `${localStorage.getItem("token")}`
-			}
-		};
-
-		fetch(deleteResultSetEndpoint, requestOptions).then(async (response) => {
-			response.headers.get("content-type")?.includes("application/json");
-
-			// isJson && (await response.json());
-		});
-	};
-
-	// #######################################################################
-
-	const deleteHandler = (event: any) => {
-		event.preventDefault();
-
+	const deleteHandler = async () => {
 		const resultDetails = {
 			resultSetID: props.data.id,
 			apiKey: props.data.apiKey
 		};
 
-		deleteResult(resultDetails);
+		try {
+			await axiosPrivate.post("deleteResultSet", JSON.stringify(resultDetails), {
+				signal: controller.signal
+			});
+			props.onChange(true);
+		} catch (error) {
+			navigate("/login", { state: { from: location }, replace: true });
+		}
 	};
 
 	let sort;

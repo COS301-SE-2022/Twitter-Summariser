@@ -1,20 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ExploreCard from "./ExploreCard";
-// importing mock data
-// import tweeter from "../../mock.json";
-
-// importing link
-import link from "../resources/links.json";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function Explore() {
 	const [report, changeReport] = useState<any[]>([]);
-
-	// handling loading things.........
 	const [loading, changeLoading] = useState(true);
+	const axiosPrivate = useAxiosPrivate();
+	const navigate = useNavigate();
+	const location = useLocation();
 
-	// const loadingHandler = () => {
-	// 	changeLoading(!loading);
-	// };
+	useEffect(() => {
+		let isMounted = true;
+		const controller = new AbortController();
+
+		const getReports = async () => {
+			try {
+				const response = await axiosPrivate.post(
+					"getAllPublishedReports",
+					JSON.stringify({}),
+					{ signal: controller.signal }
+				);
+				console.log(response.data);
+				isMounted && changeReport(response.data);
+				changeLoading(false);
+			} catch (error) {
+				navigate("/login", { state: { from: location }, replace: true });
+			}
+		};
+
+		getReports();
+
+		return () => {
+			isMounted = false;
+			controller.abort();
+		};
+	}, [axiosPrivate, location, navigate]);
 
 	const loadIcon = (
 		<svg
@@ -35,55 +56,6 @@ function Explore() {
 		</svg>
 	);
 
-	// ######################### API FOR GETTING HISTORY #####################
-
-	let getAllReportsEndpoint =
-		process.env.NODE_ENV === "development"
-			? String(link.localhostLink)
-			: String(link.serverLink);
-	getAllReportsEndpoint += "getAllPublishedReports";
-
-	// using localhost
-	// const getAllMyDraftReportsEndpoint = "http://localhost:4000/dev/getAllMyReports";
-
-	const getReports = async () => {
-		const apiData = {}; //empty json
-
-		const requestOptions = {
-			method: "POST",
-			body: JSON.stringify(apiData),
-			headers: {
-				Authorization: `${localStorage.getItem("token")}`
-			}
-		};
-
-		fetch(getAllReportsEndpoint, requestOptions)
-			.then(async (response) => {
-				const isJson = response.headers.get("content-type")?.includes("application/json");
-
-				const data = isJson && (await response.json());
-
-				changeReport(await data);
-				changeLoading(false);
-
-				// check for error response
-				if (!response.ok) {
-					// error
-				}
-			})
-			.catch(() => {
-				// console.log("Error Getting History");
-			});
-	};
-
-	getReports();
-
-	// #######################################################################
-
-	//if(report.length === 0){
-	//	console.log("empty array");
-	//}
-
 	return (
 		<div data-testid="report">
 			{/* Api response comes here */}
@@ -93,7 +65,7 @@ function Explore() {
 
 					<div className="mt-4 flex flex-row flex-wrap justify-center">
 						<div className="mt-4 flex flex-row flex-wrap justify-center">
-							{loading && <div>{loadIcon} &nbsp; Loading Reports</div>}
+							{loading && <div>{loadIcon}</div>}
 
 							{!loading &&
 								(report.length === 0 ? (

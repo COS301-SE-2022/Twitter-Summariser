@@ -1,21 +1,49 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import HistoryCard from "./HistoryCard";
 
-// importing link
-import link from "../resources/links.json";
-
 function History() {
-	// localStorage.removeItem("resultSetId");
-	// localStorage.removeItem("draftReportId");
-
 	const [history, changeHistory] = useState<any[]>([]);
-
-	// handling loading things.........
 	const [loading, changeLoading] = useState(true);
+	const [shouldRender, changeShouldRender] = useState(false);
+	const axiosPrivate = useAxiosPrivate();
+	const navigate = useNavigate();
+	const location = useLocation();
+	const controller = new AbortController();
 
-	// const loadingHandler = () => {
-	// 	changeLoading(!loading);
-	// };
+	const getHistory = async (isMounted: boolean) => {
+		try {
+			const response = await axiosPrivate.post(
+				"getAllResultSet",
+				JSON.stringify({ apiKey: localStorage.getItem("key") }),
+				{ signal: controller.signal }
+			);
+			console.log(response.data);
+			isMounted && changeHistory(response.data);
+			changeLoading(false);
+		} catch (error) {
+			navigate("/login", { state: { from: location }, replace: true });
+		}
+	};
+
+	useEffect(() => {
+		let isMounted: boolean = true;
+		getHistory(isMounted);
+
+		return () => {
+			isMounted = false;
+			controller.abort();
+		};
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	if (shouldRender === true) {
+		let isMounted: boolean = true;
+		getHistory(isMounted);
+		changeShouldRender(false);
+	}
 
 	const loadIcon = (
 		<svg
@@ -36,53 +64,6 @@ function History() {
 		</svg>
 	);
 
-	// ######################### API FOR GETTING HISTORY #####################
-
-	let getAllResultSetEndpoint =
-		process.env.NODE_ENV === "development"
-			? String(link.localhostLink)
-			: String(link.serverLink);
-	getAllResultSetEndpoint += "getAllResultSet";
-
-	// using localhost
-	// const getAllResultSetEndpoint = "http://localhost:4000/dev/getAllResultSet";
-
-	const getHistory = async () => {
-		const apiData = {
-			apiKey: localStorage.getItem("key")
-		};
-
-		const requestOptions = {
-			method: "POST",
-			body: JSON.stringify(apiData),
-			headers: {
-				Authorization: `${localStorage.getItem("token")}`
-			}
-		};
-
-		fetch(getAllResultSetEndpoint, requestOptions)
-			.then(async (response) => {
-				const isJson = response.headers.get("content-type")?.includes("application/json");
-
-				const data = isJson && (await response.json());
-
-				changeHistory(await data);
-				changeLoading(false);
-
-				// check for error response
-				if (!response.ok) {
-					// error
-				}
-			})
-			.catch(() => {
-				// console.log("Error Getting History");
-			});
-	};
-
-	getHistory();
-
-	// #######################################################################
-
 	return (
 		<div>
 			{/* Api response comes here */}
@@ -92,7 +73,7 @@ function History() {
 
 					<div className="mt-4 flex flex-row flex-wrap justify-center">
 						<div className="mt-4 flex flex-row flex-wrap justify-center">
-							{loading && <div>{loadIcon} &nbsp; Loading History</div>}
+							{loading && <div>{loadIcon}</div>}
 
 							{!loading &&
 								(history.length === 0 ? (
@@ -105,7 +86,12 @@ function History() {
 											className="m-4 w-auto h-auto  flex flex-col p-2"
 											key={data.id}
 										>
-											<HistoryCard data={data} />
+											<HistoryCard
+												data={data}
+												onChange={(value: boolean) =>
+													changeShouldRender(value)
+												}
+											/>
 										</div>
 									))
 								))}

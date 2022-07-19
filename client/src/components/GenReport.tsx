@@ -1,23 +1,14 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
-
-// importing link
 import link from "../resources/links.json";
-
-// importing mock data
 import Text from "./Text";
-
-// importing icons
 import { BsShare } from "react-icons/bs";
 import { BiErrorCircle } from "react-icons/bi";
 import { MdDeleteOutline } from "react-icons/md";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { GrCopy } from "react-icons/gr";
 import Button from "./Button";
-
-// Axios stuffs
-//import axios from "../api/ConfigAxios";
 
 function GenReport() {
 	const navigate = useNavigate();

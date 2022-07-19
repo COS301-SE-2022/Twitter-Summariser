@@ -1,18 +1,49 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DraftCard from "./DraftCard";
-
-// importing link
-import link from "../resources/links.json";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function Drafts() {
 	const [draft, changeDraft] = useState<any[]>([]);
-
-	// handling loading things.........
 	const [loading, changeLoading] = useState(true);
+	const [shouldRender, changeShouldRender] = useState(false);
+	const axiosPrivate = useAxiosPrivate();
+	const navigate = useNavigate();
+	const location = useLocation();
+	const controller = new AbortController();
 
-	// const loadingHandler = () => {
-	// 	changeLoading(!loading);
-	// };
+	const getHistory = async (isMounted: boolean) => {
+		try {
+			const response = await axiosPrivate.post(
+				"getAllMyDraftReports",
+				JSON.stringify({ apiKey: localStorage.getItem("key") }),
+				{ signal: controller.signal }
+			);
+			console.log(response.data);
+			isMounted && changeDraft(response.data);
+			changeLoading(false);
+		} catch (error) {
+			navigate("/login", { state: { from: location }, replace: true });
+		}
+	};
+
+	useEffect(() => {
+		let isMounted: boolean = true;
+		getHistory(isMounted);
+
+		return () => {
+			isMounted = false;
+			controller.abort();
+		};
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	if (shouldRender === true) {
+		let isMounted: boolean = true;
+		getHistory(isMounted);
+		changeShouldRender(false);
+	}
 
 	const loadIcon = (
 		<svg
@@ -33,57 +64,6 @@ function Drafts() {
 		</svg>
 	);
 
-	// localStorage.removeItem("resultSetId");
-	// localStorage.removeItem("draftReportId");
-
-	// ######################### API FOR GETTING HISTORY #####################
-
-	let getAllMyDraftReportsEndpoint =
-		process.env.NODE_ENV === "development"
-			? String(link.localhostLink)
-			: String(link.serverLink);
-	getAllMyDraftReportsEndpoint += "getAllMyDraftReports";
-
-	// using localhost
-	// const getAllMyDraftReportsEndpoint = "http://localhost:4000/dev/getAllMyReports";
-
-	const getHistory = async () => {
-		const apiData = {
-			apiKey: localStorage.getItem("key")
-		};
-
-		const requestOptions = {
-			method: "POST",
-			body: JSON.stringify(apiData),
-			headers: {
-				Authorization: `${localStorage.getItem("token")}`
-			}
-		};
-
-		fetch(getAllMyDraftReportsEndpoint, requestOptions)
-			.then(async (response) => {
-				const isJson = response.headers.get("content-type")?.includes("application/json");
-
-				const data = isJson && (await response.json());
-
-				changeDraft(await data);
-				// console.log(data[0].status);
-				changeLoading(false);
-
-				// check for error response
-				if (!response.ok) {
-					// error
-				}
-			})
-			.catch(() => {
-				// console.log("Error Getting History");
-			});
-	};
-
-	getHistory();
-
-	// #######################################################################
-
 	//EXTRACTING REQUIRED DATA
 	let newDraft = draft
 		.filter(function (data) {
@@ -92,10 +72,6 @@ function Drafts() {
 		.map(function (data) {
 			return data;
 		});
-
-	// if(newDraft.length !== 0){
-	// 	console.log("new draft is not empty");
-	// }
 
 	return (
 		<div>
@@ -106,11 +82,7 @@ function Drafts() {
 
 					<div className="mt-4 flex flex-row flex-wrap justify-center">
 						<div className="mt-4 flex flex-row flex-wrap justify-center">
-							{loading && (
-								<div className="flex flex-row justify-center h-auto items-center">
-									{loadIcon} &nbsp; Loading Drafts
-								</div>
-							)}
+							{loading && <div>{loadIcon}</div>}
 
 							{!loading &&
 								(newDraft.length === 0 ? (
@@ -123,7 +95,12 @@ function Drafts() {
 											className="m-4 w-auto h-auto  flex flex-col p-2"
 											key={data.reportID}
 										>
-											<DraftCard data={data} />
+											<DraftCard
+												data={data}
+												onChange={(value: boolean) =>
+													changeShouldRender(value)
+												}
+											/>
 										</div>
 									))
 								))}

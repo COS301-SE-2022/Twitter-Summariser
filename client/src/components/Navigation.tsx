@@ -9,9 +9,11 @@ import { HiOutlineLogin } from "react-icons/hi";
 import { AiOutlineHistory } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 function Navigation(props: any) {
 	const { setAuth } = useAuth();
+	const axiosPrivate = useAxiosPrivate();
 	const navigate = useNavigate();
 
 	// style for the icons
@@ -21,9 +23,13 @@ function Navigation(props: any) {
 		localStorage.setItem("page", prop);
 	};
 
-	const logout = () => {
+	const logout = async () => {
 		localStorage.clear();
-		setAuth({});
+		const controller = new AbortController();
+		try {
+			await axiosPrivate.get("logout", { signal: controller.signal });
+		} catch (error) {}
+		setAuth(null);
 		navigate("/login");
 	};
 
