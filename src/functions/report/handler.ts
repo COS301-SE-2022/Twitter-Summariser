@@ -3,6 +3,7 @@ import { middyfy } from "@libs/lambda";
 import { randomUUID } from "crypto";
 import { header, statusCodes } from "@functions/resources/APIresponse";
 import ServicesLayer from "../../services";
+import { report } from "superagent";
 
 // Generation of reports
 export const generateReport = middyfy(
@@ -383,6 +384,11 @@ export const getSharedReport = middyfy(
 			const params = JSON.parse(event.body);
 
 			const re = await ServicesLayer.reportService.getSharedReports(params.apiKey);
+
+			re.map( async report =>{
+				delete report.apiKey;
+				delete report.resultSetID;
+			});
 
 			return {
 				statusCode: statusCodes.Successful,
