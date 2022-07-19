@@ -6,36 +6,40 @@ import { useNavigate, useLocation } from "react-router-dom";
 function Drafts() {
     const [draft, changeDraft] = useState<any[]>([]);
     const [loading, changeLoading] = useState(true);
+    const [shouldRender, changeShouldRender] = useState(false);
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
     const location = useLocation();
+    const controller = new AbortController();
 
+    const getHistory = async (isMounted: boolean) => {
+        try {
+            const response = await axiosPrivate.post("getAllMyDraftReports", JSON.stringify({ apiKey: localStorage.getItem("key") }), { signal: controller.signal });
+            console.log(response.data);
+            isMounted && changeDraft(response.data);
+            changeLoading(false);
+
+        } catch (error) {
+            navigate("/login", { state: { from: location }, replace: true });
+        }
+    };
 
     useEffect(() => {
-        let isMounted = true;
-        const controller = new AbortController();
-
-        const getHistory = async () => {
-            try {
-                const response = await axiosPrivate.post("getAllMyDraftReports", JSON.stringify({ apiKey: localStorage.getItem("key") }), { signal: controller.signal });
-                console.log(response.data);
-                isMounted && changeDraft(response.data);
-                changeLoading(false);
-
-            } catch (error) {
-                navigate("/login", { state: { from: location }, replace: true });
-            }
-        };
-
-        getHistory();
+        let isMounted: boolean = true;
+        getHistory(isMounted);
 
         return () => {
             isMounted = false;
             controller.abort();
         }
 
-    }, [axiosPrivate, location, navigate]);
+    }, []);
 
+    if (shouldRender === true) {
+        let isMounted: boolean = true;
+        getHistory(isMounted);
+        changeShouldRender(false);
+    }
 
     const loadIcon = (
         <svg
@@ -87,7 +91,7 @@ function Drafts() {
                                             className="m-4 w-auto h-auto  flex flex-col p-2"
                                             key={data.reportID}
                                         >
-                                            <DraftCard data={data} />
+                                            <DraftCard data={data} onChange={(value: boolean) => changeShouldRender(value)} />
                                         </div>
                                     ))
                                 ))}
