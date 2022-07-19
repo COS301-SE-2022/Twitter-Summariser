@@ -82,18 +82,13 @@ export const addCustomTweet = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
 			const params = JSON.parse(event.body);
-
-			const { data } = await clientV2.get("tweets/search/all", {
-				query: `url:${params.url}`,
-				tweet: {
-					fields: ["public_metrics", "author_id", "created_at"]
-				}
-			});
+			const lastS = params.url.lastIndexOf("/")+1;
+			const id = params.url.substring(lastS);
 
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify(data)
+				body: JSON.stringify(id)
 			};
 		} catch (e) {
 			return {
