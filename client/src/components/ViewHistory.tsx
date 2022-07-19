@@ -209,7 +209,7 @@ function ViewHistory() {
 			{!clicked &&
 				(pageLoading ? (
 					<div className="flex flex-row justify-center h-screen items-center">
-						{loadIcon} &nbsp; Loading History
+						{loadIcon} &nbsp; Loading Tweets
 					</div>
 				) : (
 					<div>

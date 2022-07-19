@@ -413,7 +413,11 @@ function Home() {
 					{/* )} */}
 				</div>
 
-				{loading && <div className="flex flex-row justify-center my-2">{loadIcon}</div>}
+				{loading && (
+					<div className="flex flex-row justify-center my-2">
+						{loadIcon} &nbsp; Loading Tweets
+					</div>
+				)}
 				{/* Api response comes here */}
 				<div data-testid="result" className="flex flex-col">
 					{clicked && (

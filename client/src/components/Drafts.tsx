@@ -106,7 +106,11 @@ function Drafts() {
 
 					<div className="mt-4 flex flex-row flex-wrap justify-center">
 						<div className="mt-4 flex flex-row flex-wrap justify-center">
-							{loading && <div>{loadIcon}</div>}
+							{loading && (
+								<div className="flex flex-row justify-center h-auto items-center">
+									{loadIcon} &nbsp; Loading Drafts
+								</div>
+							)}
 
 							{!loading &&
 								(newDraft.length === 0 ? (

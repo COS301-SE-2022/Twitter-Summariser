@@ -92,7 +92,7 @@ function History() {
 
 					<div className="mt-4 flex flex-row flex-wrap justify-center">
 						<div className="mt-4 flex flex-row flex-wrap justify-center">
-							{loading && <div>{loadIcon}</div>}
+							{loading && <div>{loadIcon} &nbsp; Loading History</div>}
 
 							{!loading &&
 								(history.length === 0 ? (
