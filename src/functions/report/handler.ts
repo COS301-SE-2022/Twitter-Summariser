@@ -203,7 +203,7 @@ export const shareReport = middyfy(
 					});
 				} else {
 					return {
-						statusCode: statusCodes.badRequest,
+						statusCode: statusCodes.Successful,
 						headers: header,
 						body: JSON.stringify("User is not found within system.")
 					};
@@ -217,9 +217,9 @@ export const shareReport = middyfy(
 			}
 
 			return {
-				statusCode: statusCodes.no_content,
+				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify("")
+				body: JSON.stringify("Operation Successful")
 			};
 		} catch (e) {
 			return {
