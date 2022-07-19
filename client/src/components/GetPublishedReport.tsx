@@ -55,8 +55,13 @@ function GetPublishedReport() {
 	}, []);
 
 	const unpublishReport = async (resultInfo: any) => {
+		console.log(resultInfo);
+
 		try {
-			await axiosPrivate.post("unpublishReport", JSON.stringify(resultInfo), { signal: controller.signal });
+			await axiosPrivate.post("unpublishReport", JSON.stringify(resultInfo), {
+				signal: controller.signal
+			});
+
 			navigate("/genReport");
 		} catch (error) {
 			console.error(error);
@@ -64,6 +69,10 @@ function GetPublishedReport() {
 	};
 
 	const unpublishHandler = () => {
+		requiredData = {
+			apiKey: auth.apiKey,
+			reportID: localStorage.getItem("reportId")
+		};
 		unpublishReport(requiredData);
 		let reportId = String(localStorage.getItem("reportId"));
 		localStorage.setItem("draftReportId", reportId);

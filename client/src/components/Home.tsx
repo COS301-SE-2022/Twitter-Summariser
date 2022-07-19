@@ -376,7 +376,7 @@ function Home() {
 						) : generateLoading ? (
 							<button
 								type="button"
-								className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-full items-center"
+								className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
 								disabled
 							>
 								{/* <svg
