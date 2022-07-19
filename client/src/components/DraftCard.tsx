@@ -27,7 +27,7 @@ function DraftCard(props: any) {
 			});
 			props.onChange(true);
 		} catch (error) {
-			// navigate("/login", { state: { from: location }, replace: true });
+			console.error(error);
 		}
 	};
 

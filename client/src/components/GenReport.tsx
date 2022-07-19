@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
-import link from "../resources/links.json";
 import Text from "./Text";
 import { BsShare } from "react-icons/bs";
 import { BiErrorCircle } from "react-icons/bi";
@@ -9,11 +8,9 @@ import { MdDeleteOutline } from "react-icons/md";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { GrCopy } from "react-icons/gr";
 import Button from "./Button";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 function GenReport() {
-	const navigate = useNavigate();
-
-	// style for the icons
 	const style = { fontSize: "1.3rem" };
 	const style__ = { fontSize: "1.5rem", color: "green" };
 	const iconStyle3 = { fontSize: "1.5rem", color: "red" };
@@ -24,170 +21,70 @@ function GenReport() {
 	const [author, setAuthor] = useState("");
 	const [date, setDate] = useState("");
 
-	// for starting up sharing
 	const [share, setShare] = useState(false);
 	const [successfulShare, setSuccessfulShare] = useState(false);
 	const [enteredShare, changeEnteredShare] = useState("");
 
-	// handling loading things.........
-	// const [loading, changeLoading] = useState(false);
+	const [NAN, changeNAN] = useState(false);
+	const [type, changeType] = useState("VIEWER");
+	const [pageLoading, changePageLoading] = useState(true);
 
-	// const loadingHandler = () => {
-	//     changeLoading(!loading);
-	// };
-
-	// const [generateLoading, changeGenerateLoading] = useState(false);
-
-	// const generateLoadingHandler = () => {
-	//     changeGenerateLoading(!generateLoading);
-	// };
-
-	// const loadIcon = (
-	//     <svg
-	//         role="status"
-	//         className="inline mr-1 w-5 h-5 text-gray-200 animate-spin dark:text-slate-600 fill-gray-600 dark:fill-gray-300"
-	//         viewBox="0 0 100 101"
-	//         fill="none"
-	//         xmlns="http://www.w3.org/2000/svg"
-	//     >
-	//         <path
-	//             d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-	//             fill="currentColor"
-	//         />
-	//         <path
-	//             d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-	//             fill="currentFill"
-	//         />
-	//     </svg>
-	// );
+	const axiosPrivate = useAxiosPrivate();
+	const controller = new AbortController();
+	const navigate = useNavigate();
 
 	const shareHandler = () => {
 		setShare(!share);
 	};
 
-	const [NAN, changeNAN] = useState(false);
-
 	const enteredShareHandler = (event: any) => {
-		console.log(event.target.value);
 		changeNAN(false);
-
 		changeEnteredShare(event.target.value);
 	};
-
-	const [type, changeType] = useState("VIEWER");
 
 	const typeHandler = (event: any) => {
 		changeType(event.target.value);
 	};
-
-	// handling loading things.........
-	const [pageLoading, changePageLoading] = useState(true);
-
-	const loadIcon = (
-		<svg
-			role="status"
-			className="inline mr-1 w-5 h-5 text-gray-200 animate-spin dark:text-slate-600 fill-gray-600 dark:fill-gray-300"
-			viewBox="0 0 100 101"
-			fill="none"
-			xmlns="http://www.w3.org/2000/svg"
-		>
-			<path
-				d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-				fill="currentColor"
-			/>
-			<path
-				d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-				fill="currentFill"
-			/>
-		</svg>
-	);
-
-	// ################ API FOR GETTING REPORT ###########################
-
-	let getReportEndpoint =
-		process.env.NODE_ENV === "development"
-			? String(link.localhostLink)
-			: String(link.serverLink);
-	getReportEndpoint += "getReport";
-
-	// using localhost
-	// const getReportEndpoint = "http://localhost:4000/dev/getReport";
 
 	const requiredData = {
 		apiKey: localStorage.getItem("key"),
 		reportID: localStorage.getItem("draftReportId")
 	};
 
-	const getRep = async () => {
-		// POST request using fetch with error handling
-
-		const requestOptions = {
-			method: "POST",
-			body: JSON.stringify(requiredData),
-			headers: {
-				Authorization: `${localStorage.getItem("token")}`
-			}
-		};
-
-		fetch(getReportEndpoint, requestOptions)
-			.then(async (response) => {
-				const isJson = response.headers.get("content-type")?.includes("application/json");
-
-				const data = isJson && (await response.json());
-
-				setState(data.report.Report);
-				setTitle(data.report.title);
-				setAuthor(data.report.author);
-				setDate(data.report.dateCreated.substring(0, 16));
-				changePageLoading(false);
-
-				// check for error response
-				if (!response.ok) {
-					// error
-				}
-			})
-			.catch(() => {});
-		// }
-
-		// generate = 0;
+	const getRep = async (isMounted: boolean) => {
+		try {
+			const response = await axiosPrivate.post("getReport", JSON.stringify(requiredData), { signal: controller.signal });
+			isMounted && setState(response.data.report.Report);
+			isMounted && setTitle(response.data.report.title);
+			isMounted && setAuthor(response.data.report.author);
+			isMounted && setDate(response.data.report.dateCreated.substring(0, 16));
+			isMounted && changePageLoading(false);
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
-	getRep();
-	// ###################################################################
+	useEffect(() => {
+		let isMounted = true;
+		getRep(isMounted);
 
-	// ######################### API FOR PUBLISHING REPORT ###############################################
+		return () => {
+			isMounted = false;
+			controller.abort();
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
-	let publishEndpoint =
-		process.env.NODE_ENV === "development"
-			? String(link.localhostLink)
-			: String(link.serverLink);
-
-	publishEndpoint += "publishReport";
-
-	const publishReport = (resultInfo: any) => {
-		const requestOptions = {
-			method: "POST",
-			body: JSON.stringify(resultInfo),
-			headers: {
-				Authorization: `${localStorage.getItem("token")}`
-			}
-		};
-
-		fetch(publishEndpoint, requestOptions).then(async (response) => {
-			response.headers.get("content-type")?.includes("application/json");
-
-			// isJson && (await response.json());
-		});
-
-		navigate("/getPublishedReport");
+	const publishReport = async (resultInfo: any) => {
+		try {
+			await axiosPrivate.post("publishReport", resultInfo, { signal: controller.signal });
+			navigate("/getPublishedReport");
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
-	// #######################################################################
-
-	// const publishHandler = (event: any) => {
 	const publishHandler = () => {
-		// event.preventDefault();
-
 		publishReport(requiredData);
 		let draftId = String(localStorage.getItem("draftReportId"));
 		localStorage.setItem("reportId", draftId);
@@ -195,8 +92,6 @@ function GenReport() {
 
 	// processing api response
 	const apiResponse = [<div key="begining div" />];
-
-	// console.log(state);
 
 	state.map((data: any, index: number) =>
 		apiResponse.push(
@@ -220,7 +115,6 @@ function GenReport() {
 		)
 	);
 
-	// compiling share information
 	const requiredDataForShare = {
 		apiKey: localStorage.getItem("key"),
 		reportID: localStorage.getItem("draftReportId"),
@@ -228,123 +122,56 @@ function GenReport() {
 		type: type
 	};
 
-	let shareEndpoint =
-		process.env.NODE_ENV === "development"
-			? String(link.localhostLink)
-			: String(link.serverLink);
-
-	shareEndpoint += "shareReport";
-
-	// ######################### API FOR SHARING REPORT ###############################################
 	const shareReport = async (repData: any) => {
-		// POST request using fetch with error handling
-
-		const requestOptions = {
-			method: "POST",
-			body: JSON.stringify(repData),
-			headers: {
-				Authorization: `${localStorage.getItem("token")}`
-			}
-		};
-
-		fetch(shareEndpoint, requestOptions)
-			.then(async (response) => {
-				const isJson = response.headers.get("content-type")?.includes("application/json");
-
-				const data = isJson && (await response.json());
-
-				// console.log(data);
-
-				// changeLoading(false);
-
-				// check for error response
-				if (data) {
-					// error
-					// console.log("line 197");
-
-					changeNAN(true);
-				} else {
-					// console.log("got here");
-
-					changeNAN(false);
-					setSuccessfulShare(true);
-					setShare(false);
-				}
-			})
-			.catch(() => {});
-
-		// try {
-		// 	const response = await axios.post("shareReport", JSON.stringify(repData), {
-		// 		withCredentials: true
-		// 	});
-
-		// 	changeNAN(false);
-		// 	setSuccessfulShare(true);
-		// 	setShare(false);
-		// } catch (err) {
-		// 	// if ((err as Error).status === 400) {
-		// 	// 	changeNAN(true);
-		// 	// } else {
-
-		// 	// }
-		// 	changeNAN(true);
-		// }
-	};
-
-	const shareSearchHandler = () => {
-		// loadingHandler();
-		if (enteredShare !== "") {
-			shareReport(requiredDataForShare);
-			// console.log(requiredDataForShare);
+		try {
+			await axiosPrivate.post("shareReport", JSON.stringify(repData), { signal: controller.signal });
+			changeNAN(false);
+			setSuccessfulShare(true);
+			setShare(false);
+		} catch (err) {
+			changeNAN(true);
+			console.error(err);
 		}
 	};
 
-	const deleteReportHandler = (event: any) => {
-		event.preventDefault();
+	const shareSearchHandler = () => {
+		if (enteredShare !== "")
+			shareReport(requiredDataForShare);
+	};
 
+	const deleteReportHandler = async () => {
 		const resultDetails = {
 			reportID: localStorage.getItem("draftReportId"),
 			apiKey: localStorage.getItem("key")
 		};
 
-		deleteReport(resultDetails);
-		navigate("/drafts");
+		try {
+			await axiosPrivate.post("deleteReport", JSON.stringify(resultDetails), { signal: controller.signal });
+			navigate("/drafts");
+		}
+		catch (err) {
+			console.error(err);
+		}
 	};
 
-	// ######################### API FOR DELETING REPORT ###############################################
-
-	let deleteReportEndpoint =
-		process.env.NODE_ENV === "development"
-			? String(link.localhostLink)
-			: String(link.serverLink);
-	deleteReportEndpoint += "deleteReport";
-
-	const deleteReport = (resultInfo: any) => {
-		const requestOptions = {
-			method: "POST",
-			body: JSON.stringify(resultInfo),
-			headers: {
-				Authorization: `${localStorage.getItem("token")}`
-			}
-		};
-
-		fetch(deleteReportEndpoint, requestOptions)
-			.then(async (response) => {
-				const isJson = response.headers.get("content-type")?.includes("application/json");
-
-				isJson && (await response.json());
-
-				// check for error response
-				if (!response.ok) {
-					// error
-
-					return;
-				}
-			})
-			.catch(() => {});
-	};
-
-	// #######################################################################
+	const loadIcon = (
+		<svg
+			role="status"
+			className="inline mr-1 w-5 h-5 text-gray-200 animate-spin dark:text-slate-600 fill-gray-600 dark:fill-gray-300"
+			viewBox="0 0 100 101"
+			fill="none"
+			xmlns="http://www.w3.org/2000/svg"
+		>
+			<path
+				d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+				fill="currentColor"
+			/>
+			<path
+				d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+				fill="currentFill"
+			/>
+		</svg>
+	);
 
 	return (
 		<div>

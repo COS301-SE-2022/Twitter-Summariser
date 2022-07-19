@@ -52,7 +52,7 @@ function ViewHistory() {
 			isMounted && changeSort(response.data.sortOption);
 			isMounted && changeFilter(response.data.filterOption);
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 		}
 	};
 
@@ -72,7 +72,7 @@ function ViewHistory() {
 			changeGenReport(response.data.Report.reportID);
 			changeClicked(true);
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 		}
 	};
 
