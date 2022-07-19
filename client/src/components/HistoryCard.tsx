@@ -52,6 +52,23 @@ function HistoryCard(props: any) {
 		deleteResult(resultDetails);
 	};
 
+	let sort;
+	let filter;
+
+	if (props.data.sortOption === "byLikes") {
+		sort = "By Likes";
+	} else if (props.data.sortOption === "byComments") {
+		sort = "By Comments";
+	} else {
+		sort = "By Retweets";
+	}
+
+	if (props.data.filterOption === "noneReply") {
+		filter = "By None Reply";
+	} else {
+		filter = "By Verified Tweets";
+	}
+
 	return (
 		// <div className="">
 		//     <div className="m-4 w-auto h-20 p-2 flex flex-row justify-between items-center">
@@ -82,7 +99,7 @@ function HistoryCard(props: any) {
 		//     </div>
 		// </div>
 		<div className="p-8 bg-white border rounded-lg transform hover:shadow-2xl hover:scale-105 transition duration-200 ease-in">
-			<div className="flex items-center justify-center">
+			{/* <div className="flex items-center justify-center">
 				<p aria-label="Author" title="Author" className="mr-3 ">
 					<img
 						src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
@@ -101,18 +118,26 @@ function HistoryCard(props: any) {
 					<p className="text-sm font-medium leading-4 text-gray-600">Author</p>
 				</div>
 			</div>
-			<br></br>
+			<br></br> */}
 
 			<p
 				aria-label="Article"
 				title="Jingle Bells"
 				className="flex items-center justify-center inline-block mb-3 text-2xl font-bold leading-5 text-black transition-colors duration-200 hover:text-deep-purple-accent-400"
 			>
-				{props.data.title}
+				{props.data.searchPhrase}
 			</p>
 			<p className="flex mb-3 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase">
 				<span className=" font-semiboldtext-deep-purple-accent-400">
-					Draft Report - {props.data.dateCreated.substring(4, 16)}
+					History - {props.data.dateCreated.substring(4, 16)}
+				</span>
+			</p>
+			<p className="flex mb-3 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase">
+				<span className=" font-semiboldtext-deep-purple-accent-400">Sorted - {sort}</span>
+			</p>
+			<p className="flex mb-3 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase">
+				<span className=" font-semiboldtext-deep-purple-accent-400">
+					Filtered - {filter}
 				</span>
 			</p>
 			<div className="justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
