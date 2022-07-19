@@ -19,7 +19,7 @@ export const searchTweets = middyfy(
 				filter = "";
 			}
 
-			const { meta, data, includes } = await clientV2.get("tweets/search/all", {
+			const { meta, data, includes } = await clientV2.get("tweets/search/recent", {
 				query: `${params.keyword + filter} -is:retweet lang:en`,
 				max_results: "100",
 				tweet: {
