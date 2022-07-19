@@ -15,8 +15,8 @@ function Home() {
     const [loading, changeLoading] = useState(false);
 
     const axiosPrivate = useAxiosPrivate();
-    const navigate = useNavigate();
-    const location = useLocation();
+    // const navigate = useNavigate();
+    // const location = useLocation();
     const controller = new AbortController();
     const [generateLoading, changeGenerateLoading] = useState(false);
 
@@ -52,7 +52,7 @@ function Home() {
             }
         }
         catch (err) {
-            navigate("/login", { state: { from: location }, replace: true });
+            // navigate("/login", { state: { from: location }, replace: true });
         }
     };
 
@@ -82,7 +82,7 @@ function Home() {
             changeLoading(false);
         }
         catch (err) {
-            navigate("/login", { state: { from: location }, replace: true });
+            // navigate("/login", { state: { from: location }, replace: true });
         }
     };
 
