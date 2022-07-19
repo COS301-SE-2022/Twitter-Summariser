@@ -15,11 +15,13 @@ import Profile from "./components/Profile";
 import GenReport from "./components/GenReport";
 import GetPublishedReport from "./components/GetPublishedReport";
 import ViewHistory from "./components/ViewHistory";
+import Splash from "./components/Splash";
 
 function App() {
 	return (
 		<Routes>
 			<Route path="/" element={<Layout />}>
+				<Route path="splash" element={<Splash />} />
 				<Route path="login" element={<Login />} />
 				<Route path="signup" element={<Signup />} />
 				<Route element={<RequiredAuth />}>
