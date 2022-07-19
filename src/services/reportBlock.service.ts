@@ -61,16 +61,18 @@ export default class ReportBlockService {
 	}
 
 	async updatePosition(id: string, position: number) {
-		await this.docClient.update({
-			TableName: this.TableName,
-			Key: {
-				reportBlockID: id
-			},
-			UpdateExpression: "SET position = :position",
-			ExpressionAttributeValues: {
-				":position": position
-			}
-		}).promise();
+		await this.docClient
+			.update({
+				TableName: this.TableName,
+				Key: {
+					reportBlockID: id
+				},
+				UpdateExpression: "SET position = :position",
+				ExpressionAttributeValues: {
+					":position": position
+				}
+			})
+			.promise();
 	}
 
 	async sortReportBlocks(reportBlocks: any[]): Promise<any[]> {
