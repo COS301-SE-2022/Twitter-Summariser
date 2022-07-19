@@ -74,7 +74,7 @@ function GetPublishedReport() {
 
 			setPerm(data.report.permission);
 
-			console.log(data);
+			// console.log(data);
 
 
 			setStat(data.report.status);
@@ -161,7 +161,7 @@ function GetPublishedReport() {
 			return false
 	}
 
-	console.log(perm);
+	// console.log(perm);
 
 
 	return (
