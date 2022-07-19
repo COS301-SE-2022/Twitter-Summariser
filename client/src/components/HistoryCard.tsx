@@ -58,15 +58,15 @@ function HistoryCard(props: any) {
 	if (props.data.sortOption === "byLikes") {
 		sort = "By Likes";
 	} else if (props.data.sortOption === "byComments") {
-		sort = "By Comments";
+		sort = "Comments";
 	} else {
-		sort = "By Retweets";
+		sort = "Retweets";
 	}
 
 	if (props.data.filterOption === "noneReply") {
-		filter = "By None Reply";
+		filter = "None Reply";
 	} else {
-		filter = "By Verified Tweets";
+		filter = "Verified Tweets";
 	}
 
 	return (
@@ -133,11 +133,13 @@ function HistoryCard(props: any) {
 				</span>
 			</p>
 			<p className="flex mb-3 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase">
-				<span className=" font-semiboldtext-deep-purple-accent-400">Sorted - {sort}</span>
+				<span className=" font-semiboldtext-deep-purple-accent-400">
+					Sorted By - {sort}
+				</span>
 			</p>
 			<p className="flex mb-3 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase">
 				<span className=" font-semiboldtext-deep-purple-accent-400">
-					Filtered - {filter}
+					Filtered By - {filter}
 				</span>
 			</p>
 			<div className="justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
