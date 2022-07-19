@@ -5,16 +5,14 @@ import { IoColorPaletteOutline } from "react-icons/io5";
 import { MdDeleteOutline } from "react-icons/md";
 import { GrTextAlignCenter, GrTextAlignLeft, GrTextAlignRight, GrAdd } from "react-icons/gr";
 import { useState } from "react";
-
-// importing link
-import link from "../resources/links.json";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 function Text(props: any) {
+	const axiosPrivate = useAxiosPrivate();
+	const controller = new AbortController();
 	const textPos = props.data.position;
-
-	// console.log(props.data);
-
 	const [italic, setItalic] = useState("");
+	const [bold, setBold] = useState("");
 
 	const italicHandler = () => {
 		if (italic === "") {
@@ -24,9 +22,6 @@ function Text(props: any) {
 		}
 	};
 
-	//   const bold = " font-bold";
-	const [bold, setBold] = useState("");
-
 	const boldHandler = () => {
 		if (bold === "") {
 			setBold(" font-bold");
@@ -35,14 +30,12 @@ function Text(props: any) {
 		}
 	};
 
-	//   const size = " text-xs";
 	const [size, setSize] = useState(" text-xs");
 
 	const sizeHandler = (event: any) => {
 		setSize(event.target.value);
 	};
 
-	//   const align = " text-right";
 	const [align, setAlign] = useState(" text-left");
 	const [alignLeft, setAlignLeft] = useState(true);
 	const [alignRight, setAlignRight] = useState(false);
@@ -108,50 +101,17 @@ function Text(props: any) {
 		changeReport(event.target.value.trim());
 	};
 
-	// ######################### API FOR EDITING TEXT ###############################################
-
-	let textEndpoint =
-		process.env.NODE_ENV === "development"
-			? String(link.localhostLink)
-			: String(link.serverLink);
-	textEndpoint += "editBlock";
-
-	// using localhost
-	// const textEndpoint = "http://localhost:4000/dev/editBlock";
-
-	// let data;
-
 	const editText = async (text: any) => {
-		const requestOptions = {
-			method: "POST",
-			body: JSON.stringify(text),
-			headers: {
-				Authorization: `${localStorage.getItem("token")}`
-			}
-		};
-
-		fetch(textEndpoint, requestOptions)
-			.then(async (response) => {
-				const isJson = response.headers.get("content-type")?.includes("application/json");
-				// remember to make const variable a let outside the editText function
-				isJson && (await response.json());
-
-				// console.log(await data);
-
-				// check for error response
-				if (!response.ok) {
-					// error
-				}
-			})
-			.catch(() => {
-				// console.log("Error Updating Text");
-				// console.log(error);
+		try {
+			await axiosPrivate.post("editBlock", JSON.stringify(text), {
+				signal: controller.signal
 			});
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
-	// #############################################################################
-
-	const update = () => {
+	const update = async () => {
 		const propsUpdate = {
 			textStyle: {
 				Italic: italic,
@@ -165,9 +125,6 @@ function Text(props: any) {
 			position: textPos,
 			apiKey: localStorage.getItem("key")
 		};
-
-		// console.log(Text);
-
 		editText(propsUpdate);
 	};
 
@@ -187,7 +144,6 @@ function Text(props: any) {
 			position: textPos,
 			apiKey: localStorage.getItem("key")
 		};
-		// console.log(Text);
 		editText(propsSecondUpdate);
 		setSecondEditor(!secondEditor);
 	};

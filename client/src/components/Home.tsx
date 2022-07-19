@@ -14,8 +14,6 @@ function Home() {
 	const [loading, changeLoading] = useState(false);
 
 	const axiosPrivate = useAxiosPrivate();
-	// const navigate = useNavigate();
-	// const location = useLocation();
 	const controller = new AbortController();
 	const [generateLoading, changeGenerateLoading] = useState(false);
 
@@ -51,9 +49,7 @@ function Home() {
 				changeEnteredSearch("");
 				changeClicked(true);
 			}
-		} catch (err) {
-			// navigate("/login", { state: { from: location }, replace: true });
-		}
+		} catch (err) {}
 	};
 
 	const [searchResponse, changeResponse] = useState<any[]>([]);
@@ -81,9 +77,7 @@ function Home() {
 			changeResultSet(await response.data.resultSetID);
 			changeResponse(await response.data.tweets);
 			changeLoading(false);
-		} catch (err) {
-			// navigate("/login", { state: { from: location }, replace: true });
-		}
+		} catch (err) {}
 	};
 
 	const search = () => {

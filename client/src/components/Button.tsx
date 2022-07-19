@@ -3,34 +3,54 @@ function Button(props: any) {
         props.disableId === "true"
             ? "bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50"
             : "bg-dark-cornflower-blue rounded-lg text-white font-semibold hover:bg-midnight-blue group hover:shadow";
+    const coloursAndEffectsDelete =
+        props.disableId === "true"
+            ? "bg-crimson rounded-lg text-white  font-semibold opacity-50"
+            : "bg-crimson rounded-lg text-white font-semibold hover:bg-midnight-blue group hover:shadow";
     const smallStyle = "button_small text-md p-0.5 h-10 w-36 font-semibold " + coloursAndEffects;
+    const smallStyleDelete = "button_small text-md p-0.5 h-10 w-36 font-semibold " + coloursAndEffectsDelete;
     const largeStyle = "button_large text-lg p-0.5 h-10 w-60 " + coloursAndEffects;
     const buttonText = props.text;
 
-    const size = (): boolean => {
-        if (props.size === "small") return false;
-        else return true;
-    };
-    const execute = () => {
-        props.handle();
-    };
+	const size = (): boolean => {
+		if (props.size === "small") return false;
+		else return true;
+	};
+	const execute = () => {
+		props.handle();
+	};
 
-    const isDisabled = (): boolean => {
-        return props.disableId === "true";
-    };
+	const isDisabled = (): boolean => {
+		return props.disableId === "true";
+	};
 
-    const type = (): boolean => {
-        if (props.type === "authentication") return false;
-        else return true;
-    };
+	const type = (): boolean => {
+		if (props.type === "authentication") return false;
+		else return true;
+	};
+
+    const isDelete = (): boolean => {
+        if (props.type === "delete") return true;
+        else return false;
+    }
 
     return (
         <div>
-            {!size() && (
+            {!size() && !isDelete() && (
                 <button
                     data-testid="btn-small"
                     type="submit"
                     className={smallStyle}
+                    onClick={execute}
+                >
+                    {buttonText}
+                </button>
+            )}
+            {!size() && isDelete() && (
+                <button
+                    data-testid="btn-small"
+                    type="submit"
+                    className={smallStyleDelete}
                     onClick={execute}
                 >
                     {buttonText}

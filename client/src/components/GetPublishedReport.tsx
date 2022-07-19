@@ -12,12 +12,12 @@ import PublishedText from "./PublishedText";
 
 function GetPublishedReport() {
 	const navigate = useNavigate();
-
 	const [state, setState] = useState([]);
 	const [title, setTitle] = useState("");
 	const [author, setAuthor] = useState("");
 	const [date, setDate] = useState("");
 	const [stat, setStat] = useState("");
+	const [perm, setPerm] = useState("");
 
 	// handling loading things.........
 	const [pageLoading, changePageLoading] = useState(true);
@@ -71,6 +71,11 @@ function GetPublishedReport() {
 
 			const data = isJson && (await response.json());
 
+			setPerm(data.report.permission);
+
+			// console.log(data);
+
+
 			setStat(data.report.status);
 
 			setState(data.report.Report);
@@ -114,9 +119,7 @@ function GetPublishedReport() {
 
 	// #######################################################################
 	// const unpublishHandler = (event: any) => {
-	const unpublishHandler = (event: any) => {
-		// event.preventDefault();
-
+	const unpublishHandler = () => {
 		unpublishReport(requiredData);
 		let reportId = String(localStorage.getItem("reportId"));
 		localStorage.setItem("draftReportId", reportId);
@@ -148,6 +151,16 @@ function GetPublishedReport() {
 		)
 	);
 
+	const isOwner = () => {
+		if(perm === "OWNER")
+			return true;
+		else
+			return false
+	}
+
+	// console.log(perm);
+
+
 	return (
 		<div>
 			{pageLoading ? (
@@ -166,7 +179,7 @@ function GetPublishedReport() {
 					<br />
 
 					<div className="grid grid-cols gap-4 content-center">{apiResponse}</div>
-					<div className="flex justify-center mb-4">
+					{isOwner() && <div className="flex justify-center mb-4">
 						<Link to="/genReport">
 							<Button
 								text="Unpublish Report"
@@ -175,7 +188,7 @@ function GetPublishedReport() {
 								type="unpublish"
 							/>
 						</Link>
-					</div>
+					</div> }
 				</div>
 			)}
 		</div>
