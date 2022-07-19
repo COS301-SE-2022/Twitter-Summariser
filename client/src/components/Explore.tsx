@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
 import ExploreCard from "./ExploreCard";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import { useLocation, useNavigate } from "react-router-dom";
 
 function Explore() {
 	const [report, changeReport] = useState<any[]>([]);
 	const [loading, changeLoading] = useState(true);
 	const axiosPrivate = useAxiosPrivate();
-	const navigate = useNavigate();
-	const location = useLocation();
 
 	useEffect(() => {
 		let isMounted = true;
@@ -21,11 +18,10 @@ function Explore() {
 					JSON.stringify({}),
 					{ signal: controller.signal }
 				);
-				console.log(response.data);
 				isMounted && changeReport(response.data);
-				changeLoading(false);
+				isMounted && changeLoading(false);
 			} catch (error) {
-				navigate("/login", { state: { from: location }, replace: true });
+				console.error(error);
 			}
 		};
 
@@ -35,7 +31,7 @@ function Explore() {
 			isMounted = false;
 			controller.abort();
 		};
-	}, [axiosPrivate, location, navigate]);
+	}, [axiosPrivate]);
 
 	const loadIcon = (
 		<svg

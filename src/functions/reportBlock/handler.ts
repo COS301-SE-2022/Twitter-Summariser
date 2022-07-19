@@ -17,7 +17,8 @@ export const editBlock = middyfy(
 				!(await ServicesLayer.permissionService.verifyEditor(
 					params.reportID,
 					params.apiKey
-				))
+				)) &&
+				!(await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey))
 			) {
 				return {
 					statusCode: statusCodes.unauthorized,
@@ -86,10 +87,12 @@ export const deleteReportBlock = middyfy(
 			const params = JSON.parse(event.body);
 
 			if (
-				await ServicesLayer.permissionService.verifyEditor(params.reportID, params.apiKey)
+				!(await ServicesLayer.permissionService.verifyEditor(
+					params.reportID,
+					params.apiKey
+				)) &&
+				!(await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey))
 			) {
-				await ServicesLayer.reportBlockService.deleteReportBlock(params.reportBlockID);
-			} else {
 				return {
 					statusCode: statusCodes.unauthorized,
 					headers: header,
@@ -97,10 +100,12 @@ export const deleteReportBlock = middyfy(
 				};
 			}
 
+			await ServicesLayer.reportBlockService.deleteReportBlock(params.reportBlockID);
+
 			return {
-				statusCode: statusCodes.no_content,
+				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify("")
+				body: JSON.stringify("Operation Successful")
 			};
 		} catch (e) {
 			return {

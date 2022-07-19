@@ -7,7 +7,7 @@ import {
 	refreshToken,
 	logoutCreator
 } from "@functions/creator";
-import { searchTweets, addCustomTweet } from "@functions/tweet";
+import { searchTweets, addCustomTweet, reorderTweets } from "@functions/tweet";
 import { CreatorTable } from "@model/creator/index";
 import { ResultSetTable } from "@model/resultSet";
 import { ReportTable } from "@model/report";
@@ -98,7 +98,8 @@ const serverlessConfiguration: AWS = {
 		unpublishReport,
 		getSharedReport,
 		deleteReportBlock,
-		getAllMyPublishedReports
+		getAllMyPublishedReports,
+		reorderTweets
 	},
 
 	package: {

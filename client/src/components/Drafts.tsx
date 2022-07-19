@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
 import DraftCard from "./DraftCard";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import { useNavigate, useLocation } from "react-router-dom";
 
 function Drafts() {
 	const [draft, changeDraft] = useState<any[]>([]);
 	const [loading, changeLoading] = useState(true);
 	const [shouldRender, changeShouldRender] = useState(false);
 	const axiosPrivate = useAxiosPrivate();
-	const navigate = useNavigate();
-	const location = useLocation();
 	const controller = new AbortController();
 
 	const getHistory = async (isMounted: boolean) => {
@@ -19,11 +16,10 @@ function Drafts() {
 				JSON.stringify({ apiKey: localStorage.getItem("key") }),
 				{ signal: controller.signal }
 			);
-			console.log(response.data);
 			isMounted && changeDraft(response.data);
-			changeLoading(false);
+			isMounted && changeLoading(false);
 		} catch (error) {
-			navigate("/login", { state: { from: location }, replace: true });
+			console.error(error);
 		}
 	};
 

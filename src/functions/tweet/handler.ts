@@ -83,7 +83,7 @@ export const addCustomTweet = middyfy(
 			const params = JSON.parse(event.body);
 
 			const { data } = await clientV2.get("tweets/search/recent", {
-				query: `url:${params.url}`,
+				query: `${params.keyword} -is:retweet lang:en`,
 				tweet: {
 					fields: ["public_metrics", "author_id", "created_at"]
 				}
@@ -93,6 +93,59 @@ export const addCustomTweet = middyfy(
 				statusCode: statusCodes.Successful,
 				headers: header,
 				body: JSON.stringify(data)
+			};
+		} catch (e) {
+			return {
+				statusCode: statusCodes.internalError,
+				headers: header,
+				body: JSON.stringify(e)
+			};
+		}
+	}
+);
+
+// reordering tweets
+export const reorderTweets = middyfy(
+	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+		try {
+			const params = JSON.parse(event.body);
+
+			if (
+				!(await ServicesLayer.permissionService.verifyEditor(
+					params.reportID,
+					params.apiKey
+				)) &&
+				!(await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey))
+			) {
+				return {
+					statusCode: statusCodes.unauthorized,
+					headers: header,
+					body: JSON.stringify("Don't have enough permissions to edit this report.")
+				};
+			}
+
+			const tweet1 = await ServicesLayer.reportBlockService.getReportBlock(
+				params.reportBlockID1
+			);
+
+			const tweet2 = await ServicesLayer.reportBlockService.getReportBlock(
+				params.reportBlockID2
+			);
+
+			await ServicesLayer.reportBlockService.updatePosition(
+				tweet1.reportBlockID,
+				tweet2.position
+			);
+
+			await ServicesLayer.reportBlockService.updatePosition(
+				tweet2.reportBlockID,
+				tweet1.position
+			);
+
+			return {
+				statusCode: statusCodes.Successful,
+				headers: header,
+				body: JSON.stringify("Operation successful")
 			};
 		} catch (e) {
 			return {
