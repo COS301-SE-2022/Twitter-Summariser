@@ -19,7 +19,7 @@ export const searchTweets = middyfy(
 				filter = "";
 			}
 
-			const { meta, data, includes } = await clientV2.get("tweets/search/recent", {
+			const { meta, data, includes } = await clientV2.get("tweets/search/all", {
 				query: `${params.keyword + filter} -is:retweet lang:en`,
 				max_results: "100",
 				tweet: {
@@ -28,7 +28,8 @@ export const searchTweets = middyfy(
 				expansions: "author_id",
 				user: {
 					fields: ["id", "username", "name"]
-				}
+				},
+				sort_order: 'relevancy'
 			});
 
 			const dd = new Date();
@@ -82,8 +83,8 @@ export const addCustomTweet = middyfy(
 		try {
 			const params = JSON.parse(event.body);
 
-			const { data } = await clientV2.get("tweets/search/recent", {
-				query: `${params.keyword} -is:retweet lang:en`,
+			const { data } = await clientV2.get("tweets/search/all", {
+				query: `url:${params.url}`,
 				tweet: {
 					fields: ["public_metrics", "author_id", "created_at"]
 				}
