@@ -19,7 +19,6 @@ function Drafts() {
 				JSON.stringify({ apiKey: localStorage.getItem("key") }),
 				{ signal: controller.signal }
 			);
-			console.log(response.data);
 			isMounted && changeDraft(response.data);
 			changeLoading(false);
 		} catch (error) {

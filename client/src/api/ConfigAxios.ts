@@ -1,5 +1,6 @@
 import axios from "axios";
 import links from "../resources/links.json";
+
 const BASE_URL =
 	process.env.NODE_ENV === "development" ? String(links.localhostLink) : String(links.serverLink);
 
