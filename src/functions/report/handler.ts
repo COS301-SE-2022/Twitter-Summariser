@@ -173,7 +173,7 @@ export const cloneReport = middyfy(
 			});
 
 			return {
-				statusCode: statusCodes.notImplemented,
+				statusCode: statusCodes.Successful,
 				headers: header,
 				body: JSON.stringify(report)
 			};
@@ -203,7 +203,7 @@ export const shareReport = middyfy(
 					});
 				} else {
 					return {
-						statusCode: statusCodes.badRequest,
+						statusCode: statusCodes.Successful,
 						headers: header,
 						body: JSON.stringify("User is not found within system.")
 					};
@@ -217,9 +217,9 @@ export const shareReport = middyfy(
 			}
 
 			return {
-				statusCode: statusCodes.no_content,
+				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify("")
+				body: JSON.stringify("Operation Successful")
 			};
 		} catch (e) {
 			return {
@@ -299,9 +299,9 @@ export const publishReport = middyfy(
 			}
 
 			return {
-				statusCode: statusCodes.no_content,
+				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify("")
+				body: JSON.stringify("Operation Successful")
 			};
 		} catch (e) {
 			return {
@@ -330,9 +330,9 @@ export const unpublishReport = middyfy(
 			}
 
 			return {
-				statusCode: statusCodes.no_content,
+				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify("")
+				body: JSON.stringify("Operation Successful")
 			};
 		} catch (e) {
 			return {
@@ -361,9 +361,9 @@ export const deleteReport = middyfy(
 			}
 
 			return {
-				statusCode: statusCodes.no_content,
+				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify("")
+				body: JSON.stringify("Operation Successful")
 			};
 		} catch (e) {
 			return {
