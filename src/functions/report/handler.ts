@@ -173,7 +173,7 @@ export const cloneReport = middyfy(
 			});
 
 			return {
-				statusCode: statusCodes.notImplemented,
+				statusCode: statusCodes.Successful,
 				headers: header,
 				body: JSON.stringify(report)
 			};
