@@ -51,21 +51,11 @@ function Splash(props: any) {
 			{/*  */}
 			<div>
 				<div className="flex flex-row">&nbsp;</div>
-				<Button
-					text="Sign Up"
-					size="large"
-					handle={signUpHandler}
-					type="signUp"
-				/>
+				<Button text="Sign Up" size="large" handle={signUpHandler} type="signUp" />
 
 				<br />
 				<p className="text-sm text-center">Already have an account? </p>
-				<Button
-					text="Login"
-					size="large"
-					handle={loginHandler}
-					type="login"
-				/>
+				<Button text="Login" size="large" handle={loginHandler} type="login" />
 			</div>
 		</div>
 	);

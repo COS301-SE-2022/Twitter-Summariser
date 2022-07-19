@@ -75,7 +75,6 @@ function GetPublishedReport() {
 
 			// console.log(data);
 
-
 			setStat(data.report.status);
 
 			setState(data.report.Report);
@@ -152,14 +151,11 @@ function GetPublishedReport() {
 	);
 
 	const isOwner = () => {
-		if(perm === "OWNER")
-			return true;
-		else
-			return false
-	}
+		if (perm === "OWNER") return true;
+		else return false;
+	};
 
 	// console.log(perm);
-
 
 	return (
 		<div>
@@ -179,16 +175,18 @@ function GetPublishedReport() {
 					<br />
 
 					<div className="grid grid-cols gap-4 content-center">{apiResponse}</div>
-					{isOwner() && <div className="flex justify-center mb-4">
-						<Link to="/genReport">
-							<Button
-								text="Unpublish Report"
-								size="large"
-								handle={unpublishHandler}
-								type="unpublish"
-							/>
-						</Link>
-					</div> }
+					{isOwner() && (
+						<div className="flex justify-center mb-4">
+							<Link to="/genReport">
+								<Button
+									text="Unpublish Report"
+									size="large"
+									handle={unpublishHandler}
+									type="unpublish"
+								/>
+							</Link>
+						</div>
+					)}
 				</div>
 			)}
 		</div>

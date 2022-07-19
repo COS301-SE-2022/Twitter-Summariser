@@ -93,14 +93,14 @@ export const deleteReportBlock = middyfy(
 				)) &&
 				!(await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey))
 			) {
-				await ServicesLayer.reportBlockService.deleteReportBlock(params.reportBlockID);
-			} else {
 				return {
 					statusCode: statusCodes.unauthorized,
 					headers: header,
 					body: JSON.stringify("Don't have enough permissions to edit this report.")
 				};
 			}
+
+			await ServicesLayer.reportBlockService.deleteReportBlock(params.reportBlockID);
 
 			return {
 				statusCode: statusCodes.Successful,

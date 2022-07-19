@@ -110,6 +110,22 @@ export const reorderTweets = middyfy(
 		try {
 			const params = JSON.parse(event.body);
 
+			if (
+				!(await ServicesLayer.permissionService.verifyEditor(
+					params.reportID,
+					params.apiKey
+				)) &&
+				!(await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey))
+			) {
+				await ServicesLayer.reportBlockService.deleteReportBlock(params.reportBlockID);
+			} else {
+				return {
+					statusCode: statusCodes.unauthorized,
+					headers: header,
+					body: JSON.stringify("Don't have enough permissions to edit this report.")
+				};
+			}
+
 			const tweet1 = await ServicesLayer.reportBlockService.getReportBlock(
 				params.reportBlockID1
 			);
@@ -118,9 +134,15 @@ export const reorderTweets = middyfy(
 				params.reportBlockID2
 			);
 
-			await ServicesLayer.reportBlockService.updatePosition(tweet1.reportBlockID, tweet2.position);
+			await ServicesLayer.reportBlockService.updatePosition(
+				tweet1.reportBlockID,
+				tweet2.position
+			);
 
-			await ServicesLayer.reportBlockService.updatePosition(tweet2.reportBlockID, tweet1.position);
+			await ServicesLayer.reportBlockService.updatePosition(
+				tweet2.reportBlockID,
+				tweet1.position
+			);
 
 			return {
 				statusCode: statusCodes.Successful,
