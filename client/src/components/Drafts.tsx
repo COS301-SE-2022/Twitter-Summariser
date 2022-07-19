@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import DraftCard from "./DraftCard";
-import axios from "../api/ConfigAxios";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function Drafts() {
     const [draft, changeDraft] = useState<any[]>([]);
     const [loading, changeLoading] = useState(true);
+    const axiosPrivate = useAxiosPrivate();
+    const navigate = useNavigate();
+    const location = useLocation();
+
 
     useEffect(() => {
         let isMounted = true;
@@ -12,13 +17,13 @@ function Drafts() {
 
         const getHistory = async () => {
             try {
-                const response = await axios.post("getAllMyDraftReports", JSON.stringify({ apiKey: localStorage.getItem("key") }), { signal: controller.signal, headers: { "Authorization": `${localStorage.getItem("token")}` } });
+                const response = await axiosPrivate.post("getAllMyDraftReports", JSON.stringify({ apiKey: localStorage.getItem("key") }), { signal: controller.signal });
                 console.log(response.data);
                 isMounted && changeDraft(response.data);
                 changeLoading(false);
 
             } catch (error) {
-                console.log(error);
+                navigate("/login", { state: { from: location }, replace: true });
             }
         };
 
@@ -29,7 +34,7 @@ function Drafts() {
             controller.abort();
         }
 
-    }, []);
+    }, [axiosPrivate, location, navigate]);
 
 
     const loadIcon = (
@@ -59,10 +64,6 @@ function Drafts() {
         .map(function (data) {
             return data;
         });
-
-    // if(newDraft.length !== 0){
-    // 	console.log("new draft is not empty");
-    // }
 
     return (
         <div>
