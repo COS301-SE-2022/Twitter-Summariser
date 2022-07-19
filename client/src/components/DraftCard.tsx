@@ -6,6 +6,7 @@ function DraftCard(props: any) {
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
     const location = useLocation();
+    const controller = new AbortController();
 
     const viewGenReport = () => {
         if (localStorage.getItem("draftReportId")) {
@@ -21,7 +22,6 @@ function DraftCard(props: any) {
             reportID: props.data.reportID,
             apiKey: props.data.apiKey
         };
-        const controller = new AbortController();
 
         try {
             await axiosPrivate.post("deleteReport", JSON.stringify(resultDetails), { signal: controller.signal });
