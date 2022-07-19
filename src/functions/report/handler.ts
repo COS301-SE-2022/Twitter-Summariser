@@ -244,7 +244,7 @@ export const getReport = middyfy(
 					report.status,
 					params.apiKey,
 					report.reportID
-				)) ||
+				)) &&
 				!(await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey))
 			) {
 				return {
@@ -254,13 +254,20 @@ export const getReport = middyfy(
 				};
 			}
 
+
 			const per = await ServicesLayer.permissionService.getPermission(
 				params.reportID,
 				params.apiKey
 			);
 
 			report = await ServicesLayer.reportService.getReport(params.reportID);
-			report.permission = per.type;
+
+			if(per !== undefined){
+				report.permission = per.type;
+			}else{
+				report.permission = 'OWNER';
+			}
+
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
