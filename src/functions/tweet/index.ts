@@ -36,7 +36,7 @@ export const reorderTweets = {
 		{
 			http: {
 				method: "post",
-				path: "addCustomTweet/",
+				path: "reorderTweets/",
 				cors: true
 			}
 		}
