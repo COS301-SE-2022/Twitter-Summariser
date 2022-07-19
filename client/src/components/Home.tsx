@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Button from "./Button";

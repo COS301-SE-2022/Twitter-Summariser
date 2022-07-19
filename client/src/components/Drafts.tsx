@@ -33,6 +33,7 @@ function Drafts() {
             controller.abort();
         }
 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     if (shouldRender === true) {
