@@ -1,20 +1,47 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ReportCard from "./ReportCard";
-// importing mock data
-// import tweeter from "../../mock.json";
-
-// importing link
-import link from "../resources/links.json";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 function Reports() {
 	const [report, changeReport] = useState<any[]>([]);
-
-	// handling loading things.........
 	const [loading, changeLoading] = useState(true);
+	const [shouldRender, changeShouldRender] = useState(false);
+	const axiosPrivate = useAxiosPrivate();
+	const controller = new AbortController();
 
-	// const loadingHandler = () => {
-	// 	changeLoading(!loading);
-	// };
+	const getReports = async (isMounted: boolean) => {
+		const apiData = {
+			apiKey: localStorage.getItem("key")
+		};
+
+		try {
+			const response = await axiosPrivate.post(
+				"getAllMyPublishedReports",
+				JSON.stringify(apiData),
+				{ signal: controller.signal }
+			);
+			isMounted && changeReport(response.data);
+			isMounted && changeLoading(false);
+		} catch (error) {}
+	};
+
+	useEffect(() => {
+		let isMounted: boolean = true;
+		getReports(isMounted);
+
+		return () => {
+			isMounted = false;
+			controller.abort();
+		};
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	if (shouldRender === true) {
+		let isMounted: boolean = true;
+		getReports(isMounted);
+		changeShouldRender(false);
+	}
 
 	const loadIcon = (
 		<svg
@@ -34,56 +61,6 @@ function Reports() {
 			/>
 		</svg>
 	);
-
-	// localStorage.removeItem("resultSetId");
-	// localStorage.removeItem("draftReportId");
-
-	// ######################### API FOR GETTING HISTORY #####################
-
-	let getAllMyReportsEndpoint =
-		process.env.NODE_ENV === "development"
-			? String(link.localhostLink)
-			: String(link.serverLink);
-	getAllMyReportsEndpoint += "getAllMyPublishedReports";
-
-	// using localhost
-	// const getAllMyDraftReportsEndpoint = "http://localhost:4000/dev/getAllMyReports";
-
-	const getReports = async () => {
-		const apiData = {
-			apiKey: localStorage.getItem("key")
-		};
-
-		const requestOptions = {
-			method: "POST",
-			body: JSON.stringify(apiData),
-			headers: {
-				Authorization: `${localStorage.getItem("token")}`
-			}
-		};
-
-		fetch(getAllMyReportsEndpoint, requestOptions)
-			.then(async (response) => {
-				const isJson = response.headers.get("content-type")?.includes("application/json");
-
-				const data = isJson && (await response.json());
-
-				changeReport(await data);
-				changeLoading(false);
-
-				// check for error response
-				if (!response.ok) {
-					// error
-				}
-			})
-			.catch(() => {
-				// console.log("Error Getting History");
-			});
-	};
-
-	getReports();
-
-	// #######################################################################
 
 	//EXTRACTING REQUIRED DATA
 	// let newReport = report.filter(function (data) {
@@ -123,7 +100,12 @@ function Reports() {
 											className="m-4 w-auto h-auto  flex flex-col p-2"
 											key={data.reportID}
 										>
-											<ReportCard data={data} />
+											<ReportCard
+												data={data}
+												onChange={(value: boolean) =>
+													changeShouldRender(value)
+												}
+											/>
 										</div>
 									))
 								))}

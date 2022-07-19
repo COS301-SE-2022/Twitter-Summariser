@@ -12,14 +12,11 @@ import PublishedText from "./PublishedText";
 
 function GetPublishedReport() {
 	const navigate = useNavigate();
-
 	const [state, setState] = useState([]);
 	const [title, setTitle] = useState("");
 	const [author, setAuthor] = useState("");
 	const [date, setDate] = useState("");
 	const [stat, setStat] = useState("");
-
-	// handling loading things.........
 	const [pageLoading, changePageLoading] = useState(true);
 
 	const loadIcon = (
@@ -114,9 +111,7 @@ function GetPublishedReport() {
 
 	// #######################################################################
 	// const unpublishHandler = (event: any) => {
-	const unpublishHandler = (event: any) => {
-		// event.preventDefault();
-
+	const unpublishHandler = () => {
 		unpublishReport(requiredData);
 		let reportId = String(localStorage.getItem("reportId"));
 		localStorage.setItem("draftReportId", reportId);
