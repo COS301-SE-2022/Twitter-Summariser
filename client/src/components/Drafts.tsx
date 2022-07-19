@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import DraftCard from "./DraftCard";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import useAuth from "../hooks/useAuth";
 
 function Drafts() {
 	const [draft, changeDraft] = useState<any[]>([]);
@@ -8,12 +9,13 @@ function Drafts() {
 	const [shouldRender, changeShouldRender] = useState(false);
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
+	const { auth } = useAuth();
 
 	const getHistory = async (isMounted: boolean) => {
 		try {
 			const response = await axiosPrivate.post(
 				"getAllMyDraftReports",
-				JSON.stringify({ apiKey: localStorage.getItem("key") }),
+				JSON.stringify({ apiKey: auth.apiKey }),
 				{ signal: controller.signal }
 			);
 			isMounted && changeDraft(response.data);

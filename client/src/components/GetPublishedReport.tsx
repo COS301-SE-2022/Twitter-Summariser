@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
+import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Button from "./Button";
 import PublishedText from "./PublishedText";
@@ -16,17 +17,20 @@ function GetPublishedReport() {
 	const [pageLoading, changePageLoading] = useState(true);
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
+	const { auth } = useAuth();
 
 	let requiredData: { apiKey: string | null; reportID: string | null };
 
 	const getRep = async (isMounted: boolean) => {
 		requiredData = {
-			apiKey: localStorage.getItem("key"),
+			apiKey: auth.apiKey,
 			reportID: localStorage.getItem("reportId")
 		};
 
 		try {
-			const response = await axiosPrivate.post("getReport", JSON.stringify(requiredData), { signal: controller.signal });
+			const response = await axiosPrivate.post("getReport", JSON.stringify(requiredData), {
+				signal: controller.signal
+			});
 			isMounted && setPerm(response.data.report.permission);
 			isMounted && setStat(response.data.report.status);
 			isMounted && setState(response.data.report.Report);
@@ -46,15 +50,14 @@ function GetPublishedReport() {
 		return () => {
 			isMounted = false;
 			controller.abort();
-		}
+		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const unpublishReport = async (resultInfo: any) => {
 		try {
-			await axiosPrivate.post("unpublishReport", JSON.stringify(resultInfo));
+			await axiosPrivate.post("unpublishReport", JSON.stringify(resultInfo), { signal: controller.signal });
 			navigate("/genReport");
-
 		} catch (error) {
 			console.error(error);
 		}
@@ -91,8 +94,8 @@ function GetPublishedReport() {
 	);
 
 	const isOwner = () => {
-		return (perm === "OWNER") ? true : false;
-	}
+		return perm === "OWNER" ? true : false;
+	};
 
 	const loadIcon = (
 		<svg
@@ -131,16 +134,18 @@ function GetPublishedReport() {
 					<br />
 
 					<div className="grid grid-cols gap-4 content-center">{apiResponse}</div>
-					{isOwner() && <div className="flex justify-center mb-4">
-						<Link to="/genReport">
-							<Button
-								text="Unpublish Report"
-								size="large"
-								handle={unpublishHandler}
-								type="unpublish"
-							/>
-						</Link>
-					</div>}
+					{isOwner() && (
+						<div className="flex justify-center mb-4">
+							<Link to="/genReport">
+								<Button
+									text="Unpublish Report"
+									size="large"
+									handle={unpublishHandler}
+									type="unpublish"
+								/>
+							</Link>
+						</div>
+					)}
 				</div>
 			)}
 		</div>

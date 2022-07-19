@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ReportCard from "./ReportCard";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import useAuth from "../hooks/useAuth";
 
 function Reports() {
 	const [report, changeReport] = useState<any[]>([]);
@@ -8,10 +9,11 @@ function Reports() {
 	const [shouldRender, changeShouldRender] = useState(false);
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
+	const { auth } = useAuth();
 
 	const getReports = async (isMounted: boolean) => {
 		const apiData = {
-			apiKey: localStorage.getItem("key")
+			apiKey: auth.apiKey
 		};
 
 		try {

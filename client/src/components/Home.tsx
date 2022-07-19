@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
+import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Button from "./Button";
 
@@ -11,7 +12,6 @@ import Button from "./Button";
 // import link from "../resources/links.json";
 
 function Home() {
-
 	//uncomment this for new home page
 	// const [report, changeReport] = useState<any[]>([]);
 
@@ -71,7 +71,6 @@ function Home() {
 	// 	changeHomeDefault(true);
 	// }
 
-
 	const [enteredSearch, changeEnteredSearch] = useState("");
 	const [resultSet, changeResultSet] = useState("");
 	const [date, changeDate] = useState("");
@@ -83,6 +82,7 @@ function Home() {
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
 	const [generateLoading, changeGenerateLoading] = useState(false);
+	const { auth } = useAuth();
 
 	const searchHandler = (event: any) => {
 		changeEnteredSearch(event.target.value);
@@ -98,8 +98,8 @@ function Home() {
 
 	const genRep = async () => {
 		const searchData = {
-			apiKey: localStorage.getItem("key"),
-			author: localStorage.getItem("username"),
+			apiKey: auth.apiKey,
+			author: auth.username,
 			resultSetID: resultSet
 		};
 
@@ -153,7 +153,7 @@ function Home() {
 
 	const search = () => {
 		const searchData = {
-			apiKey: localStorage.getItem("key"),
+			apiKey: auth.apiKey,
 			keyword: enteredSearch,
 			numOfTweets: noOfTweets,
 			sortBy: sort === "-" ? "-" : sort,
@@ -423,7 +423,7 @@ function Home() {
 									</div>
 									<div className="mt-2">
 										<p className="italic text-xs">
-											{localStorage.getItem("username")}
+											{auth.username}
 										</p>
 									</div>
 									<div className="">
@@ -439,11 +439,7 @@ function Home() {
 			</div>
 		</div>
 
-
 		// ****************UNCOMMENT NEW HOME PAGE BELOW*****************
-
-
-
 
 		// <div data-testid="home">
 		// 	{homeDefault && <div data-testid="container1" className="mt-14 flex flex-col 2xl:w-1/2 mini-tablet:w-2/3 w-full relative">
@@ -690,7 +686,7 @@ function Home() {
 		// 							</div>
 		// 							<div className="mt-2">
 		// 								<p className="italic text-xs">
-		// 									{localStorage.getItem("username")}
+		// 									{auth.username}
 		// 								</p>
 		// 							</div>
 		// 							<div className="">
@@ -705,8 +701,7 @@ function Home() {
 		// 		</div>
 		// 	</div>}
 		// </div>
-
-			);
+	);
 }
 
 export default Home;

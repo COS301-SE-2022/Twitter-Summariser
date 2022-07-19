@@ -90,52 +90,44 @@ function Splash(props: any) {
 	};
 
 	return (
-		<div data-testid="splash" className="flex flex-row bg-white lg:ml-14 lg:mr-14 mini-tablet:ml-5 mini-tablet:mr-5 relative justify-center">
-
+		<div
+			data-testid="splash"
+			className="flex flex-row bg-white lg:ml-14 lg:mr-14 mini-tablet:ml-5 mini-tablet:mr-5 relative justify-center"
+		>
 			{/* first container ######################################################################################################### */}
 			<div className="lg:w-1/5 w-20 p-2 pt-5 flex-col hidden mini-tablet:block h-screen border-r">
 				<div>
-				<Logo width="136px" height="121px" page="login" />
-			</div>
+					<Logo width="136px" height="121px" page="login" />
+				</div>
 
-			<br />
+				<br />
 
-			<div>
-				<h1 className="text-3xl hidden lg:block">Welcome</h1>
-			</div>
-			{/* <br /> */}
-			{/* unacceptable name notification */}
-			{/*  */}
-			<div>
-				<div className="flex flex-row">&nbsp;</div>
-					<Button
-						text="Sign Up"
-						size="large"
-						handle={signUpHandler}
-						type="signUp"
-					/>
+				<div>
+					<h1 className="text-3xl hidden lg:block">Welcome</h1>
+				</div>
+				{/* <br /> */}
+				{/* unacceptable name notification */}
+				{/*  */}
+				<div>
+					<div className="flex flex-row">&nbsp;</div>
+					<Button text="Sign Up" size="large" handle={signUpHandler} type="signUp" />
 
 					<br />
 					<p className="text-sm ">Already have an account? </p>
-					<Button
-						text="Login"
-						size="large"
-						handle={loginHandler}
-						type="login"
-					/>
+					<Button text="Login" size="large" handle={loginHandler} type="login" />
 				</div>
 			</div>
 
 			{/* second container ######################################################################################################### */}
 			<div className="flex flex-col 2xl:w-2/5 mini-tablet:w-3/5 w-full relative">
 				{/* Api response comes here */}
-			<div className=" mt-16 p-3 ">
-				<div className=" mt-4">
-					<h1 className="text-3xl hidden lg:block">Latest Reports</h1>
+				<div className=" mt-16 p-3 ">
+					<div className=" mt-4">
+						<h1 className="text-3xl hidden lg:block">Latest Reports</h1>
 
-					<div className="mt-4 flex flex-row flex-wrap justify-center">
 						<div className="mt-4 flex flex-row flex-wrap justify-center">
-							{loading && <div>{loadIcon}</div>}
+							<div className="mt-4 flex flex-row flex-wrap justify-center">
+								{loading && <div>{loadIcon}</div>}
 
 								{!loading &&
 									(report.length === 0 ? (

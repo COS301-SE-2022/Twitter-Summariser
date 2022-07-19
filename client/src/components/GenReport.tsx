@@ -9,6 +9,7 @@ import { AiOutlineCheckCircle } from "react-icons/ai";
 import { GrCopy } from "react-icons/gr";
 import Button from "./Button";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import useAuth from "../hooks/useAuth";
 
 function GenReport() {
 	const style = { fontSize: "1.3rem" };
@@ -29,9 +30,11 @@ function GenReport() {
 	const [type, changeType] = useState("VIEWER");
 	const [pageLoading, changePageLoading] = useState(true);
 
+	const [shouldRender, changeShouldRender] = useState(false);
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
 	const navigate = useNavigate();
+	const { auth } = useAuth();
 
 	const shareHandler = () => {
 		setShare(!share);
@@ -47,13 +50,15 @@ function GenReport() {
 	};
 
 	const requiredData = {
-		apiKey: localStorage.getItem("key"),
+		apiKey: auth.apiKey,
 		reportID: localStorage.getItem("draftReportId")
 	};
 
 	const getRep = async (isMounted: boolean) => {
 		try {
-			const response = await axiosPrivate.post("getReport", JSON.stringify(requiredData), { signal: controller.signal });
+			const response = await axiosPrivate.post("getReport", JSON.stringify(requiredData), {
+				signal: controller.signal
+			});
 			isMounted && setState(response.data.report.Report);
 			isMounted && setTitle(response.data.report.title);
 			isMounted && setAuthor(response.data.report.author);
@@ -71,18 +76,24 @@ function GenReport() {
 		return () => {
 			isMounted = false;
 			controller.abort();
-		}
+		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const publishReport = async (resultInfo: any) => {
 		try {
-			await axiosPrivate.post("publishReport", resultInfo, { signal: controller.signal });
+			await axiosPrivate.post("publishReport", JSON.stringify(resultInfo), { signal: controller.signal });
 			navigate("/getPublishedReport");
 		} catch (error) {
 			console.error(error);
 		}
 	};
+
+	if (shouldRender) {
+		let isMounted: boolean = true;
+		getRep(isMounted);
+		changeShouldRender(false);
+	}
 
 	const publishHandler = () => {
 		publishReport(requiredData);
@@ -99,7 +110,7 @@ function GenReport() {
 				{data.blockType === "RICHTEXT" && (
 					<div className="">
 						{" "}
-						<Text keyValue={index} data={data} />{" "}
+						<Text keyValue={index} data={data} onChange={(value: boolean) => changeShouldRender(value)} />{" "}
 					</div>
 				)}
 
@@ -116,7 +127,7 @@ function GenReport() {
 	);
 
 	const requiredDataForShare = {
-		apiKey: localStorage.getItem("key"),
+		apiKey: auth.apiKey,
 		reportID: localStorage.getItem("draftReportId"),
 		email: enteredShare,
 		type: type
@@ -124,7 +135,9 @@ function GenReport() {
 
 	const shareReport = async (repData: any) => {
 		try {
-			await axiosPrivate.post("shareReport", JSON.stringify(repData), { signal: controller.signal });
+			await axiosPrivate.post("shareReport", JSON.stringify(repData), {
+				signal: controller.signal
+			});
 			changeNAN(false);
 			setSuccessfulShare(true);
 			setShare(false);
@@ -135,21 +148,21 @@ function GenReport() {
 	};
 
 	const shareSearchHandler = () => {
-		if (enteredShare !== "")
-			shareReport(requiredDataForShare);
+		if (enteredShare !== "") shareReport(requiredDataForShare);
 	};
 
 	const deleteReportHandler = async () => {
 		const resultDetails = {
 			reportID: localStorage.getItem("draftReportId"),
-			apiKey: localStorage.getItem("key")
+			apiKey: auth.apiKey
 		};
 
 		try {
-			await axiosPrivate.post("deleteReport", JSON.stringify(resultDetails), { signal: controller.signal });
+			await axiosPrivate.post("deleteReport", JSON.stringify(resultDetails), {
+				signal: controller.signal
+			});
 			navigate("/drafts");
-		}
-		catch (err) {
+		} catch (err) {
 			console.error(err);
 		}
 	};

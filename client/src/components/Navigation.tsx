@@ -12,7 +12,7 @@ import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 function Navigation(props: any) {
-	const { setAuth } = useAuth();
+	const { setAuth, auth } = useAuth();
 	const axiosPrivate = useAxiosPrivate();
 	const navigate = useNavigate();
 
@@ -127,7 +127,7 @@ function Navigation(props: any) {
 							<CgProfile style={style} />
 						</div>
 						<div className="hidden lg:block">
-							&nbsp; {localStorage.getItem("username")}
+							&nbsp; {auth.username}
 						</div>
 					</Link>
 				</div>
