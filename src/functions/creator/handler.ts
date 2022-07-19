@@ -145,7 +145,7 @@ export const loginCreator = middyfy(
                 },
                 process.env.ACCESS_TOKEN_SECRET,
                 {
-                    expiresIn: "30s"
+                    expiresIn: "10m"
                 }
             );
 
@@ -158,7 +158,7 @@ export const loginCreator = middyfy(
                 },
                 process.env.REFRESH_TOKEN_SECRET,
                 {
-                    expiresIn: "1m"
+                    expiresIn: "1d"
                 }
             );
 
