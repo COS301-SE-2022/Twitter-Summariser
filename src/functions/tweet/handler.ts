@@ -117,8 +117,6 @@ export const reorderTweets = middyfy(
 				)) &&
 				!(await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey))
 			) {
-				await ServicesLayer.reportBlockService.deleteReportBlock(params.reportBlockID);
-			} else {
 				return {
 					statusCode: statusCodes.unauthorized,
 					headers: header,
