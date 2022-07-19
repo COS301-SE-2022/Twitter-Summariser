@@ -27,6 +27,7 @@ function DraftCard(props: any) {
 			});
 			props.onChange(true);
 		} catch (error) {
+			console.error(error);
 		}
 	};
 

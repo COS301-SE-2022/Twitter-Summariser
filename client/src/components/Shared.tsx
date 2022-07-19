@@ -20,7 +20,7 @@ function Shared() {
 			isMounted && changeReport(response.data);
 			isMounted && changeLoading(false);
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 		}
 	};
 

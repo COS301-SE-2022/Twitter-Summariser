@@ -22,7 +22,9 @@ function Reports() {
 			);
 			isMounted && changeReport(response.data);
 			isMounted && changeLoading(false);
-		} catch (error) {}
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
 	useEffect(() => {
@@ -33,7 +35,6 @@ function Reports() {
 			isMounted = false;
 			controller.abort();
 		};
-
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
