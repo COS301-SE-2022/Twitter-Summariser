@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import ExploreCard from "./ExploreCard";
-import axios from "../api/ConfigAxios";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function Explore() {
     const [report, changeReport] = useState<any[]>([]);
     const [loading, changeLoading] = useState(true);
+    const axiosPrivate = useAxiosPrivate();
+    const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         let isMounted = true;
@@ -12,13 +16,13 @@ function Explore() {
 
         const getReports = async () => {
             try {
-                const response = await axios.post("getAllPublishedReports", JSON.stringify({}), { signal: controller.signal });
+                const response = await axiosPrivate.post("getAllPublishedReports", JSON.stringify({}), { signal: controller.signal });
                 console.log(response.data);
                 isMounted && changeReport(response.data);
                 changeLoading(false);
 
             } catch (error) {
-                console.log(error);
+                navigate("/login", { state: { from: location }, replace: true });
             }
         };
 
@@ -28,7 +32,7 @@ function Explore() {
             isMounted = false;
             controller.abort();
         }
-    }, []);
+    }, [axiosPrivate, location, navigate]);
 
 
     const loadIcon = (
