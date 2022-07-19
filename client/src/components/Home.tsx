@@ -1,50 +1,36 @@
 import { useState } from "react";
-// import Tweet from "../Tweet/Tweet";
-import { Link } from "react-router-dom";
-// import HomeTweet from "../HomeTweet/HomeTweet";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
-
-// importing link
-import link from "../resources/links.json";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Button from "./Button";
 
+
 function Home() {
-    // ################ all related to the search ############################d
     const [enteredSearch, changeEnteredSearch] = useState("");
     const [resultSet, changeResultSet] = useState("");
     const [date, changeDate] = useState("");
     const [genReport, changeGenReport] = useState("");
+    const [clicked, changeClicked] = useState(false);
+    const [createTitle, changeCreateTitle] = useState("");
+    const [loading, changeLoading] = useState(false);
+
+    const axiosPrivate = useAxiosPrivate();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const controller = new AbortController();
+    const [generateLoading, changeGenerateLoading] = useState(false);
 
     const searchHandler = (event: any) => {
         changeEnteredSearch(event.target.value);
     };
 
-    const [clicked, changeClicked] = useState(false);
-    const [createTitle, changeCreateTitle] = useState("");
-
-    // handling loading things.........
-    const [loading, changeLoading] = useState(false);
-
     const loadingHandler = () => {
         changeLoading(!loading);
     };
 
-    const [generateLoading, changeGenerateLoading] = useState(false);
-
     const generateLoadingHandler = () => {
         changeGenerateLoading(!generateLoading);
     };
-
-    // ################ API FOR GENERATE REPORT ###########################
-
-    let genReportEndpoint =
-        process.env.NODE_ENV === "development"
-            ? String(link.localhostLink)
-            : String(link.serverLink);
-    genReportEndpoint += "generateReport";
-
-    // using localhost
-    // const genReportEndpoint = "http://localhost:4000/dev/generateReport";
 
     const genRep = async () => {
         const searchData = {
@@ -53,46 +39,24 @@ function Home() {
             resultSetID: resultSet
         };
 
-        const requestOptions = {
-            method: "POST",
-            body: JSON.stringify(searchData),
-            headers: {
-                Authorization: `${localStorage.getItem("token")}`
+        try {
+            const response = await axiosPrivate.post("generateReport", JSON.stringify(searchData), { signal: controller.signal });
+            changeGenerateLoading(false);
+            changeDate(response.data.Report.dateCreated.substring(0, 10));
+            changeGenReport(response.data.Report.reportID);
+
+            if (enteredSearch !== "") {
+                changeCreateTitle(enteredSearch);
+                changeEnteredSearch("");
+                changeClicked(true);
             }
-        };
-
-        fetch(genReportEndpoint, requestOptions)
-            .then(async (response) => {
-                const isJson = response.headers.get("content-type")?.includes("application/json");
-
-                const data = isJson && (await response.json());
-
-                // console.log(data);
-                changeGenerateLoading(false);
-
-                if (!response.ok) {
-                    // error
-
-                    return;
-                }
-
-                changeDate(await data.Report.dateCreated.substring(0, 10));
-                changeGenReport(data.Report.reportID);
-
-                if (enteredSearch !== "") {
-                    changeCreateTitle(enteredSearch);
-                    changeEnteredSearch("");
-                    changeClicked(true);
-                }
-            })
-            .catch(() => {
-                // console.log("Error Generating Report");
-            });
+        }
+        catch (err) {
+            navigate("/login", { state: { from: location }, replace: true });
+        }
     };
 
-    // ###################################################################
 
-    // extra search function sort, filter, number of tweets to collect
     const [searchResponse, changeResponse] = useState<any[]>([]);
     const [noOfTweets, changeNoOfTweets] = useState(10);
     const [sort, changeSort] = useState("-");
@@ -110,50 +74,18 @@ function Home() {
         changeFilter(event.target.value);
     };
 
-    // ######################### API FOR SEARCHING ###############################################
-
-    let searchEndpoint =
-        process.env.NODE_ENV === "development"
-            ? String(link.localhostLink)
-            : String(link.serverLink);
-
-    searchEndpoint += "searchTweets";
-
     const searchTwitter = async (searchData: any) => {
-        // POST request using fetch with error handling
-        const requestOptions = {
-            method: "POST",
-            body: JSON.stringify(searchData),
-            headers: {
-                Authorization: `${localStorage.getItem("token")}`
-            }
-        };
-
-        fetch(searchEndpoint, requestOptions)
-            .then(async (response) => {
-                const isJson = response.headers.get("content-type")?.includes("application/json");
-
-                const data = isJson && (await response.json());
-
-                changeResultSet(await data.resultSetID);
-                changeResponse(await data.tweets);
-                changeLoading(false);
-
-                // check for error response
-                if (!response.ok) {
-                    console.log("Error in Searching");
-                } else {
-                    changeLoading(false);
-                }
-            })
-            .catch(() => {
-                console.log("Error Searching");
-            });
+        try {
+            const response = await axiosPrivate.post("searchTweets", JSON.stringify(searchData), { signal: controller.signal });
+            changeResultSet(await response.data.resultSetID);
+            changeResponse(await response.data.tweets);
+            changeLoading(false);
+        }
+        catch (err) {
+            navigate("/login", { state: { from: location }, replace: true });
+        }
     };
 
-    // #######################################################################
-
-    // compiling user search information
     const search = () => {
         const searchData = {
             apiKey: localStorage.getItem("key"),
@@ -163,15 +95,21 @@ function Home() {
             filterBy: filter === "-" ? "-" : filter
         };
 
-        // console.log(searchData);
-
         if (enteredSearch !== "") {
-            // calling the api__Handler
             loadingHandler();
             changeClicked(false);
             searchTwitter(searchData);
         }
     };
+
+
+
+    const tweetOptions = [];
+    const apiResponse = [<div key="begining div" />];
+
+    for (let index = 1; index <= 100; index++) {
+        tweetOptions.push(<option key={index.toString()}>{index}</option>);
+    }
 
     const generate = () => {
         if (apiResponse.length > 1) {
@@ -180,15 +118,7 @@ function Home() {
         }
     };
 
-    // tweet options
-    const tweetOptions = [];
 
-    for (let index = 1; index <= 100; index++) {
-        tweetOptions.push(<option key={index.toString()}>{index}</option>);
-    }
-
-    // processing api response
-    const apiResponse = [<div key="begining div" />];
 
     searchResponse.map((data) =>
         // enteredSearch !== "" &&
@@ -201,10 +131,6 @@ function Home() {
             </div>
         )
     );
-
-    // console.log(apiResponse.length);
-
-    // let ind = 0;
 
     const viewGenReport = () => {
         if (localStorage.getItem("draftReportId")) {
