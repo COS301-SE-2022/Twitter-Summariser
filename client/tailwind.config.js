@@ -15,7 +15,7 @@ module.exports = {
 				"blizzard-blue": "#ADE8F4",
 				"light-cyan1": "#CAF0F8",
 				"light-cyan2": "#D5F3F9",
-				"crimson": "#D62839"
+				crimson: "#D62839"
 			}
 		},
 		screens: {
