@@ -64,7 +64,6 @@ function Drafts() {
 		</svg>
 	);
 
-	//EXTRACTING REQUIRED DATA
 	let newDraft = draft
 		.filter(function (data) {
 			return data.status === "DRAFT";

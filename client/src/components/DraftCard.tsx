@@ -4,8 +4,8 @@ import Button from "./Button";
 
 function DraftCard(props: any) {
 	const axiosPrivate = useAxiosPrivate();
-	const navigate = useNavigate();
-	const location = useLocation();
+	// const navigate = useNavigate();
+	// const location = useLocation();
 	const controller = new AbortController();
 
 	const viewGenReport = () => {
@@ -17,7 +17,7 @@ function DraftCard(props: any) {
 		}
 	};
 
-	const deleteDraftHandler = async (event: any) => {
+	const deleteDraftHandler = async () => {
 		const resultDetails = {
 			reportID: props.data.reportID,
 			apiKey: props.data.apiKey
@@ -29,7 +29,7 @@ function DraftCard(props: any) {
 			});
 			props.onChange(true);
 		} catch (error) {
-			navigate("/login", { state: { from: location }, replace: true });
+			// navigate("/login", { state: { from: location }, replace: true });
 		}
 	};
 
@@ -100,5 +100,3 @@ function DraftCard(props: any) {
 }
 
 export default DraftCard;
-
-// changeDate(await data.Report.dateCreated.substring(0, 10));

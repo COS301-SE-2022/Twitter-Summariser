@@ -1,20 +1,49 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SharedCard from "./SharedCard";
-// importing mock data
-// import tweeter from "../../mock.json";
-
-// importing link
-import link from "../resources/links.json";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 function Shared() {
 	const [report, changeReport] = useState<any[]>([]);
-
-	// handling loading things.........
 	const [loading, changeLoading] = useState(true);
+	const axiosPrivate = useAxiosPrivate();
+	const controller = new AbortController();
 
-	// const loadingHandler = () => {
-	// 	changeLoading(!loading);
-	// };
+	const getSharedReports = async (isMounted: boolean) => {
+		const apiData = {
+			apiKey: localStorage.getItem("key")
+		};
+
+		try {
+			const response = await axiosPrivate.post("getSharedReport", JSON.stringify(apiData), {
+				signal: controller.signal
+			});
+			isMounted && changeReport(response.data);
+			isMounted && changeLoading(false);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	useEffect(() => {
+		let isMounted: boolean = true;
+		getSharedReports(isMounted);
+
+		return () => {
+			isMounted = false;
+			controller.abort();
+		};
+	}, []);
+
+	// #######################################################################
+
+	//EXTRACTING REQUIRED DATA
+	// let shared = report
+	// 	.filter(function (data) {
+	// 		return data.status === "VIEWER" || ;
+	// 	})
+	// 	.map(function (data) {
+	// 		return data;
+	// 	});
 
 	const loadIcon = (
 		<svg
@@ -34,60 +63,6 @@ function Shared() {
 			/>
 		</svg>
 	);
-
-	// ######################### API FOR GETTING HISTORY #####################
-
-	let getAllSharedReportsEndpoint =
-		process.env.NODE_ENV === "development"
-			? String(link.localhostLink)
-			: String(link.serverLink);
-	getAllSharedReportsEndpoint += "getSharedReport";
-
-	const getSharedReports = async () => {
-		const apiData = {
-			apiKey: localStorage.getItem("key")
-		};
-
-		const requestOptions = {
-			method: "POST",
-			body: JSON.stringify(apiData),
-			headers: {
-				Authorization: `${localStorage.getItem("token")}`
-			}
-		};
-
-		fetch(getAllSharedReportsEndpoint, requestOptions)
-			.then(async (response) => {
-				const isJson = response.headers.get("content-type")?.includes("application/json");
-
-				const data = isJson && (await response.json());
-
-				changeReport(await data);
-				changeLoading(false);
-				// console.log(data);
-
-				// check for error response
-				if (!response.ok) {
-					// error
-				}
-			})
-			.catch(() => {
-				// console.log("Error Getting History");
-			});
-	};
-
-	getSharedReports();
-
-	// #######################################################################
-
-	//EXTRACTING REQUIRED DATA
-	// let shared = report
-	// 	.filter(function (data) {
-	// 		return data.status === "VIEWER" || ;
-	// 	})
-	// 	.map(function (data) {
-	// 		return data;
-	// 	});
 
 	return (
 		<div data-testid="shared">
