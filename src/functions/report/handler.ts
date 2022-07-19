@@ -3,6 +3,7 @@ import { middyfy } from "@libs/lambda";
 import { randomUUID } from "crypto";
 import { header, statusCodes } from "@functions/resources/APIresponse";
 import ServicesLayer from "../../services";
+import { report } from "superagent";
 
 // Generation of reports
 export const generateReport = middyfy(
@@ -244,7 +245,7 @@ export const getReport = middyfy(
 					report.status,
 					params.apiKey,
 					report.reportID
-				)) ||
+				)) &&
 				!(await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey))
 			) {
 				return {
@@ -254,13 +255,20 @@ export const getReport = middyfy(
 				};
 			}
 
+
 			const per = await ServicesLayer.permissionService.getPermission(
 				params.reportID,
 				params.apiKey
 			);
 
 			report = await ServicesLayer.reportService.getReport(params.reportID);
-			report.permission = per.type;
+
+			if(per !== undefined){
+				report.permission = per.type;
+			}else{
+				report.permission = 'OWNER';
+			}
+
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
@@ -376,6 +384,11 @@ export const getSharedReport = middyfy(
 			const params = JSON.parse(event.body);
 
 			const re = await ServicesLayer.reportService.getSharedReports(params.apiKey);
+
+			re.map( async report =>{
+				delete report.apiKey;
+				delete report.resultSetID;
+			});
 
 			return {
 				statusCode: statusCodes.Successful,
