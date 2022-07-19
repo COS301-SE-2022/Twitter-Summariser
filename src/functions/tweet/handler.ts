@@ -19,7 +19,7 @@ export const searchTweets = middyfy(
 				filter = "";
 			}
 
-			const { meta, data, includes } = await clientV2.get("tweets/search/recent", {
+			const { meta, data, includes } = await clientV2.get("tweets/search/all", {
 				query: `${params.keyword + filter} -is:retweet lang:en`,
 				max_results: "100",
 				tweet: {
@@ -28,7 +28,8 @@ export const searchTweets = middyfy(
 				expansions: "author_id",
 				user: {
 					fields: ["id", "username", "name"]
-				}
+				},
+				sort_order: "relevancy"
 			});
 
 			const dd = new Date();
@@ -81,18 +82,25 @@ export const addCustomTweet = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
 			const params = JSON.parse(event.body);
+			const lastS = params.url.lastIndexOf("/") + 1;
+			const id = params.url.substring(lastS);
 
-			const { data } = await clientV2.get("tweets/search/recent", {
-				query: `${params.keyword} -is:retweet lang:en`,
-				tweet: {
-					fields: ["public_metrics", "author_id", "created_at"]
-				}
+			const tweets = await ServicesLayer.reportService.getReport(params.reportID);
+
+			const position = tweets.numOfBlocks + 1;
+
+			await ServicesLayer.reportBlockService.addReportBlock({
+				blockType: "TWEET",
+				position,
+				reportBlockID: `BK-${  randomUUID()}`,
+				reportID: params.reportID,
+				tweetID: id
 			});
 
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify(data)
+				body: JSON.stringify(id)
 			};
 		} catch (e) {
 			return {

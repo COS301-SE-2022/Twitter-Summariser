@@ -33,11 +33,13 @@ export default class TextStyleService {
 	}
 
 	async deleteStyle(id: string) {
-		await this.docClient.delete({
-			TableName: this.TableName,
-			Key:{
-				textStylesID: id
-			}
-		}).promise();
+		await this.docClient
+			.delete({
+				TableName: this.TableName,
+				Key: {
+					textStylesID: id
+				}
+			})
+			.promise();
 	}
 }

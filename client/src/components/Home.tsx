@@ -12,7 +12,6 @@ import Button from "./Button";
 // import link from "../resources/links.json";
 
 function Home() {
-
 	//uncomment this for new home page
 	// const [report, changeReport] = useState<any[]>([]);
 
@@ -71,7 +70,6 @@ function Home() {
 	// 	getReports();
 	// 	changeHomeDefault(true);
 	// }
-
 
 	const [enteredSearch, changeEnteredSearch] = useState("");
 	const [resultSet, changeResultSet] = useState("");
@@ -441,11 +439,7 @@ function Home() {
 			</div>
 		</div>
 
-
 		// ****************UNCOMMENT NEW HOME PAGE BELOW*****************
-
-
-
 
 		// <div data-testid="home">
 		// 	{homeDefault && <div data-testid="container1" className="mt-14 flex flex-col 2xl:w-1/2 mini-tablet:w-2/3 w-full relative">
@@ -707,7 +701,6 @@ function Home() {
 		// 		</div>
 		// 	</div>}
 		// </div>
-
 	);
 }
 

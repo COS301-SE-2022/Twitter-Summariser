@@ -56,7 +56,9 @@ function GenReport() {
 
 	const getRep = async (isMounted: boolean) => {
 		try {
-			const response = await axiosPrivate.post("getReport", JSON.stringify(requiredData), { signal: controller.signal });
+			const response = await axiosPrivate.post("getReport", JSON.stringify(requiredData), {
+				signal: controller.signal
+			});
 			isMounted && setState(response.data.report.Report);
 			isMounted && setTitle(response.data.report.title);
 			isMounted && setAuthor(response.data.report.author);
@@ -74,7 +76,7 @@ function GenReport() {
 		return () => {
 			isMounted = false;
 			controller.abort();
-		}
+		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -133,7 +135,9 @@ function GenReport() {
 
 	const shareReport = async (repData: any) => {
 		try {
-			await axiosPrivate.post("shareReport", JSON.stringify(repData), { signal: controller.signal });
+			await axiosPrivate.post("shareReport", JSON.stringify(repData), {
+				signal: controller.signal
+			});
 			changeNAN(false);
 			setSuccessfulShare(true);
 			setShare(false);
@@ -144,8 +148,7 @@ function GenReport() {
 	};
 
 	const shareSearchHandler = () => {
-		if (enteredShare !== "")
-			shareReport(requiredDataForShare);
+		if (enteredShare !== "") shareReport(requiredDataForShare);
 	};
 
 	const deleteReportHandler = async () => {
@@ -155,10 +158,11 @@ function GenReport() {
 		};
 
 		try {
-			await axiosPrivate.post("deleteReport", JSON.stringify(resultDetails), { signal: controller.signal });
+			await axiosPrivate.post("deleteReport", JSON.stringify(resultDetails), {
+				signal: controller.signal
+			});
 			navigate("/drafts");
-		}
-		catch (err) {
+		} catch (err) {
 			console.error(err);
 		}
 	};
