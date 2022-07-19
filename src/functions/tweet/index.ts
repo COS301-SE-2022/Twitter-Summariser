@@ -29,7 +29,6 @@ export const addCustomTweet = {
 	]
 };
 
-
 export const reorderTweets = {
 	handler: `${handlerPath(__dirname)}/handler.reorderTweets`,
 	description: "A function that reorders tweets.",

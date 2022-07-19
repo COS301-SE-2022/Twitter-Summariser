@@ -4,7 +4,6 @@ import { randomUUID } from "crypto";
 import { header, statusCodes } from "@functions/resources/APIresponse";
 import { clientV2 } from "../resources/twitterV2.client";
 import ServicesLayer from "../../services";
-import { report } from "superagent";
 
 export const searchTweets = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
@@ -84,7 +83,7 @@ export const addCustomTweet = middyfy(
 			const params = JSON.parse(event.body);
 
 			const { data } = await clientV2.get("tweets/search/recent", {
-				url: '${params.url}',
+				query: `${params.keyword} -is:retweet lang:en`,
 				tweet: {
 					fields: ["public_metrics", "author_id", "created_at"]
 				}
@@ -111,9 +110,13 @@ export const reorderTweets = middyfy(
 		try {
 			const params = JSON.parse(event.body);
 
-			const tweet1 = await ServicesLayer.reportBlockService.getReportBlock(params.reportBlockID1);
+			const tweet1 = await ServicesLayer.reportBlockService.getReportBlock(
+				params.reportBlockID1
+			);
 
-			const tweet2 = await ServicesLayer.reportBlockService.getReportBlocks(params.reportBlockID2);
+			const tweet2 = await ServicesLayer.reportBlockService.getReportBlocks(
+				params.reportBlockID2
+			);
 
 			return {
 				statusCode: statusCodes.Successful,
