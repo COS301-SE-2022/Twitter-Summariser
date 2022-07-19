@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import HistoryCard from "./HistoryCard";
 
@@ -8,8 +7,6 @@ function History() {
 	const [loading, changeLoading] = useState(true);
 	const [shouldRender, changeShouldRender] = useState(false);
 	const axiosPrivate = useAxiosPrivate();
-	const navigate = useNavigate();
-	const location = useLocation();
 	const controller = new AbortController();
 
 	const getHistory = async (isMounted: boolean) => {
@@ -19,11 +16,10 @@ function History() {
 				JSON.stringify({ apiKey: localStorage.getItem("key") }),
 				{ signal: controller.signal }
 			);
-			console.log(response.data);
 			isMounted && changeHistory(response.data);
 			changeLoading(false);
 		} catch (error) {
-			navigate("/login", { state: { from: location }, replace: true });
+			console.error(error);
 		}
 	};
 
@@ -35,7 +31,6 @@ function History() {
 			isMounted = false;
 			controller.abort();
 		};
-
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 

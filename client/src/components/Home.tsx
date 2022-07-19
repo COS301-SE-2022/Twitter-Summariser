@@ -116,7 +116,9 @@ function Home() {
 				changeEnteredSearch("");
 				changeClicked(true);
 			}
-		} catch (err) {}
+		} catch (err) {
+			console.error(err);
+		}
 	};
 
 	const [searchResponse, changeResponse] = useState<any[]>([]);
@@ -144,7 +146,9 @@ function Home() {
 			changeResultSet(await response.data.resultSetID);
 			changeResponse(await response.data.tweets);
 			changeLoading(false);
-		} catch (err) {}
+		} catch (err) {
+			console.error(err);
+		}
 	};
 
 	const search = () => {

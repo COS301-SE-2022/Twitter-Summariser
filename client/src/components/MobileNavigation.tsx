@@ -14,8 +14,6 @@ function MobileNavigation(props: any) {
 	const { setAuth } = useAuth();
 	const axiosPrivate = useAxiosPrivate();
 	const navigate = useNavigate();
-
-	// style for the icons
 	const style = { fontSize: "1.5rem" };
 
 	const pageHandler = (prop: string) => {
@@ -28,7 +26,9 @@ function MobileNavigation(props: any) {
 		const controller = new AbortController();
 		try {
 			await axiosPrivate.get("logout", { signal: controller.signal });
-		} catch (error) {}
+		} catch (error) {
+			console.error(error);
+		}
 		setAuth(null);
 		navigate("/login");
 	};

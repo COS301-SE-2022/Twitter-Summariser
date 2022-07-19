@@ -1,11 +1,9 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Button from "./Button";
 
 function HistoryCard(props: any) {
 	const axiosPrivate = useAxiosPrivate();
-	const navigate = useNavigate();
-	const location = useLocation();
 	const controller = new AbortController();
 
 	const setResultSet = () => {
@@ -24,7 +22,7 @@ function HistoryCard(props: any) {
 			});
 			props.onChange(true);
 		} catch (error) {
-			navigate("/login", { state: { from: location }, replace: true });
+			console.error(error);
 		}
 	};
 
