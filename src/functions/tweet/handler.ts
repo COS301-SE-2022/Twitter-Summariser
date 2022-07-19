@@ -4,6 +4,7 @@ import { randomUUID } from "crypto";
 import { header, statusCodes } from "@functions/resources/APIresponse";
 import { clientV2 } from "../resources/twitterV2.client";
 import ServicesLayer from "../../services";
+import { report } from "superagent";
 
 export const searchTweets = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
@@ -83,7 +84,7 @@ export const addCustomTweet = middyfy(
 			const params = JSON.parse(event.body);
 
 			const { data } = await clientV2.get("tweets/search/recent", {
-				query: `url:${params.url}`,
+				url: '${params.url}',
 				tweet: {
 					fields: ["public_metrics", "author_id", "created_at"]
 				}
@@ -93,6 +94,33 @@ export const addCustomTweet = middyfy(
 				statusCode: statusCodes.Successful,
 				headers: header,
 				body: JSON.stringify(data)
+			};
+		} catch (e) {
+			return {
+				statusCode: statusCodes.internalError,
+				headers: header,
+				body: JSON.stringify(e)
+			};
+		}
+	}
+);
+
+// reordering tweets
+export const reorderTweets = middyfy(
+	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+		try {
+			const params = JSON.parse(event.body);
+
+			const tweet1 = await ServicesLayer.reportBlockService.getReportBlock(params.reportBlockID1);
+
+			const tweet2 = await ServicesLayer.reportBlockService.getReportBlocks(params.reportBlockID2);
+
+			
+
+			return {
+				statusCode: statusCodes.Successful,
+				headers: header,
+				body: JSON.stringify("Operation successful")
 			};
 		} catch (e) {
 			return {
