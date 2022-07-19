@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
+import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Button from "./Button";
 
@@ -16,6 +17,7 @@ function ViewHistory() {
 	const [pageLoading, changePageLoading] = useState(true);
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
+	const { auth } = useAuth();
 
 	const generateLoadingHandler = () => {
 		changeGenerateLoading(!generateLoading);
@@ -35,7 +37,7 @@ function ViewHistory() {
 
 	const getResultSet = async (isMounted: boolean) => {
 		const resultSetData = {
-			apiKey: localStorage.getItem("key"),
+			apiKey: auth.apiKey,
 			resultSetID: localStorage.getItem("resultSetId")
 		};
 
@@ -58,8 +60,8 @@ function ViewHistory() {
 
 	const genRep = async () => {
 		const searchData = {
-			apiKey: localStorage.getItem("key"),
-			author: localStorage.getItem("username"),
+			apiKey: auth.apiKey,
+			author: auth.username,
 			resultSetID: localStorage.getItem("resultSetId")
 		};
 
@@ -209,7 +211,7 @@ function ViewHistory() {
 								</button>
 							</div>
 							<div className="mt-2">
-								<p className="italic text-xs">{localStorage.getItem("username")}</p>
+								<p className="italic text-xs">{auth.username}</p>
 							</div>
 							<div className="">
 								<p className="italic text-xs">{date}</p>
