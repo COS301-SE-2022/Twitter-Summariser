@@ -22,9 +22,9 @@ function ViewHistory() {
 	// handling loading things.........
 	const [loading, changeLoading] = useState(false);
 
-	const loadingHandler = () => {
-		changeLoading(!loading);
-	};
+	// const loadingHandler = () => {
+	// 	changeLoading(!loading);
+	// };
 
 	const [generateLoading, changeGenerateLoading] = useState(false);
 
