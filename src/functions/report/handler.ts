@@ -254,7 +254,6 @@ export const getReport = middyfy(
 				};
 			}
 
-
 			const per = await ServicesLayer.permissionService.getPermission(
 				params.reportID,
 				params.apiKey
@@ -262,10 +261,10 @@ export const getReport = middyfy(
 
 			report = await ServicesLayer.reportService.getReport(params.reportID);
 
-			if(per !== undefined){
+			if (per !== undefined) {
 				report.permission = per.type;
-			}else{
-				report.permission = 'OWNER';
+			} else {
+				report.permission = "OWNER";
 			}
 
 			return {
@@ -384,7 +383,7 @@ export const getSharedReport = middyfy(
 
 			const re = await ServicesLayer.reportService.getSharedReports(params.apiKey);
 
-			re.map( async report =>{
+			re.map(async (report) => {
 				delete report.apiKey;
 				delete report.resultSetID;
 			});
