@@ -360,11 +360,10 @@ function Home() {
 							<Button text="Search" size="large" handle={search} type="search" />
 						)}
 					</div>
-				</div>
-				{apiResponse.length > 1 && (
-					<div className="flex flex-row flex-wrap justify-around pt-3 pb-3 items-center">
-						<div className="flex flex-row w-1/3 justify-center pb-2">
-							{/* <button
+					{/* {apiResponse.length > 1 && ( */}
+					{/* // <div className="flex flex-row flex-wrap justify-around pt-3 pb-3 items-center"> */}
+					<div className="flex flex-row w-1/3 justify-center items-center pt-3">
+						{/* <button
 						data-testid="btn-generate"
 						type="submit"
 						className="button w-3/4 text-lg p-0.5"
@@ -372,32 +371,47 @@ function Home() {
 					>
 						Generate Report
 					</button> */}
-							{generateLoading && (
-								<button
-									type="button"
-									className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-full items-center"
-									disabled
-								>
-									{/* <svg
+						{apiResponse.length === 1 ? (
+							<button
+								type="button"
+								className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-full items-center disabled"
+								disabled
+							>
+								{/* <svg
 									className="animate-spin h-5 w-5 mr-3 bg-white"
 									viewBox="0 0 24 24"
 								> */}
-									{/* <!-- ... --> */}
-									{/* </svg> */}
-									{loadIcon}
-								</button>
-							)}
-							{!generateLoading && (
-								<Button
-									text="Generate Report"
-									size="large"
-									handle={generate}
-									type="generate"
-								/>
-							)}
-						</div>
+								{/* <!-- ... --> */}
+								{/* </svg> */}
+								{/* {loadIcon} */}
+								Generate Report
+							</button>
+						) : generateLoading ? (
+							<button
+								type="button"
+								className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-full items-center"
+								disabled
+							>
+								{/* <svg
+									className="animate-spin h-5 w-5 mr-3 bg-white"
+									viewBox="0 0 24 24"
+								> */}
+								{/* <!-- ... --> */}
+								{/* </svg> */}
+								{loadIcon}
+							</button>
+						) : (
+							<Button
+								text="Generate Report"
+								size="large"
+								handle={generate}
+								type="generate"
+							/>
+						)}
 					</div>
-				)}
+					{/* // </div> */}
+					{/* )} */}
+				</div>
 
 				{loading && <div className="flex flex-row justify-center my-2">{loadIcon}</div>}
 				{/* Api response comes here */}
