@@ -9,9 +9,11 @@ import { HiOutlineLogin } from "react-icons/hi";
 import { AiOutlineHistory } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 function Navigation(props: any) {
 	const { setAuth } = useAuth();
+	const axiosPrivate = useAxiosPrivate();
 	const navigate = useNavigate();
 
 	// style for the icons
@@ -21,9 +23,13 @@ function Navigation(props: any) {
 		localStorage.setItem("page", prop);
 	};
 
-	const logout = () => {
+	const logout = async () => {
 		localStorage.clear();
-		setAuth({});
+		const controller = new AbortController();
+		try {
+			await axiosPrivate.get("logout", { signal: controller.signal });
+		} catch (error) {}
+		setAuth(null);
 		navigate("/login");
 	};
 
@@ -31,7 +37,11 @@ function Navigation(props: any) {
 		<div className="text-2xl fixed top-20 mt-5 lg:w-40 sm:w-10 2xl:ml-14 xl:ml-3 md:ml-5">
 			<nav>
 				<div className="pt-4 flex flex-row " key={(1).toString()}>
-					<Link to="/" className="flex flex-row" onClick={() => pageHandler("Home")}>
+					<Link
+						to="/"
+						className="flex flex-row items-center"
+						onClick={() => pageHandler("Home")}
+					>
 						<div className="items-end pt ">
 							<GoHome style={style} />
 							{/* <GoHome /> */}
@@ -43,7 +53,7 @@ function Navigation(props: any) {
 				<div className="pt-4 flex flex-row " key={(2).toString()}>
 					<Link
 						to="/explore"
-						className="flex flex-row"
+						className="flex flex-row items-center"
 						onClick={() => pageHandler("Explore")}
 					>
 						<div className="items-end pt-1 ">
@@ -56,7 +66,7 @@ function Navigation(props: any) {
 				<div className="pt-4 flex flex-row " key={(3).toString()}>
 					<Link
 						to="/reports"
-						className="flex flex-row"
+						className="flex flex-row items-center"
 						onClick={() => pageHandler("Published")}
 					>
 						<div className="items-center pt-1 ">
@@ -69,7 +79,7 @@ function Navigation(props: any) {
 				<div className="pt-4 flex flex-row" key={(4).toString()}>
 					<Link
 						to="/drafts"
-						className="flex flex-row"
+						className="flex flex-row items-center"
 						onClick={() => pageHandler("Drafts")}
 					>
 						<div className="items-end pt-1 ">
@@ -82,7 +92,7 @@ function Navigation(props: any) {
 				<div className="pt-4 flex flex-row " key={(5).toString()}>
 					<Link
 						to="/shared"
-						className="flex flex-row"
+						className="flex flex-row items-center"
 						onClick={() => pageHandler("Shared Reports")}
 					>
 						<div className="items-end pt-1 ">
@@ -95,7 +105,7 @@ function Navigation(props: any) {
 				<div className="pt-4 flex flex-row " key={(6).toString()}>
 					<Link
 						to="/history"
-						className="flex flex-row"
+						className="flex flex-row items-center"
 						onClick={() => pageHandler("Search History")}
 					>
 						<div className="items-end pt-1 ">
@@ -108,7 +118,7 @@ function Navigation(props: any) {
 				<div className="pt-4 flex flex-row " key={(7).toString()}>
 					<Link
 						to="/profile"
-						className="flex flex-row"
+						className="flex flex-row items-center"
 						onClick={() => pageHandler("Profile")}
 					>
 						<div className="items-end pt-1 ">

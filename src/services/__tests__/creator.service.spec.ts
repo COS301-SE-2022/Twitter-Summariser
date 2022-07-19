@@ -7,63 +7,64 @@ import { DocumentClient, awsSdkPromiseResponse } from "../../__mocks__/aws-sdk";
 const db = new DocumentClient();
 
 describe("creator.service", () => {
-	beforeAll(() => {
-		jest.useFakeTimers("modern");
-		jest.setSystemTime(new Date(2022, 1, 1));
-	});
+    beforeAll(() => {
+        jest.useFakeTimers("modern");
+        jest.setSystemTime(new Date(2022, 1, 1));
+    });
 
-	beforeEach(() => {
-		awsSdkPromiseResponse.mockReset();
-	});
+    beforeEach(() => {
+        awsSdkPromiseResponse.mockReset();
+    });
 
-	describe("getCreator", () => {
-		test("Get Creator", async () => {
-			const hashed = bcrypt.hashSync("password", 10);
+    describe("getCreator", () => {
+        test("Get Creator", async () => {
+            const hashed = bcrypt.hashSync("password", 10);
 
-			const test: Creator = {
-				apiKey: "njksea",
-				email: "test@gmail.com",
-				username: "test",
-				password: hashed,
-				dateRegistered: "2022-01-01T00:00:00.000Z"
-			};
+            const test: Creator = {
+                apiKey: "njksea",
+                email: "test@gmail.com",
+                username: "test",
+                password: hashed,
+                dateRegistered: "2022-01-01T00:00:00.000Z",
+                RefreshAccessToken: ""
+            };
 
-			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Item: [test] }));
+            awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Item: [test] }));
 
-			const creator: Creator = await CreatorServices.creatorService.getCreator(
-				"test@gmail.com"
-			);
+            const creator: Creator = await CreatorServices.creatorService.getCreator(
+                "test@gmail.com"
+            );
 
-			expect(db.get).toHaveBeenCalledWith({
-				TableName: "CreatorTable",
-				Key: {
-					email: "test@gmail.com"
-				}
-			});
+            expect(db.get).toHaveBeenCalledWith({
+                TableName: "CreatorTable",
+                Key: {
+                    email: "test@gmail.com"
+                }
+            });
 
-			expect(creator).toEqual([test]);
-		});
+            expect(creator).toEqual([test]);
+        });
 
-		test("Get item from empty table", async () => {
-			expect.assertions(1);
+        test("Get item from empty table", async () => {
+            expect.assertions(1);
 
-			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Items: [] }));
+            awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Items: [] }));
 
-			const creator: Creator = await CreatorServices.creatorService.getCreator(
-				"test@gmail.com"
-			);
+            const creator: Creator = await CreatorServices.creatorService.getCreator(
+                "test@gmail.com"
+            );
 
-			expect(creator).toEqual(undefined);
-			/*
+            expect(creator).toEqual(undefined);
+            /*
             try {
                 await CreatorServices.creatorService.getCreator("test@gmail.com");
             } catch (e) {
                 expect(e.message).toBe("creator test@gmail.com not found");
             }
             */
-		});
+        });
 
-		/*
+        /*
         test("Creator does not exist", async () => {
 
 
@@ -86,7 +87,7 @@ describe("creator.service", () => {
         })
         */
 
-		/*
+        /*
         test("Wrong credentials given", async () => {
             const hashed = bcrypt.hashSync("password", 10);
 
@@ -108,27 +109,28 @@ describe("creator.service", () => {
             }
         })
         */
-	});
+    });
 
-	describe("addCreator", () => {
-		test("Add Creator", async () => {
-			const creator: Creator = {
-				apiKey: "njksea",
-				email: "test@gmail.com",
-				username: "test",
-				password: "password",
-				dateRegistered: "2022-01-01T00:00:00.000Z"
-			};
+    describe("addCreator", () => {
+        test("Add Creator", async () => {
+            const creator: Creator = {
+                apiKey: "njksea",
+                email: "test@gmail.com",
+                username: "test",
+                password: "password",
+                dateRegistered: "2022-01-01T00:00:00.000Z",
+                RefreshAccessToken: ""
+            };
 
-			await CreatorServices.creatorService.addCreator(creator);
-			expect(db.put).toHaveBeenCalledWith({
-				TableName: "CreatorTable",
-				Item: creator,
-				ConditionExpression: "email <> :email",
-				ExpressionAttributeValues: {
-					":email": "test@gmail.com"
-				}
-			});
-		});
-	});
+            await CreatorServices.creatorService.addCreator(creator);
+            expect(db.put).toHaveBeenCalledWith({
+                TableName: "CreatorTable",
+                Item: creator,
+                ConditionExpression: "email <> :email",
+                ExpressionAttributeValues: {
+                    ":email": "test@gmail.com"
+                }
+            });
+        });
+    });
 });

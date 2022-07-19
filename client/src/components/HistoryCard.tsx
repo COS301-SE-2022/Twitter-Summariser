@@ -1,56 +1,49 @@
-import { Link } from "react-router-dom";
-// import { MdDeleteOutline } from "react-icons/md";
-
-// importing link
-import link from "../resources/links.json";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Button from "./Button";
 
 function HistoryCard(props: any) {
-	// console.log(props.data);
-
-	// const iconStyle3 = { fontSize: "1.5rem", color: "red" };
+	const axiosPrivate = useAxiosPrivate();
+	const navigate = useNavigate();
+	const location = useLocation();
+	const controller = new AbortController();
 
 	const setResultSet = () => {
-		// console.log(props.data.id);
 		localStorage.setItem("resultSetId", props.data.id);
 	};
 
-	// ######################### API FOR DELETING RESULT SET ###############################################
-
-	let deleteResultSetEndpoint =
-		process.env.NODE_ENV === "development"
-			? String(link.localhostLink)
-			: String(link.serverLink);
-	deleteResultSetEndpoint += "deleteResultSet";
-
-	const deleteResult = (resultInfo: any) => {
-		const requestOptions = {
-			method: "POST",
-			body: JSON.stringify(resultInfo),
-			headers: {
-				Authorization: `${localStorage.getItem("token")}`
-			}
-		};
-
-		fetch(deleteResultSetEndpoint, requestOptions).then(async (response) => {
-			response.headers.get("content-type")?.includes("application/json");
-
-			// isJson && (await response.json());
-		});
-	};
-
-	// #######################################################################
-
-	const deleteHandler = (event: any) => {
-		event.preventDefault();
-
+	const deleteHandler = async () => {
 		const resultDetails = {
 			resultSetID: props.data.id,
 			apiKey: props.data.apiKey
 		};
 
-		deleteResult(resultDetails);
+		try {
+			await axiosPrivate.post("deleteResultSet", JSON.stringify(resultDetails), {
+				signal: controller.signal
+			});
+			props.onChange(true);
+		} catch (error) {
+			navigate("/login", { state: { from: location }, replace: true });
+		}
 	};
+
+	let sort;
+	let filter;
+
+	if (props.data.sortOption === "byLikes") {
+		sort = "By Likes";
+	} else if (props.data.sortOption === "byComments") {
+		sort = "Comments";
+	} else {
+		sort = "Retweets";
+	}
+
+	if (props.data.filterOption === "noneReply") {
+		filter = "None Reply";
+	} else {
+		filter = "Verified Tweets";
+	}
 
 	return (
 		// <div className="">
@@ -82,7 +75,7 @@ function HistoryCard(props: any) {
 		//     </div>
 		// </div>
 		<div className="p-8 bg-white border rounded-lg transform hover:shadow-2xl hover:scale-105 transition duration-200 ease-in">
-			<div className="flex items-center justify-center">
+			{/* <div className="flex items-center justify-center">
 				<p aria-label="Author" title="Author" className="mr-3 ">
 					<img
 						src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
@@ -101,18 +94,28 @@ function HistoryCard(props: any) {
 					<p className="text-sm font-medium leading-4 text-gray-600">Author</p>
 				</div>
 			</div>
-			<br></br>
+			<br></br> */}
 
 			<p
 				aria-label="Article"
 				title="Jingle Bells"
 				className="flex items-center justify-center inline-block mb-3 text-2xl font-bold leading-5 text-black transition-colors duration-200 hover:text-deep-purple-accent-400"
 			>
-				{props.data.title}
+				{props.data.searchPhrase}
 			</p>
 			<p className="flex mb-3 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase">
 				<span className=" font-semiboldtext-deep-purple-accent-400">
-					Draft Report - {props.data.dateCreated.substring(4, 16)}
+					History - {props.data.dateCreated.substring(4, 16)}
+				</span>
+			</p>
+			<p className="flex mb-3 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase">
+				<span className=" font-semiboldtext-deep-purple-accent-400">
+					Sorted By - {sort}
+				</span>
+			</p>
+			<p className="flex mb-3 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase">
+				<span className=" font-semiboldtext-deep-purple-accent-400">
+					Filtered By - {filter}
 				</span>
 			</p>
 			<div className="justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
@@ -121,7 +124,7 @@ function HistoryCard(props: any) {
 					<div className="w-full rounded-full sm:w-auto focus:ring-4 focus:outline-none inline-flex items-center justify-center px-4 py-2.5 ">
 						<div className="text-left">
 							<Button
-								text="VIEW REPORT"
+								text="VIEW HISTORY"
 								size="small"
 								handle={setResultSet}
 								type="view"
@@ -135,7 +138,7 @@ function HistoryCard(props: any) {
 						<p className="font-bold">DELETE REPORT</p>
 					</button> */}
 					<Button
-						text="DELETE REPORT"
+						text="DELETE HISTORY"
 						size="small"
 						handle={deleteHandler}
 						type="delete"

@@ -1,13 +1,12 @@
-import { Link } from "react-router-dom";
-// import { MdDeleteOutline } from "react-icons/md";
-// import Report from "../../resources/Report.png";
-
-// importing link
-import link from "../resources/links.json";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Button from "./Button";
 
 function DraftCard(props: any) {
-	// console.log(props);
+	const axiosPrivate = useAxiosPrivate();
+	const navigate = useNavigate();
+	const location = useLocation();
+	const controller = new AbortController();
 
 	const viewGenReport = () => {
 		if (localStorage.getItem("draftReportId")) {
@@ -18,54 +17,21 @@ function DraftCard(props: any) {
 		}
 	};
 
-	// const iconStyle3 = { fontSize: "1.5rem", color: "red" };
-
-	// const deleteDraftHandler = (event: any) => {
-	const deleteDraftHandler = (event: any) => {
-		// event.preventDefault();
-
+	const deleteDraftHandler = async (event: any) => {
 		const resultDetails = {
 			reportID: props.data.reportID,
 			apiKey: props.data.apiKey
 		};
 
-		deleteDraft(resultDetails);
+		try {
+			await axiosPrivate.post("deleteReport", JSON.stringify(resultDetails), {
+				signal: controller.signal
+			});
+			props.onChange(true);
+		} catch (error) {
+			navigate("/login", { state: { from: location }, replace: true });
+		}
 	};
-
-	// ######################### API FOR DELETING RESULT SET ###############################################
-
-	let deleteDraftEndpoint =
-		process.env.NODE_ENV === "development"
-			? String(link.localhostLink)
-			: String(link.serverLink);
-	deleteDraftEndpoint += "deleteReport";
-
-	const deleteDraft = (resultInfo: any) => {
-		const requestOptions = {
-			method: "POST",
-			body: JSON.stringify(resultInfo),
-			headers: {
-				Authorization: `${localStorage.getItem("token")}`
-			}
-		};
-
-		fetch(deleteDraftEndpoint, requestOptions)
-			.then(async (response) => {
-				const isJson = response.headers.get("content-type")?.includes("application/json");
-
-				isJson && (await response.json());
-
-				// check for error response
-				if (!response.ok) {
-					// error
-
-					return;
-				}
-			})
-			.catch(() => {});
-	};
-
-	// #######################################################################
 
 	return (
 		<div className="p-8 bg-white border rounded-lg transform hover:shadow-2xl hover:scale-105 transition duration-200 ease-in">
