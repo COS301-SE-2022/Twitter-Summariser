@@ -119,7 +119,11 @@ export const getReport = {
 			http: {
 				method: "post",
 				path: "getReport/",
-				cors: true
+				cors: true,
+				authorizer: {
+					name: "verifyJWT",
+					type: "Token"
+				}
 			}
 		}
 	]

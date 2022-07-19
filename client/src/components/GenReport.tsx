@@ -53,7 +53,7 @@ function GenReport() {
 
 	const getRep = async (isMounted: boolean) => {
 		try {
-			const response = await axiosPrivate.post("getReport", requiredData, { signal: controller.signal });
+			const response = await axiosPrivate.post("getReport", JSON.stringify(requiredData), { signal: controller.signal });
 			isMounted && setState(response.data.report.Report);
 			isMounted && setTitle(response.data.report.title);
 			isMounted && setAuthor(response.data.report.author);
