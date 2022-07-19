@@ -3,7 +3,6 @@ import { middyfy } from "@libs/lambda";
 import { randomUUID } from "crypto";
 import { header, statusCodes } from "@functions/resources/APIresponse";
 import ServicesLayer from "../../services";
-import { report } from "superagent";
 
 // Generation of reports
 export const generateReport = middyfy(
