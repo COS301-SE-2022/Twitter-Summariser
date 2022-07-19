@@ -1,27 +1,38 @@
 import "./styles/Splash.css";
 import Logo from "./Logo";
 
+import { useNavigate } from "react-router-dom";
+import Button from "./Button";
+
 // import { useNavigate } from "react-router-dom";
 
 function Splash(props: any) {
-	// const navigate = useNavigate();
+	const navigate = useNavigate();
 
-	const signup = (event: any) => {
-		event.preventDefault();
+	// const signup = (event: any) => {
+	// 	event.preventDefault();
 
-		const sign = {
-			signup: true
-		};
+	// 	const sign = {
+	// 		signup: true
+	// 	};
 
-		props.takeToSignupPage(sign);
-		// navigate("/signup");
+	// 	props.takeToSignupPage(sign);
+	// 	// navigate("/signup");
+	// };
+
+	// const signin = (event: any) => {
+	// 	event.preventDefault();
+
+	// 	props.takeToSigninPage();
+	// 	// navigate("/login")
+	// };
+
+	const loginHandler = () => {
+		navigate("/login");
 	};
 
-	const signin = (event: any) => {
-		event.preventDefault();
-
-		props.takeToSigninPage();
-		// navigate("/login")
+	const signUpHandler = () => {
+		navigate("/signup");
 	};
 
 	return (
@@ -30,49 +41,31 @@ function Splash(props: any) {
 				<Logo width="136px" height="121px" page="login" />
 			</div>
 
-			<div>
-				<h1 className="text-center text-xl font-bold">Welcome to Twitter Summariser</h1>
-			</div>
 			<br />
+
+			<div>
+				<h1 className="text-3xl hidden lg:block">Welcome</h1>
+			</div>
+			{/* <br /> */}
 			{/* unacceptable name notification */}
 			{/*  */}
 			<div>
 				<div className="flex flex-row">&nbsp;</div>
-				{/* <Link to="/signup">
-            <button
-              data-testid="btn-signup"
-              className="button__login text-sm p-0.5 h-10 w-56 bg-black rounded-full text-white"
-            >
-              Sign up
-            </button>
-          </Link> */}
-				<button
-					data-testid="btn-signup"
-					type="submit"
-					className=" text-sky-500"
-					onClick={signup}
-				>
-					&nbsp; Sign up
-				</button>
+				<Button
+					text="Sign Up"
+					size="large"
+					handle={signUpHandler}
+					type="signUp"
+				/>
 
 				<br />
 				<p className="text-sm text-center">Already have an account? </p>
-				{/* <Link to="/login">
-            <button
-              data-testid="btn-login"
-              className="button__login text-sm p-0.5 h-10 w-56 bg-black rounded-full text-white"
-            >
-              Login
-            </button>
-          </Link> */}
-				<button
-					data-testid="btn-signin"
-					type="submit"
-					className=" text-sky-500"
-					onClick={signin}
-				>
-					&nbsp; Log in
-				</button>
+				<Button
+					text="Login"
+					size="large"
+					handle={loginHandler}
+					type="login"
+				/>
 			</div>
 		</div>
 	);
