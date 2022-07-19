@@ -121,7 +121,7 @@ function HistoryCard(props: any) {
 					<div className="w-full rounded-full sm:w-auto focus:ring-4 focus:outline-none inline-flex items-center justify-center px-4 py-2.5 ">
 						<div className="text-left">
 							<Button
-								text="VIEW REPORT"
+								text="VIEW HISTORY"
 								size="small"
 								handle={setResultSet}
 								type="view"
@@ -135,7 +135,7 @@ function HistoryCard(props: any) {
 						<p className="font-bold">DELETE REPORT</p>
 					</button> */}
 					<Button
-						text="DELETE REPORT"
+						text="DELETE HISTORY"
 						size="small"
 						handle={deleteHandler}
 						type="delete"

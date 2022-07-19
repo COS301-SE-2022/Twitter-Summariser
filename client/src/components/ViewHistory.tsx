@@ -32,6 +32,9 @@ function ViewHistory() {
 		changeGenerateLoading(!generateLoading);
 	};
 
+	// handling loading things.........
+	const [pageLoading, changePageLoading] = useState(true);
+
 	const loadIcon = (
 		<svg
 			role="status"
@@ -82,6 +85,7 @@ function ViewHistory() {
 
 				const data = isJson && (await response.json());
 				console.log(data);
+				changePageLoading(false);
 
 				if (!response.ok) {
 					// error
@@ -202,39 +206,44 @@ function ViewHistory() {
 
 	return (
 		<div>
-			{!clicked && (
-				<div>
-					<div className="flex flex-col flex-wrap justify-around pt-3 pb-3 ">
-						{/*  */}
-						<h1 className="text-3xl mt-12">{searchPhrase}</h1>
-
-						<div className="flex flex-col mt-4">
-							<div className="flex flex-row flex-wrap w-auto font-light text-sm italic">
-								<p>Date searched:</p> &nbsp;
-								<p>{date}</p>
-							</div>
-
-							<div className="flex flex-row">
-								<div className="flex flex-row flex-wrap w-auto text-sm">
-									<p className="">Filtered by:</p> &nbsp;
-									<p>{filter}</p>
-								</div>
-
-								{/* this is for the sorting options */}
-								<div className="flex flex-row flex-wrap w-auto text-sm ml-3">
-									<p className="">Sorted:</p> &nbsp;
-									<p>{sort}</p>
-								</div>
-							</div>
-							{/* this is for the Fitlering options */}
-						</div>
+			{!clicked &&
+				(pageLoading ? (
+					<div className="flex flex-row justify-center h-screen items-center">
+						{loadIcon} &nbsp; Loading History
 					</div>
+				) : (
+					<div>
+						<div className="flex flex-col flex-wrap justify-around pt-3 pb-3 ">
+							{/*  */}
+							<h1 className="text-3xl mt-12">{searchPhrase}</h1>
 
-					<div data-testid="result" className="flex flex-col">
-						{apiResponse}
-						<br />
-						<div className="flex flex-row w-full justify-center pt-3 mb-9">
-							{/* <button
+							<div className="flex flex-col mt-4">
+								<div className="flex flex-row flex-wrap w-auto font-light text-sm italic">
+									<p>Date searched:</p> &nbsp;
+									<p>{date}</p>
+								</div>
+
+								<div className="flex flex-row">
+									<div className="flex flex-row flex-wrap w-auto text-sm">
+										<p className="">Filtered by:</p> &nbsp;
+										<p>{filter}</p>
+									</div>
+
+									{/* this is for the sorting options */}
+									<div className="flex flex-row flex-wrap w-auto text-sm ml-3">
+										<p className="">Sorted:</p> &nbsp;
+										<p>{sort}</p>
+									</div>
+								</div>
+								{/* this is for the Fitlering options */}
+							</div>
+						</div>
+
+						<div data-testid="result" className="flex flex-col">
+							{apiResponse}
+							<br />
+							<div className="flex flex-row w-full justify-center pt-3 mb-9">
+								{/* <button
 								data-testid="btn-generate"
 								type="submit"
 								className="button w-3/4 text-lg p-0.5"
@@ -242,33 +251,33 @@ function ViewHistory() {
 							>
 								Generate Report
 							</button> */}
-							{generateLoading && (
-								<button
-									type="button"
-									className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-full items-center"
-									disabled
-								>
-									{/* <svg
+								{generateLoading && (
+									<button
+										type="button"
+										className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-full items-center"
+										disabled
+									>
+										{/* <svg
 									className="animate-spin h-5 w-5 mr-3 bg-white"
 									viewBox="0 0 24 24"
 								> */}
-									{/* <!-- ... --> */}
-									{/* </svg> */}
-									{loadIcon}
-								</button>
-							)}
-							{!generateLoading && (
-								<Button
-									text="Generate Report"
-									size="large"
-									handle={generate}
-									type="generate"
-								/>
-							)}
+										{/* <!-- ... --> */}
+										{/* </svg> */}
+										{loadIcon}
+									</button>
+								)}
+								{!generateLoading && (
+									<Button
+										text="Generate Report"
+										size="large"
+										handle={generate}
+										type="generate"
+									/>
+								)}
+							</div>
 						</div>
 					</div>
-				</div>
-			)}
+				))}
 
 			{clicked && (
 				<div className="mt-4 flex flex-col flex-wrap justify-center">
