@@ -1,7 +1,6 @@
 import Tweet from "@model/tweet/tweet.model";
 
 export default class TweetService {
-	
 	async addTweets(data: any, includes: any, numTweets: number): Promise<Tweet[]> {
 		this;
 		const tweetList: Tweet[] = [];

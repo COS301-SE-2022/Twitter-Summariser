@@ -29,7 +29,7 @@ export const searchTweets = middyfy(
 				user: {
 					fields: ["id", "username", "name"]
 				},
-				sort_order: 'relevancy'
+				sort_order: "relevancy"
 			});
 
 			const dd = new Date();
@@ -82,14 +82,20 @@ export const addCustomTweet = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
 			const params = JSON.parse(event.body);
-			const lastS = params.url.lastIndexOf("/")+1;
+			const lastS = params.url.lastIndexOf("/") + 1;
 			const id = params.url.substring(lastS);
 
-			let tweets = await ServicesLayer.reportService.getReport(params.reportID);
+			const tweets = await ServicesLayer.reportService.getReport(params.reportID);
 
-			let position = tweets.numOfBlocks+1;
+			const position = tweets.numOfBlocks + 1;
 
-			await ServicesLayer.reportBlockService.addReportBlock({blockType: 'TWEET', position: position, reportBlockID: "BK-"+randomUUID(), reportID: params.reportID, tweetID: id })
+			await ServicesLayer.reportBlockService.addReportBlock({
+				blockType: "TWEET",
+				position,
+				reportBlockID: `BK-${  randomUUID()}`,
+				reportID: params.reportID,
+				tweetID: id
+			});
 
 			return {
 				statusCode: statusCodes.Successful,

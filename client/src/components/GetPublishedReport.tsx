@@ -26,7 +26,9 @@ function GetPublishedReport() {
 		};
 
 		try {
-			const response = await axiosPrivate.post("getReport", JSON.stringify(requiredData), { signal: controller.signal });
+			const response = await axiosPrivate.post("getReport", JSON.stringify(requiredData), {
+				signal: controller.signal
+			});
 			isMounted && setPerm(response.data.report.permission);
 			isMounted && setStat(response.data.report.status);
 			isMounted && setState(response.data.report.Report);
@@ -46,7 +48,7 @@ function GetPublishedReport() {
 		return () => {
 			isMounted = false;
 			controller.abort();
-		}
+		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -54,7 +56,6 @@ function GetPublishedReport() {
 		try {
 			await axiosPrivate.post("unpublishReport", JSON.stringify(resultInfo));
 			navigate("/genReport");
-
 		} catch (error) {
 			console.error(error);
 		}
@@ -91,8 +92,8 @@ function GetPublishedReport() {
 	);
 
 	const isOwner = () => {
-		return (perm === "OWNER") ? true : false;
-	}
+		return perm === "OWNER" ? true : false;
+	};
 
 	const loadIcon = (
 		<svg
@@ -131,16 +132,18 @@ function GetPublishedReport() {
 					<br />
 
 					<div className="grid grid-cols gap-4 content-center">{apiResponse}</div>
-					{isOwner() && <div className="flex justify-center mb-4">
-						<Link to="/genReport">
-							<Button
-								text="Unpublish Report"
-								size="large"
-								handle={unpublishHandler}
-								type="unpublish"
-							/>
-						</Link>
-					</div>}
+					{isOwner() && (
+						<div className="flex justify-center mb-4">
+							<Link to="/genReport">
+								<Button
+									text="Unpublish Report"
+									size="large"
+									handle={unpublishHandler}
+									type="unpublish"
+								/>
+							</Link>
+						</div>
+					)}
 				</div>
 			)}
 		</div>
