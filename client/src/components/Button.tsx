@@ -12,22 +12,22 @@ function Button(props: any) {
     const largeStyle = "button_large text-lg p-0.5 h-10 w-60 " + coloursAndEffects;
     const buttonText = props.text;
 
-    const size = (): boolean => {
-        if (props.size === "small") return false;
-        else return true;
-    };
-    const execute = () => {
-        props.handle();
-    };
+	const size = (): boolean => {
+		if (props.size === "small") return false;
+		else return true;
+	};
+	const execute = () => {
+		props.handle();
+	};
 
-    const isDisabled = (): boolean => {
-        return props.disableId === "true";
-    };
+	const isDisabled = (): boolean => {
+		return props.disableId === "true";
+	};
 
-    const type = (): boolean => {
-        if (props.type === "authentication") return false;
-        else return true;
-    };
+	const type = (): boolean => {
+		if (props.type === "authentication") return false;
+		else return true;
+	};
 
     const isDelete = (): boolean => {
         if (props.type === "delete") return true;

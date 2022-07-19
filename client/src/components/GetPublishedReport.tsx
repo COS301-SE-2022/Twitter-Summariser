@@ -12,7 +12,6 @@ import PublishedText from "./PublishedText";
 
 function GetPublishedReport() {
 	const navigate = useNavigate();
-
 	const [state, setState] = useState([]);
 	const [title, setTitle] = useState("");
 	const [author, setAuthor] = useState("");
@@ -120,9 +119,7 @@ function GetPublishedReport() {
 
 	// #######################################################################
 	// const unpublishHandler = (event: any) => {
-	const unpublishHandler = (event: any) => {
-		// event.preventDefault();
-
+	const unpublishHandler = () => {
 		unpublishReport(requiredData);
 		let reportId = String(localStorage.getItem("reportId"));
 		localStorage.setItem("draftReportId", reportId);
