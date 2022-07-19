@@ -110,7 +110,7 @@ function Reports() {
 							data-testid="reports"
 							className="mt-4 flex flex-row flex-wrap justify-center"
 						>
-							{loading && <div>{loadIcon}</div>}
+							{loading && <div>{loadIcon} &nbsp; Loading My Reports</div>}
 
 							{!loading &&
 								(report.length === 0 ? (

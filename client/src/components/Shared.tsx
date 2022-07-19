@@ -92,19 +92,17 @@ function Shared() {
 	return (
 		<div data-testid="shared">
 			{/* Api response comes here */}
-			<div className=" mt-16 p-3 border-l border-gray-200">
+			<div className=" mt-16 p-3">
 				<div className=" mt-4">
 					<h1 className="text-3xl hidden lg:block">Shared With Me</h1>
 
 					<div className="mt-4 flex flex-row flex-wrap justify-center">
 						<div className="mt-4 flex flex-row flex-wrap justify-center">
-							{loading && <div>{loadIcon}</div>}
+							{loading && <div>{loadIcon} &nbsp; Loading Reports Shared with me</div>}
 
 							{!loading &&
 								(report.length === 0 ? (
-									<div>
-										There are no shared with reports with you at the moment{" "}
-									</div>
+									<div>There are no shared reports with you at the moment </div>
 								) : (
 									report.map((data) => (
 										<div
