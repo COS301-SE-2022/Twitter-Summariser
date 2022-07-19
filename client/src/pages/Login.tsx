@@ -88,10 +88,6 @@ function Login() {
 			});
 
 			changeLoading(false);
-			localStorage.setItem("username", response.data.username);
-			localStorage.setItem("token", response.data.accessToken);
-			localStorage.setItem("key", response.data.apiKey);
-			localStorage.setItem("email", response.data.email);
 
 			if (from === "/") localStorage.setItem("page", "Home");
 			else if (from === "/drafts") localStorage.setItem("page", "Drafts");

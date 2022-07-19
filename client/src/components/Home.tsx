@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
+import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Button from "./Button";
 
@@ -81,6 +82,7 @@ function Home() {
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
 	const [generateLoading, changeGenerateLoading] = useState(false);
+	const { auth } = useAuth();
 
 	const searchHandler = (event: any) => {
 		changeEnteredSearch(event.target.value);
@@ -96,8 +98,8 @@ function Home() {
 
 	const genRep = async () => {
 		const searchData = {
-			apiKey: localStorage.getItem("key"),
-			author: localStorage.getItem("username"),
+			apiKey: auth.apiKey,
+			author: auth.username,
 			resultSetID: resultSet
 		};
 
@@ -151,7 +153,7 @@ function Home() {
 
 	const search = () => {
 		const searchData = {
-			apiKey: localStorage.getItem("key"),
+			apiKey: auth.apiKey,
 			keyword: enteredSearch,
 			numOfTweets: noOfTweets,
 			sortBy: sort === "-" ? "-" : sort,
@@ -421,7 +423,7 @@ function Home() {
 									</div>
 									<div className="mt-2">
 										<p className="italic text-xs">
-											{localStorage.getItem("username")}
+											{auth.username}
 										</p>
 									</div>
 									<div className="">
@@ -684,7 +686,7 @@ function Home() {
 		// 							</div>
 		// 							<div className="mt-2">
 		// 								<p className="italic text-xs">
-		// 									{localStorage.getItem("username")}
+		// 									{auth.username}
 		// 								</p>
 		// 							</div>
 		// 							<div className="">
