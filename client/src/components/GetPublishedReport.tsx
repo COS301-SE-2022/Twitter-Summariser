@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
+import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Button from "./Button";
 import PublishedText from "./PublishedText";
@@ -16,12 +17,13 @@ function GetPublishedReport() {
 	const [pageLoading, changePageLoading] = useState(true);
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
+	const { auth } = useAuth();
 
 	let requiredData: { apiKey: string | null; reportID: string | null };
 
 	const getRep = async (isMounted: boolean) => {
 		requiredData = {
-			apiKey: localStorage.getItem("key"),
+			apiKey: auth.apiKey,
 			reportID: localStorage.getItem("reportId")
 		};
 
@@ -52,7 +54,7 @@ function GetPublishedReport() {
 
 	const unpublishReport = async (resultInfo: any) => {
 		try {
-			await axiosPrivate.post("unpublishReport", JSON.stringify(resultInfo));
+			await axiosPrivate.post("unpublishReport", JSON.stringify(resultInfo), { signal: controller.signal });
 			navigate("/genReport");
 
 		} catch (error) {

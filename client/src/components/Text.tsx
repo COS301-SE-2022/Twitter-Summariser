@@ -6,6 +6,7 @@ import { MdDeleteOutline } from "react-icons/md";
 import { GrTextAlignCenter, GrTextAlignLeft, GrTextAlignRight, GrAdd } from "react-icons/gr";
 import { useState } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import useAuth from "../hooks/useAuth";
 
 function Text(props: any) {
 	const axiosPrivate = useAxiosPrivate();
@@ -13,6 +14,7 @@ function Text(props: any) {
 	const textPos = props.data.position;
 	const [italic, setItalic] = useState("");
 	const [bold, setBold] = useState("");
+	const { auth } = useAuth();
 
 	const italicHandler = () => {
 		if (italic === "") {
@@ -124,7 +126,7 @@ function Text(props: any) {
 			text: report,
 			reportID: localStorage.getItem("draftReportId"),
 			position: textPos,
-			apiKey: localStorage.getItem("key")
+			apiKey: auth.apiKey
 		};
 		editText(propsUpdate);
 	};
@@ -143,7 +145,7 @@ function Text(props: any) {
 			styleID: props.data.block.style[0].textStylesID,
 			reportBlockID: props.data.reportBlockID,
 			position: textPos,
-			apiKey: localStorage.getItem("key")
+			apiKey: auth.apiKey
 		};
 		editText(propsSecondUpdate);
 		setSecondEditor(!secondEditor);

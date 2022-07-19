@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import HistoryCard from "./HistoryCard";
 
@@ -8,12 +9,13 @@ function History() {
 	const [shouldRender, changeShouldRender] = useState(false);
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
+	const { auth } = useAuth();
 
 	const getHistory = async (isMounted: boolean) => {
 		try {
 			const response = await axiosPrivate.post(
 				"getAllResultSet",
-				JSON.stringify({ apiKey: localStorage.getItem("key") }),
+				JSON.stringify({ apiKey: auth.apiKey }),
 				{ signal: controller.signal }
 			);
 			isMounted && changeHistory(response.data);

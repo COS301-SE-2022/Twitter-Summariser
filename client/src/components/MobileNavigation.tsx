@@ -11,7 +11,7 @@ import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 function MobileNavigation(props: any) {
-	const { setAuth } = useAuth();
+	const { setAuth, auth } = useAuth();
 	const axiosPrivate = useAxiosPrivate();
 	const navigate = useNavigate();
 	const style = { fontSize: "1.5rem" };
@@ -44,9 +44,9 @@ function MobileNavigation(props: any) {
 					<div className="items-end pl-4 ">
 						<CgProfile style={style} />
 					</div>
-					<div className=" font-bold mt-1 pl-4">{localStorage.getItem("username")}</div>
+					<div className=" font-bold mt-1 pl-4">{auth.username}</div>
 					<div className=" font-light italic text-sm pl-4 mb-1">
-						{localStorage.getItem("email")}
+						{auth.email}
 					</div>
 				</Link>
 			</div>

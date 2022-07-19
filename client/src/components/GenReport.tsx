@@ -9,6 +9,7 @@ import { AiOutlineCheckCircle } from "react-icons/ai";
 import { GrCopy } from "react-icons/gr";
 import Button from "./Button";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import useAuth from "../hooks/useAuth";
 
 function GenReport() {
 	const style = { fontSize: "1.3rem" };
@@ -33,6 +34,7 @@ function GenReport() {
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
 	const navigate = useNavigate();
+	const { auth } = useAuth();
 
 	const shareHandler = () => {
 		setShare(!share);
@@ -48,7 +50,7 @@ function GenReport() {
 	};
 
 	const requiredData = {
-		apiKey: localStorage.getItem("key"),
+		apiKey: auth.apiKey,
 		reportID: localStorage.getItem("draftReportId")
 	};
 
@@ -78,7 +80,7 @@ function GenReport() {
 
 	const publishReport = async (resultInfo: any) => {
 		try {
-			await axiosPrivate.post("publishReport", resultInfo, { signal: controller.signal });
+			await axiosPrivate.post("publishReport", JSON.stringify(resultInfo), { signal: controller.signal });
 			navigate("/getPublishedReport");
 		} catch (error) {
 			console.error(error);
@@ -123,7 +125,7 @@ function GenReport() {
 	);
 
 	const requiredDataForShare = {
-		apiKey: localStorage.getItem("key"),
+		apiKey: auth.apiKey,
 		reportID: localStorage.getItem("draftReportId"),
 		email: enteredShare,
 		type: type
@@ -149,7 +151,7 @@ function GenReport() {
 	const deleteReportHandler = async () => {
 		const resultDetails = {
 			reportID: localStorage.getItem("draftReportId"),
-			apiKey: localStorage.getItem("key")
+			apiKey: auth.apiKey
 		};
 
 		try {

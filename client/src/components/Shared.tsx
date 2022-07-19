@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import SharedCard from "./SharedCard";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import useAuth from "../hooks/useAuth";
 
 function Shared() {
 	const [report, changeReport] = useState<any[]>([]);
 	const [loading, changeLoading] = useState(true);
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
+	const { auth } = useAuth();
 
 	const getSharedReports = async (isMounted: boolean) => {
 		const apiData = {
-			apiKey: localStorage.getItem("key")
+			apiKey: auth.apiKey
 		};
 
 		try {
