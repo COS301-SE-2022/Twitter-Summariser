@@ -17,7 +17,7 @@ export const editBlock = middyfy(
 				!(await ServicesLayer.permissionService.verifyEditor(
 					params.reportID,
 					params.apiKey
-				))
+				)) && !(await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey))
 			) {
 				return {
 					statusCode: statusCodes.unauthorized,
@@ -86,7 +86,7 @@ export const deleteReportBlock = middyfy(
 			const params = JSON.parse(event.body);
 
 			if (
-				await ServicesLayer.permissionService.verifyEditor(params.reportID, params.apiKey)
+				!await ServicesLayer.permissionService.verifyEditor(params.reportID, params.apiKey) && !(await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey))
 			) {
 				await ServicesLayer.reportBlockService.deleteReportBlock(params.reportBlockID);
 			} else {

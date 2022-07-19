@@ -115,8 +115,6 @@ export const reorderTweets = middyfy(
 
 			const tweet2 = await ServicesLayer.reportBlockService.getReportBlocks(params.reportBlockID2);
 
-			
-
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
