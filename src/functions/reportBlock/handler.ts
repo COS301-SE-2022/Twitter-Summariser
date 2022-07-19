@@ -98,9 +98,9 @@ export const deleteReportBlock = middyfy(
 			}
 
 			return {
-				statusCode: statusCodes.no_content,
+				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify("")
+				body: JSON.stringify("Operation Successful")
 			};
 		} catch (e) {
 			return {
