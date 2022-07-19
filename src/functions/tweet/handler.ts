@@ -85,6 +85,12 @@ export const addCustomTweet = middyfy(
 			const lastS = params.url.lastIndexOf("/")+1;
 			const id = params.url.substring(lastS);
 
+			let tweets = await ServicesLayer.reportService.getReport(params.reportID);
+
+			let position = tweets.numOfBlocks+1;
+
+			await ServicesLayer.reportBlockService.addReportBlock({blockType: 'TWEET', position: position, reportBlockID: "BK-"+randomUUID(), reportID: params.reportID, tweetID: id })
+
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
