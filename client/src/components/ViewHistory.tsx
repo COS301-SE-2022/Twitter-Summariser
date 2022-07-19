@@ -20,7 +20,7 @@ function ViewHistory() {
 	const [clicked, changeClicked] = useState(false);
 
 	// handling loading things.........
-	const [loading, changeLoading] = useState(false);
+	// const [loading, changeLoading] = useState(false);
 
 	// const loadingHandler = () => {
 	// 	changeLoading(!loading);
