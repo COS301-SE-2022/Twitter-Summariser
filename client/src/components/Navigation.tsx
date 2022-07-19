@@ -28,7 +28,9 @@ function Navigation(props: any) {
 		const controller = new AbortController();
 		try {
 			await axiosPrivate.get("logout", { signal: controller.signal });
-		} catch (error) {}
+		} catch (error) {
+			console.error(error);
+		}
 		setAuth(null);
 		navigate("/login");
 	};

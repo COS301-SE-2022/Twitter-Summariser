@@ -1,13 +1,7 @@
 import { Link } from "react-router-dom";
-// import { MdDeleteOutline } from "react-icons/md";
-
-// importing link
-// import link from "../../resources/links.json";
 import Button from "./Button";
 
 function SharedCard(props: any) {
-	// console.log(props);
-
 	const viewReport = () => {
 		if (localStorage.getItem("reportId")) {
 			localStorage.removeItem("reportId");
@@ -107,5 +101,3 @@ function SharedCard(props: any) {
 }
 
 export default SharedCard;
-
-// changeDate(await data.Report.dateCreated.substring(0, 10));

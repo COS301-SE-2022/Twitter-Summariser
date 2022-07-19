@@ -107,7 +107,7 @@ function Text(props: any) {
 				signal: controller.signal
 			});
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 		}
 	};
 
