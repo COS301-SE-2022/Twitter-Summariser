@@ -29,6 +29,7 @@ function GenReport() {
 	const [type, changeType] = useState("VIEWER");
 	const [pageLoading, changePageLoading] = useState(true);
 
+	const [shouldRender, changeShouldRender] = useState(false);
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
 	const navigate = useNavigate();
@@ -84,6 +85,12 @@ function GenReport() {
 		}
 	};
 
+	if (shouldRender) {
+		let isMounted: boolean = true;
+		getRep(isMounted);
+		changeShouldRender(false);
+	}
+
 	const publishHandler = () => {
 		publishReport(requiredData);
 		let draftId = String(localStorage.getItem("draftReportId"));
@@ -99,7 +106,7 @@ function GenReport() {
 				{data.blockType === "RICHTEXT" && (
 					<div className="">
 						{" "}
-						<Text keyValue={index} data={data} />{" "}
+						<Text keyValue={index} data={data} onChange={(value: boolean) => changeShouldRender(value)} />{" "}
 					</div>
 				)}
 

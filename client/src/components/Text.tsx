@@ -106,6 +106,7 @@ function Text(props: any) {
 			await axiosPrivate.post("editBlock", JSON.stringify(text), {
 				signal: controller.signal
 			});
+			props.onChange(true);
 		} catch (error) {
 			console.error(error);
 		}
