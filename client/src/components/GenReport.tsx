@@ -37,6 +37,7 @@ function GenReport() {
 	const { auth } = useAuth();
 
 	const shareHandler = () => {
+		setSuccessfulShare(false);
 		setShare(!share);
 	};
 
@@ -56,7 +57,9 @@ function GenReport() {
 
 	const getRep = async (isMounted: boolean) => {
 		try {
-			const response = await axiosPrivate.post("getReport", JSON.stringify(requiredData), { signal: controller.signal });
+			const response = await axiosPrivate.post("getReport", JSON.stringify(requiredData), {
+				signal: controller.signal
+			});
 			isMounted && setState(response.data.report.Report);
 			isMounted && setTitle(response.data.report.title);
 			isMounted && setAuthor(response.data.report.author);
@@ -74,13 +77,15 @@ function GenReport() {
 		return () => {
 			isMounted = false;
 			controller.abort();
-		}
+		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const publishReport = async (resultInfo: any) => {
 		try {
-			await axiosPrivate.post("publishReport", JSON.stringify(resultInfo), { signal: controller.signal });
+			await axiosPrivate.post("publishReport", JSON.stringify(resultInfo), {
+				signal: controller.signal
+			});
 			navigate("/getPublishedReport");
 		} catch (error) {
 			console.error(error);
@@ -108,7 +113,11 @@ function GenReport() {
 				{data.blockType === "RICHTEXT" && (
 					<div className="">
 						{" "}
-						<Text keyValue={index} data={data} onChange={(value: boolean) => changeShouldRender(value)} />{" "}
+						<Text
+							keyValue={index}
+							data={data}
+							onChange={(value: boolean) => changeShouldRender(value)}
+						/>{" "}
 					</div>
 				)}
 
@@ -133,19 +142,26 @@ function GenReport() {
 
 	const shareReport = async (repData: any) => {
 		try {
-			await axiosPrivate.post("shareReport", JSON.stringify(repData), { signal: controller.signal });
-			changeNAN(false);
-			setSuccessfulShare(true);
-			setShare(false);
+			const data = await axiosPrivate.post("shareReport", JSON.stringify(repData), {
+				signal: controller.signal
+			});
+
+			console.log(data);
+
+			if (data.data === "User is not found within system.") {
+				changeNAN(true);
+			} else {
+				changeNAN(false);
+				setSuccessfulShare(true);
+				setShare(false);
+			}
 		} catch (err) {
-			changeNAN(true);
 			console.error(err);
 		}
 	};
 
 	const shareSearchHandler = () => {
-		if (enteredShare !== "")
-			shareReport(requiredDataForShare);
+		if (enteredShare !== "") shareReport(requiredDataForShare);
 	};
 
 	const deleteReportHandler = async () => {
@@ -155,10 +171,11 @@ function GenReport() {
 		};
 
 		try {
-			await axiosPrivate.post("deleteReport", JSON.stringify(resultDetails), { signal: controller.signal });
+			await axiosPrivate.post("deleteReport", JSON.stringify(resultDetails), {
+				signal: controller.signal
+			});
 			navigate("/drafts");
-		}
-		catch (err) {
+		} catch (err) {
 			console.error(err);
 		}
 	};
