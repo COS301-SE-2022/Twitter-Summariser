@@ -145,7 +145,7 @@ export const loginCreator = middyfy(
 				},
 				process.env.ACCESS_TOKEN_SECRET,
 				{
-					expiresIn: "10m"
+					expiresIn: "15s"
 				}
 			);
 
@@ -169,9 +169,8 @@ export const loginCreator = middyfy(
 			);
 
 			if (isCreatorUpdated === true) {
-				const cookieString = `refreshToken=${refreshToken}; Path=/; HttpOnly; max-age=${
-					24 * 60 * 60 * 1000
-				}`;
+				const cookieString = `refreshToken=${refreshToken}; Path=/; HttpOnly; max-age=${24 * 60 * 60 * 1000
+					}`;
 				return {
 					statusCode: statusCodes.Successful,
 					headers: {
@@ -232,12 +231,11 @@ export const refreshToken = async (event, _context, callback) => {
 					},
 					process.env.ACCESS_TOKEN_SECRET,
 					{
-						expiresIn: "1d"
+						expiresIn: "15s"
 					}
 				);
-				const cookieString = `refreshToken=${token}; HttpOnly; max-age=${
-					24 * 60 * 60 * 1000
-				}`;
+				const cookieString = `refreshToken=${token}; Path=/; HttpOnly; max-age=${24 * 60 * 60 * 1000
+					}`;
 
 				return callback(null, {
 					statusCode: statusCodes.Successful,
@@ -276,7 +274,7 @@ export const logoutCreator = async (event, _context, callback) => {
 		if (creator.RefreshAccessToken === token)
 			CreatorServices.creatorService.updateCreator(creator.email, "");
 
-	const cookie = `refreshToken=; HttpOnly; max-age=0`;
+	const cookie = `refreshToken=; Path=/; HttpOnly; max-age=0`;
 	return callback(null, {
 		statusCode: statusCodes.no_content,
 		headers: { ...header, "Set-Cookie": cookie }
