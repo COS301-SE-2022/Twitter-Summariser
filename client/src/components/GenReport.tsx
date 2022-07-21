@@ -37,6 +37,7 @@ function GenReport() {
 	const { auth } = useAuth();
 
 	const shareHandler = () => {
+		setSuccessfulShare(false);
 		setShare(!share);
 	};
 
@@ -82,7 +83,9 @@ function GenReport() {
 
 	const publishReport = async (resultInfo: any) => {
 		try {
-			await axiosPrivate.post("publishReport", JSON.stringify(resultInfo), { signal: controller.signal });
+			await axiosPrivate.post("publishReport", JSON.stringify(resultInfo), {
+				signal: controller.signal
+			});
 			navigate("/getPublishedReport");
 		} catch (error) {
 			console.error(error);
@@ -110,7 +113,11 @@ function GenReport() {
 				{data.blockType === "RICHTEXT" && (
 					<div className="">
 						{" "}
-						<Text keyValue={index} data={data} onChange={(value: boolean) => changeShouldRender(value)} />{" "}
+						<Text
+							keyValue={index}
+							data={data}
+							onChange={(value: boolean) => changeShouldRender(value)}
+						/>{" "}
 					</div>
 				)}
 
@@ -135,14 +142,18 @@ function GenReport() {
 
 	const shareReport = async (repData: any) => {
 		try {
-			await axiosPrivate.post("shareReport", JSON.stringify(repData), {
+			const data = await axiosPrivate.post("shareReport", JSON.stringify(repData), {
 				signal: controller.signal
 			});
-			changeNAN(false);
-			setSuccessfulShare(true);
-			setShare(false);
+
+			if (data.data === "User is not found within system.") {
+				changeNAN(true);
+			} else {
+				changeNAN(false);
+				setSuccessfulShare(true);
+				setShare(false);
+			}
 		} catch (err) {
-			changeNAN(true);
 			console.error(err);
 		}
 	};

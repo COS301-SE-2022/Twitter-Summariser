@@ -1,4 +1,4 @@
-name: "Codecov Coverage"
+name: Codecov Coverage
 
 on:
   workflow_run:
@@ -46,4 +46,4 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     steps:
-      - run: echo 'The Serverless-Deploy workflow failed'
+      - run: echo 'The Serverless Deploy workflow failed. No covrage generated.'

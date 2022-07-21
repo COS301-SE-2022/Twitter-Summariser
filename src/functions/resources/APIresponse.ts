@@ -1,7 +1,11 @@
+const link = process.env.NODE_ENV === "development" ? "*" : "https://d1jfctrgbvoeo1.cloudfront.net";
+
 export const header = {
 	"Content-Type": "application/json",
 	"Access-Control-Allow-Methods": "*",
-	"Access-Control-Allow-Origin": "*"
+	"Access-Control-Allow-Origin": link,
+	"Access-Control-Allow-Headers": "*",
+	"Access-Control-Allow-Credentials": true
 };
 
 export const statusCodes = {

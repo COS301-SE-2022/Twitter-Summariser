@@ -97,6 +97,27 @@ function Text(props: any) {
 		setSecondEditor(!secondEditor);
 	};
 
+	const deleteTextHandler = async () => {
+		const resultDetails = {
+			apiKey: auth.apiKey,
+			reportID: localStorage.getItem("draftReportId"),
+			reportBlockID: props.data.reportBlockID
+		};
+
+		try {
+			await axiosPrivate.post("deleteReportBlock", JSON.stringify(resultDetails), {
+				signal: controller.signal
+			});
+			props.onChange(true);
+			textEditorHandler();
+			secondTextEditorHandler();
+		} catch (err) {
+			console.error(err);
+		}
+
+		setSecondEditor(!secondEditor);
+	};
+
 	const [report, changeReport] = useState("");
 
 	const textHandler = (event: any) => {
@@ -284,7 +305,7 @@ function Text(props: any) {
 								</div>
 
 								<div className="w-1/6 flex text-center justify-center">
-									<button type="button" onClick={secondTextEditorHandler}>
+									<button type="button" onClick={deleteTextHandler}>
 										<MdDeleteOutline style={iconStyle3} />
 									</button>
 								</div>

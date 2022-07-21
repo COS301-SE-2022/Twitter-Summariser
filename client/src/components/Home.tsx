@@ -319,7 +319,7 @@ function Home() {
 				</div>
 				{/* this is for the search button */}
 				<div className="flex flex-row flex-wrap justify-around pt-3 pb-3 items-center">
-					<div className="flex flex-row w-1/3 justify-center items-center pt-3">
+					<div className="pt-3">
 						{/* <button
 						data-testid="btn-search"
 						type="submit"
@@ -331,7 +331,7 @@ function Home() {
 						{loading && (
 							<button
 								type="button"
-								className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-full items-center"
+								className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
 								disabled
 							>
 								{/* <svg
@@ -349,7 +349,7 @@ function Home() {
 					</div>
 					{/* {apiResponse.length > 1 && ( */}
 					{/* // <div className="flex flex-row flex-wrap justify-around pt-3 pb-3 items-center"> */}
-					<div className="flex flex-row w-1/3 justify-center items-center pt-3">
+					<div className="pt-3">
 						{/* <button
 						data-testid="btn-generate"
 						type="submit"
@@ -361,7 +361,7 @@ function Home() {
 						{apiResponse.length === 1 ? (
 							<button
 								type="button"
-								className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-full items-center disabled"
+								className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center disabled"
 								disabled
 							>
 								{/* <svg
@@ -376,7 +376,7 @@ function Home() {
 						) : generateLoading ? (
 							<button
 								type="button"
-								className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-full items-center"
+								className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
 								disabled
 							>
 								{/* <svg

@@ -38,8 +38,8 @@ function App() {
 						<Route path="viewHistory" element={<ViewHistory />} />
 					</Route>
 				</Route>
-				<Route path="*" element={<PageNotFound />} />
 			</Route>
+			<Route path="*" element={<PageNotFound />} />
 		</Routes>
 	);
 }
