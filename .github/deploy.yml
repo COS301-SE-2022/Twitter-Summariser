@@ -1,0 +1,49 @@
+name: Serverless Deploy
+
+on:
+  pull_request:
+    branches:
+      - develop
+    types:
+      - closed
+
+jobs:
+  Serverless-Deploy:
+    if: ${{ github.event.pull_request.merged }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout to develop/master branch
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14.x"
+          cache: 'yarn'
+
+      - name: Build the Twitter Summariser App
+        run:  |
+          cd client
+          yarn
+          CI=false yarn run build
+    
+      - name: Install package dependencies for backend
+        run: yarn
+
+      - name: Serverless Deploy to AWS
+        uses: serverless/github-action@v3
+        with:
+          args: deploy
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Invalidating Cloudfrount S3 Cache
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-east-1
+        run: |
+          npm i @aws-cdk/aws-cloudfront
+          aws cloudfront create-invalidation --distribution-id E3KDSWYR6BGBQ6 --paths "/*" 
