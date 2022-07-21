@@ -20,12 +20,18 @@ export const reportSchduler = middyfy(
 				ScheduleExpression: "",
 			};
 
-			const rule = await eventBridge.putRule(ruleParams).promise;
+			const rule = await eventBridge.putRule(ruleParams).promise();
 
 			// Giving correct permissions
 			const permissionParams = {
-				Action: 'lambda'
+				Action: 'lambda:InvokeFunction',
+				FunctionName: 'generateReportOfSchedule',
+				Principal: 'events.amazonaws.com',
+				StatementId: ruleName,
+				SourceArn: rule.RuleArn,
 			}
+
+			await lambda.addPermission(permissionParams).promise();
 
 			return {
 				statusCode: statusCodes.Successful,
