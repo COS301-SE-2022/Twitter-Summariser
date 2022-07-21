@@ -23,9 +23,7 @@ export const verifyJWT = (event, _context, callback) => {
 		if (!jwtToken || !methodARN)
 			return callback(null, authorizationResponse("MissingElements", "Deny", methodARN));
 
-		const secret = process.env.ACCESS_TOKEN_SECRET;
-		const decoded = jwt.verify(jwtToken, secret);
-
+		const decoded = jwt.verify(jwtToken, process.env.ACCESS_TOKEN_SECRET);
 		if (decoded && decoded.email)
 			return callback(null, authorizationResponse(decoded.email, "Allow", methodARN));
 		return callback(null, authorizationResponse(decoded.email, "Deny", methodARN));

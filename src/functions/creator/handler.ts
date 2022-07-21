@@ -145,7 +145,7 @@ export const loginCreator = middyfy(
 				},
 				process.env.ACCESS_TOKEN_SECRET,
 				{
-					expiresIn: "15s"
+					expiresIn: "10m"
 				}
 			);
 
@@ -231,7 +231,7 @@ export const refreshToken = async (event, _context, callback) => {
 					},
 					process.env.ACCESS_TOKEN_SECRET,
 					{
-						expiresIn: "15s"
+						expiresIn: "10m"
 					}
 				);
 				const cookieString = `refreshToken=${token}; Path=/; HttpOnly; max-age=${24 * 60 * 60 * 1000
