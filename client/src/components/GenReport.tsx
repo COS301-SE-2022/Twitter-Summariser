@@ -146,8 +146,6 @@ function GenReport() {
 				signal: controller.signal
 			});
 
-			console.log(data);
-
 			if (data.data === "User is not found within system.") {
 				changeNAN(true);
 			} else {

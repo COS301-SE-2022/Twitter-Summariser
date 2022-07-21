@@ -108,12 +108,14 @@ function Text(props: any) {
 			await axiosPrivate.post("deleteReportBlock", JSON.stringify(resultDetails), {
 				signal: controller.signal
 			});
+			props.onChange(true);
+			textEditorHandler();
+			secondTextEditorHandler();
 		} catch (err) {
 			console.error(err);
 		}
 
 		setSecondEditor(!secondEditor);
-		// secondUpdate();
 	};
 
 	const [report, changeReport] = useState("");
