@@ -8,7 +8,7 @@ import *  as AWS from 'aws-sdk';
 const eventBridge = new AWS.EventBridge();
 const lambda = new AWS.Lambda();
 
-export const reportSchduler = middyfy(
+export const reportScheduler = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
 			const params = JSON.parse(event.body);
@@ -33,10 +33,23 @@ export const reportSchduler = middyfy(
 
 			await lambda.addPermission(permissionParams).promise();
 
+			// Adding lambda target function
+			const targetParams = {
+				Rule: ruleName,
+				Targets: [{
+					Id: {ruleName}+'-target',
+					Arn: "arn:aws:lambda:"+region+":"+account_id+"function:reportScheduler",
+					Input: "{ 'data': ''}",
+				},
+			 ],
+			}
+
+			const result = await eventBridge.putTargets(targetParams).promise();
+
 			return {
-				statusCode: statusCodes.Successful,
+				statusCode: statusCodes.notImplemented,
 				headers: header,
-				body: JSON.stringify(resultSet)
+				body: JSON.stringify('')
 			};
 		} catch (e) {
 			return {
