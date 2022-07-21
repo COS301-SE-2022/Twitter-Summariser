@@ -1,7 +1,6 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { middyfy } from "@libs/lambda";
-import { header, statusCodes } from "@functions/resources/APIresponse";
-import ServicesLayer from "../../services";
+import  { header, statusCodes, AWSDetails } from "@functions/resources/APIresponse"
 import *  as AWS from 'aws-sdk';
 
 // Importing Lambda Attributes
@@ -38,7 +37,7 @@ export const reportScheduler = middyfy(
 				Rule: ruleName,
 				Targets: [{
 					Id: {ruleName}+'-target',
-					Arn: "arn:aws:lambda:"+region+":"+account_id+"function:reportScheduler",
+					Arn: "arn:aws:lambda:"+AWSDetails.region+":"+AWSDetails.account_id+"function:reportScheduler",
 					Input: "{ 'data': ''}",
 				},
 			 ],
@@ -49,7 +48,7 @@ export const reportScheduler = middyfy(
 			return {
 				statusCode: statusCodes.notImplemented,
 				headers: header,
-				body: JSON.stringify('')
+				body: JSON.stringify(result)
 			};
 		} catch (e) {
 			return {
