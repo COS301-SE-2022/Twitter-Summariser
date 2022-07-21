@@ -37,7 +37,7 @@ const serverlessConfiguration: AWS = {
 	plugins: [
 		"serverless-esbuild",
 		"serverless-dynamodb-local",
-		// "serverless-s3-sync",
+		"serverless-s3-sync",
 		"serverless-offline"
 	],
 	provider: {
@@ -73,7 +73,6 @@ const serverlessConfiguration: AWS = {
 		}
 	},
 
-	// import the function via paths
 	functions: {
 		verifyJWT,
 		getAllCreators,
@@ -131,12 +130,12 @@ const serverlessConfiguration: AWS = {
 			stages: "dev"
 		},
 
-		// s3Sync: [
-		// 	{
-		// 		bucketName: "twitter-summariser",
-		// 		localDir: "client/build/"
-		// 	}
-		// ],
+		s3Sync: [
+			{
+				bucketName: "twitter-summariser",
+				localDir: "client/build/"
+			}
+		],
 
 		"serverless-offline": {
 			httpPort: 4000
@@ -152,6 +151,34 @@ const serverlessConfiguration: AWS = {
 			TextStylesTable,
 			PermissionTable,
 			ScheduleTable,
+
+			GatewayResponseDefault4XX: {
+				Type: "AWS::ApiGateway::GatewayResponse",
+				Properties: {
+					ResponseParameters: {
+						"gatewayresponse.header.Access-Control-Allow-Origin": "'https://d1jfctrgbvoeo1.cloudfront.net'",
+						"gatewayresponse.header.Access-Control-Allow-Headers": "'*'"
+					},
+					ResponseType: "DEFAULT_4XX",
+					RestApiId: {
+						"Ref": "ApiGatewayRestApi"
+					}
+				}
+			},
+
+			GatewayResponseDefault5XX: {
+				Type: "AWS::ApiGateway::GatewayResponse",
+				Properties: {
+					ResponseParameters: {
+						"gatewayresponse.header.Access-Control-Allow-Origin": "'https://d1jfctrgbvoeo1.cloudfront.net'",
+						"gatewayresponse.header.Access-Control-Allow-Headers": "'*'"
+					},
+					ResponseType: "DEFAULT_5XX",
+					RestApiId: {
+						"Ref": "ApiGatewayRestApi"
+					}
+				}
+			},
 
 			TwitterSummariserApp: {
 				Type: "AWS::S3::Bucket",
