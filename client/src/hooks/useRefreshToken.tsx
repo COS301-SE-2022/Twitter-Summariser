@@ -3,9 +3,13 @@ import useAuth from "./useAuth";
 
 function useRefreshToken() {
 	const { setAuth } = useAuth();
+	const controller = new AbortController();
 
 	const refresh = async () => {
-		const response = await axios.get("refresh", { withCredentials: true });
+		const response = await axios.get("refresh", {
+			withCredentials: true,
+			signal: controller.signal
+		});
 		setAuth((prev: any) => {
 			return { ...prev, accessToken: response.data.accessToken };
 		});

@@ -8,6 +8,7 @@ import axios from "../api/ConfigAxios";
 import useAuth from "../hooks/useAuth";
 import { useNavigate, useLocation } from "react-router-dom";
 
+
 interface LocationState {
 	from: {
 		pathname: string;
@@ -17,6 +18,7 @@ interface LocationState {
 function Login() {
 	const navigate = useNavigate();
 	const { setAuth } = useAuth();
+	const controller = new AbortController();
 
 	const isSignup = sessionStorage.getItem("isSignup") === "true";
 	sessionStorage.removeItem("isSignup");
@@ -35,7 +37,6 @@ function Login() {
 	const aStyle = { fontSize: "3rem", color: "red" };
 	const style__ = { fontSize: "1.5rem", color: "green" };
 
-	// handling loading things.........
 	const [loading, changeLoading] = useState(false);
 
 	const loadingHandler = () => {
@@ -84,7 +85,8 @@ function Login() {
 	const checkCredentials = async (userCredentials: any) => {
 		try {
 			const response = await axios.post("login", JSON.stringify(userCredentials), {
-				withCredentials: true
+				withCredentials: true,
+				signal: controller.signal
 			});
 
 			changeLoading(false);
@@ -224,7 +226,11 @@ function Login() {
 						/>
 					)}
 					<br />
-					<p className="text-[#03045E] text-md text-center">
+					<div className="flex items-center mb-4">
+						<input id="default-checkbox" type="checkbox" value="" className="w-5 h-5 text-blue-600 accent-dark-cornflower-blue border rounded-md focus:ring focus:outline-none" />
+						<label htmlFor="default-checkbox" className="ml-2 text-sm font-medium ">Remember this device?</label>
+					</div>
+					<p className="text-[#03045E] text-md text-center font-medium">
 						Do not have an account?
 						<button
 							data-testid="btn-signup"
