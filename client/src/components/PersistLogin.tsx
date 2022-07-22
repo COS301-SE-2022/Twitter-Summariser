@@ -21,7 +21,7 @@ function PersistLogin() {
             }
         }
         !auth.accessToken ? verifyRefreshToken() : setIsLoading(false);
-    }, []);
+    }, [auth.accessToken, navigate, persist, refresh]);
 
 
     return (
