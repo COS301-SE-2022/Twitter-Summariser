@@ -7,12 +7,13 @@ function PersistLogin() {
     const [isLoading, setIsLoading] = useState(true);
     const refresh = useRefreshToken();
     const navigate = useNavigate();
-    const { auth } = useAuth();
+    const { auth, persist } = useAuth();
 
     useEffect(() => {
         const verifyRefreshToken = async () => {
             try {
-                await refresh();
+                if (persist)
+                    await refresh();
             } catch (error) {
                 navigate("/login");
             } finally {
@@ -21,6 +22,7 @@ function PersistLogin() {
         }
         !auth.accessToken ? verifyRefreshToken() : setIsLoading(false);
     }, []);
+
 
     return (
         <>

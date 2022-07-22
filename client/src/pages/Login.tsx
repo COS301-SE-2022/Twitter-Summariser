@@ -17,7 +17,7 @@ interface LocationState {
 
 function Login() {
 	const navigate = useNavigate();
-	const { setAuth } = useAuth();
+	const { setAuth, persist, setPersist } = useAuth();
 	const controller = new AbortController();
 
 	const isSignup = sessionStorage.getItem("isSignup") === "true";
@@ -69,6 +69,17 @@ function Login() {
 	useEffect(() => {
 		setValidPassword(enteredPassword.length > 0);
 	}, [enteredPassword]);
+
+
+
+	const togglePersist = () => {
+		setPersist((prev: any) => !prev);
+	}
+
+	useEffect(() => {
+		localStorage.setItem("persist", persist);
+
+	}, [persist]);
 
 	const usernameHandler = (event: any) => {
 		changeenteredEmail(event.target.value);
@@ -122,8 +133,6 @@ function Login() {
 		event.preventDefault();
 
 		loadingHandler();
-
-		localStorage.clear();
 
 		const userDetails = {
 			email: enteredEmail,
@@ -182,7 +191,6 @@ function Login() {
 						data-testid="username-input"
 						type="text"
 						placeholder="Email"
-						autoComplete="off"
 						required
 						className="w-60 h-10 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E]"
 						onChange={usernameHandler}
@@ -193,7 +201,6 @@ function Login() {
 						data-testid="password-input"
 						type="password"
 						placeholder="Password"
-						autoComplete="new-password"
 						required
 						className="w-60 h-10 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A]"
 						onChange={passwordHandler}
@@ -227,7 +234,7 @@ function Login() {
 					)}
 					<br />
 					<div className="flex items-center mb-4">
-						<input id="default-checkbox" type="checkbox" value="" className="w-5 h-5 text-blue-600 accent-dark-cornflower-blue border rounded-md focus:ring focus:outline-none" />
+						<input id="default-checkbox" type="checkbox" onChange={togglePersist} checked={persist} className="w-5 h-5 text-blue-600 accent-dark-cornflower-blue border rounded-md focus:ring focus:outline-none" />
 						<label htmlFor="default-checkbox" className="ml-2 text-sm font-medium ">Remember this device?</label>
 					</div>
 					<p className="text-[#03045E] text-md text-center font-medium">
