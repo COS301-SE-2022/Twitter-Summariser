@@ -28,7 +28,6 @@ function Splash(props: any) {
 					JSON.stringify({}),
 					{ signal: controller.signal }
 				);
-				console.log(response.data);
 				isMounted && changeReport(response.data);
 				changeLoading(false);
 			} catch (error) {

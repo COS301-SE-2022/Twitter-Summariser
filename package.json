@@ -5,7 +5,6 @@
 	"main": "serverless.ts",
 	"scripts": {
 		"test": "jest --config jest.config.js",
-		"lint:fix": "eslint --fix .",
 		"format": "prettier --write . --config .prettierrc"
 	},
 	"engines": {

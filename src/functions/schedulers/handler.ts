@@ -15,7 +15,7 @@ export const reportScheduler = middyfy(
 				ScheduleExpression: "",
 			};
 
-			const rule = await eventBridge.putRule(ruleParams).promise();
+			//const rule = await eventBridge.putRule(ruleParams).promise();
 
 			// Giving correct permissions
 			const permissionParams = {

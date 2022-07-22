@@ -5,14 +5,14 @@ import MobileNavigation from "../components/MobileNavigation";
 import Logo from "../components/Logo";
 import Navigation from "../components/Navigation";
 import "./styles/Landing.css";
-import useAuth from "../hooks/useAuth";
+import useLogout from "../hooks/useLogout";
 
 function Landing() {
-	const { setAuth } = useAuth();
+	const logout = useLogout();
 	const navigate = useNavigate();
 
-	const logout = () => {
-		setAuth({});
+	const signOut = async () => {
+		await logout();
 		localStorage.clear();
 		navigate("/login");
 	};
@@ -51,7 +51,7 @@ function Landing() {
 			<div className={iconStyle}>
 				<div className="w-3/5 bg-white z-20 flex items-center shadow-2xl shadow-black/75 ">
 					<MobileNavigation
-						logout={logout}
+						logout={signOut}
 						className="z-20"
 						handle={mobileClickHandler}
 						navState={mobileClick}
@@ -73,7 +73,7 @@ function Landing() {
 				<Logo width="60.69px" height="54px" page="landing" />
 
 				{/* Navigation */}
-				<Navigation logout={logout} />
+				<Navigation logout={signOut} />
 			</div>
 
 			{/* second container ######################################################################################################### */}
