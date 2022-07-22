@@ -8,11 +8,11 @@ import { HiOutlineLogin } from "react-icons/hi";
 import { AiOutlineHistory } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import useLogout from "../hooks/useLogout";
 
 function MobileNavigation(props: any) {
-	const { setAuth, auth } = useAuth();
-	const axiosPrivate = useAxiosPrivate();
+	const { auth } = useAuth();
+	const logout = useLogout();
 	const navigate = useNavigate();
 	const style = { fontSize: "1.5rem" };
 
@@ -21,15 +21,9 @@ function MobileNavigation(props: any) {
 		props.handle();
 	};
 
-	const logout = async () => {
+	const signOut = async () => {
+		await logout();
 		localStorage.clear();
-		const controller = new AbortController();
-		try {
-			await axiosPrivate.get("logout", { signal: controller.signal });
-		} catch (error) {
-			console.error(error);
-		}
-		setAuth(null);
 		navigate("/login");
 	};
 
@@ -130,7 +124,7 @@ function MobileNavigation(props: any) {
 				</div>
 
 				<div className="pt-4 flex flex-row items-end">
-					<button type="submit" className="flex flex-row" onClick={logout}>
+					<button type="submit" className="flex flex-row" onClick={signOut}>
 						<div className="items-end pt-1 ">
 							<HiOutlineLogin style={style} />
 						</div>

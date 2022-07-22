@@ -84,7 +84,7 @@ jobs:
       - name: Build the React App
         run:  yarn run build
 
-      - name: Upload client coverage folder & build forder as an artifact
+      - name: Upload client coverage folder as an artifact
         uses: actions/upload-artifact@v3
         with:
           name: client-artifact

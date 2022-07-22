@@ -1,7 +1,6 @@
 import { GoHome } from "react-icons/go";
 import { BiHash } from "react-icons/bi";
 import { TiDocumentText } from "react-icons/ti";
-// import { FaRegClone } from "react-icons/fa";
 import { RiDraftLine } from "react-icons/ri";
 import { CgProfile } from "react-icons/cg";
 import { BsShare } from "react-icons/bs";
@@ -9,29 +8,21 @@ import { HiOutlineLogin } from "react-icons/hi";
 import { AiOutlineHistory } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import useLogout from "../hooks/useLogout";
 
 function Navigation(props: any) {
-	const { setAuth, auth } = useAuth();
-	const axiosPrivate = useAxiosPrivate();
+	const { auth } = useAuth();
+	const logout = useLogout();
 	const navigate = useNavigate();
-
-	// style for the icons
 	const style = { fontSize: "1.5rem" };
 
 	const pageHandler = (prop: string) => {
 		localStorage.setItem("page", prop);
 	};
 
-	const logout = async () => {
+	const signOut = async () => {
+		await logout();
 		localStorage.clear();
-		const controller = new AbortController();
-		try {
-			await axiosPrivate.get("logout", { signal: controller.signal });
-		} catch (error) {
-			console.error(error);
-		}
-		setAuth(null);
 		navigate("/login");
 	};
 
@@ -133,7 +124,7 @@ function Navigation(props: any) {
 				</div>
 
 				<div className="pt-4 flex flex-row items-end">
-					<button type="submit" className="flex flex-row" onClick={logout}>
+					<button type="submit" className="flex flex-row" onClick={signOut}>
 						<div className="items-end pt-1 ">
 							<HiOutlineLogin style={style} />
 						</div>

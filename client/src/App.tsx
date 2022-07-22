@@ -16,6 +16,7 @@ import GenReport from "./components/GenReport";
 import GetPublishedReport from "./components/GetPublishedReport";
 import ViewHistory from "./components/ViewHistory";
 import Splash from "./components/Splash";
+import PersistLogin from "./components/PersistLogin";
 
 function App() {
 	return (
@@ -24,18 +25,20 @@ function App() {
 				<Route path="splash" element={<Splash />} />
 				<Route path="login" element={<Login />} />
 				<Route path="signup" element={<Signup />} />
-				<Route element={<RequiredAuth />}>
-					<Route path="/" element={<Landing />}>
-						<Route path="/" element={<Home />} />
-						<Route path="explore" element={<Explore />} />
-						<Route path="reports" element={<Reports />} />
-						<Route path="drafts" element={<Drafts />} />
-						<Route path="shared" element={<Shared />} />
-						<Route path="profile" element={<Profile />} />
-						<Route path="genReport" element={<GenReport />} />
-						<Route path="getPublishedReport" element={<GetPublishedReport />} />
-						<Route path="history" element={<History />} />
-						<Route path="viewHistory" element={<ViewHistory />} />
+				<Route element={<PersistLogin />} >
+					<Route element={<RequiredAuth />}>
+						<Route path="/" element={<Landing />}>
+							<Route path="/" element={<Home />} />
+							<Route path="explore" element={<Explore />} />
+							<Route path="reports" element={<Reports />} />
+							<Route path="drafts" element={<Drafts />} />
+							<Route path="shared" element={<Shared />} />
+							<Route path="profile" element={<Profile />} />
+							<Route path="genReport" element={<GenReport />} />
+							<Route path="getPublishedReport" element={<GetPublishedReport />} />
+							<Route path="history" element={<History />} />
+							<Route path="viewHistory" element={<ViewHistory />} />
+						</Route>
 					</Route>
 				</Route>
 			</Route>

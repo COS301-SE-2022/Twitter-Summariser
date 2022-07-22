@@ -55,8 +55,6 @@ function GetPublishedReport() {
 	}, []);
 
 	const unpublishReport = async (resultInfo: any) => {
-		console.log(resultInfo);
-
 		try {
 			await axiosPrivate.post("unpublishReport", JSON.stringify(resultInfo), {
 				signal: controller.signal
