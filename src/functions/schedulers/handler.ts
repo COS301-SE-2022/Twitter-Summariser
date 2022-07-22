@@ -1,11 +1,7 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { middyfy } from "@libs/lambda";
 import  { header, statusCodes, AWSDetails } from "@functions/resources/APIresponse"
-import *  as AWS from 'aws-sdk';
-
-// Importing Lambda Attributes
-const eventBridge = new AWS.EventBridge();
-const lambda = new AWS.Lambda();
+import { EventBridgeClient, ActivateEventSourceCommand } from "@aws-sdk/client-eventbridge";
 
 export const reportScheduler = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
