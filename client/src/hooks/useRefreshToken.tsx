@@ -10,9 +10,7 @@ function useRefreshToken() {
 			withCredentials: true,
 			signal: controller.signal
 		});
-		setAuth((prev: any) => {
-			return { ...prev, accessToken: response.data.accessToken };
-		});
+		setAuth((prev: any) => ({ ...prev, accessToken: response.data.accessToken }));
 		return response.data.accessToken;
 	};
 	return refresh;

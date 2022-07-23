@@ -8,11 +8,15 @@ function useLogout() {
     const logout = async () => {
         setAuth({});
         try {
+            console.log("in logout async function");
+
             await axios.get('logout', {
                 withCredentials: true,
                 signal: controller.signal
             });
         } catch (err) {
+            console.log("in logout async function catch. Something went wrong");
+
             console.error(err);
         }
     }

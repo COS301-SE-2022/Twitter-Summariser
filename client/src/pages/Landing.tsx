@@ -73,7 +73,7 @@ function Landing() {
 				<Logo width="60.69px" height="54px" page="landing" />
 
 				{/* Navigation */}
-				<Navigation logout={signOut} />
+				<Navigation />
 			</div>
 
 			{/* second container ######################################################################################################### */}

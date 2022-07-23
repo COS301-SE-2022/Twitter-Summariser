@@ -1,11 +1,11 @@
 import "./styles/Signup.css";
 import { BiErrorCircle } from "react-icons/bi";
 import { useState, useEffect } from "react";
+import { AxiosError } from "axios";
+import { useNavigate } from "react-router-dom";
 import Logo from "../components/Logo";
 import Button from "../components/Button";
 import axios from "../api/ConfigAxios";
-import { AxiosError } from "axios";
-import { useNavigate } from "react-router-dom";
 
 function Signup() {
 	const navigate = useNavigate();
@@ -126,7 +126,7 @@ function Signup() {
 	return (
 		<div
 			data-testid="signup"
-			className="flex justify-center flex-col flex-row items-center h-screen w-screen"
+			className="flex justify-center flex-col items-center h-screen w-screen"
 		>
 			<div>
 				<Logo width="136px" height="121px" page="login" />

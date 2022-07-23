@@ -23,18 +23,6 @@ function ViewHistory() {
 		changeGenerateLoading(!generateLoading);
 	};
 
-	useEffect(() => {
-		let isMounted: boolean = true;
-		getResultSet(isMounted);
-
-		return () => {
-			isMounted = false;
-			controller.abort();
-		};
-
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
 	const getResultSet = async (isMounted: boolean) => {
 		const resultSetData = {
 			apiKey: auth.apiKey,
@@ -57,6 +45,16 @@ function ViewHistory() {
 			console.error(error);
 		}
 	};
+
+	useEffect(() => {
+		let isMounted = true;
+		getResultSet(isMounted);
+
+		return () => {
+			isMounted = false;
+			controller.abort();
+		};
+	}, []);
 
 	const genRep = async () => {
 		const searchData = {

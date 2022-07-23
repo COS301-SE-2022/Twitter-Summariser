@@ -169,7 +169,7 @@ export const loginCreator = middyfy(
 			);
 
 			if (isCreatorUpdated === true) {
-				const cookieString = `refreshToken=${refreshToken}; Path=/; HttpOnly; max-age=${24 * 60 * 60 * 1000
+				const cookieString = `refreshToken=${refreshToken}; Path=/; HttpOnly; Secure; SameSite=None; max-age=${24 * 60 * 60 * 1000
 					}`;
 				return {
 					statusCode: statusCodes.Successful,
@@ -211,8 +211,8 @@ export const refreshToken = async (event, _context, callback) => {
 		});
 
 	const token = cookies.split("refreshToken=")[1].split(";")[0];
-
 	const creatorsArray = await CreatorServices.creatorService.getAllCreators();
+
 	for (const creator of creatorsArray) {
 		if (creator.RefreshAccessToken === token) {
 			jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
@@ -234,7 +234,7 @@ export const refreshToken = async (event, _context, callback) => {
 						expiresIn: "10m"
 					}
 				);
-				const cookieString = `refreshToken=${token}; Path=/; HttpOnly; max-age=${24 * 60 * 60 * 1000
+				const cookieString = `refreshToken=${token}; Path=/; HttpOnly; Secure; SameSite=None; max-age=${24 * 60 * 60 * 1000
 					}`;
 
 				return callback(null, {
@@ -263,18 +263,22 @@ export const refreshToken = async (event, _context, callback) => {
 
 export const logoutCreator = async (event, _context, callback) => {
 	const cookieString = event.headers.Cookie || event.headers.cookie;
-
+	console.log("In logoutCreator");
 	if (!cookieString?.includes("refreshToken"))
 		return callback(null, { statusCode: statusCodes.no_content, headers: header });
 
+	console.log("Cookie found");
 	const token = cookieString.split("refreshToken=")[1].split(";")[0];
 	const creatorsArray = await CreatorServices.creatorService.getAllCreators();
 
-	for (const creator of creatorsArray)
-		if (creator.RefreshAccessToken === token)
+	for (const creator of creatorsArray) {
+		if (creator.RefreshAccessToken === token) {
 			CreatorServices.creatorService.updateCreator(creator.email, "");
+			console.log("Creator logged out");
+		}
+	}
 
-	const cookie = `refreshToken=; Path=/; HttpOnly; max-age=0`;
+	const cookie = `refreshToken=; Path=/; HttpOnly; Secure; SameSite=None; max-age=0`;
 	return callback(null, {
 		statusCode: statusCodes.no_content,
 		headers: { ...header, "Set-Cookie": cookie }
