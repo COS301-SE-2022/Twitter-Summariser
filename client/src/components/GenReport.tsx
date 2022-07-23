@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
-import Text from "./Text";
 import { BsShare } from "react-icons/bs";
 import { BiErrorCircle } from "react-icons/bi";
 import { MdDeleteOutline } from "react-icons/md";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { GrCopy } from "react-icons/gr";
+import Text from "./Text";
 import Button from "./Button";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import useAuth from "../hooks/useAuth";
 
 function GenReport() {
 	const style = { fontSize: "1.3rem" };
-	const style__ = { fontSize: "1.5rem", color: "green" };
+	const styleNew = { fontSize: "1.5rem", color: "green" };
 	const iconStyle3 = { fontSize: "1.5rem", color: "red" };
 	const iconStyle4 = { fontSize: "1.8rem", color: "red" };
 
@@ -93,18 +93,17 @@ function GenReport() {
 	};
 
 	if (shouldRender) {
-		let isMounted: boolean = true;
+		const isMounted = true;
 		getRep(isMounted);
 		changeShouldRender(false);
 	}
 
 	const publishHandler = () => {
 		publishReport(requiredData);
-		let draftId = String(localStorage.getItem("draftReportId"));
+		const draftId = String(localStorage.getItem("draftReportId"));
 		localStorage.setItem("reportId", draftId);
 	};
 
-	// processing api response
 	const apiResponse = [<div key="begining div" />];
 
 	state.map((data: any, index: number) =>
@@ -137,7 +136,7 @@ function GenReport() {
 		apiKey: auth.apiKey,
 		reportID: localStorage.getItem("draftReportId"),
 		email: enteredShare,
-		type: type
+		type
 	};
 
 	const shareReport = async (repData: any) => {
@@ -215,24 +214,24 @@ function GenReport() {
 
 						<div className="flex flex-row items-end p-4 justify-between items-center">
 							<div className="" data-bs-toggle="tooltip" title="Share Report">
-								<button>
+								<button type="submit">
 									<BsShare style={style} onClick={shareHandler} />
 								</button>
 							</div>
 							<div className="">&nbsp;&nbsp;</div>
 							<div className="" data-bs-toggle="tooltip" title="Clone Report">
-								<button>
+								<button type="submit">
 									<GrCopy style={iconStyle3} />
 								</button>
 							</div>
-							<div className=""></div>
+							<div className="" />
 							<div
 								className=""
 								data-bs-toggle="tooltip"
 								title="Delete Report"
 								onClick={deleteReportHandler}
 							>
-								<button>
+								<button type="submit">
 									<MdDeleteOutline style={iconStyle4} />
 								</button>
 							</div>
@@ -365,7 +364,7 @@ function GenReport() {
 
 					{successfulShare && (
 						<div className="flex flex-row border-2 border-green-700 rounded-md bg-green-300 h-auto w-auto w-2/4 ml-6 p-2">
-							<AiOutlineCheckCircle style={style__} />
+							<AiOutlineCheckCircle style={styleNew} />
 							<p>Report shared successfully</p>
 						</div>
 					)}

@@ -27,7 +27,7 @@ function Shared() {
 	};
 
 	useEffect(() => {
-		let isMounted: boolean = true;
+		let isMounted = true;
 		getSharedReports(isMounted);
 
 		return () => {
@@ -40,7 +40,7 @@ function Shared() {
 
 	// #######################################################################
 
-	//EXTRACTING REQUIRED DATA
+	// EXTRACTING REQUIRED DATA
 	// let shared = report
 	// 	.filter(function (data) {
 	// 		return data.status === "VIEWER" || ;

@@ -1,7 +1,4 @@
 import { render, screen } from "@testing-library/react";
-
-// import ReactDOM from 'react-dom';
-
 import Logo from "../../components/Logo";
 
 describe("Rendering Tests For Components in Landing", () => {

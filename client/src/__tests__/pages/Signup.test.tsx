@@ -1,9 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-/* eslint-disable jest/valid-expect */
-import { fireEvent, render, screen } from "@testing-library/react";
-// import ReactDOM from 'react-dom';
-
-import Signup from "../../pages/Signup";
+/* eslint-disable  @typescript-eslint/no-unused-vars */
+import { render, screen } from "@testing-library/react";
 
 describe("Rendering Tests For Components Signup", () => {
 	// Test to see if Signup is rendered

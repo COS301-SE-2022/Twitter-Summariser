@@ -44,7 +44,7 @@ function GetPublishedReport() {
 	};
 
 	useEffect(() => {
-		let isMounted: boolean = true;
+		let isMounted = true;
 		getRep(isMounted);
 
 		return () => {
@@ -72,7 +72,7 @@ function GetPublishedReport() {
 			reportID: localStorage.getItem("reportId")
 		};
 		unpublishReport(requiredData);
-		let reportId = String(localStorage.getItem("reportId"));
+		const reportId = String(localStorage.getItem("reportId"));
 		localStorage.setItem("draftReportId", reportId);
 	};
 
@@ -100,9 +100,7 @@ function GetPublishedReport() {
 		)
 	);
 
-	const isOwner = () => {
-		return perm === "OWNER" ? true : false;
-	};
+	const isOwner = () => perm === "OWNER";
 
 	const loadIcon = (
 		<svg

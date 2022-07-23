@@ -52,7 +52,7 @@ function DraftCard(props: any) {
 					<p className="text-sm font-medium leading-4 text-gray-600">Author</p>
 				</div>
 			</div>
-			<br></br>
+			<br />
 
 			<p
 				aria-label="Article"

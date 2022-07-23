@@ -10,7 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useLogout from "../hooks/useLogout";
 
-function Navigation(props: any) {
+function Navigation() {
 	const { auth } = useAuth();
 	const logout = useLogout();
 	const navigate = useNavigate();

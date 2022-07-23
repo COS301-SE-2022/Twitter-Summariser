@@ -30,7 +30,7 @@ function Reports() {
 	};
 
 	useEffect(() => {
-		let isMounted: boolean = true;
+		let isMounted = true;
 		getReports(isMounted);
 
 		return () => {
@@ -41,7 +41,7 @@ function Reports() {
 	}, []);
 
 	if (shouldRender === true) {
-		let isMounted: boolean = true;
+		const isMounted = true;
 		getReports(isMounted);
 		changeShouldRender(false);
 	}
@@ -65,7 +65,7 @@ function Reports() {
 		</svg>
 	);
 
-	//EXTRACTING REQUIRED DATA
+	// EXTRACTING REQUIRED DATA
 	// let newReport = report.filter(function (data) {
 	//     return data.status === "DRAFT";
 	// }).map(function (data) {
