@@ -78,6 +78,9 @@ jobs:
       - name: Install all frontend package dependencies
         run:  yarn
 
+      - name: Run the linter for frontend
+        run:  yarn lint
+
       - name: Run frontend tests
         run:  yarn test --coverage --watchAll=false
 
