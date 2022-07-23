@@ -62,9 +62,7 @@ function Drafts() {
 		</svg>
 	);
 
-	const newDraft = draft
-		.filter((data) => data.status === "DRAFT")
-		.map((data) => data);
+	const newDraft = draft.filter((data) => data.status === "DRAFT").map((data) => data);
 
 	return (
 		<div>

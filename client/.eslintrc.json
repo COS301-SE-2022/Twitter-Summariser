@@ -73,7 +73,7 @@
         "no-unused-expressions": "off",
         "@typescript-eslint/no-unused-expressions": "off",
         "no-console": [
-            "off",
+            "error",
             {
                 "allow": [
                     "error",

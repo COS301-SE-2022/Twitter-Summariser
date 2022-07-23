@@ -7,10 +7,9 @@ function Button(props: any) {
 		props.disableId === "true"
 			? "bg-crimson rounded-lg text-white  font-semibold opacity-50"
 			: "bg-crimson rounded-lg text-white font-semibold hover:bg-midnight-blue group hover:shadow";
-	const smallStyle = `button_small text-md p-0.5 h-10 w-36 font-semibold ${  coloursAndEffects}`;
-	const smallStyleDelete =
-		`button_small text-md p-0.5 h-10 w-36 font-semibold ${  coloursAndEffectsDelete}`;
-	const largeStyle = `button_large text-lg p-0.5 h-10 w-60 ${  coloursAndEffects}`;
+	const smallStyle = `button_small text-md p-0.5 h-10 w-36 font-semibold ${coloursAndEffects}`;
+	const smallStyleDelete = `button_small text-md p-0.5 h-10 w-36 font-semibold ${coloursAndEffectsDelete}`;
+	const largeStyle = `button_large text-lg p-0.5 h-10 w-60 ${coloursAndEffects}`;
 	const buttonText = props.text;
 
 	const size = (): boolean => {

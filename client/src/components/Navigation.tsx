@@ -117,9 +117,7 @@ function Navigation() {
 						<div className="items-end pt-1 ">
 							<CgProfile style={style} />
 						</div>
-						<div className="hidden lg:block">
-							&nbsp; {auth.username}
-						</div>
+						<div className="hidden lg:block">&nbsp; {auth.username}</div>
 					</Link>
 				</div>
 
