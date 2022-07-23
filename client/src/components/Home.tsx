@@ -245,7 +245,7 @@ function Home() {
 									strokeLinejoin="round"
 									strokeWidth="2"
 									d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-								 />
+								/>
 							</svg>
 						</div>
 						<input
@@ -422,9 +422,7 @@ function Home() {
 										</button>
 									</div>
 									<div className="mt-2">
-										<p className="italic text-xs">
-											{auth.username}
-										</p>
+										<p className="italic text-xs">{auth.username}</p>
 									</div>
 									<div className="">
 										<p className="italic text-xs">{date}</p>

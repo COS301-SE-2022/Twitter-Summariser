@@ -8,7 +8,6 @@ import Button from "../components/Button";
 import axios from "../api/ConfigAxios";
 import useAuth from "../hooks/useAuth";
 
-
 interface LocationState {
 	from: {
 		pathname: string;
@@ -70,15 +69,12 @@ function Login() {
 		setValidPassword(enteredPassword.length > 0);
 	}, [enteredPassword]);
 
-
-
 	const togglePersist = () => {
 		setPersist((prev: any) => !prev);
-	}
+	};
 
 	useEffect(() => {
 		localStorage.setItem("persist", persist);
-
 	}, [persist]);
 
 	const usernameHandler = (event: any) => {
@@ -158,7 +154,8 @@ function Login() {
 			<br />
 			<div>
 				<h1 className="text-[#023E8A] text-center text-xl font-bold">
-					Sign in to <br />Twitter Summariser
+					Sign in to <br />
+					Twitter Summariser
 				</h1>
 			</div>
 			{!isSignup && <br />}
@@ -234,8 +231,16 @@ function Login() {
 					)}
 					<br />
 					<div className="flex items-center mb-4">
-						<input id="default-checkbox" type="checkbox" onChange={togglePersist} checked={persist} className="w-5 h-5 text-blue-600 accent-dark-cornflower-blue border rounded-md focus:ring focus:outline-none" />
-						<label htmlFor="default-checkbox" className="ml-2 text-sm font-medium ">Remember this device?</label>
+						<input
+							id="default-checkbox"
+							type="checkbox"
+							onChange={togglePersist}
+							checked={persist}
+							className="w-5 h-5 text-blue-600 accent-dark-cornflower-blue border rounded-md focus:ring focus:outline-none"
+						/>
+						<label htmlFor="default-checkbox" className="ml-2 text-sm font-medium ">
+							Remember this device?
+						</label>
 					</div>
 					<p className="text-[#03045E] text-md text-center font-medium">
 						Do not have an account?

@@ -1,5 +1,5 @@
 import { Navigate, useLocation, Outlet } from "react-router-dom";
-import jwt from 'jwt-decode';
+import jwt from "jwt-decode";
 import useAuth from "../hooks/useAuth";
 
 function RequiredAuth() {

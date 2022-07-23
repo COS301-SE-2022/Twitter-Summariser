@@ -203,12 +203,13 @@ export const loginCreator = middyfy(
 export const refreshToken = async (event, _context, callback) => {
 	const cookies = event.headers.Cookie || event.headers.cookie;
 
-	if (!cookies?.includes("refreshToken"))
+	if (!cookies?.includes("refreshToken")) {
 		return callback(null, {
 			statusCode: statusCodes.unauthorized,
 			headers: header,
 			body: JSON.stringify({ message: "Missing important token" })
 		});
+	}
 
 	const token = cookies.split("refreshToken=")[1].split(";")[0];
 	const creatorsArray = await CreatorServices.creatorService.getAllCreators();
@@ -263,7 +264,6 @@ export const refreshToken = async (event, _context, callback) => {
 
 export const logoutCreator = async (event, _context, callback) => {
 	const cookieString = event.headers.Cookie || event.headers.cookie;
-	console.log("In logoutCreator");
 	if (!cookieString?.includes("refreshToken"))
 		return callback(null, { statusCode: statusCodes.no_content, headers: header });
 
