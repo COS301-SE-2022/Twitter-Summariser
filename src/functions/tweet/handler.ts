@@ -154,6 +154,13 @@ export const reorderTweets = middyfy(
 			let blocks = await ServicesLayer.reportBlockService.getReportBlocks(params.reportID);
 			blocks = await ServicesLayer.reportBlockService.sortReportBlocks(blocks);
 
+			// Finding tweet to swap
+			let position1 = 0;
+			let position2 = 0;
+
+			// If I get the position:
+			position1 = params.position;
+
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
