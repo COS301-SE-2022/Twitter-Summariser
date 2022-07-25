@@ -5,14 +5,14 @@ import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Button from "./Button";
 
-//needed for new home page - uncomment
+// needed for new home page - uncomment
 // import ExploreCard from "./ExploreCard";
 
 // // importing link
 // import link from "../resources/links.json";
 
 function Home() {
-	//uncomment this for new home page
+	// uncomment this for new home page
 	// const [report, changeReport] = useState<any[]>([]);
 
 	// // ######################### API FOR GETTING reports #####################
@@ -168,9 +168,9 @@ function Home() {
 	};
 
 	const tweetOptions = [];
-	let apiResponse = [<div key="begining div" />];
+	const apiResponse = [<div key="begining div" />];
 
-	for (let index = 1; index <= 100; index++) {
+	for (let index = 5; index <= 100; index += 5) {
 		tweetOptions.push(<option key={index.toString()}>{index}</option>);
 	}
 
@@ -245,7 +245,7 @@ function Home() {
 									strokeLinejoin="round"
 									strokeWidth="2"
 									d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-								></path>
+								/>
 							</svg>
 						</div>
 						<input
@@ -422,9 +422,7 @@ function Home() {
 										</button>
 									</div>
 									<div className="mt-2">
-										<p className="italic text-xs">
-											{auth.username}
-										</p>
+										<p className="italic text-xs">{auth.username}</p>
 									</div>
 									<div className="">
 										<p className="italic text-xs">{date}</p>

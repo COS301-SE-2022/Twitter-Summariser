@@ -26,7 +26,7 @@ function History() {
 	};
 
 	useEffect(() => {
-		let isMounted: boolean = true;
+		let isMounted = true;
 		getHistory(isMounted);
 
 		return () => {
@@ -37,7 +37,7 @@ function History() {
 	}, []);
 
 	if (shouldRender === true) {
-		let isMounted: boolean = true;
+		const isMounted = true;
 		getHistory(isMounted);
 		changeShouldRender(false);
 	}

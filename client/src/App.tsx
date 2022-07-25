@@ -25,7 +25,7 @@ function App() {
 				<Route path="splash" element={<Splash />} />
 				<Route path="login" element={<Login />} />
 				<Route path="signup" element={<Signup />} />
-				<Route element={<PersistLogin />} >
+				<Route element={<PersistLogin />}>
 					<Route element={<RequiredAuth />}>
 						<Route path="/" element={<Landing />}>
 							<Route path="/" element={<Home />} />

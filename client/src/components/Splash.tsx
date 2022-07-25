@@ -1,16 +1,12 @@
 import "./styles/Splash.css";
-import Logo from "./Logo";
-
-import Button from "./Button";
-
 import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import Logo from "./Logo";
+import Button from "./Button";
 import ExploreCard from "./ExploreCard";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import { useLocation, useNavigate } from "react-router-dom";
 
-// import { useNavigate } from "react-router-dom";
-
-function Splash(props: any) {
+function Splash() {
 	const [report, changeReport] = useState<any[]>([]);
 	const [loading, changeLoading] = useState(true);
 	const axiosPrivate = useAxiosPrivate();

@@ -26,7 +26,7 @@ function Drafts() {
 	};
 
 	useEffect(() => {
-		let isMounted: boolean = true;
+		let isMounted = true;
 		getHistory(isMounted);
 
 		return () => {
@@ -38,7 +38,7 @@ function Drafts() {
 	}, []);
 
 	if (shouldRender === true) {
-		let isMounted: boolean = true;
+		const isMounted = true;
 		getHistory(isMounted);
 		changeShouldRender(false);
 	}
@@ -62,13 +62,7 @@ function Drafts() {
 		</svg>
 	);
 
-	let newDraft = draft
-		.filter(function (data) {
-			return data.status === "DRAFT";
-		})
-		.map(function (data) {
-			return data;
-		});
+	const newDraft = draft.filter((data) => data.status === "DRAFT").map((data) => data);
 
 	return (
 		<div>

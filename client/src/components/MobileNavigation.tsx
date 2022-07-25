@@ -23,6 +23,7 @@ function MobileNavigation(props: any) {
 
 	const signOut = async () => {
 		await logout();
+		auth.accessToken = undefined;
 		localStorage.clear();
 		navigate("/login");
 	};
@@ -39,9 +40,7 @@ function MobileNavigation(props: any) {
 						<CgProfile style={style} />
 					</div>
 					<div className=" font-bold mt-1 pl-4">{auth.username}</div>
-					<div className=" font-light italic text-sm pl-4 mb-1">
-						{auth.email}
-					</div>
+					<div className=" font-light italic text-sm pl-4 mb-1">{auth.email}</div>
 				</Link>
 			</div>
 

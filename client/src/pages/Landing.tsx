@@ -6,13 +6,16 @@ import Logo from "../components/Logo";
 import Navigation from "../components/Navigation";
 import "./styles/Landing.css";
 import useLogout from "../hooks/useLogout";
+import useAuth from "../hooks/useAuth";
 
 function Landing() {
+	const { auth } = useAuth();
 	const logout = useLogout();
 	const navigate = useNavigate();
 
 	const signOut = async () => {
 		await logout();
+		auth.accessToken = undefined;
 		localStorage.clear();
 		navigate("/login");
 	};
@@ -73,7 +76,7 @@ function Landing() {
 				<Logo width="60.69px" height="54px" page="landing" />
 
 				{/* Navigation */}
-				<Navigation logout={signOut} />
+				<Navigation />
 			</div>
 
 			{/* second container ######################################################################################################### */}

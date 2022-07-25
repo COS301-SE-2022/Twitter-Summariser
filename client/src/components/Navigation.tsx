@@ -10,7 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useLogout from "../hooks/useLogout";
 
-function Navigation(props: any) {
+function Navigation() {
 	const { auth } = useAuth();
 	const logout = useLogout();
 	const navigate = useNavigate();
@@ -22,6 +22,7 @@ function Navigation(props: any) {
 
 	const signOut = async () => {
 		await logout();
+		auth.accessToken = undefined;
 		localStorage.clear();
 		navigate("/login");
 	};
@@ -117,9 +118,7 @@ function Navigation(props: any) {
 						<div className="items-end pt-1 ">
 							<CgProfile style={style} />
 						</div>
-						<div className="hidden lg:block">
-							&nbsp; {auth.username}
-						</div>
+						<div className="hidden lg:block">&nbsp; {auth.username}</div>
 					</Link>
 				</div>
 

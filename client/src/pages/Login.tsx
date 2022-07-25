@@ -2,12 +2,11 @@ import "./styles/Login.css";
 import { BiErrorCircle } from "react-icons/bi";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import Logo from "../components/Logo";
 import Button from "../components/Button";
 import axios from "../api/ConfigAxios";
 import useAuth from "../hooks/useAuth";
-import { useNavigate, useLocation } from "react-router-dom";
-
 
 interface LocationState {
 	from: {
@@ -35,7 +34,7 @@ function Login() {
 
 	const bStyle = { fontSize: "1.5rem", color: "red" };
 	const aStyle = { fontSize: "3rem", color: "red" };
-	const style__ = { fontSize: "1.5rem", color: "green" };
+	const style = { fontSize: "1.5rem", color: "green" };
 
 	const [loading, changeLoading] = useState(false);
 
@@ -70,15 +69,12 @@ function Login() {
 		setValidPassword(enteredPassword.length > 0);
 	}, [enteredPassword]);
 
-
-
 	const togglePersist = () => {
 		setPersist((prev: any) => !prev);
-	}
+	};
 
 	useEffect(() => {
 		localStorage.setItem("persist", persist);
-
 	}, [persist]);
 
 	const usernameHandler = (event: any) => {
@@ -110,10 +106,10 @@ function Login() {
 			else if (from === "/shared") localStorage.setItem("page", "Shared Reports");
 			else if (from === "/history") localStorage.setItem("page", "Search History");
 
-			const username = response.data.username;
-			const accessToken = response.data.accessToken;
-			const apiKey = response.data.apiKey;
-			const email = response.data.email;
+			const { username } = response.data;
+			const { accessToken } = response.data;
+			const { apiKey } = response.data;
+			const { email } = response.data;
 			await setAuth({ username, accessToken, apiKey, email });
 			navigate(from, { replace: true });
 		} catch (err) {
@@ -158,13 +154,14 @@ function Login() {
 			<br />
 			<div>
 				<h1 className="text-[#023E8A] text-center text-xl font-bold">
-					Sign in to <br></br>Twitter Summariser
+					Sign in to <br />
+					Twitter Summariser
 				</h1>
 			</div>
 			{!isSignup && <br />}
 			{isSignup && (
 				<div className="flex flex-row border-2 border-green-700 rounded-md bg-green-300 h-auto mini-tablet:w-auto w-60 m-4 mb- p-2">
-					<AiOutlineCheckCircle style={style__} className="mini-tablet:mt-0 mt-3" />
+					<AiOutlineCheckCircle style={style} className="mini-tablet:mt-0 mt-3" />
 					<p className="pl-5 items-center justify-center">
 						Ready to Explore Twitter Summarizer
 					</p>
@@ -234,8 +231,16 @@ function Login() {
 					)}
 					<br />
 					<div className="flex items-center mb-4">
-						<input id="default-checkbox" type="checkbox" onChange={togglePersist} checked={persist} className="w-5 h-5 text-blue-600 accent-dark-cornflower-blue border rounded-md focus:ring focus:outline-none" />
-						<label htmlFor="default-checkbox" className="ml-2 text-sm font-medium ">Remember this device?</label>
+						<input
+							id="default-checkbox"
+							type="checkbox"
+							onChange={togglePersist}
+							checked={persist}
+							className="w-5 h-5 text-blue-600 accent-dark-cornflower-blue border rounded-md focus:ring focus:outline-none"
+						/>
+						<label htmlFor="default-checkbox" className="ml-2 text-sm font-medium ">
+							Remember this device?
+						</label>
 					</div>
 					<p className="text-[#03045E] text-md text-center font-medium">
 						Do not have an account?

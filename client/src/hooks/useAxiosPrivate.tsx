@@ -1,5 +1,5 @@
-import axiosPrivate from "../api/ConfigAxios";
 import { useEffect } from "react";
+import axiosPrivate from "../api/ConfigAxios";
 import useRefreshToken from "./useRefreshToken";
 import useAuth from "./useAuth";
 
@@ -14,9 +14,7 @@ const useAxiosPrivate = () => {
 					(config.headers as any).Authorization = `${auth?.accessToken}`;
 				return config;
 			},
-			(error) => {
-				return Promise.reject(error);
-			}
+			(error) => Promise.reject(error)
 		);
 
 		const responseInterceptor = axiosPrivate.interceptors.response.use(
