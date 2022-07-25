@@ -150,8 +150,9 @@ export const reorderTweets = middyfy(
 				tweet1.position
 			);*/
 
-			const blocks = await ServicesLayer.reportBlockService.getReportBlocks(params.reportID);
-			await ServicesLayer.reportBlockService.sortReportBlocks(blocks);
+			// Retrieving Blocks
+			let blocks = await ServicesLayer.reportBlockService.getReportBlocks(params.reportID);
+			blocks = await ServicesLayer.reportBlockService.sortReportBlocks(blocks);
 
 			return {
 				statusCode: statusCodes.Successful,
