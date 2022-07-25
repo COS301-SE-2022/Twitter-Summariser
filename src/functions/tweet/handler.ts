@@ -170,7 +170,7 @@ export const reorderTweets = middyfy(
 			}
 
 			// Getting the new Position
-			if(params === 'UP'){
+			if(params.newPlace === 'UP'){
 				position2 = position1-1;
 			}else{
 				position2 = position1+1;
