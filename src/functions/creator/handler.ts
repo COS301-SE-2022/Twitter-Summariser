@@ -267,16 +267,12 @@ export const logoutCreator = async (event, _context, callback) => {
 	if (!cookieString?.includes("refreshToken"))
 		return callback(null, { statusCode: statusCodes.no_content, headers: header });
 
-	console.log("Cookie found");
 	const token = cookieString.split("refreshToken=")[1].split(";")[0];
 	const creatorsArray = await CreatorServices.creatorService.getAllCreators();
 
-	for (const creator of creatorsArray) {
-		if (creator.RefreshAccessToken === token) {
+	for (const creator of creatorsArray)
+		if (creator.RefreshAccessToken === token)
 			CreatorServices.creatorService.updateCreator(creator.email, "");
-			console.log("Creator logged out");
-		}
-	}
 
 	const cookie = `refreshToken=; Path=/; HttpOnly; Secure; SameSite=None; max-age=0`;
 	return callback(null, {
