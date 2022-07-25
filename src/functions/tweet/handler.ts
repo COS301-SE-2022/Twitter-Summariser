@@ -176,6 +176,16 @@ export const reorderTweets = middyfy(
 				position2 = position1+1;
 			}
 
+			// Swap Tweets
+			await ServicesLayer.reportBlockService.updatePosition(
+				blocks[position1].reportBlockID,
+				blocks[position2].position
+			);
+
+			await ServicesLayer.reportBlockService.updatePosition(
+				blocks[position2].reportBlockID,
+				blocks[position1].position
+			);
 
 			return {
 				statusCode: statusCodes.Successful,
