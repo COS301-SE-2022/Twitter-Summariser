@@ -75,7 +75,7 @@ export default class ReportBlockService {
 			.promise();
 	}
 
-	async sortReportBlocks(reportBlocks: any[]): Promise<any[]> {
+	async sortReportBlocks(reportBlocks: ReportBlock[]): Promise<ReportBlock[]> {
 		this;
 		reportBlocks.sort((a, b) => {
 			if (a.position > b.position) return 1;
