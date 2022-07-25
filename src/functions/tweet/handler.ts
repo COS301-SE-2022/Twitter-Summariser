@@ -169,6 +169,14 @@ export const reorderTweets = middyfy(
 				}
 			}
 
+			// Getting the new Position
+			if(params === 'UP'){
+				position2 = position1-1;
+			}else{
+				position2 = position1+1;
+			}
+
+
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
