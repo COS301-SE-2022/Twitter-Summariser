@@ -132,7 +132,7 @@ export const reorderTweets = middyfy(
 				};
 			}
 
-			const tweet1 = await ServicesLayer.reportBlockService.getReportBlock(
+			/*const tweet1 = await ServicesLayer.reportBlockService.getReportBlock(
 				params.reportBlockID1
 			);
 
@@ -148,7 +148,9 @@ export const reorderTweets = middyfy(
 			await ServicesLayer.reportBlockService.updatePosition(
 				tweet2.reportBlockID,
 				tweet1.position
-			);
+			);*/
+
+			
 
 			return {
 				statusCode: statusCodes.Successful,
