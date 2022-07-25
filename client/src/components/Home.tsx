@@ -170,7 +170,7 @@ function Home() {
 	const tweetOptions = [];
 	const apiResponse = [<div key="begining div" />];
 
-	for (let index = 1; index <= 100; index++) {
+	for (let index = 5; index <= 100; index += 5) {
 		tweetOptions.push(<option key={index.toString()}>{index}</option>);
 	}
 
