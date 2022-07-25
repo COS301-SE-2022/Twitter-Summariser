@@ -118,7 +118,7 @@ export const cloneReport = middyfy(
 					report.status,
 					params.apiKey,
 					report.reportID
-				))
+				)) && !(await ServicesLayer.reportService.verifyOwner(oldReportId, params.apiKey))
 			) {
 				return {
 					statusCode: statusCodes.unauthorized,
