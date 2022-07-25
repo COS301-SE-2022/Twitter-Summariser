@@ -161,6 +161,14 @@ export const reorderTweets = middyfy(
 			// If I get the position:
 			position1 = params.position;
 
+			// If I don't get the position:
+			for(let i =0; i < blocks.length; i++){
+				if(blocks[i] === params.tweetID){
+					position1 = i;
+					break;
+				}
+			}
+
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
