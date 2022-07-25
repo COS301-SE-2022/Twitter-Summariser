@@ -1,4 +1,1 @@
-
-module.exports.generateReportOfSchedule = async (event) =>{
-    
-}
+module.exports.generateReportOfSchedule = async (event) => {};

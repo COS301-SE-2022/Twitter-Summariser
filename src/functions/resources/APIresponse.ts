@@ -33,4 +33,4 @@ export const statusCodes = {
 export const AWSDetails = {
 	region: "",
 	account_id: ""
-}
+};
