@@ -177,6 +177,22 @@ function GenReport() {
 		}
 	};
 
+	const cloneReportHandler = async () => {
+		const resultDetails = {
+			reportID: localStorage.getItem("draftReportId"),
+			apiKey: auth.apiKey
+		};
+
+		try {
+			await axiosPrivate.post("cloneReport", JSON.stringify(resultDetails), {
+				signal: controller.signal
+			});
+			navigate("/drafts");
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
 	const loadIcon = (
 		<svg
 			role="status"
@@ -219,7 +235,17 @@ function GenReport() {
 								</button>
 							</div>
 							<div className="">&nbsp;&nbsp;</div>
-							<div className="" data-bs-toggle="tooltip" title="Clone Report">
+							{/* <div className="" data-bs-toggle="tooltip" title="Clone Report">
+								<button type="submit">
+									<GrCopy style={iconStyle3} />
+								</button>
+							</div> */}
+							<div
+								className=""
+								data-bs-toggle="tooltip"
+								title="Clone Report"
+								onClick={cloneReportHandler}
+							>
 								<button type="submit">
 									<GrCopy style={iconStyle3} />
 								</button>
