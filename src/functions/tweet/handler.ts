@@ -163,7 +163,7 @@ export const reorderTweets = middyfy(
 
 			// If I don't get the position:
 			for(let i =0; i < blocks.length; i++){
-				if(blocks[i] === params.tweetID){
+				if(blocks[i].tweetID === params.tweetID){
 					position1 = i;
 					break;
 				}
