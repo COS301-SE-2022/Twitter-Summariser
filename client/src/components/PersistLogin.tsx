@@ -13,6 +13,7 @@ function PersistLogin() {
 		const verifyRefreshToken = async () => {
 			try {
 				if (persist && auth.accessToken !== undefined) await refresh();
+				else navigate("/login");
 			} catch (error) {
 				navigate("/login");
 			} finally {
