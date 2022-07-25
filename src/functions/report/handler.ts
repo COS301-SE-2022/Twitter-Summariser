@@ -118,7 +118,8 @@ export const cloneReport = middyfy(
 					report.status,
 					params.apiKey,
 					report.reportID
-				))
+				)) &&
+				!(await ServicesLayer.reportService.verifyOwner(oldReportId, params.apiKey))
 			) {
 				return {
 					statusCode: statusCodes.unauthorized,
@@ -152,7 +153,7 @@ export const cloneReport = middyfy(
 				temp.reportBlockID = `BK-${randomUUID()}`;
 
 				// Cloning blocks
-				if (temp.blockType === "RICHTEXT") {
+				if (block.blockType === "RICHTEXT") {
 					// Cloning Text
 					temp.richText = block.richText;
 
