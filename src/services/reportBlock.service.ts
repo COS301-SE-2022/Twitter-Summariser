@@ -67,9 +67,12 @@ export default class ReportBlockService {
 				Key: {
 					reportBlockID: id
 				},
-				UpdateExpression: "SET position = :position",
+				UpdateExpression: "SET #position = :position",
 				ExpressionAttributeValues: {
 					":position": position
+				},
+				ExpressionAttributeNames: {
+					"#position": "position"
 				}
 			})
 			.promise();

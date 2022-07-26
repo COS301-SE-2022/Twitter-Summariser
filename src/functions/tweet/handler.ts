@@ -4,6 +4,7 @@ import { randomUUID } from "crypto";
 import { header, statusCodes } from "@functions/resources/APIresponse";
 import { clientV2 } from "../resources/twitterV2.client";
 import ServicesLayer from "../../services";
+import { BlockType } from "aws-sdk/clients/textract";
 
 export const searchTweets = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
@@ -154,51 +155,37 @@ export const reorderTweets = middyfy(
 			let blocks = await ServicesLayer.reportBlockService.getReportBlocks(params.reportID);
 			blocks = await ServicesLayer.reportBlockService.sortReportBlocks(blocks);
 
-			// Finding tweet to swap
-			let position1 = 0;
-			let position2 = 0;
-
-			// If I get the position:
-			position1 = params.pos;
-
 			// If I don't get the position:
-			/*for(let i =0; i < blocks.length; i++){
-				if(blocks[i].tweetID === params.tweetID){
-					position1 = i;
-					break;
-				}
-			}*/
+			const tweet1 = blocks.find((tweet) => {
+					return tweet.position === params.pos;
+			})
 
-			if(blocks[position1].blockType !== 'TWEET'){
-				return {
-					statusCode: statusCodes.badRequest,
-					headers: header,
-					body: JSON.stringify("Only tweets can be reordered.")
-				};
-			}
+			let pos2: number;
 
-			// Getting the new Position
 			if(params.newPlace === 'UP'){
-				position2 = position1-2;
+				pos2=params.pos-2;
 			}else{
-				position2 = position1+2;
+				pos2=params.pos+2;
 			}
 
-			// Swap Tweets
+			const tweet2 = blocks.find((tweet) => {
+				return tweet.position === pos2;
+			})
+
 			await ServicesLayer.reportBlockService.updatePosition(
-				blocks[position1].reportBlockID,
-				blocks[position2].position
+				tweet1.reportBlockID,
+				tweet2.position
 			);
 
 			await ServicesLayer.reportBlockService.updatePosition(
-				blocks[position2].reportBlockID,
-				blocks[position1].position
+				tweet2.reportBlockID,
+				tweet1.position
 			);
 
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify("Operation successful.")
+				body: JSON.stringify("Operation Successful")
 			};
 		} catch (e) {
 			return {
