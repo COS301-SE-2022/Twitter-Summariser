@@ -198,7 +198,7 @@ export const reorderTweets = middyfy(
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify("Operation successful")
+				body: JSON.stringify("Operation successful.")
 			};
 		} catch (e) {
 			return {
