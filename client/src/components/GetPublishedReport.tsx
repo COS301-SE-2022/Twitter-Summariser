@@ -1,12 +1,18 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
+import { GrCopy } from "react-icons/gr";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Button from "./Button";
 import PublishedText from "./PublishedText";
 
 function GetPublishedReport() {
+	// const style = { fontSize: "1.3rem" };
+	// const styleNew = { fontSize: "1.5rem", color: "green" };
+	const iconStyle3 = { fontSize: "1.5rem", color: "red" };
+	// const iconStyle4 = { fontSize: "1.8rem", color: "red" };
+
 	const navigate = useNavigate();
 	const [state, setState] = useState([]);
 	const [title, setTitle] = useState("");
@@ -121,6 +127,22 @@ function GetPublishedReport() {
 		</svg>
 	);
 
+	const cloneReportHandler = async () => {
+		const resultDetails = {
+			reportID: localStorage.getItem("reportId"),
+			apiKey: auth.apiKey
+		};
+
+		try {
+			await axiosPrivate.post("cloneReport", JSON.stringify(resultDetails), {
+				signal: controller.signal
+			});
+			navigate("/drafts");
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
 	return (
 		<div>
 			{pageLoading ? (
@@ -129,12 +151,39 @@ function GetPublishedReport() {
 				</div>
 			) : (
 				<div className="mt-16 ">
-					<div className="p-4">
+					{/* <div className="p-4">
 						<h1 className="text-3xl font-bold">{title}</h1>
 						<br />
 						<h2 className="italic font-bold">Created By: {author}</h2>
 						<h3 className="italic text-xs">Date Created: {date}</h3>
+					</div> */}
+					<div className="flex flex-row justify-between">
+						<div className="ml-2 p-4">
+							<h1 className="text-3xl font-bold">{title}</h1>
+							<br />
+							<h2 className="italic font-bold">Created By: {author}</h2>
+							<h3 className="italic text-xs">Date Created: {date}</h3>
+						</div>
+
+						<div className="flex flex-row items-end p-4 justify-between items-center">
+							{/* <div className="" data-bs-toggle="tooltip" title="Clone Report">
+								<button type="submit">
+									<GrCopy style={iconStyle3} />
+								</button>
+							</div> */}
+							<div
+								className=""
+								data-bs-toggle="tooltip"
+								title="Clone Report"
+								onClick={cloneReportHandler}
+							>
+								<button type="submit">
+									<GrCopy style={iconStyle3} />
+								</button>
+							</div>
+						</div>
 					</div>
+
 
 					<br />
 
