@@ -162,18 +162,26 @@ export const reorderTweets = middyfy(
 			position1 = params.position;
 
 			// If I don't get the position:
-			for(let i =0; i < blocks.length; i++){
+			/*for(let i =0; i < blocks.length; i++){
 				if(blocks[i].tweetID === params.tweetID){
 					position1 = i;
 					break;
 				}
+			}*/
+
+			if(blocks[position1].blockType !== 'TWEET'){
+				return {
+					statusCode: statusCodes.badRequest,
+					headers: header,
+					body: JSON.stringify("Only tweets can be reordered.")
+				};
 			}
 
 			// Getting the new Position
 			if(params.newPlace === 'UP'){
-				position2 = position1-1;
+				position2 = position1-2;
 			}else{
-				position2 = position1+1;
+				position2 = position1+2;
 			}
 
 			// Swap Tweets
