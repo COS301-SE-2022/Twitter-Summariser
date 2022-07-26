@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
-import { BsShare } from "react-icons/bs";
+import { BsShare, BsArrowDown, BsArrowUp } from "react-icons/bs";
 import { BiErrorCircle } from "react-icons/bi";
 import { MdDeleteOutline } from "react-icons/md";
 import { AiOutlineCheckCircle } from "react-icons/ai";
@@ -106,6 +106,45 @@ function GenReport() {
 
 	const apiResponse = [<div key="begining div" />];
 
+	const reorderUpHandler = async (tweetPos: any) => {
+		const resultDetails = {
+			reportID: localStorage.getItem("draftReportId"),
+			apiKey: auth.apiKey,
+			pos: tweetPos,
+			newPlace: "UP"
+		};
+
+		// console.log(resultDetails);
+
+		try {
+			await axiosPrivate.post("reorderTweets", JSON.stringify(resultDetails), {
+				signal: controller.signal
+			});
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const reorderDownHandler = async (tweetPos: any) => {
+		const resultDetails = {
+			reportID: localStorage.getItem("draftReportId"),
+			apiKey: auth.apiKey,
+			pos: tweetPos,
+			newPlace: "DOWN"
+		};
+
+		// console.log(resultDetails);
+
+
+		try {
+			await axiosPrivate.post("reorderTweets", JSON.stringify(resultDetails), {
+				signal: controller.signal
+			});
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
 	state.map((data: any, index: number) =>
 		apiResponse.push(
 			<div className="" key={data.position}>
@@ -126,7 +165,18 @@ function GenReport() {
 							options={{ align: "center", width: "" }}
 							tweetId={data.block.tweetID}
 						/>
+						<div className="" data-bs-toggle="tooltip" title="Move Tweet Up">
+							<button type="submit">
+								<BsArrowUp style={style} onClick={() => reorderUpHandler(data.position)} />
+							</button>
+						</div>
+						<div className="" data-bs-toggle="tooltip" title="Move Tweet Down">
+							<button type="submit">
+								<BsArrowDown style={style} onClick={() => reorderDownHandler(data.position)} />
+							</button>
+						</div>
 					</div>
+
 				)}
 			</div>
 		)
@@ -177,6 +227,24 @@ function GenReport() {
 		}
 	};
 
+	const cloneReportHandler = async () => {
+		const resultDetails = {
+			reportID: localStorage.getItem("draftReportId"),
+			apiKey: auth.apiKey
+		};
+
+		try {
+			await axiosPrivate.post("cloneReport", JSON.stringify(resultDetails), {
+				signal: controller.signal
+			});
+			navigate("/drafts");
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+
+
 	const loadIcon = (
 		<svg
 			role="status"
@@ -219,7 +287,17 @@ function GenReport() {
 								</button>
 							</div>
 							<div className="">&nbsp;&nbsp;</div>
-							<div className="" data-bs-toggle="tooltip" title="Clone Report">
+							{/* <div className="" data-bs-toggle="tooltip" title="Clone Report">
+								<button type="submit">
+									<GrCopy style={iconStyle3} />
+								</button>
+							</div> */}
+							<div
+								className=""
+								data-bs-toggle="tooltip"
+								title="Clone Report"
+								onClick={cloneReportHandler}
+							>
 								<button type="submit">
 									<GrCopy style={iconStyle3} />
 								</button>
