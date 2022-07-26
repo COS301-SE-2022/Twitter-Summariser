@@ -169,12 +169,13 @@ const serverlessConfiguration: AWS = {
 				Type: "AWS::ApiGateway::GatewayResponse",
 				Properties: {
 					ResponseParameters: {
-						"gatewayresponse.header.Access-Control-Allow-Origin": "'https://d1jfctrgbvoeo1.cloudfront.net'",
+						"gatewayresponse.header.Access-Control-Allow-Origin":
+							"'https://d1jfctrgbvoeo1.cloudfront.net'",
 						"gatewayresponse.header.Access-Control-Allow-Headers": "'*'"
 					},
 					ResponseType: "DEFAULT_4XX",
 					RestApiId: {
-						"Ref": "ApiGatewayRestApi"
+						Ref: "ApiGatewayRestApi"
 					}
 				}
 			},
@@ -183,12 +184,13 @@ const serverlessConfiguration: AWS = {
 				Type: "AWS::ApiGateway::GatewayResponse",
 				Properties: {
 					ResponseParameters: {
-						"gatewayresponse.header.Access-Control-Allow-Origin": "'https://d1jfctrgbvoeo1.cloudfront.net'",
+						"gatewayresponse.header.Access-Control-Allow-Origin":
+							"'https://d1jfctrgbvoeo1.cloudfront.net'",
 						"gatewayresponse.header.Access-Control-Allow-Headers": "'*'"
 					},
 					ResponseType: "DEFAULT_5XX",
 					RestApiId: {
-						"Ref": "ApiGatewayRestApi"
+						Ref: "ApiGatewayRestApi"
 					}
 				}
 			},

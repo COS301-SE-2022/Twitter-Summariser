@@ -23,6 +23,7 @@ function MobileNavigation(props: any) {
 
 	const signOut = async () => {
 		await logout();
+		auth.accessToken = undefined;
 		localStorage.clear();
 		navigate("/login");
 	};

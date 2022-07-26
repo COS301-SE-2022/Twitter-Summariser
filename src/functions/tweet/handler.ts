@@ -92,7 +92,7 @@ export const addCustomTweet = middyfy(
 			await ServicesLayer.reportBlockService.addReportBlock({
 				blockType: "TWEET",
 				position,
-				reportBlockID: `BK-${  randomUUID()}`,
+				reportBlockID: `BK-${randomUUID()}`,
 				reportID: params.reportID,
 				tweetID: id
 			});
@@ -132,7 +132,7 @@ export const reorderTweets = middyfy(
 				};
 			}
 
-			const tweet1 = await ServicesLayer.reportBlockService.getReportBlock(
+			/*const tweet1 = await ServicesLayer.reportBlockService.getReportBlock(
 				params.reportBlockID1
 			);
 
@@ -148,6 +148,43 @@ export const reorderTweets = middyfy(
 			await ServicesLayer.reportBlockService.updatePosition(
 				tweet2.reportBlockID,
 				tweet1.position
+			);*/
+
+			// Retrieving Blocks
+			let blocks = await ServicesLayer.reportBlockService.getReportBlocks(params.reportID);
+			blocks = await ServicesLayer.reportBlockService.sortReportBlocks(blocks);
+
+			// Finding tweet to swap
+			let position1 = 0;
+			let position2 = 0;
+
+			// If I get the position:
+			position1 = params.position;
+
+			// If I don't get the position:
+			for(let i =0; i < blocks.length; i++){
+				if(blocks[i].tweetID === params.tweetID){
+					position1 = i;
+					break;
+				}
+			}
+
+			// Getting the new Position
+			if(params.newPlace === 'UP'){
+				position2 = position1-1;
+			}else{
+				position2 = position1+1;
+			}
+
+			// Swap Tweets
+			await ServicesLayer.reportBlockService.updatePosition(
+				blocks[position1].reportBlockID,
+				blocks[position2].position
+			);
+
+			await ServicesLayer.reportBlockService.updatePosition(
+				blocks[position2].reportBlockID,
+				blocks[position1].position
 			);
 
 			return {

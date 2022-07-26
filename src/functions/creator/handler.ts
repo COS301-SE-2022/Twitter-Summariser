@@ -169,8 +169,9 @@ export const loginCreator = middyfy(
 			);
 
 			if (isCreatorUpdated === true) {
-				const cookieString = `refreshToken=${refreshToken}; Path=/; HttpOnly; Secure; SameSite=None; max-age=${24 * 60 * 60 * 1000
-					}`;
+				const cookieString = `refreshToken=${refreshToken}; Path=/; HttpOnly; Secure; SameSite=None; max-age=${
+					24 * 60 * 60 * 1000
+				}`;
 				return {
 					statusCode: statusCodes.Successful,
 					headers: {
@@ -235,8 +236,9 @@ export const refreshToken = async (event, _context, callback) => {
 						expiresIn: "10m"
 					}
 				);
-				const cookieString = `refreshToken=${token}; Path=/; HttpOnly; Secure; SameSite=None; max-age=${24 * 60 * 60 * 1000
-					}`;
+				const cookieString = `refreshToken=${token}; Path=/; HttpOnly; Secure; SameSite=None; max-age=${
+					24 * 60 * 60 * 1000
+				}`;
 
 				return callback(null, {
 					statusCode: statusCodes.Successful,

@@ -29,3 +29,8 @@ export const statusCodes = {
 	notImplemented: 501,
 	badGateway: 502
 };
+
+export const AWSDetails = {
+	region: "",
+	account_id: ""
+};
