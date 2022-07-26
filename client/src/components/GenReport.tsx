@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
-import { BsShare } from "react-icons/bs";
+import { BsShare, BsArrowDownUp } from "react-icons/bs";
 import { BiErrorCircle } from "react-icons/bi";
 import { MdDeleteOutline } from "react-icons/md";
 import { AiOutlineCheckCircle } from "react-icons/ai";
@@ -126,7 +126,13 @@ function GenReport() {
 							options={{ align: "center", width: "" }}
 							tweetId={data.block.tweetID}
 						/>
+						<div className="" data-bs-toggle="tooltip" title="Share Report">
+							<button type="submit">
+								<BsArrowDownUp style={style} onClick={shareHandler} />
+							</button>
+						</div>
 					</div>
+
 				)}
 			</div>
 		)
