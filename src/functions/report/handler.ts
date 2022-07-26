@@ -3,6 +3,7 @@ import { middyfy } from "@libs/lambda";
 import { randomUUID } from "crypto";
 import { header, statusCodes } from "@functions/resources/APIresponse";
 import ServicesLayer from "../../services";
+import TextStyle from "@model/textStyles/textStyles.model";
 
 // Generation of reports
 export const generateReport = middyfy(
@@ -158,9 +159,13 @@ export const cloneReport = middyfy(
 					temp.richText = block.richText;
 
 					// Cloning styles
-					const style = await ServicesLayer.textStyleService.getStyle(
+					let style: TextStyle;
+					await ServicesLayer.textStyleService.getStyle(
 						block.reportBlockID
-					)[0];
+					).then((value) => {
+						style=value[0];
+					});
+					
 					style.textStylesID = `ST-${randomUUID()}`;
 					style.reportBlockID = temp.reportBlockID;
 					await ServicesLayer.textStyleService.addStyle(style);
