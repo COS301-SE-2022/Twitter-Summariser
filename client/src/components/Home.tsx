@@ -4,6 +4,7 @@ import { Tweet } from "react-twitter-widgets";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Button from "./Button";
+import "./styles/Home.css";
 
 // needed for new home page - uncomment
 // import ExploreCard from "./ExploreCard";
@@ -138,6 +139,8 @@ function Home() {
 		changeFilter(event.target.value);
 	};
 
+	const [pulse, changePulse] = useState(false);
+
 	const searchTwitter = async (searchData: any) => {
 		try {
 			const response = await axiosPrivate.post("searchTweets", JSON.stringify(searchData), {
@@ -146,6 +149,7 @@ function Home() {
 			changeResultSet(await response.data.resultSetID);
 			changeResponse(await response.data.tweets);
 			changeLoading(false);
+			changePulse(true);
 		} catch (err) {
 			console.error(err);
 		}
@@ -181,6 +185,10 @@ function Home() {
 		}
 	};
 
+	const done = () => {
+		changePulse(false);
+	};
+
 	searchResponse.map((data) =>
 		// enteredSearch !== "" &&
 		apiResponse.push(
@@ -188,7 +196,7 @@ function Home() {
 			// 	<HomeTweet tweetData={data} />
 			// </div>
 			<div className="pb-8" key={data.tweetId}>
-				<Tweet options={{ align: "center" }} tweetId={data.tweetId} />
+				<Tweet options={{ align: "center" }} tweetId={data.tweetId} onLoad={done} />
 			</div>
 		)
 	);
@@ -220,6 +228,32 @@ function Home() {
 			/>
 		</svg>
 	);
+
+	const pulseOutput = [<div key="begining div" />];
+
+	let i = 0;
+
+	while (i < apiResponse.length) {
+		pulseOutput.push(
+			<div className="border shadow rounded-md p-10 m-5 ">
+				<div className="animate-pulse flex space-x-4">
+					<div className="rounded-full bg-slate-700 h-10 w-10"> </div>
+					<div className="flex-1 space-y-6 py-1">
+						<div className="h-2 bg-slate-700 rounded"> </div>
+						<div className="space-y-3">
+							<div className="grid grid-cols-3 gap-4">
+								<div className="h-2 bg-slate-700 rounded col-span-2"> </div>
+								<div className="h-2 bg-slate-700 rounded col-span-1"> </div>
+							</div>
+							<div className="h-2 bg-slate-700 rounded"> </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		);
+
+		i++;
+	}
 
 	return (
 		<div data-testid="home">
@@ -405,6 +439,7 @@ function Home() {
 						{loadIcon} &nbsp; Loading Tweets
 					</div>
 				)}
+
 				{/* Api response comes here */}
 				<div data-testid="result" className="flex flex-col">
 					{clicked && (
@@ -431,6 +466,10 @@ function Home() {
 							</Link>
 						</div>
 					)}
+
+					{/* {pulse} */}
+
+					{pulse && pulseOutput}
 
 					{apiResponse}
 				</div>
