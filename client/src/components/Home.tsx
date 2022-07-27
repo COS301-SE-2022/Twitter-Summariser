@@ -592,7 +592,7 @@ function Home() {
 				</div> */}
 				<div className=" p-3 ">
 					<div className=" mt-4 text-center">
-						<h1 className="text-midnight-blue font-bold text-3xl">Explore Latest Reports</h1>
+						<h1 className="text-black font-semibold text-3xl">Explore Latest Reports</h1>
 
 						<div className="mt-4 flex flex-row flex-wrap justify-center">
 							<div data-testid="reports" className="mt-4 flex flex-row flex-wrap justify-center">
