@@ -120,6 +120,7 @@ function GenReport() {
 			await axiosPrivate.post("reorderTweets", JSON.stringify(resultDetails), {
 				signal: controller.signal
 			});
+			changeShouldRender(true);
 		} catch (err) {
 			console.error(err);
 		}
@@ -140,6 +141,7 @@ function GenReport() {
 			await axiosPrivate.post("reorderTweets", JSON.stringify(resultDetails), {
 				signal: controller.signal
 			});
+			changeShouldRender(true);
 		} catch (err) {
 			console.error(err);
 		}
