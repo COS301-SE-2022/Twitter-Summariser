@@ -4,7 +4,7 @@ import { Tweet } from "react-twitter-widgets";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Button from "./Button";
-import "./styles/Home.css";
+import "./styles/Animation.css";
 
 // needed for new home page - uncomment
 // import ExploreCard from "./ExploreCard";
