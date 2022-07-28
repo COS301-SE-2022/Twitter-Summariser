@@ -138,6 +138,7 @@ export const cloneReport = middyfy(
 			const d = new Date(`${dd.toLocaleString()}-02:00`);
 
 			report.reportID = id;
+			report.title = "Copy of " + report.title;
 			report.apiKey = params.apiKey;
 			report.author = params.author;
 			report.status = "DRAFT";
@@ -269,8 +270,10 @@ export const getReport = middyfy(
 
 			if (per !== undefined) {
 				report.permission = per.type;
-			} else{
+			} else if (ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)) {
 				report.permission = "OWNER";
+			} else {
+				report.permission = "VIEWER";
 			}
 
 			return {
