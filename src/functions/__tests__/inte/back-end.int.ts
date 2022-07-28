@@ -10,12 +10,14 @@ describe("Given a valid API request to add a user", () => {
 	// Making api call
 	let response: any;
 
-	test("Make sure api recevies request and returns success status", async () => {
-		const response = await axios.post(
+	it("Make an a valid API Call", async() =>{
+		response = await axios.post(
 			"signup",
-			JSON.stringify({ username: "test", email: "test@gmail.com", password: "M@1c01mm" })
+			JSON.stringify({ username: "test", email: "tester@gmail.com", password: "M@1c01mm" })
 		);
+	})
 
+	test("Make sure api recevies request and returns success status", async () => {
 		expect(response).toBeDefined;
 	});
 
@@ -23,37 +25,15 @@ describe("Given a valid API request to add a user", () => {
 		expect(response.status).toBe(200);
 	});
 
-	it("it should make a valid ", async () => {
-		try {
-			response = await axios.post(
-				"signup",
-				JSON.stringify({ username: "test", email: "test@gmail.com", password: "test" })
-			);
-		} catch (error) {
-			response = "error";
-		}
-
-		test("Make sure that backend has correctly processed data and return avlid data", async () => {
-			// Expect The correct output
-			expect(response.data["apiKey"]).toBeDefined;
-			expect(response.data["email"]).toBeDefined;
-			expect(response.data["username"]).toBeDefined;
-		});
+	test("Make sure that backend has correctly processed data and return avlid data", async () => {
+		// Expect The correct output
+		expect(response.data["apiKey"]).toBeDefined;
+		expect(response.data["email"]).toBeDefined;
+		expect(response.data["username"]).toBeDefined;
 	});
 
-	it("it should make a valid ", async () => {
-		try {
-			response = await axios.post(
-				"signup",
-				JSON.stringify({ username: "test", email: "test@gmail.com", password: "test" })
-			);
-		} catch (error) {
-			response = "error";
-		}
-
-		test("Make sure that backend has correctly processed data and return correct data", async () => {
-			//Expect the Correct details to be returned
-			expect(response.data["username"]).toEqual("test");
-		});
+	test("Make sure that backend has correctly processed data and return correct data", async () => {
+		//Expect the Correct details to be returned
+		expect(response.data["username"]).toEqual("test");
 	});
 });
