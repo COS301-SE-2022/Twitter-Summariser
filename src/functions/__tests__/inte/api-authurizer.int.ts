@@ -6,9 +6,8 @@ const apiAcesspoint = {
 
 // Tests using super agent
 describe("Given an authorised request WHEN the post editBlock endpoint is called", () => {
-	
-	it('it should make a valid ', async () => {
-		await request.post(apiAcesspoint.development + "editblock").then((statusCode) =>{
+	it("it should make a valid ", async () => {
+		await request.post(apiAcesspoint.development + "editblock").then((statusCode) => {
 			expect(statusCode).toBe(401);
 		});
 
@@ -19,14 +18,14 @@ describe("Given an authorised request WHEN the post editBlock endpoint is called
 });
 
 describe("Given an authorised request WHEN the post generateReport endpoint is called", () => {
-	it('it should make a valid ', async () => {
-		try{
+	it("it should make a valid ", async () => {
+		try {
 			const response = await request.post(apiAcesspoint.development + "generateReport");
 
 			test("THEN it should respond with a 200", () => {
 				expect(response.statusCode).toBe(401);
 			});
-		}catch (e){
+		} catch (e) {
 			test("THEN it should respond with a 200", () => {
 				expect(e).toBe(401);
 			});

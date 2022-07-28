@@ -6,8 +6,7 @@ const apiAcesspoint = {
 
 // Tests using super agent
 describe("Given an authorised request WHEN the post editBlock endpoint is called", () => {
-	
-	it('it should make a valid ', async () => {
+	it("it should make a valid ", async () => {
 		const response = await request.post(apiAcesspoint.development + "searchTweets");
 
 		test("THEN it should respond with a 200", async () => {
@@ -15,13 +14,13 @@ describe("Given an authorised request WHEN the post editBlock endpoint is called
 		});
 
 		test("THEN it should respond with a healthy body", async () => {
-			expect(response.body).toBe(' Unauthorized');
+			expect(response.body).toBe(" Unauthorized");
 		});
 	});
 });
 
 describe("Given an authorised request WHEN the post generateReport endpoint is called", () => {
-	it('it should make a valid ', async () => {
+	it("it should make a valid ", async () => {
 		const response = await request.post(apiAcesspoint.development + "getReport");
 
 		test("THEN it should respond with a 200", async () => {
@@ -29,7 +28,7 @@ describe("Given an authorised request WHEN the post generateReport endpoint is c
 		});
 
 		test("THEN it should respond with a healthy body", async () => {
-			expect(response.body).toBe(' Unauthorized');
+			expect(response.body).toBe(" Unauthorized");
 		});
 	});
 });

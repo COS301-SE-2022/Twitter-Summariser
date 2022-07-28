@@ -1,27 +1,20 @@
-
-
 // Tests with post requests Testing integration of API --> Lambda --> DynamodbDB
 
-import axios from "axios";
-
+import axios from "../../../../client/src/api/ConfigAxios";
 
 /*const apiAcesspoint = {
 	development: "https://pgxz0lthzj.execute-api.us-east-1.amazonaws.com/dev/"
 };*/
 
-describe("Given a valid API request to add a user",  () => {
+describe("Given a valid API request to add a user", () => {
 	// Making api call
-	it('it should make a valid ', async () => {
-		await axios.post(
-			'https://pgxz0lthzj.execute-api.us-east-1.amazonaws.com/dev/signup',
-			{ username: 'test', email: 'test@gmail.com', password: 'test' },
-			{
-			  headers: {
-				'Content-Type': 'application/json',
-				Accept: 'application/json',
-			  },
-			},
-		  ).then((response) =>{
+	it("it should make a valid ", async () => {
+		try {
+			const response = await axios.post(
+				"signup",
+				JSON.stringify({ username: "test", email: "test@gmail.com", password: "test" })
+			);
+
 			test("Make sure api recevies request and returns success status", async () => {
 				expect(response).toBeDefined;
 			});
@@ -41,8 +34,6 @@ describe("Given a valid API request to add a user",  () => {
 				//Expect the Correct details to be returned
 				expect(response.data["username"]).toEqual("test");
 			});
-
-			})
-		})
-    
+		} catch (error) {}
+	});
 });
