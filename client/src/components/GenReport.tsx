@@ -10,6 +10,7 @@ import Text from "./Text";
 import Button from "./Button";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import useAuth from "../hooks/useAuth";
+import "./styles/Animation.css";
 
 function GenReport() {
 	const style = { fontSize: "1.3rem" };
@@ -55,6 +56,14 @@ function GenReport() {
 		reportID: localStorage.getItem("draftReportId")
 	};
 
+	const [pulse, changePulse] = useState(false);
+	const [pulseCounter, changeCounter] = useState(0);
+
+	const done = () => {
+		changePulse(false);
+		changeCounter(1);
+	};
+
 	const getRep = async (isMounted: boolean) => {
 		try {
 			const response = await axiosPrivate.post("getReport", JSON.stringify(requiredData), {
@@ -65,6 +74,10 @@ function GenReport() {
 			isMounted && setAuthor(response.data.report.author);
 			isMounted && setDate(response.data.report.dateCreated.substring(0, 16));
 			isMounted && changePageLoading(false);
+
+			if (pulseCounter === 0) {
+				changePulse(true);
+			}
 		} catch (error) {
 			console.error(error);
 		}
@@ -136,7 +149,6 @@ function GenReport() {
 
 		// console.log(resultDetails);
 
-
 		try {
 			await axiosPrivate.post("reorderTweets", JSON.stringify(resultDetails), {
 				signal: controller.signal
@@ -168,14 +180,17 @@ function GenReport() {
 						<Tweet
 							options={{ align: "center", width: "" }}
 							tweetId={data.block.tweetID}
+							onLoad={done}
 						/>
 						<div className="" data-bs-toggle="tooltip" title="Move Tweet Down">
 							<button type="submit">
-								<BsArrowDown style={style} onClick={() => reorderDownHandler(data.position)} />
+								<BsArrowDown
+									style={style}
+									onClick={() => reorderDownHandler(data.position)}
+								/>
 							</button>
 						</div>
 					</div>
-
 				)}
 				{/* {data.blockType === "TWEET" && data.position > 1 && data.position < state.length-3 && (
 					<div className=" w-full border border-gray-200 p-3" key={data.position}>
@@ -196,38 +211,53 @@ function GenReport() {
 					</div>
 				)} */}
 
-				{data.blockType === "TWEET" && (data.position === state.length-2 || data.position === state.length-3) && (
-					<div className=" w-full border border-gray-200 p-3" key={data.position}>
-						<Tweet
-							options={{ align: "center", width: "" }}
-							tweetId={data.block.tweetID}
-						/>
-						<div className="" data-bs-toggle="tooltip" title="Move Tweet Up">
-							<button type="submit">
-								<BsArrowUp style={style} onClick={() => reorderUpHandler(data.position)} />
-							</button>
+				{data.blockType === "TWEET" &&
+					(data.position === state.length - 2 || data.position === state.length - 3) && (
+						<div className=" w-full border border-gray-200 p-3" key={data.position}>
+							<Tweet
+								options={{ align: "center", width: "" }}
+								tweetId={data.block.tweetID}
+							/>
+							<div className="" data-bs-toggle="tooltip" title="Move Tweet Up">
+								<button type="submit">
+									<BsArrowUp
+										style={style}
+										onClick={() => reorderUpHandler(data.position)}
+									/>
+								</button>
+							</div>
 						</div>
-					</div>
-				)}
+					)}
 
-				{data.blockType === "TWEET" && !((data.position === 1) || (data.position === state.length-2 || data.position === state.length-3))&& (
-					<div className=" w-full border border-gray-200 p-3" key={data.position}>
-						<Tweet
-							options={{ align: "center", width: "" }}
-							tweetId={data.block.tweetID}
-						/>
-						<div className="" data-bs-toggle="tooltip" title="Move Tweet Up">
-							<button type="submit">
-								<BsArrowUp style={style} onClick={() => reorderUpHandler(data.position)} />
-							</button>
+				{data.blockType === "TWEET" &&
+					!(
+						data.position === 1 ||
+						data.position === state.length - 2 ||
+						data.position === state.length - 3
+					) && (
+						<div className=" w-full border border-gray-200 p-3" key={data.position}>
+							<Tweet
+								options={{ align: "center", width: "" }}
+								tweetId={data.block.tweetID}
+							/>
+							<div className="" data-bs-toggle="tooltip" title="Move Tweet Up">
+								<button type="submit">
+									<BsArrowUp
+										style={style}
+										onClick={() => reorderUpHandler(data.position)}
+									/>
+								</button>
+							</div>
+							<div className="" data-bs-toggle="tooltip" title="Move Tweet Down">
+								<button type="submit">
+									<BsArrowDown
+										style={style}
+										onClick={() => reorderDownHandler(data.position)}
+									/>
+								</button>
+							</div>
 						</div>
-						<div className="" data-bs-toggle="tooltip" title="Move Tweet Down">
-							<button type="submit">
-								<BsArrowDown style={style} onClick={() => reorderDownHandler(data.position)} />
-							</button>
-						</div>
-					</div>
-				)}
+					)}
 
 				{/* {data.blockType === "TWEET" && (
 					<div className=" w-full border border-gray-200 p-3" key={data.position}>
@@ -251,6 +281,32 @@ function GenReport() {
 			</div>
 		)
 	);
+
+	const pulseOutput = [<div key="begining div" />];
+
+	let i = 0;
+
+	while (i < apiResponse.length) {
+		pulseOutput.push(
+			<div className="border shadow rounded-md p-10 m-5 " key={i}>
+				<div className="animate-pulse flex space-x-4">
+					<div className="rounded-full bg-slate-700 h-10 w-10"> </div>
+					<div className="flex-1 space-y-6 py-1">
+						<div className="h-2 bg-slate-700 rounded"> </div>
+						<div className="space-y-3">
+							<div className="grid grid-cols-3 gap-4">
+								<div className="h-2 bg-slate-700 rounded col-span-2"> </div>
+								<div className="h-2 bg-slate-700 rounded col-span-1"> </div>
+							</div>
+							<div className="h-2 bg-slate-700 rounded"> </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		);
+
+		i++;
+	}
 
 	const requiredDataForShare = {
 		apiKey: auth.apiKey,
@@ -312,8 +368,6 @@ function GenReport() {
 			console.error(err);
 		}
 	};
-
-
 
 	const loadIcon = (
 		<svg
@@ -518,6 +572,8 @@ function GenReport() {
 					)}
 
 					<br />
+
+					{pulse && pulseOutput}
 
 					<div className="grid grid-cols gap-4 content-center">{apiResponse}</div>
 
