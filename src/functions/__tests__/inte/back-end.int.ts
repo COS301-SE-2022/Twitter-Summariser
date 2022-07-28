@@ -1,6 +1,11 @@
 import fetch from "node-fetch";
 // Tests with post requests Testing integration of API --> Lambda --> DynamodbDB
 
+
+const apiAcesspoint = {
+	development: "https://pgxz0lthzj.execute-api.us-east-1.amazonaws.com/dev/"
+};
+
 describe("Given a valid API request to add a user", async () => {
 	// Making api call
 	const response = await fetch(apiAcesspoint + "signup", {
