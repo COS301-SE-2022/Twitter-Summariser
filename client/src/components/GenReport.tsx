@@ -136,7 +136,6 @@ function GenReport() {
 
 		// console.log(resultDetails);
 
-
 		try {
 			await axiosPrivate.post("reorderTweets", JSON.stringify(resultDetails), {
 				signal: controller.signal
@@ -171,13 +170,42 @@ function GenReport() {
 						/>
 						<div className="" data-bs-toggle="tooltip" title="Move Tweet Down">
 							<button type="submit">
-								<BsArrowDown style={style} onClick={() => reorderDownHandler(data.position)} />
+								<BsArrowDown
+									style={style}
+									onClick={() => reorderDownHandler(data.position)}
+								/>
 							</button>
 						</div>
 					</div>
-
 				)}
-				{data.blockType === "TWEET" && data.position > 1 && data.position < state.length-2 && (
+				{data.blockType === "TWEET" &&
+					data.position > 1 &&
+					data.position < state.length - 2 && (
+						<div className=" w-full border border-gray-200 p-3" key={data.position}>
+							<Tweet
+								options={{ align: "center", width: "" }}
+								tweetId={data.block.tweetID}
+							/>
+							<div className="" data-bs-toggle="tooltip" title="Move Tweet Up">
+								<button type="submit">
+									<BsArrowUp
+										style={style}
+										onClick={() => reorderUpHandler(data.position)}
+									/>
+								</button>
+							</div>
+							<div className="" data-bs-toggle="tooltip" title="Move Tweet Down">
+								<button type="submit">
+									<BsArrowDown
+										style={style}
+										onClick={() => reorderDownHandler(data.position)}
+									/>
+								</button>
+							</div>
+						</div>
+					)}
+
+				{data.blockType === "TWEET" && data.position === state.length - 2 && (
 					<div className=" w-full border border-gray-200 p-3" key={data.position}>
 						<Tweet
 							options={{ align: "center", width: "" }}
@@ -185,26 +213,10 @@ function GenReport() {
 						/>
 						<div className="" data-bs-toggle="tooltip" title="Move Tweet Up">
 							<button type="submit">
-								<BsArrowUp style={style} onClick={() => reorderUpHandler(data.position)} />
-							</button>
-						</div>
-						<div className="" data-bs-toggle="tooltip" title="Move Tweet Down">
-							<button type="submit">
-								<BsArrowDown style={style} onClick={() => reorderDownHandler(data.position)} />
-							</button>
-						</div>
-					</div>
-				)}
-
-				{data.blockType === "TWEET" && data.position === state.length-2 && (
-					<div className=" w-full border border-gray-200 p-3" key={data.position}>
-						<Tweet
-							options={{ align: "center", width: "" }}
-							tweetId={data.block.tweetID}
-						/>
-						<div className="" data-bs-toggle="tooltip" title="Move Tweet Up">
-							<button type="submit">
-								<BsArrowUp style={style} onClick={() => reorderUpHandler(data.position)} />
+								<BsArrowUp
+									style={style}
+									onClick={() => reorderUpHandler(data.position)}
+								/>
 							</button>
 						</div>
 					</div>
@@ -293,8 +305,6 @@ function GenReport() {
 			console.error(err);
 		}
 	};
-
-
 
 	const loadIcon = (
 		<svg

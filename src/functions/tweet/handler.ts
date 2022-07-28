@@ -157,20 +157,20 @@ export const reorderTweets = middyfy(
 
 			// If I don't get the position:
 			const tweet1 = blocks.find((tweet) => {
-					return tweet.position === params.pos;
-			})
+				return tweet.position === params.pos;
+			});
 
 			let pos2: number;
 
-			if(params.newPlace === 'UP'){
-				pos2=params.pos-2;
-			}else{
-				pos2=params.pos+2;
+			if (params.newPlace === "UP") {
+				pos2 = params.pos - 2;
+			} else {
+				pos2 = params.pos + 2;
 			}
 
 			const tweet2 = blocks.find((tweet) => {
 				return tweet.position === pos2;
-			})
+			});
 
 			await ServicesLayer.reportBlockService.updatePosition(
 				tweet1.reportBlockID,

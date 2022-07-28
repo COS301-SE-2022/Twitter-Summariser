@@ -160,12 +160,12 @@ export const cloneReport = middyfy(
 
 					// Cloning styles
 					let style: TextStyle;
-					await ServicesLayer.textStyleService.getStyle(
-						block.reportBlockID
-					).then((value) => {
-						style=value[0];
-					});
-					
+					await ServicesLayer.textStyleService
+						.getStyle(block.reportBlockID)
+						.then((value) => {
+							style = value[0];
+						});
+
 					style.textStylesID = `ST-${randomUUID()}`;
 					style.reportBlockID = temp.reportBlockID;
 					await ServicesLayer.textStyleService.addStyle(style);

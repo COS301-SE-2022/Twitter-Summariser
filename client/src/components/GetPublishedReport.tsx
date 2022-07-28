@@ -184,7 +184,6 @@ function GetPublishedReport() {
 						</div>
 					</div>
 
-
 					<br />
 
 					<div className="grid grid-cols gap-4 content-center">{apiResponse}</div>
