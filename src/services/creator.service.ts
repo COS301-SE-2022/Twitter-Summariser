@@ -79,4 +79,13 @@ export default class CreatorService {
 			.then(() => true)
 			.catch((err) => err);
 	}
+
+	async deleteCreator(email: string) {
+		this.docClient.delete({
+			TableName: this.TableName,
+			Key: {
+				email: email
+			}
+		})
+	}
 }
