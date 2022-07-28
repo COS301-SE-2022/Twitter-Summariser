@@ -8,19 +8,28 @@ const apiAcesspoint = {
 describe("Given an authorised request WHEN the post editBlock endpoint is called", () => {
 	
 	it('it should make a valid ', async () => {
-		//const response = await request.post(apiAcesspoint.development + "editblock");
+		const response = await request.post(apiAcesspoint.development + "editblock");
 
-		test("THEN it should respond with a 200", async () => {
-			expect(await (await (request.post(apiAcesspoint.development + "editblock"))).forbidden);
+		test("THEN it should respond with a 200", () => {
+			expect(response.forbidden);
 		});
 
+		/*test("THEN it should respond with a healthy body", async () => {
+			expect(response.body).toBe(' Unauthorized');
+		});*/
 	});
 });
 
 describe("Given an authorised request WHEN the post generateReport endpoint is called", () => {
 	it('it should make a valid ', async () => {
-		test("THEN it should respond with a 200", async () => {
-			expect(await (await (request.post(apiAcesspoint.development + "shareReport"))).forbidden);
+		const response = await request.post(apiAcesspoint.development + "editblock");
+
+		test("THEN it should respond with a 200", () => {
+			expect(response.statusCode).toBe(401);
 		});
+
+		/*test("THEN it should respond with a healthy body", async () => {
+			expect(response.body).toBe(' Unauthorized');
+		});*/
 	});
 });
