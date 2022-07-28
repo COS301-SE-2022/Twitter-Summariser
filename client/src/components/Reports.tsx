@@ -83,8 +83,11 @@ function Reports() {
 			{/* Api response comes here */}
 			<div className=" mt-16 p-3 border-l border-gray-200">
 				<div className=" mt-4">
-					<h1 className="text-3xl hidden lg:block">My Reports</h1>
-
+					<div className="flex flex-row justify-around">
+						<h1 className="text-3xl hidden lg:flex lg:flex-row lg:justify-center border-b pb-4 w-5/6 align-middle items-center border-slate-300">
+							My Reports
+						</h1>
+					</div>
 					<div className="mt-4 flex flex-row flex-wrap justify-center">
 						<div
 							data-testid="reports"

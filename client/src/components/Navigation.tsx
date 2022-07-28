@@ -28,7 +28,7 @@ function Navigation() {
 	};
 
 	return (
-		<div className="text-2xl fixed top-20 mt-5 lg:w-40 sm:w-10 2xl:ml-14 xl:ml-3 md:ml-5">
+		<div className="text-2xl fixed top-20 mt-5 w-auto 2xl:ml-14 xl:ml-3 md:ml-5">
 			<nav>
 				<div className="pt-4 flex flex-row " key={(1).toString()}>
 					<Link
