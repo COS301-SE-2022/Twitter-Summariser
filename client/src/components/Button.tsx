@@ -13,7 +13,9 @@ function Button(props: any) {
 	const buttonText = props.text;
 
 	const size = (): boolean => {
-		if (props.size === "small") return false;
+		if (props.size === "small") {
+			return false;
+		}
 		return true;
 	};
 	const execute = () => {
@@ -23,14 +25,13 @@ function Button(props: any) {
 	const isDisabled = (): boolean => props.disableId === "true";
 
 	const type = (): boolean => {
-		if (props.type === "authentication") return false;
+		if (props.type === "authentication") {
+			return false
+		}
 		return true;
 	};
 
-	const isDelete = (): boolean => {
-		if (props.type === "delete") return true;
-		return false;
-	};
+	const isDelete = (): boolean => (props.type === "delete");
 
 	return (
 		<div>
