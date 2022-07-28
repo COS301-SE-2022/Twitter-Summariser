@@ -8,6 +8,8 @@ import "./styles/Landing.css";
 import useLogout from "../hooks/useLogout";
 import useAuth from "../hooks/useAuth";
 
+import { ScrollToTop } from "../components/scroll/ScrollToTop";
+
 function Landing() {
 	const { auth } = useAuth();
 	const logout = useLogout();
@@ -82,6 +84,7 @@ function Landing() {
 			{/* second container ######################################################################################################### */}
 			<div className="flex flex-col 2xl:w-2/5 mini-tablet:w-2/5 w-full border-l border-r relative">
 				<Outlet />
+				<ScrollToTop />
 			</div>
 
 			{/* third container ######################################################################################################### */}
