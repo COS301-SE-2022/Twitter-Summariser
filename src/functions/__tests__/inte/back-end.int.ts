@@ -48,7 +48,7 @@ describe("Testing Intgeration Lambda Back-end with DynamoDB using login", () => 
 		);
 	})
 
-	test("Test that API receieves request", async () => {
+	test("Test that backend triggered correctly", async () => {
 		expect(response).toBeDefined;
 	});
 
