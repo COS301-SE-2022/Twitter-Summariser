@@ -177,7 +177,7 @@ function GenReport() {
 					</div>
 
 				)}
-				{data.blockType === "TWEET" && data.position > 1 && data.position < state.length-2 && (
+				{data.blockType === "TWEET" && data.position > 1 && data.position < state.length - 2 && (
 					<div className=" w-full border border-gray-200 p-3" key={data.position}>
 						<Tweet
 							options={{ align: "center", width: "" }}
@@ -196,7 +196,7 @@ function GenReport() {
 					</div>
 				)}
 
-				{data.blockType === "TWEET" && data.position === state.length-2 && (
+				{data.blockType === "TWEET" && data.position === state.length - 2 && (
 					<div className=" w-full border border-gray-200 p-3" key={data.position}>
 						<Tweet
 							options={{ align: "center", width: "" }}
@@ -259,7 +259,9 @@ function GenReport() {
 	};
 
 	const shareSearchHandler = () => {
-		if (enteredShare !== "") shareReport(requiredDataForShare);
+		if (enteredShare !== "") {
+			shareReport(requiredDataForShare);
+		}
 	};
 
 	const deleteReportHandler = async () => {
