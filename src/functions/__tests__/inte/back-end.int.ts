@@ -8,9 +8,8 @@ import axios from "../../../../client/src/api/ConfigAxios";
 
 describe("Given a valid API request to add a user", () => {
 	// Making api call
+	let response: any;
 	it("it should make a valid ", async () => {
-
-		let response: any;
 		try {
 			response = await axios.post(
 				"signup",
@@ -20,11 +19,13 @@ describe("Given a valid API request to add a user", () => {
 		}catch(error){
 			response='error';
 		}
-			test("Make sure api recevies request and returns success status", async () => {
+	});
+		
+		test("Make sure api recevies request and returns success status", async () => {
 				expect(response).toBeDefined;
-			});
+		});
 
-			test("Make sure api returns success status", async () => {
+		test("Make sure api returns success status", async () => {
 				expect(response.status).toBe(200);
 			});
 
@@ -39,5 +40,4 @@ describe("Given a valid API request to add a user", () => {
 				//Expect the Correct details to be returned
 				expect(response.data["username"]).toEqual("test");
 			});
-	});
 });
