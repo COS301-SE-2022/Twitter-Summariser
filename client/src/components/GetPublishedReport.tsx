@@ -231,7 +231,7 @@ function GetPublishedReport() {
 					<div className="grid grid-cols gap-4 content-center">{apiResponse}</div>
 
 					{isOwner() && (
-						<div className="flex justify-center mb-4">
+						<div className="flex justify-center mb-20">
 							<Link to="/genReport">
 								<Button
 									text="Unpublish Report"
