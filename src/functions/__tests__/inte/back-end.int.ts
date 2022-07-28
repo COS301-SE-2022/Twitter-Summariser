@@ -1,4 +1,4 @@
-const fetch = require('node-fetch');
+const {fetch} = require('node-fetch');
 
 // Tests with post requests Testing integration of API --> Lambda --> DynamodbDB
 
