@@ -236,7 +236,7 @@ function Home() {
 
 	while (i < apiResponse.length) {
 		pulseOutput.push(
-			<div className="border shadow rounded-md p-10 m-5 ">
+			<div className="border shadow rounded-md p-10 m-5 " key={i}>
 				<div className="animate-pulse flex space-x-4">
 					<div className="rounded-full bg-slate-700 h-10 w-10"> </div>
 					<div className="flex-1 space-y-6 py-1">
