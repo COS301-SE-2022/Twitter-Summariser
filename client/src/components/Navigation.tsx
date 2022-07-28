@@ -1,5 +1,5 @@
 import { GoHome } from "react-icons/go";
-// import { BiHash } from "react-icons/bi"; //explore
+import { BiHash } from "react-icons/bi";
 import { TiDocumentText } from "react-icons/ti";
 import { RiDraftLine } from "react-icons/ri";
 import { CgProfile } from "react-icons/cg";
@@ -44,7 +44,7 @@ function Navigation() {
 					</Link>
 				</div>
 
-				{/* <div className="pt-4 flex flex-row " key={(2).toString()}>
+				<div className="pt-4 flex flex-row " key={(2).toString()}>
 					<Link
 						to="/explore"
 						className="flex flex-row items-center"
@@ -55,7 +55,7 @@ function Navigation() {
 						</div>
 						<div className="hidden lg:block">&nbsp; Explore</div>
 					</Link>
-				</div> */}
+				</div>
 
 				<div className="pt-4 flex flex-row " key={(3).toString()}>
 					<Link

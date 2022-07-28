@@ -238,7 +238,7 @@ function Login() {
 							checked={persist}
 							className="w-5 h-5 text-blue-600 accent-dark-cornflower-blue border rounded-md focus:ring focus:outline-none"
 						/>
-						<label htmlFor="default-checkbox" className="ml-2 text-sm font-medium ">
+						<label htmlFor="default-checkbox" className="ml-2 text-sm font-medium">
 							Remember this device?
 						</label>
 					</div>
