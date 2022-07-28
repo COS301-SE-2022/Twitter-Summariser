@@ -68,3 +68,36 @@ describe("Testing Intgeration Lambda Back-end with DynamoDB using login", () => 
 		expect(response.data["email"]).toEqual("test@gmail.com");
 	});
 });
+
+describe("Testing Intgeration Lambda Back-end with DynamoDB using delete user", () => {
+	// Invoking Lambda function directly
+	let response: any;
+
+	it("Make an a valid API Call", async() =>{
+		response = await axios.post(
+			'deleteUser',
+			JSON.stringify({ email: "test@gmail.com" })
+		);
+	})
+
+	test("Test that backend triggered correctly", async () => {
+		expect(response).toBeDefined;
+	});
+
+	test("Test that backend was able to process the data", async () => {
+		expect(response.status).toBe(200);
+	});
+
+	test("Test backend has correctly processed data and return avlid data", async () => {
+		// Expect The correct output
+		expect(response.data['creator']["apiKey"]).toBeDefined;
+		expect(response.data['creator']["email"]).toBeDefined;
+		expect(response.data['creator']["username"]).toBeDefined;
+	});
+
+	test("Test that backend has correctly processed data and return correct data", async () => {
+		//Expect the Correct details to be returned
+		expect(response.data['creator']["username"]).toEqual("test");
+		expect(response.data['creator']["email"]).toEqual("test@gmail.com");
+	});
+});
