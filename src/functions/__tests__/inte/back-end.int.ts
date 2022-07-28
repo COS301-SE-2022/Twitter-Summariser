@@ -14,13 +14,20 @@ describe("Given a valid API request to add a user", async () => {
 		expect(response.status).toBe(200);
 	});
 
-	test("Make sure that backend has correctly processed data and return correct data", async () => {
+	test("Make sure api returns success status", async () => {
+		expect(response.status).toBe(200);
+	});
+
+	test("Make sure that backend has correctly processed data and return avlid data", async () => {
 		// Expect The correct output
 		expect(response.json["apiKey"]).toBeDefined;
 		expect(response.json["email"]).toBeDefined;
 		expect(response.json["username"]).toBeDefined;
+	});
 
+	test("Make sure that backend has correctly processed data and return correct data", async () => {
 		//Expect the Correct details to be returned
 		expect(response.json["username"]).toEqual("test");
 	});
+    
 });
