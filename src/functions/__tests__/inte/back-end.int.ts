@@ -19,15 +19,15 @@ describe("Given a valid API request to add a user", () => {
 		}catch(error){
 			response='error';
 		}
+
+		test("Make sure api returns success status", async () => {
+			expect(response.status).toBe(200);
+		});
 	});
 		
 		test("Make sure api recevies request and returns success status", async () => {
 				expect(response).toBeDefined;
 		});
-
-		test("Make sure api returns success status", async () => {
-				expect(response.status).toBe(200);
-			});
 
 			test("Make sure that backend has correctly processed data and return avlid data", async () => {
 				// Expect The correct output
