@@ -1,6 +1,7 @@
 // Tests with post requests Testing integration of API --> Lambda --> DynamodbDB
-
 import axios from "../../../../client/src/api/ConfigAxios";
+
+let apikey;
 
 // Using Function SignUp
 describe("Testing Intgeration of API with Lambda Back-end using signup", () => {
@@ -12,6 +13,7 @@ describe("Testing Intgeration of API with Lambda Back-end using signup", () => {
 			"signup",
 			JSON.stringify({ username: "test", email: "test@gmail.com", password: "M@1c01mm" })
 		);
+		apikey = response["apiKey"];
 	})
 
 	test("Test that API receieves request", async () => {
@@ -69,6 +71,40 @@ describe("Testing Intgeration Lambda Back-end with DynamoDB using login", () => 
 	});
 });
 
+describe("Testing Intgeration Lambda Back-end with DynamoDB using Search", () => {
+	// Invoking Lambda function directly
+	let response: any;
+
+	it("Make an a valid API Call", async() =>{
+		response = await axios.post(
+			'searchTweets',
+			JSON.stringify({ apiKey: apikey, password: "M@1c01mm" })
+		);
+	})
+
+	test("Test that backend triggered correctly", async () => {
+		expect(response).toBeDefined;
+	});
+
+	test("Test that backend was able to process the data", async () => {
+		expect(response.status).toBe(200);
+	});
+
+	test("Test backend has correctly processed data and return avlid data", async () => {
+		// Expect The correct output
+		expect(response.data["apiKey"]).toBeDefined;
+		expect(response.data["email"]).toBeDefined;
+		expect(response.data["username"]).toBeDefined;
+	});
+
+	test("Test that backend has correctly processed data and return correct data", async () => {
+		//Expect the Correct details to be returned
+		expect(response.data["username"]).toEqual("test");
+		expect(response.data["email"]).toEqual("test@gmail.com");
+	});
+});
+
+// Deleting User
 describe("Testing Intgeration Lambda Back-end with DynamoDB using delete user", () => {
 	// Invoking Lambda function directly
 	let response: any;
