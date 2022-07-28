@@ -577,7 +577,7 @@ function GenReport() {
 
 					<div className="grid grid-cols gap-4 content-center">{apiResponse}</div>
 
-					<div className="flex justify-center mb-4">
+					<div className="flex justify-center mb-20">
 						<Link to="/getPublishedReport">
 							{/* <button
 						onClick={publishHandler}
