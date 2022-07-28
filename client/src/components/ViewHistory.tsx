@@ -94,7 +94,7 @@ function ViewHistory() {
 
 	tweets.map((data) =>
 		apiResponse.push(
-			<div className=" w-full border border-gray-200 p-3" key={data}>
+			<div className=" w-full p-3" key={data}>
 				<Tweet options={{ align: "center", width: "" }} tweetId={data} />
 			</div>
 		)
@@ -128,7 +128,7 @@ function ViewHistory() {
 					</div>
 				) : (
 					<div>
-						<div className="flex flex-col flex-wrap justify-around pt-3 pb-3 ">
+						<div className="flex flex-col flex-wrap justify-around pt-3 pb-4 pl-4 ">
 							{/*  */}
 							<h1 className="text-3xl mt-12">{searchPhrase}</h1>
 
@@ -195,10 +195,21 @@ function ViewHistory() {
 				))}
 
 			{clicked && (
-				<div className="mt-4 flex flex-col flex-wrap justify-center">
-					<h1 className="text-2xl">Newly created report</h1>
+				<div
+					className="mt-4 ml-4 flex flex-col flex-wrap justify-center"
+					data-aos="fade-left"
+					data-aos-duration="800"
+					data-aos-easing="ease-in-sine"
+					data-aos-offset="300"
+				>
+					<h1 className="text-2xl ml-2">Newly created report</h1>
 					<Link to="/genReport">
-						<div className="m-4 w-1/4 h-20 bg-gray-400 rounded-md flex flex-col p-2">
+						<div
+							className="m-4 w-1/4 h-auto bg-white border rounded-lg hover:shadow-2xl flex flex-col p-2"
+							data-aos="zoom-in"
+							data-aos-duration="500"
+							data-aos-delay="700"
+						>
 							<div className="">
 								<button
 									data-testid="btn-report"
