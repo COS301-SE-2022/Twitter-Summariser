@@ -236,7 +236,7 @@ function Home() {
 
 	while (i < apiResponse.length) {
 		pulseOutput.push(
-			<div className="border shadow rounded-md p-10 m-5 ">
+			<div className="border shadow rounded-md p-10 m-5 " key={i}>
 				<div className="animate-pulse flex space-x-4">
 					<div className="rounded-full bg-slate-700 h-10 w-10"> </div>
 					<div className="flex-1 space-y-6 py-1">
@@ -278,21 +278,20 @@ function Home() {
 
 		getReports();
 
-
 		return () => {
 			isMounted = false;
 			controller.abort();
 		};
 	}, [axiosPrivate]);
 
-		const [homeDefault, changeHomeDefault] = useState(true);
+	const [homeDefault, changeHomeDefault] = useState(true);
 
 	const displayHomeSearch = () => {
 		apiResponse = [<div key="begining div" />];
 		changeEnteredSearch("");
 		changeResultSet("");
 		changeHomeDefault(false);
-	}
+	};
 
 	// const displayHomeDefault = () => {
 	// 	apiResponse = [<div key="begining div" />];
@@ -301,8 +300,6 @@ function Home() {
 	// 	getReports();
 	// 	changeHomeDefault(true);
 	// }
-
-
 
 	// const loadIcon = (
 	// 	<svg
@@ -325,236 +322,238 @@ function Home() {
 
 	return (
 		// <div data-testid="home">
-			// <div className="mt-8 mini-tablet:mt-0 border-b">
-			// 	<div className="flex justify-center pt-8 pl-8 pr-8 pb-2">
-			// 		<label
-			// 			htmlFor="default-search"
-			// 			className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
-			// 		>
-			// 			Search
-			// 		</label>
-			// 		<div className="relative w-screen">
-			// 			<div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-			// 				<svg
-			// 					className="w-5 h-5 text-gray-500 dark:text-gray-400"
-			// 					fill="none"
-			// 					stroke="currentColor"
-			// 					viewBox="0 0 24 24"
-			// 					xmlns="http://www.w3.org/2000/svg"
-			// 				>
-			// 					<path
-			// 						strokeLinecap="round"
-			// 						strokeLinejoin="round"
-			// 						strokeWidth="2"
-			// 						d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-			// 					/>
-			// 				</svg>
-			// 			</div>
-			// 			<input
-			// 				type="search"
-			// 				id="default-search"
-			// 				className="p-3 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-full border-gray-200 border focus:outline-none focus:ring focus:border-blue-500"
-			// 				value={enteredSearch}
-			// 				onChange={searchHandler}
-			// 				placeholder="Search Twitter..."
-			// 				required
-			// 			/>
-			// 		</div>
-			// 	</div>
-			// 	{/* certain options and search button comes here */}
-			// 	<div className="flex flex-row flex-wrap justify-around">
-			// 		{/*  */}
+		// <div className="mt-8 mini-tablet:mt-0 border-b">
+		// 	<div className="flex justify-center pt-8 pl-8 pr-8 pb-2">
+		// 		<label
+		// 			htmlFor="default-search"
+		// 			className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
+		// 		>
+		// 			Search
+		// 		</label>
+		// 		<div className="relative w-screen">
+		// 			<div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+		// 				<svg
+		// 					className="w-5 h-5 text-gray-500 dark:text-gray-400"
+		// 					fill="none"
+		// 					stroke="currentColor"
+		// 					viewBox="0 0 24 24"
+		// 					xmlns="http://www.w3.org/2000/svg"
+		// 				>
+		// 					<path
+		// 						strokeLinecap="round"
+		// 						strokeLinejoin="round"
+		// 						strokeWidth="2"
+		// 						d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+		// 					/>
+		// 				</svg>
+		// 			</div>
+		// 			<input
+		// 				type="search"
+		// 				id="default-search"
+		// 				className="p-3 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-full border-gray-200 border focus:outline-none focus:ring focus:border-blue-500"
+		// 				value={enteredSearch}
+		// 				onChange={searchHandler}
+		// 				placeholder="Search Twitter..."
+		// 				required
+		// 			/>
+		// 		</div>
+		// 	</div>
+		// 	{/* certain options and search button comes here */}
+		// 	<div className="flex flex-row flex-wrap justify-around">
+		// 		{/*  */}
 
-			// 		<div className="flex flex-row flex-wrap w-1/3 justify-center items-center p-1">
-			// 			<div className="mb-0">
-			// 				<p>Tweets:</p>
-			// 			</div>
-			// 			<div className="mt-0">
-			// 				<select
-			// 					data-testid="select-num-tweets"
-			// 					className=" text-black"
-			// 					value={noOfTweets}
-			// 					onChange={tweetHandler}
-			// 				>
-			// 					{tweetOptions}
-			// 				</select>
-			// 			</div>
-			// 		</div>
+		// 		<div className="flex flex-row flex-wrap w-1/3 justify-center items-center p-1">
+		// 			<div className="mb-0">
+		// 				<p>Tweets:</p>
+		// 			</div>
+		// 			<div className="mt-0">
+		// 				<select
+		// 					data-testid="select-num-tweets"
+		// 					className=" text-black"
+		// 					value={noOfTweets}
+		// 					onChange={tweetHandler}
+		// 				>
+		// 					{tweetOptions}
+		// 				</select>
+		// 			</div>
+		// 		</div>
 
-			// 		{/* this is for the Fitlering options */}
-			// 		<div className="flex flex-row flex-wrap w-1/3 justify-center items-center p-1">
-			// 			<div className="mb-0">
-			// 				<p className="">Filter:</p>
-			// 			</div>
-			// 			<div className="mt-0">
-			// 				<select
-			// 					data-testid="select-filter"
-			// 					className=" text-black text-center"
-			// 					onChange={filterHandler}
-			// 					value={filter}
-			// 				>
-			// 					<option>-</option>
-			// 					<option value="verifiedTweets">Verified Tweets</option>
-			// 					<option value="noneReply">Non-Replies</option>
-			// 				</select>
-			// 			</div>
-			// 		</div>
+		// 		{/* this is for the Fitlering options */}
+		// 		<div className="flex flex-row flex-wrap w-1/3 justify-center items-center p-1">
+		// 			<div className="mb-0">
+		// 				<p className="">Filter:</p>
+		// 			</div>
+		// 			<div className="mt-0">
+		// 				<select
+		// 					data-testid="select-filter"
+		// 					className=" text-black text-center"
+		// 					onChange={filterHandler}
+		// 					value={filter}
+		// 				>
+		// 					<option>-</option>
+		// 					<option value="verifiedTweets">Verified Tweets</option>
+		// 					<option value="noneReply">Non-Replies</option>
+		// 				</select>
+		// 			</div>
+		// 		</div>
 
-			// 		{/* this is for the sorting options */}
-			// 		<div className="flex flex-row flex-wrap w-1/3 justify-center items-center p-1">
-			// 			<div>
-			// 				<p className="">Sort By:</p>
-			// 			</div>
-			// 			<div>
-			// 				<select
-			// 					data-testid="select-sort"
-			// 					className=" text-black text-center"
-			// 					onChange={sortHandler}
-			// 				>
-			// 					<option>-</option>
-			// 					<option value="byLikes">Likes</option>
-			// 					<option value="byComments">Comments</option>
-			// 					<option value="byRetweets">Re-tweets</option>
-			// 				</select>
-			// 			</div>
-			// 		</div>
-			// 	</div>
-			// 	{/* this is for the search button */}
-			// 	<div className="flex flex-row flex-wrap justify-around pt-3 pb-3 items-center">
-			// 		<div className="pt-3">
-			// 			{/* <button
-			// 			data-testid="btn-search"
-			// 			type="submit"
-			// 			className="button w-3/4 text-lg p-0.5"
-			// 			onClick={search}
-			// 		>
-			// 			Search
-			// 		</button> */}
-			// 			{loading && (
-			// 				<button
-			// 					type="button"
-			// 					className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
-			// 					disabled
-			// 				>
-			// 					{/* <svg
-			// 						className="animate-spin h-5 w-5 mr-3 bg-white"
-			// 						viewBox="0 0 24 24"
-			// 					> */}
-			// 					{/* <!-- ... --> */}
-			// 					{/* </svg> */}
-			// 					{loadIcon}
-			// 				</button>
-			// 			)}
-			// 			{!loading && (
-			// 				<Button text="Search" size="large" handle={search} type="search" />
-			// 			)}
-			// 		</div>
-			// 		{/* {apiResponse.length > 1 && ( */}
-			// 		{/* // <div className="flex flex-row flex-wrap justify-around pt-3 pb-3 items-center"> */}
-			// 		<div className="pt-3">
-			// 			{/* <button
-			// 			data-testid="btn-generate"
-			// 			type="submit"
-			// 			className="button w-3/4 text-lg p-0.5"
-			// 			onClick={genRep}
-			// 		>
-			// 			Generate Report
-			// 		</button> */}
-			// 			{apiResponse.length === 1 ? (
-			// 				<button
-			// 					type="button"
-			// 					className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center disabled"
-			// 					disabled
-			// 				>
-			// 					{/* <svg
-			// 						className="animate-spin h-5 w-5 mr-3 bg-white"
-			// 						viewBox="0 0 24 24"
-			// 					> */}
-			// 					{/* <!-- ... --> */}
-			// 					{/* </svg> */}
-			// 					{/* {loadIcon} */}
-			// 					Generate Report
-			// 				</button>
-			// 			) : generateLoading ? (
-			// 				<button
-			// 					type="button"
-			// 					className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
-			// 					disabled
-			// 				>
-			// 					{/* <svg
-			// 						className="animate-spin h-5 w-5 mr-3 bg-white"
-			// 						viewBox="0 0 24 24"
-			// 					> */}
-			// 					{/* <!-- ... --> */}
-			// 					{/* </svg> */}
-			// 					{loadIcon}
-			// 				</button>
-			// 			) : (
-			// 				<Button
-			// 					text="Generate Report"
-			// 					size="large"
-			// 					handle={generate}
-			// 					type="generate"
-			// 				/>
-			// 			)}
-			// 		</div>
-			// 		{/* // </div> */}
-			// 		{/* )} */}
-			// 	</div>
+		// 		{/* this is for the sorting options */}
+		// 		<div className="flex flex-row flex-wrap w-1/3 justify-center items-center p-1">
+		// 			<div>
+		// 				<p className="">Sort By:</p>
+		// 			</div>
+		// 			<div>
+		// 				<select
+		// 					data-testid="select-sort"
+		// 					className=" text-black text-center"
+		// 					onChange={sortHandler}
+		// 				>
+		// 					<option>-</option>
+		// 					<option value="byLikes">Likes</option>
+		// 					<option value="byComments">Comments</option>
+		// 					<option value="byRetweets">Re-tweets</option>
+		// 				</select>
+		// 			</div>
+		// 		</div>
+		// 	</div>
+		// 	{/* this is for the search button */}
+		// 	<div className="flex flex-row flex-wrap justify-around pt-3 pb-3 items-center">
+		// 		<div className="pt-3">
+		// 			{/* <button
+		// 			data-testid="btn-search"
+		// 			type="submit"
+		// 			className="button w-3/4 text-lg p-0.5"
+		// 			onClick={search}
+		// 		>
+		// 			Search
+		// 		</button> */}
+		// 			{loading && (
+		// 				<button
+		// 					type="button"
+		// 					className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
+		// 					disabled
+		// 				>
+		// 					{/* <svg
+		// 						className="animate-spin h-5 w-5 mr-3 bg-white"
+		// 						viewBox="0 0 24 24"
+		// 					> */}
+		// 					{/* <!-- ... --> */}
+		// 					{/* </svg> */}
+		// 					{loadIcon}
+		// 				</button>
+		// 			)}
+		// 			{!loading && (
+		// 				<Button text="Search" size="large" handle={search} type="search" />
+		// 			)}
+		// 		</div>
+		// 		{/* {apiResponse.length > 1 && ( */}
+		// 		{/* // <div className="flex flex-row flex-wrap justify-around pt-3 pb-3 items-center"> */}
+		// 		<div className="pt-3">
+		// 			{/* <button
+		// 			data-testid="btn-generate"
+		// 			type="submit"
+		// 			className="button w-3/4 text-lg p-0.5"
+		// 			onClick={genRep}
+		// 		>
+		// 			Generate Report
+		// 		</button> */}
+		// 			{apiResponse.length === 1 ? (
+		// 				<button
+		// 					type="button"
+		// 					className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center disabled"
+		// 					disabled
+		// 				>
+		// 					{/* <svg
+		// 						className="animate-spin h-5 w-5 mr-3 bg-white"
+		// 						viewBox="0 0 24 24"
+		// 					> */}
+		// 					{/* <!-- ... --> */}
+		// 					{/* </svg> */}
+		// 					{/* {loadIcon} */}
+		// 					Generate Report
+		// 				</button>
+		// 			) : generateLoading ? (
+		// 				<button
+		// 					type="button"
+		// 					className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
+		// 					disabled
+		// 				>
+		// 					{/* <svg
+		// 						className="animate-spin h-5 w-5 mr-3 bg-white"
+		// 						viewBox="0 0 24 24"
+		// 					> */}
+		// 					{/* <!-- ... --> */}
+		// 					{/* </svg> */}
+		// 					{loadIcon}
+		// 				</button>
+		// 			) : (
+		// 				<Button
+		// 					text="Generate Report"
+		// 					size="large"
+		// 					handle={generate}
+		// 					type="generate"
+		// 				/>
+		// 			)}
+		// 		</div>
+		// 		{/* // </div> */}
+		// 		{/* )} */}
+		// 	</div>
 
-			// 	{loading && (
-			// 		<div className="flex flex-row justify-center my-2">
-			// 			{loadIcon} &nbsp; Loading Tweets
-			// 		</div>
-			// 	)}
+		// 	{loading && (
+		// 		<div className="flex flex-row justify-center my-2">
+		// 			{loadIcon} &nbsp; Loading Tweets
+		// 		</div>
+		// 	)}
 
-			// 	{/* Api response comes here */}
-			// 	<div data-testid="result" className="flex flex-col">
-			// 		{clicked && (
-			// 			<div className="mt-4 flex flex-col flex-wrap justify-center">
-			// 				<h1 className="text-2xl ml-2">Newly created report</h1>
-			// 				<Link to="/genReport">
-			// 					<div className="m-4 w-1/4 h-20 bg-gray-400 rounded-md flex flex-col p-2">
-			// 						<div className="">
-			// 							<button
-			// 								data-testid="btn-report"
-			// 								type="submit"
-			// 								onClick={viewGenReport}
-			// 							>
-			// 								<p className="font-bold">{createTitle}</p>
-			// 							</button>
-			// 						</div>
-			// 						<div className="mt-2">
-			// 							<p className="italic text-xs">{auth.username}</p>
-			// 						</div>
-			// 						<div className="">
-			// 							<p className="italic text-xs">{date}</p>
-			// 						</div>
-			// 					</div>
-			// 				</Link>
-			// 			</div>
-			// 		)}
+		// 	{/* Api response comes here */}
+		// 	<div data-testid="result" className="flex flex-col">
+		// 		{clicked && (
+		// 			<div className="mt-4 flex flex-col flex-wrap justify-center">
+		// 				<h1 className="text-2xl ml-2">Newly created report</h1>
+		// 				<Link to="/genReport">
+		// 					<div className="m-4 w-1/4 h-20 bg-gray-400 rounded-md flex flex-col p-2">
+		// 						<div className="">
+		// 							<button
+		// 								data-testid="btn-report"
+		// 								type="submit"
+		// 								onClick={viewGenReport}
+		// 							>
+		// 								<p className="font-bold">{createTitle}</p>
+		// 							</button>
+		// 						</div>
+		// 						<div className="mt-2">
+		// 							<p className="italic text-xs">{auth.username}</p>
+		// 						</div>
+		// 						<div className="">
+		// 							<p className="italic text-xs">{date}</p>
+		// 						</div>
+		// 					</div>
+		// 				</Link>
+		// 			</div>
+		// 		)}
 
-			// 		{/* {pulse} */}
+		// 		{/* {pulse} */}
 
-			// 		{pulse && pulseOutput}
+		// 		{pulse && pulseOutput}
 
-			// 		{apiResponse}
-			// 	</div>
-			// </div>
+		// 		{apiResponse}
+		// 	</div>
+		// </div>
 		// </div>
 
 		// ****************UNCOMMENT NEW HOME PAGE BELOW*****************
 
 		<div data-testid="home">
-			{homeDefault && <div data-testid="container1" className="mt-14 flex flex-col 2xl:w-1/2 mini-tablet:w-2/3 w-full relative">
-
-				{/* certain options and search button comes here */}
-				<div className="flex flex-row flex-wrap justify-around pt-3 pb-3 border border-white items-center">
-
-					{/* this is for the search button */}
-					<div className="flex flex-row w-1/3 justify-center pt-3">
-						{/* <button
+			{homeDefault && (
+				<div
+					data-testid="container1"
+					className="mt-14 flex flex-col 2xl:w-1/2 mini-tablet:w-2/3 w-full relative"
+				>
+					{/* certain options and search button comes here */}
+					<div className="flex flex-row flex-wrap justify-around pt-3 pb-3 border border-white items-center">
+						{/* this is for the search button */}
+						<div className="flex flex-row w-1/3 justify-center pt-3">
+							{/* <button
 							data-testid="btn-summarise"
 							type="submit"
 							className="button__summarise text-xl p-0.5 h-10 w-56 bg-[#023E8A] rounded-full text-[#D5F3F9] hover:bg-[#03045E] group hover:shadow"
@@ -562,16 +561,16 @@ function Home() {
 						>
 							Get Started
 						</button> */}
-						<Button
+							<Button
 								text="Get Started"
 								size="large"
 								handle={displayHomeSearch}
 								type="start"
-						/>
+							/>
+						</div>
 					</div>
-				</div>
-				{/* Api response comes here */}
-				{/* <div className=" mt-4 text-center">
+					{/* Api response comes here */}
+					{/* <div className=" mt-4 text-center">
 					<h1 className="text-midnight-blue font-bold text-3xl">Explore Latest Reports</h1>
 
 					<div className="mt-4 flex flex-row flex-wrap justify-center">
@@ -590,132 +589,139 @@ function Home() {
 						</div>
 					</div>
 				</div> */}
-				<div className=" p-3 ">
-					<div className=" mt-4 text-center">
-						<h1 className="text-black font-semibold text-3xl">Explore Latest Reports</h1>
+					<div className=" p-3 ">
+						<div className=" mt-4 text-center">
+							<h1 className="text-black font-semibold text-3xl">
+								Explore Latest Reports
+							</h1>
 
-						<div className="mt-4 flex flex-row flex-wrap justify-center">
-							<div data-testid="reports" className="mt-4 flex flex-row flex-wrap justify-center">
-								{loading && <div>{loadIcon} &nbsp; Loading Reports</div>}
+							<div className="mt-4 flex flex-row flex-wrap justify-center">
+								<div
+									data-testid="reports"
+									className="mt-4 flex flex-row flex-wrap justify-center"
+								>
+									{loading && <div>{loadIcon} &nbsp; Loading Reports</div>}
 
-								{!loading &&
-									(report.length === 0 ? (
-										<div>There are no reports at the moment </div>
-									) : (
-										report.map((data) => (
-											<div
-												data-aos="fade-up"
-												data-aos-duration="500"
-												className="m-4 w-auto h-auto  flex flex-col p-2"
-												key={data.reportID}
-											>
-												<ExploreCard data={data} />
-											</div>
-										))
-									))}
+									{!loading &&
+										(report.length === 0 ? (
+											<div>There are no reports at the moment </div>
+										) : (
+											report.map((data) => (
+												<div
+													data-aos="fade-up"
+													data-aos-duration="500"
+													className="m-4 w-auto h-auto  flex flex-col p-2"
+													key={data.reportID}
+												>
+													<ExploreCard data={data} />
+												</div>
+											))
+										))}
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>}
-			{!homeDefault && <div className="mt-8 mini-tablet:mt-0 border-b">
-				<div className="flex justify-center pt-8 pl-8 pr-8 pb-2">
-					<label
-						htmlFor="default-search"
-						className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
-					>
-						Search
-					</label>
-					<div className="relative w-screen">
-						<div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-							<svg
-								className="w-5 h-5 text-gray-500 dark:text-gray-400"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24"
-								xmlns="http://www.w3.org/2000/svg"
-							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									strokeWidth="2"
-									d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-								/>
-							</svg>
+			)}
+			{!homeDefault && (
+				<div className="mt-8 mini-tablet:mt-0 border-b">
+					<div className="flex justify-center pt-8 pl-8 pr-8 pb-2">
+						<label
+							htmlFor="default-search"
+							className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
+						>
+							Search
+						</label>
+						<div className="relative w-screen">
+							<div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+								<svg
+									className="w-5 h-5 text-gray-500 dark:text-gray-400"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+									xmlns="http://www.w3.org/2000/svg"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth="2"
+										d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+									/>
+								</svg>
+							</div>
+							<input
+								type="search"
+								id="default-search"
+								className="p-3 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-full border-gray-200 border focus:outline-none focus:ring focus:border-blue-500"
+								value={enteredSearch}
+								onChange={searchHandler}
+								placeholder="Search Twitter..."
+								required
+							/>
 						</div>
-						<input
-							type="search"
-							id="default-search"
-							className="p-3 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-full border-gray-200 border focus:outline-none focus:ring focus:border-blue-500"
-							value={enteredSearch}
-							onChange={searchHandler}
-							placeholder="Search Twitter..."
-							required
-						/>
 					</div>
-				</div>
-				{/* certain options and search button comes here */}
-				<div className="flex flex-row flex-wrap justify-around">
-					{/*  */}
+					{/* certain options and search button comes here */}
+					<div className="flex flex-row flex-wrap justify-around">
+						{/*  */}
 
-					<div className="flex flex-row flex-wrap w-1/3 justify-center items-center p-1">
-						<div className="mb-0">
-							<p>Tweets:</p>
+						<div className="flex flex-row flex-wrap w-1/3 justify-center items-center p-1">
+							<div className="mb-0">
+								<p>Tweets:</p>
+							</div>
+							<div className="mt-0">
+								<select
+									data-testid="select-num-tweets"
+									className=" text-black"
+									value={noOfTweets}
+									onChange={tweetHandler}
+								>
+									{tweetOptions}
+								</select>
+							</div>
 						</div>
-						<div className="mt-0">
-							<select
-								data-testid="select-num-tweets"
-								className=" text-black"
-								value={noOfTweets}
-								onChange={tweetHandler}
-							>
-								{tweetOptions}
-							</select>
-						</div>
-					</div>
 
-					{/* this is for the Fitlering options */}
-					<div className="flex flex-row flex-wrap w-1/3 justify-center items-center p-1">
-						<div className="mb-0">
-							<p className="">Filter:</p>
+						{/* this is for the Fitlering options */}
+						<div className="flex flex-row flex-wrap w-1/3 justify-center items-center p-1">
+							<div className="mb-0">
+								<p className="">Filter:</p>
+							</div>
+							<div className="mt-0">
+								<select
+									data-testid="select-filter"
+									className=" text-black text-center"
+									onChange={filterHandler}
+									value={filter}
+								>
+									<option>-</option>
+									<option value="verifiedTweets">Verified Tweets</option>
+									<option value="noneReply">Non-Replies</option>
+								</select>
+							</div>
 						</div>
-						<div className="mt-0">
-							<select
-								data-testid="select-filter"
-								className=" text-black text-center"
-								onChange={filterHandler}
-								value={filter}
-							>
-								<option>-</option>
-								<option value="verifiedTweets">Verified Tweets</option>
-								<option value="noneReply">Non-Replies</option>
-							</select>
-						</div>
-					</div>
 
-					{/* this is for the sorting options */}
-					<div className="flex flex-row flex-wrap w-1/3 justify-center items-center p-1">
-						<div>
-							<p className="">Sort By:</p>
-						</div>
-						<div>
-							<select
-								data-testid="select-sort"
-								className=" text-black text-center"
-								onChange={sortHandler}
-							>
-								<option>-</option>
-								<option value="byLikes">Likes</option>
-								<option value="byComments">Comments</option>
-								<option value="byRetweets">Re-tweets</option>
-							</select>
+						{/* this is for the sorting options */}
+						<div className="flex flex-row flex-wrap w-1/3 justify-center items-center p-1">
+							<div>
+								<p className="">Sort By:</p>
+							</div>
+							<div>
+								<select
+									data-testid="select-sort"
+									className=" text-black text-center"
+									onChange={sortHandler}
+								>
+									<option>-</option>
+									<option value="byLikes">Likes</option>
+									<option value="byComments">Comments</option>
+									<option value="byRetweets">Re-tweets</option>
+								</select>
+							</div>
 						</div>
 					</div>
-				</div>
-				{/* this is for the search button */}
-				<div className="flex flex-row flex-wrap justify-around pt-3 pb-3 items-center">
-					<div className="pt-3">
-						{/* <button
+					{/* this is for the search button */}
+					<div className="flex flex-row flex-wrap justify-around pt-3 pb-3 items-center">
+						<div className="pt-3">
+							{/* <button
 						data-testid="btn-search"
 						type="submit"
 						className="button w-3/4 text-lg p-0.5"
@@ -723,29 +729,29 @@ function Home() {
 					>
 						Search
 					</button> */}
-						{loading && (
-							<button
-								type="button"
-								className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
-								disabled
-							>
-								{/* <svg
+							{loading && (
+								<button
+									type="button"
+									className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
+									disabled
+								>
+									{/* <svg
 									className="animate-spin h-5 w-5 mr-3 bg-white"
 									viewBox="0 0 24 24"
 								> */}
-								{/* <!-- ... --> */}
-								{/* </svg> */}
-								{loadIcon}
-							</button>
-						)}
-						{!loading && (
-							<Button text="Search" size="large" handle={search} type="search" />
-						)}
-					</div>
-					{/* {apiResponse.length > 1 && ( */}
-					{/* // <div className="flex flex-row flex-wrap justify-around pt-3 pb-3 items-center"> */}
-					<div className="pt-3">
-						{/* <button
+									{/* <!-- ... --> */}
+									{/* </svg> */}
+									{loadIcon}
+								</button>
+							)}
+							{!loading && (
+								<Button text="Search" size="large" handle={search} type="search" />
+							)}
+						</div>
+						{/* {apiResponse.length > 1 && ( */}
+						{/* // <div className="flex flex-row flex-wrap justify-around pt-3 pb-3 items-center"> */}
+						<div className="pt-3">
+							{/* <button
 						data-testid="btn-generate"
 						type="submit"
 						className="button w-3/4 text-lg p-0.5"
@@ -753,88 +759,89 @@ function Home() {
 					>
 						Generate Report
 					</button> */}
-						{apiResponse.length === 1 ? (
-							<button
-								type="button"
-								className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center disabled"
-								disabled
-							>
-								{/* <svg
+							{apiResponse.length === 1 ? (
+								<button
+									type="button"
+									className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center disabled"
+									disabled
+								>
+									{/* <svg
 									className="animate-spin h-5 w-5 mr-3 bg-white"
 									viewBox="0 0 24 24"
 								> */}
-								{/* <!-- ... --> */}
-								{/* </svg> */}
-								{/* {loadIcon} */}
-								Generate Report
-							</button>
-						) : generateLoading ? (
-							<button
-								type="button"
-								className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
-								disabled
-							>
-								{/* <svg
+									{/* <!-- ... --> */}
+									{/* </svg> */}
+									{/* {loadIcon} */}
+									Generate Report
+								</button>
+							) : generateLoading ? (
+								<button
+									type="button"
+									className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
+									disabled
+								>
+									{/* <svg
 									className="animate-spin h-5 w-5 mr-3 bg-white"
 									viewBox="0 0 24 24"
 								> */}
-								{/* <!-- ... --> */}
-								{/* </svg> */}
-								{loadIcon}
-							</button>
-						) : (
-							<Button
-								text="Generate Report"
-								size="large"
-								handle={generate}
-								type="generate"
-							/>
-						)}
+									{/* <!-- ... --> */}
+									{/* </svg> */}
+									{loadIcon}
+								</button>
+							) : (
+								<Button
+									text="Generate Report"
+									size="large"
+									handle={generate}
+									type="generate"
+								/>
+							)}
+						</div>
+						{/* // </div> */}
+						{/* )} */}
 					</div>
-					{/* // </div> */}
-					{/* )} */}
-				</div>
 
-				{loading && (
-					<div className="flex flex-row justify-center my-2">
-						{loadIcon} &nbsp; Loading Tweets
-					</div>
-				)}
-
-				{/* Api response comes here */}
-				<div data-testid="result" className="flex flex-col">
-					{clicked && (
-						<div className="mt-4 flex flex-col flex-wrap justify-center">
-							<h1 className="text-2xl ml-2">Newly created report</h1>
-							<Link to="/genReport">
-								<div className="m-4 w-1/4 h-20 bg-gray-400 rounded-md flex flex-col p-2">
-									<div className="">
-										<button
-											data-testid="btn-report"
-											type="submit"
-											onClick={viewGenReport}
-										>
-											<p className="font-bold">{createTitle}</p>
-										</button>
-									</div>
-									<div className="mt-2">
-										<p className="italic text-xs">{auth.username}</p>
-									</div>
-									<div className="">
-										<p className="italic text-xs">{date}</p>
-									</div>
-								</div>
-							</Link>
+					{loading && (
+						<div className="flex flex-row justify-center my-2">
+							{loadIcon} &nbsp; Loading Tweets
 						</div>
 					)}
 
-					{/* {pulse} */}
+					{/* Api response comes here */}
+					<div data-testid="result" className="flex flex-col">
+						{clicked && (
+							<div className="mt-4 flex flex-col flex-wrap justify-center">
+								<h1 className="text-2xl ml-2">Newly created report</h1>
+								<Link to="/genReport">
+									<div className="m-4 w-1/4 h-20 bg-gray-400 rounded-md flex flex-col p-2">
+										<div className="">
+											<button
+												data-testid="btn-report"
+												type="submit"
+												onClick={viewGenReport}
+											>
+												<p className="font-bold">{createTitle}</p>
+											</button>
+										</div>
+										<div className="mt-2">
+											<p className="italic text-xs">{auth.username}</p>
+										</div>
+										<div className="">
+											<p className="italic text-xs">{date}</p>
+										</div>
+									</div>
+								</Link>
+							</div>
+						)}
 
-					{pulse && pulseOutput}
+						{/* {pulse} */}
 
-					{apiResponse}
+						{pulse && pulseOutput}
+
+						{apiResponse}
+					</div>
 				</div>
-			</div>}
+			)}
 		</div>
 	);
 }
