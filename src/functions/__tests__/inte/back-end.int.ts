@@ -13,22 +13,13 @@ describe("Given a valid API request to add a user", () => {
 	test("Make sure api recevies request and returns success status", async () => {
 		const response = await axios.post(
 			"signup",
-			JSON.stringify({ username: "test", email: "test@gmail.com", password: "test" })
+			JSON.stringify({ username: "test", email: "test@gmail.com", password: "M@1c01mm" })
 		);
-
-		expect(response).toBeDefined;
 
 		expect(response).toBeDefined;
 	});
 
 	test("Make sure api returns success status", async () => {
-		const response = await axios.post(
-			"signup",
-			JSON.stringify({ username: "test", email: "test@gmail.com", password: "test" })
-		);
-
-		expect(response).toBeDefined;
-
 		expect(response.status).toBe(200);
 	});
 
