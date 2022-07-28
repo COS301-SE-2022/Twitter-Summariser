@@ -12,7 +12,7 @@ describe("Given a valid API request to add a user", () => {
 
 		let response: any;
 		try {
-			let response = await axios.post(
+			response = await axios.post(
 				"signup",
 				JSON.stringify({ username: "test", email: "test@gmail.com", password: "test" })
 			);
