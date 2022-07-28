@@ -12,8 +12,8 @@ const apiAcesspoint = {
 describe("Given a valid API request to add a user",  () => {
 	// Making api call
 	it('it should make a valid ', async () => {
-		const response = await axios.post(
-			apiAcesspoint+'signup',
+		await axios.post(
+			'https://pgxz0lthzj.execute-api.us-east-1.amazonaws.com/dev/signup',
 			{ username: 'test', email: 'test@gmail.com', password: 'test' },
 			{
 			  headers: {
@@ -21,28 +21,28 @@ describe("Given a valid API request to add a user",  () => {
 				Accept: 'application/json',
 			  },
 			},
-		  );
+		  ).then((response) =>{
+			test("Make sure api recevies request and returns success status", async () => {
+				expect(response).toBeDefined;
+			});
 
-	test("Make sure api recevies request and returns success status", async () => {
-		expect(response).toBeDefined;
-	});
+			test("Make sure api returns success status", async () => {
+				expect(response.status).toBe(200);
+			});
 
-	test("Make sure api returns success status", async () => {
-		expect(response.status).toBe(200);
-	});
+			test("Make sure that backend has correctly processed data and return avlid data", async () => {
+				// Expect The correct output
+				expect(response.data["apiKey"]).toBeDefined;
+				expect(response.data["email"]).toBeDefined;
+				expect(response.data["username"]).toBeDefined;
+			});
 
-	test("Make sure that backend has correctly processed data and return avlid data", async () => {
-		// Expect The correct output
-		expect(response.data["apiKey"]).toBeDefined;
-		expect(response.data["email"]).toBeDefined;
-		expect(response.data["username"]).toBeDefined;
-	});
+			test("Make sure that backend has correctly processed data and return correct data", async () => {
+				//Expect the Correct details to be returned
+				expect(response.data["username"]).toEqual("test");
+			});
 
-	test("Make sure that backend has correctly processed data and return correct data", async () => {
-		//Expect the Correct details to be returned
-		expect(response.data["username"]).toEqual("test");
-	});
-
-	})
+			})
+		})
     
 });
