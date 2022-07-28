@@ -191,7 +191,7 @@ function ViewHistory() {
 							{pulse && pulseOutput}
 							{apiResponse}
 							<br />
-							<div className="flex flex-row w-full justify-center pt-3 mb-9">
+							<div className="flex flex-row w-full justify-center pt-3 mb-20">
 								{/* <button
 								data-testid="btn-generate"
 								type="submit"
@@ -230,7 +230,7 @@ function ViewHistory() {
 
 			{clicked && (
 				<div
-					className="mt-4 ml-4 flex flex-col flex-wrap justify-center"
+					className="mt-4 ml-4 mb-20 flex flex-col flex-wrap justify-center"
 					data-aos="fade-left"
 					data-aos-duration="800"
 					data-aos-easing="ease-in-sine"
