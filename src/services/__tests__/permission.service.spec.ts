@@ -44,5 +44,29 @@ describe("permission.service", () => {
 
             expect(permission).toEqual(expected);
         })
-    })
+    });
+
+    describe("getPermissions", () => {
+        test("Get Permissions", async () => {
+            const addedPermissions: Permission[] = [
+                {
+                    reportID: "1111",
+                    apiKey: "rdvsafbkjuk5",
+                    type: "EDITOR"
+                },
+                {
+                    reportID: "1131",
+                    apiKey: "rdvsafbkjuk5",
+                    type: "EDITOR"
+                },
+                {
+                    reportID: "1231",
+                    apiKey: "rdvsafbkjuk5",
+                    type: "EDITOR"
+                }
+            ];
+
+            awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Items: addedPermissions }));
+        })
+    });
 })
