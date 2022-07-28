@@ -1,7 +1,7 @@
 import * as request from 'superagent';
 
 const apiAcesspoint = {
-    'development': 'https://3vdykbiva3.execute-api.us-east-1.amazonaws.com/dev/'
+    'development': 'https://pgxz0lthzj.execute-api.us-east-1.amazonaws.com/dev/'
 }
 
 describe('Given an authorised request WHEN the post editBlock endpoint is called', () => {
