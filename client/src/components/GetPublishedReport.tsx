@@ -6,6 +6,7 @@ import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Button from "./Button";
 import PublishedText from "./PublishedText";
+import "./styles/Animation.css";
 
 function GetPublishedReport() {
 	// const style = { fontSize: "1.3rem" };
