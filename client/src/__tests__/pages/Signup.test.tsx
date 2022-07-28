@@ -1,7 +1,9 @@
 /* eslint-disable  @typescript-eslint/no-unused-vars */
 import { fireEvent, render, screen } from "@testing-library/react";
+// import axios from "axios";
 import { BrowserRouter } from "react-router-dom";
 import Signup from "../../pages/Signup";
+import axios from "../../api/ConfigAxios";
 
 describe("Rendering Tests For Components Signup", () => {
 	// Test to see if Signup is rendered
@@ -140,3 +142,102 @@ describe("Rendering Tests For Components Signup", () => {
 	    });
 
 });
+
+describe("Rendering Tests For Components Signup", () => {
+	// Test to see if Signup is rendered
+	    it("renders Signup without crashing", () => {
+	        render(
+					<BrowserRouter>
+						<Signup />
+					</BrowserRouter>)
+
+	        const up = screen.getByTestId("signup");
+	        expect(up).toBeTruthy();
+	    });
+
+	//     // Testing to see if name input is rendered
+	    it("renders username input without crashing", () => {
+	        render(
+					<BrowserRouter>
+						<Signup />
+					</BrowserRouter>);
+	        const nameInput = screen.getByTestId("name-input");
+	        expect(nameInput).toBeTruthy();
+	    });
+
+	//     // Testing to see if email input is rendered
+	    it("renders Email input without crashing", () => {
+	        render(
+					<BrowserRouter>
+						<Signup />
+					</BrowserRouter>);
+	        const emailInput = screen.getByTestId("email-input");
+	        expect(emailInput).toBeTruthy();
+	    });
+
+	//     // Testing to see if password input is rendered
+	    it("renders Password input without crashing", () => {
+	        render(
+					<BrowserRouter>
+						<Signup />
+					</BrowserRouter>);
+	        const passInput = screen.getByTestId("password-input");
+	        expect(passInput).toBeTruthy();
+	    });
+
+	//     // Testing to see if confirm password input is rendered
+	    it("renders Confirm Password input without crashing", () => {
+	        render(
+					<BrowserRouter>
+						<Signup />
+					</BrowserRouter>);
+	        const confirmPassInput = screen.getByTestId("confirm-password-input");
+	        expect(confirmPassInput).toBeTruthy();
+	    });
+
+	//     // Testing to see if submit button is rendered
+	    it("renders Submit button without crashing", () => {
+	    	render(
+				<BrowserRouter>
+						<Signup />
+					</BrowserRouter>);
+	    	const btnSubmit = screen.getByTestId("btn-submit");
+	    	expect(btnSubmit).toBeTruthy();
+	    });
+
+	//     // Testing to see if sign in button is rendered
+	    it("renders Sign Up without crashing", () => {
+	        render(
+					<BrowserRouter>
+						<Signup />
+					</BrowserRouter>);
+	        const btnSignIn = screen.getByTestId("btn-signin");
+	        expect(btnSignIn).toBeTruthy();
+	    });
+	});
+
+	// // Tests that the input fields recieve text correctly
+// 	describe("SignUp integration tests", () => {
+// 	    // Function that mocks data to the input fields and onChange Function is called
+// 	    it("Testing That Response is received from API", async () => {
+// 	        // render(
+// 					// <BrowserRouter>
+// 					// 	<Signup />
+// 					// </BrowserRouter>); // Rendering signup page with relevant components
+
+// 					const controller = new AbortController();
+// 					const userValidatedData = {email: "tester@gmail.com", username: "tester", password: "Password@123"}
+
+// 					const response = await axios.post("signup", JSON.stringify(userValidatedData), {
+// 					withCredentials: true,
+// 					signal: controller.signal
+// 					});
+
+// 					test("Test that API receieves input", async () => {
+// 						expect(response).toBeDefined;
+// 					});
+
+// 	    });
+
+// });
+
