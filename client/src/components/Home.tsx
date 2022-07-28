@@ -545,14 +545,11 @@ function Home() {
 
 		<div data-testid="home">
 			{homeDefault && (
-				<div
-					data-testid="container1"
-					className="mt-14 flex flex-col 2xl:w-1/2 mini-tablet:w-2/3 w-full relative"
-				>
+				<div data-testid="container1" className="mt-20 flex flex-col w-full relative">
 					{/* certain options and search button comes here */}
-					<div className="flex flex-row flex-wrap justify-around pt-3 pb-3 border border-white items-center">
+					<div className="w-full p-3 flex flex-col justify-center">
 						{/* this is for the search button */}
-						<div className="flex flex-row w-1/3 justify-center pt-3">
+						<div className="flex flex-row justify-around">
 							{/* <button
 							data-testid="btn-summarise"
 							type="submit"
