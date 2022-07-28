@@ -35,7 +35,7 @@
 <br><br>
 <h1 align="center" style="font-family: Jetbrains Mono"><strong>TEAM MEMBERS</strong></h1>
 
-<h2  style="font-family: Jetbrains Mono"><strong>Isheanesu Dzingirai - Backend and Developer Operations</strong></h2>
+<h2  style="font-family: Jetbrains Mono"><strong>Isheanesu Dzingirai - Full Stack Developer & DevOp</strong></h2>
 
 <img src="https://user-images.githubusercontent.com/93042354/166635499-cd35d24b-5856-463e-8b60-b246e84c8ff1.jpeg" width=30% height = 30%> [![Isheanesu's GitHub stats](https://github-readme-stats.vercel.app/api?username=Zenthon)](https://github.com/anuraghazra/github-readme-stats)
 
