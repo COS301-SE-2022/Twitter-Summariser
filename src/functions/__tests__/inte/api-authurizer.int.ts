@@ -7,24 +7,24 @@ const apiAcesspoint = {
 // Tests using super agent
 describe("Given an authorised request WHEN the post editBlock endpoint is called", () => {
 	test("THEN it should respond with a 200", async () => {
-		const { statusCode } = await request.post(apiAcesspoint.development + "signin");
+		const { statusCode } = await request.post(apiAcesspoint.development + "editBlock");
 		expect(statusCode).toBe(401);
 	});
 
 	test("THEN it should respond with a healthy body", async () => {
-		const { body } = await request.post(apiAcesspoint.development + "signin");
-		expect(body).toBe(' Unauthorized');
+		const { body } = await request.post(apiAcesspoint.development + "editBlock");
+		expect(body).toBeTruthy;
 	});
 });
 
 describe("Given an authorised request WHEN the post generateReport endpoint is called", () => {
 	test("THEN it should respond with a 200", async () => {
-		const { statusCode } = await request.post(apiAcesspoint.development + "signup");
+		const { statusCode } = await request.post(apiAcesspoint.development + "generateReport");
 		expect(statusCode).toBe(401);
 	});
 
 	test("THEN it should respond with a healthy body", async () => {
-		const { body } = await request.post(apiAcesspoint.development + "signup");
+		const { body } = await request.post(apiAcesspoint.development + "generateReport");
 		expect(body).toBeTruthy;
 	});
 });
