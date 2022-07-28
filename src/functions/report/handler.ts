@@ -138,6 +138,7 @@ export const cloneReport = middyfy(
 			const d = new Date(`${dd.toLocaleString()}-02:00`);
 
 			report.reportID = id;
+			report.title = "Copy of " + report.title;
 			report.apiKey = params.apiKey;
 			report.author = params.author;
 			report.status = "DRAFT";
