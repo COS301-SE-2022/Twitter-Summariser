@@ -5,22 +5,16 @@
 import axios from "axios";
 
 
-/*const apiAcesspoint = {
+const apiAcesspoint = {
 	development: "https://pgxz0lthzj.execute-api.us-east-1.amazonaws.com/dev/"
-};*/
+};
 
 describe("Given a valid API request to add a user",  () => {
 	// Making api call
-	it('should return an array of Semesters', async () => {
+	it('it should make a valid ', async () => {
 		const response = await axios.post(
-			'https://pgxz0lthzj.execute-api.us-east-1.amazonaws.com/dev/signup',
-			{ username: 'test', email: 'test@gmail.com', password: 'test' },
-			{
-			  headers: {
-				'Content-Type': 'application/json',
-				Accept: 'application/json',
-			  },
-			},
+			apiAcesspoint+'signup',
+			{ username: 'test', email: 'test@gmail.com', password: 'test' }
 		  );
 
 	test("Make sure api recevies request and returns success status", async () => {
