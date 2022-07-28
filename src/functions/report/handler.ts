@@ -269,7 +269,7 @@ export const getReport = middyfy(
 
 			if (per !== undefined) {
 				report.permission = per.type;
-			} else {
+			} else{
 				report.permission = "OWNER";
 			}
 

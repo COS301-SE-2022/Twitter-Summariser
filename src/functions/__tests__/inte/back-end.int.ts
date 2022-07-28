@@ -14,7 +14,13 @@ describe("Given a valid API request to add a user",  () => {
 	it('it should make a valid ', async () => {
 		const response = await axios.post(
 			apiAcesspoint+'signup',
-			{ username: 'test', email: 'test@gmail.com', password: 'test' }
+			{ username: 'test', email: 'test@gmail.com', password: 'test' },
+			{
+			  headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+			  },
+			},
 		  );
 
 	test("Make sure api recevies request and returns success status", async () => {
