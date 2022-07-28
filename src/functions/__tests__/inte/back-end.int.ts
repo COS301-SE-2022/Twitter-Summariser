@@ -13,7 +13,7 @@ describe("Given a valid API request to add a user",  () => {
 	// Making api call
 	it('should return an array of Semesters', async () => {
 		const response = await axios.post(
-			apiAcesspoint.development+'signup',
+			'https://pgxz0lthzj.execute-api.us-east-1.amazonaws.com/dev/signup',
 			{ username: 'test', email: 'test@gmail.com', password: 'test' },
 			{
 			  headers: {
@@ -43,6 +43,6 @@ describe("Given a valid API request to add a user",  () => {
 		expect(response.data["username"]).toEqual("test");
 	});
 
-})
+	})
     
 });
