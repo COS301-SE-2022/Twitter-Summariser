@@ -21,11 +21,11 @@ describe("Rendering Tests For Components in Home", () => {
 	// });
 
 	// Testing to see if Results are render on to page is rendered
-	it("renders result div without crashing", () => {
-		render(<Home />);
-		const input = screen.getByTestId("result");
-		expect(input).toBeTruthy();
-	});
+	// it("renders result div without crashing", () => {
+	// 	render(<Home />);
+	// 	const input = screen.getByTestId("result");
+	// 	expect(input).toBeTruthy();
+	// });
 
 	// Testing to see if Search button is rendered
 	// it("renders Submit button without crashing", () => {
@@ -49,25 +49,25 @@ describe("Rendering Tests For Components in Home", () => {
 	// });
 
 	// Testing to see if Num Tweets dropdown is rendered
-	it("renders Num Tweets filter without crashing", () => {
-		render(<Home />);
-		const selectNumTweets = screen.getByTestId("select-num-tweets");
-		expect(selectNumTweets).toBeTruthy();
-	});
+	// it("renders Num Tweets filter without crashing", () => {
+	// 	render(<Home />);
+	// 	const selectNumTweets = screen.getByTestId("select-num-tweets");
+	// 	expect(selectNumTweets).toBeTruthy();
+	// });
 
 	// Testing to see if filter dropdown is rendered
-	it("renders filter options without crashing", () => {
-		render(<Home />);
-		const selectFilter = screen.getByTestId("select-filter");
-		expect(selectFilter).toBeTruthy();
-	});
+	// it("renders filter options without crashing", () => {
+	// 	render(<Home />);
+	// 	const selectFilter = screen.getByTestId("select-filter");
+	// 	expect(selectFilter).toBeTruthy();
+	// });
 
 	// Testing to see if sort dropdown is rendered
-	it("renders sort options without crashing", () => {
-		render(<Home />);
-		const selectSort = screen.getByTestId("select-sort");
-		expect(selectSort).toBeTruthy();
-	});
+	// it("renders sort options without crashing", () => {
+	// 	render(<Home />);
+	// 	const selectSort = screen.getByTestId("select-sort");
+	// 	expect(selectSort).toBeTruthy();
+	// });
 });
 
 // Tests that the search bar recieves text correctly
