@@ -176,7 +176,7 @@ function GenReport() {
 				)}
 
 				{data.blockType === "TWEET" && data.position === 1 && (
-					<div className=" w-full border border-gray-200 p-3" key={data.position}>
+					<div className=" w-full p-3" key={data.position}>
 						<Tweet
 							options={{ align: "center", width: "" }}
 							tweetId={data.block.tweetID}
@@ -213,7 +213,7 @@ function GenReport() {
 
 				{data.blockType === "TWEET" &&
 					(data.position === state.length - 2 || data.position === state.length - 3) && (
-						<div className=" w-full border border-gray-200 p-3" key={data.position}>
+						<div className=" w-full p-3" key={data.position}>
 							<Tweet
 								options={{ align: "center", width: "" }}
 								tweetId={data.block.tweetID}
@@ -235,7 +235,7 @@ function GenReport() {
 						data.position === state.length - 2 ||
 						data.position === state.length - 3
 					) && (
-						<div className=" w-full border border-gray-200 p-3" key={data.position}>
+						<div className=" w-full p-3" key={data.position}>
 							<Tweet
 								options={{ align: "center", width: "" }}
 								tweetId={data.block.tweetID}
