@@ -9,18 +9,19 @@ const apiAcesspoint = {
 	development: "https://pgxz0lthzj.execute-api.us-east-1.amazonaws.com/dev/"
 };
 
-describe("Given a valid API request to add a user", async () => {
+describe("Given a valid API request to add a user",  () => {
 	// Making api call
-	const response = await axios.post(
-		apiAcesspoint.development+'signup',
-		{ username: 'test', email: 'test@gmail.com', password: 'test' },
-		{
-		  headers: {
-			'Content-Type': 'application/json',
-			Accept: 'application/json',
-		  },
-		},
-	  );
+	it('should return an array of Semesters', async () => {
+		const response = await axios.post(
+			apiAcesspoint.development+'signup',
+			{ username: 'test', email: 'test@gmail.com', password: 'test' },
+			{
+			  headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+			  },
+			},
+		  );
 
 	test("Make sure api recevies request and returns success status", async () => {
 		expect(response).toBeDefined;
@@ -41,5 +42,7 @@ describe("Given a valid API request to add a user", async () => {
 		//Expect the Correct details to be returned
 		expect(response.data["username"]).toEqual("test");
 	});
+
+})
     
 });
