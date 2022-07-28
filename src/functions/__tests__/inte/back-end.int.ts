@@ -9,34 +9,35 @@ import axios from "../../../../client/src/api/ConfigAxios";
 describe("Given a valid API request to add a user", () => {
 	// Making api call
 	let response: any;
-	it("it should make a valid ", async () => {
+
+	test("Make sure api recevies request and returns success status", async () => {
 		try {
-			response = await axios.post(
+			const response = await axios.post(
 				"signup",
 				JSON.stringify({ username: "test", email: "test@gmail.com", password: "test" })
 			);
+
+			expect(response).toBeDefined;
 		} catch (error) {
 			response = "error";
 		}
 
-		test("Make sure api recevies request and returns success status", async () => {
-			expect(response).toBeDefined;
-		});
+		expect(response).toBeDefined;
 	});
 
-	it("it should make a valid ", async () => {
+	test("Make sure api returns success status", async () => {
 		try {
-			response = await axios.post(
+			const response = await axios.post(
 				"signup",
 				JSON.stringify({ username: "test", email: "test@gmail.com", password: "test" })
 			);
+
+			expect(response).toBeDefined;
 		} catch (error) {
 			response = "error";
 		}
 
-		test("Make sure api returns success status", async () => {
-			expect(response.status).toBe(200);
-		});
+		expect(response.status).toBe(200);
 	});
 
 	it("it should make a valid ", async () => {
