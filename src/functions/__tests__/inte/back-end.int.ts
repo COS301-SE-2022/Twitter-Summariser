@@ -1,7 +1,6 @@
 // Tests with post requests Testing integration of API --> Lambda --> DynamodbDB
 
 import axios from "../../../../client/src/api/ConfigAxios";
-import axio from "axios";
 
 // Using Function SignUp
 describe("Testing Intgeration of API with Lambda Back-end using signup", () => {
