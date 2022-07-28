@@ -1,34 +1,39 @@
-import * as request from "superagent";
+// Tests with post requests Testing integration of API --> Lambda
 
-const apiAcesspoint = {
+import axios from "../../../../client/src/api/ConfigAxios";
+
+/*const apiAcesspoint = {
 	development: "https://pgxz0lthzj.execute-api.us-east-1.amazonaws.com/dev/"
-};
+};*/
 
-// Tests using super agent
-describe("Given an authorised request WHEN the post editBlock endpoint is called", () => {
-	it("it should make a valid ", async () => {
-		const response = await request.post(apiAcesspoint.development + "searchTweets");
+describe("Given a valid API request to add a user", () => {
+	// Making api call
+	let response: any;
 
-		test("THEN it should respond with a 200", async () => {
-			expect(response.statusCode).toBe(200);
-		});
+	it("Make an a valid API Call", async() =>{
+		response = await axios.post(
+			"searchTweets",
+			JSON.stringify({ username: "test", email: "test@gmail.com", password: "M@1c01mm" })
+		);
+	})
 
-		test("THEN it should respond with a healthy body", async () => {
-			expect(response.body).toBe(" Unauthorized");
-		});
+	test("Make sure api recevies request and returns success status", async () => {
+		expect(response).toBeDefined;
 	});
-});
 
-describe("Given an authorised request WHEN the post generateReport endpoint is called", () => {
-	it("it should make a valid ", async () => {
-		const response = await request.post(apiAcesspoint.development + "getReport");
+	test("Make sure api returns success status", async () => {
+		expect(response.status).toBe(200);
+	});
 
-		test("THEN it should respond with a 200", async () => {
-			expect(response.statusCode).toBe(200);
-		});
+	test("Make sure that backend has correctly processed data and return avlid data", async () => {
+		// Expect The correct output
+		expect(response.data["apiKey"]).toBeDefined;
+		expect(response.data["email"]).toBeDefined;
+		expect(response.data["username"]).toBeDefined;
+	});
 
-		test("THEN it should respond with a healthy body", async () => {
-			expect(response.body).toBe(" Unauthorized");
-		});
+	test("Make sure that backend has correctly processed data and return correct data", async () => {
+		//Expect the Correct details to be returned
+		expect(response.data["username"]).toEqual("test");
 	});
 });
