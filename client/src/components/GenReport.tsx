@@ -57,9 +57,11 @@ function GenReport() {
 	};
 
 	const [pulse, changePulse] = useState(false);
+	const [pulseCounter, changeCounter] = useState(0);
 
 	const done = () => {
 		changePulse(false);
+		changeCounter(1);
 	};
 
 	const getRep = async (isMounted: boolean) => {
@@ -72,7 +74,10 @@ function GenReport() {
 			isMounted && setAuthor(response.data.report.author);
 			isMounted && setDate(response.data.report.dateCreated.substring(0, 16));
 			isMounted && changePageLoading(false);
-			changePulse(true);
+
+			if (pulseCounter === 0) {
+				changePulse(true);
+			}
 		} catch (error) {
 			console.error(error);
 		}
