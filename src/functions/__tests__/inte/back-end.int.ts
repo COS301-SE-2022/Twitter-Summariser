@@ -2,8 +2,6 @@
 
 import axios from "../../../../client/src/api/ConfigAxios";
 
-let apikey: any;
-
 // Using Function SignUp
 describe("Testing Intgeration of API with Lambda Back-end using signup", () => {
 	// Making api call and Testing API -> Lambda
@@ -47,7 +45,6 @@ describe("Testing Intgeration Lambda Back-end with DynamoDB using login", () => 
 			'login',
 			JSON.stringify({ email: "test@gmail.com", password: "M@1c01mm" })
 		);
-		apikey = response.data['apiKey'];
 	})
 
 	test("Test that backend triggered correctly", async () => {
@@ -72,7 +69,7 @@ describe("Testing Intgeration Lambda Back-end with DynamoDB using login", () => 
 	});
 });
 
-describe("Testing Intgeration Lambda Back-end with DynamoDB using Search", () => {
+/*describe("Testing Intgeration Lambda Back-end with DynamoDB using Search", () => {
 	// Invoking Lambda function directly
 	let response: any;
 
@@ -101,10 +98,10 @@ describe("Testing Intgeration Lambda Back-end with DynamoDB using Search", () =>
 		//Expect the Correct details to be returned
 		expect(response.data["tweets"].length).toEqual(2);
 	});
-});
+});*/
 
 // Deleting User
-/*describe("Testing Intgeration Lambda Back-end with DynamoDB using delete user", () => {
+describe("Testing Intgeration Lambda Back-end with DynamoDB using delete user", () => {
 	// Invoking Lambda function directly
 	let response: any;
 
@@ -135,4 +132,4 @@ describe("Testing Intgeration Lambda Back-end with DynamoDB using Search", () =>
 		expect(response.data['creator']["username"]).toEqual("test");
 		expect(response.data['creator']["email"]).toEqual("test@gmail.com");
 	});
-});*/
+});
