@@ -147,7 +147,7 @@ function GenReport() {
 		}
 	};
 
-	// console.log(state.length-2);
+	// console.log(state);
 
 	state.map((data: any, index: number) =>
 		apiResponse.push(
@@ -177,7 +177,7 @@ function GenReport() {
 					</div>
 
 				)}
-				{data.blockType === "TWEET" && data.position > 1 && data.position < state.length-2 && (
+				{/* {data.blockType === "TWEET" && data.position > 1 && data.position < state.length-3 && (
 					<div className=" w-full border border-gray-200 p-3" key={data.position}>
 						<Tweet
 							options={{ align: "center", width: "" }}
@@ -194,9 +194,9 @@ function GenReport() {
 							</button>
 						</div>
 					</div>
-				)}
+				)} */}
 
-				{data.blockType === "TWEET" && data.position === state.length-2 && (
+				{data.blockType === "TWEET" && (data.position === state.length-2 || data.position === state.length-3) && (
 					<div className=" w-full border border-gray-200 p-3" key={data.position}>
 						<Tweet
 							options={{ align: "center", width: "" }}
@@ -205,6 +205,25 @@ function GenReport() {
 						<div className="" data-bs-toggle="tooltip" title="Move Tweet Up">
 							<button type="submit">
 								<BsArrowUp style={style} onClick={() => reorderUpHandler(data.position)} />
+							</button>
+						</div>
+					</div>
+				)}
+
+				{data.blockType === "TWEET" && !((data.position === 1) || (data.position === state.length-2 || data.position === state.length-3))&& (
+					<div className=" w-full border border-gray-200 p-3" key={data.position}>
+						<Tweet
+							options={{ align: "center", width: "" }}
+							tweetId={data.block.tweetID}
+						/>
+						<div className="" data-bs-toggle="tooltip" title="Move Tweet Up">
+							<button type="submit">
+								<BsArrowUp style={style} onClick={() => reorderUpHandler(data.position)} />
+							</button>
+						</div>
+						<div className="" data-bs-toggle="tooltip" title="Move Tweet Down">
+							<button type="submit">
+								<BsArrowDown style={style} onClick={() => reorderDownHandler(data.position)} />
 							</button>
 						</div>
 					</div>
