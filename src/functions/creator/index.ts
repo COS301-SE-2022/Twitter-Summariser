@@ -18,6 +18,20 @@ export const getAllCreators = {
 	]
 };
 
+export const deleteUser = {
+	handler: `${handlerPath(__dirname)}/handler.deleteUser`,
+	description: "A function that returns all the creators in the system.",
+	events: [
+		{
+			http: {
+				method: "get",
+				path: "deleteUser/",
+				cors: true
+			}
+		}
+	]
+};
+
 export const refreshToken = {
 	handler: `${handlerPath(__dirname)}/handler.refreshToken`,
 	description: "A function that handles the refresh token.",
