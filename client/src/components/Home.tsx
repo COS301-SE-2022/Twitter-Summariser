@@ -810,10 +810,21 @@ function Home() {
 					{/* Api response comes here */}
 					<div data-testid="result" className="flex flex-col">
 						{clicked && (
-							<div className="mt-4 flex flex-col flex-wrap justify-center">
+							<div
+								className="mt-4 ml-4 mb-4 flex flex-col flex-wrap justify-center"
+								data-aos="fade-left"
+								data-aos-duration="800"
+								data-aos-easing="ease-in-sine"
+								data-aos-offset="300"
+							>
 								<h1 className="text-2xl ml-2">Newly created report</h1>
 								<Link to="/genReport">
-									<div className="m-4 w-1/4 h-20 bg-gray-400 rounded-md flex flex-col p-2">
+									<div
+										className="m-4 w-1/4 h-20 bg-white border rounded-lg hover:shadow-2xl flex flex-col p-2"
+										data-aos="zoom-in"
+										data-aos-duration="500"
+										data-aos-delay="700"
+									>
 										<div className="">
 											<button
 												data-testid="btn-report"
