@@ -9,12 +9,17 @@ import axios from "../../../../client/src/api/ConfigAxios";
 describe("Given a valid API request to add a user", () => {
 	// Making api call
 	it("it should make a valid ", async () => {
+
+		let response: any;
 		try {
-			const response = await axios.post(
+			let response = await axios.post(
 				"signup",
 				JSON.stringify({ username: "test", email: "test@gmail.com", password: "test" })
 			);
 
+		}catch(error){
+			response='error';
+		}
 			test("Make sure api recevies request and returns success status", async () => {
 				expect(response).toBeDefined;
 			});
@@ -34,6 +39,5 @@ describe("Given a valid API request to add a user", () => {
 				//Expect the Correct details to be returned
 				expect(response.data["username"]).toEqual("test");
 			});
-		} catch (error) {}
 	});
 });
