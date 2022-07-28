@@ -164,7 +164,7 @@ export const loginCreator = middyfy(
 				},
 				process.env.ACCESS_TOKEN_SECRET,
 				{
-					expiresIn: "30s"
+					expiresIn: "30m"
 				}
 			);
 
@@ -177,7 +177,7 @@ export const loginCreator = middyfy(
 				},
 				process.env.REFRESH_TOKEN_SECRET,
 				{
-					expiresIn: "1m"
+					expiresIn: "30d"
 				}
 			);
 
@@ -251,7 +251,7 @@ export const refreshToken = async (event, _context, callback) => {
 					},
 					process.env.ACCESS_TOKEN_SECRET,
 					{
-						expiresIn: "30s"
+						expiresIn: "30m"
 					}
 				);
 				const cookieString = `refreshToken=${token}; Path=/; HttpOnly; Secure; SameSite=None; max-age=${24 * 60 * 60 * 1000
