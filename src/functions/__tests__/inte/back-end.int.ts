@@ -42,8 +42,8 @@ describe("Testing Intgeration Lambda Back-end with DynamoDB using login", () => 
 	let response: any;
 
 	it("Make an a valid API Call", async() =>{
-		response = await axio.post(
-			'https://cwbeugfbqrab76zokjldcp76da0urokn.lambda-url.us-east-1.on.aws/',
+		response = await axios.post(
+			'login',
 			JSON.stringify({ email: "test@gmail.com", password: "M@1c01mm" })
 		);
 	})
