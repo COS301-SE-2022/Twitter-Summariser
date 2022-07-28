@@ -561,24 +561,28 @@ function GenReport() {
 										<option value="VIEWER">View</option>
 										<option value="EDITOR">Edit</option>
 									</select>
+								</div>
 
 								{/* this is for the search button */}
 								<div className="flex flex-row w-1/3 justify-center pt-3">
 									<button
 										data-testid="btn-search"
 										type="submit"
+										className="button w-3/4 text-lg p-0.5"
 										onClick={shareSearchHandler}
 									>
 										Share
 									</button>
 									{/* {loading && ( */}
 									{/* <button
+												type="button"
 												className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-full items-center"
 												disabled
 										> */}
 									{/* <svg
 					className="animate-spin h-5 w-5 mr-3 bg-white"
 					viewBox="0 0 24 24"
+				> */}
 									{/* <!-- ... --> */}
 									{/* </svg> */}
 									{/* {loadIcon} */}
