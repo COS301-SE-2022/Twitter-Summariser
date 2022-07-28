@@ -25,6 +25,25 @@ export const getAllCreators = middyfy(async (): Promise<APIGatewayProxyResultV2>
 	}
 });
 
+export const deleteUser = middyfy(async (event: APIGatewayProxyEventV2): Promise<APIGatewayProxyResultV2> => {
+	const params = JSON.parse(event.body);
+	const creator = await CreatorServices.creatorService.deleteCreator(params.email);
+
+	try {
+		return {
+			statusCode: statusCodes.Successful,
+			headers: header,
+			body: JSON.stringify(creator)
+		};
+	} catch (error) {
+		return {
+			statusCode: statusCodes.internalError,
+			headers: header,
+			body: JSON.stringify(error)
+		};
+	}
+});
+
 export const addCreator = middyfy(
 	async (event: APIGatewayProxyEventV2): Promise<APIGatewayProxyResultV2> => {
 		const params = JSON.parse(event.body);

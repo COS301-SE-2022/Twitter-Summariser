@@ -6,6 +6,7 @@ import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Button from "./Button";
 import PublishedText from "./PublishedText";
+import "./styles/Animation.css";
 
 function GetPublishedReport() {
 	// const style = { fontSize: "1.3rem" };
@@ -24,6 +25,14 @@ function GetPublishedReport() {
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
 	const { auth } = useAuth();
+
+	const [pulse, changePulse] = useState(false);
+	const [pulseCounter, changeCounter] = useState(0);
+
+	const done = () => {
+		changePulse(false);
+		changeCounter(1);
+	};
 
 	let requiredData: { apiKey: string | null; reportID: string | null };
 
@@ -44,6 +53,10 @@ function GetPublishedReport() {
 			isMounted && setAuthor(response.data.report.author);
 			isMounted && setDate(response.data.report.dateCreated.substring(0, 16));
 			isMounted && changePageLoading(false);
+
+			if (pulseCounter === 0) {
+				changePulse(true);
+			}
 		} catch (error) {
 			console.error(error);
 		}
@@ -99,6 +112,7 @@ function GetPublishedReport() {
 						<Tweet
 							options={{ align: "center", width: "" }}
 							tweetId={data.block.tweetID}
+							onLoad={done}
 						/>
 					</div>
 				)}
@@ -143,6 +157,32 @@ function GetPublishedReport() {
 		}
 	};
 
+	const pulseOutput = [<div key="begining div" />];
+
+	let i = 0;
+
+	while (i < apiResponse.length) {
+		pulseOutput.push(
+			<div className="border shadow rounded-md p-10 m-5 " key={i}>
+				<div className="animate-pulse flex space-x-4">
+					<div className="rounded-full bg-slate-700 h-10 w-10"> </div>
+					<div className="flex-1 space-y-6 py-1">
+						<div className="h-2 bg-slate-700 rounded"> </div>
+						<div className="space-y-3">
+							<div className="grid grid-cols-3 gap-4">
+								<div className="h-2 bg-slate-700 rounded col-span-2"> </div>
+								<div className="h-2 bg-slate-700 rounded col-span-1"> </div>
+							</div>
+							<div className="h-2 bg-slate-700 rounded"> </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		);
+
+		i++;
+	}
+
 	return (
 		<div>
 			{pageLoading ? (
@@ -184,12 +224,14 @@ function GetPublishedReport() {
 						</div>
 					</div>
 
-
 					<br />
 
+					{pulse && pulseOutput}
+
 					<div className="grid grid-cols gap-4 content-center">{apiResponse}</div>
+
 					{isOwner() && (
-						<div className="flex justify-center mb-4">
+						<div className="flex justify-center mb-20">
 							<Link to="/genReport">
 								<Button
 									text="Unpublish Report"
