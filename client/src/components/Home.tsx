@@ -545,14 +545,11 @@ function Home() {
 
 		<div data-testid="home">
 			{homeDefault && (
-				<div
-					data-testid="container1"
-					className="mt-14 flex flex-col 2xl:w-1/2 mini-tablet:w-2/3 w-full relative"
-				>
+				<div data-testid="container1" className="mt-20 flex flex-col w-full relative">
 					{/* certain options and search button comes here */}
-					<div className="flex flex-row flex-wrap justify-around pt-3 pb-3 border border-white items-center">
+					<div className="w-full p-3 flex flex-col justify-center">
 						{/* this is for the search button */}
-						<div className="flex flex-row w-1/3 justify-center pt-3">
+						<div className="flex flex-row justify-around">
 							{/* <button
 							data-testid="btn-summarise"
 							type="submit"
@@ -810,10 +807,21 @@ function Home() {
 					{/* Api response comes here */}
 					<div data-testid="result" className="flex flex-col">
 						{clicked && (
-							<div className="mt-4 flex flex-col flex-wrap justify-center">
+							<div
+								className="mt-4 ml-6 mb-4 flex flex-col flex-wrap justify-center"
+								data-aos="fade-left"
+								data-aos-duration="800"
+								data-aos-easing="ease-in-sine"
+								data-aos-offset="300"
+							>
 								<h1 className="text-2xl ml-2">Newly created report</h1>
 								<Link to="/genReport">
-									<div className="m-4 w-1/4 h-20 bg-gray-400 rounded-md flex flex-col p-2">
+									<div
+										className="m-4 w-1/4 h-20 bg-white border rounded-lg hover:shadow-2xl flex flex-col p-2"
+										data-aos="zoom-in"
+										data-aos-duration="500"
+										data-aos-delay="700"
+									>
 										<div className="">
 											<button
 												data-testid="btn-report"

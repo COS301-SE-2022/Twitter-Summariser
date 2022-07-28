@@ -176,19 +176,25 @@ function GenReport() {
 				)}
 
 				{data.blockType === "TWEET" && data.position === 1 && (
-					<div className=" w-full border border-gray-200 p-3" key={data.position}>
+					<div className=" w-full p-3 flex flex-col justify-center" key={data.position}>
 						<Tweet
 							options={{ align: "center", width: "" }}
 							tweetId={data.block.tweetID}
 							onLoad={done}
 						/>
-						<div className="" data-bs-toggle="tooltip" title="Move Tweet Down">
-							<button type="submit">
-								<BsArrowDown
-									style={style}
-									onClick={() => reorderDownHandler(data.position)}
-								/>
-							</button>
+						<div className="flex flex-row justify-around">
+							<div
+								className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
+								data-bs-toggle="tooltip"
+								title="Move Tweet Down"
+							>
+								<button type="submit">
+									<BsArrowDown
+										style={style}
+										onClick={() => reorderDownHandler(data.position)}
+									/>
+								</button>
+							</div>
 						</div>
 					</div>
 				)}
@@ -213,19 +219,28 @@ function GenReport() {
 
 				{data.blockType === "TWEET" &&
 					(data.position === state.length - 2 || data.position === state.length - 3) && (
-						<div className=" w-full border border-gray-200 p-3" key={data.position}>
+						<div
+							className=" w-full p-3 flex flex-col justify-center"
+							key={data.position}
+						>
+							<div className="flex flex-row justify-around">
+								<div
+									className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
+									data-bs-toggle="tooltip"
+									title="Move Tweet Up"
+								>
+									<button type="submit">
+										<BsArrowUp
+											style={style}
+											onClick={() => reorderUpHandler(data.position)}
+										/>
+									</button>
+								</div>
+							</div>
 							<Tweet
 								options={{ align: "center", width: "" }}
 								tweetId={data.block.tweetID}
 							/>
-							<div className="" data-bs-toggle="tooltip" title="Move Tweet Up">
-								<button type="submit">
-									<BsArrowUp
-										style={style}
-										onClick={() => reorderUpHandler(data.position)}
-									/>
-								</button>
-							</div>
 						</div>
 					)}
 
@@ -235,26 +250,43 @@ function GenReport() {
 						data.position === state.length - 2 ||
 						data.position === state.length - 3
 					) && (
-						<div className=" w-full border border-gray-200 p-3" key={data.position}>
+						<div
+							className="  w-full p-3 flex flex-col justify-center"
+							key={data.position}
+						>
+							<div className="flex flex-row justify-around">
+								<div
+									className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
+									data-bs-toggle="tooltip"
+									title="Move Tweet Up"
+								>
+									<button type="submit">
+										<BsArrowUp
+											style={style}
+											onClick={() => reorderUpHandler(data.position)}
+										/>
+									</button>
+								</div>
+							</div>
+
 							<Tweet
 								options={{ align: "center", width: "" }}
 								tweetId={data.block.tweetID}
 							/>
-							<div className="" data-bs-toggle="tooltip" title="Move Tweet Up">
-								<button type="submit">
-									<BsArrowUp
-										style={style}
-										onClick={() => reorderUpHandler(data.position)}
-									/>
-								</button>
-							</div>
-							<div className="" data-bs-toggle="tooltip" title="Move Tweet Down">
-								<button type="submit">
-									<BsArrowDown
-										style={style}
-										onClick={() => reorderDownHandler(data.position)}
-									/>
-								</button>
+
+							<div className="flex flex-row justify-around">
+								<div
+									className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
+									data-bs-toggle="tooltip"
+									title="Move Tweet Down"
+								>
+									<button type="submit">
+										<BsArrowDown
+											style={style}
+											onClick={() => reorderDownHandler(data.position)}
+										/>
+									</button>
+								</div>
 							</div>
 						</div>
 					)}
@@ -573,7 +605,7 @@ function GenReport() {
 
 					<div className="grid grid-cols gap-4 content-center">{apiResponse}</div>
 
-					<div className="flex justify-center mb-4">
+					<div className="flex justify-center mb-20">
 						<Link to="/getPublishedReport">
 							{/* <button
 						onClick={publishHandler}
