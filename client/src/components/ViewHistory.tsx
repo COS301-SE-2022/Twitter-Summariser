@@ -23,6 +23,8 @@ function ViewHistory() {
 		changeGenerateLoading(!generateLoading);
 	};
 
+	const [pulse, changePulse] = useState(false);
+
 	const getResultSet = async (isMounted: boolean) => {
 		const resultSetData = {
 			apiKey: auth.apiKey,
@@ -41,6 +43,7 @@ function ViewHistory() {
 			isMounted && changeDate(response.data.dateCreated.substring(0, 16));
 			isMounted && changeSort(response.data.sortOption);
 			isMounted && changeFilter(response.data.filterOption);
+			changePulse(true);
 		} catch (error) {
 			console.error(error);
 		}
@@ -92,10 +95,14 @@ function ViewHistory() {
 		tweetOptions.push(<option key={index.toString()}>{index}</option>);
 	}
 
+	const done = () => {
+		changePulse(false);
+	};
+
 	tweets.map((data) =>
 		apiResponse.push(
-			<div className=" w-full border border-gray-200 p-3" key={data}>
-				<Tweet options={{ align: "center", width: "" }} tweetId={data} />
+			<div className=" w-full p-3" key={data}>
+				<Tweet options={{ align: "center", width: "" }} tweetId={data} onLoad={done} />
 			</div>
 		)
 	);
@@ -119,6 +126,32 @@ function ViewHistory() {
 		</svg>
 	);
 
+	const pulseOutput = [<div key="begining div" />];
+
+	let i = 0;
+
+	while (i < apiResponse.length) {
+		pulseOutput.push(
+			<div className="border shadow rounded-md p-10 m-5 " key={i}>
+				<div className="animate-pulse flex space-x-4">
+					<div className="rounded-full bg-slate-700 h-10 w-10"> </div>
+					<div className="flex-1 space-y-6 py-1">
+						<div className="h-2 bg-slate-700 rounded"> </div>
+						<div className="space-y-3">
+							<div className="grid grid-cols-3 gap-4">
+								<div className="h-2 bg-slate-700 rounded col-span-2"> </div>
+								<div className="h-2 bg-slate-700 rounded col-span-1"> </div>
+							</div>
+							<div className="h-2 bg-slate-700 rounded"> </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		);
+
+		i++;
+	}
+
 	return (
 		<div>
 			{!clicked &&
@@ -128,7 +161,7 @@ function ViewHistory() {
 					</div>
 				) : (
 					<div>
-						<div className="flex flex-col flex-wrap justify-around pt-3 pb-3 ">
+						<div className="flex flex-col flex-wrap justify-around pt-3 pb-4 pl-4 ">
 							{/*  */}
 							<h1 className="text-3xl mt-12">{searchPhrase}</h1>
 
@@ -155,9 +188,10 @@ function ViewHistory() {
 						</div>
 
 						<div data-testid="result" className="flex flex-col">
+							{pulse && pulseOutput}
 							{apiResponse}
 							<br />
-							<div className="flex flex-row w-full justify-center pt-3 mb-9">
+							<div className="flex flex-row w-full justify-center pt-3 mb-20">
 								{/* <button
 								data-testid="btn-generate"
 								type="submit"
@@ -195,10 +229,21 @@ function ViewHistory() {
 				))}
 
 			{clicked && (
-				<div className="mt-4 flex flex-col flex-wrap justify-center">
-					<h1 className="text-2xl">Newly created report</h1>
+				<div
+					className="mt-4 ml-4 mb-20 flex flex-col flex-wrap justify-center"
+					data-aos="fade-left"
+					data-aos-duration="800"
+					data-aos-easing="ease-in-sine"
+					data-aos-offset="300"
+				>
+					<h1 className="text-2xl ml-2">Newly created report</h1>
 					<Link to="/genReport">
-						<div className="m-4 w-1/4 h-20 bg-gray-400 rounded-md flex flex-col p-2">
+						<div
+							className="m-4 w-1/4 h-auto bg-white border rounded-lg hover:shadow-2xl flex flex-col p-2"
+							data-aos="zoom-in"
+							data-aos-duration="500"
+							data-aos-delay="700"
+						>
 							<div className="">
 								<button
 									data-testid="btn-report"
