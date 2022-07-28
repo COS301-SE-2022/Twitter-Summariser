@@ -5,7 +5,8 @@ import {
 	addCreator,
 	loginCreator,
 	refreshToken,
-	logoutCreator
+	logoutCreator,
+	deleteUser
 } from "@functions/creator";
 import { searchTweets, addCustomTweet, reorderTweets } from "@functions/tweet";
 import { CreatorTable } from "@model/creator/index";
@@ -98,7 +99,8 @@ const serverlessConfiguration: AWS = {
 		getSharedReport,
 		deleteReportBlock,
 		getAllMyPublishedReports,
-		reorderTweets
+		reorderTweets,
+		deleteUser
 		// Tester: {
 		// 	handler: "handler.hello",
 		// 	runtime: "python3.6",
