@@ -108,9 +108,8 @@ function Text(props: any) {
 			await axiosPrivate.post("deleteReportBlock", JSON.stringify(resultDetails), {
 				signal: controller.signal
 			});
-			props.onChange(true);
 			textEditorHandler();
-			secondTextEditorHandler();
+			props.onChange(true);
 		} catch (err) {
 			console.error(err);
 		}
