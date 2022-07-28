@@ -11,7 +11,6 @@ describe("Given a valid API request to add a user", async () => {
 
 	test("Make sure api recevies request and returns success status", async () => {
 		expect(response.ok);
-		expect(response.status).toBe(200);
 	});
 
 	test("Make sure api returns success status", async () => {
