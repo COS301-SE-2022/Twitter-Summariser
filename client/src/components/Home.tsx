@@ -811,7 +811,7 @@ function Home() {
 					<div data-testid="result" className="flex flex-col">
 						{clicked && (
 							<div
-								className="mt-4 ml-4 mb-4 flex flex-col flex-wrap justify-center"
+								className="mt-4 ml-6 mb-4 flex flex-col flex-wrap justify-center"
 								data-aos="fade-left"
 								data-aos-duration="800"
 								data-aos-easing="ease-in-sine"
