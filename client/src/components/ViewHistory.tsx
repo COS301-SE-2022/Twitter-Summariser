@@ -23,6 +23,8 @@ function ViewHistory() {
 		changeGenerateLoading(!generateLoading);
 	};
 
+	const [pulse, changePulse] = useState(false);
+
 	const getResultSet = async (isMounted: boolean) => {
 		const resultSetData = {
 			apiKey: auth.apiKey,
@@ -41,6 +43,7 @@ function ViewHistory() {
 			isMounted && changeDate(response.data.dateCreated.substring(0, 16));
 			isMounted && changeSort(response.data.sortOption);
 			isMounted && changeFilter(response.data.filterOption);
+			changePulse(true);
 		} catch (error) {
 			console.error(error);
 		}
@@ -92,10 +95,14 @@ function ViewHistory() {
 		tweetOptions.push(<option key={index.toString()}>{index}</option>);
 	}
 
+	const done = () => {
+		changePulse(false);
+	};
+
 	tweets.map((data) =>
 		apiResponse.push(
 			<div className=" w-full p-3" key={data}>
-				<Tweet options={{ align: "center", width: "" }} tweetId={data} />
+				<Tweet options={{ align: "center", width: "" }} tweetId={data} onLoad={done} />
 			</div>
 		)
 	);
@@ -118,6 +125,32 @@ function ViewHistory() {
 			/>
 		</svg>
 	);
+
+	const pulseOutput = [<div key="begining div" />];
+
+	let i = 0;
+
+	while (i < apiResponse.length) {
+		pulseOutput.push(
+			<div className="border shadow rounded-md p-10 m-5 " key={i}>
+				<div className="animate-pulse flex space-x-4">
+					<div className="rounded-full bg-slate-700 h-10 w-10"> </div>
+					<div className="flex-1 space-y-6 py-1">
+						<div className="h-2 bg-slate-700 rounded"> </div>
+						<div className="space-y-3">
+							<div className="grid grid-cols-3 gap-4">
+								<div className="h-2 bg-slate-700 rounded col-span-2"> </div>
+								<div className="h-2 bg-slate-700 rounded col-span-1"> </div>
+							</div>
+							<div className="h-2 bg-slate-700 rounded"> </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		);
+
+		i++;
+	}
 
 	return (
 		<div>
@@ -155,6 +188,7 @@ function ViewHistory() {
 						</div>
 
 						<div data-testid="result" className="flex flex-col">
+							{pulse && pulseOutput}
 							{apiResponse}
 							<br />
 							<div className="flex flex-row w-full justify-center pt-3 mb-9">
