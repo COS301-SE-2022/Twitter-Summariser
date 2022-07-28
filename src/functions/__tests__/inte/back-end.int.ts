@@ -5,9 +5,9 @@
 import axios from "axios";
 
 
-const apiAcesspoint = {
+/*const apiAcesspoint = {
 	development: "https://pgxz0lthzj.execute-api.us-east-1.amazonaws.com/dev/"
-};
+};*/
 
 describe("Given a valid API request to add a user",  () => {
 	// Making api call
