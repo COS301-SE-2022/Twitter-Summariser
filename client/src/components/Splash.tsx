@@ -98,7 +98,7 @@ function Splash() {
 				<br />
 
 				<div>
-					<h1 className="text-3xl hidden lg:block">Welcome</h1>
+					<h1 className="text-midnight-blue font-bold text-3xl">Welcome</h1>
 				</div>
 				{/* <br /> */}
 				{/* unacceptable name notification */}
@@ -118,7 +118,7 @@ function Splash() {
 				{/* Api response comes here */}
 				<div className=" mt-16 p-3 ">
 					<div className=" mt-4">
-						<h1 className="text-3xl hidden lg:block">Latest Reports</h1>
+						<h1 className="text-midnight-blue font-bold text-3xl">Latest Reports</h1>
 
 						<div className="mt-4 flex flex-row flex-wrap justify-center">
 							<div className="mt-4 flex flex-row flex-wrap justify-center">

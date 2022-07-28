@@ -366,7 +366,9 @@ function GenReport() {
 	};
 
 	const shareSearchHandler = () => {
-		if (enteredShare !== "") shareReport(requiredDataForShare);
+		if (enteredShare !== "") {
+			shareReport(requiredDataForShare);
+		}
 	};
 
 	const deleteReportHandler = async () => {

@@ -12,10 +12,14 @@ function PersistLogin() {
 	useEffect(() => {
 		const verifyRefreshToken = async () => {
 			try {
-				if (persist && auth.accessToken !== undefined) await refresh();
-				else navigate("/login");
+				if (persist) {
+					await refresh();
+				}
+				else {
+					navigate("/login");
+				}
 			} catch (error) {
-				navigate("/login");
+				console.error(error);
 			} finally {
 				setIsLoading(false);
 			}
