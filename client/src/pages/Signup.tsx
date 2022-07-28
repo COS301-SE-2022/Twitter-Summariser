@@ -58,7 +58,7 @@ function Signup() {
 	);
 
 	useEffect(() => {
-		setValidUsername(/^[a-zA-Z0-9]{4,16}$/.test(enteredUsername));
+		setValidUsername(/^[a-zA-Z0-9]{3,16}$/.test(enteredUsername));
 		setError(false);
 	}, [enteredUsername]);
 
@@ -156,10 +156,10 @@ function Signup() {
 						autoComplete="off"
 						className={
 							validUsername && enteredUsername
-								? "w-60 h-10 border-gray-200 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-green-200"
+								? "w-60 h-10 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-green-200"
 								: !validUsername && enteredUsername
-								? "w-60 h-10 border-gray-200 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-red-200"
-								: "w-60 h-10 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E]"
+									? "w-60 h-10 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-red-200"
+									: "w-60 h-10 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E]"
 						}
 						onChange={(event) => changeEnteredUsername(event.target.value)}
 						value={enteredUsername}
@@ -171,7 +171,7 @@ function Signup() {
 						<div className="instructions flex flex-row border-2 rounded-md mt-4 bg-gray-100 h-auto w-60 p-2 justify-center items-center text-sm">
 							<div className="flex flex-col">
 								<p className="items-center justify-center">
-									Username should be 4-16 characters and alphanumeric
+									Username should be 3-16 characters and alphanumeric
 								</p>
 							</div>
 						</div>
@@ -184,10 +184,10 @@ function Signup() {
 						autoComplete="off"
 						className={
 							validEmail && enteredEmail
-								? "w-60 h-10 border-gray-200 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-green-200 mb-6"
+								? "w-60 h-10 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-green-200 mb-6"
 								: !validEmail && enteredEmail
-								? "w-60 h-10 border-gray-200 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-red-200 mb-6"
-								: "w-60 h-10 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] mb-6"
+									? "w-60 h-10 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-red-200 mb-6"
+									: "w-60 h-10 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] mb-6"
 						}
 						onChange={(event) => changeEnteredEmail(event.target.value)}
 						value={enteredEmail}
@@ -203,7 +203,7 @@ function Signup() {
 						</div>
 					)}
 
-					<div className="flex flex-row flex-col mb-3">
+					<div className="flex flex-col mb-3">
 						<input
 							data-testid="password-input"
 							type="password"
@@ -211,10 +211,10 @@ function Signup() {
 							autoComplete="new-password"
 							className={
 								validPassword && enteredPassword
-									? "w-60 h-10 border-gray-200 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-green-200"
+									? "w-60 h-10 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-green-200"
 									: !validPassword && enteredPassword
-									? "w-60 h-10 border-gray-200 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-red-200"
-									: "w-60 h-10 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E]"
+										? "w-60 h-10 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-red-200"
+										: "w-60 h-10 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E]"
 							}
 							onChange={(event) => changeEnteredPassword(event.target.value)}
 							value={enteredPassword}
@@ -229,10 +229,11 @@ function Signup() {
 										<strong>Password should be: </strong>
 									</p>
 									<ul>
-										<li>A Minimum of eight 10 characters</li>
-										<li>At least one uppercase letter</li>
-										<li>At least one lowercase letter</li>
-										<li>At least one number</li>
+										<li>A Minimum of 8 characters</li>
+										<li>Contain atleast one uppercase letter</li>
+										<li>Contain atleast one lowercase letter</li>
+										<li>Contain atleast one special character</li>
+										<li>Contain atleast one digit</li>
 									</ul>
 								</div>
 							</div>
@@ -245,10 +246,10 @@ function Signup() {
 							autoComplete="off"
 							className={
 								validConfirmPassword && enteredConfirmPassword
-									? "w-60 h-10 border-gray-200 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-green-200 mb-3"
+									? "w-60 h-10 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-green-200 mb-3"
 									: !validConfirmPassword && enteredConfirmPassword
-									? "w-60 h-10 border-gray-200 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-red-200 mb-3"
-									: "w-60 h-10 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] mb-3"
+										? "w-60 h-10 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-red-200 mb-3"
+										: "w-60 h-10 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] mb-3"
 							}
 							onChange={(event) => changeEnteredConfirmPassword(event.target.value)}
 							value={enteredConfirmPassword}
@@ -261,12 +262,12 @@ function Signup() {
 						(!confirmPasswordFocus &&
 							!validConfirmPassword &&
 							enteredConfirmPassword)) && (
-						<div className="flex flex-col flex-row border-2 rounded-md bg-gray-100 h-auto w-60 p-2 mb-4 items-center text-sm">
-							<div className="flex flex-col">
-								<p>The passwords do not match</p>
+							<div className="flex flex-row border-2 rounded-md bg-gray-100 h-auto w-60 p-2 mb-4 items-center text-sm">
+								<div className="flex flex-col">
+									<p>The passwords do not match</p>
+								</div>
 							</div>
-						</div>
-					)}
+						)}
 					{loading && (
 						<button
 							type="button"
@@ -290,21 +291,21 @@ function Signup() {
 							testid="btn-submit"
 							disableId={
 								!validUsername ||
-								!validEmail ||
-								!validPassword ||
-								!validConfirmPassword
+									!validEmail ||
+									!validPassword ||
+									!validConfirmPassword
 									? "true"
 									: "false"
 							}
 						/>
 					)}
 					<br />
-					<p className="text-[#03045E] text-md text-center">
+					<p className="text-[#03045E] text-md text-center font-medium">
 						Already have an account?
 						<button
 							data-testid="btn-signin"
 							type="submit"
-							className=" text-[#0096C7] "
+							className=" text-[#0096C7]"
 							onClick={signin}
 						>
 							&nbsp; Sign in
