@@ -3,7 +3,7 @@ import serviceLayer from "../../../services/index";
 
 // const lambda = new AWS.Lambda();
 
-/* describe(" ", async () => {
+/*describe(" ", async () => {
 	// Creation of table
 	await dynamoDB
 		.put({
@@ -49,7 +49,7 @@ import serviceLayer from "../../../services/index";
 			Key: "sample.txt"
 		})
 		.promise();
-}); */
+});*/
 
 describe("Checks the correct writing of a creator to a database.", async () => {
 	// Envoking Lambda function
