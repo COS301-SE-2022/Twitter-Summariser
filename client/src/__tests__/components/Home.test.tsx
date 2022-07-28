@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
 import Home from "../../components/Home";
 
 describe("Rendering Tests For Components in Home", () => {
@@ -8,7 +9,9 @@ describe("Rendering Tests For Components in Home", () => {
 	// });
 
 	it("renders Home without crashing", () => {
-		render(<Home />);
+		render(<BrowserRouter>
+			<Home />
+		</BrowserRouter>);
 		const home = screen.getByTestId("home");
 		expect(home).toBeTruthy();
 	});
