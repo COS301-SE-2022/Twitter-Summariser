@@ -81,11 +81,11 @@ export default class CreatorService {
 	}
 
 	async deleteCreator(email: string) {
-		this.docClient.delete({
+		await this.docClient.delete({
 			TableName: this.TableName,
 			Key: {
 				email: email
 			}
-		})
+		}).promise();
 	}
 }
