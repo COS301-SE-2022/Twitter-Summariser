@@ -24,7 +24,7 @@ export const deleteUser = {
 	events: [
 		{
 			http: {
-				method: "get",
+				method: "post",
 				path: "deleteUser/",
 				cors: true
 			}
