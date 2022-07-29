@@ -172,7 +172,7 @@ const serverlessConfiguration: AWS = {
 				Properties: {
 					ResponseParameters: {
 						"gatewayresponse.header.Access-Control-Allow-Origin":
-							"'https://d1jfctrgbvoeo1.cloudfront.net'",
+							"'https://d3n7sg52ssug4.cloudfront.net'",
 						"gatewayresponse.header.Access-Control-Allow-Headers": "'*'"
 					},
 					ResponseType: "DEFAULT_4XX",
@@ -187,7 +187,7 @@ const serverlessConfiguration: AWS = {
 				Properties: {
 					ResponseParameters: {
 						"gatewayresponse.header.Access-Control-Allow-Origin":
-							"'https://d1jfctrgbvoeo1.cloudfront.net'",
+							"'https://d3n7sg52ssug4.cloudfront.net'",
 						"gatewayresponse.header.Access-Control-Allow-Headers": "'*'"
 					},
 					ResponseType: "DEFAULT_5XX",
