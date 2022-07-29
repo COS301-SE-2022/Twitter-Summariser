@@ -8,15 +8,23 @@
 - <a href="https://github.com/COS301-SE-2022/Twitter-Summariser/projects/1" style="font-family: Jetbrains Mono">Project Board</a>
 
 <strong><h3 style="font-family: Jetbrains Mono" >DEMO 1:</h3></strong>
-- <a style="font-family: Jetbrains Mono" href="https://github.com/COS301-SE-2022/Twitter-Summariser/files/8684152/twitter-summariser-srs.pdf">Twitter Summariser SRS V1</a>
+- <a style="font-family: Jetbrains Mono" href="https://github.com/COS301-SE-2022/Twitter-Summariser/files/8684152/twitter-summariser-srs.pdf">System Requirement Specifications V1</a>
 - <a style="font-family: Jetbrains Mono" href="https://drive.google.com/file/d/1LPuUmVU7ITBsx_G0VlAXqQpufLkrOZKe/view?usp=sharing">Demo 1 Video</a>
 
 <strong><h3 style="font-family: Jetbrains Mono">DEMO 2:</h3></strong>
-- <a style="font-family: Jetbrains Mono" href="https://github.com/COS301-SE-2022/Twitter-Summariser/files/8888883/twitter_summariser_srs.pdf">Twitter Summariser SRS V2</a>
+- <a style="font-family: Jetbrains Mono" href="https://github.com/COS301-SE-2022/Twitter-Summariser/files/8888883/twitter_summariser_srs.pdf">System Requirement Specifications V2</a>
 - <a style="font-family: Jetbrains Mono" href="https://github.com/COS301-SE-2022/Twitter-Summariser/files/8888879/twitter_summariser_architecture_document.2.pdf">Architectural Requirements Document V1</a>
 - <a style="font-family: Jetbrains Mono" href="https://drive.google.com/file/d/1-hZeVnyrBWiAW5kq7P9eLNwRzdFrK-3e/view?usp=sharing">Demo 2 Video</a>
 - <a style="font-family: Jetbrains Mono" href="https://github.com/COS301-SE-2022/Twitter-Summariser/files/8888880/twitter_summariser_coding_standard_document.pdf">Coding Standards V1</a>
 - <a style="font-family: Jetbrains Mono" href="https://github.com/COS301-SE-2022/Twitter-Summariser/files/8888884/twitter_summariser_user_manual.pdf">User Manual V1</a>
+
+
+<strong><h3 style="font-family: Jetbrains Mono">DEMO 3:</h3></strong>
+- [System Requirement Specifications V3](https://github.com/COS301-SE-2022/Twitter-Summariser/files/9220212/twitter_summariser_srs_v3.pdf)
+- [Coding Standards V2](https://github.com/COS301-SE-2022/Twitter-Summariser/files/9217404/Twitter.Summariser.-.Coding.Standards.pdf)
+- [User Manual V2](https://github.com/COS301-SE-2022/Twitter-Summariser/files/9217486/Twitter.Summariser.-.User.Manual.pdf)
+- [Architectural Requirements Document V2](https://github.com/COS301-SE-2022/Twitter-Summariser/files/9220184/twitter_summariser_architecture_v2.pdf)
+- [Technical Installation Manual V1](https://github.com/COS301-SE-2022/Twitter-Summariser/files/9217593/twitter_summariser_tech_installation_manual.pdf)
 
 
 <strong><h3 style="font-family: Jetbrains Mono">BADGES:</h3></strong>
