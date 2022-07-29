@@ -123,7 +123,7 @@ describe("Testing Intgeration Lambda Back-end with DynamoDB using delete user", 
 		expect(response.status).toBe(200);
 	});
 
-	test("Test backend has correctly processed data and return avlid data", async () => {
+	/*test("Test backend has correctly processed data and return avlid data", async () => {
 		// Expect The correct output
 		expect(response.data['creator']["apiKey"]).toBeDefined;
 		expect(response.data['creator']["email"]).toBeDefined;
@@ -134,5 +134,5 @@ describe("Testing Intgeration Lambda Back-end with DynamoDB using delete user", 
 		//Expect the Correct details to be returned
 		expect(response.data['creator']["username"]).toEqual("test");
 		expect(response.data['creator']["email"]).toEqual("test@gmail.com");
-	});
+	});*/
 });
