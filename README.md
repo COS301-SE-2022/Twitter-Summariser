@@ -17,6 +17,16 @@
 - <a style="font-family: Jetbrains Mono" href="https://drive.google.com/file/d/1-hZeVnyrBWiAW5kq7P9eLNwRzdFrK-3e/view?usp=sharing">Demo 2 Video</a>
 - <a style="font-family: Jetbrains Mono" href="https://github.com/COS301-SE-2022/Twitter-Summariser/files/8888880/twitter_summariser_coding_standard_document.pdf">Coding Standards V1</a>
 - <a style="font-family: Jetbrains Mono" href="https://github.com/COS301-SE-2022/Twitter-Summariser/files/8888884/twitter_summariser_user_manual.pdf">User Manual V1</a>
+[Twitter Summariser - User Manual.pdf](https://github.com/COS301-SE-2022/Twitter-Summariser/files/9217486/Twitter.Summariser.-.User.Manual.pdf)
+
+
+
+<strong><h3 style="font-family: Jetbrains Mono">DEMO 3:</h3></strong>
+- [Twitter Summariser - SRS V3](https://github.com/COS301-SE-2022/Twitter-Summariser/files/9217351/SRS.pdf)
+- [Twitter Summariser - Coding Standards V3](https://github.com/COS301-SE-2022/Twitter-Summariser/files/9217404/Twitter.Summariser.-.Coding.Standards.pdf)
+- [Twitter Summariser - User Manual V3](https://github.com/COS301-SE-2022/Twitter-Summariser/files/9217486/Twitter.Summariser.-.User.Manual.pdf)
+- [Twitter Summariser -Architecture v3](https://github.com/COS301-SE-2022/Twitter-Summariser/files/9217589/Twitter.Summariser.-Architecture.v3.pdf)
+- [Twitter Summariser Installation Manual v3](https://github.com/COS301-SE-2022/Twitter-Summariser/files/9217593/twitter_summariser_tech_installation_manual.pdf)
 
 
 <strong><h3 style="font-family: Jetbrains Mono">BADGES:</h3></strong>
