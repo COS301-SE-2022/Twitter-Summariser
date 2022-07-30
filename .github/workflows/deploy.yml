@@ -3,7 +3,7 @@ name: Serverless Deploy
 on:
   pull_request:
     branches:
-      - develop
+      - [develop, master]
     types:
       - closed
 
