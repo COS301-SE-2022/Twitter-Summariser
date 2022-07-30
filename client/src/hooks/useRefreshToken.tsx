@@ -1,17 +1,16 @@
 import { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
-import axios from "../api/ConfigAxios";
+import { axiosPrivate } from "../api/ConfigAxios";
 import useAuth from "./useAuth";
 
 function useRefreshToken() {
 	const { setAuth } = useAuth();
-	const controller = new AbortController();
 	const navigate = useNavigate();
+	const controller = new AbortController();
 
 	const refresh = async () => {
 		try {
-			const response = await axios.get("refresh", {
-				withCredentials: true,
+			const response = await axiosPrivate.post("refresh", JSON.stringify({}), {
 				signal: controller.signal
 			});
 			setAuth((prev: any) => ({ ...prev, accessToken: response.data.accessToken }));
