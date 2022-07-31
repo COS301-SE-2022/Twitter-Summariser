@@ -1,4 +1,4 @@
-import axiosPrivate from "../api/ConfigAxios";
+import { axiosPrivate } from "../api/ConfigAxios";
 import useAuth from "./useAuth";
 
 function useLogout() {
