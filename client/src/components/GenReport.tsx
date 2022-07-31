@@ -127,8 +127,6 @@ function GenReport() {
 			newPlace: "UP"
 		};
 
-		// console.log(resultDetails);
-
 		try {
 			await axiosPrivate.post("reorderTweets", JSON.stringify(resultDetails), {
 				signal: controller.signal
@@ -158,8 +156,6 @@ function GenReport() {
 			console.error(err);
 		}
 	};
-
-	// console.log(state);
 
 	state.map((data: any, index: number) =>
 		apiResponse.push(
