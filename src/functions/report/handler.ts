@@ -8,9 +8,12 @@ import TextStyle from "@model/textStyles/textStyles.model";
 // Generation of reports
 export const generateReport = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+		console.log("In generateReport");
+
 		try {
 			const params = JSON.parse(event.body);
-			// console.log("IN HERE");
+			console.log("params: ", params);
+
 
 			const title = await ServicesLayer.resultSetServices.getResultSet(
 				params.resultSetID,
@@ -47,12 +50,17 @@ export const generateReport = middyfy(
 				author: params.author
 			});
 
+			console.log("Everything is done");
+
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
 				body: JSON.stringify({ Report: report })
 			};
 		} catch (e) {
+			console.log("Error: ", e);
+			console.log("Something went wrong");
+
 			return {
 				statusCode: statusCodes.internalError,
 				headers: header,

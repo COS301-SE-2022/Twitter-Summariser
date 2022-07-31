@@ -283,15 +283,18 @@ export const refreshToken = async (event, _context, callback) => {
 
 export const logoutCreator = async (event, _context, callback) => {
 	const cookieString = event.headers.Cookie || event.headers.cookie;
-	if (!cookieString?.includes("refreshToken"))
+	if (!cookieString?.includes("refreshToken")) {
 		return callback(null, { statusCode: statusCodes.no_content, headers: header });
+	}
 
 	const token = cookieString.split("refreshToken=")[1].split(";")[0];
 	const creatorsArray = await CreatorServices.creatorService.getAllCreators();
 
-	for (const creator of creatorsArray)
-		if (creator.RefreshAccessToken === token)
-			CreatorServices.creatorService.updateCreator(creator.email, "None");
+	for (const creator of creatorsArray) {
+		if (creator.RefreshAccessToken === token) {
+			await CreatorServices.creatorService.updateCreator(creator.email, "None");
+		}
+	}
 
 	const cookie = `refreshToken=; Path=/; HttpOnly; Secure; SameSite=None; max-age=0`;
 	return callback(null, {

@@ -1,9 +1,9 @@
-const link = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://d3n7sg52ssug4.cloudfront.net";
+export const URL = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://d2kkcqzi4rwe5b.cloudfront.net";
 
 export const header = {
 	"Content-Type": "application/json",
 	"Access-Control-Allow-Methods": "*",
-	"Access-Control-Allow-Origin": link,
+	"Access-Control-Allow-Origin": URL,
 	"Access-Control-Allow-Headers": "*",
 	"Access-Control-Allow-Credentials": true
 };
