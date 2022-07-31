@@ -91,7 +91,6 @@ function GenReport() {
 			isMounted = false;
 			controller.abort();
 		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const publishReport = async (resultInfo: any) => {
