@@ -31,6 +31,7 @@ import {
 	getAllMyPublishedReports
 } from "@functions/report";
 import { editBlock, deleteReportBlock } from "@functions/reportBlock";
+import { URL } from "@functions/resources/APIresponse";
 
 const serverlessConfiguration: AWS = {
 	service: "twitter-summariser",
@@ -171,8 +172,7 @@ const serverlessConfiguration: AWS = {
 				Type: "AWS::ApiGateway::GatewayResponse",
 				Properties: {
 					ResponseParameters: {
-						"gatewayresponse.header.Access-Control-Allow-Origin":
-							"'https://d3n7sg52ssug4.cloudfront.net'",
+						"gatewayresponse.header.Access-Control-Allow-Origin": `'${URL}'`,
 						"gatewayresponse.header.Access-Control-Allow-Headers": "'*'"
 					},
 					ResponseType: "DEFAULT_4XX",
@@ -186,8 +186,7 @@ const serverlessConfiguration: AWS = {
 				Type: "AWS::ApiGateway::GatewayResponse",
 				Properties: {
 					ResponseParameters: {
-						"gatewayresponse.header.Access-Control-Allow-Origin":
-							"'https://d3n7sg52ssug4.cloudfront.net'",
+						"gatewayresponse.header.Access-Control-Allow-Origin": `'${URL}'`,
 						"gatewayresponse.header.Access-Control-Allow-Headers": "'*'"
 					},
 					ResponseType: "DEFAULT_5XX",
@@ -196,6 +195,33 @@ const serverlessConfiguration: AWS = {
 					}
 				}
 			},
+
+			/*JWTAuthorizer: {
+				Type: "AWS::ApiGateway::Authorizer",
+				Properties: {
+					AuthorizerResultTtlInSeconds: 0,
+					Type: "TOKEN",
+					RestApiId: {
+						Ref: "ApiGatewayRestApi"
+					},
+					Name: "verifyJWT",
+					IdentitySource: "method.request.header.Authorization",
+					AuthorizerUri: {
+						"arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/{functionName}/invocations"
+					},
+					// 	"Fn::Join": [
+					// 		"",
+					// 		[
+					// 			"arn:aws:apigateway:",
+					// 			{
+					// 				Ref: "AWS::Region"
+					// 			},
+					// 			":lambda:path/2015-03-31/functions/verifyJWT/invocations"
+					// 		]
+					// 	]
+					// }
+				}
+			},*/
 
 			TwitterSummariserApp: {
 				Type: "AWS::S3::Bucket",
