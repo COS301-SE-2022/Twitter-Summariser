@@ -10,7 +10,7 @@ function useRefreshToken() {
 
 	const refresh = async () => {
 		try {
-			const response = await axiosPrivate.post("refresh", JSON.stringify({}), {
+			const response = await axiosPrivate.get("refresh", {
 				signal: controller.signal
 			});
 			setAuth((prev: any) => ({ ...prev, accessToken: response.data.accessToken }));
