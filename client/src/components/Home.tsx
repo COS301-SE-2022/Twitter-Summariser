@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
+import { AxiosError } from "axios";
 import ExploreCard from "./ExploreCard";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
@@ -119,7 +120,11 @@ function Home() {
 				changeClicked(true);
 			}
 		} catch (err) {
-			console.error(err);
+			if ((err as AxiosError).response?.status === 500) {
+				genRep();
+			} else {
+				console.error(err);
+			}
 		}
 	};
 

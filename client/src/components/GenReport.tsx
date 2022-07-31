@@ -91,7 +91,6 @@ function GenReport() {
 			isMounted = false;
 			controller.abort();
 		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const publishReport = async (resultInfo: any) => {
@@ -127,8 +126,6 @@ function GenReport() {
 			newPlace: "UP"
 		};
 
-		// console.log(resultDetails);
-
 		try {
 			await axiosPrivate.post("reorderTweets", JSON.stringify(resultDetails), {
 				signal: controller.signal
@@ -158,8 +155,6 @@ function GenReport() {
 			console.error(err);
 		}
 	};
-
-	// console.log(state);
 
 	state.map((data: any, index: number) =>
 		apiResponse.push(

@@ -8,11 +8,11 @@ export const getAllCreators = {
 			http: {
 				method: "get",
 				path: "creator/",
-				cors: true
-				// authorizer: {
-				// 	name: "verifyJWT",
-				// 	type: "Token"
-				// }
+				cors: true,
+				authorizer: {
+					name: "verifyJWT",
+					type: "Token"
+				}
 			}
 		}
 	]

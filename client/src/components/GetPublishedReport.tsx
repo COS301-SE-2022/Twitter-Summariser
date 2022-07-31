@@ -70,7 +70,6 @@ function GetPublishedReport() {
 			isMounted = false;
 			controller.abort();
 		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const unpublishReport = async (resultInfo: any) => {

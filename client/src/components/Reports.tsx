@@ -37,7 +37,6 @@ function Reports() {
 			isMounted = false;
 			controller.abort();
 		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	if (shouldRender === true) {
@@ -124,7 +123,6 @@ function Reports() {
 
 	// const [enteredSearch, changeEnteredSearch] = useState("");
 
-	// // eslint-disable-next-line @typescript-eslint/no-explicit-any
 	// const searchHandler = (event: any) => {
 	// 	changeEnteredSearch(event.target.value);
 	// };
