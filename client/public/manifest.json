@@ -31,6 +31,11 @@
 			"src": "maskable_icon_x384.png",
 			"type": "image/png",
 			"sizes": "384x384"
+		},
+		{
+			"src": "maskable_icon_x512.png",
+			"type": "image/png",
+			"sizes": "512x512"
 		}
 	],
 	"start_url": ".",
