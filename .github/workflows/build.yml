@@ -113,8 +113,8 @@ jobs:
       - name: Run the unit tests
         run: yarn test -- --coverage
       
-      - name: Run the integration tests
-        run: yarn test:int
+      # - name: Run the integration tests
+      #   run: yarn test:int
 
       - name: Upload backend coverage folder as artifact
         uses: actions/upload-artifact@v3
