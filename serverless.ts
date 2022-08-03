@@ -102,19 +102,6 @@ const serverlessConfiguration: AWS = {
 		getAllMyPublishedReports,
 		reorderTweets,
 		deleteUser
-		// Tester: {
-		// 	handler: "handler.hello",
-		// 	runtime: "python3.6",
-		// 	events: [
-		// 		{
-		// 			http: {
-		// 				method: "get",
-		// 				path: "tester/",
-		// 				cors: true
-		// 			}
-		// 		}
-		// 	]
-		// }
 	},
 
 	package: {
