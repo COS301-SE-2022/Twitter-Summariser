@@ -17,6 +17,7 @@ import { TextStylesTable } from "@model/textStyles";
 import { PermissionTable } from "@model/permission";
 import { ScheduleTable } from "@model/schedule";
 import { getAllResultSet, getResultSet, deleteResultSet } from "@functions/resultSet";
+import { reportScheduler } from "@functions/schedulers";
 import {
 	getAllMyDraftReports,
 	getAllPublishedReports,
@@ -101,7 +102,8 @@ const serverlessConfiguration: AWS = {
 		deleteReportBlock,
 		getAllMyPublishedReports,
 		reorderTweets,
-		deleteUser
+		deleteUser,
+		reportScheduler
 		// Tester: {
 		// 	handler: "handler.hello",
 		// 	runtime: "python3.6",
