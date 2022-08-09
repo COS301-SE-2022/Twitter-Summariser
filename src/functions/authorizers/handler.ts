@@ -1,4 +1,7 @@
 import jwt from "jsonwebtoken";
+import * as dotenv from "dotenv";
+
+dotenv.config();
 
 function authorizationResponse(principalId: string, effect: string, arn: string): object {
 	return {
@@ -18,6 +21,7 @@ function authorizationResponse(principalId: string, effect: string, arn: string)
 
 export const verifyJWT = (event, _context, callback) => {
 	const methodARN = event.methodArn;
+
 	try {
 		const jwtToken = event.authorizationToken;
 		if (!jwtToken || !methodARN)

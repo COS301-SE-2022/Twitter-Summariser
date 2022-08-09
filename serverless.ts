@@ -102,6 +102,7 @@ const serverlessConfiguration: AWS = {
 		deleteReportBlock,
 		getAllMyPublishedReports,
 		reorderTweets,
+<<<<<<< HEAD
 		deleteUser,
 		reportScheduler
 		// Tester: {
@@ -117,6 +118,9 @@ const serverlessConfiguration: AWS = {
 		// 		}
 		// 	]
 		// }
+=======
+		deleteUser
+>>>>>>> 66c09dc78f023a155c8e8daaf6edef2b567656bb
 	},
 
 	package: {

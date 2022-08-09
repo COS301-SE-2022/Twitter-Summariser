@@ -22,9 +22,6 @@ export const reportScheduler = middyfy(
 				Action: "lambda:InvokeFunction",
 				FunctionName: "generateReportOfSchedule",
 				Principal: "events.amazonaws.com",
-
-
-				
 				StatementId: ruleName,
 				SourceArn: rule.RuleArn
 			};
