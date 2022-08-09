@@ -1,0 +1,7 @@
+build
+node_modules
+coverage
+public
+*.jpg
+*.jpeg
+*.png

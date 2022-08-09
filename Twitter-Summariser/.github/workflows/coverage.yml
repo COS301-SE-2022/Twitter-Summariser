@@ -1,0 +1,49 @@
+name: Codecov Coverage
+
+on:
+  workflow_run:
+    workflows: ['Serverless Deploy']
+    types:
+      - completed
+
+jobs:
+  on-success:
+    name: Upload code coverage to codecov
+    runs-on: ubuntu-latest
+
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Checkout to devlop/master branch
+        uses: actions/checkout@v2
+
+      - name: Download the client coverage artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: build.yml
+          workflow_conclusion: success
+          name: client-artifact
+          path: client/coverage
+
+      - name: Download the backend coverage artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: build.yml
+          workflow_conclusion: success
+          name: backend-artifact
+          path: coverage
+
+      - name: Install glob dependency
+        run:  yarn add -D glob
+
+      - name: Merge the coverage reports
+        run: node tools/scripts/merge-reports.js
+
+      - name: Upload the merged coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+
+  on-failure:
+    name: Serverless Deploy Failed
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - run: echo 'The Serverless Deploy workflow failed. No covrage generated.'
