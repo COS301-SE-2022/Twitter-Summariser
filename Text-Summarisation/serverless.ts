@@ -12,6 +12,7 @@ const serverlessConfiguration: AWS = {
         "serverless-offline"
     ],
 
+
     functions: {
         hello: {
             handler: "handler.hello",
@@ -23,6 +24,12 @@ const serverlessConfiguration: AWS = {
                     }
                 }
             ]
+        }
+    },
+
+    custom: {
+        "serverless-offline": {
+            httpPort: 5000
         }
     }
 
