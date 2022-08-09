@@ -8,4 +8,5 @@ export default interface Report {
 	author: string;
 	tweets?: any;
 	richtext?: any;
+	permission?: "VIEWER" | "EDITOR";
 }
