@@ -221,7 +221,6 @@ export const loginCreator = middyfy(
 
 export const refreshToken = async (event, _context, callback) => {
 	const cookies = event.headers.Cookie || event.headers.cookie;
-	console.log("Cookies: ", cookies);
 
 	if (!cookies?.includes("refreshToken")) {
 		return callback(null, {
@@ -230,8 +229,6 @@ export const refreshToken = async (event, _context, callback) => {
 			body: JSON.stringify({ message: "Missing important token" })
 		});
 	}
-
-	console.log("Cookie contains refresh token")
 
 	const token = cookies.split("refreshToken=")[1].split(";")[0];
 	const creatorsArray = await CreatorServices.creatorService.getAllCreators();
