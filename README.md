@@ -30,8 +30,9 @@
 <strong><h3 style="font-family: Jetbrains Mono">BADGES:</h3></strong>
 ![Codecov](https://img.shields.io/codecov/c/github/COS301-SE-2022/Twitter-Summariser?label=CODECOV%20COVERAGE&style=for-the-badge) ![GitHub repo size](https://img.shields.io/github/repo-size/COS301-SE-2022/Twitter-Summariser?style=for-the-badge)
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/COS301-SE-2022/Twitter-Summariser/Twitter%20Summariser%20CI?label=CI%20Build&style=for-the-badge)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/COS301-SE-2022/Twitter-Summariser/Serverless%20Deploy?label=Serveless%20BUILD%20%26%20DEploy&style=for-the-badge)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/COS301-SE-2022/Twitter-Summariser/CI%20Build?label=CI%20BUILD&style=for-the-badge)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/COS301-SE-2022/Twitter-Summariser/Serverless%20Deploy?label=Serverless%20Deploy&style=for-the-badge) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/COS301-SE-2022/Twitter-Summariser/Codecov%20Coverage?label=Coverage%20Build&style=for-the-badge)
+
 ![PingPong status](https://img.shields.io/pingpong/status/sp_f02944df840e4307968cf340d0a8ca78?style=for-the-badge)
 ![PingPong uptime (last 30 days)](https://img.shields.io/pingpong/uptime/sp_f02944df840e4307968cf340d0a8ca78?style=for-the-badge)
 
