@@ -8,8 +8,6 @@ import CreatorServices from "../../services";
 
 dotenv.config();
 
-const HTTP_COOKIE = process.env.NODE_ENV === "production" ? "Secure; SameSite=None;" : "";
-
 export const getAllCreators = middyfy(async (): Promise<APIGatewayProxyResultV2> => {
 	const creators = await CreatorServices.creatorService.getAllCreators();
 	try {
