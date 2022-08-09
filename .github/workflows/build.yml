@@ -1,4 +1,4 @@
-name: Twitter Summariser Build
+name: CI Build
 
 on:
   pull_request:
@@ -58,12 +58,12 @@ jobs:
           count: 1
           labels: "scope:ai, scope:cicd, scope:github-repo, scope:db, scope:frontend,scope:backend"
 
-  Frontend:
+  Twitter-Summariser-Frontend:
     name: Testing and building of frontend
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: client
+        working-directory: Twitter-Summariser/client
 
     steps:
       - name: Checkout to develop branch
@@ -93,9 +93,12 @@ jobs:
           name: client-artifact
           path: client/coverage/
 
-  Backend:
+  Twitter-Summariser-Backend:
     name: Testing of backend
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Twitter-Summariser
 
     steps:
       - name: Checkout to develop branch

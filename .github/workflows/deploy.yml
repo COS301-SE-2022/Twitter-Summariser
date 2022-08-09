@@ -7,8 +7,8 @@ on:
       - closed
 
 jobs:
-  Twitter-Summariser:
-    name: Deployment of the Twitter Summariser
+  Deploy:
+    name: Deployment of the Twitter Summariser and Text-Summarisation Module
     if: ${{ github.event.pull_request.merged }}
     runs-on: ubuntu-latest
 
@@ -16,31 +16,34 @@ jobs:
       - name: Checkout to develop/master branch
         uses: actions/checkout@v2
 
-      - name: Fixing some issues
-        run:  echo "Fixing deployment"
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14.x"
+          cache: 'yarn'
 
-      # - name: Setup Node.js
-      #   uses: actions/setup-node@v2
-      #   with:
-      #     node-version: "14.x"
-      #     cache: 'yarn'
+      - name: Install serverless compose dependencies
+        run: yarn
 
-      # - name: Build the Twitter Summariser App
-      #   run:  |
-      #     cd client
-      #     yarn
-      #     CI=false yarn run build
+      - name: Build the Twitter Summariser App
+        run:  |
+          cd Twitter-Summariser
+          cd client
+          yarn
+          CI=false yarn run build
     
-      # - name: Install package dependencies for backend
-      #   run: yarn
+      - name: Install package dependencies for backend
+        run: |
+          cd Twitter-Summariser
+          yarn
 
-      # - name: Twitter Summarisee Deploy to AWS
-      #   uses: serverless/github-action@v3
-      #   with:
-      #     args: deploy
-      #   env:
-      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: Deployment of All Infrastructures to AWS
+        uses: serverless/github-action@v3
+        with:
+          args: deploy
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       # - name: Invalidating Cloudfrount S3 Cache
       #   env:
