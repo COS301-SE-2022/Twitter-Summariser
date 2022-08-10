@@ -8,8 +8,6 @@ import CreatorServices from "../../services";
 
 dotenv.config();
 
-const HTTP_COOKIE = process.env.NODE_ENV === "production" ? "Secure; SameSite=None;" : "";
-
 export const getAllCreators = middyfy(async (): Promise<APIGatewayProxyResultV2> => {
 	const creators = await CreatorServices.creatorService.getAllCreators();
 	try {
@@ -190,7 +188,7 @@ export const loginCreator = middyfy(
 			);
 
 			if (isCreatorUpdated === true) {
-				const cookieString = `refreshToken=${refreshToken}; Path=/; HttpOnly; ${HTTP_COOKIE} max-age=${24 * 60 * 60 * 1000
+				const cookieString = `refreshToken=${refreshToken}; Path=/; HttpOnly; Secure; SameSite=None; max-age=${24 * 60 * 60 * 1000
 					}`;
 				return {
 					statusCode: statusCodes.Successful,
@@ -256,7 +254,7 @@ export const refreshToken = async (event, _context, callback) => {
 						expiresIn: "30m"
 					}
 				);
-				const cookieString = `refreshToken=${token}; Path=/; HttpOnly; ${HTTP_COOKIE} max-age=${24 * 60 * 60 * 1000
+				const cookieString = `refreshToken=${token}; Path=/; HttpOnly; Secure; SameSite=None; max-age=${24 * 60 * 60 * 1000
 					}`;
 
 				return callback(null, {
@@ -298,7 +296,7 @@ export const logoutCreator = async (event, _context, callback) => {
 		}
 	}
 
-	const cookie = `refreshToken=; Path=/; HttpOnly; ${HTTP_COOKIE} max-age=0; $`;
+	const cookie = `refreshToken=; Path=/; HttpOnly; Secure; SameSite=None; max-age=0; $`;
 	return callback(null, {
 		statusCode: statusCodes.no_content,
 		headers: { ...header, "Set-Cookie": cookie }
