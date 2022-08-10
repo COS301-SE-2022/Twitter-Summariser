@@ -25,7 +25,7 @@ jobs:
           workflow: build.yml
           workflow_conclusion: success
           name: client-artifact
-          path: client/coverage
+          path: Twitter-Summariser/client/coverage
 
       - name: Download the backend coverage artifact
         uses: dawidd6/action-download-artifact@v2
@@ -33,7 +33,7 @@ jobs:
           workflow: build.yml
           workflow_conclusion: success
           name: backend-artifact
-          path: coverage
+          path: Twitter-Summariser/coverage
 
       - name: Install glob dependency
         run:  yarn add -D glob

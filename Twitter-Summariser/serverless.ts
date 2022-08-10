@@ -141,7 +141,9 @@ const serverlessConfiguration: AWS = {
 		],
 
 		"serverless-offline": {
-			httpPort: 4000
+			httpPort: 4000,
+			websocketPort: 4001,
+			lambdaPort: 4002
 		}
 	},
 
