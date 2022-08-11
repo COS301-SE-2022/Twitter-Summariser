@@ -226,6 +226,22 @@ export default class ReportService {
 			.promise();
 	}
 
+	async updateReportTitle(title: string, reportID: string) {
+		await this.docClient.update({
+			TableName: this.TableName,
+			Key: {
+				reportID
+			},
+			UpdateExpression: "SET #title = :title",
+			ExpressionAttributeNames: {
+				"#title": "title"
+			},
+			ExpressionAttributeValues: {
+				":title": title
+			}
+		})
+	}
+
 	async deleteReport(id: string) {
 		await this.docClient
 			.delete({
