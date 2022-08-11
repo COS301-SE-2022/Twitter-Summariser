@@ -92,7 +92,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: client-artifact
-          path: client/coverage/
+          path: Twitter-Summariser/client/coverage/
 
   Twitter-Summariser-Backend:
     name: Testing of backend
@@ -124,4 +124,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: backend-artifact
-          path: coverage/
+          path: Twitter-Summariser/coverage/
