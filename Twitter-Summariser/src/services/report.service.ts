@@ -239,7 +239,7 @@ export default class ReportService {
 			ExpressionAttributeValues: {
 				":title": title
 			}
-		})
+		}).promise()''
 	}
 
 	async deleteReport(id: string) {
