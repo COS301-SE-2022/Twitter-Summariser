@@ -361,6 +361,67 @@ describe("report.service", () => {
 		});
 	});
 
+	describe("updateStatus", () => {
+		test("Update report status",async () => {
+			const addedReports: Report[] = [
+				{
+					reportID: "1111",
+					resultSetID: "12222",
+					status: "DRAFT",
+					apiKey: "ABdggekj23",
+					dateCreated: "2022-01-01",
+					title: "This is my report",
+					author: "Test"
+				},
+				{
+					reportID: "1112",
+					resultSetID: "12232",
+					status: "DRAFT",
+					apiKey: "ABdggekj23",
+					dateCreated: "2022-01-01",
+					title: "This is my other report",
+					author: "Test"
+				},
+				{
+					reportID: "1113",
+					resultSetID: "12422",
+					status: "PUBLISHED",
+					apiKey: "ABdggekj23",
+					dateCreated: "2022-01-01",
+					title: "This is my other other report",
+					author: "Test"
+				},
+				{
+					reportID: "1114",
+					resultSetID: "13222",
+					status: "DRAFT",
+					apiKey: "ABdggekj23",
+					dateCreated: "2022-01-01",
+					title: "This is my other other other report",
+					author: "Test"
+				}
+			];
+
+			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({Items: addedReports}));
+
+			await ReportService.reportService.updateReportStatus("PUBLISHED", "1114");
+
+			expect(db.update).toHaveBeenCalledWith({
+				TableName: "ReportTable",
+				Key: {
+					reportID: "1114"
+				},
+				UpdateExpression: "SET #status = :status",
+				ExpressionAttributeNames: {
+					"#status": "status"
+				},
+				ExpressionAttributeValues: {
+					":status": "PUBLISHED"
+				}
+			})
+		})
+	})
+
 	describe("deleteReport", () => {
 		test("Delete report",async () => {
 			const addedReports: Report[] = [

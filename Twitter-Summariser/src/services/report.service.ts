@@ -213,7 +213,7 @@ export default class ReportService {
 			.update({
 				TableName: this.TableName,
 				Key: {
-					reportID
+					reportID: reportID
 				},
 				UpdateExpression: "SET #status = :status",
 				ExpressionAttributeNames: {
