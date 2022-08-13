@@ -6,6 +6,8 @@ const putFn = jest.fn().mockImplementation(() => ({ promise: awsSdkPromiseRespon
 
 const queryFn = jest.fn().mockImplementation(() => ({ promise: awsSdkPromiseResponse }));
 
+const updateFn = jest.fn().mockImplementation(() => ({ promise: awsSdkPromiseResponse }));
+
 const deleteFn = jest.fn().mockImplementation(() => ({ promise: awsSdkPromiseResponse }));
 
 export class DocumentClient {
@@ -14,6 +16,8 @@ export class DocumentClient {
 	put = putFn;
 
 	query = queryFn;
+
+	update = updateFn;
 
 	delete = deleteFn;
 }
