@@ -26,9 +26,17 @@ function Profile() {
 					/>
 				</div>
 				{/* div for name, emails, number of reports published, share icon etc */}
-				<div className="h-40 w-2/3 text-center flex flex-col">
+				<div className="h-20 w-2/3 text-center flex flex-col">
 					<div className=" text-3xl font-bold">{userInformation.author}</div>
 					<div className=" italic">{userInformation.email}</div>
+				</div>
+				<div className="flex flex-row">
+					<div className=" border-r border-slate-500 bg-sky-200 p-2 rounded-md">
+						&nbsp;Reports&nbsp;
+					</div>
+					<div className=" border-l border-slate-500 p-2 rounded-md">
+						&nbsp;Drafts&nbsp;
+					</div>
 				</div>
 			</div>
 		</div>
