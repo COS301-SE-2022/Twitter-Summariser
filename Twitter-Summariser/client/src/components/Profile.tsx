@@ -38,6 +38,7 @@ function Profile() {
 						&nbsp;Drafts&nbsp;
 					</div>
 				</div>
+				<div className=" border-t border-slate-500 w-36 my-4" />
 			</div>
 		</div>
 	);
