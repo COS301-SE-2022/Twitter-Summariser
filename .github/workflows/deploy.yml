@@ -27,14 +27,14 @@ jobs:
 
       - name: Build the Twitter Summariser App
         run:  |
-          cd Twitter-Summariser
+          cd app
           cd client
           yarn
           CI=false yarn run build
     
       - name: Install package dependencies for backend
         run: |
-          cd Twitter-Summariser
+          cd app
           yarn
 
       - name: Deployment of All Infrastructures to AWS
