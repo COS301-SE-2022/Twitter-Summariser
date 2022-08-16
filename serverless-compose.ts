@@ -1,10 +1,10 @@
 const serverlessCompose = {
     services: {
         twitterSummariser: {
-            path: './Twitter-Summariser',
+            path: './app',
         },
         textSummariser: {
-            path: './Text-Summarisation',
+            path: './lib',
         }
     }
 }
