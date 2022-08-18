@@ -187,33 +187,6 @@ const serverlessConfiguration: AWS = {
 				}
 			},
 
-			/*JWTAuthorizer: {
-				Type: "AWS::ApiGateway::Authorizer",
-				Properties: {
-					AuthorizerResultTtlInSeconds: 0,
-					Type: "TOKEN",
-					RestApiId: {
-						Ref: "ApiGatewayRestApi"
-					},
-					Name: "verifyJWT",
-					IdentitySource: "method.request.header.Authorization",
-					AuthorizerUri: {
-						"arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/{functionName}/invocations"
-					},
-					// 	"Fn::Join": [
-					// 		"",
-					// 		[
-					// 			"arn:aws:apigateway:",
-					// 			{
-					// 				Ref: "AWS::Region"
-					// 			},
-					// 			":lambda:path/2015-03-31/functions/verifyJWT/invocations"
-					// 		]
-					// 	]
-					// }
-				}
-			},*/
-
 			TwitterSummariserApp: {
 				Type: "AWS::S3::Bucket",
 				Properties: {
