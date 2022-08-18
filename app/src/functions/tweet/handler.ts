@@ -52,7 +52,7 @@ export const searchTweets = middyfy(
 			const result = sortedList.slice(0, params.numOfTweets);
 			const tweetIDs = await ServicesLayer.tweetService.createArray(result);
 
-			ServicesLayer.resultSetServices.addResultSet({
+			await ServicesLayer.resultSetServices.addResultSet({
 				id,
 				apiKey: params.apiKey,
 				dateCreated: d.toString(),
