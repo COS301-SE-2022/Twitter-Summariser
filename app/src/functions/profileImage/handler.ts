@@ -65,7 +65,7 @@ export const profileImageUpload = middy(async (event: APIGatewayProxyEventV2): P
         return {
             statusCode: statusCodes.Successful,
             body: JSON.stringify({
-                imageUrl: `https://twitter-summariser-images.s3-us-east-1.amazonaws.com/${key}`
+                message: "Image uploaded successfully!"
             })
         }
     } catch (error) {
