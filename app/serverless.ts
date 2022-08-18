@@ -30,6 +30,7 @@ import {
 	getSharedReport,
 	getAllMyPublishedReports
 } from "@functions/report";
+import { profileImageUpload } from "@functions/profileImage";
 import { editBlock, deleteReportBlock } from "@functions/reportBlock";
 import { URL } from "@functions/resources/APIresponse";
 
@@ -101,7 +102,8 @@ const serverlessConfiguration: AWS = {
 		deleteReportBlock,
 		getAllMyPublishedReports,
 		reorderTweets,
-		deleteUser
+		deleteUser,
+		profileImageUpload
 	},
 
 	package: {
@@ -240,6 +242,14 @@ const serverlessConfiguration: AWS = {
 							Resource: "arn:aws:s3:::twitter-summariser/*"
 						}
 					}
+				}
+			},
+
+			TwitterSummariserImageBucket: {
+				Type: "AWS::S3::Bucket",
+				Properties: {
+					BucketName: "twitter-summariser-images",
+					AccessControl: "PublicRead"
 				}
 			},
 
