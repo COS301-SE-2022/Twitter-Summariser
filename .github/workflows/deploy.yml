@@ -45,11 +45,11 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-      # - name: Invalidating Cloudfrount S3 Cache
-      #   env:
-      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     AWS_DEFAULT_REGION: us-east-1
-      #   run: |
-      #     npm i @aws-cdk/aws-cloudfront
-      #     aws cloudfront create-invalidation --distribution-id E3I6IBU2BQGOKP --paths "/*"
+      - name: Invalidating Cloudfrount S3 Cache
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-east-1
+        run: |
+          npm i @aws-cdk/aws-cloudfront
+          aws cloudfront create-invalidation --distribution-id E226KT6URIE2FZ --paths "/*"
