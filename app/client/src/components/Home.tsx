@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
-import { AxiosError } from "axios";
 import ExploreCard from "./ExploreCard";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
@@ -107,9 +106,7 @@ function Home() {
 		};
 
 		try {
-			const response = await axiosPrivate.post("generateReport", JSON.stringify(searchData), {
-				signal: controller.signal
-			});
+			const response = await axiosPrivate.post("generateReport", JSON.stringify(searchData));
 			changeGenerateLoading(false);
 			changeDate(response.data.Report.dateCreated.substring(0, 10));
 			changeGenReport(response.data.Report.reportID);
@@ -120,11 +117,7 @@ function Home() {
 				changeClicked(true);
 			}
 		} catch (err) {
-			if ((err as AxiosError).response?.status === 500) {
-				genRep();
-			} else {
-				console.error(err);
-			}
+			console.error(err);
 		}
 	};
 
@@ -149,9 +142,7 @@ function Home() {
 
 	const searchTwitter = async (searchData: any) => {
 		try {
-			const response = await axiosPrivate.post("searchTweets", JSON.stringify(searchData), {
-				signal: controller.signal
-			});
+			const response = await axiosPrivate.post("searchTweets", JSON.stringify(searchData));
 			changeResultSet(await response.data.resultSetID);
 			changeResponse(await response.data.tweets);
 			changeLoading(false);
