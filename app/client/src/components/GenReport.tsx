@@ -11,7 +11,6 @@ import Button from "./Button";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import useAuth from "../hooks/useAuth";
 import "./styles/Animation.css";
-import Modal from "./Modal";
 
 function GenReport() {
 	const style = { fontSize: "1.3rem" };
@@ -418,17 +417,6 @@ function GenReport() {
 		</svg>
 	);
 
-	const [modalOn, setModalOn] = useState(false);
-	const [choice, setChoice] = useState(false);
-
-	const clicked = () => {
-		setModalOn(true);
-	};
-
-	if (choice) {
-		console.log(choice);
-	}
-
 	return (
 		<div>
 			{pageLoading ? (
@@ -437,54 +425,48 @@ function GenReport() {
 				</div>
 			) : (
 				<div className="mt-16 ">
-					<div className="flex flex-col">
-						<div className="flex flex-row justify-between">
-							<div className="ml-2 p-4">
-								<h1 className="text-3xl font-bold">{title}</h1>
-								<br />
-								<h2 className="italic font-bold">Created By: {author}</h2>
-								<h3 className="italic text-xs">Date Created: {date}</h3>
-							</div>
+					<div className="flex flex-row justify-between">
+						<div className="ml-2 p-4">
+							<h1 className="text-3xl font-bold">{title}</h1>
+							<br />
+							<h2 className="italic font-bold">Created By: {author}</h2>
+							<h3 className="italic text-xs">Date Created: {date}</h3>
+						</div>
 
-							<div className="flex flex-row items-end p-4 justify-between items-center">
-								<div className="" data-bs-toggle="tooltip" title="Share Report">
-									<button type="submit">
-										<BsShare style={style} onClick={shareHandler} />
-									</button>
-								</div>
-								<div className="">&nbsp;&nbsp;</div>
-								{/* <div className="" data-bs-toggle="tooltip" title="Clone Report">
+						<div className="flex flex-row items-end p-4 justify-between items-center">
+							<div className="" data-bs-toggle="tooltip" title="Share Report">
+								<button type="submit">
+									<BsShare style={style} onClick={shareHandler} />
+								</button>
+							</div>
+							<div className="">&nbsp;&nbsp;</div>
+							{/* <div className="" data-bs-toggle="tooltip" title="Clone Report">
 								<button type="submit">
 									<GrCopy style={iconStyle3} />
 								</button>
 							</div> */}
-								<div
-									className=""
-									data-bs-toggle="tooltip"
-									title="Clone Report"
-									onClick={cloneReportHandler}
-								>
-									<button type="submit">
-										<GrCopy style={iconStyle3} />
-									</button>
-								</div>
-								<div className="" />
-								<div
-									className=""
-									data-bs-toggle="tooltip"
-									title="Delete Report"
-									onClick={deleteReportHandler}
-								>
-									<button type="submit">
-										<MdDeleteOutline style={iconStyle4} />
-									</button>
-								</div>
+							<div
+								className=""
+								data-bs-toggle="tooltip"
+								title="Clone Report"
+								onClick={cloneReportHandler}
+							>
+								<button type="submit">
+									<GrCopy style={iconStyle3} />
+								</button>
+							</div>
+							<div className="" />
+							<div
+								className=""
+								data-bs-toggle="tooltip"
+								title="Delete Report"
+								onClick={deleteReportHandler}
+							>
+								<button type="submit">
+									<MdDeleteOutline style={iconStyle4} />
+								</button>
 							</div>
 						</div>
-						<div className="ml-2 p-4 text-blue-500 cursor-pointer" onClick={clicked}>
-							Add Custom Tweets
-						</div>
-						{modalOn && <Modal setModalOn={setModalOn} setChoice={setChoice} />}
 					</div>
 
 					{/* {share && (
