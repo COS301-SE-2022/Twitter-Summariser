@@ -91,7 +91,7 @@ self.addEventListener("message", (event) => {
 // Any other custom service worker logic can go here.
 
 
-async function putValue(response: String) {
+let putValue = async (response: String) => {
 	const tx = (await dbCache).transaction("post-db", "readwrite");
 	const store = tx.objectStore("post-db");
 
