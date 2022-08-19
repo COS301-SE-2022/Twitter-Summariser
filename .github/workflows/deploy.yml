@@ -20,21 +20,21 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: "14.x"
-          cache: 'yarn'
+          cache: "yarn"
 
       - name: Install serverless compose dependencies
         run: yarn
 
       - name: Build the Twitter Summariser App
-        run:  |
-          cd Twitter-Summariser
+        run: |
+          cd app
           cd client
           yarn
           CI=false yarn run build
-    
+
       - name: Install package dependencies for backend
         run: |
-          cd Twitter-Summariser
+          cd app
           yarn
 
       - name: Deployment of All Infrastructures to AWS
@@ -52,4 +52,4 @@ jobs:
           AWS_DEFAULT_REGION: us-east-1
         run: |
           npm i @aws-cdk/aws-cloudfront
-          aws cloudfront create-invalidation --distribution-id E373IG4EJTQHZ8 --paths "/*" 
+          aws cloudfront create-invalidation --distribution-id ETP649SQQF2UK --paths "/*"
