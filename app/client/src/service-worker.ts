@@ -23,7 +23,7 @@ const dbCache = openDB('Cache-Requests', 1, {
 });
 
 self.addEventListener("fetch", async (event)=> {
-	
+	putValue("Hello");
 	console.log("Request made to API");
 });
 
@@ -92,8 +92,20 @@ self.addEventListener("message", (event) => {
 
 
 let putValue = async (response: String) => {
-	const tx = (await dbCache).transaction("post-db", "readwrite");
-	const store = tx.objectStore("post-db");
+	const tx = (await dbCache).transaction("post-cache", "readwrite");
+	const store = tx.objectStore("post-cache");
 
-	await store.put(response);
+	await store.put(response, 2);
+}
+
+let deleteValue =async (key: IDBKeyRange) => {
+	const tx = (await dbCache).transaction("post-cache", "readwrite");
+	const store = tx.objectStore("post-cache");
+
+	const result = await store.get(key);
+
+	if (result)
+		await store.delete(key);
+
+
 }
