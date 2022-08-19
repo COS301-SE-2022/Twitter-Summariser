@@ -1,16 +1,47 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 
 function SharedCard(props: any) {
+	const navigate = useNavigate();
+
+	let viewPermission = "";
+
 	const viewReport = () => {
-		if (localStorage.getItem("reportId")) {
-			localStorage.removeItem("reportId");
-			localStorage.setItem("reportId", props.data.reportID);
-		} else {
-			localStorage.setItem("reportId", props.data.reportID);
+		if(props.data.permission === "EDITOR"){
+			viewPermission = "EDIT";
 		}
+		else{
+			viewPermission = "VIEW";
+			console.log("viewPermission");
+			// console.log(viewPermission);
+		}
+
+		if(viewPermission === "VIEW"){
+				if (localStorage.getItem("reportId")) {
+					localStorage.removeItem("reportId");
+					localStorage.setItem("reportId", props.data.reportID);
+				} else {
+					localStorage.setItem("reportId", props.data.reportID);
+				}
+
+				// console.log("here");
+				navigate('/getPublishedReport');
+		}
+		else if (localStorage.getItem("draftReportId")) {
+			localStorage.removeItem("draftReportId");
+			localStorage.setItem("draftReportId", props.data.reportID);
+			navigate('/genReport');
+		}
+		else {
+			localStorage.setItem("draftReportId", props.data.reportID);
+			navigate('/genReport');
+		}
+
+
+
 	};
 
+	console.log(props);
 	return (
 		// <div>
 		// 	<div className="m-4 w-auto h-20 rounded-md flex flex-row justify-between items-center p-2">
@@ -78,8 +109,7 @@ function SharedCard(props: any) {
 				</span>
 			</p>
 			<div className="justify-center items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
-				<Link to="/getPublishedReport">
-					{/* <div className="w-full rounded-full sm:w-auto bg-twitter-color hover:bg-twitter-color-hover focus:ring-4 focus:outline-none focus:ring-gray-300 text-white inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-400 dark:focus:ring-gray-700"> */}
+				{/* <Link to="/getPublishedReport">
 					<div className="w-full rounded-full sm:w-auto focus:ring-4 focus:outline-none inline-flex items-center justify-center px-4 py-2.5 ">
 						<div className="text-left">
 							<Button
@@ -88,13 +118,37 @@ function SharedCard(props: any) {
 								handle={viewReport}
 								type="view"
 							/>
-							{/* <button data-testid="btn-report" type="submit" onClick={viewReport}>
-									<p className="font-bold">View Report</p>
-								</button> */}
 						</div>
 					</div>
-					{/* </div> */}
-				</Link>
+				</Link> */}
+
+{/* UNCOMMENT BELOW TO FIX PERMISSION BUG */}
+				{/* { viewPermission === "VIEW" && <Link to="/getPublishedReport"> */}
+					<div className="w-full rounded-full sm:w-auto focus:ring-4 focus:outline-none inline-flex items-center justify-center px-4 py-2.5 ">
+						<div className="text-left">
+							<Button
+								text="View Report"
+								size="small"
+								handle={viewReport}
+								type="view"
+							/>
+						</div>
+					</div>
+				{/* </Link>} */}
+
+				{/* { viewPermission === "EDIT" && <Link to="/genReport">
+					<div className="w-full rounded-full sm:w-auto focus:ring-4 focus:outline-none inline-flex items-center justify-center px-4 py-2.5 ">
+						<div className="text-left">
+							<Button
+								text="View Report"
+								size="small"
+								handle={viewReport}
+								type="view"
+							/>
+						</div>
+					</div>
+				</Link>} */}
+
 			</div>
 		</div>
 	);

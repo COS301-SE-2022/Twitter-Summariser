@@ -20,7 +20,7 @@ function GetPublishedReport() {
 	const [author, setAuthor] = useState("");
 	const [date, setDate] = useState("");
 	const [stat, setStat] = useState("");
-	const [perm, setPerm] = useState("");
+	// const [perm, setPerm] = useState("");
 	const [pageLoading, changePageLoading] = useState(true);
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
@@ -46,7 +46,9 @@ function GetPublishedReport() {
 			const response = await axiosPrivate.post("getReport", JSON.stringify(requiredData), {
 				signal: controller.signal
 			});
-			isMounted && setPerm(response.data.report.permission);
+			// isMounted && setPerm(response.data.report.apiKey);
+			// console.log(response.data.report);
+			// isMounted && setPerm(response.data.report.permission);
 			isMounted && setStat(response.data.report.status);
 			isMounted && setState(response.data.report.Report);
 			isMounted && setTitle(response.data.report.title);
@@ -119,7 +121,8 @@ function GetPublishedReport() {
 		)
 	);
 
-	const isOwner = () => perm === "OWNER";
+	// const isOwner = () => perm === "OWNER";
+	const isOwner = () => author === auth.username;
 
 	const loadIcon = (
 		<svg
