@@ -183,9 +183,8 @@ export default class ReportService {
 
 		const promises = permissions.map(async (permission) => {
 			const id = permission.reportID;
-
 			const report = await this.getReportHelper(id);
-
+			report.permission = permission.type;
 			results.push(report);
 		});
 
