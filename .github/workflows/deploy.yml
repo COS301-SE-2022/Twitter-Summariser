@@ -28,9 +28,7 @@ jobs:
           python-version: '3.8'
 
       - name: Install serverless compose dependencies
-        run: |
-          yarn
-          sudo apt-get install -y python3.8
+        run:  yarn
 
       - name: Build the Twitter Summariser App
         run: |
@@ -43,6 +41,10 @@ jobs:
         run: |
           cd app
           yarn
+          cd ..
+          cd lib
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
       - name: Deployment of All Infrastructures to AWS
         uses: serverless/github-action@v3
