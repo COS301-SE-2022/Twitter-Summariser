@@ -22,11 +22,11 @@ jobs:
           node-version: "14.x"
           cache: "yarn"
 
-      - name: Install Serverless Python Requirements
-        run:  sls plugin install -n serverless-python-requirements 
-
       - name: Install serverless compose dependencies
         run: yarn
+
+      - name: Install Serverless Python Requirements
+        run:  sls plugin install -n serverless-python-requirements 
 
       - name: Build the Twitter Summariser App
         run: |
