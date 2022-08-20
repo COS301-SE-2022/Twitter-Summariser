@@ -8,6 +8,7 @@
   },
   "devDependencies": {
     "@serverless/typescript": "^3.21.0",
-    "serverless-offline": "^9.1.7"
+    "serverless-offline": "^9.1.7",
+    "serverless-python-requirements": "^5.4.0"
   }
 }
