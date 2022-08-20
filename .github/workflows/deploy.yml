@@ -43,13 +43,19 @@ jobs:
           yarn
 
       - name: Install Serverless Framework
-        run: npm install -g serverless
+        run: |
+          cd lib
+          npm install -g serverless
 
       - name: Install Serverless npm
-        run: npm install --g serverless-python-requirements
+        run:  |
+          cd lib        
+          npm install --g serverless-python-requirements
     
       - name: Add Serverless python file
-        run: sls plugin install -n serverless-python-requirements
+        run: |
+        cd lib
+        sls plugin install -n serverless-python-requirements
 
       - name: Deployment of All Infrastructures to AWS
         uses: serverless/github-action@v3
