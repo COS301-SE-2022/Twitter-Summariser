@@ -26,8 +26,13 @@ const dbCache = openDB('Cache-Requests', 1, {
 });
 
 self.addEventListener("fetch", async (event)=> {
-	putValue("Hello", "Hello");
+	
 	console.log("Request made to API");
+	console.log(event);
+
+	if (event.request.method === "POST") {
+		event.respondWith(staleWhileRevalidate(event));
+	}
 });
 
 clientsClaim();
@@ -91,6 +96,7 @@ self.addEventListener("message", (event) => {
 	}
 });
 
+// Any other custom service worker logic can go here.
 const staleWhileRevalidate =async (event: any) => {
 	let entry = await getValue(event.request.clone());
 
@@ -110,7 +116,6 @@ const staleWhileRevalidate =async (event: any) => {
 	}
 }
 
-// Any other custom service worker logic can go here.
 const serialisedReponse =async (response: any) => {
 	let serialisedHeaders: any = {};
 
@@ -137,7 +142,7 @@ let getValue = async (request: any) => {
 		let body = await request.json();
 
 		const id = objectHash.MD5(body);
-
+		console.log(id);
 		const tx = (await dbCache).transaction(tableName, "readonly");
 		const store = tx.objectStore(tableName);
 		cacheData = await store.get(id);
