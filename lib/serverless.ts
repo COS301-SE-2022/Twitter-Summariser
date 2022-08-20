@@ -9,9 +9,19 @@ const serverlessConfiguration: AWS = {
 
     },
     plugins: [
-        "serverless-offline"
+        "serverless-offline",
+        "serverless-python-requirements"
     ],
 
+    package: {
+        exclude: [
+            "**/*"
+        ],
+        include: [
+            "*.py",
+            "pandas"
+        ]
+    },
 
     functions: {
         hello: {
@@ -32,9 +42,14 @@ const serverlessConfiguration: AWS = {
             httpPort: 5000,
             websocketPort: 5001,
             lambdaPort: 5002
-        }
-    }
+        },
 
-}
+        "pythonRequirements": {
+            dockerizePip: true,
+            zip: true
+        }
+
+    }
+};
 
 module.exports = serverlessConfiguration;
