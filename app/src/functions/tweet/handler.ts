@@ -85,9 +85,15 @@ export const addCustomTweet = middyfy(
 			const lastS = params.url.lastIndexOf("/") + 1;
 			const id = params.url.substring(lastS);
 
-			const { data } = await clientV2.get("tweets", {
-				ids: id
-			});
+			const { data } = await clientV2.get("tweets", { ids: id });
+
+			if(data.author_id==undefined){
+				return {
+					statusCode: statusCodes.Successful,
+					headers: header,
+					body: JSON.stringify("Invalid Tweet url.")
+				};
+			}
 
 			const tweets = await ServicesLayer.reportService.getReport(params.reportID);
 
