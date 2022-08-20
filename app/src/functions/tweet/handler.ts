@@ -83,7 +83,14 @@ export const addCustomTweet = middyfy(
 		try {
 			const params = JSON.parse(event.body);
 			const lastS = params.url.lastIndexOf("/") + 1;
-			const id = params.url.substring(lastS);
+			const qm = params.url.lastIndexOf("?");
+			let id : string;
+
+			if(qm == -1){
+				id = params.url.substring(lastS);
+			}else{
+				id = params.url.substring(lastS, qm);
+			}
 
 			const { data } = await clientV2.get("tweets", { ids: id });
 
