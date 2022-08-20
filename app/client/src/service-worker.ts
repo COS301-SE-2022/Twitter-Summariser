@@ -13,6 +13,7 @@ import { precacheAndRoute, createHandlerBoundToURL } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
 import { StaleWhileRevalidate } from "workbox-strategies";
 import { openDB } from "idb"; 
+import * as bcryptjs from "bcryptjs";
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -91,6 +92,25 @@ self.addEventListener("message", (event) => {
 });
 
 // Any other custom service worker logic can go here.
+const serialisedReponse =async (response: any) => {
+	let serialisedHeaders: any = {};
+
+	for (let entry of response.headers.entries()) {
+		serialisedHeaders[entry[0]] = entry[1];
+	}
+
+	let serialised = {
+		headers: serialisedHeaders,
+		status: response.status,
+		statusText: response.statusText,
+		body: "body"
+	}
+
+	serialised.body = await response.json();
+
+	return serialised;
+}
+
 let getValue = async (key:IDBKeyRange) => {
 	const tx = (await dbCache).transaction(tableName, "readonly");
 	const store = tx.objectStore(tableName);
@@ -99,11 +119,11 @@ let getValue = async (key:IDBKeyRange) => {
 	return result;
 }
 
-let putValue = async (response: String) => {
+let putValue = async (response: string) => {
 	const tx = (await dbCache).transaction(tableName, "readwrite");
 	const store = tx.objectStore(tableName);
-
-	await store.put(response, 2);
+	const id = bcryptjs.hashSync(response, 10);
+	await store.put(response, id);
 }
 
 let putBulkValue =async (values: object[]) => {
