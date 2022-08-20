@@ -44,11 +44,11 @@ const serverlessConfiguration: AWS = {
             lambdaPort: 5002
         },
 
-        "pythonRequirements": {
-            dockerizePip: false,
-            pythonBin: "/opt/python3.8/bin/python",
-            zip: true
-        }
+        // "pythonRequirements": {
+        //     dockerizePip: false,
+        //     pythonBin: "/opt/python3.8/bin/python",
+        //     zip: true
+        // }
 
     }
 };
