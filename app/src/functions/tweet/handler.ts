@@ -86,7 +86,7 @@ export const addCustomTweet = middyfy(
 			const qm = params.url.lastIndexOf("?");
 			let id : string;
 
-			if(qm == -1){
+			if(qm === -1){
 				id = params.url.substring(lastS);
 			}else{
 				id = params.url.substring(lastS, qm);
@@ -94,7 +94,7 @@ export const addCustomTweet = middyfy(
 
 			const { data } = await clientV2.get("tweets", { ids: id });
 
-			if(data.author_id==undefined){
+			if(data.author_id === undefined){
 				return {
 					statusCode: statusCodes.Successful,
 					headers: header,
