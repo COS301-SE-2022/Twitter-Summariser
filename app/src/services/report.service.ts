@@ -73,7 +73,7 @@ export default class ReportService {
 				}
 			}
 
-			if (!bl) {
+			if (!bl && report[y-1].blockType === "TWEET") {
 				rp.push({ blockType: "RICHTEXT", position: x, block: null });
 				count++;
 			}

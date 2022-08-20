@@ -83,11 +83,28 @@ export const addCustomTweet = middyfy(
 		try {
 			const params = JSON.parse(event.body);
 			const lastS = params.url.lastIndexOf("/") + 1;
-			const id = params.url.substring(lastS);
+			const qm = params.url.lastIndexOf("?");
+			let id : string;
+
+			if(qm === -1){
+				id = params.url.substring(lastS);
+			}else{
+				id = params.url.substring(lastS, qm);
+			}
+
+			const { data } = await clientV2.get("tweets", { ids: id });
+
+			if(data.author_id === undefined){
+				return {
+					statusCode: statusCodes.Successful,
+					headers: header,
+					body: JSON.stringify("Invalid Tweet url.")
+				};
+			}
 
 			const tweets = await ServicesLayer.reportService.getReport(params.reportID);
 
-			const position = tweets.numOfBlocks + 1;
+			const position = tweets.numOfBlocks;
 
 			await ServicesLayer.reportBlockService.addReportBlock({
 				blockType: "TWEET",
@@ -130,24 +147,6 @@ export const reorderTweets = middyfy(
 					body: JSON.stringify("Don't have enough permissions to edit this report.")
 				};
 			}
-
-			/*const tweet1 = await ServicesLayer.reportBlockService.getReportBlock(
-				params.reportBlockID1
-			);
-
-			const tweet2 = await ServicesLayer.reportBlockService.getReportBlock(
-				params.reportBlockID2
-			);
-
-			await ServicesLayer.reportBlockService.updatePosition(
-				tweet1.reportBlockID,
-				tweet2.position
-			);
-
-			await ServicesLayer.reportBlockService.updatePosition(
-				tweet2.reportBlockID,
-				tweet1.position
-			);*/
 
 			// Retrieving Blocks
 			let blocks = await ServicesLayer.reportBlockService.getReportBlocks(params.reportID);
