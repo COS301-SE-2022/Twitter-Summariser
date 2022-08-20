@@ -45,7 +45,7 @@ const serverlessConfiguration: AWS = {
         },
 
         "pythonRequirements": {
-            dockerizePip: true,
+            dockerizePip: false,
             zip: true
         }
 
