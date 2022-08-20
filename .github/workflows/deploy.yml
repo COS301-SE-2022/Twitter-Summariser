@@ -22,6 +22,11 @@ jobs:
           node-version: "14.x"
           cache: "yarn"
 
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+
       - name: Install serverless compose dependencies
         run: yarn
 
