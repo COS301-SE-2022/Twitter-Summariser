@@ -22,10 +22,8 @@ jobs:
           node-version: "14.x"
           cache: "yarn"
 
-      - name: Setup Python env
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.8' 
+      - name: Install Serverless Python Requirements
+        run:  sls plugin install -n serverless-python-requirements 
 
       - name: Install serverless compose dependencies
         run: yarn
