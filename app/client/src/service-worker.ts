@@ -130,12 +130,25 @@ const serialisedReponse =async (response: any) => {
 	return serialised;
 }
 
-let getValue = async (key:IDBKeyRange) => {
-	const tx = (await dbCache).transaction(tableName, "readonly");
-	const store = tx.objectStore(tableName);
-	const result = await store.get(key);
+let getValue = async (request: any) => {
+	let cacheData;
 
-	return result;
+	try {
+		let body = await request.json();
+
+		const id = objectHash.MD5(body);
+
+		const tx = (await dbCache).transaction(tableName, "readonly");
+		const store = tx.objectStore(tableName);
+		cacheData = await store.get(id);
+
+		if (!cacheData) return null;
+
+		return new Response(JSON.stringify(cacheData.response.body), cacheData.response);
+	} catch (err) {
+		console.log(err);
+		return null;
+	};
 }
 
 let putValue = async (request:any, response: any) => {
@@ -164,6 +177,7 @@ let putBulkValue =async (values: object[]) => {
 
 }
 
+// Will be needed in the future (to remove old cache)
 let deleteValue =async (key: IDBKeyRange) => {
 	const tx = (await dbCache).transaction(tableName, "readwrite");
 	const store = tx.objectStore(tableName);
