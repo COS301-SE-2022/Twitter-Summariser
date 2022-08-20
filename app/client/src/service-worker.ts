@@ -106,6 +106,16 @@ let putValue = async (response: String) => {
 	await store.put(response, 2);
 }
 
+let putBulkValue =async (values: object[]) => {
+	const tx = (await dbCache).transaction(tableName, "readwrite");
+	const store = tx.objectStore(tableName);
+
+	for (const value of values) {
+		const result = await store.put(value);
+	}
+
+}
+
 let deleteValue =async (key: IDBKeyRange) => {
 	const tx = (await dbCache).transaction(tableName, "readwrite");
 	const store = tx.objectStore(tableName);
