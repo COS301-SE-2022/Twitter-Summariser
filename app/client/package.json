@@ -16,6 +16,7 @@
 		"eslint-config-react-app": "^7.0.1",
 		"idb": "^7.0.2",
 		"jwt-decode": "^3.1.2",
+		"object-hash": "^3.0.0",
 		"react": "^18.1.0",
 		"react-dom": "^18.1.0",
 		"react-icons": "^4.3.1",
@@ -54,6 +55,7 @@
 	},
 	"devDependencies": {
 		"@types/bcryptjs": "^2.4.2",
+		"@types/object-hash": "^2.2.1",
 		"@typescript-eslint/eslint-plugin": "^5.30.7",
 		"@typescript-eslint/parser": "^5.30.7",
 		"autoprefixer": "^10.4.7",

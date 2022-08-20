@@ -13,7 +13,7 @@ import { precacheAndRoute, createHandlerBoundToURL } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
 import { StaleWhileRevalidate } from "workbox-strategies";
 import { openDB } from "idb"; 
-import * as bcryptjs from "bcryptjs";
+import objectHash from "object-hash";
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -26,7 +26,7 @@ const dbCache = openDB('Cache-Requests', 1, {
 });
 
 self.addEventListener("fetch", async (event)=> {
-	putValue("Hello");
+	putValue("Hello", "Hello");
 	console.log("Request made to API");
 });
 
@@ -91,6 +91,25 @@ self.addEventListener("message", (event) => {
 	}
 });
 
+const staleWhileRevalidate =async (event: any) => {
+	let entry = await getValue(event.request.clone());
+
+	let getPromise = await fetch(event.request.clone())
+					.then((response: any) => {
+						putValue(event.request.clone(), response.clone());
+						return response;
+					})
+					.catch((err) => {
+						console.log(err);
+					});
+
+	if (entry) {
+		return Promise.resolve(entry);
+	} else {
+		return getPromise;
+	}
+}
+
 // Any other custom service worker logic can go here.
 const serialisedReponse =async (response: any) => {
 	let serialisedHeaders: any = {};
@@ -119,10 +138,13 @@ let getValue = async (key:IDBKeyRange) => {
 	return result;
 }
 
-let putValue = async (response: string) => {
+let putValue = async (request:any, response: any) => {
+
+	// const id = bcryptjs.hashSync(body, 10);
+	const id = objectHash.MD5(request);
+
 	const tx = (await dbCache).transaction(tableName, "readwrite");
 	const store = tx.objectStore(tableName);
-	const id = bcryptjs.hashSync(response, 10);
 	await store.put(response, id);
 }
 
