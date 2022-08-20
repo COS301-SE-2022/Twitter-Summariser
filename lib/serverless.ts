@@ -9,8 +9,8 @@ const serverlessConfiguration: AWS = {
 
     },
     plugins: [
-        "serverless-offline",
-        "serverless-python-requirements"
+        "serverless-offline"
+        // "serverless-python-requirements"
     ],
 
     package: {
