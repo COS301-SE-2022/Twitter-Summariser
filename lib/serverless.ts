@@ -9,8 +9,8 @@ const serverlessConfiguration: AWS = {
 
     },
     plugins: [
-        "serverless-offline"
-        // "serverless-python-requirements"
+        "serverless-offline",
+        "serverless-python-requirements"
     ],
 
     package: {
@@ -44,11 +44,10 @@ const serverlessConfiguration: AWS = {
             lambdaPort: 5002
         },
 
-        // "pythonRequirements": {
-        //     dockerizePip: false,
-        //     pythonBin: "/opt/python3.8/bin/python",
-        //     zip: true
-        // }
+        "pythonRequirements": {
+            dockerizePip: false,
+            zip: true
+        }
 
     }
 };
