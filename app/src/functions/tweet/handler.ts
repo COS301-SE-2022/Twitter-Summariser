@@ -85,6 +85,10 @@ export const addCustomTweet = middyfy(
 			const lastS = params.url.lastIndexOf("/") + 1;
 			const id = params.url.substring(lastS);
 
+			const { data } = await clientV2.get("tweets", {
+				ids: id
+			});
+
 			const tweets = await ServicesLayer.reportService.getReport(params.reportID);
 
 			const position = tweets.numOfBlocks + 1;
