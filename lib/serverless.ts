@@ -45,7 +45,8 @@ const serverlessConfiguration: AWS = {
         },
 
         "pythonRequirements": {
-            dockerizePip: false,
+            dockerizePip: "non-linux",
+            pythonBin: "python3",
             zip: true
         }
 
