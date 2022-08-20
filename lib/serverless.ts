@@ -5,7 +5,7 @@ const serverlessConfiguration: AWS = {
     frameworkVersion: "3",
     provider: {
         name: "aws",
-        runtime: "python3.8"
+        runtime: "python3.6"
 
     },
     plugins: [
@@ -45,7 +45,7 @@ const serverlessConfiguration: AWS = {
         },
 
         "pythonRequirements": {
-            dockerizePip: "non-linux",
+            dockerizePip: false,
             pythonBin: "python3",
             zip: true
         }
