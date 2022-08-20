@@ -274,6 +274,8 @@ export const getReport = middyfy(
 				report.permission = "VIEWER";
 			}
 
+			delete report.apiKey;
+
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
