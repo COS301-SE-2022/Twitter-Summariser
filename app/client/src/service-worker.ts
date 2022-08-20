@@ -16,9 +16,11 @@ import { openDB } from "idb";
 
 declare const self: ServiceWorkerGlobalScope;
 
+const tableName: string = "post-cache";
+
 const dbCache = openDB('Cache-Requests', 1, {
 	upgrade(db) {
-		db.createObjectStore('post-cache');
+		db.createObjectStore(tableName);
 	}
 });
 
@@ -89,18 +91,24 @@ self.addEventListener("message", (event) => {
 });
 
 // Any other custom service worker logic can go here.
+let getValue = async (key:IDBKeyRange) => {
+	const tx = (await dbCache).transaction(tableName, "readonly");
+	const store = tx.objectStore(tableName);
+	const result = await store.get(key);
 
+	return result;
+}
 
 let putValue = async (response: String) => {
-	const tx = (await dbCache).transaction("post-cache", "readwrite");
-	const store = tx.objectStore("post-cache");
+	const tx = (await dbCache).transaction(tableName, "readwrite");
+	const store = tx.objectStore(tableName);
 
 	await store.put(response, 2);
 }
 
 let deleteValue =async (key: IDBKeyRange) => {
-	const tx = (await dbCache).transaction("post-cache", "readwrite");
-	const store = tx.objectStore("post-cache");
+	const tx = (await dbCache).transaction(tableName, "readwrite");
+	const store = tx.objectStore(tableName);
 
 	const result = await store.get(key);
 
