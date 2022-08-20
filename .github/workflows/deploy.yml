@@ -41,10 +41,15 @@ jobs:
         run: |
           cd app
           yarn
-          cd ..
-          cd lib
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+
+      - name: Install Serverless Framework
+        run: npm install -g serverless
+
+      - name: Install Serverless npm
+        run: npm install --g serverless-python-requirements
+    
+      - name: Add Serverless python file
+        run: sls plugin install -n serverless-python-requirements
 
       - name: Deployment of All Infrastructures to AWS
         uses: serverless/github-action@v3
