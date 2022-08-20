@@ -148,24 +148,6 @@ export const reorderTweets = middyfy(
 				};
 			}
 
-			/*const tweet1 = await ServicesLayer.reportBlockService.getReportBlock(
-				params.reportBlockID1
-			);
-
-			const tweet2 = await ServicesLayer.reportBlockService.getReportBlock(
-				params.reportBlockID2
-			);
-
-			await ServicesLayer.reportBlockService.updatePosition(
-				tweet1.reportBlockID,
-				tweet2.position
-			);
-
-			await ServicesLayer.reportBlockService.updatePosition(
-				tweet2.reportBlockID,
-				tweet1.position
-			);*/
-
 			// Retrieving Blocks
 			let blocks = await ServicesLayer.reportBlockService.getReportBlocks(params.reportID);
 			blocks = await ServicesLayer.reportBlockService.sortReportBlocks(blocks);
