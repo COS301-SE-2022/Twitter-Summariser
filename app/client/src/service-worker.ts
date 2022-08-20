@@ -139,13 +139,19 @@ let getValue = async (key:IDBKeyRange) => {
 }
 
 let putValue = async (request:any, response: any) => {
-
+	let body = await request.json();
 	// const id = bcryptjs.hashSync(body, 10);
-	const id = objectHash.MD5(request);
+	const id = objectHash.MD5(body);
+
+	let entry = {
+		query: body.query,
+		response: await serialisedReponse(response),
+		timestamp: Date.now()
+	}
 
 	const tx = (await dbCache).transaction(tableName, "readwrite");
 	const store = tx.objectStore(tableName);
-	await store.put(response, id);
+	await store.put(entry, id);
 }
 
 let putBulkValue =async (values: object[]) => {
