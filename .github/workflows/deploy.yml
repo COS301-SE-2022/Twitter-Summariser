@@ -54,8 +54,8 @@ jobs:
     
       - name: Add Serverless python file
         run: |
-        cd lib
-        sls plugin install -n serverless-python-requirements
+          cd lib
+          sls plugin install -n serverless-python-requirements
 
       - name: Deployment of All Infrastructures to AWS
         uses: serverless/github-action@v3
