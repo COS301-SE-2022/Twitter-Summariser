@@ -26,7 +26,9 @@ jobs:
         run: yarn
 
       - name: Install Serverless Python Requirements
-        run:  sls plugin install -n serverless-python-requirements 
+        run:  |
+          npm i -g serverless
+          sls plugin install -n serverless-python-requirements 
 
       - name: Build the Twitter Summariser App
         run: |
