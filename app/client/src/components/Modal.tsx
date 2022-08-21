@@ -59,7 +59,7 @@ function Modal({ setModalOn, setChoice, func }: any) {
 
 			if (tweet.data === "Invalid Tweet url.") {
 				// TWEET NOT FOUND - return error message
-				console.log("Invalid tweet url. Please try again");
+				// console.log("Invalid tweet url. Please try again");
 				setInvalidURL(true);
 				// changeNAN(true);
 			} else {
