@@ -24,7 +24,7 @@ export const genScheduledReport = {
 	events: [
 		{
 			schedule: {
-				rate: ["rate(1 hours)"],
+				rate: ["rate(1 hour)"],
 				enabled: true
 			}
 		}
