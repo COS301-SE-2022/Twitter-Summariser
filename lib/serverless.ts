@@ -46,7 +46,7 @@ const serverlessConfiguration: AWS = {
 
         "pythonRequirements": {
             dockerizePip: false,
-            pythonBin: "python3",
+            pythonBin: "/opt/hostedtoolcache/Python/3.8.13/x64/lib/python3.8",
             zip: true
         }
 
