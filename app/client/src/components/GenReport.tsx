@@ -429,6 +429,8 @@ function GenReport() {
 		console.log(choice);
 	}
 
+	const isOwner = () => author === auth.username || title.substring(0, 4) === "Copy"; // temporary fix need PERMISSION to indicate whether person is owner or not correctly
+
 	return (
 		<div>
 			{pageLoading ? (
@@ -447,11 +449,11 @@ function GenReport() {
 							</div>
 
 							<div className="flex flex-row items-end p-4 justify-between items-center">
-								<div className="" data-bs-toggle="tooltip" title="Share Report">
+								{ isOwner() && <div className="" data-bs-toggle="tooltip" title="Share Report">
 									<button type="submit">
 										<BsShare style={style} onClick={shareHandler} />
 									</button>
-								</div>
+								</div>}
 								<div className="">&nbsp;&nbsp;</div>
 								{/* <div className="" data-bs-toggle="tooltip" title="Clone Report">
 								<button type="submit">
@@ -469,7 +471,7 @@ function GenReport() {
 									</button>
 								</div>
 								<div className="" />
-								<div
+								{ isOwner() && <div
 									className=""
 									data-bs-toggle="tooltip"
 									title="Delete Report"
@@ -478,13 +480,13 @@ function GenReport() {
 									<button type="submit">
 										<MdDeleteOutline style={iconStyle4} />
 									</button>
-								</div>
+								</div>}
 							</div>
 						</div>
 						<div className="ml-2 p-4 text-blue-500 cursor-pointer" onClick={clicked}>
 							Add Custom Tweets
 						</div>
-						{modalOn && <Modal setModalOn={setModalOn} setChoice={setChoice} />}
+						{modalOn && <Modal setModalOn={setModalOn} setChoice={setChoice} func={changeShouldRender} />}
 					</div>
 
 					{/* {share && (
