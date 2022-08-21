@@ -23,9 +23,23 @@ jobs:
           cache: "yarn"
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v2
         with:
           python-version: '3.8'
+
+      - name: Cache pip
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+            ${{ runner.os }}-
+
+      - name: Install python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Install serverless compose dependencies
         run:  yarn
@@ -40,18 +54,11 @@ jobs:
         run: |
           cd app
           yarn
-    
-      - name: Run Python commands
-        run: |
-          pip install --upgrade pip
-          python3.8 -m venv env
-          source env/bin/activate
-          echo "VIRTUAL ENV:" $VIRTUAL_ENV
 
       - name: Deployment of All Infrastructures to AWS
-        uses: serverless/github-action@v3
+        uses: dhollerbach/actions.serverless-with-python-requirements@master
         with:
-          args: deploy
+          args: ''
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
