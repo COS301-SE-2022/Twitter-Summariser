@@ -21,3 +21,4 @@ var/
 
 __pycache__/
 .requirements.zip
+.env
