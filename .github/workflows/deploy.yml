@@ -32,8 +32,7 @@ jobs:
 
       - name: Build the Twitter Summariser App
         run: |
-          cd app
-          cd client
+          cd app/client
           yarn
           CI=false yarn run build
 
@@ -41,22 +40,13 @@ jobs:
         run: |
           cd app
           yarn
-
-      - name: Install Serverless Framework
-        run: |
-          cd lib
-          npm install -g serverless
-
-      - name: Install Serverless npm
-        run:  |
-          cd lib        
-          npm install --g serverless-python-requirements
     
-      - name: Add Serverless python file
+      - name: Run Python commands
         run: |
-          cd lib
-          sudo apt-get install python3.8
-          sls plugin install -n serverless-python-requirements
+          pip install --upgrade pip
+          python3.8 -m venv env
+          source env/bin/activate
+          echo "VIRTUAL ENV:" $VIRTUAL_ENV
 
       - name: Deployment of All Infrastructures to AWS
         uses: serverless/github-action@v3
