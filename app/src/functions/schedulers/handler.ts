@@ -25,23 +25,12 @@ export const reportScheduler = middyfy(
 	}
 );
 
-export const genScheduledReport = middyfy(
-	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-		try {
-			const params = JSON.parse(event.body);
-			
+export const genScheduledReport = middyfy( async ( ) : Promise<void> => {
+		try {			
 
-			return {
-				statusCode: statusCodes.Successful,
-				headers: header,
-				body: JSON.stringify('')
-			};
+			
 		} catch (e) {
-			return {
-				statusCode: statusCodes.internalError,
-				headers: header,
-				body: JSON.stringify(e)
-			};
+
 		}
 	}
 );
