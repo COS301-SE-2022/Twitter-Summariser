@@ -1,5 +1,6 @@
 import type { AWS } from "@serverless/typescript";
 import { verifyJWT } from "@functions/authorizers";
+import { genScheduledReport, reportScheduler } from "@functions/schedulers";
 import {
 	getAllCreators,
 	addCreator,
@@ -103,7 +104,9 @@ const serverlessConfiguration: AWS = {
 		getAllMyPublishedReports,
 		reorderTweets,
 		deleteUser,
-		profileImageUpload
+		profileImageUpload,
+		reportScheduler,
+		genScheduledReport
 	},
 
 	package: {
