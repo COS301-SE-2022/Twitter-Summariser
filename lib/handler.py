@@ -5,17 +5,7 @@ except ImportError:
 
 import json
 import pandas as pd
-# import tweepy
-
-
-# CONSUMER_KEY = "consumer key"
-# CONSUMER_SECRET = "consumer secret"
-# ACCESS_KEY = "access key"
-# ACCESS_SECRET = "access secret"
-
-# auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
-# auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
-# api = tweepy.API(auth, wait_on_rate_limit=True)
+import tweepy
 
 
 def hello(event, context):
