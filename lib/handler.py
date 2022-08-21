@@ -29,5 +29,5 @@ def hello(event, context):
 
     return {
         "statusCode": 200,
-        "body": json.dumps({"message": "Hello!"})
+        "body": json.dumps({"message": "Testing Done. Lambda was a success!"})
     }
