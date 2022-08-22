@@ -76,6 +76,8 @@ function GenReport() {
 			isMounted && setDate(response.data.report.dateCreated.substring(0, 16));
 			isMounted && changePageLoading(false);
 
+			// console.log(response.data);
+
 			if (pulseCounter === 0) {
 				changePulse(true);
 			}
@@ -157,6 +159,8 @@ function GenReport() {
 		}
 	};
 
+	// console.log(state);
+
 	state.map((data: any, index: number) =>
 		apiResponse.push(
 			<div className="" key={data.position}>
@@ -171,6 +175,7 @@ function GenReport() {
 					</div>
 				)}
 
+				{/* FIRST TWEET */}
 				{data.blockType === "TWEET" && data.position === 1 && (
 					<div className=" w-full p-3 flex flex-col justify-center" key={data.position}>
 						<Tweet
@@ -213,8 +218,9 @@ function GenReport() {
 					</div>
 				)} */}
 
+				{/* LAST TWEET */}
 				{data.blockType === "TWEET" &&
-					(data.position === state.length - 2 || data.position === state.length - 3) && (
+					(data.position === state.length - 1) && (
 						<div
 							className=" w-full p-3 flex flex-col justify-center"
 							key={data.position}
@@ -243,8 +249,7 @@ function GenReport() {
 				{data.blockType === "TWEET" &&
 					!(
 						data.position === 1 ||
-						data.position === state.length - 2 ||
-						data.position === state.length - 3
+						data.position === state.length - 1
 					) && (
 						<div
 							className="  w-full p-3 flex flex-col justify-center"
