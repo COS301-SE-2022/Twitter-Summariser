@@ -159,6 +159,24 @@ function GenReport() {
 		}
 	};
 
+// UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY
+	// const deleteTweetHandler = async (blockID: any) => {
+	// 		const deleteDetails = {
+	// 			apiKey: auth.apiKey,
+	// 			reportID: localStorage.getItem("draftReportId"),
+	// 			reportBlockID: blockID
+	// 		};
+
+	// 		try {
+	// 			await axiosPrivate.post("deleteReportBlock", JSON.stringify(deleteDetails), {
+	// 				signal: controller.signal
+	// 			});
+	// 			changeShouldRender(true);
+	// 		} catch (err) {
+	// 			console.error(err);
+	// 		}
+	// 	};
+
 	// console.log(state);
 
 	state.map((data: any, index: number) =>
@@ -177,12 +195,11 @@ function GenReport() {
 
 				{/* FIRST TWEET */}
 				{data.blockType === "TWEET" && data.position === 1 && (
-					<div className=" w-full p-3 flex flex-col justify-center" key={data.position}>
+					<><div className=" w-full p-3 flex flex-col justify-center" key={data.position}>
 						<Tweet
 							options={{ align: "center", width: "" }}
 							tweetId={data.block.tweetID}
-							onLoad={done}
-						/>
+							onLoad={done} />
 						<div className="flex flex-row justify-around">
 							<div
 								className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
@@ -192,12 +209,18 @@ function GenReport() {
 								<button type="submit">
 									<BsArrowDown
 										style={style}
-										onClick={() => reorderDownHandler(data.position)}
-									/>
+										onClick={() => reorderDownHandler(data.position)} />
 								</button>
 							</div>
 						</div>
 					</div>
+					{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
+					{/* <div className="w-1/6 flex text-center justify-center">
+						<button type="button" onClick={() => deleteTweetHandler(data.reportBlockID)}>
+							<MdDeleteOutline style={iconStyle3} />
+						</button>
+					</div> */}
+				</>
 				)}
 				{/* {data.blockType === "TWEET" && data.position > 1 && data.position < state.length-3 && (
 					<div className=" w-full border border-gray-200 p-3" key={data.position}>
@@ -221,29 +244,34 @@ function GenReport() {
 				{/* LAST TWEET */}
 				{data.blockType === "TWEET" &&
 					(data.position === state.length - 1) && (
-						<div
-							className=" w-full p-3 flex flex-col justify-center"
-							key={data.position}
-						>
-							<div className="flex flex-row justify-around">
-								<div
-									className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
-									data-bs-toggle="tooltip"
-									title="Move Tweet Up"
-								>
-									<button type="submit">
-										<BsArrowUp
-											style={style}
-											onClick={() => reorderUpHandler(data.position)}
-										/>
-									</button>
-								</div>
+						<><div
+						className=" w-full p-3 flex flex-col justify-center"
+						key={data.position}
+					>
+						<div className="flex flex-row justify-around">
+							<div
+								className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
+								data-bs-toggle="tooltip"
+								title="Move Tweet Up"
+							>
+								<button type="submit">
+									<BsArrowUp
+										style={style}
+										onClick={() => reorderUpHandler(data.position)} />
+								</button>
 							</div>
-							<Tweet
-								options={{ align: "center", width: "" }}
-								tweetId={data.block.tweetID}
-							/>
 						</div>
+						<Tweet
+							options={{ align: "center", width: "" }}
+							tweetId={data.block.tweetID} />
+					</div>
+					{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
+					{/* <div className="w-1/6 flex text-center justify-center">
+							<button type="button" onClick={() => deleteTweetHandler(data.reportBlockID)}>
+								<MdDeleteOutline style={iconStyle3} />
+							</button>
+						</div> */}
+						</>
 					)}
 
 				{data.blockType === "TWEET" &&
@@ -251,45 +279,49 @@ function GenReport() {
 						data.position === 1 ||
 						data.position === state.length - 1
 					) && (
-						<div
-							className="  w-full p-3 flex flex-col justify-center"
-							key={data.position}
-						>
-							<div className="flex flex-row justify-around">
-								<div
-									className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
-									data-bs-toggle="tooltip"
-									title="Move Tweet Up"
-								>
-									<button type="submit">
-										<BsArrowUp
-											style={style}
-											onClick={() => reorderUpHandler(data.position)}
-										/>
-									</button>
-								</div>
-							</div>
-
-							<Tweet
-								options={{ align: "center", width: "" }}
-								tweetId={data.block.tweetID}
-							/>
-
-							<div className="flex flex-row justify-around">
-								<div
-									className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
-									data-bs-toggle="tooltip"
-									title="Move Tweet Down"
-								>
-									<button type="submit">
-										<BsArrowDown
-											style={style}
-											onClick={() => reorderDownHandler(data.position)}
-										/>
-									</button>
-								</div>
+						<><div
+						className="  w-full p-3 flex flex-col justify-center"
+						key={data.position}
+					>
+						<div className="flex flex-row justify-around">
+							<div
+								className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
+								data-bs-toggle="tooltip"
+								title="Move Tweet Up"
+							>
+								<button type="submit">
+									<BsArrowUp
+										style={style}
+										onClick={() => reorderUpHandler(data.position)} />
+								</button>
 							</div>
 						</div>
+
+						<Tweet
+							options={{ align: "center", width: "" }}
+							tweetId={data.block.tweetID} />
+
+						<div className="flex flex-row justify-around">
+							<div
+								className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
+								data-bs-toggle="tooltip"
+								title="Move Tweet Down"
+							>
+								<button type="submit">
+									<BsArrowDown
+										style={style}
+										onClick={() => reorderDownHandler(data.position)} />
+								</button>
+							</div>
+						</div>
+					</div>
+					{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
+					{/* <div className="w-1/6 flex text-center justify-center">
+							<button type="button" onClick={() => deleteTweetHandler(data.reportBlockID)}>
+								<MdDeleteOutline style={iconStyle3} />
+							</button>
+						</div> */}
+						</>
 					)}
 
 				{/* {data.blockType === "TWEET" && (
