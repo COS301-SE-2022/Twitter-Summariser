@@ -10,6 +10,7 @@ export const reportScheduler = middyfy(
 			const params = JSON.parse(event.body)
 
 			 await ServicesLayer.scheduleService.addScheduleSetting({apiKey: params.apiKey, keyword: params.keyword, date: new Date(), period: 56, id: "9999"})
+			 
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
