@@ -10,6 +10,11 @@ describe('Auth(e2e)', () => {
     cy.url().should('include', '/login');
   });
 
+  it ('should load and redirect to /signup', () => {
+    cy.visit('http://localhost:3000/signup');
+    cy.url().should('include', '/signup');
+  });
+
   // it ('should have default initial state', () => {
   //   const initialState = {
   //     auth: {

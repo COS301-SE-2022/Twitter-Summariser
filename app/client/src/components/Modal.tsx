@@ -1,9 +1,14 @@
 import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
+import { BiErrorCircle } from "react-icons/bi";
 import Button from "./Button";
-// import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import useAuth from "../hooks/useAuth";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
-function Modal({ setModalOn, setChoice }: any) {
+function Modal({ setModalOn, setChoice, func }: any) {
+		const axiosPrivate = useAxiosPrivate();
+	const controller = new AbortController();
+	const { auth } = useAuth();
 	// const handleOKClick = () => {
 	// 	setChoice(true);
 	// 	setModalOn(false);
@@ -19,6 +24,9 @@ function Modal({ setModalOn, setChoice }: any) {
 
 	const [enteredSearch, changeEnteredSearch] = useState("");
 	const [loading, changeLoading] = useState(false);
+	const [invalidURL, setInvalidURL] = useState(false);
+
+	const bStyle = { fontSize: "1.5rem", color: "red" };
 
 	// const axiosPrivate = useAxiosPrivate();
 	// const controller = new AbortController();
@@ -26,19 +34,54 @@ function Modal({ setModalOn, setChoice }: any) {
 
 	const searchHandler = (event: any) => {
 		changeEnteredSearch(event.target.value);
+		setInvalidURL(false);
 	};
 
 	const loadingHandler = () => {
 		changeLoading(!loading);
 	};
 
-	const searchTwitter = async (searchData: any) => {
-		searchData;
+	// const rerender = () => {
+
+	// }
+
+	const addTweet = async (tweetData: any) => {
+		try {
+			const tweet = await axiosPrivate.post("addCustomTweet", JSON.stringify(tweetData), {
+				signal: controller.signal
+			});
+
+			// console.log(tweet.data);
+
+				// console.log( props.func);
+
+				changeLoading(false);
+
+			if (tweet.data === "Invalid Tweet url.") {
+				// TWEET NOT FOUND - return error message
+				// console.log("Invalid tweet url. Please try again");
+				setInvalidURL(true);
+				// changeNAN(true);
+			} else {
+				// TWEET FOUND - do something with it
+				setModalOn(false);
+				func(true);
+
+				// console.log(tweet.data);
+				// changeNAN(false);
+				// setSuccessfulShare(true);
+				// setShare(false);
+			}
+		} catch (err) {
+			console.error(err);
+		}
+		// searchData;
 		// try {
 		// 	const response = await axiosPrivate.post("searchTweets", JSON.stringify(searchData), {
 		// 		signal: controller.signal
 		// 	});
 
+		// 	// do something with the response
 		// 	response.data;
 		// 	// changeResultSet(await response.data.resultSetID);
 		// 	// changeResponse(await response.data.tweets);
@@ -50,8 +93,10 @@ function Modal({ setModalOn, setChoice }: any) {
 	};
 
 	const search = () => {
-		const searchData = {
-			// 	apiKey: auth.apiKey,
+		const tweetData = {
+				apiKey: auth.apiKey,
+				reportID: localStorage.getItem("draftReportId"),
+				url: enteredSearch
 			// 	keyword: enteredSearch,
 			// 	numOfTweets: noOfTweets,
 			// 	sortBy: sort === "-" ? "-" : sort,
@@ -61,7 +106,7 @@ function Modal({ setModalOn, setChoice }: any) {
 		if (enteredSearch !== "") {
 			loadingHandler();
 			// changeClicked(false);
-			searchTwitter(searchData);
+			addTweet(tweetData);
 		}
 	};
 
@@ -95,6 +140,12 @@ function Modal({ setModalOn, setChoice }: any) {
 						</div>
 					</div>
 					<div className="flex-col justify-center   p-12 ">
+						{invalidURL && (
+							<div className="flex flex-row border-2 border-red-500 rounded-md bg-red-300 h-auto w-60 m-4 mb-5 p-2">
+								<BiErrorCircle style={bStyle} />
+								<p className="pl-2 items-center justify-center">Invalid URL</p>
+							</div>
+						)}
 						<div className="flex flex-col justify-center items-center  text-lg  text-zinc-600   mb-5">
 							<input
 								type="search"

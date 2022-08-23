@@ -1,56 +1,19 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { middyfy } from "@libs/lambda";
-import { header, statusCodes, AWSDetails } from "@functions/resources/APIresponse";
-import { EventBridgeClient, ActivateEventSourceCommand } from "@aws-sdk/client-eventbridge";
+import { header, statusCodes } from "@functions/resources/APIresponse";
+import ServicesLayer from "../../services";
 
+// Generation of reports
 export const reportScheduler = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
-			const params = JSON.parse(event.body);
+			const params = JSON.parse(event.body)
 
-			// Making eventBridge to trigger event at certain time
-			const ruleName = "makingReport";
-			const ruleParams = {
-				Name: ruleName,
-				ScheduleExpression: ""
-			};
-
-			//const rule = await eventBridge.putRule(ruleParams).promise();
-
-			// Giving correct permissions
-			const permissionParams = {
-				Action: "lambda:InvokeFunction",
-				FunctionName: "generateReportOfSchedule",
-				Principal: "events.amazonaws.com",
-				StatementId: ruleName,
-				SourceArn: rule.RuleArn
-			};
-
-			await lambda.addPermission(permissionParams).promise();
-
-			// Adding lambda target function
-			const targetParams = {
-				Rule: ruleName,
-				Targets: [
-					{
-						Id: { ruleName } + "-target",
-						Arn:
-							"arn:aws:lambda:" +
-							AWSDetails.region +
-							":" +
-							AWSDetails.account_id +
-							"function:reportScheduler",
-						Input: "{ 'data': ''}"
-					}
-				]
-			};
-
-			const result = await eventBridge.putTargets(targetParams).promise();
-
+			 await ServicesLayer.scheduleService.addScheduleSetting({apiKey: params.apiKey, keyword: params.keyword, date: new Date(), period: 56, id: "9999"})
 			return {
-				statusCode: statusCodes.notImplemented,
+				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify(result)
+				body: JSON.stringify(params)
 			};
 		} catch (e) {
 			return {
@@ -58,6 +21,15 @@ export const reportScheduler = middyfy(
 				headers: header,
 				body: JSON.stringify(e)
 			};
+		}
+	}
+);
+
+export const genScheduledReport = middyfy( async ( ) : Promise<void> => {
+		try {			
+
+		} catch (e) {
+
 		}
 	}
 );

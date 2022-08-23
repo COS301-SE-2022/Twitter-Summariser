@@ -73,9 +73,11 @@ export default class ReportService {
 				}
 			}
 
-			if (!bl && report[y-1].blockType === "TWEET") {
-				rp.push({ blockType: "RICHTEXT", position: x, block: null });
-				count++;
+			if (!bl && y>0) {
+				if(report[y-1].blockType === "TWEET"){
+					rp.push({ blockType: "RICHTEXT", position: x, block: null });
+					count++;
+				}
 			}
 			bl = false;
 		}

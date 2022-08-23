@@ -19,7 +19,8 @@ const serverlessConfiguration: AWS = {
         ],
         include: [
             "*.py",
-            "pandas"
+            "pandas",
+            "numpy"
         ]
     },
 
@@ -47,7 +48,6 @@ const serverlessConfiguration: AWS = {
         "pythonRequirements": {
             dockerizePip: false,
             pythonBin: "python3",
-            useDownloadCache: false,
             zip: true
         }
 
