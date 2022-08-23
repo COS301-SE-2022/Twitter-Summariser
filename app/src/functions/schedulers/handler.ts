@@ -20,7 +20,26 @@ export const reportScheduler = middyfy(
 
 			const rule = await eventBridge.putRule(ruleParams).promise();
 			
-			 //await ServicesLayer.scheduleService.addScheduleSetting({apiKey: params.apiKey, keyword: params.keyword, date: new Date(), period: 56, id: "9999"})
+			const permissionParams = {
+				Action : 'lambda:InvokeFunction',
+				FunctionName: 'genScheduledReport',
+				Principal: 'events.amazonaws.com',
+				StatementId: ruleName,
+				SourceArn: rule.RuleArn,
+			};
+
+			await lambda.addPermission(permissionParams).promise();
+
+			const targetParams = {
+				Rule: ruleName,
+				Targets: [
+					{
+						Id: '${ruleName}-target',
+						Arn: 'arn:aws:lambda:<region>:<account_id>:function:genScheduledReport'
+					}
+
+				]
+			}
 			 
 			return {
 				statusCode: statusCodes.Successful,
