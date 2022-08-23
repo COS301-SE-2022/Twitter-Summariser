@@ -25,11 +25,15 @@ function Profile() {
 		console.log(displayDraft);
 	}
 
+	const imageStyle: any = {
+		backgroundImage: "url(assets/profile.png)"
+	};
+
 	return (
 		<div data-testid="profile">
 			<div className="flex flex-col items-center mt-3 p-3">
 				{/* div for the image */}
-				<div className="h-40 w-1/3 flex flex-col justify-center items-center mt-8 my-3">
+				{/* <div className="h-40 w-1/3 flex flex-col justify-center items-center mt-8 my-3">
 					<img
 						className="profile"
 						src="assets/profile.png"
@@ -37,6 +41,15 @@ function Profile() {
 						width="160px"
 						height="160px"
 					/>
+				</div> */}
+				<div className="avatar-upload">
+					<div className="avatar-edit">
+						<input type="file" id="imageUpload" accept=".png, .jpg, .jpeg" />
+						<label htmlFor="imageUpload" />
+					</div>
+					<div className="avatar-preview">
+						<div id="imagePreview" style={imageStyle} />
+					</div>
 				</div>
 				{/* div for name, emails, number of reports published, share icon etc */}
 				<div className="h-20 w-2/3 text-center flex flex-col">
