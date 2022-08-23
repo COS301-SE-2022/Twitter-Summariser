@@ -23,10 +23,10 @@ export const genScheduledReport = {
 	description: "Function that checks which scheduled reports to make",
 	events: [
 		{
-			schedule: {
+			/*schedule: {
 				rate: ["rate(1 hour)"],
 				enabled: true
-			}
+			}*/
 		}
 	]
 };

@@ -6,16 +6,16 @@ import { EventBridge,Lambda } from "aws-sdk";
 
 // Generation of reports
 export const reportScheduler = middyfy(
-	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+	async (/*event: APIGatewayProxyEvent*/): Promise<APIGatewayProxyResult> => {
 		try {
-			const params = JSON.parse(event.body)
+			//const params = JSON.parse(event.body)
 			const eventBridge = new EventBridge();
 			const lambda = new Lambda();
 
-			const ruleName = '';
+			const ruleName = 'MyProgramaticRuleName';
 			const ruleParams = {
 				Name: ruleName,
-				ScheduleExpression: 'rate(1 hour)'
+				ScheduleExpression: 'rate (1 hour)'
 			};
 
 			const rule = await eventBridge.putRule(ruleParams).promise();
@@ -34,17 +34,20 @@ export const reportScheduler = middyfy(
 				Rule: ruleName,
 				Targets: [
 					{
-						Id: '${ruleName}-target',
-						Arn: 'arn:aws:lambda:<region>:<account_id>:function:genScheduledReport'
-					}
+						Id: ruleName+'-target',
+						Arn: 'arn:aws:lambda:<region>:<account_id>:function:genScheduledReport',
+						Input: '{ "data": "data for genReport" } ',
+					},
 
-				]
+				],
 			}
 			 
+			const result = await eventBridge.putTargets(targetParams).promise();
+			
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify(params)
+				body: JSON.stringify(result)
 			};
 		} catch (e) {
 			return {
