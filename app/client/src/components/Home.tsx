@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
+
+// UNCOMMENT FOR SCHEDULE REPORT FUNCTIONALITY
+// import for check box
+// import Checkbox from '@mui/material/Checkbox';
+
 import ExploreCard from "./ExploreCard";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
@@ -126,6 +131,16 @@ function Home() {
 	const [sort, changeSort] = useState("-");
 	const [filter, changeFilter] = useState("-");
 
+	// UNCOMMENT FOR SCHEDULE REPORT FUNCTIONALITY
+	// const [schedule, changeSchedule] = useState("00:00");
+	// const [repeat, changeRepeat] = useState("Repeat Daily");
+
+	// const [checked, setChecked] = useState(false);
+
+  // const checkedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setChecked(event.target.checked);
+  // };
+
 	const tweetHandler = (event: any) => {
 		changeNoOfTweets(event.target.value);
 	};
@@ -138,7 +153,37 @@ function Home() {
 		changeFilter(event.target.value);
 	};
 
+	// UNCOMMENT FOR SCHEDULE REPORT FUNCTIONALITY
+	// const scheduleHandler = (event: any) => {
+	// 	changeSchedule(event.target.value);
+	// }
+
+	// const repeatHandler = (event: any) => {
+	// 	changeRepeat(event.target.value);
+	// }
+
 	const [pulse, changePulse] = useState(false);
+
+	// UNCOMMENT FOR SCHEDULE REPORT FUNCTIONALITY
+	// const scheduleReport = async () => {
+
+	// 	const scheduleData = {
+	// 		apiKey: auth.apiKey,
+	// 		keyword: enteredSearch,
+	// 		numOfTweets: noOfTweets,
+	// 		sortBy: sort === "-" ? "-" : sort,
+	// 		filterBy: filter === "-" ? "-" : filter,
+	// 		repeatCyle: repeat,
+	// 		scheduleTime: schedule
+	// 	};
+
+	// 	try {
+	// 		const response = await axiosPrivate.post("reportScheduler  ", JSON.stringify(scheduleData));
+	// 		response.data;
+	// 	} catch (err) {
+	// 		console.error(err);
+	// 	}
+	// };
 
 	const searchTwitter = async (searchData: any) => {
 		try {
@@ -150,7 +195,14 @@ function Home() {
 		} catch (err) {
 			console.error(err);
 		}
+
+		// UNCOMMENT FOR SCHEDULE REPORT FUNCTIONALITY
+		// if(checked){
+		// 	scheduleReport();
+		// }
 	};
+
+
 
 	const search = () => {
 		const searchData = {
@@ -710,7 +762,48 @@ function Home() {
 								</select>
 							</div>
 						</div>
+
+						{/* UNCOMMENT FOR SCHEDULE REPORT FUNCTIONALITY */}
+						{/* this is for the Scheduling a report */}
+						{/* <div className="flex flex-row flex-wrap w-1/3 justify-center items-center p-1">
+							<div className="mb-0">
+								<p className="">Schedule Report:</p>
+								<Checkbox
+									checked={checked}
+									onChange={checkedHandler}
+									inputProps={{ 'aria-label': 'controlled' }}
+								/>
+							</div>
+							{ checked && <div className="mt-0">
+								<select
+									data-testid="repeat-select"
+									className=" text-black text-center"
+									onChange={repeatHandler}
+									value={repeat}
+								>
+									<option value="daily">Repeat Daily</option>
+									<option value="weekly">Repeat Weekly</option>
+									<option value="monthly">Repeat Monthly</option>
+								</select>
+							</div>}
+							{ checked && <div className="mt-0">
+								<select
+									data-testid="schedule-select"
+									className=" text-black text-center"
+									onChange={scheduleHandler}
+									value={schedule}
+								>
+									<option>-</option>
+									<option value="06:00">06:00</option>
+									<option value="12:00">12:00</option>
+									<option value="18:00">18:00</option>
+									<option value="00:00">00:00</option>
+								</select>
+							</div>}
+						</div> */}
 					</div>
+
+
 					{/* this is for the search button */}
 					<div className="flex flex-row flex-wrap justify-around pt-3 pb-3 items-center">
 						<div className="pt-3">
