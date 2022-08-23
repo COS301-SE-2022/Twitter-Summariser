@@ -19,7 +19,8 @@ const serverlessConfiguration: AWS = {
         ],
         include: [
             "*.py",
-            "pandas"
+            "pandas",
+            "numpy"
         ]
     },
 

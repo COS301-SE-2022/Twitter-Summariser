@@ -1,4 +1,2 @@
-tweepy==4.10.0
-python-dotenv==0.20.0
-torch==1.12.1
-transformers==4.21.1
+numpy==1.23.2
+pandas==1.4.3

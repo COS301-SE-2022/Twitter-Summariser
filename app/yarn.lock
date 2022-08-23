@@ -6413,11 +6413,6 @@ serverless-offline@^9.1.3:
     velocityjs "^2.0.6"
     ws "^8.8.1"
 
-serverless-plugin-warmup@^8.0.0:
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/serverless-plugin-warmup/-/serverless-plugin-warmup-8.0.0.tgz#317eeeaff5f1164c7fca33c4b9029940fbe49a1e"
-  integrity sha512-XRfPQAyOrLxcW7n9HhN+TvriJ3nYPKIrID8Eh00GOhXfApR1Ywf3R+slIDe/HthlBY3V1IxNF4DFwcZPXjIlPg==
-
 serverless-s3-sync@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/serverless-s3-sync/-/serverless-s3-sync-3.0.0.tgz#e837dcdb04f97bff1390e4a88e6c86d57e3f0c6a"
