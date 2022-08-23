@@ -2,14 +2,25 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { middyfy } from "@libs/lambda";
 import { header, statusCodes } from "@functions/resources/APIresponse";
 import ServicesLayer from "../../services";
+import { EventBridge,Lambda } from "aws-sdk";
 
 // Generation of reports
 export const reportScheduler = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
 			const params = JSON.parse(event.body)
+			const eventBridge = new EventBridge();
+			const lambda = new Lambda();
 
-			 await ServicesLayer.scheduleService.addScheduleSetting({apiKey: params.apiKey, keyword: params.keyword, date: new Date(), period: 56, id: "9999"})
+			const ruleName = '';
+			const ruleParams = {
+				Name: ruleName,
+				ScheduleExpression: 'rate(1 hour)'
+			};
+
+			const rule = await eventBridge.putRule(ruleParams).promise();
+			
+			 //await ServicesLayer.scheduleService.addScheduleSetting({apiKey: params.apiKey, keyword: params.keyword, date: new Date(), period: 56, id: "9999"})
 			 
 			return {
 				statusCode: statusCodes.Successful,
