@@ -1,6 +1,6 @@
 import "./styles/Profile.css";
 // import { AxiosError } from "axios";
-
+import { useState } from "react";
 import useAuth from "../hooks/useAuth";
 
 function Profile() {
@@ -11,6 +11,19 @@ function Profile() {
 		author: auth.username,
 		email: auth.email
 	};
+
+	const [displayPublished, setDisplayPublished] = useState(true);
+	const [displayDraft, setDisplayDraft] = useState(false);
+
+	function displayHandler() {
+		setDisplayPublished(!displayPublished);
+		setDisplayDraft(!displayDraft);
+
+		console.log("Published is ");
+		console.log(displayPublished);
+		console.log("Draft is ");
+		console.log(displayDraft);
+	}
 
 	return (
 		<div data-testid="profile">
@@ -31,14 +44,23 @@ function Profile() {
 					<div className=" italic">{userInformation.email}</div>
 				</div>
 				<div className="flex flex-row">
-					<div className=" border-r border-slate-500 bg-sky-200 p-2 rounded-md">
-						&nbsp;Reports&nbsp;
-					</div>
-					<div className=" border-l border-slate-500 p-2 rounded-md">
-						&nbsp;Drafts&nbsp;
-					</div>
+					<button type="submit" onClick={displayHandler}>
+						<div className=" border-r border-slate-500 bg-sky-200 p-2 rounded-md">
+							&nbsp;Published&nbsp;
+						</div>
+					</button>
+					&nbsp;
+					<button type="submit" onClick={displayHandler}>
+						<div className=" border-l border-slate-500 p-2 rounded-md">
+							&nbsp;Drafts&nbsp;
+						</div>
+					</button>
 				</div>
 				<div className=" border-t border-slate-500 w-36 my-4" />
+
+				{displayPublished && <div className="">Published should be displayed here</div>}
+
+				{displayDraft && <div className="">Draft should be displayed here</div>}
 			</div>
 		</div>
 	);
