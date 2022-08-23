@@ -35,7 +35,7 @@ export const reportScheduler = middyfy(
 				Targets: [
 					{
 						Id: ruleName+'-target',
-						Arn: 'arn:aws:lambda:<region>:<account_id>:function:genScheduledReport',
+						Arn: 'arn:aws:lambda:N. Virginia:534808114586:function:genScheduledReport',
 						Input: '{ "data": "data for genReport" } ',
 					},
 
