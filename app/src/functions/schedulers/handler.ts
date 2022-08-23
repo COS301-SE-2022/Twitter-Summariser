@@ -1,7 +1,6 @@
-import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
+import { APIGatewayProxyResult } from "aws-lambda";
 import { middyfy } from "@libs/lambda";
 import { header, statusCodes } from "@functions/resources/APIresponse";
-import ServicesLayer from "../../services";
 import { EventBridge,Lambda } from "aws-sdk";
 
 // Generation of reports
