@@ -20,13 +20,13 @@ export const reportScheduler = {
 
 export const genScheduledReport = {
 	handler: `${handlerPath(__dirname)}/handler.genScheduledReport`,
-	description: "Function that checks which scheduled reports to make",
+	description: "Function that checks which scheduled reports to make"/*,
 	events: [
 		{
-			/*schedule: {
+			schedule: {
 				rate: ["rate(1 hour)"],
 				enabled: true
-			}*/
+			}
 		}
-	]
+	]*/
 };
