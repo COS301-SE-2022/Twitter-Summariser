@@ -13,7 +13,7 @@ import { precacheAndRoute, createHandlerBoundToURL } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
 import { StaleWhileRevalidate } from "workbox-strategies";
 import { openDB } from "idb"; 
-import objectHash from "object-hash";
+import bcrypjs from "bcryptjs";
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -139,9 +139,10 @@ let getValue = async (request: any) => {
 	let cacheData;
 
 	try {
-		let body = await request.json();
+		let body = await request.stringify();
 
-		const id = objectHash.MD5(body);
+		const id = bcrypjs.hashSync(body, 10);
+		
 		console.log(id);
 		const tx = (await dbCache).transaction(tableName, "readonly");
 		const store = tx.objectStore(tableName);
@@ -157,9 +158,9 @@ let getValue = async (request: any) => {
 }
 
 let putValue = async (request:any, response: any) => {
-	let body = await request.json();
-	// const id = bcryptjs.hashSync(body, 10);
-	const id = objectHash.MD5(body);
+	let body = await request.stringify();
+	
+	const id = bcrypjs.hashSync(body, 10);
 
 	let entry = {
 		query: body.query,
