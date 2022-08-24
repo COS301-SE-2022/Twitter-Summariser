@@ -58,7 +58,7 @@ const serverlessConfiguration: AWS = {
             role: {
                 statements: [
                     {
-                        Sid: "Permissions_for_DynamoDB",
+                        Sid: "PermissionsForDynamoDB",
                         Effect: "Allow",
                         Action: [
                             "dynamodb:DescribeTable",
@@ -72,7 +72,7 @@ const serverlessConfiguration: AWS = {
                         Resource: "arn:aws:dynamodb:us-east-1:*:*"
                     }, 
 					{
-                        Sid: "Permissions_for_EventBridge",
+                        Sid: "PermissionsForEventBridge",
                         Effect: "Allow",
                         Action: [
                             "events:PutRule",
