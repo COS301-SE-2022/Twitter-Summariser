@@ -12,11 +12,14 @@ import { ExpirationPlugin } from "workbox-expiration";
 import { precacheAndRoute, createHandlerBoundToURL } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
 import { StaleWhileRevalidate } from "workbox-strategies";
+/*
 import { openDB } from "idb"; 
 import bcrypjs from "bcryptjs";
+*/
 
 declare const self: ServiceWorkerGlobalScope;
 
+/*
 const tableName: string = "post-cache";
 
 const dbCache = openDB('Cache-Requests', 1, {
@@ -34,6 +37,7 @@ self.addEventListener("fetch", async (event)=> {
 		event.respondWith(staleWhileRevalidate(event));
 	}
 });
+*/
 
 clientsClaim();
 
@@ -97,6 +101,7 @@ self.addEventListener("message", (event) => {
 });
 
 // Any other custom service worker logic can go here.
+/*
 const staleWhileRevalidate =async (event: any) => {
 	let entry = await getValue(event.request.clone());
 
@@ -195,3 +200,4 @@ let deleteValue =async (key: IDBKeyRange) => {
 
 
 }
+*/
