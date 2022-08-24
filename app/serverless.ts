@@ -87,7 +87,7 @@ const serverlessConfiguration: AWS = {
                             "events:ListTargetsByRule",
                             "events:ListTagsForResource"
                         ],
-                        Resource: "arn:aws:events:us-east-1:*:*:event-bus/default"
+                        Resource: "arn:aws:events:us-east-1:*:*"
                     }
                 ]
             }
