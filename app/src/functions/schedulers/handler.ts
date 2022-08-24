@@ -21,7 +21,7 @@ export const reportScheduler = middyfy(
 			
 			const permissionParams = {
 				Action : 'lambda:InvokeFunction',
-				FunctionName: 'genScheduledReport',
+				FunctionName: 'twitter-summariser-dev-genScheduledReport',
 				Principal: 'events.amazonaws.com',
 				StatementId: ruleName,
 				SourceArn: rule.RuleArn,
@@ -34,7 +34,7 @@ export const reportScheduler = middyfy(
 				Targets: [
 					{
 						Id: ruleName+'-target',
-						Arn: 'arn:aws:lambda:N. Virginia:534808114586:function:genScheduledReport',
+						Arn: 'arn:aws:lambda:us-east-1:534808114586:function:twitter-summariser-dev-genScheduledReport',
 						Input: '{ "data": "data for genReport" } ',
 					},
 
