@@ -12,8 +12,32 @@ import { ExpirationPlugin } from "workbox-expiration";
 import { precacheAndRoute, createHandlerBoundToURL } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
 import { StaleWhileRevalidate } from "workbox-strategies";
+/*
+import { openDB } from "idb"; 
+import bcrypjs from "bcryptjs";
+*/
 
 declare const self: ServiceWorkerGlobalScope;
+
+/*
+const tableName: string = "post-cache";
+
+const dbCache = openDB('Cache-Requests', 1, {
+	upgrade(db) {
+		db.createObjectStore(tableName);
+	}
+});
+
+self.addEventListener("fetch", async (event)=> {
+	
+	console.log("Request made to API");
+	console.log(event);
+
+	if (event.request.method === "POST") {
+		event.respondWith(staleWhileRevalidate(event));
+	}
+});
+*/
 
 clientsClaim();
 
@@ -77,3 +101,103 @@ self.addEventListener("message", (event) => {
 });
 
 // Any other custom service worker logic can go here.
+/*
+const staleWhileRevalidate =async (event: any) => {
+	let entry = await getValue(event.request.clone());
+
+	let getPromise = await fetch(event.request.clone())
+					.then((response: any) => {
+						putValue(event.request.clone(), response.clone());
+						return response;
+					})
+					.catch((err) => {
+						console.log(err);
+					});
+
+	if (entry) {
+		return Promise.resolve(entry);
+	} else {
+		return getPromise;
+	}
+}
+
+const serialisedReponse =async (response: any) => {
+	let serialisedHeaders: any = {};
+
+	for (let entry of response.headers.entries()) {
+		serialisedHeaders[entry[0]] = entry[1];
+	}
+
+	let serialised = {
+		headers: serialisedHeaders,
+		status: response.status,
+		statusText: response.statusText,
+		body: "body"
+	}
+
+	serialised.body = await response.json();
+
+	return serialised;
+}
+
+let getValue = async (request: any) => {
+	let cacheData;
+
+	try {
+		let body = await request.stringify();
+
+		const id = bcrypjs.hashSync(body, 10);
+		
+		console.log(id);
+		const tx = (await dbCache).transaction(tableName, "readonly");
+		const store = tx.objectStore(tableName);
+		cacheData = await store.get(id);
+
+		if (!cacheData) return null;
+
+		return new Response(JSON.stringify(cacheData.response.body), cacheData.response);
+	} catch (err) {
+		console.log(err);
+		return null;
+	};
+}
+
+let putValue = async (request:any, response: any) => {
+	let body = await request.stringify();
+	
+	const id = bcrypjs.hashSync(body, 10);
+
+	let entry = {
+		query: body.query,
+		response: await serialisedReponse(response),
+		timestamp: Date.now()
+	}
+
+	const tx = (await dbCache).transaction(tableName, "readwrite");
+	const store = tx.objectStore(tableName);
+	await store.put(entry, id);
+}
+
+let putBulkValue =async (values: object[]) => {
+	const tx = (await dbCache).transaction(tableName, "readwrite");
+	const store = tx.objectStore(tableName);
+
+	for (const value of values) {
+		const result = await store.put(value);
+	}
+
+}
+
+// Will be needed in the future (to remove old cache)
+let deleteValue =async (key: IDBKeyRange) => {
+	const tx = (await dbCache).transaction(tableName, "readwrite");
+	const store = tx.objectStore(tableName);
+
+	const result = await store.get(key);
+
+	if (result)
+		await store.delete(key);
+
+
+}
+*/

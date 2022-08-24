@@ -1,19 +1,52 @@
-import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
+import { APIGatewayProxyResult } from "aws-lambda";
 import { middyfy } from "@libs/lambda";
 import { header, statusCodes } from "@functions/resources/APIresponse";
-import ServicesLayer from "../../services";
+import { EventBridge,Lambda } from "aws-sdk";
 
 // Generation of reports
 export const reportScheduler = middyfy(
-	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+	async (/*event: APIGatewayProxyEvent*/): Promise<APIGatewayProxyResult> => {
 		try {
-			const params = JSON.parse(event.body)
+			//const params = JSON.parse(event.body)
+			const eventBridge = new EventBridge();
+			const lambda = new Lambda();
 
-			 await ServicesLayer.scheduleService.addScheduleSetting({apiKey: params.apiKey, keyword: params.keyword, date: new Date(), period: 56, id: "9999"})
+			const ruleName = 'MyProgramaticRuleName';
+			const ruleParams = {
+				Name: ruleName,
+				ScheduleExpression: 'rate (1 hour)'
+			};
+
+			const rule = await eventBridge.putRule(ruleParams).promise();
+			
+			const permissionParams = {
+				Action : 'lambda:InvokeFunction',
+				FunctionName: 'twitter-summariser-dev-genScheduledReport',
+				Principal: 'events.amazonaws.com',
+				StatementId: ruleName,
+				SourceArn: rule.RuleArn,
+			};
+
+			await lambda.addPermission(permissionParams).promise();
+
+			const targetParams = {
+				Rule: ruleName,
+				Targets: [
+					{
+						Id: ruleName+'-target',
+						Arn: 'arn:aws:lambda:us-east-1:534808114586:function:twitter-summariser-dev-genScheduledReport',
+						Input: '{ "data": "data for genReport" } ',
+					},
+
+				],
+			}
+			 
+			const result = await eventBridge.putTargets(targetParams).promise();
+			
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify(params)
+				body: JSON.stringify(result)
 			};
 		} catch (e) {
 			return {

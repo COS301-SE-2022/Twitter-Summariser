@@ -3,6 +3,9 @@
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
+		"@emotion/react": "^11.10.0",
+		"@emotion/styled": "^11.10.0",
+		"@mui/material": "^5.10.1",
 		"@testing-library/jest-dom": "^5.16.4",
 		"@testing-library/react": "^13.2.0",
 		"@testing-library/user-event": "^14.3.0",
@@ -12,7 +15,9 @@
 		"@types/react-dom": "^18.0.3",
 		"aos": "^2.3.4",
 		"axios": "^0.27.2",
+		"bcryptjs": "^2.4.3",
 		"eslint-config-react-app": "^7.0.1",
+		"idb": "^7.0.2",
 		"jwt-decode": "^3.1.2",
 		"react": "^18.1.0",
 		"react-dom": "^18.1.0",
@@ -51,6 +56,7 @@
 		]
 	},
 	"devDependencies": {
+		"@types/bcryptjs": "^2.4.2",
 		"@typescript-eslint/eslint-plugin": "^5.30.7",
 		"@typescript-eslint/parser": "^5.30.7",
 		"autoprefixer": "^10.4.7",
