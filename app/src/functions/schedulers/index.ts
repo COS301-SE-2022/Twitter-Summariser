@@ -1,7 +1,7 @@
 import { handlerPath } from "@libs/handler-resolver";
 
 export const reportScheduler = {
-	handler: `${handlerPath(__dirname)}/handler.reportSceduler`,
+	handler: `${handlerPath(__dirname)}/handler.reportScheduler`,
 	description: "Function that schedules a report to be made.",
 	events: [
 		{
@@ -20,7 +20,7 @@ export const reportScheduler = {
 
 export const genScheduledReport = {
 	handler: `${handlerPath(__dirname)}/handler.genScheduledReport`,
-	description: "Function that checks which scheduled reports to make",
+	description: "Function that checks which scheduled reports to make"/*,
 	events: [
 		{
 			schedule: {
@@ -28,5 +28,5 @@ export const genScheduledReport = {
 				enabled: true
 			}
 		}
-	]
+	]*/
 };
