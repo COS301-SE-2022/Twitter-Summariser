@@ -68,7 +68,12 @@ const serverlessConfiguration: AWS = {
 							"dynamodb:GetItem",
 							"dynamodb:PutItem",
 							"dynamodb:UpdateItem",
-							"dynamodb:DeleteItem"
+							"dynamodb:DeleteItem",
+							"events:DescribeRule",
+         					"events:EnableRule",
+        					"events:PutRule",
+          					"events:ListRules",
+         					"events:DisableRule"
 						],
 						Resource: "arn:aws:dynamodb:us-east-1:*:*"
 					}
