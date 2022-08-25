@@ -15,9 +15,29 @@ function Profile() {
 	const [displayPublished, setDisplayPublished] = useState(true);
 	const [displayDraft, setDisplayDraft] = useState(false);
 
+	const defaultStylePublished = " border-r border-slate-500 p-2 rounded-md ";
+	const defaultStyleDraft = " border-l border-slate-500 p-2 rounded-md ";
+
+	let tempPub = defaultStylePublished;
+	tempPub += "  bg-sky-200";
+
+	const [publishedStyle, setPublishedStyle] = useState(tempPub);
+	const [draftStyle, setDraftStyle] = useState(defaultStyleDraft);
+
+	let tempDr = defaultStyleDraft;
+	tempDr += "  bg-sky-200";
+
 	function displayHandler() {
 		setDisplayPublished(!displayPublished);
 		setDisplayDraft(!displayDraft);
+
+		if (displayPublished) {
+			setPublishedStyle(defaultStylePublished);
+			setDraftStyle(tempDr);
+		} else {
+			setDraftStyle(defaultStyleDraft);
+			setPublishedStyle(tempPub);
+		}
 
 		console.log("Published is ");
 		console.log(displayPublished);
@@ -33,15 +53,6 @@ function Profile() {
 		<div data-testid="profile">
 			<div className="flex flex-col items-center mt-3 p-3">
 				{/* div for the image */}
-				{/* <div className="h-40 w-1/3 flex flex-col justify-center items-center mt-8 my-3">
-					<img
-						className="profile"
-						src="assets/profile.png"
-						alt="Twitter Summariser Logo"
-						width="160px"
-						height="160px"
-					/>
-				</div> */}
 				<div className="avatar-upload">
 					<div className="avatar-edit">
 						<input type="file" id="imageUpload" accept=".png, .jpg, .jpeg" />
@@ -58,15 +69,11 @@ function Profile() {
 				</div>
 				<div className="flex flex-row">
 					<button type="submit" onClick={displayHandler}>
-						<div className=" border-r border-slate-500 bg-sky-200 p-2 rounded-md">
-							&nbsp;Published&nbsp;
-						</div>
+						<div className={publishedStyle}>&nbsp;Published&nbsp;</div>
 					</button>
 					&nbsp;
 					<button type="submit" onClick={displayHandler}>
-						<div className=" border-l border-slate-500 p-2 rounded-md">
-							&nbsp;Drafts&nbsp;
-						</div>
+						<div className={draftStyle}>&nbsp;Drafts&nbsp;</div>
 					</button>
 				</div>
 				<div className=" border-t border-slate-500 w-36 my-4" />
