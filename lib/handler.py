@@ -12,9 +12,17 @@ device = torch.device("cpu")
 def summarise(event, _context):
     try:
         #   Get the parameters from the event
-        text = event["text"]
-        minWords = event["min"]
-        maxWords = event["max"]
+        try:
+            text = event["text"]
+            minWords = event["min"]
+            maxWords = event["max"]
+        except KeyError:
+            event = json.dumps(event)
+            jsonEvent = json.loads(event)
+            body = json.loads(jsonEvent['body'])
+            text = body["text"]
+            minWords = body["min"]
+            maxWords = body["max"]
 
         # Clean the text
         TEXT_CLEANING_RE = "@\S+|https?:\S+|http?:\S|[^A-Za-z0-9]+"
