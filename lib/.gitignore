@@ -18,7 +18,10 @@ var/
 
 # Serverless directories
 .serverless
-
+model/*.json
+model/*.bin
+model/*.model
+model/*.txt
 __pycache__/
 .requirements.zip
 .env
