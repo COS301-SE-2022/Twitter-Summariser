@@ -12,14 +12,14 @@ import { ExpirationPlugin } from "workbox-expiration";
 import { precacheAndRoute, createHandlerBoundToURL } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
 import { StaleWhileRevalidate } from "workbox-strategies";
-/*
 import { openDB } from "idb"; 
+import { SHA256 } from "crypto-js";
+// import useAuth from "./hooks/useAuth";
 import bcrypjs from "bcryptjs";
-*/
 
 declare const self: ServiceWorkerGlobalScope;
 
-/*
+
 const tableName: string = "post-cache";
 
 const dbCache = openDB('Cache-Requests', 1, {
@@ -28,16 +28,18 @@ const dbCache = openDB('Cache-Requests', 1, {
 	}
 });
 
+// const { auth } = useAuth();
+
 self.addEventListener("fetch", async (event)=> {
 	
 	console.log("Request made to API");
-	console.log(event);
-
-	if (event.request.method === "POST") {
+	let url = event.request.url;
+	console.log(event.request.url);
+	// console.log(auth.apiKey);
+	if (event.request.method === "POST" && url.includes("/dev/get")) {
 		event.respondWith(staleWhileRevalidate(event));
 	}
 });
-*/
 
 clientsClaim();
 
@@ -101,7 +103,7 @@ self.addEventListener("message", (event) => {
 });
 
 // Any other custom service worker logic can go here.
-/*
+
 const staleWhileRevalidate =async (event: any) => {
 	let entry = await getValue(event.request.clone());
 
@@ -144,14 +146,14 @@ let getValue = async (request: any) => {
 	let cacheData;
 
 	try {
-		let body = await request.stringify();
-
-		const id = bcrypjs.hashSync(body, 10);
+		let body = await request.json();
+		
+		const id = SHA256(body);
 		
 		console.log(id);
 		const tx = (await dbCache).transaction(tableName, "readonly");
 		const store = tx.objectStore(tableName);
-		cacheData = await store.get(id);
+		cacheData = await store.get(id.toString());
 
 		if (!cacheData) return null;
 
@@ -162,10 +164,10 @@ let getValue = async (request: any) => {
 	};
 }
 
-let putValue = async (request:any, response: any) => {
-	let body = await request.stringify();
+let putValue = async (request: any, response: any) => {
+	let body = await request.json();
 	
-	const id = bcrypjs.hashSync(body, 10);
+	const id = SHA256(body);
 
 	let entry = {
 		query: body.query,
@@ -175,7 +177,7 @@ let putValue = async (request:any, response: any) => {
 
 	const tx = (await dbCache).transaction(tableName, "readwrite");
 	const store = tx.objectStore(tableName);
-	await store.put(entry, id);
+	await store.put(entry, id.toString());
 }
 
 let putBulkValue =async (values: object[]) => {
@@ -200,4 +202,4 @@ let deleteValue =async (key: IDBKeyRange) => {
 
 
 }
-*/
+
