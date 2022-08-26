@@ -71,23 +71,20 @@ const serverlessConfiguration: AWS = {
                         ],
                         Resource: "arn:aws:dynamodb:us-east-1:*:*"
                     }, 
-					{
+                    {
                         Sid: "PermissionsForEventBridge",
                         Effect: "Allow",
                         Action: [
-                            "events:PutRule",
+                            "events:PutEvents",
                             "events:PutTargets",
-                            "events:DeleteRule",
-                            "events:RemoveTargets",
-                            "events:DisableRule",
-                            "events:EnableRule",
-                            "events:TagResource",
-                            "events:UntagResource",
+                            "events:PutRule",
                             "events:DescribeRule",
-                            "events:ListTargetsByRule",
-                            "events:ListTagsForResource"
+                            "events:DeleteRule",
+                            "events:DeleteTargets",
+                            "events:DescribeTargets",
+                            "events:DescribeEventBus"
                         ],
-                        Resource: "arn:aws:events:us-east-1:*:event-bus/default"
+                        Resource: "*"
                     }
                 ]
             }
