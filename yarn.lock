@@ -2815,6 +2815,11 @@ semver@^7.3.7:
   dependencies:
     lru-cache "^6.0.0"
 
+serverless-plugin-warmup@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/serverless-plugin-warmup/-/serverless-plugin-warmup-8.0.0.tgz#317eeeaff5f1164c7fca33c4b9029940fbe49a1e"
+  integrity sha512-XRfPQAyOrLxcW7n9HhN+TvriJ3nYPKIrID8Eh00GOhXfApR1Ywf3R+slIDe/HthlBY3V1IxNF4DFwcZPXjIlPg==
+
 serverless-python-requirements@^5.4.0:
   version "5.4.0"
   resolved "https://registry.yarnpkg.com/serverless-python-requirements/-/serverless-python-requirements-5.4.0.tgz#9f799cf035497db908cec0fc1ff1c43c6b96d123"
