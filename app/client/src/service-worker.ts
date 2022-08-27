@@ -13,7 +13,7 @@ import { precacheAndRoute, createHandlerBoundToURL } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
 import { StaleWhileRevalidate } from "workbox-strategies";
 import { openDB } from "idb"; 
-import { SHA256 } from "crypto-js";
+import { SHA256, MD5 } from "crypto-js";
 // import useAuth from "./hooks/useAuth";
 import bcrypjs from "bcryptjs";
 
@@ -105,6 +105,7 @@ self.addEventListener("message", (event) => {
 // Any other custom service worker logic can go here.
 
 const staleWhileRevalidate =async (event: any) => {
+	console.log(event.request.clone());
 	let entry = await getValue(event.request.clone());
 
 	let getPromise = await fetch(event.request.clone())
@@ -146,14 +147,14 @@ let getValue = async (request: any) => {
 	let cacheData;
 
 	try {
-		let body = await request.json();
-		
-		const id = SHA256(body);
+		let url = await request.url;
+		console.log(url);
+		const id = MD5(url.toString()).toString();
 		
 		console.log(id);
 		const tx = (await dbCache).transaction(tableName, "readonly");
 		const store = tx.objectStore(tableName);
-		cacheData = await store.get(id.toString());
+		cacheData = await store.get(id);
 
 		if (!cacheData) return null;
 
@@ -165,19 +166,19 @@ let getValue = async (request: any) => {
 }
 
 let putValue = async (request: any, response: any) => {
-	let body = await request.json();
+	let url = await request.url;
 	
-	const id = SHA256(body);
+	const id = MD5(url.toString()).toString();
 
 	let entry = {
-		query: body.query,
+		// query: body.query,
 		response: await serialisedReponse(response),
 		timestamp: Date.now()
 	}
 
 	const tx = (await dbCache).transaction(tableName, "readwrite");
 	const store = tx.objectStore(tableName);
-	await store.put(entry, id.toString());
+	await store.put(entry, id);
 }
 
 let putBulkValue =async (values: object[]) => {
