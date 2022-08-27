@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import Modal from "./Modal";
 
 // UNCOMMENT FOR SCHEDULE REPORT FUNCTIONALITY
 // import for check box
@@ -13,6 +12,7 @@ import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Button from "./Button";
 import "./styles/Animation.css";
+import AdvanceSearch from "./AdvanceSearch";
 
 // needed for new home page - uncomment
 // import ExploreCard from "./ExploreCard";
@@ -370,11 +370,11 @@ function Home() {
 	// 	</svg>
 	// );
 
-	const [modalOn, setModalOn] = useState(false);
+	const [advance, setAdvanceOn] = useState(false);
 	const [choice, setChoice] = useState(false);
 
 	const toggleAdvancSearch = () => {
-		setModalOn(true);
+		setAdvanceOn(true);
 	};
 
 	if (choice) {
@@ -947,9 +947,9 @@ function Home() {
 						)}
 
 						{/* advanced search modal */}
-						{modalOn && (
-							<Modal
-								setModalOn={setModalOn}
+						{advance && (
+							<AdvanceSearch
+								setAdvanceOn={setAdvanceOn}
 								setChoice={setChoice}
 								// func={changeShouldRender}
 							/>
