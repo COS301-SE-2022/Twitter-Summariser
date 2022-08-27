@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import Modal from "./Modal";
 
 // UNCOMMENT FOR SCHEDULE REPORT FUNCTIONALITY
 // import for check box
@@ -91,6 +93,8 @@ function Home() {
 	const [generateLoading, changeGenerateLoading] = useState(false);
 	const { auth } = useAuth();
 
+	const style = { fontSize: "1.5rem" };
+
 	const searchHandler = (event: any) => {
 		changeEnteredSearch(event.target.value);
 	};
@@ -137,9 +141,9 @@ function Home() {
 
 	// const [checked, setChecked] = useState(false);
 
-  // const checkedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setChecked(event.target.checked);
-  // };
+	// const checkedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+	//   setChecked(event.target.checked);
+	// };
 
 	const tweetHandler = (event: any) => {
 		changeNoOfTweets(event.target.value);
@@ -201,8 +205,6 @@ function Home() {
 		// 	scheduleReport();
 		// }
 	};
-
-
 
 	const search = () => {
 		const searchData = {
@@ -367,6 +369,17 @@ function Home() {
 	// 		/>
 	// 	</svg>
 	// );
+
+	const [modalOn, setModalOn] = useState(false);
+	const [choice, setChoice] = useState(false);
+
+	const toggleAdvancSearch = () => {
+		setModalOn(true);
+	};
+
+	if (choice) {
+		console.log(choice);
+	}
 
 	return (
 		// <div data-testid="home">
@@ -697,12 +710,15 @@ function Home() {
 							<input
 								type="search"
 								id="default-search"
-								className="p-3 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-full border-gray-200 border focus:outline-none focus:ring focus:border-blue-500"
+								className="p-3 pl-10 w-11/12 text-sm text-gray-900 bg-gray-50 rounded-full border-gray-200 border focus:outline-none focus:ring focus:border-blue-500"
 								value={enteredSearch}
 								onChange={searchHandler}
 								placeholder="Search Twitter..."
 								required
 							/>
+						</div>
+						<div className="w-1/12 items-center flex flex-col justify-center">
+							<BsThreeDotsVertical style={style} onClick={toggleAdvancSearch} />
 						</div>
 					</div>
 					{/* certain options and search button comes here */}
@@ -802,7 +818,6 @@ function Home() {
 							</div>}
 						</div> */}
 					</div>
-
 
 					{/* this is for the search button */}
 					<div className="flex flex-row flex-wrap justify-around pt-3 pb-3 items-center">
@@ -929,6 +944,15 @@ function Home() {
 									</div>
 								</Link>
 							</div>
+						)}
+
+						{/* advanced search modal */}
+						{modalOn && (
+							<Modal
+								setModalOn={setModalOn}
+								setChoice={setChoice}
+								// func={changeShouldRender}
+							/>
 						)}
 
 						{/* {pulse} */}
