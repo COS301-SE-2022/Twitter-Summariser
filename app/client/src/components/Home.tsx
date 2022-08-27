@@ -717,7 +717,7 @@ function Home() {
 								required
 							/>
 						</div>
-						<div className="w-1/12 items-center flex flex-col justify-center">
+						<div className="w-1/12 items-center flex flex-col justify-center cursor-pointer">
 							<BsThreeDotsVertical style={style} onClick={toggleAdvancSearch} />
 						</div>
 					</div>
