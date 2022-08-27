@@ -100,7 +100,7 @@ function Home() {
 	};
 
 	const loadingHandler = () => {
-		changeLoading(!loading);
+		changeLoading(false);
 	};
 
 	const generateLoadingHandler = () => {
@@ -131,7 +131,7 @@ function Home() {
 	};
 
 	const [searchResponse, changeResponse] = useState<any[]>([]);
-	const [noOfTweets, changeNoOfTweets] = useState(10);
+	const [noOfTweets, changeNoOfTweets] = useState(5);
 	const [sort, changeSort] = useState("-");
 	const [filter, changeFilter] = useState("-");
 
@@ -145,17 +145,17 @@ function Home() {
 	//   setChecked(event.target.checked);
 	// };
 
-	const tweetHandler = (event: any) => {
-		changeNoOfTweets(event.target.value);
-	};
+	// const tweetHandler = (event: any) => {
+	// 	changeNoOfTweets(event.target.value);
+	// };
 
-	const sortHandler = (event: any) => {
-		changeSort(event.target.value);
-	};
+	// const sortHandler = (event: any) => {
+	// 	changeSort(event.target.value);
+	// };
 
-	const filterHandler = (event: any) => {
-		changeFilter(event.target.value);
-	};
+	// const filterHandler = (event: any) => {
+	// 	changeFilter(event.target.value);
+	// };
 
 	// UNCOMMENT FOR SCHEDULE REPORT FUNCTIONALITY
 	// const scheduleHandler = (event: any) => {
@@ -189,6 +189,13 @@ function Home() {
 	// 	}
 	// };
 
+	// console.log("no of tweets from search outside function: ");
+	// console.log(noOfTweets);
+	// console.log("filter from search outside function: ");
+	// console.log(filter);
+	// console.log("sort from search outside function: ");
+	// console.log(sort);
+
 	const searchTwitter = async (searchData: any) => {
 		try {
 			const response = await axiosPrivate.post("searchTweets", JSON.stringify(searchData));
@@ -214,6 +221,13 @@ function Home() {
 			sortBy: sort === "-" ? "-" : sort,
 			filterBy: filter === "-" ? "-" : filter
 		};
+
+		// console.log("no of tweets from search: ");
+		// console.log(noOfTweets);
+		// console.log("filter from search: ");
+		// console.log(filter);
+		// console.log("sort from search: ");
+		// console.log(sort);
 
 		if (enteredSearch !== "") {
 			loadingHandler();
@@ -725,7 +739,7 @@ function Home() {
 					<div className="flex flex-row flex-wrap justify-around">
 						{/*  */}
 
-						<div className="flex flex-row flex-wrap w-1/3 justify-center items-center p-1">
+						{/* <div className="flex flex-row flex-wrap w-1/3 justify-center items-center p-1">
 							<div className="mb-0">
 								<p>Tweets:</p>
 							</div>
@@ -739,10 +753,10 @@ function Home() {
 									{tweetOptions}
 								</select>
 							</div>
-						</div>
+						</div> */}
 
 						{/* this is for the Fitlering options */}
-						<div className="flex flex-row flex-wrap w-1/3 justify-center items-center p-1">
+						{/* <div className="flex flex-row flex-wrap w-1/3 justify-center items-center p-1">
 							<div className="mb-0">
 								<p className="">Filter:</p>
 							</div>
@@ -758,10 +772,10 @@ function Home() {
 									<option value="noneReply">Non-Replies</option>
 								</select>
 							</div>
-						</div>
+						</div> */}
 
 						{/* this is for the sorting options */}
-						<div className="flex flex-row flex-wrap w-1/3 justify-center items-center p-1">
+						{/* <div className="flex flex-row flex-wrap w-1/3 justify-center items-center p-1">
 							<div>
 								<p className="">Sort By:</p>
 							</div>
@@ -777,7 +791,7 @@ function Home() {
 									<option value="byRetweets">Re-tweets</option>
 								</select>
 							</div>
-						</div>
+						</div> */}
 
 						{/* UNCOMMENT FOR SCHEDULE REPORT FUNCTIONALITY */}
 						{/* this is for the Scheduling a report */}
@@ -951,7 +965,10 @@ function Home() {
 							<AdvanceSearch
 								setAdvanceOn={setAdvanceOn}
 								setChoice={setChoice}
-								// func={changeShouldRender}
+								changeNoOfTweets={changeNoOfTweets}
+								changeSort={changeSort}
+								changeFilter={changeFilter}
+								toggleSearch={search}
 							/>
 						)}
 
