@@ -5,52 +5,24 @@ const serverlessConfiguration: AWS = {
     frameworkVersion: "3",
     provider: {
         name: "aws",
-        runtime: "python3.8"
+        runtime: "python3.8",
+        region: "us-east-1",
+        timeout: 30,
 
-    },
-    plugins: [
-        "serverless-offline",
-        "serverless-python-requirements"
-    ],
-
-    package: {
-        exclude: [
-            "**/*"
-        ],
-        include: [
-            "*.py",
-            "pandas",
-            "numpy"
-        ]
     },
 
     functions: {
-        hello: {
-            handler: "handler.hello",
+        summarise: {
+            image: "534808114586.dkr.ecr.us-east-1.amazonaws.com/text-summarisation@sha256:fbe46ffcddc67cc1301da562437abd988bbdc29ac70c0f0ce8719500645c621e",
             events: [
                 {
                     http: {
-                        method: "get",
-                        path: "hello/"
+                        method: "post",
+                        path: "summarise"
                     }
                 }
             ]
         }
-    },
-
-    custom: {
-        "serverless-offline": {
-            httpPort: 5000,
-            websocketPort: 5001,
-            lambdaPort: 5002
-        },
-
-        "pythonRequirements": {
-            dockerizePip: false,
-            pythonBin: "python3",
-            zip: true
-        }
-
     }
 };
 
