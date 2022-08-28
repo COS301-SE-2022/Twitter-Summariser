@@ -76,13 +76,21 @@ const serverlessConfiguration: AWS = {
                         Effect: "Allow",
                         Action: [
                             "events:PutEvents",
-                            "events:PutTargets",
+                            "events:putTargets",
                             "events:PutRule",
                             "events:DescribeRule",
                             "events:DeleteRule",
                             "events:DeleteTargets",
                             "events:DescribeTargets",
                             "events:DescribeEventBus"
+                        ],
+                        Resource: "*"
+                    },
+                    {
+                        Sid: "PermissionForLambda",
+                        Effect: "Allow",
+                        "Action": [
+                            "lambda:AddPermission"
                         ],
                         Resource: "*"
                     }
