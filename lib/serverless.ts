@@ -18,7 +18,8 @@ const serverlessConfiguration: AWS = {
                 {
                     http: {
                         method: "post",
-                        path: "summarise"
+                        path: "summarise",
+                        cors: true
                     }
                 }
             ]
