@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
+import { BsThreeDotsVertical } from "react-icons/bs";
 
 // UNCOMMENT FOR SCHEDULE REPORT FUNCTIONALITY
 // import for check box
@@ -11,6 +12,7 @@ import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Button from "./Button";
 import "./styles/Animation.css";
+import AdvanceSearch from "./AdvanceSearch";
 
 // needed for new home page - uncomment
 // import ExploreCard from "./ExploreCard";
@@ -91,12 +93,14 @@ function Home() {
 	const [generateLoading, changeGenerateLoading] = useState(false);
 	const { auth } = useAuth();
 
+	const style = { fontSize: "1.5rem" };
+
 	const searchHandler = (event: any) => {
 		changeEnteredSearch(event.target.value);
 	};
 
 	const loadingHandler = () => {
-		changeLoading(!loading);
+		changeLoading(false);
 	};
 
 	const generateLoadingHandler = () => {
@@ -127,7 +131,7 @@ function Home() {
 	};
 
 	const [searchResponse, changeResponse] = useState<any[]>([]);
-	const [noOfTweets, changeNoOfTweets] = useState(10);
+	const [noOfTweets, changeNoOfTweets] = useState(5);
 	const [sort, changeSort] = useState("-");
 	const [filter, changeFilter] = useState("-");
 
@@ -137,21 +141,21 @@ function Home() {
 
 	// const [checked, setChecked] = useState(false);
 
-  // const checkedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setChecked(event.target.checked);
-  // };
+	// const checkedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+	//   setChecked(event.target.checked);
+	// };
 
-	const tweetHandler = (event: any) => {
-		changeNoOfTweets(event.target.value);
-	};
+	// const tweetHandler = (event: any) => {
+	// 	changeNoOfTweets(event.target.value);
+	// };
 
-	const sortHandler = (event: any) => {
-		changeSort(event.target.value);
-	};
+	// const sortHandler = (event: any) => {
+	// 	changeSort(event.target.value);
+	// };
 
-	const filterHandler = (event: any) => {
-		changeFilter(event.target.value);
-	};
+	// const filterHandler = (event: any) => {
+	// 	changeFilter(event.target.value);
+	// };
 
 	// UNCOMMENT FOR SCHEDULE REPORT FUNCTIONALITY
 	// const scheduleHandler = (event: any) => {
@@ -185,6 +189,13 @@ function Home() {
 	// 	}
 	// };
 
+	// console.log("no of tweets from search outside function: ");
+	// console.log(noOfTweets);
+	// console.log("filter from search outside function: ");
+	// console.log(filter);
+	// console.log("sort from search outside function: ");
+	// console.log(sort);
+
 	const searchTwitter = async (searchData: any) => {
 		try {
 			const response = await axiosPrivate.post("searchTweets", JSON.stringify(searchData));
@@ -202,8 +213,6 @@ function Home() {
 		// }
 	};
 
-
-
 	const search = () => {
 		const searchData = {
 			apiKey: auth.apiKey,
@@ -212,6 +221,13 @@ function Home() {
 			sortBy: sort === "-" ? "-" : sort,
 			filterBy: filter === "-" ? "-" : filter
 		};
+
+		// console.log("no of tweets from search: ");
+		// console.log(noOfTweets);
+		// console.log("filter from search: ");
+		// console.log(filter);
+		// console.log("sort from search: ");
+		// console.log(sort);
 
 		if (enteredSearch !== "") {
 			loadingHandler();
@@ -367,6 +383,17 @@ function Home() {
 	// 		/>
 	// 	</svg>
 	// );
+
+	const [advance, setAdvanceOn] = useState(false);
+	const [choice, setChoice] = useState(false);
+
+	const toggleAdvancSearch = () => {
+		setAdvanceOn(true);
+	};
+
+	if (choice) {
+		console.log(choice);
+	}
 
 	return (
 		// <div data-testid="home">
@@ -697,19 +724,22 @@ function Home() {
 							<input
 								type="search"
 								id="default-search"
-								className="p-3 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-full border-gray-200 border focus:outline-none focus:ring focus:border-blue-500"
+								className="p-3 pl-10 w-11/12 text-sm text-gray-900 bg-gray-50 rounded-full border-gray-200 border focus:outline-none focus:ring focus:border-blue-500"
 								value={enteredSearch}
 								onChange={searchHandler}
 								placeholder="Search Twitter..."
 								required
 							/>
 						</div>
+						<div className="w-1/12 items-center flex flex-col justify-center cursor-pointer">
+							<BsThreeDotsVertical style={style} onClick={toggleAdvancSearch} />
+						</div>
 					</div>
 					{/* certain options and search button comes here */}
 					<div className="flex flex-row flex-wrap justify-around">
 						{/*  */}
 
-						<div className="flex flex-row flex-wrap w-1/3 justify-center items-center p-1">
+						{/* <div className="flex flex-row flex-wrap w-1/3 justify-center items-center p-1">
 							<div className="mb-0">
 								<p>Tweets:</p>
 							</div>
@@ -723,10 +753,10 @@ function Home() {
 									{tweetOptions}
 								</select>
 							</div>
-						</div>
+						</div> */}
 
 						{/* this is for the Fitlering options */}
-						<div className="flex flex-row flex-wrap w-1/3 justify-center items-center p-1">
+						{/* <div className="flex flex-row flex-wrap w-1/3 justify-center items-center p-1">
 							<div className="mb-0">
 								<p className="">Filter:</p>
 							</div>
@@ -742,10 +772,10 @@ function Home() {
 									<option value="noneReply">Non-Replies</option>
 								</select>
 							</div>
-						</div>
+						</div> */}
 
 						{/* this is for the sorting options */}
-						<div className="flex flex-row flex-wrap w-1/3 justify-center items-center p-1">
+						{/* <div className="flex flex-row flex-wrap w-1/3 justify-center items-center p-1">
 							<div>
 								<p className="">Sort By:</p>
 							</div>
@@ -761,7 +791,7 @@ function Home() {
 									<option value="byRetweets">Re-tweets</option>
 								</select>
 							</div>
-						</div>
+						</div> */}
 
 						{/* UNCOMMENT FOR SCHEDULE REPORT FUNCTIONALITY */}
 						{/* this is for the Scheduling a report */}
@@ -802,7 +832,6 @@ function Home() {
 							</div>}
 						</div> */}
 					</div>
-
 
 					{/* this is for the search button */}
 					<div className="flex flex-row flex-wrap justify-around pt-3 pb-3 items-center">
@@ -929,6 +958,18 @@ function Home() {
 									</div>
 								</Link>
 							</div>
+						)}
+
+						{/* advanced search modal */}
+						{advance && (
+							<AdvanceSearch
+								setAdvanceOn={setAdvanceOn}
+								setChoice={setChoice}
+								changeNoOfTweets={changeNoOfTweets}
+								changeSort={changeSort}
+								changeFilter={changeFilter}
+								toggleSearch={search}
+							/>
 						)}
 
 						{/* {pulse} */}
