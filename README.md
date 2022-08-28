@@ -220,4 +220,4 @@ For detailed instructions, please refer to the <a href="https://www.serverless.c
 
 
 
-<p style="font-family: Jetbrains Mono">For installation/deployment/running of the Twitter Summariser, please refer to technical install manual.
+<p style="font-family: Jetbrains Mono">For installation/deployment/running of the Twitter Summariser, please refer to technical installation manual.
