@@ -14,7 +14,7 @@ export const reportScheduler = middyfy(
 			const ruleName = 'MyProgramaticRuleName';
 			const ruleParams = {
 				Name: ruleName,
-				ScheduleExpression: 'cron(0/15 * * * ? *)'
+				ScheduleExpression: 'cron(0/15 * * * ? *)' //cron(min, hour, date-of-month, month, day-of-week, year)
 			};
 
 			const rule = await eventBridge.putRule(ruleParams).promise();
