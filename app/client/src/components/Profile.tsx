@@ -59,6 +59,22 @@ function Profile() {
 		changeShouldRender(false);
 	}
 
+	// ############ Image upload functionality implemented here #############
+
+	const imageUpload = (event: any) => {
+		event.preventDefault;
+		// console.log(event.target.files[0]);
+
+		const fileReaderInstance = new FileReader();
+		fileReaderInstance.readAsDataURL(event.target.files[0]);
+
+		fileReaderInstance.onload = () => {
+			const base64data = fileReaderInstance.result;
+
+			console.log(base64data);
+		};
+	};
+
 	const loadIcon = (
 		<svg
 			role="status"
@@ -85,7 +101,12 @@ function Profile() {
 				{/* div for the image */}
 				<div className="avatar-upload">
 					<div className="avatar-edit">
-						<input type="file" id="imageUpload" accept=".png, .jpg, .jpeg" />
+						<input
+							type="file"
+							id="imageUpload"
+							accept=".png, .jpg, .jpeg"
+							onChange={imageUpload}
+						/>
 						<label htmlFor="imageUpload" />
 					</div>
 					<div className="avatar-preview">

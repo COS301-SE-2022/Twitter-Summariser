@@ -60,7 +60,7 @@ function AdvanceSearch({
 			<div className="flex justify-center items-center inset-0 fixed">
 				<div className="bg-white border-4 opacity-100 border-sky-500 rounded-xl ">
 					<div className="relative">
-						<div className="absolute p-3 font-bold">Advance Search</div>
+						<div className="absolute p-3 font-bold">Advanced Search</div>
 						<div className="absolute top-0 right-0 p-3 cursor-pointer text-red-600">
 							<AiOutlineClose style={style} onClick={handleCancelClick} />
 						</div>
