@@ -81,6 +81,7 @@ const serverlessConfiguration: AWS = {
                             "events:DescribeRule",
                             "events:DeleteRule",
                             "events:DeleteTargets",
+                            "events:RemoveTargets",
                             "events:DescribeTargets",
                             "events:DescribeEventBus"
                         ],
