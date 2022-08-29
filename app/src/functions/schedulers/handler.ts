@@ -1,7 +1,7 @@
 import { APIGatewayProxyResult } from "aws-lambda";
 import { middyfy } from "@libs/lambda";
 import { header, statusCodes } from "@functions/resources/APIresponse";
-import { EventBridge,Lambda } from "aws-sdk";
+import { EventBridge, Lambda } from "aws-sdk";
 
 // Generation of reports
 export const reportScheduler = middyfy(
@@ -18,9 +18,9 @@ export const reportScheduler = middyfy(
 			};
 
 			const rule = await eventBridge.putRule(ruleParams).promise();
-			
+
 			const permissionParams = {
-				Action : 'lambda:InvokeFunction',
+				Action: 'lambda:InvokeFunction',
 				FunctionName: 'twitter-summariser-dev-genScheduledReport',
 				Principal: 'events.amazonaws.com',
 				StatementId: ruleName,
@@ -33,16 +33,16 @@ export const reportScheduler = middyfy(
 				Rule: ruleName,
 				Targets: [
 					{
-						Id: ruleName+'-target',
+						Id: ruleName + '-target',
 						Arn: 'arn:aws:lambda:us-east-1:534808114586:function:twitter-summariser-dev-genScheduledReport',
 						Input: '{ "data": "data for genReport" } ',
 					},
 
 				],
 			}
-			 
+
 			const result = await eventBridge.putTargets(targetParams).promise();
-			
+
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
@@ -58,11 +58,34 @@ export const reportScheduler = middyfy(
 	}
 );
 
-export const genScheduledReport = middyfy( async ( ) : Promise<void> => {
-		try {			
+export const genScheduledReport = middyfy(async (): Promise<void> => {
+	try {
 
-		} catch (e) {
+	} catch (e) {
 
-		}
 	}
+}
 );
+
+export const deleteEventRules = middyfy(async (): Promise<void> => {
+	try {
+		const eventBridge = new EventBridge();
+		
+		const rem = {
+			Bus: "default",
+			Ids: [],
+			Rule: "",
+			Force: true
+		};
+		await eventBridge.removeTargets(rem).promise();
+
+		const delRule = {
+			Name: "",
+			Bus: "",
+			Force: true
+		}
+		await eventBridge.deleteRule(delRule);
+	} catch (e) {
+
+	}
+});
