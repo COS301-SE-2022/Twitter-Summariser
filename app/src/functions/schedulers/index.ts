@@ -30,3 +30,16 @@ export const genScheduledReport = {
 		}
 	]*/
 };
+
+export const deleteEventRules = {
+	handler: `${handlerPath(__dirname)}/handler.deleteEventRules`,
+	description: "Function that checks which scheduled reports to make"/*,
+	events: [
+		{
+			schedule: {
+				rate: ["rate(1 hour)"],
+				enabled: true
+			}
+		}
+	]*/
+};
