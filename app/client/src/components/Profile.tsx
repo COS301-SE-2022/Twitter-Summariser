@@ -72,8 +72,7 @@ function Profile() {
 			const data = parts?.[1];
 
 			try {
-				const response = await axiosPrivate.post('profileImageUpload', JSON.stringify({ mime, image: data }), { signal: controller.signal });
-				console.log(response);
+				await axiosPrivate.post('profileImageUpload', JSON.stringify({ mime, image: data }), { signal: controller.signal });
 			} catch (error) {
 				console.error(error);
 			}
