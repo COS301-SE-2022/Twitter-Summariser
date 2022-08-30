@@ -18,8 +18,6 @@ export const reportScheduler = middyfy(
 				ScheduleExpression: 'cron('+ params.min+ ' '+params.hour+ ' ' + params.dateOfMonth + ' ' + params.month +' ? ' + params.year + ')' //cron(min, hour, date-of-month, month, day-of-week, year)
 			};
 
-			const tt = await ServicesLayer.scheduleService.addScheduleSetting({id: ruleName, apiKey: params.apiKey, sortOption: params.sortBy, filterOption: params.filterBy, date: params.date, keyword: params.keyword})
-
 			const rule = await eventBridge.putRule(ruleParams).promise();
 
 			const permissionParams = {
@@ -45,6 +43,8 @@ export const reportScheduler = middyfy(
 			}
 
 			const result = await eventBridge.putTargets(targetParams).promise();
+
+			const tt = await ServicesLayer.scheduleService.addScheduleSetting({id: ruleName, apiKey: params.apiKey, sortOption: params.sortBy, filterOption: params.filterBy, date: params.date, keyword: params.keyword});
 
 			return {
 				statusCode: statusCodes.Successful,
