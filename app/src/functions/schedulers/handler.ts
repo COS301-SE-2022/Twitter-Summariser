@@ -70,27 +70,38 @@ export const genScheduledReport = middyfy(async (): Promise<void> => {
 }
 );
 
-export const deleteEventRules = middyfy(async (): Promise<void> => {
-	try {
-		const eventBridge = new EventBridge();
+export const deleteEventRules = middyfy(
+	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+		try {
+			const params = JSON.parse(event.body)
+			const eventBridge = new EventBridge();
+			const ruleName = params.username + 'sRule';
 
-		const ruleName = params.username+'sRule';
+			const rem = {
+				Bus: "default",
+				Ids: [ruleName],
+				Rule: ruleName,
+				Force: true
+			};
+			await eventBridge.removeTargets(rem).promise();
 
-		const rem = {
-			Bus: "default",
-			Ids: [ ruleName ],
-			Rule: ruleName,
-			Force: true
-		};
-		await eventBridge.removeTargets(rem).promise();
-
-		const delRule = {
-			Name: ruleName,
-			Bus: "default",
-			Force: true
+			const delRule = {
+				Name: ruleName,
+				Bus: "default",
+				Force: true
+			}
+			await eventBridge.deleteRule(delRule);
+			
+			return {
+				statusCode: statusCodes.Successful,
+				headers: header,
+				body: JSON.stringify('success')
+			};
+		} catch (e) {
+			return {
+				statusCode: statusCodes.internalError,
+				headers: header,
+				body: JSON.stringify(e)
+			};
 		}
-		await eventBridge.deleteRule(delRule);
-	} catch (e) {
-
-	}
-});
+);
