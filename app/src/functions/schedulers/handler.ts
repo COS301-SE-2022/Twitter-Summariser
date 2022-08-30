@@ -1,20 +1,20 @@
-import { APIGatewayProxyResult } from "aws-lambda";
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { middyfy } from "@libs/lambda";
 import { header, statusCodes } from "@functions/resources/APIresponse";
 import { EventBridge, Lambda } from "aws-sdk";
 
 // Generation of reports
 export const reportScheduler = middyfy(
-	async (/*event: APIGatewayProxyEvent*/): Promise<APIGatewayProxyResult> => {
+	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
-			//const params = JSON.parse(event.body)
+			const params = JSON.parse(event.body)
 			const eventBridge = new EventBridge();
 			const lambda = new Lambda();
 
-			const ruleName = 'MyProgramaticRuleName';
+			const ruleName = params.username+'sRule';
 			const ruleParams = {
 				Name: ruleName,
-				ScheduleExpression: 'cron(0/15 * * * ? *)' //cron(min, hour, date-of-month, month, day-of-week, year)
+				ScheduleExpression: 'cron('+ params.min+ ' '+params.hour+ ' ' + params.dateOfMonth+ ' ? ' + params.year + ')' //cron(min, hour, date-of-month, month, day-of-week, year)
 			};
 
 			const rule = await eventBridge.putRule(ruleParams).promise();
