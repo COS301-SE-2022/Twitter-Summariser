@@ -80,7 +80,7 @@ function GetPublishedReport() {
 				signal: controller.signal
 			});
 
-			navigate("/genReport");
+			navigate("/draftReport");
 		} catch (error) {
 			console.error(error);
 		}
@@ -234,7 +234,7 @@ function GetPublishedReport() {
 
 					{isOwner() && (
 						<div className="flex justify-center mb-20">
-							<Link to="/genReport">
+							<Link to="/draftReport">
 								<Button
 									text="Unpublish Report"
 									size="large"

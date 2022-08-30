@@ -30,11 +30,11 @@ function SharedCard(props: any) {
 		else if (localStorage.getItem("draftReportId")) {
 			localStorage.removeItem("draftReportId");
 			localStorage.setItem("draftReportId", props.data.reportID);
-			navigate('/genReport');
+			navigate('/draftReport');
 		}
 		else {
 			localStorage.setItem("draftReportId", props.data.reportID);
-			navigate('/genReport');
+			navigate('/draftReport');
 		}
 
 

@@ -83,7 +83,7 @@ function Home() {
 	const [enteredSearch, changeEnteredSearch] = useState("");
 	const [resultSet, changeResultSet] = useState("");
 	const [date, changeDate] = useState("");
-	const [genReport, changeGenReport] = useState("");
+	const [draftReport, changeDraftReport] = useState("");
 	const [clicked, changeClicked] = useState(false);
 	const [createTitle, changeCreateTitle] = useState("");
 	const [loading, changeLoading] = useState(false);
@@ -118,7 +118,7 @@ function Home() {
 			const response = await axiosPrivate.post("generateReport", JSON.stringify(searchData));
 			changeGenerateLoading(false);
 			changeDate(response.data.Report.dateCreated.substring(0, 10));
-			changeGenReport(response.data.Report.reportID);
+			changeDraftReport(response.data.Report.reportID);
 
 			if (enteredSearch !== "") {
 				changeCreateTitle(enteredSearch);
@@ -266,12 +266,12 @@ function Home() {
 		)
 	);
 
-	const viewGenReport = () => {
+	const viewDraftReport = () => {
 		if (localStorage.getItem("draftReportId")) {
 			localStorage.removeItem("draftReportId");
-			localStorage.setItem("draftReportId", genReport);
+			localStorage.setItem("draftReportId", draftReport);
 		} else {
-			localStorage.setItem("draftReportId", genReport);
+			localStorage.setItem("draftReportId", draftReport);
 		}
 	};
 
@@ -933,7 +933,7 @@ function Home() {
 								data-aos-offset="300"
 							>
 								<h1 className="text-2xl ml-2">Newly created report</h1>
-								<Link to="/genReport">
+								<Link to="/draftReport">
 									<div
 										className="m-4 w-1/4 h-20 bg-white border rounded-lg hover:shadow-2xl flex flex-col p-2"
 										data-aos="zoom-in"
@@ -944,7 +944,7 @@ function Home() {
 											<button
 												data-testid="btn-report"
 												type="submit"
-												onClick={viewGenReport}
+												onClick={viewDraftReport}
 											>
 												<p className="font-bold">{createTitle}</p>
 											</button>
