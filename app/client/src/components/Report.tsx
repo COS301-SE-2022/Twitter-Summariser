@@ -8,7 +8,7 @@ import Button from "./Button";
 import PublishedText from "./PublishedText";
 import "./styles/Animation.css";
 
-function GetPublishedReport() {
+function Report() {
 	// const style = { fontSize: "1.3rem" };
 	// const styleNew = { fontSize: "1.5rem", color: "green" };
 	const iconStyle3 = { fontSize: "1.5rem", color: "red" };
@@ -250,4 +250,4 @@ function GetPublishedReport() {
 	);
 }
 
-export default GetPublishedReport;
+export default Report;
