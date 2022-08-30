@@ -8,7 +8,7 @@ import Button from "./Button";
 import PublishedText from "./PublishedText";
 import "./styles/Animation.css";
 
-function GetPublishedReport() {
+function Report() {
 	// const style = { fontSize: "1.3rem" };
 	// const styleNew = { fontSize: "1.5rem", color: "green" };
 	const iconStyle3 = { fontSize: "1.5rem", color: "red" };
@@ -80,7 +80,7 @@ function GetPublishedReport() {
 				signal: controller.signal
 			});
 
-			navigate("/genReport");
+			navigate("/draftReport");
 		} catch (error) {
 			console.error(error);
 		}
@@ -234,7 +234,7 @@ function GetPublishedReport() {
 
 					{isOwner() && (
 						<div className="flex justify-center mb-20">
-							<Link to="/genReport">
+							<Link to="/draftReport">
 								<Button
 									text="Unpublish Report"
 									size="large"
@@ -250,4 +250,4 @@ function GetPublishedReport() {
 	);
 }
 
-export default GetPublishedReport;
+export default Report;

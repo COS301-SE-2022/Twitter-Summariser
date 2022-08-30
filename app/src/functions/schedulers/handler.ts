@@ -36,7 +36,7 @@ export const reportScheduler = middyfy(
 					{
 						Id: ruleName + '-target',
 						Arn: 'arn:aws:lambda:us-east-1:534808114586:function:twitter-summariser-dev-genScheduledReport',
-						Input: params,
+						Input: '{ "data": "data for draftReport" } ',
 					},
 
 				],
@@ -69,41 +69,25 @@ export const genScheduledReport = async (params): Promise<string> => {
 	}
 };
 
-export const deleteEventRules = middyfy(
-	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-		try {
-			const params = JSON.parse(event.body)
-			const eventBridge = new EventBridge();
-			const ruleName = params.username + 'sRule';
+export const deleteEventRules = middyfy(async (): Promise<void> => {
+	try {
+		const eventBridge = new EventBridge();
 
-			const rem = {
-				Bus: "default",
-				Ids: [ruleName],
-				Rule: ruleName,
-				Force: true
-			};
-			await eventBridge.removeTargets(rem).promise();
+		const rem = {
+			Bus: "default",
+			Ids: [],
+			Rule: "",
+			Force: true
+		};
+		await eventBridge.removeTargets(rem).promise();
 
-			const delRule = {
-				Name: ruleName,
-				Bus: "default",
-				Force: true
-			}
-			await eventBridge.deleteRule(delRule).promise();
-
-			//await ServicesLayer.scheduleService.deleteScheduleSetting(ruleName);
-
-			return {
-				statusCode: statusCodes.Successful,
-				headers: header,
-				body: JSON.stringify('success')
-			};
-		} catch (e) {
-			return {
-				statusCode: statusCodes.internalError,
-				headers: header,
-				body: JSON.stringify(e)
-			};
+		const delRule = {
+			Name: "",
+			Bus: "",
+			Force: true
 		}
+		await eventBridge.deleteRule(delRule);
+	} catch (e) {
+
 	}
-);
+});

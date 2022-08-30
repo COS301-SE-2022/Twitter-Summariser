@@ -13,7 +13,7 @@ import useAuth from "../hooks/useAuth";
 import "./styles/Animation.css";
 import Modal from "./Modal";
 
-function GenReport() {
+function DraftReport() {
 	const style = { fontSize: "1.3rem" };
 	const styleNew = { fontSize: "1.5rem", color: "green" };
 	const iconStyle3 = { fontSize: "1.5rem", color: "red" };
@@ -101,7 +101,7 @@ function GenReport() {
 			await axiosPrivate.post("publishReport", JSON.stringify(resultInfo), {
 				signal: controller.signal
 			});
-			navigate("/getPublishedReport");
+			navigate("/report");
 		} catch (error) {
 			console.error(error);
 		}
@@ -664,7 +664,7 @@ function GenReport() {
 					<div className="grid grid-cols gap-4 content-center">{apiResponse}</div>
 
 					<div className="flex justify-center mb-20">
-						<Link to="/getPublishedReport">
+						<Link to="/report">
 							{/* <button
 						onClick={publishHandler}
 						type="submit"
@@ -687,4 +687,4 @@ function GenReport() {
 	);
 }
 
-export default GenReport;
+export default DraftReport;
