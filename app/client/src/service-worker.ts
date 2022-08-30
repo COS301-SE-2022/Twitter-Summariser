@@ -105,10 +105,9 @@ self.addEventListener("message", (event) => {
 // Any other custom service worker logic can go here.
 
 const staleWhileRevalidate =async (event: any) => {
-	console.log(event.request.clone());
 	let entry = await getValue(event.request.clone());
 
-	let getPromise = await fetch(event.request.clone())
+	let getPromise = fetch(event.request.clone())
 					.then((response: any) => {
 						putValue(event.request.clone(), response.clone());
 						return response;
