@@ -36,7 +36,7 @@ export const reportScheduler = middyfy(
 					{
 						Id: ruleName + '-target',
 						Arn: 'arn:aws:lambda:us-east-1:534808114586:function:twitter-summariser-dev-genScheduledReport',
-						Input: '{ "data": "data for genReport" } ',
+						Input: params,
 					},
 
 				],
@@ -63,7 +63,7 @@ export const reportScheduler = middyfy(
 
 export const genScheduledReport = async (params): Promise<string> => {
 	try {
-		return params.data;
+		return params;
 	} catch (e) {
 
 	}
