@@ -25,7 +25,7 @@ function SharedCard(props: any) {
 				}
 
 				// console.log("here");
-				navigate('/getPublishedReport');
+				navigate('/report');
 		}
 		else if (localStorage.getItem("draftReportId")) {
 			localStorage.removeItem("draftReportId");
