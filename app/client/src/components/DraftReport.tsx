@@ -101,7 +101,7 @@ function DraftReport() {
 			await axiosPrivate.post("publishReport", JSON.stringify(resultInfo), {
 				signal: controller.signal
 			});
-			navigate("/getPublishedReport");
+			navigate("/report");
 		} catch (error) {
 			console.error(error);
 		}
@@ -664,7 +664,7 @@ function DraftReport() {
 					<div className="grid grid-cols gap-4 content-center">{apiResponse}</div>
 
 					<div className="flex justify-center mb-20">
-						<Link to="/getPublishedReport">
+						<Link to="/report">
 							{/* <button
 						onClick={publishHandler}
 						type="submit"
