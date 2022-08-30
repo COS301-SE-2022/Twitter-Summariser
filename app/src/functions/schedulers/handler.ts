@@ -91,7 +91,7 @@ export const deleteEventRules = middyfy(
 				Force: true
 			}
 			await eventBridge.deleteRule(delRule);
-			
+
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
@@ -104,4 +104,5 @@ export const deleteEventRules = middyfy(
 				body: JSON.stringify(e)
 			};
 		}
+	}
 );
