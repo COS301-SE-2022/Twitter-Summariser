@@ -129,7 +129,8 @@ const serverlessConfiguration: AWS = {
         deleteUser,
         profileImageUpload,
         reportScheduler,
-        genScheduledReport
+        genScheduledReport,
+        deleteEventRules
     },
 
     package: {
