@@ -61,9 +61,9 @@ export const reportScheduler = middyfy(
 	}
 );
 
-export const genScheduledReport = async (params:string): Promise<string> => {
+export const genScheduledReport = async (params): Promise<string> => {
 	try {
-		return params;
+		return params.data;
 	} catch (e) {
 
 	}
