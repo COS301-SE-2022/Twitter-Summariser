@@ -4,7 +4,7 @@ export default interface Schedule {
 	keyword: string; // keyword to generate periodic report with
 	sortOption: string;
 	filterOption: string;
-	period: number; // in seconds
+	period?: number; // in seconds
 	date: Date;
 	lastGenerated?: Date; // when last a report was generated
 }
