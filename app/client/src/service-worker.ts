@@ -158,6 +158,11 @@ let getValue = async (request: any) => {
 
 		if (!cacheData) return null;
 
+		let maxAge = 3600;
+
+		if (Date.now() - cacheData.timestamp > maxAge * 1000)
+			return null;
+
 		return new Response(JSON.stringify(cacheData.response.body), cacheData.response);
 	} catch (err) {
 		console.log(err);
