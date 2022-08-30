@@ -1,5 +1,7 @@
 // import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
+import Checkbox from "@mui/material/Checkbox";
+import { useState } from "react";
 
 function AdvanceSearch({
 	setAdvanceOn,
@@ -53,6 +55,37 @@ function AdvanceSearch({
 	for (let index = 5; index <= 100; index += 5) {
 		tweetOptions.push(<option key={index.toString()}>{index}</option>);
 	}
+
+	// UNCOMMENT FOR SCHEDULE REPORT FUNCTIONALITY
+	const [schedule, changeSchedule] = useState("00:00");
+	const [repeat, changeRepeat] = useState("Repeat Daily");
+
+	const [checked, setChecked] = useState(false);
+
+	const checkedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setChecked(event.target.checked);
+	};
+
+	// const tweetHandler = (event: any) => {
+	// 	changeNoOfTweets(event.target.value);
+	// };
+
+	// const sortHandler = (event: any) => {
+	// 	changeSort(event.target.value);
+	// };
+
+	// const filterHandler = (event: any) => {
+	// 	changeFilter(event.target.value);
+	// };
+
+	// UNCOMMENT FOR SCHEDULE REPORT FUNCTIONALITY
+	const scheduleHandler = (event: any) => {
+		changeSchedule(event.target.value);
+	};
+
+	const repeatHandler = (event: any) => {
+		changeRepeat(event.target.value);
+	};
 
 	return (
 		<div className="flex justify-center items-center z-54 px-5">
@@ -124,6 +157,61 @@ function AdvanceSearch({
 										<option value="byRetweets">Re-tweets</option>
 									</select>
 								</div>
+							</div>
+
+							<br />
+
+							<div className="flex flex-col justify-center items-center p-1">
+								<div className="mb-0">
+									<p className="">Schedule Report</p>
+								</div>
+								<div className="border-t flex flex-row items-center">
+									<p className="">Repeat Schedule: </p>
+									<Checkbox
+										checked={checked}
+										onChange={checkedHandler}
+										inputProps={{ "aria-label": "controlled" }}
+									/>
+								</div>
+								{checked && (
+									<div className="flex flex-col justify-center items-center p-1">
+										<div className="flex flex-row justify-center items-center p-4 rounded-md bg-slate-200">
+											<div className="mb-0">
+												<p className="font-bold">Interval: </p>
+											</div>
+											<select
+												data-testid="repeat-select"
+												className=" text-black text-center bg-slate-200"
+												onChange={repeatHandler}
+												value={repeat}
+											>
+												<option value="daily">Repeat Daily</option>
+												<option value="weekly">Repeat Weekly</option>
+												<option value="monthly">Repeat Monthly</option>
+											</select>
+										</div>
+
+										<br />
+
+										<div className="flex flex-row justify-center items-center p-4 rounded-md bg-slate-200">
+											<div className="mb-0">
+												<p className="font-bold">Time: </p>
+											</div>
+											<select
+												data-testid="schedule-select"
+												className=" text-black text-center bg-slate-200"
+												onChange={scheduleHandler}
+												value={schedule}
+											>
+												<option>-</option>
+												<option value="00:00">00:00</option>
+												<option value="06:00">06:00</option>
+												<option value="12:00">12:00</option>
+												<option value="18:00">18:00</option>
+											</select>
+										</div>
+									</div>
+								)}
 							</div>
 
 							<br />
