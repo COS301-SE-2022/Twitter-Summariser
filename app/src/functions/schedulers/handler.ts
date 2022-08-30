@@ -2,7 +2,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { middyfy } from "@libs/lambda";
 import { header, statusCodes } from "@functions/resources/APIresponse";
 import { EventBridge, Lambda } from "aws-sdk";
-import ServicesLayer from "../../services";
+//import ServicesLayer from "../../services";
 
 // Generation of reports
 export const reportScheduler = middyfy(
@@ -44,7 +44,7 @@ export const reportScheduler = middyfy(
 
 			const result = await eventBridge.putTargets(targetParams).promise();
 
-			const tt = await ServicesLayer.scheduleService.addScheduleSetting({id: ruleName, apiKey: params.apiKey, sortOption: params.sortBy, filterOption: params.filterBy, date: params.date, keyword: params.keyword});
+			//const tt = await ServicesLayer.scheduleService.addScheduleSetting({id: ruleName, apiKey: params.apiKey, sortOption: params.sortBy, filterOption: params.filterBy, date: params.date, keyword: params.keyword});
 
 			return {
 				statusCode: statusCodes.Successful,
@@ -91,6 +91,8 @@ export const deleteEventRules = middyfy(
 				Force: true
 			}
 			await eventBridge.deleteRule(delRule).promise();
+
+			//await ServicesLayer.scheduleService.deleteScheduleSetting(ruleName);
 
 			return {
 				statusCode: statusCodes.Successful,
