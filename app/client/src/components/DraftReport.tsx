@@ -13,7 +13,7 @@ import useAuth from "../hooks/useAuth";
 import "./styles/Animation.css";
 import Modal from "./Modal";
 
-function GenReport() {
+function DraftReport() {
 	const style = { fontSize: "1.3rem" };
 	const styleNew = { fontSize: "1.5rem", color: "green" };
 	const iconStyle3 = { fontSize: "1.5rem", color: "red" };
@@ -687,4 +687,4 @@ function GenReport() {
 	);
 }
 
-export default GenReport;
+export default DraftReport;
