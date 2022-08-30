@@ -61,14 +61,13 @@ export const reportScheduler = middyfy(
 	}
 );
 
-export const genScheduledReport = middyfy(async (): Promise<void> => {
+export const genScheduledReport = async (params:string): Promise<string> => {
 	try {
-
+		return params;
 	} catch (e) {
 
 	}
-}
-);
+};
 
 export const deleteEventRules = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
