@@ -266,13 +266,16 @@ function Home() {
 		)
 	);
 
+	const draftID = draftReport;
+	const newDraftReportLink = `/draftReport/${draftID}`;
+
 	const viewDraftReport = () => {
-		if (localStorage.getItem("draftReportId")) {
-			localStorage.removeItem("draftReportId");
-			localStorage.setItem("draftReportId", draftReport);
-		} else {
-			localStorage.setItem("draftReportId", draftReport);
-		}
+		// if (localStorage.getItem("draftReportId")) {
+		// 	localStorage.removeItem("draftReportId");
+		// 	localStorage.setItem("draftReportId", draftReport);
+		// } else {
+		// 	localStorage.setItem("draftReportId", draftReport);
+		// }
 	};
 
 	const loadIcon = (
@@ -933,7 +936,7 @@ function Home() {
 								data-aos-offset="300"
 							>
 								<h1 className="text-2xl ml-2">Newly created report</h1>
-								<Link to="/draftReport">
+								<Link to={newDraftReportLink}>
 									<div
 										className="m-4 w-1/4 h-20 bg-white border rounded-lg hover:shadow-2xl flex flex-col p-2"
 										data-aos="zoom-in"

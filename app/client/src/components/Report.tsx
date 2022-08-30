@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
 import { GrCopy } from "react-icons/gr";
 import useAuth from "../hooks/useAuth";
@@ -36,10 +36,19 @@ function Report() {
 
 	let requiredData: { apiKey: string | null; reportID: string | null };
 
+	const location = useLocation();
+	const ind = location.pathname.lastIndexOf("/");
+	// console.log(location.pathname.substring(ind + 1));
+
+	const repID = location.pathname.substring(ind + 1);
+	const newDraftReportLink = `/draftReport/${repID}`;
+
+
 	const getRep = async (isMounted: boolean) => {
 		requiredData = {
 			apiKey: auth.apiKey,
-			reportID: localStorage.getItem("reportId")
+			// reportID: localStorage.getItem("reportId")
+			reportID: repID
 		};
 
 		try {
@@ -80,7 +89,7 @@ function Report() {
 				signal: controller.signal
 			});
 
-			navigate("/draftReport");
+			navigate(newDraftReportLink);
 		} catch (error) {
 			console.error(error);
 		}
@@ -89,11 +98,12 @@ function Report() {
 	const unpublishHandler = () => {
 		requiredData = {
 			apiKey: auth.apiKey,
-			reportID: localStorage.getItem("reportId")
+			// reportID: localStorage.getItem("reportId")
+			reportID: repID
 		};
 		unpublishReport(requiredData);
-		const reportId = String(localStorage.getItem("reportId"));
-		localStorage.setItem("draftReportId", reportId);
+		// const reportId = String(localStorage.getItem("reportId"));
+		// localStorage.setItem("draftReportId", reportId);
 	};
 
 	const apiResponse = [<div key="begining div" />];
@@ -145,7 +155,8 @@ function Report() {
 
 	const cloneReportHandler = async () => {
 		const resultDetails = {
-			reportID: localStorage.getItem("reportId"),
+			// reportID: localStorage.getItem("reportId"),
+			reportID: repID,
 			apiKey: auth.apiKey
 		};
 
@@ -234,7 +245,7 @@ function Report() {
 
 					{isOwner() && (
 						<div className="flex justify-center mb-20">
-							<Link to="/draftReport">
+							<Link to={newDraftReportLink}>
 								<Button
 									text="Unpublish Report"
 									size="large"

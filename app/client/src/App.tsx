@@ -58,8 +58,8 @@ function App() {
 							<Route path="drafts" element={<Drafts />} />
 							<Route path="shared" element={<Shared />} />
 							<Route path="profile" element={<Profile />} />
-							<Route path="draftReport" element={<DraftReport />} />
-							<Route path="report" element={<Report />} />
+							<Route path="draftReport/*" element={<DraftReport />} />
+							<Route path="report/*" element={<Report />} />
 							<Route path="history" element={<History />} />
 							<Route path="viewHistory" element={<ViewHistory />} />
 						</Route>

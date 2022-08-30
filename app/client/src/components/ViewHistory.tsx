@@ -84,8 +84,11 @@ function ViewHistory() {
 		genRep();
 	};
 
+	const draftID = draftReport;
+	const newDraftReportLink = `/draftReport/${draftID}`;
+
 	const viewDraftReport = () => {
-		localStorage.setItem("draftReportId", draftReport);
+		// localStorage.setItem("draftReportId", draftReport);
 	};
 
 	const tweetOptions = [];
@@ -237,7 +240,7 @@ function ViewHistory() {
 					data-aos-offset="300"
 				>
 					<h1 className="text-2xl ml-2">Newly created report</h1>
-					<Link to="/draftReport">
+					<Link to={newDraftReportLink}>
 						<div
 							className="m-4 w-1/4 h-auto bg-white border rounded-lg hover:shadow-2xl flex flex-col p-2"
 							data-aos="zoom-in"
