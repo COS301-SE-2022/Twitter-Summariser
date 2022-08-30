@@ -2,6 +2,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { middyfy } from "@libs/lambda";
 import { header, statusCodes } from "@functions/resources/APIresponse";
 import { EventBridge, Lambda } from "aws-sdk";
+import ServicesLayer from "../../services";
 
 // Generation of reports
 export const reportScheduler = middyfy(
@@ -14,8 +15,10 @@ export const reportScheduler = middyfy(
 			const ruleName = params.username+'sRule';
 			const ruleParams = {
 				Name: ruleName,
-				ScheduleExpression: 'cron('+ params.min+ ' '+params.hour+ ' ' + params.dateOfMonth+ ' ? ' + params.year + ')' //cron(min, hour, date-of-month, month, day-of-week, year)
+				ScheduleExpression: 'cron('+ params.min+ ' '+params.hour+ ' ' + params.dateOfMonth + ' ' + params.month +' ? ' + params.year + ')' //cron(min, hour, date-of-month, month, day-of-week, year)
 			};
+
+			const tt = await ServicesLayer.scheduleService.addScheduleSetting({id: ruleName, apiKey: params.apiKey, sortOption: params.sortBy, filterOption: params.filterBy, date: params.date, keyword: params.keyword})
 
 			const rule = await eventBridge.putRule(ruleParams).promise();
 
