@@ -9,10 +9,10 @@ export const reportScheduler = {
 				method: "post",
 				path: "reportScheduler/",
 				cors: true,
-				authorizer: {
+				/*authorizer: {
 					name: "verifyJWT",
 					type: "Token"
-				}
+				}*/
 			}
 		}
 	]
@@ -32,10 +32,10 @@ export const deleteEventRules = {
 				method: "post",
 				path: "deleteSchedule/",
 				cors: true,
-				authorizer: {
+				/*authorizer: {
 					name: "verifyJWT",
 					type: "Token"
-				}
+				}*/
 			}
 		}
 	]
