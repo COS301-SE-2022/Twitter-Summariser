@@ -15,7 +15,7 @@ export const reportScheduler = middyfy(
 			const ruleName = params.username+'sRule';
 			const ruleParams = {
 				Name: ruleName,
-				ScheduleExpression: 'cron('+ params.min+ ' '+params.hour+ ' ' + params.dateOfMonth + ' ' + params.month +' ? ' + params.year + ')' //cron(min, hour, date-of-month, month, day-of-week, year)
+				ScheduleExpression: 'cron('+ params.min +' '+ params.hour +' ' + params.dateOfMonth +' '+ params.month +' ? '+ params.year +')' //cron(min, hour, date-of-month, month, day-of-week, year)
 			};
 
 			const rule = await eventBridge.putRule(ruleParams).promise();
