@@ -969,6 +969,7 @@ function Home() {
 								changeSort={changeSort}
 								changeFilter={changeFilter}
 								toggleSearch={search}
+								enteredSearch={enteredSearch}
 							/>
 						)}
 

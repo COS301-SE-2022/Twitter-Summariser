@@ -1,7 +1,7 @@
-// import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import Checkbox from "@mui/material/Checkbox";
 import { useState } from "react";
+import useAuth from "../hooks/useAuth";
 
 function AdvanceSearch({
 	setAdvanceOn,
@@ -9,36 +9,36 @@ function AdvanceSearch({
 	changeNoOfTweets,
 	changeSort,
 	changeFilter,
-	toggleSearch
+	toggleSearch,
+	enteredSearch
 }: any) {
 	const handleCancelClick = () => {
 		setChoice(false);
 		setAdvanceOn(false);
 	};
 
+	const { auth } = useAuth();
+
 	const style = { fontSize: "1.3rem" };
 
-	// const [noOfTweets, changeTweets] = useState(10);
-	// const [sort, changSort] = useState("-");
-	// const [filter, changFilter] = useState("-");
+	const [noOfTweets, changeTweets] = useState(10);
+	const [sort, changSort] = useState("-");
+	const [filter, changFilter] = useState("-");
 
 	const tweetHandler = (event: any) => {
+		changeTweets(event.target.value);
 		changeNoOfTweets(event.target.value);
 	};
 
 	const sortHandler = (event: any) => {
+		changSort(event.target.value);
 		changeSort(event.target.value);
 	};
 
 	const filterHandler = (event: any) => {
+		changFilter(event.target.value);
 		changeFilter(event.target.value);
 	};
-
-	function advanceSearch() {
-		toggleSearch();
-		setAdvanceOn(false);
-		setChoice(false);
-	}
 
 	const tweetOptions = [];
 
@@ -46,7 +46,6 @@ function AdvanceSearch({
 		tweetOptions.push(<option key={index.toString()}>{index}</option>);
 	}
 
-	// UNCOMMENT FOR SCHEDULE REPORT FUNCTIONALITY
 	const [schedule, changeSchedule] = useState("00:00");
 	const [repeat, changeRepeat] = useState("Repeat Daily");
 
@@ -63,6 +62,34 @@ function AdvanceSearch({
 	const repeatHandler = (event: any) => {
 		changeRepeat(event.target.value);
 	};
+
+	const triggerScheduleEndpoint = () => {
+		const scheduleData = {
+			scheduleTIme: { schedule },
+			repeatInterval: { repeat },
+			numOfTweets: noOfTweets,
+			sortBy: sort,
+			filterBy: filter,
+
+			apiKey: auth.apiKey,
+			keyword: enteredSearch
+		};
+
+		console.log(enteredSearch);
+
+		// use the object "scheduleData" as you see please
+		scheduleData;
+
+		// schedule endpoint comes here
+	};
+
+	function advanceSearch() {
+		toggleSearch();
+		setAdvanceOn(false);
+		setChoice(false);
+
+		triggerScheduleEndpoint();
+	}
 
 	return (
 		<div className="flex justify-center items-center z-54 px-5">
@@ -138,6 +165,7 @@ function AdvanceSearch({
 
 							<br />
 
+							{/* this is for the schedule report */}
 							<div className="flex flex-col justify-center items-center p-1">
 								<div className="mb-0">
 									<p className="">Schedule Report</p>
@@ -193,8 +221,6 @@ function AdvanceSearch({
 							</div>
 
 							<br />
-
-							{/* <Button text="Search" size="large" handle={advanceSearch} type="search" /> */}
 
 							<button
 								className="button_large text-lg p-0.5 h-10 w-60 bg-dark-cornflower-blue rounded-lg text-white font-semibold hover:bg-midnight-blue group hover:shadow"
