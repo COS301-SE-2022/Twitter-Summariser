@@ -205,83 +205,19 @@
 <h2 style="font-family: Jetbrains Mono"><strong>Project Structure: </strong></h2>
 
 ```
+├── .github               # contains github actions workflow 
+├── app                   # contains the frontend & backend of the Twitter Summariser
+├── lib                   # contains the text-summarisation AI module
+├── severless-compose.ts  # contains code to deploy app and lib to AWS
+├── package.json          # contains scripts for lib
 ├── README.md
-├── babel.config.js
-├── client                      # contains code for frontend (React App)
-├── docker-compose.yml          # configuration code for running docker locally
-├── .dynamodb                   # jar file for dynamodb to be used locally
-├── jest.config.js
-├── .github                     # contains github actions workflow                
-├── package.json                # contains scripts and dependencies for backend
-├── serverless.ts               # Serverless service file
-├── src                         # contains code for backend (AWS Lambda, and etc)
-├── tools                       # contains scripts to get merge frontend and backend coverage
-├── tsconfig.json               # Typescript compiler configuration
-├── tsconfig.paths.json         # Typescript paths
-└── yarn.lock
+├── yarn.lock
 ```
 
 <p style="font-family: Jetbrains Mono">This project has been generated using the `aws-nodejs-typescript` template from the <a href="https://www.serverless.com/">Serverless Framework.</a> <br>
 For detailed instructions, please refer to the <a href="https://www.serverless.com/framework/docs/providers/aws/">documentation</a></p>
 <br>
 
-<h2 style="font-family: Jetbrains Mono"><strong>1. Installation/deployment instructions: </strong></h2>
 
-<p style="font-family: Jetbrains Mono">Depending on your preferred package manager, follow the instructions below to deploy your project.
 
-> **Requirements:**
-- NodeJS `lts/fermium (v.14.15.0)`. If you're using [nvm](https://github.com/nvm-sh/nvm), run `nvm use` to ensure you're using the same Node version in local and in your lambda's runtime.
-- AWS Account and configured AWS-CLI 
-- Docker (for offline use)
-</p>
-<h3 style="font-family: Jetbrains Mono"> Using NPM</h3>
-
-- Run `cd client`
-- Run `npm i`
-- Run `npm run build`
-- Run `cd ..`
-- Run `npm i` to install the project dependencies
-- Run `npx sls deploy` to deploy this stack to AWS
-
-<h3 style="font-family: Jetbrains Mono"> Using Yarn</h3>
-
-- Run `cd client`
-- Run `yarn i`
-- Run `yarn run build`
-- Run `cd ..`
-- Run `yarn` to install the project dependencies
-- Run `yarn sls deploy` to deploy this stack to AWS
-
-> :warning: Once deployed, opens a **public** endpoint within your AWS account resources. Anybody with the URL can actively execute the API Gateway endpoint and the corresponding lambda. You should protect this endpoint with the authentication method of your choice.
-<br>
-
-<h2 style="font-family: Jetbrains Mono"><strong>2. Test your service: </strong></h2>
-
-<p style="font-family: Jetbrains Mono">
-For all the lambda functions, they are triggered by an HTTP request made on the provisioned API Gateway REST API. The following can happen: </p>
-
-- requesting any other path than `/lambdaFunctionName` with any other method than `POST` will result in API Gateway returning a `403` HTTP error code
-- sending a `POST` request to `/lambdaFunctionName` with an incorrect payload will result in API Gateway returning a `400` HTTP error code
-- sending a `POST` request to `/lambdaFunctionName` with the correct payload will result in API Gateway returning a `200` HTTP status code with a response and the detailed event processed by the lambda
-
-<p style="font-family: Jetbrains Mono">Check the <a href="https://www.serverless.com/framework/docs/providers/aws/cli-reference/invoke-local/">sls invoke local command documentation</a> for more information.
-</p>
-
-<h3 style="font-family: Jetbrains Mono"><strong>Locally: </strong></h3>
-<p>To run the Twitter Summariser locally on your machine, do the following:
-
-- Run docker locally on your machine.
-- If you do not have dynamodb-admin, install it by runninng `npm install -g dynamodb-admin` else go to the next step.
-- Run `docker compose up`
-- Run `sls offline start`
-- Run `dynamodb-admin`, open your browser and enter `http://localhost:8001`
-- Change to the client directory and run `yarn start` to launch the Twitter Summariser apllication.
-
-Note that the contents of the database gets wiped each time the docker container is stopped.
-
-<h3 style="font-family: Jetbrains Mono"><strong>Remotely: </strong></h3>
-Ensure you have run `serverless deploy` for the stack to be created for the Twitter-Summariser application to be hosted on.
-Next go to the <a href="https://aws.amazon.com/console/">Amazon Management Console</a> and do the following:
-
-- Go to CloudFrount and look for your distribution
-- Next copy the distribution `Domain name` and paste it in the browser and the Twitter Summariser should launch
+<p style="font-family: Jetbrains Mono">For installation/deployment/running of the Twitter Summariser, please refer to technical installation manual.
