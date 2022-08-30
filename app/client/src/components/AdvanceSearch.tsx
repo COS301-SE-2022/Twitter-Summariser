@@ -35,19 +35,9 @@ function AdvanceSearch({
 	};
 
 	function advanceSearch() {
-		// changeNoOfTweets(noOfTweets);
-		// changeFilter(filter);
-		// changeSort(sort);
 		toggleSearch();
 		setAdvanceOn(false);
 		setChoice(false);
-
-		// console.log("no of tweets from advance search: ");
-		// console.log(noOfTweets);
-		// console.log("filter from advance search: ");
-		// console.log(filter);
-		// console.log("sort from advance search: ");
-		// console.log(sort);
 	}
 
 	const tweetOptions = [];
@@ -66,19 +56,6 @@ function AdvanceSearch({
 		setChecked(event.target.checked);
 	};
 
-	// const tweetHandler = (event: any) => {
-	// 	changeNoOfTweets(event.target.value);
-	// };
-
-	// const sortHandler = (event: any) => {
-	// 	changeSort(event.target.value);
-	// };
-
-	// const filterHandler = (event: any) => {
-	// 	changeFilter(event.target.value);
-	// };
-
-	// UNCOMMENT FOR SCHEDULE REPORT FUNCTIONALITY
 	const scheduleHandler = (event: any) => {
 		changeSchedule(event.target.value);
 	};
@@ -188,6 +165,7 @@ function AdvanceSearch({
 												<option value="daily">Repeat Daily</option>
 												<option value="weekly">Repeat Weekly</option>
 												<option value="monthly">Repeat Monthly</option>
+												<option value="monthly">Repeat Yearly</option>
 											</select>
 										</div>
 
@@ -216,7 +194,13 @@ function AdvanceSearch({
 
 							<br />
 
-							<button className="" type="button" onClick={advanceSearch}>
+							{/* <Button text="Search" size="large" handle={advanceSearch} type="search" /> */}
+
+							<button
+								className="button_large text-lg p-0.5 h-10 w-60 bg-dark-cornflower-blue rounded-lg text-white font-semibold hover:bg-midnight-blue group hover:shadow"
+								type="button"
+								onClick={advanceSearch}
+							>
 								Search
 							</button>
 						</div>
