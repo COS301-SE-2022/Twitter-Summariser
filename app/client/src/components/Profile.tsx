@@ -63,15 +63,19 @@ function Profile() {
 
 	const imageUpload = (event: any) => {
 		event.preventDefault;
-		// console.log(event.target.files[0]);
-
 		const fileReaderInstance = new FileReader();
 		fileReaderInstance.readAsDataURL(event.target.files[0]);
-
-		fileReaderInstance.onload = () => {
+		fileReaderInstance.onload = async () => {
 			const base64data = fileReaderInstance.result;
+			const parts = base64data?.toString().split(";");
+			const mime = parts?.[0].split(":")[1];
+			const data = parts?.[1];
 
-			console.log(base64data);
+			try {
+				await axiosPrivate.post('profileImageUpload', JSON.stringify({ mime, image: data }), { signal: controller.signal });
+			} catch (error) {
+				console.error(error);
+			}
 		};
 	};
 
