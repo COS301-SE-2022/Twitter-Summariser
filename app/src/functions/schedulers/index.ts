@@ -8,11 +8,11 @@ export const reportScheduler = {
 			http: {
 				method: "post",
 				path: "reportScheduler/",
-				cors: true,
+				cors: true/*,
 				authorizer: {
 					name: "verifyJWT",
 					type: "Token"
-				}
+				}*/
 			}
 		}
 	]
@@ -31,11 +31,11 @@ export const deleteEventRules = {
 			http: {
 				method: "post",
 				path: "deleteSchedule/",
-				cors: true,
+				cors: true/*,
 				authorizer: {
 					name: "verifyJWT",
 					type: "Token"
-				}
+				}*/
 			}
 		}
 	]
