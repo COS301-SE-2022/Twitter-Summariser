@@ -14,7 +14,7 @@ export const profileImageUpload = middy(async (event: APIGatewayProxyEventV2): P
     try {
         const body = JSON.parse(event.body);
 
-        if (!body || !body.image || !body.mime|| body.name) {
+        if (!body || !body.image || !body.mime|| !body.name) {
             return {
                 statusCode: statusCodes.badRequest,
                 headers: header,
@@ -22,7 +22,7 @@ export const profileImageUpload = middy(async (event: APIGatewayProxyEventV2): P
                     message: "Incorrect body on request"
                 })
             };
-        }
+        }        
 
         if (!allowedMimes.includes(body.mime)) {
             return {
