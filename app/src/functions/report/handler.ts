@@ -95,7 +95,7 @@ export const getAllPublishedReports = middyfy(async (): Promise<APIGatewayProxyR
 		reports.map(async (report) => {
 			delete report.apiKey;
 		});
-		
+
 		return {
 			statusCode: statusCodes.Successful,
 			headers: header,
@@ -428,6 +428,9 @@ export const getAllMyPublishedReports = middyfy(
 
 			const reports = await ServicesLayer.reportService.getPublishedReports(params.apiKey);
 
+			reports.map(async (report) => {
+				delete report.apiKey;
+			});
 			
 			return {
 				statusCode: statusCodes.Successful,
