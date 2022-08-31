@@ -198,6 +198,7 @@ function DraftReport() {
 						<Text
 							keyValue={index}
 							data={data}
+							rID={repID}
 							onChange={(value: boolean) => changeShouldRender(value)}
 						/>{" "}
 					</div>
@@ -418,7 +419,7 @@ function DraftReport() {
 	const deleteReportHandler = async () => {
 		const resultDetails = {
 			// reportID: localStorage.getItem("draftReportId"),
-			reportID: localStorage.getItem("draftReportId"),
+			reportID: repID,
 			apiKey: auth.apiKey
 		};
 
@@ -536,7 +537,7 @@ function DraftReport() {
 						<div className="ml-2 p-4 text-blue-500 cursor-pointer" onClick={clicked}>
 							Add Custom Tweets
 						</div>
-						{modalOn && <Modal setModalOn={setModalOn} setChoice={setChoice} func={changeShouldRender} />}
+						{modalOn && <Modal setModalOn={setModalOn} setChoice={setChoice} func={changeShouldRender} rID={repID} />}
 					</div>
 
 					{/* {share && (

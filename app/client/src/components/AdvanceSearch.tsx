@@ -73,9 +73,10 @@ function AdvanceSearch({
 
 			apiKey: auth.apiKey,
 			keyword: enteredSearch
+			// datetime:datetimeObject
 		};
 
-		console.log(enteredSearch);
+		// console.log(enteredSearch);
 
 		// use the object "scheduleData" as you see please
 		scheduleData;
