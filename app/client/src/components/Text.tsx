@@ -16,6 +16,9 @@ function Text(props: any) {
 	const [bold, setBold] = useState("");
 	const { auth } = useAuth();
 
+	const repID = props.rID;
+	// const newDraftReportLink = `/draftReport/${repID}`;
+
 	const italicHandler = () => {
 		if (italic === "") {
 			setItalic(" italic");
@@ -100,7 +103,8 @@ function Text(props: any) {
 	const deleteTextHandler = async () => {
 		const resultDetails = {
 			apiKey: auth.apiKey,
-			reportID: localStorage.getItem("draftReportId"),
+			// reportID: localStorage.getItem("draftReportId"),
+			reportID: repID,
 			reportBlockID: props.data.reportBlockID
 		};
 
@@ -144,10 +148,12 @@ function Text(props: any) {
 				Align: align
 			},
 			text: report,
-			reportID: localStorage.getItem("draftReportId"),
+			// reportID: localStorage.getItem("draftReportId"),
+			reportID: repID,
 			position: textPos,
 			apiKey: auth.apiKey
 		};
+		console.log(propsUpdate);
 		editText(propsUpdate);
 	};
 
@@ -161,7 +167,8 @@ function Text(props: any) {
 				Align: align
 			},
 			text: report,
-			reportID: localStorage.getItem("draftReportId"),
+			// reportID: localStorage.getItem("draftReportId"),
+			reportID: repID,
 			styleID: props.data.block.style[0].textStylesID,
 			reportBlockID: props.data.reportBlockID,
 			position: textPos,
