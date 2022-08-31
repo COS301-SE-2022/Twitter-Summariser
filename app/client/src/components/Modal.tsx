@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiErrorCircle } from "react-icons/bi";
+// import { useLocation } from "react-router-dom";
 import Button from "./Button";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
-function Modal({ setModalOn, setChoice, func }: any) {
+function Modal({ setModalOn, setChoice, func, rID }: any) {
 		const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
 	const { auth } = useAuth();
@@ -14,6 +15,12 @@ function Modal({ setModalOn, setChoice, func }: any) {
 	// 	setModalOn(false);
 	// 	console.log("setModal false");
 	// };
+
+	// const location = useLocation();
+	// const ind = location.pathname.lastIndexOf("/");
+	// // console.log(location.pathname.substring(ind + 1));
+
+	// const repID = location.pathname.substring(ind + 1);
 
 	const handleCancelClick = () => {
 		setChoice(false);
@@ -64,6 +71,7 @@ function Modal({ setModalOn, setChoice, func }: any) {
 				// changeNAN(true);
 			} else {
 				// TWEET FOUND - do something with it
+				// console.log("Tweet found");
 				setModalOn(false);
 				func(true);
 
@@ -95,7 +103,8 @@ function Modal({ setModalOn, setChoice, func }: any) {
 	const search = () => {
 		const tweetData = {
 				apiKey: auth.apiKey,
-				reportID: localStorage.getItem("draftReportId"),
+				// reportID: localStorage.getItem("draftReportId"),
+				reportID: rID,
 				url: enteredSearch
 			// 	keyword: enteredSearch,
 			// 	numOfTweets: noOfTweets,
