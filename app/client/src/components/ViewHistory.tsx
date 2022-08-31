@@ -11,7 +11,7 @@ function ViewHistory() {
 	const [filter, changeFilter] = useState("");
 	const [date, changeDate] = useState("");
 	const [tweets, changeTweets] = useState<any[]>([]);
-	const [genReport, changeGenReport] = useState("");
+	const [draftReport, changeDraftReport] = useState("");
 	const [clicked, changeClicked] = useState(false);
 	const [generateLoading, changeGenerateLoading] = useState(false);
 	const [pageLoading, changePageLoading] = useState(true);
@@ -72,7 +72,7 @@ function ViewHistory() {
 			});
 			changeGenerateLoading(false);
 			changeDate(await response.data.Report.dateCreated.substring(0, 10));
-			changeGenReport(response.data.Report.reportID);
+			changeDraftReport(response.data.Report.reportID);
 			changeClicked(true);
 		} catch (error) {
 			console.error(error);
@@ -84,8 +84,11 @@ function ViewHistory() {
 		genRep();
 	};
 
-	const viewGenReport = () => {
-		localStorage.setItem("draftReportId", genReport);
+	const draftID = draftReport;
+	const newDraftReportLink = `/draftReport/${draftID}`;
+
+	const viewDraftReport = () => {
+		// localStorage.setItem("draftReportId", draftReport);
 	};
 
 	const tweetOptions = [];
@@ -237,7 +240,7 @@ function ViewHistory() {
 					data-aos-offset="300"
 				>
 					<h1 className="text-2xl ml-2">Newly created report</h1>
-					<Link to="/genReport">
+					<Link to={newDraftReportLink}>
 						<div
 							className="m-4 w-1/4 h-auto bg-white border rounded-lg hover:shadow-2xl flex flex-col p-2"
 							data-aos="zoom-in"
@@ -248,7 +251,7 @@ function ViewHistory() {
 								<button
 									data-testid="btn-report"
 									type="submit"
-									onClick={viewGenReport}
+									onClick={viewDraftReport}
 								>
 									<p className="font-bold">{searchPhrase}</p>
 								</button>

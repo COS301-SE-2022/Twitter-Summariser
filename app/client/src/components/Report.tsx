@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
 import { GrCopy } from "react-icons/gr";
 import useAuth from "../hooks/useAuth";
@@ -8,7 +8,7 @@ import Button from "./Button";
 import PublishedText from "./PublishedText";
 import "./styles/Animation.css";
 
-function GetPublishedReport() {
+function Report() {
 	// const style = { fontSize: "1.3rem" };
 	// const styleNew = { fontSize: "1.5rem", color: "green" };
 	const iconStyle3 = { fontSize: "1.5rem", color: "red" };
@@ -36,10 +36,19 @@ function GetPublishedReport() {
 
 	let requiredData: { apiKey: string | null; reportID: string | null };
 
+	const location = useLocation();
+	const ind = location.pathname.lastIndexOf("/");
+	// console.log(location.pathname.substring(ind + 1));
+
+	const repID = location.pathname.substring(ind + 1);
+	const newDraftReportLink = `/draftReport/${repID}`;
+
+
 	const getRep = async (isMounted: boolean) => {
 		requiredData = {
 			apiKey: auth.apiKey,
-			reportID: localStorage.getItem("reportId")
+			// reportID: localStorage.getItem("reportId")
+			reportID: repID
 		};
 
 		try {
@@ -80,7 +89,7 @@ function GetPublishedReport() {
 				signal: controller.signal
 			});
 
-			navigate("/genReport");
+			navigate(newDraftReportLink);
 		} catch (error) {
 			console.error(error);
 		}
@@ -89,11 +98,12 @@ function GetPublishedReport() {
 	const unpublishHandler = () => {
 		requiredData = {
 			apiKey: auth.apiKey,
-			reportID: localStorage.getItem("reportId")
+			// reportID: localStorage.getItem("reportId")
+			reportID: repID
 		};
 		unpublishReport(requiredData);
-		const reportId = String(localStorage.getItem("reportId"));
-		localStorage.setItem("draftReportId", reportId);
+		// const reportId = String(localStorage.getItem("reportId"));
+		// localStorage.setItem("draftReportId", reportId);
 	};
 
 	const apiResponse = [<div key="begining div" />];
@@ -145,7 +155,8 @@ function GetPublishedReport() {
 
 	const cloneReportHandler = async () => {
 		const resultDetails = {
-			reportID: localStorage.getItem("reportId"),
+			// reportID: localStorage.getItem("reportId"),
+			reportID: repID,
 			apiKey: auth.apiKey
 		};
 
@@ -234,7 +245,7 @@ function GetPublishedReport() {
 
 					{isOwner() && (
 						<div className="flex justify-center mb-20">
-							<Link to="/genReport">
+							<Link to={newDraftReportLink}>
 								<Button
 									text="Unpublish Report"
 									size="large"
@@ -250,4 +261,4 @@ function GetPublishedReport() {
 	);
 }
 
-export default GetPublishedReport;
+export default Report;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
 import { BsShare, BsArrowDown, BsArrowUp } from "react-icons/bs";
 import { BiErrorCircle } from "react-icons/bi";
@@ -13,7 +13,7 @@ import useAuth from "../hooks/useAuth";
 import "./styles/Animation.css";
 import Modal from "./Modal";
 
-function GenReport() {
+function DraftReport() {
 	const style = { fontSize: "1.3rem" };
 	const styleNew = { fontSize: "1.5rem", color: "green" };
 	const iconStyle3 = { fontSize: "1.5rem", color: "red" };
@@ -38,6 +38,13 @@ function GenReport() {
 	const navigate = useNavigate();
 	const { auth } = useAuth();
 
+	const location = useLocation();
+	const ind = location.pathname.lastIndexOf("/");
+	// console.log(location.pathname.substring(ind + 1));
+
+	const repID = location.pathname.substring(ind + 1);
+	const newReportLink = `/report/${repID}`;
+
 	const shareHandler = () => {
 		setSuccessfulShare(false);
 		setShare(!share);
@@ -54,7 +61,8 @@ function GenReport() {
 
 	const requiredData = {
 		apiKey: auth.apiKey,
-		reportID: localStorage.getItem("draftReportId")
+		reportID: repID
+		// reportID: localStorage.getItem("draftReportId")
 	};
 
 	const [pulse, changePulse] = useState(false);
@@ -101,7 +109,7 @@ function GenReport() {
 			await axiosPrivate.post("publishReport", JSON.stringify(resultInfo), {
 				signal: controller.signal
 			});
-			navigate("/getPublishedReport");
+			navigate(newReportLink);
 		} catch (error) {
 			console.error(error);
 		}
@@ -115,15 +123,16 @@ function GenReport() {
 
 	const publishHandler = () => {
 		publishReport(requiredData);
-		const draftId = String(localStorage.getItem("draftReportId"));
-		localStorage.setItem("reportId", draftId);
+		// const draftId = String(localStorage.getItem("draftReportId"));
+		// localStorage.setItem("reportId", draftId);
 	};
 
 	const apiResponse = [<div key="begining div" />];
 
 	const reorderUpHandler = async (tweetPos: any) => {
 		const resultDetails = {
-			reportID: localStorage.getItem("draftReportId"),
+			// reportID: localStorage.getItem("draftReportId"),
+			reportID: repID,
 			apiKey: auth.apiKey,
 			pos: tweetPos,
 			newPlace: "UP"
@@ -141,7 +150,8 @@ function GenReport() {
 
 	const reorderDownHandler = async (tweetPos: any) => {
 		const resultDetails = {
-			reportID: localStorage.getItem("draftReportId"),
+			// reportID: localStorage.getItem("draftReportId"),
+			reportID: repID,
 			apiKey: auth.apiKey,
 			pos: tweetPos,
 			newPlace: "DOWN"
@@ -375,7 +385,8 @@ function GenReport() {
 
 	const requiredDataForShare = {
 		apiKey: auth.apiKey,
-		reportID: localStorage.getItem("draftReportId"),
+		// reportID: localStorage.getItem("draftReportId"),
+		reportID: repID,
 		email: enteredShare,
 		type
 	};
@@ -406,6 +417,7 @@ function GenReport() {
 
 	const deleteReportHandler = async () => {
 		const resultDetails = {
+			// reportID: localStorage.getItem("draftReportId"),
 			reportID: localStorage.getItem("draftReportId"),
 			apiKey: auth.apiKey
 		};
@@ -422,7 +434,8 @@ function GenReport() {
 
 	const cloneReportHandler = async () => {
 		const resultDetails = {
-			reportID: localStorage.getItem("draftReportId"),
+			// reportID: localStorage.getItem("draftReportId"),
+			reportID: repID,
 			apiKey: auth.apiKey
 		};
 
@@ -664,7 +677,7 @@ function GenReport() {
 					<div className="grid grid-cols gap-4 content-center">{apiResponse}</div>
 
 					<div className="flex justify-center mb-20">
-						<Link to="/getPublishedReport">
+						<Link to={newReportLink}>
 							{/* <button
 						onClick={publishHandler}
 						type="submit"
@@ -687,4 +700,4 @@ function GenReport() {
 	);
 }
 
-export default GenReport;
+export default DraftReport;

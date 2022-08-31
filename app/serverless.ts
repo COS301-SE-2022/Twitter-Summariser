@@ -1,7 +1,7 @@
 import type {AWS}
 from "@serverless/typescript";
 import {verifyJWT} from "@functions/authorizers";
-import {genScheduledReport, reportScheduler} from "@functions/schedulers";
+import {genScheduledReport, reportScheduler, deleteEventRules} from "@functions/schedulers";
 import {
     getAllCreators,
     addCreator,
@@ -76,13 +76,22 @@ const serverlessConfiguration: AWS = {
                         Effect: "Allow",
                         Action: [
                             "events:PutEvents",
-                            "events:PutTargets",
+                            "events:putTargets",
                             "events:PutRule",
                             "events:DescribeRule",
                             "events:DeleteRule",
                             "events:DeleteTargets",
+                            "events:RemoveTargets",
                             "events:DescribeTargets",
                             "events:DescribeEventBus"
+                        ],
+                        Resource: "*"
+                    },
+                    {
+                        Sid: "PermissionForLambda",
+                        Effect: "Allow",
+                        "Action": [
+                            "lambda:AddPermission"
                         ],
                         Resource: "*"
                     }
@@ -120,7 +129,8 @@ const serverlessConfiguration: AWS = {
         deleteUser,
         profileImageUpload,
         reportScheduler,
-        genScheduledReport
+        genScheduledReport,
+        deleteEventRules
     },
 
     package: {

@@ -8,11 +8,11 @@ export const reportScheduler = {
 			http: {
 				method: "post",
 				path: "reportScheduler/",
-				cors: true,
+				cors: true/*,
 				authorizer: {
 					name: "verifyJWT",
 					type: "Token"
-				}
+				}*/
 			}
 		}
 	]
@@ -20,13 +20,23 @@ export const reportScheduler = {
 
 export const genScheduledReport = {
 	handler: `${handlerPath(__dirname)}/handler.genScheduledReport`,
-	description: "Function that checks which scheduled reports to make"/*,
+	description: "Function that checks which scheduled reports to make",
+};
+
+export const deleteEventRules = {
+	handler: `${handlerPath(__dirname)}/handler.deleteEventRules`,
+	description: "Function that deletes schedules",
 	events: [
 		{
-			schedule: {
-				rate: ["rate(1 hour)"],
-				enabled: true
+			http: {
+				method: "post",
+				path: "deleteSchedule/",
+				cors: true/*,
+				authorizer: {
+					name: "verifyJWT",
+					type: "Token"
+				}*/
 			}
 		}
-	]*/
+	]
 };

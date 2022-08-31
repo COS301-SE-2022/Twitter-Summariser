@@ -78,6 +78,8 @@ export default class ReportService {
 					rp.push({ blockType: "RICHTEXT", position: x, block: null });
 					count++;
 				}
+			}else if(!bl && x===0){
+				rp.push({ blockType: "RICHTEXT", position: x, block: null });
 			}
 			bl = false;
 		}

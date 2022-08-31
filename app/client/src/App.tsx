@@ -23,8 +23,8 @@ import Drafts from "./components/Drafts";
 import Shared from "./components/Shared";
 import History from "./components/History";
 import Profile from "./components/Profile";
-import GenReport from "./components/GenReport";
-import GetPublishedReport from "./components/GetPublishedReport";
+import DraftReport from "./components/DraftReport";
+import Report from "./components/Report";
 import ViewHistory from "./components/ViewHistory";
 import Splash from "./components/Splash";
 import PersistLogin from "./components/PersistLogin";
@@ -58,8 +58,8 @@ function App() {
 							<Route path="drafts" element={<Drafts />} />
 							<Route path="shared" element={<Shared />} />
 							<Route path="profile" element={<Profile />} />
-							<Route path="genReport" element={<GenReport />} />
-							<Route path="getPublishedReport" element={<GetPublishedReport />} />
+							<Route path="draftReport/*" element={<DraftReport />} />
+							<Route path="report/*" element={<Report />} />
 							<Route path="history" element={<History />} />
 							<Route path="viewHistory" element={<ViewHistory />} />
 						</Route>
