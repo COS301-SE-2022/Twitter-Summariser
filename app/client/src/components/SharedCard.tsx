@@ -4,6 +4,10 @@ import Button from "./Button";
 function SharedCard(props: any) {
 	const navigate = useNavigate();
 
+	const repID = props.data.reportID;
+	const newDraftReportLink = `/draftReport/${repID}`;
+	const newReportLink = `/report/${repID}`;
+
 	let viewPermission = "";
 
 	const viewReport = () => {
@@ -12,36 +16,36 @@ function SharedCard(props: any) {
 		}
 		else{
 			viewPermission = "VIEW";
-			console.log("viewPermission");
+			// console.log("viewPermission");
 			// console.log(viewPermission);
 		}
 
 		if(viewPermission === "VIEW"){
-				if (localStorage.getItem("reportId")) {
-					localStorage.removeItem("reportId");
-					localStorage.setItem("reportId", props.data.reportID);
-				} else {
-					localStorage.setItem("reportId", props.data.reportID);
-				}
+				// if (localStorage.getItem("reportId")) {
+				// 	localStorage.removeItem("reportId");
+				// 	localStorage.setItem("reportId", props.data.reportID);
+				// } else {
+				// 	localStorage.setItem("reportId", props.data.reportID);
+				// }
 
 				// console.log("here");
-				navigate('/report');
+				navigate(newReportLink);
 		}
-		else if (localStorage.getItem("draftReportId")) {
-			localStorage.removeItem("draftReportId");
-			localStorage.setItem("draftReportId", props.data.reportID);
-			navigate('/draftReport');
-		}
+		// else if (localStorage.getItem("draftReportId")) {
+		// 	localStorage.removeItem("draftReportId");
+		// 	localStorage.setItem("draftReportId", props.data.reportID);
+		// 	navigate('/draftReport');
+		// }
 		else {
-			localStorage.setItem("draftReportId", props.data.reportID);
-			navigate('/draftReport');
+			// localStorage.setItem("draftReportId", props.data.reportID);
+			navigate(newDraftReportLink);
 		}
 
 
 
 	};
 
-	console.log(props);
+	// console.log(props);
 	return (
 		// <div>
 		// 	<div className="m-4 w-auto h-20 rounded-md flex flex-row justify-between items-center p-2">
