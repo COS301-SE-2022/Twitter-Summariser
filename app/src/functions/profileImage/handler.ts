@@ -1,5 +1,5 @@
-import { statusCodes } from "@functions/resources/APIresponse";
 import { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from "aws-lambda";
+import { header, statusCodes } from "@functions/resources/APIresponse";
 import * as fileType from "file-type";
 import * as AWS from "aws-sdk";
 import middy from "@middy/core";
@@ -18,6 +18,7 @@ export const profileImageUpload = middy(async (event: APIGatewayProxyEventV2): P
         if (!body || !body.image || !body.mime) {
             return {
                 statusCode: statusCodes.badRequest,
+                headers: header,
                 body: JSON.stringify({
                     message: "Incorrect body on request"
                 })
@@ -27,6 +28,7 @@ export const profileImageUpload = middy(async (event: APIGatewayProxyEventV2): P
         if (!allowedMimes.includes(body.mime)) {
             return {
                 statusCode: statusCodes.badRequest,
+                headers: header,
                 body: JSON.stringify({
                     message: "Mime is not allowed"
                 })
@@ -42,6 +44,7 @@ export const profileImageUpload = middy(async (event: APIGatewayProxyEventV2): P
         if (fileMime != body.mime) {
             return {
                 statusCode: statusCodes.badRequest,
+                headers: header,
                 body: JSON.stringify({
                     message: "Mime types do not match"
                 })
@@ -49,10 +52,8 @@ export const profileImageUpload = middy(async (event: APIGatewayProxyEventV2): P
         }
 
         const jwtToken = event.headers.Authorization;
-
         const decodedToken = jwt.verify(jwtToken, process.env.ACCESS_TOKEN_SECRET);
         const key = `${decodedToken.username}.${fileExtension}`;
-        console.log("Writing image to bucket called " + key);
 
         await s3.putObject({
             Body: imageBuffer,
@@ -64,18 +65,19 @@ export const profileImageUpload = middy(async (event: APIGatewayProxyEventV2): P
 
         return {
             statusCode: statusCodes.Successful,
+            headers: header,
             body: JSON.stringify({
                 message: "Image uploaded successfully!"
             })
         }
     } catch (error) {
-        console.log(error);
+        console.error(error);
         return {
             statusCode: statusCodes.badRequest,
+            headers: header,
             body: JSON.stringify({
                 message: "Failed to upload image"
             })
         };
     }
-
 }); 
