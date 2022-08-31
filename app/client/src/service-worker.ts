@@ -13,7 +13,7 @@ import { precacheAndRoute, createHandlerBoundToURL } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
 import { StaleWhileRevalidate } from "workbox-strategies";
 import { openDB } from "idb"; 
-import { SHA256, MD5 } from "crypto-js";
+import { SHA256 } from "crypto-js";
 // import useAuth from "./hooks/useAuth";
 import bcrypjs from "bcryptjs";
 
@@ -148,7 +148,7 @@ let getValue = async (request: any) => {
 	try {
 		let url = await request.url;
 		console.log(url);
-		const id = MD5(url.toString()).toString();
+		const id = SHA256(url.toString()).toString();
 		
 		console.log(id);
 		const tx = (await dbCache).transaction(tableName, "readonly");
@@ -172,7 +172,7 @@ let getValue = async (request: any) => {
 let putValue = async (request: any, response: any) => {
 	let url = await request.url;
 	
-	const id = MD5(url.toString()).toString();
+	const id = SHA256(url.toString()).toString();
 
 	let entry = {
 		// query: body.query,
