@@ -62,7 +62,9 @@ function Login() {
 	);
 
 	useEffect(() => {
-		setValidEmail(enteredEmail.length > 0 && enteredEmail.includes("@"));
+		setValidEmail(enteredEmail.length > 0 && /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(
+			enteredEmail
+		));
 	}, [enteredEmail]);
 
 	useEffect(() => {
