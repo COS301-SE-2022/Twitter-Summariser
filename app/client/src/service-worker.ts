@@ -119,6 +119,7 @@ const staleWhileRevalidate =async (event: any) => {
 	let getPromise = fetch(event.request.clone())
 					.then((response: any) => {
 						putValue(event.request.clone(), response.clone());
+						location.reload();
 						return response;
 					})
 					.catch((err) => {
