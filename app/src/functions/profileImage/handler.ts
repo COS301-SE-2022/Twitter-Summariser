@@ -3,10 +3,6 @@ import { header, statusCodes } from "@functions/resources/APIresponse";
 import * as fileType from "file-type";
 import * as AWS from "aws-sdk";
 import middy from "@middy/core";
-import jwt from "jsonwebtoken";
-import * as dotenv from "dotenv";
-
-dotenv.config();
 
 const allowedMimes = ["image/jpeg", "image/png", "image/jpg"];
 const s3 = new AWS.S3();
@@ -15,7 +11,7 @@ export const profileImageUpload = middy(async (event: APIGatewayProxyEventV2): P
     try {
         const body = JSON.parse(event.body);
 
-        if (!body || !body.image || !body.mime) {
+        if (!body || !body.image || !body.mime|| !body.name) {
             return {
                 statusCode: statusCodes.badRequest,
                 headers: header,
@@ -23,7 +19,7 @@ export const profileImageUpload = middy(async (event: APIGatewayProxyEventV2): P
                     message: "Incorrect body on request"
                 })
             };
-        }
+        }        
 
         if (!allowedMimes.includes(body.mime)) {
             return {
@@ -51,13 +47,9 @@ export const profileImageUpload = middy(async (event: APIGatewayProxyEventV2): P
             };
         }
 
-        const jwtToken = event.headers.Authorization;
-        const decodedToken = jwt.verify(jwtToken, process.env.ACCESS_TOKEN_SECRET);
-        const key = `${decodedToken.username}.${fileExtension}`;
-
         await s3.putObject({
             Body: imageBuffer,
-            Key: key,
+            Key: `${body.name}.${fileExtension}`,
             ContentType: body.mime,
             Bucket: "twitter-summariser-images",
             ACL: "public-read"
