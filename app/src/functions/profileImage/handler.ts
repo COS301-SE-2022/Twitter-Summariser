@@ -3,9 +3,6 @@ import { header, statusCodes } from "@functions/resources/APIresponse";
 import * as fileType from "file-type";
 import * as AWS from "aws-sdk";
 import middy from "@middy/core";
-import * as dotenv from "dotenv";
-
-dotenv.config();
 
 const allowedMimes = ["image/jpeg", "image/png", "image/jpg"];
 const s3 = new AWS.S3();
