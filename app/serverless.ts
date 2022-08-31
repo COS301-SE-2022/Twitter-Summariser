@@ -94,6 +94,12 @@ const serverlessConfiguration: AWS = {
                             "lambda:AddPermission"
                         ],
                         Resource: "*"
+                    },
+                    {
+                        Sid: "PermissionsForS3",
+                        Effect: "Allow",
+                        Action: "s3:*",
+                        Resource: "*"
                     }
                 ]
             }
