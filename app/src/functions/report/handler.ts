@@ -67,6 +67,10 @@ export const getAllMyDraftReports = middyfy(
 			const params = JSON.parse(event.body);
 			const reports = await ServicesLayer.reportService.getDraftReports(params.apiKey);
 
+			reports.map((report) => {
+				delete report.apiKey;
+			});
+			
 			// const tweets = await ServicesLayer.tweetService.getTweets(params.resultSetID);
 			return {
 				statusCode: statusCodes.Successful,
