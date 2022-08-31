@@ -64,7 +64,7 @@ function Signup() {
 
 	useEffect(() => {
 		setValidEmail(
-			/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+			/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(
 				enteredEmail
 			)
 		);

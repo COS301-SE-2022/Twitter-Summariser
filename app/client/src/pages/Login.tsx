@@ -62,7 +62,9 @@ function Login() {
 	);
 
 	useEffect(() => {
-		setValidEmail(enteredEmail.length > 0 && enteredEmail.includes("@"));
+		setValidEmail(enteredEmail.length > 0 && /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(
+			enteredEmail
+		));
 	}, [enteredEmail]);
 
 	useEffect(() => {
@@ -203,12 +205,24 @@ function Login() {
 						onChange={passwordHandler}
 						value={enteredPassword}
 					/>
-					<br />
-					<br />
+					<br /> <br />
+					<div className="flex items-center mb-4">
+						<input
+							id="default-checkbox"
+							type="checkbox"
+							onChange={togglePersist}
+							checked={persist}
+							className="w-5 h-5 text-blue-600 accent-dark-cornflower-blue border rounded-md focus:ring focus:outline-none"
+						/>
+						<label htmlFor="default-checkbox" className="ml-2 text-sm font-medium">
+							Remember this device?
+						</label>
+					</div>
+				
 					{loading && (
 						<button
 							type="button"
-							className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-full items-center"
+							className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50 group hover:shadow button_large text-lg justify-center h-10 w-full items-center"
 							disabled
 						>
 							{/* <svg
@@ -229,20 +243,8 @@ function Login() {
 							disableId={!validEmail || !validPassword ? "true" : "false"}
 						/>
 					)}
-					<br />
-					<div className="flex items-center mb-4">
-						<input
-							id="default-checkbox"
-							type="checkbox"
-							onChange={togglePersist}
-							checked={persist}
-							className="w-5 h-5 text-blue-600 accent-dark-cornflower-blue border rounded-md focus:ring focus:outline-none"
-						/>
-						<label htmlFor="default-checkbox" className="ml-2 text-sm font-medium">
-							Remember this device?
-						</label>
-					</div>
-					<p className="text-[#03045E] text-md text-center font-medium">
+					
+					<p className="text-[#03045E] text-md text-center mt-6 font-medium">
 						Do not have an account?
 						<button
 							data-testid="btn-signup"
