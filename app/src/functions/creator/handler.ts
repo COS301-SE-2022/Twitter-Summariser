@@ -187,7 +187,8 @@ export const loginCreator = middyfy(
 					body: JSON.stringify({
 						accessToken,
 						email: creator.email,
-						username: creator.username
+						username: creator.username,
+						apiKey: creator.apiKey
 					})
 				};
 			}
@@ -251,7 +252,8 @@ export const refreshToken = async (event, _context, callback) => {
 					body: JSON.stringify({
 						accessToken,
 						email: creator.email,
-						username: creator.username
+						username: creator.username,
+						apiKey: creator.apiKey
 					})
 				});
 			});
