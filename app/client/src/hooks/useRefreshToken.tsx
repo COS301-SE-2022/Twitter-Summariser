@@ -13,7 +13,12 @@ function useRefreshToken() {
 			const response = await axiosPrivate.get("refresh", {
 				signal: controller.signal
 			});
-			setAuth((prev: any) => ({ ...prev, accessToken: response.data.accessToken }));
+			setAuth((prev: any) => ({
+				...prev,
+				username: response.data.username,
+				email: response.data.email,
+				accessToken: response.data.accessToken 
+			}));
 			return response.data.accessToken;
 		}
 		catch (error) {
