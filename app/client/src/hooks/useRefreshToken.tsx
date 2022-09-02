@@ -15,6 +15,7 @@ function useRefreshToken() {
 			});
 			setAuth((prev: any) => ({
 				...prev,
+				apiKey: response.data.apiKey,
 				username: response.data.username,
 				email: response.data.email,
 				accessToken: response.data.accessToken 
