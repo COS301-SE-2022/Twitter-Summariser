@@ -28,9 +28,9 @@ export const verifyJWT = (event, _context, callback) => {
 			return callback(null, authorizationResponse("MissingElements", "Deny", methodARN));
 
 		const decoded = jwt.verify(jwtToken, process.env.ACCESS_TOKEN_SECRET);
-		if (decoded && decoded.email)
-			return callback(null, authorizationResponse(decoded.email, "Allow", methodARN));
-		return callback(null, authorizationResponse(decoded.email, "Deny", methodARN));
+		if (decoded && decoded.username)
+			return callback(null, authorizationResponse(decoded.username, "Allow", methodARN));
+		return callback(null, authorizationResponse(decoded.username, "Deny", methodARN));
 	} catch (e) {
 		return callback(null, authorizationResponse("ExpiredToken", "Deny", methodARN));
 	}
