@@ -5,5 +5,5 @@ export default interface Creator {
 	username: string;
 	password: string;
 	dateRegistered: string;
-	profile: string;
+	profileKey: string;
 }
