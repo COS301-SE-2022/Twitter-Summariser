@@ -97,7 +97,7 @@ function ReportCard(props: any) {
 			</p>
 			<p className="flex mb-3 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase">
 				<span className=" font-semiboldtext-deep-purple-accent-400">
-					Draft Report - {props.data.dateCreated.substring(0, 16)}
+					Published Report - {props.data.dateCreated.substring(0, 16)}
 				</span>
 			</p>
 			<div className="flex mt-8 space-x-4 md:mt-8 items-center justify-center">
