@@ -267,7 +267,7 @@ function Home() {
 	);
 
 	const draftID = draftReport;
-	const newDraftReportLink = `/draftReport/${draftID}`;
+	const newDraftReportLink = `/report/${draftID}`;
 
 	const viewDraftReport = () => {
 		// if (localStorage.getItem("draftReportId")) {
