@@ -35,6 +35,7 @@ function Report() {
 	const [author, setAuthor] = useState("");
 	const [date, setDate] = useState("");
 	const [stat, setStat] = useState("");
+	const [perm, setPerm] = useState("");
 	const [length, setLength] = useState(0);
 	const [pageLoading, changePageLoading] = useState(true);
 	const axiosPrivate = useAxiosPrivate();
@@ -80,7 +81,7 @@ function Report() {
 				signal: controller.signal
 			});
 			// console.log(response.data.report);
-			// isMounted && setPerm(response.data.report.permission);
+			isMounted && setPerm(response.data.report.permission);
 			isMounted && setStat(response.data.report.status);
 			isMounted && setState(response.data.report.Report);
 			isMounted && setTitle(response.data.report.title);
@@ -209,16 +210,20 @@ function Report() {
 
 	const isPublished = () => stat === "PUBLISHED";
 
-	if (isPublished()) {
-		state.map((data: any, index: number) =>
-			apiResponse.push(
-				<div className="" key={data.position}>
-					{data.blockType === "RICHTEXT" && (
-						<div className="">
-							{" "}
-							<PublishedText keyValue={index} data={data} status={stat} />{" "}
-						</div>
-					)}
+const isViewer = () => perm === "VIEWER";
+
+const isOwner = () => perm === "OWNER";
+
+if(isPublished() || isViewer()) {
+	state.map((data: any, index: number) =>
+		apiResponse.push(
+			<div className="" key={data.position}>
+				{data.blockType === "RICHTEXT" && (
+					<div className="">
+						{" "}
+						<PublishedText keyValue={index} data={data} status={stat} />{" "}
+					</div>
+				)}
 
 					{data.blockType === "TWEET" && (
 						<div className=" w-full border border-gray-200 p-3" key={data.position}>
@@ -521,7 +526,7 @@ function Report() {
 		console.log(choice);
 	}
 
-	const isOwner = () => author === auth.username || title.substring(0, 4) === "Copy"; // temporary fix need PERMISSION to indicate whether person is owner or not correctly
+	// const isOwner = () => author === auth.username || title.substring(0, 4) === "Copy"; // temporary fix need PERMISSION to indicate whether person is owner or not correctly
 
 	return (
 		<div>
