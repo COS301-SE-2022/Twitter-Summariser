@@ -75,7 +75,7 @@ function History() {
 						}
 						{!loading &&
 							(history.length === 0 ? (
-								<div>You have no draft report(s) at the moment. </div>
+								<div className="mt-8">You have no draft report(s) at the moment. </div>
 							) : (
 								history.map((data) => (
 									<div
