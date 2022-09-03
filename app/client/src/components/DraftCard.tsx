@@ -1,11 +1,9 @@
 import { Link } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 function DraftCard(props: any) {
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
-	const { auth } = useAuth();
 
 	const draftID = props.data.reportID;
 	const newDraftReportLink = `/report/${draftID}`;
@@ -17,7 +15,8 @@ function DraftCard(props: any) {
 		// } else {
 		// 	localStorage.setItem("draftReportId", props.data.reportID);
 		// }
-	};
+	}; 
+	
 
 	const deleteDraftHandler = async () => {
 		const resultDetails = {
@@ -30,17 +29,18 @@ function DraftCard(props: any) {
 				signal: controller.signal
 			});
 			props.onChange(true);
+
 		} catch (error) {
 			console.error(error);
 		}
 	};
 
 	return (
-		<div className="p-8 md:w-auto sm:w-full bg-white border rounded-lg transform hover:shadow-2xl hover:scale-105 transition duration-200 ease-in">
+		<div className="pt-8 pb-8 pl-2 pr-2 m-1 mt-2 bg-white border rounded-lg transform hover:shadow-2xl hover:scale-105 transition duration-200 ease-in">
 			<div className="flex items-center justify-center">
 				<p aria-label="Author" title="Author" className="mr-3 ">
 					<img
-						src={`https://twitter-summariser-images.s3.amazonaws.com/${  auth.profileKey}`}
+						src={props.imageURL}
 						alt="avatar"
 						className="object-cover w-20 h-20 rounded-full shadow-sm"
 					/>
@@ -70,14 +70,14 @@ function DraftCard(props: any) {
 					Draft Report - {props.data.dateCreated.substring(4, 16)}
 				</span>
 			</p>
-			<div className="flex mt-8 space-x-6 md:mt-8 items-center justify-center">
+			<div className="flex mt-8 space-x-4 md:mt-8 items-center justify-center">
 				<Link to= {newDraftReportLink}>
-					<div className="items-center py-2.5 px-4 text-sm font-semibold text-center text-white bg-dark-cornflower-blue rounded-lg  hover:bg-midnight-blue group hover:shadow">
+					<div className="items-center py-2.5 px-4 text-sm font-semibold text-center text-white bg-dark-cornflower-blue rounded-sm  hover:bg-midnight-blue group hover:shadow">
 						<button	onClick={viewDraftReport} type="submit"> VIEW REPORT </button>
 					</div>
 				</Link>
-				<div className="inline-flex items-center py-2.5 px-4 text-sm font-semibold text-center bg-crimson rounded-lg text-white hover:bg-midnight-blue group hover:shadow">
-					<button	onClick={deleteDraftHandler} type="submit"> DELETE RPORT </button>
+				<div className="inline-flex items-center py-2.5 px-4 text-sm font-semibold text-center bg-crimson rounded-sm text-white hover:bg-midnight-blue group hover:shadow">
+					<button	onClick={deleteDraftHandler} type="submit"> DELETE REPORT </button>
 				</div>
 			</div>
 		</div>

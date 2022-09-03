@@ -28,6 +28,8 @@ function Login() {
 
 	const [enteredEmail, changeenteredEmail] = useState("");
 	const [validEmail, setValidEmail] = useState(false);
+	const [emailFocus, setEmailFocus] = useState(false);
+
 
 	const [enteredPassword, changeEnteredPassword] = useState("");
 	const [validPassword, setValidPassword] = useState(false);
@@ -193,11 +195,20 @@ function Login() {
 						type="text"
 						placeholder="Email"
 						required
-						className="w-60 h-10 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E]"
+						className="w-60 h-10 mb-6 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E]"
 						onChange={usernameHandler}
 						value={enteredEmail}
+						onFocus={() => setEmailFocus(true)}
+						onBlur={() => setEmailFocus(false)}
 					/>
-					<br /> <br />
+					{emailFocus && enteredEmail && !validEmail && (
+						<div className="flex flex-row border-2 rounded-md bg-gray-100 h-10 w-60 justify-center p-2 mb-0 items-center text-sm">
+							<div className="flex flex-col">
+								<p>Should be a valid email</p>
+							</div>
+						</div>
+					)}
+					<br />
 					<input
 						data-testid="password-input"
 						type="password"

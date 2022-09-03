@@ -55,7 +55,7 @@ function Explore() {
 	return (
 		<div data-testid="report">
 			{/* Api response comes here */}
-			<div className=" mt-16 p-3 ">
+			<div className=" mt-3 pt-3 ">
 				<div className=" mt-4">
 					<div className="flex flex-row justify-around">
 						<h1 className="text-3xl hidden lg:flex lg:flex-row lg:justify-center border-b pb-4 w-5/6 align-middle items-center border-slate-300">
@@ -64,25 +64,24 @@ function Explore() {
 					</div>
 
 					<div className="mt-4 flex flex-row flex-wrap justify-center">
-						<div className="mt-4 flex flex-row flex-wrap justify-center">
-							{loading && <div>{loadIcon} &nbsp; Loading Reports</div>}
-
-							{!loading &&
-								(report.length === 0 ? (
-									<div>There are no reports at the moment </div>
-								) : (
-									report.map((data) => (
-										<div
-											data-aos="fade-up"
-											data-aos-duration="500"
-											className="m-4 w-auto h-auto  flex flex-col p-2"
-											key={data.reportID}
-										>
-											<ExploreCard data={data} />
-										</div>
-									))
-								))}
-						</div>
+						{loading && 
+							<div>{loadIcon} &nbsp; Loading Reports</div>
+						}
+						{!loading &&
+							(report.length === 0 ? (
+								<div className="mt-8">There are no published reports at the moment </div>
+							) : (
+								report.map((data) => (
+									<div
+										data-aos="fade-up"
+										data-aos-duration="500"
+										className="md:ml-16 md:mr-16 m-2 w-full"
+										key={data.reportID}
+									>
+										<ExploreCard data={data} />
+									</div>
+								))
+							))}
 					</div>
 				</div>
 			</div>

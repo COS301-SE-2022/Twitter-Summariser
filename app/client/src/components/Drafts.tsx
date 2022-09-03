@@ -6,13 +6,14 @@ import useAuth from "../hooks/useAuth";
 function Drafts() {
 	const [draft, changeDraft] = useState<any[]>([]);
 	const [loading, changeLoading] = useState(true);
+	const [imageURL, changeImageURL] = useState("assets/profile.png");
 	const [shouldRender, changeShouldRender] = useState(false);
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
 	const { auth } = useAuth();
 
 	const getHistory = async (isMounted: boolean) => {
-		try {
+		try {['']
 			const response = await axiosPrivate.post(
 				"getAllMyDraftReports",
 				JSON.stringify({ apiKey: auth.apiKey }),
@@ -20,6 +21,10 @@ function Drafts() {
 			);
 			isMounted && changeDraft(response.data);
 			isMounted && changeLoading(false);
+
+			if (auth.profileKey !== "assets/profile.png")
+				changeImageURL(`https://twitter-summariser-images.s3.amazonaws.com/${auth.profileKey}`);
+			
 		} catch (error) {
 			console.error(error);
 		}
@@ -64,8 +69,7 @@ function Drafts() {
 
 	return (
 		<div>
-			{/* Api response comes here */}
-			<div className=" mt-2 pt-3 ">
+			<div className=" mt-3 pt-3 ">
 				<div className=" mt-4">
 					<div className="flex flex-row justify-around">
 						<h1 className="text-3xl hidden lg:flex lg:flex-row lg:justify-center border-b pb-4 w-5/6 align-middle items-center border-slate-300">
@@ -73,22 +77,23 @@ function Drafts() {
 						</h1>
 					</div>
 					<div className="mt-4 flex flex-row flex-wrap justify-center">
-						<div className="mt-4 flex flex-row flex-wrap justify-center">
-							{loading && <div>{loadIcon} &nbsp; Loading Drafts</div>}
-
+							{loading && 
+								<div>{loadIcon} &nbsp; Loading Drafts</div>
+							}
 							{!loading &&
 								(newDraft.length === 0 ? (
-									<div>You have no draft report(s) at the moment. </div>
+									<div className="mt-8">You have no draft report(s) at the moment. </div>
 								) : (
 									newDraft.map((data) => (
 										<div
 											data-aos="fade-up"
 											data-aos-duration="500"
-											className="m-4 w-full"
+											className="md:ml-16 md:mr-16 m-2 w-full"
 											key={data.reportID}
 										>
 											<DraftCard
 												data={data}
+												imageURL={imageURL}
 												onChange={(value: boolean) =>
 													changeShouldRender(value)
 												}
@@ -96,7 +101,7 @@ function Drafts() {
 										</div>
 									))
 								))}
-						</div>
+						{/* </div> */}
 					</div>
 				</div>
 			</div>
