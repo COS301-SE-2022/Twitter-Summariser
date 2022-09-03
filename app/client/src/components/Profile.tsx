@@ -8,8 +8,10 @@ function Profile() {
 	const { auth, setAuth } = useAuth();
 
 	const imageStyle: any = {
-		backgroundImage: (auth.profileKey === "assets/profile.png") ? "url(assets/profile.png)" : `https://twitter-summariser-images.s3.amazonaws.com/${  auth.profileKey}`
-	
+		backgroundImage:
+			auth.profileKey === "assets/profile.png"
+				? "url(assets/profile.png)"
+				: `https://twitter-summariser-images.s3.amazonaws.com/${auth.profileKey}`
 	};
 
 	// ############# ~ For Published Reports ~ ####################
@@ -36,7 +38,9 @@ function Profile() {
 			isMounted && changeLoading(false);
 
 			if (auth.profileKey !== "assets/profile.png")
-				changeImageURL(`https://twitter-summariser-images.s3.amazonaws.com/${auth.profileKey}`);
+				changeImageURL(
+					`https://twitter-summariser-images.s3.amazonaws.com/${auth.profileKey}`
+				);
 		} catch (error) {
 			console.error(error);
 		}
@@ -71,12 +75,21 @@ function Profile() {
 			const data = parts?.[1];
 
 			try {
-				const response = await axiosPrivate.post('profileImageUpload', JSON.stringify({ mime, image: data, name: auth.username, profile: auth.profileKey, email: auth.email }), { signal: controller.signal });
+				const response = await axiosPrivate.post(
+					"profileImageUpload",
+					JSON.stringify({
+						mime,
+						image: data,
+						name: auth.username,
+						profile: auth.profileKey,
+						email: auth.email
+					}),
+					{ signal: controller.signal }
+				);
 				setAuth((prev: any) => ({
 					...prev,
 					profileKey: response.data.profileKey
 				}));
-
 			} catch (error) {
 				console.error(error);
 			}
@@ -136,37 +149,36 @@ function Profile() {
 									{auth.username}&lsquo;s Reports
 								</h1>
 							</div>
-								<div
-									data-testid="reports"
-									className="mt-4 flex flex-row flex-wrap justify-center"
-								>
-									{loading && <div>{loadIcon} &nbsp; Loading My Reports</div>}
+							<div
+								data-testid="reports"
+								className="mt-4 flex flex-row flex-wrap justify-center"
+							>
+								{loading && <div>{loadIcon} &nbsp; Loading My Reports</div>}
 
-									{!loading &&
-										(report.length === 0 ? (
-											<div>
-												{auth.username} has no published report at
-												the moment{" "}
+								{!loading &&
+									(report.length === 0 ? (
+										<div>
+											{auth.username} has no published report at the moment{" "}
+										</div>
+									) : (
+										report.map((data) => (
+											<div
+												data-aos="fade-up"
+												data-aos-duration="500"
+												className="md:ml-16 md:mr-16 m-2 w-full"
+												key={data.reportID}
+											>
+												<ReportCard
+													data={data}
+													imageURL={imageURL}
+													onChange={(value: boolean) =>
+														changeShouldRender(value)
+													}
+												/>
 											</div>
-										) : (
-											report.map((data) => (
-												<div
-													data-aos="fade-up"
-													data-aos-duration="500"
-													className="md:ml-16 md:mr-16 m-2 w-full"
-													key={data.reportID}
-												>
-													<ReportCard
-														data={data}
-														imageURL={imageURL}
-														onChange={(value: boolean) =>
-															changeShouldRender(value)
-														}
-													/>
-												</div>
-											))
-										))}
-								</div>
+										))
+									))}
+							</div>
 						</div>
 					</div>
 				</div>

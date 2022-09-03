@@ -15,8 +15,7 @@ function DraftCard(props: any) {
 		// } else {
 		// 	localStorage.setItem("draftReportId", props.data.reportID);
 		// }
-	}; 
-	
+	};
 
 	const deleteDraftHandler = async () => {
 		const resultDetails = {
@@ -29,7 +28,6 @@ function DraftCard(props: any) {
 				signal: controller.signal
 			});
 			props.onChange(true);
-
 		} catch (error) {
 			console.error(error);
 		}
@@ -71,13 +69,19 @@ function DraftCard(props: any) {
 				</span>
 			</p>
 			<div className="flex mt-8 space-x-4 md:mt-8 items-center justify-center">
-				<Link to= {newDraftReportLink}>
+				<Link to={newDraftReportLink}>
 					<div className="items-center py-2.5 px-4 text-sm font-semibold text-center text-white bg-dark-cornflower-blue rounded-sm  hover:bg-midnight-blue group hover:shadow">
-						<button	onClick={viewDraftReport} type="submit"> VIEW REPORT </button>
+						<button onClick={viewDraftReport} type="submit">
+							{" "}
+							VIEW REPORT{" "}
+						</button>
 					</div>
 				</Link>
 				<div className="inline-flex items-center py-2.5 px-4 text-sm font-semibold text-center bg-crimson rounded-sm text-white hover:bg-midnight-blue group hover:shadow">
-					<button	onClick={deleteDraftHandler} type="submit"> DELETE REPORT </button>
+					<button onClick={deleteDraftHandler} type="submit">
+						{" "}
+						DELETE REPORT{" "}
+					</button>
 				</div>
 			</div>
 		</div>

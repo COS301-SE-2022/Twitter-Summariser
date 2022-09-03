@@ -64,12 +64,12 @@ function Explore() {
 					</div>
 
 					<div className="mt-4 flex flex-row flex-wrap justify-center">
-						{loading && 
-							<div>{loadIcon} &nbsp; Loading Reports</div>
-						}
+						{loading && <div>{loadIcon} &nbsp; Loading Reports</div>}
 						{!loading &&
 							(report.length === 0 ? (
-								<div className="mt-8">There are no published reports at the moment </div>
+								<div className="mt-8">
+									There are no published reports at the moment{" "}
+								</div>
 							) : (
 								report.map((data) => (
 									<div

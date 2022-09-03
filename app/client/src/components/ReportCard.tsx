@@ -8,7 +8,6 @@ function ReportCard(props: any) {
 	const repID = props.data.reportID;
 	const newReportLink = `/report/${repID}`;
 
-
 	const viewReport = () => {
 		// if (localStorage.getItem("reportId")) {
 		// 	localStorage.removeItem("reportId");
@@ -101,13 +100,19 @@ function ReportCard(props: any) {
 				</span>
 			</p>
 			<div className="flex mt-8 space-x-4 md:mt-8 items-center justify-center">
-				<Link to= {newReportLink}>
+				<Link to={newReportLink}>
 					<div className="items-center py-2.5 px-4 text-sm font-semibold text-center text-white bg-dark-cornflower-blue rounded-sm  hover:bg-midnight-blue group hover:shadow">
-						<button	onClick={viewReport} type="submit"> VIEW REPORT </button>
+						<button onClick={viewReport} type="submit">
+							{" "}
+							VIEW REPORT{" "}
+						</button>
 					</div>
 				</Link>
 				<div className="inline-flex items-center py-2.5 px-4 text-sm font-semibold text-center bg-crimson rounded-sm text-white hover:bg-midnight-blue group hover:shadow">
-					<button	onClick={deleteReportHandler} type="submit"> DELETE REPORT </button>
+					<button onClick={deleteReportHandler} type="submit">
+						{" "}
+						DELETE REPORT{" "}
+					</button>
 				</div>
 			</div>
 		</div>

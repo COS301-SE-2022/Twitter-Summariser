@@ -77,25 +77,27 @@ function Shared() {
 						</h1>
 					</div>
 					<div className="mt-4 flex flex-row flex-wrap justify-center">
-							{loading && <div>{loadIcon} &nbsp; Loading Reports Shared with me</div>}
+						{loading && <div>{loadIcon} &nbsp; Loading Reports Shared with me</div>}
 
-							{!loading &&
-								(report.length === 0 ? (
-									<div className="mt-8 pl-8 pr-8">There are no shared report(s) with you at the moment </div>
-								) : (
-									report.map((data) => (
-										<div
-											data-aos="fade-up"
-											data-aos-duration="500"
-											className="md:ml-16 md:mr-16 m-2 w-full"
-											key={data.reportID}
-										>
-											<SharedCard data={data} />
-										</div>
-									))
-								))}
-						</div>
+						{!loading &&
+							(report.length === 0 ? (
+								<div className="mt-8 pl-8 pr-8">
+									There are no shared report(s) with you at the moment{" "}
+								</div>
+							) : (
+								report.map((data) => (
+									<div
+										data-aos="fade-up"
+										data-aos-duration="500"
+										className="md:ml-16 md:mr-16 m-2 w-full"
+										key={data.reportID}
+									>
+										<SharedCard data={data} />
+									</div>
+								))
+							))}
 					</div>
+				</div>
 			</div>
 		</div>
 	);

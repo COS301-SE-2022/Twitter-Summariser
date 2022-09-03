@@ -27,7 +27,9 @@ function Reports() {
 			isMounted && changeLoading(false);
 
 			if (auth.profileKey !== "assets/profile.png")
-				changeImageURL(`https://twitter-summariser-images.s3.amazonaws.com/${auth.profileKey}`);
+				changeImageURL(
+					`https://twitter-summariser-images.s3.amazonaws.com/${auth.profileKey}`
+				);
 		} catch (error) {
 			console.error(error);
 		}
@@ -92,13 +94,13 @@ function Reports() {
 						</h1>
 					</div>
 					<div className="mt-4 flex flex-row flex-wrap justify-center">
-						{loading && 
-							<div>{loadIcon} &nbsp; Loading My Reports</div>
-						}
+						{loading && <div>{loadIcon} &nbsp; Loading My Reports</div>}
 
 						{!loading &&
 							(report.length === 0 ? (
-								<div className="mt-8">You have no published report(s) at the moment </div>
+								<div className="mt-8">
+									You have no published report(s) at the moment{" "}
+								</div>
 							) : (
 								report.map((data) => (
 									<div
@@ -110,9 +112,7 @@ function Reports() {
 										<ReportCard
 											data={data}
 											imageURL={imageURL}
-											onChange={(value: boolean) =>
-												changeShouldRender(value)
-											}
+											onChange={(value: boolean) => changeShouldRender(value)}
 										/>
 									</div>
 								))

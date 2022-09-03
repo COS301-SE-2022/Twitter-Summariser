@@ -1,10 +1,8 @@
 import { Link } from "react-router-dom";
 
 function ExploreCard(props: any) {
-
 	const repID = props.data.reportID;
 	const newReportLink = `/report/${repID}`;
-
 
 	const viewReport = () => {
 		// if (localStorage.getItem("reportId")) {
@@ -83,9 +81,12 @@ function ExploreCard(props: any) {
 				</span>
 			</p>
 			<div className="flex mt-8 space-x-4 md:mt-8 items-center justify-center">
-				<Link to = {newReportLink}>
+				<Link to={newReportLink}>
 					<div className="rounded-sm items-center py-2.5 px-16 text-sm font-semibold text-center text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow">
-						<button	onClick={viewReport} type="submit"> VIEW REPORT </button>
+						<button onClick={viewReport} type="submit">
+							{" "}
+							VIEW REPORT{" "}
+						</button>
 					</div>
 				</Link>
 			</div>

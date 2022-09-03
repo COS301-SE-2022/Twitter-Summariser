@@ -68,13 +68,19 @@ function HistoryCard(props: any) {
 				</span>
 			</p>
 			<div className="flex mt-8 space-x-4 md:mt-8 items-center justify-center">
-				<Link to= "/viewHistory">
+				<Link to="/viewHistory">
 					<div className="rounded-sm items-center py-2.5 px-2 text-sm font-semibold text-center text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow">
-						<button	onClick={setResultSet} type="submit"> VIEW HISTORY </button>
+						<button onClick={setResultSet} type="submit">
+							{" "}
+							VIEW HISTORY{" "}
+						</button>
 					</div>
 				</Link>
 				<div className="rounded-sm inline-flex items-center py-2.5 px-2 text-sm font-semibold text-center bg-crimson  text-white hover:bg-midnight-blue group hover:shadow">
-					<button	onClick={deleteHandler} type="submit"> DELETE HISTORY </button>
+					<button onClick={deleteHandler} type="submit">
+						{" "}
+						DELETE HISTORY{" "}
+					</button>
 				</div>
 			</div>
 		</div>

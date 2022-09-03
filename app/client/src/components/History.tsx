@@ -70,12 +70,12 @@ function History() {
 						</h1>
 					</div>
 					<div className="mt-4 flex flex-row flex-wrap justify-center">
-						{loading && 
-							<div>{loadIcon} &nbsp; Loading Drafts</div>
-						}
+						{loading && <div>{loadIcon} &nbsp; Loading Drafts</div>}
 						{!loading &&
 							(history.length === 0 ? (
-								<div className="mt-8">You have no draft report(s) at the moment. </div>
+								<div className="mt-8">
+									You have no draft report(s) at the moment.{" "}
+								</div>
 							) : (
 								history.map((data) => (
 									<div
@@ -86,9 +86,7 @@ function History() {
 									>
 										<HistoryCard
 											data={data}
-											onChange={(value: boolean) =>
-												changeShouldRender(value)
-											}
+											onChange={(value: boolean) => changeShouldRender(value)}
 										/>
 									</div>
 								))

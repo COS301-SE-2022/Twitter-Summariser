@@ -26,12 +26,12 @@ function Button(props: any) {
 
 	const type = (): boolean => {
 		if (props.type === "authentication") {
-			return false
+			return false;
 		}
 		return true;
 	};
 
-	const isDelete = (): boolean => (props.type === "delete");
+	const isDelete = (): boolean => props.type === "delete";
 
 	return (
 		<div>

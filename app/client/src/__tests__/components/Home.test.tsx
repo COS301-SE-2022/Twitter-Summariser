@@ -9,9 +9,11 @@ describe("Rendering Tests For Components in Home", () => {
 	// });
 
 	it("renders Home without crashing", () => {
-		render(<BrowserRouter>
-			<Home />
-		</BrowserRouter>);
+		render(
+			<BrowserRouter>
+				<Home />
+			</BrowserRouter>
+		);
 		const home = screen.getByTestId("home");
 		expect(home).toBeTruthy();
 	});
