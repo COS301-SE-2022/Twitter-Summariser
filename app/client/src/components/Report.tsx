@@ -35,6 +35,7 @@ function Report() {
 	const [author, setAuthor] = useState("");
 	const [date, setDate] = useState("");
 	const [stat, setStat] = useState("");
+	const [length, setLength] = useState(0);
 	const [pageLoading, changePageLoading] = useState(true);
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
@@ -86,9 +87,11 @@ function Report() {
 			isMounted && setTitle(response.data.report.title);
 			isMounted && setAuthor(response.data.report.author);
 			isMounted && setDate(response.data.report.dateCreated.substring(0, 16));
+			isMounted && setLength(response.data.report.numOfBlocks);
 			isMounted && changePageLoading(false);
 
 			// console.log(response.data.report);
+
 
 			if (pulseCounter === 0) {
 				changePulse(true);
@@ -101,6 +104,8 @@ function Report() {
 	useEffect(() => {
 		let isMounted = true;
 		getRep(isMounted);
+
+		// console.log(state.length);
 
 		return () => {
 			isMounted = false;
@@ -278,7 +283,7 @@ else{
 
 				{/* LAST TWEET */}
 				{data.blockType === "TWEET" &&
-					(data.position === state.length - 1) && (
+					(data.position === length-2) && (
 						<><div
 						className=" w-full p-3 flex flex-col justify-center"
 						key={data.position}
@@ -312,7 +317,7 @@ else{
 				{data.blockType === "TWEET" &&
 					!(
 						data.position === 1 ||
-						data.position === state.length - 1
+						data.position === length-2
 					) && (
 						<><div
 						className="  w-full p-3 flex flex-col justify-center"
