@@ -95,11 +95,11 @@ export const addCreator = middyfy(
 				username: params.username,
 				password: hashedPass,
 				dateRegistered: new Date().toISOString(),
-				RefreshAccessToken: ""
+				RefreshAccessToken: "",
+				profileKey: "assets/profile.png"
 			});
 
 			const response = {
-				apiKey: creator.apiKey,
 				email: creator.email,
 				username: creator.username
 			};
@@ -188,7 +188,8 @@ export const loginCreator = middyfy(
 						accessToken,
 						email: creator.email,
 						username: creator.username,
-						apiKey: creator.apiKey
+						apiKey: creator.apiKey,
+						profileKey: creator.profileKey
 					})
 				};
 			}
@@ -253,7 +254,8 @@ export const refreshToken = async (event, _context, callback) => {
 						accessToken,
 						email: creator.email,
 						username: creator.username,
-						apiKey: creator.apiKey
+						apiKey: creator.apiKey,
+						profileKey: creator.profileKey
 					})
 				});
 			});
