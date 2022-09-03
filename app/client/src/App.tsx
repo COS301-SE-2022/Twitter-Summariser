@@ -23,7 +23,7 @@ import Drafts from "./components/Drafts";
 import Shared from "./components/Shared";
 import History from "./components/History";
 import Profile from "./components/Profile";
-import DraftReport from "./components/DraftReport";
+// import DraftReport from "./components/DraftReport";
 import Report from "./components/Report";
 import ViewHistory from "./components/ViewHistory";
 import Splash from "./components/Splash";
@@ -58,7 +58,7 @@ function App() {
 							<Route path="drafts" element={<Drafts />} />
 							<Route path="shared" element={<Shared />} />
 							<Route path="profile" element={<Profile />} />
-							<Route path="draftReport/*" element={<DraftReport />} />
+							{/* <Route path="draftReport/*" element={<DraftReport />} /> */}
 							<Route path="report/*" element={<Report />} />
 							<Route path="history" element={<History />} />
 							<Route path="viewHistory" element={<ViewHistory />} />
