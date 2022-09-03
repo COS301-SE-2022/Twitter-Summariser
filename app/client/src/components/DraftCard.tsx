@@ -69,7 +69,7 @@ function DraftCard(props: any) {
 					Draft Report - {props.data.dateCreated.substring(4, 16)}
 				</span>
 			</p>
-			<div className="flex mt-4 space-x-6 md:mt-6 items-center justify-center">
+			<div className="flex mt-8 space-x-6 md:mt-8 items-center justify-center">
 				<Link to= {newDraftReportLink}>
 					<div className="items-center py-2.5 px-4 text-sm font-semibold text-center text-white bg-dark-cornflower-blue rounded-lg  hover:bg-midnight-blue group hover:shadow">
 						<button	onClick={viewDraftReport} type="submit"> VIEW REPORT </button>
