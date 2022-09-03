@@ -8,7 +8,7 @@ function DraftCard(props: any) {
 	const { auth } = useAuth();
 
 	const draftID = props.data.reportID;
-	const newDraftReportLink = `/draftReport/${draftID}`;
+	const newDraftReportLink = `/report/${draftID}`;
 
 	const viewDraftReport = () => {
 		// if (localStorage.getItem("draftReportId")) {

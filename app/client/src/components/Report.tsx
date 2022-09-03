@@ -1,18 +1,33 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
 import { GrCopy } from "react-icons/gr";
+import { BsArrowDown, BsArrowUp, BsShare } from "react-icons/bs";
+import { BiErrorCircle } from "react-icons/bi";
+import { AiOutlineCheckCircle } from "react-icons/ai";
+import { MdDeleteOutline } from "react-icons/md";
+import Text from "./Text";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Button from "./Button";
 import PublishedText from "./PublishedText";
 import "./styles/Animation.css";
+import Modal from "./Modal";
 
 function Report() {
-	// const style = { fontSize: "1.3rem" };
-	// const styleNew = { fontSize: "1.5rem", color: "green" };
+	const style = { fontSize: "1.3rem" };
+	const styleNew = { fontSize: "1.5rem", color: "green" };
 	const iconStyle3 = { fontSize: "1.5rem", color: "red" };
-	// const iconStyle4 = { fontSize: "1.8rem", color: "red" };
+	const iconStyle4 = { fontSize: "1.8rem", color: "red" };
+
+	const [share, setShare] = useState(false);
+	const [successfulShare, setSuccessfulShare] = useState(false);
+	const [enteredShare, changeEnteredShare] = useState("");
+
+	const [NAN, changeNAN] = useState(false);
+	const [type, changeType] = useState("VIEWER");
+
+	const [shouldRender, changeShouldRender] = useState(false);
 
 	const navigate = useNavigate();
 	const [state, setState] = useState([]);
@@ -20,7 +35,7 @@ function Report() {
 	const [author, setAuthor] = useState("");
 	const [date, setDate] = useState("");
 	const [stat, setStat] = useState("");
-	// const [perm, setPerm] = useState("");
+	const [length, setLength] = useState(0);
 	const [pageLoading, changePageLoading] = useState(true);
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
@@ -34,28 +49,37 @@ function Report() {
 		changeCounter(1);
 	};
 
-	let requiredData: { apiKey: string | null; reportID: string | null };
-
 	const location = useLocation();
 	const ind = location.pathname.lastIndexOf("/");
 	// console.log(location.pathname.substring(ind + 1));
 
 	const repID = location.pathname.substring(ind + 1);
-	const newDraftReportLink = `/draftReport/${repID}`;
+
+	const shareHandler = () => {
+		setSuccessfulShare(false);
+		setShare(!share);
+	};
+
+	const enteredShareHandler = (event: any) => {
+		changeNAN(false);
+		changeEnteredShare(event.target.value);
+	};
+
+	const typeHandler = (event: any) => {
+		changeType(event.target.value);
+	};
+
+	const requiredData = {
+		apiKey: auth.apiKey,
+		reportID: repID
+	};
 
 
 	const getRep = async (isMounted: boolean) => {
-		requiredData = {
-			apiKey: auth.apiKey,
-			// reportID: localStorage.getItem("reportId")
-			reportID: repID
-		};
-
 		try {
 			const response = await axiosPrivate.post("getReport", JSON.stringify(requiredData), {
 				signal: controller.signal
 			});
-			// isMounted && setPerm(response.data.report.apiKey);
 			// console.log(response.data.report);
 			// isMounted && setPerm(response.data.report.permission);
 			isMounted && setStat(response.data.report.status);
@@ -63,7 +87,11 @@ function Report() {
 			isMounted && setTitle(response.data.report.title);
 			isMounted && setAuthor(response.data.report.author);
 			isMounted && setDate(response.data.report.dateCreated.substring(0, 16));
+			isMounted && setLength(response.data.report.numOfBlocks);
 			isMounted && changePageLoading(false);
+
+			// console.log(response.data.report);
+
 
 			if (pulseCounter === 0) {
 				changePulse(true);
@@ -77,37 +105,113 @@ function Report() {
 		let isMounted = true;
 		getRep(isMounted);
 
+		// console.log(state.length);
+
 		return () => {
 			isMounted = false;
 			controller.abort();
 		};
 	}, []);
 
+	const publishReport = async (resultInfo: any) => {
+		try {
+			await axiosPrivate.post("publishReport", JSON.stringify(resultInfo), {
+				signal: controller.signal
+			});
+			changeShouldRender(true);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	if (shouldRender) {
+		const isMounted = true;
+		getRep(isMounted);
+		changeShouldRender(false);
+	}
+
+	const publishHandler = () => {
+		publishReport(requiredData);
+	};
+
 	const unpublishReport = async (resultInfo: any) => {
 		try {
 			await axiosPrivate.post("unpublishReport", JSON.stringify(resultInfo), {
 				signal: controller.signal
 			});
-
-			navigate(newDraftReportLink);
+			changeShouldRender(true);
 		} catch (error) {
 			console.error(error);
 		}
 	};
 
 	const unpublishHandler = () => {
-		requiredData = {
-			apiKey: auth.apiKey,
-			// reportID: localStorage.getItem("reportId")
-			reportID: repID
-		};
 		unpublishReport(requiredData);
-		// const reportId = String(localStorage.getItem("reportId"));
-		// localStorage.setItem("draftReportId", reportId);
 	};
 
 	const apiResponse = [<div key="begining div" />];
 
+		const reorderUpHandler = async (tweetPos: any) => {
+		const resultDetails = {
+			reportID: repID,
+			apiKey: auth.apiKey,
+			pos: tweetPos,
+			newPlace: "UP"
+		};
+
+		try {
+			await axiosPrivate.post("reorderTweets", JSON.stringify(resultDetails), {
+				signal: controller.signal
+			});
+			changeShouldRender(true);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const reorderDownHandler = async (tweetPos: any) => {
+		const resultDetails = {
+			reportID: repID,
+			apiKey: auth.apiKey,
+			pos: tweetPos,
+			newPlace: "DOWN"
+		};
+
+		// console.log(resultDetails);
+
+		try {
+			await axiosPrivate.post("reorderTweets", JSON.stringify(resultDetails), {
+				signal: controller.signal
+			});
+			changeShouldRender(true);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+// UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY
+// const deleteTweetHandler = async (blockID: any) => {
+	// 		const deleteDetails = {
+	// 			apiKey: auth.apiKey,
+	// 			reportID: localStorage.getItem("draftReportId"),
+	// 			reportBlockID: blockID
+	// 		};
+
+	// 		try {
+	// 			await axiosPrivate.post("deleteReportBlock", JSON.stringify(deleteDetails), {
+	// 				signal: controller.signal
+	// 			});
+	// 			changeShouldRender(true);
+	// 		} catch (err) {
+	// 			console.error(err);
+	// 		}
+	// 	};
+
+	// console.log(state);
+
+const isPublished = () => stat === "PUBLISHED";
+
+if(isPublished()) {
 	state.map((data: any, index: number) =>
 		apiResponse.push(
 			<div className="" key={data.position}>
@@ -130,9 +234,165 @@ function Report() {
 			</div>
 		)
 	);
+}
+else{
+	state.map((data: any, index: number) =>
+		apiResponse.push(
+			<div className="" key={data.position}>
+				{data.blockType === "RICHTEXT" && (
+					<div className="">
+						{" "}
+						<Text
+							keyValue={index}
+							data={data}
+							rID={repID}
+							onChange={(value: boolean) => changeShouldRender(value)}
+						/>{" "}
+					</div>
+				)}
 
-	// const isOwner = () => perm === "OWNER";
-	const isOwner = () => author === auth.username;
+				{/* FIRST TWEET */}
+				{data.blockType === "TWEET" && data.position === 1 && (
+					<><div className=" w-full p-3 flex flex-col justify-center" key={data.position}>
+						<Tweet
+							options={{ align: "center", width: "" }}
+							tweetId={data.block.tweetID}
+							onLoad={done} />
+						<div className="flex flex-row justify-around">
+							<div
+								className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
+								data-bs-toggle="tooltip"
+								title="Move Tweet Down"
+							>
+								<button type="submit">
+									<BsArrowDown
+										style={style}
+										onClick={() => reorderDownHandler(data.position)} />
+								</button>
+							</div>
+						</div>
+					</div>
+					{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
+					{/* <div className="w-1/6 flex text-center justify-center">
+						<button type="button" onClick={() => deleteTweetHandler(data.reportBlockID)}>
+							<MdDeleteOutline style={iconStyle3} />
+						</button>
+					</div> */}
+				</>
+				)}
+
+				{/* LAST TWEET */}
+				{data.blockType === "TWEET" &&
+					(data.position === length-2) && (
+						<><div
+						className=" w-full p-3 flex flex-col justify-center"
+						key={data.position}
+					>
+						<div className="flex flex-row justify-around">
+							<div
+								className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
+								data-bs-toggle="tooltip"
+								title="Move Tweet Up"
+							>
+								<button type="submit">
+									<BsArrowUp
+										style={style}
+										onClick={() => reorderUpHandler(data.position)} />
+								</button>
+							</div>
+						</div>
+						<Tweet
+							options={{ align: "center", width: "" }}
+							tweetId={data.block.tweetID} />
+					</div>
+					{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
+					{/* <div className="w-1/6 flex text-center justify-center">
+							<button type="button" onClick={() => deleteTweetHandler(data.reportBlockID)}>
+								<MdDeleteOutline style={iconStyle3} />
+							</button>
+						</div> */}
+						</>
+					)}
+
+				{data.blockType === "TWEET" &&
+					!(
+						data.position === 1 ||
+						data.position === length-2
+					) && (
+						<><div
+						className="  w-full p-3 flex flex-col justify-center"
+						key={data.position}
+					>
+						<div className="flex flex-row justify-around">
+							<div
+								className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
+								data-bs-toggle="tooltip"
+								title="Move Tweet Up"
+							>
+								<button type="submit">
+									<BsArrowUp
+										style={style}
+										onClick={() => reorderUpHandler(data.position)} />
+								</button>
+							</div>
+						</div>
+
+						<Tweet
+							options={{ align: "center", width: "" }}
+							tweetId={data.block.tweetID} />
+
+						<div className="flex flex-row justify-around">
+							<div
+								className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
+								data-bs-toggle="tooltip"
+								title="Move Tweet Down"
+							>
+								<button type="submit">
+									<BsArrowDown
+										style={style}
+										onClick={() => reorderDownHandler(data.position)} />
+								</button>
+							</div>
+						</div>
+					</div>
+					{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
+					{/* <div className="w-1/6 flex text-center justify-center">
+							<button type="button" onClick={() => deleteTweetHandler(data.reportBlockID)}>
+								<MdDeleteOutline style={iconStyle3} />
+							</button>
+						</div> */}
+						</>
+					)}
+			</div>
+		)
+	);
+
+	const pulseOutput = [<div key="begining div" />];
+
+	let i = 0;
+
+	while (i < apiResponse.length) {
+		pulseOutput.push(
+			<div className="border shadow rounded-md p-10 m-5 " key={i}>
+				<div className="animate-pulse flex space-x-4">
+					<div className="rounded-full bg-slate-700 h-10 w-10"> </div>
+					<div className="flex-1 space-y-6 py-1">
+						<div className="h-2 bg-slate-700 rounded"> </div>
+						<div className="space-y-3">
+							<div className="grid grid-cols-3 gap-4">
+								<div className="h-2 bg-slate-700 rounded col-span-2"> </div>
+								<div className="h-2 bg-slate-700 rounded col-span-1"> </div>
+							</div>
+							<div className="h-2 bg-slate-700 rounded"> </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		);
+
+		i++;
+	}
+}
 
 	const loadIcon = (
 		<svg
@@ -155,7 +415,6 @@ function Report() {
 
 	const cloneReportHandler = async () => {
 		const resultDetails = {
-			// reportID: localStorage.getItem("reportId"),
 			reportID: repID,
 			apiKey: auth.apiKey
 		};
@@ -196,68 +455,264 @@ function Report() {
 		i++;
 	}
 
+	const requiredDataForShare = {
+		apiKey: auth.apiKey,
+		reportID: repID,
+		email: enteredShare,
+		type
+	};
+
+	const shareReport = async (repData: any) => {
+		try {
+			const data = await axiosPrivate.post("shareReport", JSON.stringify(repData), {
+				signal: controller.signal
+			});
+
+			if (data.data === "User is not found within system.") {
+				changeNAN(true);
+			} else {
+				changeNAN(false);
+				setSuccessfulShare(true);
+				setShare(false);
+			}
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const shareSearchHandler = () => {
+		if (enteredShare !== "") {
+			shareReport(requiredDataForShare);
+		}
+	};
+
+	const deleteReportHandler = async () => {
+		const resultDetails = {
+			reportID: repID,
+			apiKey: auth.apiKey
+		};
+
+		try {
+			await axiosPrivate.post("deleteReport", JSON.stringify(resultDetails), {
+				signal: controller.signal
+			});
+			navigate("/drafts");
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const [modalOn, setModalOn] = useState(false);
+	const [choice, setChoice] = useState(false);
+
+	const clicked = () => {
+		setModalOn(true);
+	};
+
+	if (choice) {
+		console.log(choice);
+	}
+
+	const isOwner = () => author === auth.username || title.substring(0, 4) === "Copy"; // temporary fix need PERMISSION to indicate whether person is owner or not correctly
+
 	return (
 		<div>
-			{pageLoading ? (
-				<div className="flex flex-row justify-center h-screen items-center">
-					{loadIcon} &nbsp; Loading Report
-				</div>
-			) : (
-				<div className="mt-16 ">
-					{/* <div className="p-4">
-						<h1 className="text-3xl font-bold">{title}</h1>
-						<br />
-						<h2 className="italic font-bold">Created By: {author}</h2>
-						<h3 className="italic text-xs">Date Created: {date}</h3>
-					</div> */}
-					<div className="flex flex-row justify-between">
-						<div className="ml-2 p-4">
-							<h1 className="text-3xl font-bold">{title}</h1>
-							<br />
-							<h2 className="italic font-bold">Created By: {author}</h2>
-							<h3 className="italic text-xs">Date Created: {date}</h3>
-						</div>
+			{ isPublished() && <div>
+				{pageLoading ? (
+					<div className="flex flex-row justify-center h-screen items-center">
+						{loadIcon} &nbsp; Loading Report
+					</div>
+				) : (
+					<div className="mt-16 ">
+						<div className="flex flex-row justify-between">
+							<div className="ml-2 p-4">
+								<h1 className="text-3xl font-bold">{title}</h1>
+								<br />
+								<h2 className="italic font-bold">Created By: {author}</h2>
+								<h3 className="italic text-xs">Date Created: {date}</h3>
+							</div>
 
-						<div className="flex flex-row items-end p-4 justify-between items-center">
-							{/* <div className="" data-bs-toggle="tooltip" title="Clone Report">
-								<button type="submit">
-									<GrCopy style={iconStyle3} />
-								</button>
-							</div> */}
-							<div
-								className=""
-								data-bs-toggle="tooltip"
-								title="Clone Report"
-								onClick={cloneReportHandler}
-							>
-								<button type="submit">
-									<GrCopy style={iconStyle3} />
-								</button>
+							<div className="flex flex-row items-end p-4 justify-between items-center">
+								<div
+									className=""
+									data-bs-toggle="tooltip"
+									title="Clone Report"
+									onClick={cloneReportHandler}
+								>
+									<button type="submit">
+										<GrCopy style={iconStyle3} />
+									</button>
+								</div>
 							</div>
 						</div>
+
+						<br />
+
+						{pulse && pulseOutput}
+
+						<div className="grid grid-cols gap-4 content-center">{apiResponse}</div>
+
+						{isOwner() && (
+							<div className="flex justify-center mb-20">
+								{/* <Link to={newDraftReportLink}> */}
+									<Button
+										text="Unpublish Report"
+										size="large"
+										handle={unpublishHandler}
+										type="unpublish"
+									/>
+								{/* </Link> */}
+							</div>
+						)}
 					</div>
+				)}
+			</div> }
 
-					<br />
+			{ !isPublished() && <div>
+				{pageLoading ? (
+					<div className="flex flex-row justify-center h-screen items-center">
+						{loadIcon} &nbsp; Loading Report
+					</div>
+				) : (
+					<div className="mt-16 ">
+						<div className="flex flex-col">
+							<div className="flex flex-row justify-between">
+								<div className="ml-2 p-4">
+									<h1 className="text-3xl font-bold">{title}</h1>
+									<br />
+									<h2 className="italic font-bold">Created By: {author}</h2>
+									<h3 className="italic text-xs">Date Created: {date}</h3>
+								</div>
 
-					{pulse && pulseOutput}
-
-					<div className="grid grid-cols gap-4 content-center">{apiResponse}</div>
-
-					{isOwner() && (
-						<div className="flex justify-center mb-20">
-							<Link to={newDraftReportLink}>
-								<Button
-									text="Unpublish Report"
-									size="large"
-									handle={unpublishHandler}
-									type="unpublish"
-								/>
-							</Link>
+								<div className="flex flex-row items-end p-4 justify-between items-center">
+									{ isOwner() && <div className="" data-bs-toggle="tooltip" title="Share Report">
+										<button type="submit">
+											<BsShare style={style} onClick={shareHandler} />
+										</button>
+									</div>}
+									<div className="">&nbsp;&nbsp;</div>
+									<div
+										className=""
+										data-bs-toggle="tooltip"
+										title="Clone Report"
+										onClick={cloneReportHandler}
+									>
+										<button type="submit">
+											<GrCopy style={iconStyle3} />
+										</button>
+									</div>
+									<div className="" />
+									{ isOwner() && <div
+										className=""
+										data-bs-toggle="tooltip"
+										title="Delete Report"
+										onClick={deleteReportHandler}
+									>
+										<button type="submit">
+											<MdDeleteOutline style={iconStyle4} />
+										</button>
+									</div>}
+								</div>
+							</div>
+							<div className="ml-2 p-4 text-blue-500 cursor-pointer" onClick={clicked}>
+								Add Custom Tweets
+							</div>
+							{modalOn && <Modal setModalOn={setModalOn} setChoice={setChoice} func={changeShouldRender} rID={repID} />}
 						</div>
-					)}
-				</div>
-			)}
+
+						{/* search */}
+						{share && (
+							<div className="flex flex-col">
+								{NAN && (
+									<div className="flex flex-row border-2 border-red-500 rounded-md bg-red-300 h-auto w-2/4 ml-6 p-2">
+										<BiErrorCircle style={style} />
+										<p>User Does not Exist</p>
+									</div>
+								)}
+								<div className="flex justify-center p-2 border-l border-r border-gray-200 mt-16 mini-tablet:mt-0">
+									<div className="w-3/4 mb-3">
+										<input
+											data-testid="search"
+											type="search"
+											className="
+									nosubmit
+									w-full
+									px-3
+									py-1.5
+									text-lg
+									font-normal
+									text-gray-700
+									bg-clip-padding
+									border border-solid border-gray-300
+									rounded-lg
+									focus:text-gray-700 focus:bg-white focus:border-twitter-blue focus:outline-none
+									bg-gray-200
+								"
+											onChange={enteredShareHandler}
+											placeholder="enter user email ..."
+										/>
+									</div>
+								</div>
+
+								<div className="flex flex-col flex-wrap justify-around pt-3 pb-3 border border-gray-200 items-center">
+									{/*  */}
+
+									{/* this is for the Fitlering options */}
+									<div className="flex flex-row flex-wrap w-1/3 justify-center">
+										<p className="">Allow User to: </p> &nbsp;
+										<select
+											data-testid="select-filter"
+											className=" text-black text-center"
+											onChange={typeHandler}
+										>
+											<option value="VIEWER">View</option>
+											<option value="EDITOR">Edit</option>
+										</select>
+									</div>
+
+									{/* this is for the search button */}
+									<div className="flex flex-row w-1/3 justify-center pt-3">
+										<button
+											data-testid="btn-search"
+											type="submit"
+											className="button w-3/4 text-lg p-0.5"
+											onClick={shareSearchHandler}
+										>
+											Share
+										</button>
+									</div>
+								</div>
+							</div>
+						)}
+
+						{successfulShare && (
+							<div className="flex flex-row border-2 border-green-700 rounded-md bg-green-300 h-auto w-auto w-2/4 ml-6 p-2">
+								<AiOutlineCheckCircle style={styleNew} />
+								<p>Report shared successfully</p>
+							</div>
+						)}
+
+						<br />
+
+						{pulse && pulseOutput}
+
+						<div className="grid grid-cols gap-4 content-center">{apiResponse}</div>
+
+						{isOwner() && <div className="flex justify-center mb-20">
+							{/* <Link to={newReportLink}> */}
+								<Button
+									text="Publish Report"
+									size="large"
+									handle={publishHandler}
+									type="publish"
+								/>
+							{/* </Link> */}
+						</div> }
+					</div>
+				)}
+			</div>}
 		</div>
+
 	);
 }
 
