@@ -1,11 +1,9 @@
 import { Link } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 function DraftCard(props: any) {
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
-	const { auth } = useAuth();
 
 	const draftID = props.data.reportID;
 	const newDraftReportLink = `/report/${draftID}`;
@@ -17,7 +15,8 @@ function DraftCard(props: any) {
 		// } else {
 		// 	localStorage.setItem("draftReportId", props.data.reportID);
 		// }
-	};
+	}; 
+	
 
 	const deleteDraftHandler = async () => {
 		const resultDetails = {
@@ -30,6 +29,7 @@ function DraftCard(props: any) {
 				signal: controller.signal
 			});
 			props.onChange(true);
+
 		} catch (error) {
 			console.error(error);
 		}
@@ -40,7 +40,7 @@ function DraftCard(props: any) {
 			<div className="flex items-center justify-center">
 				<p aria-label="Author" title="Author" className="mr-3 ">
 					<img
-						src={`https://twitter-summariser-images.s3.amazonaws.com/${auth.profileKey}`}
+						src={props.imageURL}
 						alt="avatar"
 						className="object-cover w-20 h-20 rounded-full shadow-sm"
 					/>

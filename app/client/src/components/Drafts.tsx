@@ -6,6 +6,7 @@ import useAuth from "../hooks/useAuth";
 function Drafts() {
 	const [draft, changeDraft] = useState<any[]>([]);
 	const [loading, changeLoading] = useState(true);
+	const [imageURL, changeImageURL] = useState("assets/profile.png");
 	const [shouldRender, changeShouldRender] = useState(false);
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
@@ -20,6 +21,10 @@ function Drafts() {
 			);
 			isMounted && changeDraft(response.data);
 			isMounted && changeLoading(false);
+
+			if (auth.profileKey !== "assets/profile.png")
+				changeImageURL(`https://twitter-summariser-images.s3.amazonaws.com/${auth.profileKey}`);
+			
 		} catch (error) {
 			console.error(error);
 		}
@@ -77,7 +82,7 @@ function Drafts() {
 							}
 							{!loading &&
 								(newDraft.length === 0 ? (
-									<div>You have no draft report(s) at the moment. </div>
+									<div className="mt-8">You have no draft report(s) at the moment. </div>
 								) : (
 									newDraft.map((data) => (
 										<div
@@ -88,6 +93,7 @@ function Drafts() {
 										>
 											<DraftCard
 												data={data}
+												imageURL={imageURL}
 												onChange={(value: boolean) =>
 													changeShouldRender(value)
 												}
