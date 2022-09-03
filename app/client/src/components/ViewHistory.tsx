@@ -85,7 +85,7 @@ function ViewHistory() {
 	};
 
 	const draftID = draftReport;
-	const newDraftReportLink = `/draftReport/${draftID}`;
+	const newDraftReportLink = `/report/${draftID}`;
 
 	const viewDraftReport = () => {
 		// localStorage.setItem("draftReportId", draftReport);
