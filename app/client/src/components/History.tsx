@@ -66,16 +66,16 @@ function History() {
 				<div className=" mt-4">
 					<div className="flex flex-row justify-around">
 						<h1 className="text-3xl hidden lg:flex lg:flex-row lg:justify-center border-b pb-4 w-5/6 align-middle items-center border-slate-300">
-							Drafts
+							Search Result History
 						</h1>
 					</div>
 					<div className="mt-4 flex flex-row flex-wrap justify-center">
-						{loading && 
-							<div>{loadIcon} &nbsp; Loading Drafts</div>
-						}
+						{loading && <div>{loadIcon} &nbsp; Loading Drafts</div>}
 						{!loading &&
 							(history.length === 0 ? (
-								<div className="mt-8">You have no draft report(s) at the moment. </div>
+								<div className="mt-8 pr-8 pl-8">
+									You have no searches at the moment.
+								</div>
 							) : (
 								history.map((data) => (
 									<div
@@ -86,9 +86,7 @@ function History() {
 									>
 										<HistoryCard
 											data={data}
-											onChange={(value: boolean) =>
-												changeShouldRender(value)
-											}
+											onChange={(value: boolean) => changeShouldRender(value)}
 										/>
 									</div>
 								))

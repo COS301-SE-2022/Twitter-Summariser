@@ -30,7 +30,6 @@ function Login() {
 	const [validEmail, setValidEmail] = useState(false);
 	const [emailFocus, setEmailFocus] = useState(false);
 
-
 	const [enteredPassword, changeEnteredPassword] = useState("");
 	const [validPassword, setValidPassword] = useState(false);
 
@@ -64,9 +63,9 @@ function Login() {
 	);
 
 	useEffect(() => {
-		setValidEmail(enteredEmail.length > 0 && /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(
-			enteredEmail
-		));
+		setValidEmail(
+			enteredEmail.length > 0 && /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(enteredEmail)
+		);
 	}, [enteredEmail]);
 
 	useEffect(() => {
@@ -115,7 +114,7 @@ function Login() {
 			const { email } = response.data;
 			const { apiKey } = response.data;
 			const { profileKey } = response.data;
-			
+
 			await setAuth({ username, accessToken, email, apiKey, profileKey });
 			navigate(from, { replace: true });
 		} catch (err) {
@@ -231,7 +230,6 @@ function Login() {
 							Remember this device?
 						</label>
 					</div>
-				
 					{loading && (
 						<button
 							type="button"
@@ -256,7 +254,6 @@ function Login() {
 							disableId={!validEmail || !validPassword ? "true" : "false"}
 						/>
 					)}
-					
 					<p className="text-[#03045E] text-md text-center mt-6 font-medium">
 						Do not have an account?
 						<button
