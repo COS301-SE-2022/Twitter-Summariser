@@ -18,7 +18,8 @@ function useRefreshToken() {
 				apiKey: response.data.apiKey,
 				username: response.data.username,
 				email: response.data.email,
-				accessToken: response.data.accessToken 
+				accessToken: response.data.accessToken,
+				profileKey: response.data.profileKey
 			}));
 			return response.data.accessToken;
 		}
