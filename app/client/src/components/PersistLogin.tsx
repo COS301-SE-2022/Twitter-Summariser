@@ -32,7 +32,7 @@ function PersistLogin() {
 		!auth.accessToken ? verifyRefreshToken() : setIsLoading(false);
 	}, [auth.accessToken, navigate, persist, refresh]);
 
-	return <>{isLoading ? <div className="flex justify-center flex-col flex-row items-center h-screen w-screen"><ScaleLoader color="#023E8A"/></div> : <Outlet />}</>;
+	return <>{isLoading ? <div className="flex justify-center flex-col flex-row items-center h-screen w-screen"><ScaleLoader height={100} width={5} color="#023E8A"/></div> : <Outlet />}</>;
 }
 
 export default PersistLogin;
