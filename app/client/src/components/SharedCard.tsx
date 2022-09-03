@@ -5,7 +5,7 @@ function SharedCard(props: any) {
 	const navigate = useNavigate();
 
 	const repID = props.data.reportID;
-	const newDraftReportLink = `/draftReport/${repID}`;
+	// const newDraftReportLink = `/draftReport/${repID}`;
 	const newReportLink = `/report/${repID}`;
 
 	let viewPermission = "";
@@ -38,7 +38,7 @@ function SharedCard(props: any) {
 		// }
 		else {
 			// localStorage.setItem("draftReportId", props.data.reportID);
-			navigate(newDraftReportLink);
+			navigate(newReportLink);
 		}
 
 
