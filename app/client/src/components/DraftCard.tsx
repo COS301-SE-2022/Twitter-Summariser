@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
-// import Button from "./Button";
 
 function DraftCard(props: any) {
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
+	const { auth } = useAuth();
 
 	const draftID = props.data.reportID;
 	const newDraftReportLink = `/draftReport/${draftID}`;
@@ -39,7 +40,7 @@ function DraftCard(props: any) {
 			<div className="flex items-center justify-center">
 				<p aria-label="Author" title="Author" className="mr-3 ">
 					<img
-						src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
+						src={`https://twitter-summariser-images.s3.amazonaws.com/${  auth.profileKey}`}
 						alt="avatar"
 						className="object-cover w-20 h-20 rounded-full shadow-sm"
 					/>
