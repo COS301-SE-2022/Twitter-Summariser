@@ -5,7 +5,7 @@ import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import useAuth from "../hooks/useAuth";
 
 function Profile() {
-	const { auth } = useAuth();
+	const { auth, setAuth } = useAuth();
 
 	const userInformation = {
 		apiKey: auth.apiKey,
@@ -72,7 +72,11 @@ function Profile() {
 			const data = parts?.[1];
 
 			try {
-				await axiosPrivate.post('profileImageUpload', JSON.stringify({ mime, image: data, name: auth.username }), { signal: controller.signal });
+				const response = await axiosPrivate.post('profileImageUpload', JSON.stringify({ mime, image: data, name: auth.username, profile: auth.profileKey, email: auth.email }), { signal: controller.signal });
+				setAuth((prev: any) => ({
+					...prev,
+					profileKey: response.data.profileKey
+				}));
 			} catch (error) {
 				console.error(error);
 			}
