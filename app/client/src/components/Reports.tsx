@@ -98,7 +98,7 @@ function Reports() {
 
 						{!loading &&
 							(report.length === 0 ? (
-								<div className="mt-8">
+								<div className="mt-8 pr-8 pl-8">
 									You have no published report(s) at the moment{" "}
 								</div>
 							) : (

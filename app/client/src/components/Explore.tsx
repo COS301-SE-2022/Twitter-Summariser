@@ -67,7 +67,7 @@ function Explore() {
 						{loading && <div>{loadIcon} &nbsp; Loading Reports</div>}
 						{!loading &&
 							(report.length === 0 ? (
-								<div className="mt-8">
+								<div className="mt-8 pr-8 pl-8">
 									There are no published reports at the moment{" "}
 								</div>
 							) : (

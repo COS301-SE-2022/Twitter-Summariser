@@ -82,7 +82,7 @@ function Drafts() {
 						{loading && <div>{loadIcon} &nbsp; Loading Drafts</div>}
 						{!loading &&
 							(newDraft.length === 0 ? (
-								<div className="mt-8">
+								<div className="mt-8 pr-8 pl-8">
 									You have no draft report(s) at the moment.{" "}
 								</div>
 							) : (
