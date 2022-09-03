@@ -26,7 +26,8 @@ describe("creator.service", () => {
 				username: "test",
 				password: hashed,
 				dateRegistered: "2022-01-01T00:00:00.000Z",
-				RefreshAccessToken: ""
+				RefreshAccessToken: "",
+				profileKey: "assets/profile.png"
 			};
 
 			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Item: [test] }));
@@ -119,7 +120,8 @@ describe("creator.service", () => {
 				username: "test",
 				password: "password",
 				dateRegistered: "2022-01-01T00:00:00.000Z",
-				RefreshAccessToken: ""
+				RefreshAccessToken: "",
+				profileKey: "assets/profile.png"
 			};
 
 			await CreatorServices.creatorService.addCreator(creator);
