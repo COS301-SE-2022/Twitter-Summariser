@@ -16,6 +16,7 @@ function Profile() {
 
 	const [report, changeReport] = useState<any[]>([]);
 	const [loading, changeLoading] = useState(true);
+	const [imageURL, changeImageURL] = useState("assets/profile.png");
 	const [shouldRender, changeShouldRender] = useState(false);
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
@@ -33,6 +34,9 @@ function Profile() {
 			);
 			isMounted && changeReport(response.data);
 			isMounted && changeLoading(false);
+
+			if (auth.profileKey !== "assets/profile.png")
+				changeImageURL(`https://twitter-summariser-images.s3.amazonaws.com/${auth.profileKey}`);
 		} catch (error) {
 			console.error(error);
 		}
@@ -101,7 +105,7 @@ function Profile() {
 	// ###########################################################
 	return (
 		<div data-testid="profile">
-			<div className="flex flex-col items-center mt-3 p-3">
+			<div className="flex flex-col items-center mt-3">
 				{/* div for the image */}
 				<div className="avatar-upload">
 					<div className="avatar-edit">
@@ -125,14 +129,13 @@ function Profile() {
 
 				<div data-testid="report">
 					{/* Api response comes here */}
-					<div className=" mt-4 p-3">
+					<div className=" mt-4">
 						<div>
 							<div className="flex flex-row justify-around">
 								<h1 className="text-3xl flex flex-row justify-center border-b pb-4 w-5/6 align-middle items-center border-slate-300">
 									{auth.username}&lsquo;s Reports
 								</h1>
 							</div>
-							<div className="mt-4 flex flex-row flex-wrap justify-center">
 								<div
 									data-testid="reports"
 									className="mt-4 flex flex-row flex-wrap justify-center"
@@ -150,11 +153,12 @@ function Profile() {
 												<div
 													data-aos="fade-up"
 													data-aos-duration="500"
-													className="m-4 w-auto h-auto  flex flex-col p-2"
+													className="md:ml-16 md:mr-16 m-2 w-full"
 													key={data.reportID}
 												>
 													<ReportCard
 														data={data}
+														imageURL={imageURL}
 														onChange={(value: boolean) =>
 															changeShouldRender(value)
 														}
@@ -163,7 +167,6 @@ function Profile() {
 											))
 										))}
 								</div>
-							</div>
 						</div>
 					</div>
 				</div>
