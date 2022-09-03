@@ -35,7 +35,6 @@ function Report() {
 	const [author, setAuthor] = useState("");
 	const [date, setDate] = useState("");
 	const [stat, setStat] = useState("");
-	// const [perm, setPerm] = useState("");
 	const [pageLoading, changePageLoading] = useState(true);
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
@@ -49,14 +48,11 @@ function Report() {
 		changeCounter(1);
 	};
 
-	// let requiredData: { apiKey: string | null; reportID: string | null };
-
 	const location = useLocation();
 	const ind = location.pathname.lastIndexOf("/");
 	// console.log(location.pathname.substring(ind + 1));
 
 	const repID = location.pathname.substring(ind + 1);
-	// const newDraftReportLink = `/draftReport/${repID}`;
 
 	const shareHandler = () => {
 		setSuccessfulShare(false);
@@ -75,22 +71,14 @@ function Report() {
 	const requiredData = {
 		apiKey: auth.apiKey,
 		reportID: repID
-		// reportID: localStorage.getItem("draftReportId")
 	};
 
 
 	const getRep = async (isMounted: boolean) => {
-		// requiredData = {
-		// 	apiKey: auth.apiKey,
-		// 	// reportID: localStorage.getItem("reportId")
-		// 	reportID: repID
-		// };
-
 		try {
 			const response = await axiosPrivate.post("getReport", JSON.stringify(requiredData), {
 				signal: controller.signal
 			});
-			// isMounted && setPerm(response.data.report.apiKey);
 			// console.log(response.data.report);
 			// isMounted && setPerm(response.data.report.permission);
 			isMounted && setStat(response.data.report.status);
@@ -125,7 +113,6 @@ function Report() {
 			await axiosPrivate.post("publishReport", JSON.stringify(resultInfo), {
 				signal: controller.signal
 			});
-			// navigate(newReportLink);
 			changeShouldRender(true);
 		} catch (error) {
 			console.error(error);
@@ -140,8 +127,6 @@ function Report() {
 
 	const publishHandler = () => {
 		publishReport(requiredData);
-		// const draftId = String(localStorage.getItem("draftReportId"));
-		// localStorage.setItem("reportId", draftId);
 	};
 
 	const unpublishReport = async (resultInfo: any) => {
@@ -149,8 +134,6 @@ function Report() {
 			await axiosPrivate.post("unpublishReport", JSON.stringify(resultInfo), {
 				signal: controller.signal
 			});
-
-			// navigate(newDraftReportLink);
 			changeShouldRender(true);
 		} catch (error) {
 			console.error(error);
@@ -158,21 +141,13 @@ function Report() {
 	};
 
 	const unpublishHandler = () => {
-		// requiredData = {
-		// 	apiKey: auth.apiKey,
-		// 	// reportID: localStorage.getItem("reportId")
-		// 	reportID: repID
-		// };
 		unpublishReport(requiredData);
-		// const reportId = String(localStorage.getItem("reportId"));
-		// localStorage.setItem("draftReportId", reportId);
 	};
 
 	const apiResponse = [<div key="begining div" />];
 
 		const reorderUpHandler = async (tweetPos: any) => {
 		const resultDetails = {
-			// reportID: localStorage.getItem("draftReportId"),
 			reportID: repID,
 			apiKey: auth.apiKey,
 			pos: tweetPos,
@@ -191,7 +166,6 @@ function Report() {
 
 	const reorderDownHandler = async (tweetPos: any) => {
 		const resultDetails = {
-			// reportID: localStorage.getItem("draftReportId"),
 			reportID: repID,
 			apiKey: auth.apiKey,
 			pos: tweetPos,
@@ -211,6 +185,24 @@ function Report() {
 	};
 
 // UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY
+// const deleteTweetHandler = async (blockID: any) => {
+	// 		const deleteDetails = {
+	// 			apiKey: auth.apiKey,
+	// 			reportID: localStorage.getItem("draftReportId"),
+	// 			reportBlockID: blockID
+	// 		};
+
+	// 		try {
+	// 			await axiosPrivate.post("deleteReportBlock", JSON.stringify(deleteDetails), {
+	// 				signal: controller.signal
+	// 			});
+	// 			changeShouldRender(true);
+	// 		} catch (err) {
+	// 			console.error(err);
+	// 		}
+	// 	};
+
+	// console.log(state);
 
 const isPublished = () => stat === "PUBLISHED";
 
@@ -283,24 +275,6 @@ else{
 					</div> */}
 				</>
 				)}
-				{/* {data.blockType === "TWEET" && data.position > 1 && data.position < state.length-3 && (
-					<div className=" w-full border border-gray-200 p-3" key={data.position}>
-						<Tweet
-							options={{ align: "center", width: "" }}
-							tweetId={data.block.tweetID}
-						/>
-						<div className="" data-bs-toggle="tooltip" title="Move Tweet Up">
-							<button type="submit">
-								<BsArrowUp style={style} onClick={() => reorderUpHandler(data.position)} />
-							</button>
-						</div>
-						<div className="" data-bs-toggle="tooltip" title="Move Tweet Down">
-							<button type="submit">
-								<BsArrowDown style={style} onClick={() => reorderDownHandler(data.position)} />
-							</button>
-						</div>
-					</div>
-				)} */}
 
 				{/* LAST TWEET */}
 				{data.blockType === "TWEET" &&
@@ -384,26 +358,6 @@ else{
 						</div> */}
 						</>
 					)}
-
-				{/* {data.blockType === "TWEET" && (
-					<div className=" w-full border border-gray-200 p-3" key={data.position}>
-						<Tweet
-							options={{ align: "center", width: "" }}
-							tweetId={data.block.tweetID}
-						/>
-						<div className="" data-bs-toggle="tooltip" title="Move Tweet Up">
-							<button type="submit">
-								<BsArrowUp style={style} onClick={() => reorderUpHandler(data.position)} />
-							</button>
-						</div>
-						<div className="" data-bs-toggle="tooltip" title="Move Tweet Down">
-							<button type="submit">
-								<BsArrowDown style={style} onClick={() => reorderDownHandler(data.position)} />
-							</button>
-						</div>
-					</div>
-
-				)} */}
 			</div>
 		)
 	);
@@ -435,40 +389,6 @@ else{
 	}
 }
 
-
-
-	// state.map((data: any, index: number) =>
-	// 	apiResponse.push(
-	// 		<div className="" key={data.position}>
-	// 			{data.blockType === "RICHTEXT" && (
-	// 				<div className="">
-	// 					{" "}
-	// 					<PublishedText keyValue={index} data={data} status={stat} />{" "}
-	// 				</div>
-	// 			)}
-
-	// 			{data.blockType === "TWEET" && (
-	// 				<div className=" w-full border border-gray-200 p-3" key={data.position}>
-	// 					<Tweet
-	// 						options={{ align: "center", width: "" }}
-	// 						tweetId={data.block.tweetID}
-	// 						onLoad={done}
-	// 					/>
-	// 				</div>
-	// 			)}
-	// 		</div>
-	// 	)
-	// );
-
-	// const isOwner = () => perm === "OWNER";
-	// const isOwner = () => author === auth.username;
-
-
-
-	// if(!isPublished()){
-
-	// }
-
 	const loadIcon = (
 		<svg
 			role="status"
@@ -490,7 +410,6 @@ else{
 
 	const cloneReportHandler = async () => {
 		const resultDetails = {
-			// reportID: localStorage.getItem("reportId"),
 			reportID: repID,
 			apiKey: auth.apiKey
 		};
@@ -533,7 +452,6 @@ else{
 
 	const requiredDataForShare = {
 		apiKey: auth.apiKey,
-		// reportID: localStorage.getItem("draftReportId"),
 		reportID: repID,
 		email: enteredShare,
 		type
@@ -565,7 +483,6 @@ else{
 
 	const deleteReportHandler = async () => {
 		const resultDetails = {
-			// reportID: localStorage.getItem("draftReportId"),
 			reportID: repID,
 			apiKey: auth.apiKey
 		};
@@ -580,23 +497,6 @@ else{
 		}
 	};
 
-	// const cloneReportHandler = async () => {
-	// 	const resultDetails = {
-	// 		// reportID: localStorage.getItem("draftReportId"),
-	// 		reportID: repID,
-	// 		apiKey: auth.apiKey
-	// 	};
-
-	// 	try {
-	// 		await axiosPrivate.post("cloneReport", JSON.stringify(resultDetails), {
-	// 			signal: controller.signal
-	// 		});
-	// 		navigate("/drafts");
-	// 	} catch (err) {
-	// 		console.error(err);
-	// 	}
-	// };
-
 	const [modalOn, setModalOn] = useState(false);
 	const [choice, setChoice] = useState(false);
 
@@ -610,8 +510,6 @@ else{
 
 	const isOwner = () => author === auth.username || title.substring(0, 4) === "Copy"; // temporary fix need PERMISSION to indicate whether person is owner or not correctly
 
-
-
 	return (
 		<div>
 			{ isPublished() && <div>
@@ -621,12 +519,6 @@ else{
 					</div>
 				) : (
 					<div className="mt-16 ">
-						{/* <div className="p-4">
-							<h1 className="text-3xl font-bold">{title}</h1>
-							<br />
-							<h2 className="italic font-bold">Created By: {author}</h2>
-							<h3 className="italic text-xs">Date Created: {date}</h3>
-						</div> */}
 						<div className="flex flex-row justify-between">
 							<div className="ml-2 p-4">
 								<h1 className="text-3xl font-bold">{title}</h1>
@@ -636,11 +528,6 @@ else{
 							</div>
 
 							<div className="flex flex-row items-end p-4 justify-between items-center">
-								{/* <div className="" data-bs-toggle="tooltip" title="Clone Report">
-									<button type="submit">
-										<GrCopy style={iconStyle3} />
-									</button>
-								</div> */}
 								<div
 									className=""
 									data-bs-toggle="tooltip"
@@ -699,11 +586,6 @@ else{
 										</button>
 									</div>}
 									<div className="">&nbsp;&nbsp;</div>
-									{/* <div className="" data-bs-toggle="tooltip" title="Clone Report">
-									<button type="submit">
-										<GrCopy style={iconStyle3} />
-									</button>
-								</div> */}
 									<div
 										className=""
 										data-bs-toggle="tooltip"
@@ -732,47 +614,6 @@ else{
 							</div>
 							{modalOn && <Modal setModalOn={setModalOn} setChoice={setChoice} func={changeShouldRender} rID={repID} />}
 						</div>
-
-						{/* {share && (
-					<div className="flex flex-col">
-						{NAN && (
-							<div className="flex flex-row border-2 border-red-500 rounded-md bg-red-300 h-auto w-2/4 ml-6 p-2">
-								<BiErrorCircle style={style} />
-								<p>User Does not Exist</p>
-							</div>
-						)}
-						<div className="ml-2 p-4 flex flex-row">
-							<input
-								data-testid="search"
-								type="search"
-								className="
-									nosubmit
-									w-3/4
-									px-3
-									py-1.5
-									text-lg
-									font-normal
-									text-gray-700
-									bg-clip-padding
-									border border-solid border-gray-300
-									rounded-lg
-									focus:text-gray-700 focus:bg-white focus:border-twitter-blue focus:outline-none
-									bg-gray-200
-								"
-								onChange={enteredShareHandler}
-								placeholder="enter user email ..."
-							/>
-							<button
-								data-testid="btn-search"
-								type="submit"
-								className="button w-1/4 text-lg p-0.5"
-								onClick={shareSearchHandler}
-							>
-								Share
-							</button>
-						</div>
-					</div>
-				)} */}
 
 						{/* search */}
 						{share && (
@@ -834,24 +675,6 @@ else{
 										>
 											Share
 										</button>
-										{/* {loading && ( */}
-										{/* <button
-													type="button"
-													className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-full items-center"
-													disabled
-											> */}
-										{/* <svg
-						className="animate-spin h-5 w-5 mr-3 bg-white"
-						viewBox="0 0 24 24"
-					> */}
-										{/* <!-- ... --> */}
-										{/* </svg> */}
-										{/* {loadIcon} */}
-										{/* </button> */}
-										{/* )} */}
-										{/* {!loading && ( */}
-										{/* <Button text="Search" size="large" handle={shareSearchHandler} type="search" /> */}
-										{/* )} */}
 									</div>
 								</div>
 							</div>
@@ -872,14 +695,6 @@ else{
 
 						<div className="flex justify-center mb-20">
 							{/* <Link to={newReportLink}> */}
-								{/* <button
-							onClick={publishHandler}
-							type="submit"
-							className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded button text-center"
-						>
-							{" "}
-							PUBLISH REPORT
-						</button> */}
 								<Button
 									text="Publish Report"
 									size="large"
