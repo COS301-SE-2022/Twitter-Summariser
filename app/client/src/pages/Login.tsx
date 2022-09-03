@@ -28,6 +28,7 @@ function Login() {
 
 	const [enteredEmail, changeenteredEmail] = useState("");
 	const [validEmail, setValidEmail] = useState(false);
+	const [emailFocus, setEmailFocus] = useState(false);
 
 	const [enteredPassword, changeEnteredPassword] = useState("");
 	const [validPassword, setValidPassword] = useState(false);
@@ -62,9 +63,9 @@ function Login() {
 	);
 
 	useEffect(() => {
-		setValidEmail(enteredEmail.length > 0 && /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(
-			enteredEmail
-		));
+		setValidEmail(
+			enteredEmail.length > 0 && /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(enteredEmail)
+		);
 	}, [enteredEmail]);
 
 	useEffect(() => {
@@ -113,7 +114,7 @@ function Login() {
 			const { email } = response.data;
 			const { apiKey } = response.data;
 			const { profileKey } = response.data;
-			
+
 			await setAuth({ username, accessToken, email, apiKey, profileKey });
 			navigate(from, { replace: true });
 		} catch (err) {
@@ -193,11 +194,20 @@ function Login() {
 						type="text"
 						placeholder="Email"
 						required
-						className="w-60 h-10 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E]"
+						className="w-60 h-10 mb-6 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E]"
 						onChange={usernameHandler}
 						value={enteredEmail}
+						onFocus={() => setEmailFocus(true)}
+						onBlur={() => setEmailFocus(false)}
 					/>
-					<br /> <br />
+					{emailFocus && enteredEmail && !validEmail && (
+						<div className="flex flex-row border-2 rounded-md bg-gray-100 h-10 w-60 justify-center p-2 mb-0 items-center text-sm">
+							<div className="flex flex-col">
+								<p>Should be a valid email</p>
+							</div>
+						</div>
+					)}
+					<br />
 					<input
 						data-testid="password-input"
 						type="password"
@@ -220,7 +230,6 @@ function Login() {
 							Remember this device?
 						</label>
 					</div>
-				
 					{loading && (
 						<button
 							type="button"
@@ -245,7 +254,6 @@ function Login() {
 							disableId={!validEmail || !validPassword ? "true" : "false"}
 						/>
 					)}
-					
 					<p className="text-[#03045E] text-md text-center mt-6 font-medium">
 						Do not have an account?
 						<button

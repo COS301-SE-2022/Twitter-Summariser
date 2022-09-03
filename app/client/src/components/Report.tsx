@@ -75,7 +75,6 @@ function Report() {
 		reportID: repID
 	};
 
-
 	const getRep = async (isMounted: boolean) => {
 		try {
 			const response = await axiosPrivate.post("getReport", JSON.stringify(requiredData), {
@@ -92,7 +91,6 @@ function Report() {
 			isMounted && changePageLoading(false);
 
 			// console.log(response.data.report);
-
 
 			if (pulseCounter === 0) {
 				changePulse(true);
@@ -152,7 +150,7 @@ function Report() {
 
 	const apiResponse = [<div key="begining div" />];
 
-		const reorderUpHandler = async (tweetPos: any) => {
+	const reorderUpHandler = async (tweetPos: any) => {
 		const resultDetails = {
 			reportID: repID,
 			apiKey: auth.apiKey,
@@ -190,8 +188,8 @@ function Report() {
 		}
 	};
 
-// UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY
-// const deleteTweetHandler = async (blockID: any) => {
+	// UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY
+	// const deleteTweetHandler = async (blockID: any) => {
 	// 		const deleteDetails = {
 	// 			apiKey: auth.apiKey,
 	// 			reportID: localStorage.getItem("draftReportId"),
@@ -210,7 +208,7 @@ function Report() {
 
 	// console.log(state);
 
-const isPublished = () => stat === "PUBLISHED";
+	const isPublished = () => stat === "PUBLISHED";
 
 const isViewer = () => perm === "VIEWER";
 
@@ -227,91 +225,98 @@ if(isPublished() || isViewer()) {
 					</div>
 				)}
 
-				{data.blockType === "TWEET" && (
-					<div className=" w-full border border-gray-200 p-3" key={data.position}>
-						<Tweet
-							options={{ align: "center", width: "" }}
-							tweetId={data.block.tweetID}
-							onLoad={done}
-						/>
-					</div>
-				)}
-			</div>
-		)
-	);
-}
-else{
-	state.map((data: any, index: number) =>
-		apiResponse.push(
-			<div className="" key={data.position}>
-				{data.blockType === "RICHTEXT" && (
-					<div className="">
-						{" "}
-						<Text
-							keyValue={index}
-							data={data}
-							rID={repID}
-							onChange={(value: boolean) => changeShouldRender(value)}
-						/>{" "}
-					</div>
-				)}
-
-				{/* FIRST TWEET */}
-				{data.blockType === "TWEET" && data.position === 1 && (
-					<><div className=" w-full p-3 flex flex-col justify-center" key={data.position}>
-						<Tweet
-							options={{ align: "center", width: "" }}
-							tweetId={data.block.tweetID}
-							onLoad={done} />
-						<div className="flex flex-row justify-around">
-							<div
-								className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
-								data-bs-toggle="tooltip"
-								title="Move Tweet Down"
-							>
-								<button type="submit">
-									<BsArrowDown
-										style={style}
-										onClick={() => reorderDownHandler(data.position)} />
-								</button>
-							</div>
+					{data.blockType === "TWEET" && (
+						<div className=" w-full border border-gray-200 p-3" key={data.position}>
+							<Tweet
+								options={{ align: "center", width: "" }}
+								tweetId={data.block.tweetID}
+								onLoad={done}
+							/>
 						</div>
-					</div>
-					{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
-					{/* <div className="w-1/6 flex text-center justify-center">
+					)}
+				</div>
+			)
+		);
+	} else {
+		state.map((data: any, index: number) =>
+			apiResponse.push(
+				<div className="" key={data.position}>
+					{data.blockType === "RICHTEXT" && (
+						<div className="">
+							{" "}
+							<Text
+								keyValue={index}
+								data={data}
+								rID={repID}
+								onChange={(value: boolean) => changeShouldRender(value)}
+							/>{" "}
+						</div>
+					)}
+
+					{/* FIRST TWEET */}
+					{data.blockType === "TWEET" && data.position === 1 && (
+						<>
+							<div
+								className=" w-full p-3 flex flex-col justify-center"
+								key={data.position}
+							>
+								<Tweet
+									options={{ align: "center", width: "" }}
+									tweetId={data.block.tweetID}
+									onLoad={done}
+								/>
+								<div className="flex flex-row justify-around">
+									<div
+										className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
+										data-bs-toggle="tooltip"
+										title="Move Tweet Down"
+									>
+										<button type="submit">
+											<BsArrowDown
+												style={style}
+												onClick={() => reorderDownHandler(data.position)}
+											/>
+										</button>
+									</div>
+								</div>
+							</div>
+							{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
+							{/* <div className="w-1/6 flex text-center justify-center">
 						<button type="button" onClick={() => deleteTweetHandler(data.reportBlockID)}>
 							<MdDeleteOutline style={iconStyle3} />
 						</button>
 					</div> */}
-				</>
-				)}
+						</>
+					)}
 
-				{/* LAST TWEET */}
-				{data.blockType === "TWEET" &&
-					(data.position === length-2) && (
-						<><div
-						className=" w-full p-3 flex flex-col justify-center"
-						key={data.position}
-					>
-						<div className="flex flex-row justify-around">
+					{/* LAST TWEET */}
+					{data.blockType === "TWEET" && data.position === length - 2 && (
+						<>
 							<div
-								className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
-								data-bs-toggle="tooltip"
-								title="Move Tweet Up"
+								className=" w-full p-3 flex flex-col justify-center"
+								key={data.position}
 							>
-								<button type="submit">
-									<BsArrowUp
-										style={style}
-										onClick={() => reorderUpHandler(data.position)} />
-								</button>
+								<div className="flex flex-row justify-around">
+									<div
+										className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
+										data-bs-toggle="tooltip"
+										title="Move Tweet Up"
+									>
+										<button type="submit">
+											<BsArrowUp
+												style={style}
+												onClick={() => reorderUpHandler(data.position)}
+											/>
+										</button>
+									</div>
+								</div>
+								<Tweet
+									options={{ align: "center", width: "" }}
+									tweetId={data.block.tweetID}
+								/>
 							</div>
-						</div>
-						<Tweet
-							options={{ align: "center", width: "" }}
-							tweetId={data.block.tweetID} />
-					</div>
-					{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
-					{/* <div className="w-1/6 flex text-center justify-center">
+							{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
+							{/* <div className="w-1/6 flex text-center justify-center">
 							<button type="button" onClick={() => deleteTweetHandler(data.reportBlockID)}>
 								<MdDeleteOutline style={iconStyle3} />
 							</button>
@@ -319,85 +324,88 @@ else{
 						</>
 					)}
 
-				{data.blockType === "TWEET" &&
-					!(
-						data.position === 1 ||
-						data.position === length-2
-					) && (
-						<><div
-						className="  w-full p-3 flex flex-col justify-center"
-						key={data.position}
-					>
-						<div className="flex flex-row justify-around">
-							<div
-								className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
-								data-bs-toggle="tooltip"
-								title="Move Tweet Up"
-							>
-								<button type="submit">
-									<BsArrowUp
-										style={style}
-										onClick={() => reorderUpHandler(data.position)} />
-								</button>
-							</div>
-						</div>
+					{data.blockType === "TWEET" &&
+						!(data.position === 1 || data.position === length - 2) && (
+							<>
+								<div
+									className="  w-full p-3 flex flex-col justify-center"
+									key={data.position}
+								>
+									<div className="flex flex-row justify-around">
+										<div
+											className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
+											data-bs-toggle="tooltip"
+											title="Move Tweet Up"
+										>
+											<button type="submit">
+												<BsArrowUp
+													style={style}
+													onClick={() => reorderUpHandler(data.position)}
+												/>
+											</button>
+										</div>
+									</div>
 
-						<Tweet
-							options={{ align: "center", width: "" }}
-							tweetId={data.block.tweetID} />
+									<Tweet
+										options={{ align: "center", width: "" }}
+										tweetId={data.block.tweetID}
+									/>
 
-						<div className="flex flex-row justify-around">
-							<div
-								className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
-								data-bs-toggle="tooltip"
-								title="Move Tweet Down"
-							>
-								<button type="submit">
-									<BsArrowDown
-										style={style}
-										onClick={() => reorderDownHandler(data.position)} />
-								</button>
-							</div>
-						</div>
-					</div>
-					{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
-					{/* <div className="w-1/6 flex text-center justify-center">
+									<div className="flex flex-row justify-around">
+										<div
+											className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
+											data-bs-toggle="tooltip"
+											title="Move Tweet Down"
+										>
+											<button type="submit">
+												<BsArrowDown
+													style={style}
+													onClick={() =>
+														reorderDownHandler(data.position)
+													}
+												/>
+											</button>
+										</div>
+									</div>
+								</div>
+								{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
+								{/* <div className="w-1/6 flex text-center justify-center">
 							<button type="button" onClick={() => deleteTweetHandler(data.reportBlockID)}>
 								<MdDeleteOutline style={iconStyle3} />
 							</button>
 						</div> */}
-						</>
-					)}
-			</div>
-		)
-	);
+							</>
+						)}
+				</div>
+			)
+		);
 
-	const pulseOutput = [<div key="begining div" />];
+		const pulseOutput = [<div key="begining div" />];
 
-	let i = 0;
+		let i = 0;
 
-	while (i < apiResponse.length) {
-		pulseOutput.push(
-			<div className="border shadow rounded-md p-10 m-5 " key={i}>
-				<div className="animate-pulse flex space-x-4">
-					<div className="rounded-full bg-slate-700 h-10 w-10"> </div>
-					<div className="flex-1 space-y-6 py-1">
-						<div className="h-2 bg-slate-700 rounded"> </div>
-						<div className="space-y-3">
-							<div className="grid grid-cols-3 gap-4">
-								<div className="h-2 bg-slate-700 rounded col-span-2"> </div>
-								<div className="h-2 bg-slate-700 rounded col-span-1"> </div>
-							</div>
+		while (i < apiResponse.length) {
+			pulseOutput.push(
+				<div className="border shadow rounded-md p-10 m-5 " key={i}>
+					<div className="animate-pulse flex space-x-4">
+						<div className="rounded-full bg-slate-700 h-10 w-10"> </div>
+						<div className="flex-1 space-y-6 py-1">
 							<div className="h-2 bg-slate-700 rounded"> </div>
+							<div className="space-y-3">
+								<div className="grid grid-cols-3 gap-4">
+									<div className="h-2 bg-slate-700 rounded col-span-2"> </div>
+									<div className="h-2 bg-slate-700 rounded col-span-1"> </div>
+								</div>
+								<div className="h-2 bg-slate-700 rounded"> </div>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		);
+			);
 
-		i++;
+			i++;
+		}
 	}
-}
 
 	const loadIcon = (
 		<svg
@@ -522,65 +530,14 @@ else{
 
 	return (
 		<div>
-			{ isPublished() && <div>
-				{pageLoading ? (
-					<div className="flex flex-row justify-center h-screen items-center">
-						{loadIcon} &nbsp; Loading Report
-					</div>
-				) : (
-					<div className="mt-16 ">
-						<div className="flex flex-row justify-between">
-							<div className="ml-2 p-4">
-								<h1 className="text-3xl font-bold">{title}</h1>
-								<br />
-								<h2 className="italic font-bold">Created By: {author}</h2>
-								<h3 className="italic text-xs">Date Created: {date}</h3>
-							</div>
-
-							<div className="flex flex-row items-end p-4 justify-between items-center">
-								<div
-									className=""
-									data-bs-toggle="tooltip"
-									title="Clone Report"
-									onClick={cloneReportHandler}
-								>
-									<button type="submit">
-										<GrCopy style={iconStyle3} />
-									</button>
-								</div>
-							</div>
+			{isPublished() && (
+				<div>
+					{pageLoading ? (
+						<div className="flex flex-row justify-center h-screen items-center">
+							{loadIcon} &nbsp; Loading Report
 						</div>
-
-						<br />
-
-						{pulse && pulseOutput}
-
-						<div className="grid grid-cols gap-4 content-center">{apiResponse}</div>
-
-						{isOwner() && (
-							<div className="flex justify-center mb-20">
-								{/* <Link to={newDraftReportLink}> */}
-									<Button
-										text="Unpublish Report"
-										size="large"
-										handle={unpublishHandler}
-										type="unpublish"
-									/>
-								{/* </Link> */}
-							</div>
-						)}
-					</div>
-				)}
-			</div> }
-
-			{ !isPublished() && <div>
-				{pageLoading ? (
-					<div className="flex flex-row justify-center h-screen items-center">
-						{loadIcon} &nbsp; Loading Report
-					</div>
-				) : (
-					<div className="mt-16 ">
-						<div className="flex flex-col">
+					) : (
+						<div className="mt-16 ">
 							<div className="flex flex-row justify-between">
 								<div className="ml-2 p-4">
 									<h1 className="text-3xl font-bold">{title}</h1>
@@ -590,12 +547,6 @@ else{
 								</div>
 
 								<div className="flex flex-row items-end p-4 justify-between items-center">
-									{ isOwner() && <div className="" data-bs-toggle="tooltip" title="Share Report">
-										<button type="submit">
-											<BsShare style={style} onClick={shareHandler} />
-										</button>
-									</div>}
-									<div className="">&nbsp;&nbsp;</div>
 									<div
 										className=""
 										data-bs-toggle="tooltip"
@@ -606,40 +557,118 @@ else{
 											<GrCopy style={iconStyle3} />
 										</button>
 									</div>
-									<div className="" />
-									{ isOwner() && <div
-										className=""
-										data-bs-toggle="tooltip"
-										title="Delete Report"
-										onClick={deleteReportHandler}
-									>
-										<button type="submit">
-											<MdDeleteOutline style={iconStyle4} />
-										</button>
-									</div>}
 								</div>
 							</div>
-							<div className="ml-2 p-4 text-blue-500 cursor-pointer" onClick={clicked}>
-								Add Custom Tweets
-							</div>
-							{modalOn && <Modal setModalOn={setModalOn} setChoice={setChoice} func={changeShouldRender} rID={repID} />}
-						</div>
 
-						{/* search */}
-						{share && (
+							<br />
+
+							{pulse && pulseOutput}
+
+							<div className="grid grid-cols gap-4 content-center">{apiResponse}</div>
+
+							{isOwner() && (
+								<div className="flex justify-center mb-20">
+									{/* <Link to={newDraftReportLink}> */}
+									<Button
+										text="Unpublish Report"
+										size="large"
+										handle={unpublishHandler}
+										type="unpublish"
+									/>
+									{/* </Link> */}
+								</div>
+							)}
+						</div>
+					)}
+				</div>
+			)}
+
+			{!isPublished() && (
+				<div>
+					{pageLoading ? (
+						<div className="flex flex-row justify-center h-screen items-center">
+							{loadIcon} &nbsp; Loading Report
+						</div>
+					) : (
+						<div className="mt-16 ">
 							<div className="flex flex-col">
-								{NAN && (
-									<div className="flex flex-row border-2 border-red-500 rounded-md bg-red-300 h-auto w-2/4 ml-6 p-2">
-										<BiErrorCircle style={style} />
-										<p>User Does not Exist</p>
+								<div className="flex flex-row justify-between">
+									<div className="ml-2 p-4">
+										<h1 className="text-3xl font-bold">{title}</h1>
+										<br />
+										<h2 className="italic font-bold">Created By: {author}</h2>
+										<h3 className="italic text-xs">Date Created: {date}</h3>
 									</div>
+
+									<div className="flex flex-row items-end p-4 justify-between items-center">
+										{isOwner() && (
+											<div
+												className=""
+												data-bs-toggle="tooltip"
+												title="Share Report"
+											>
+												<button type="submit">
+													<BsShare style={style} onClick={shareHandler} />
+												</button>
+											</div>
+										)}
+										<div className="">&nbsp;&nbsp;</div>
+										<div
+											className=""
+											data-bs-toggle="tooltip"
+											title="Clone Report"
+											onClick={cloneReportHandler}
+										>
+											<button type="submit">
+												<GrCopy style={iconStyle3} />
+											</button>
+										</div>
+										<div className="" />
+										{isOwner() && (
+											<div
+												className=""
+												data-bs-toggle="tooltip"
+												title="Delete Report"
+												onClick={deleteReportHandler}
+											>
+												<button type="submit">
+													<MdDeleteOutline style={iconStyle4} />
+												</button>
+											</div>
+										)}
+									</div>
+								</div>
+								<div
+									className="ml-2 p-4 text-blue-500 cursor-pointer"
+									onClick={clicked}
+								>
+									Add Custom Tweets
+								</div>
+								{modalOn && (
+									<Modal
+										setModalOn={setModalOn}
+										setChoice={setChoice}
+										func={changeShouldRender}
+										rID={repID}
+									/>
 								)}
-								<div className="flex justify-center p-2 border-l border-r border-gray-200 mt-16 mini-tablet:mt-0">
-									<div className="w-3/4 mb-3">
-										<input
-											data-testid="search"
-											type="search"
-											className="
+							</div>
+
+							{/* search */}
+							{share && (
+								<div className="flex flex-col">
+									{NAN && (
+										<div className="flex flex-row border-2 border-red-500 rounded-md bg-red-300 h-auto w-2/4 ml-6 p-2">
+											<BiErrorCircle style={style} />
+											<p>User Does not Exist</p>
+										</div>
+									)}
+									<div className="flex justify-center p-2 border-l border-r border-gray-200 mt-16 mini-tablet:mt-0">
+										<div className="w-3/4 mb-3">
+											<input
+												data-testid="search"
+												type="search"
+												className="
 									nosubmit
 									w-full
 									px-3
@@ -653,71 +682,73 @@ else{
 									focus:text-gray-700 focus:bg-white focus:border-twitter-blue focus:outline-none
 									bg-gray-200
 								"
-											onChange={enteredShareHandler}
-											placeholder="enter user email ..."
-										/>
+												onChange={enteredShareHandler}
+												placeholder="enter user email ..."
+											/>
+										</div>
+									</div>
+
+									<div className="flex flex-col flex-wrap justify-around pt-3 pb-3 border border-gray-200 items-center">
+										{/*  */}
+
+										{/* this is for the Fitlering options */}
+										<div className="flex flex-row flex-wrap w-1/3 justify-center">
+											<p className="">Allow User to: </p> &nbsp;
+											<select
+												data-testid="select-filter"
+												className=" text-black text-center"
+												onChange={typeHandler}
+											>
+												<option value="VIEWER">View</option>
+												<option value="EDITOR">Edit</option>
+											</select>
+										</div>
+
+										{/* this is for the search button */}
+										<div className="flex flex-row w-1/3 justify-center pt-3">
+											<button
+												data-testid="btn-search"
+												type="submit"
+												className="button w-3/4 text-lg p-0.5"
+												onClick={shareSearchHandler}
+											>
+												Share
+											</button>
+										</div>
 									</div>
 								</div>
+							)}
 
-								<div className="flex flex-col flex-wrap justify-around pt-3 pb-3 border border-gray-200 items-center">
-									{/*  */}
-
-									{/* this is for the Fitlering options */}
-									<div className="flex flex-row flex-wrap w-1/3 justify-center">
-										<p className="">Allow User to: </p> &nbsp;
-										<select
-											data-testid="select-filter"
-											className=" text-black text-center"
-											onChange={typeHandler}
-										>
-											<option value="VIEWER">View</option>
-											<option value="EDITOR">Edit</option>
-										</select>
-									</div>
-
-									{/* this is for the search button */}
-									<div className="flex flex-row w-1/3 justify-center pt-3">
-										<button
-											data-testid="btn-search"
-											type="submit"
-											className="button w-3/4 text-lg p-0.5"
-											onClick={shareSearchHandler}
-										>
-											Share
-										</button>
-									</div>
+							{successfulShare && (
+								<div className="flex flex-row border-2 border-green-700 rounded-md bg-green-300 h-auto w-auto w-2/4 ml-6 p-2">
+									<AiOutlineCheckCircle style={styleNew} />
+									<p>Report shared successfully</p>
 								</div>
-							</div>
-						)}
+							)}
 
-						{successfulShare && (
-							<div className="flex flex-row border-2 border-green-700 rounded-md bg-green-300 h-auto w-auto w-2/4 ml-6 p-2">
-								<AiOutlineCheckCircle style={styleNew} />
-								<p>Report shared successfully</p>
-							</div>
-						)}
+							<br />
 
-						<br />
+							{pulse && pulseOutput}
 
-						{pulse && pulseOutput}
+							<div className="grid grid-cols gap-4 content-center">{apiResponse}</div>
 
-						<div className="grid grid-cols gap-4 content-center">{apiResponse}</div>
-
-						{isOwner() && <div className="flex justify-center mb-20">
-							{/* <Link to={newReportLink}> */}
-								<Button
-									text="Publish Report"
-									size="large"
-									handle={publishHandler}
-									type="publish"
-								/>
-							{/* </Link> */}
-						</div> }
-					</div>
-				)}
-			</div>}
+							{isOwner() && (
+								<div className="flex justify-center mb-20">
+									{/* <Link to={newReportLink}> */}
+									<Button
+										text="Publish Report"
+										size="large"
+										handle={publishHandler}
+										type="publish"
+									/>
+									{/* </Link> */}
+								</div>
+							)}
+						</div>
+					)}
+				</div>
+			)}
 		</div>
-
 	);
 }
 

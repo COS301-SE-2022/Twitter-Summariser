@@ -38,10 +38,9 @@ function App() {
 	return (
 		// use the Routes component to render the different page routes of the application based on the pathname of the URL.
 		<Routes>
-
 			{/* Default route that renders Layout component that all pages are rendered on  */}
 			<Route path="/" element={<Layout />}>
-			{/* The three page (3) routes that can be accessed without a user being authenticated  */}
+				{/* The three page (3) routes that can be accessed without a user being authenticated  */}
 				<Route path="splash" element={<Splash />} />
 				<Route path="login" element={<Login />} />
 				<Route path="signup" element={<Signup />} />

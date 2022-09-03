@@ -664,35 +664,33 @@ function Home() {
 						</div>
 					</div>
 				</div> */}
-					<div className=" p-3 ">
+					<div className="mt-2 pt-3 ">
 						<div className=" mt-4 text-center">
-							<h1 className="text-black font-semibold text-3xl">
+							<h1 className="pl-2 pr-2 text-black font-semibold text-3xl">
 								Explore Latest Reports
 							</h1>
 
-							<div className="mt-4 flex flex-row flex-wrap justify-center">
-								<div
-									data-testid="reports"
-									className="mt-4 flex flex-row flex-wrap justify-center"
-								>
-									{loading && <div>{loadIcon} &nbsp; Loading Reports</div>}
+							<div
+								data-testid="reports"
+								className="mt-8 mr-2 ml-2 flex flex-row flex-wrap justify-center"
+							>
+								{loading && <div>{loadIcon} &nbsp; Loading Reports</div>}
 
-									{!loading &&
-										(report.length === 0 ? (
-											<div>There are no reports at the moment </div>
-										) : (
-											report.map((data) => (
-												<div
-													data-aos="fade-up"
-													data-aos-duration="500"
-													className="m-4 w-auto h-auto  flex flex-col p-2"
-													key={data.reportID}
-												>
-													<ExploreCard data={data} />
-												</div>
-											))
-										))}
-								</div>
+								{!loading &&
+									(report.length === 0 ? (
+										<div>There are no reports at the moment </div>
+									) : (
+										report.map((data) => (
+											<div
+												data-aos="fade-up"
+												data-aos-duration="500"
+												className="md:ml-16 md:mr-16 m-2 w-full"
+												key={data.reportID}
+											>
+												<ExploreCard data={data} />
+											</div>
+										))
+									))}
 							</div>
 						</div>
 					</div>

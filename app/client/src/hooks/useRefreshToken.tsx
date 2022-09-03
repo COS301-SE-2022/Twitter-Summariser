@@ -22,10 +22,9 @@ function useRefreshToken() {
 				profileKey: response.data.profileKey
 			}));
 			return response.data.accessToken;
-		}
-		catch (error) {
+		} catch (error) {
 			if ((error as AxiosError).response?.status === 401) {
-				navigate("/login")
+				navigate("/login");
 			}
 			return null;
 		}

@@ -7,7 +7,7 @@ import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 function Modal({ setModalOn, setChoice, func, rID }: any) {
-		const axiosPrivate = useAxiosPrivate();
+	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
 	const { auth } = useAuth();
 	// const handleOKClick = () => {
@@ -60,9 +60,9 @@ function Modal({ setModalOn, setChoice, func, rID }: any) {
 
 			// console.log(tweet.data);
 
-				// console.log( props.func);
+			// console.log( props.func);
 
-				changeLoading(false);
+			changeLoading(false);
 
 			if (tweet.data === "Invalid Tweet url.") {
 				// TWEET NOT FOUND - return error message
@@ -102,10 +102,10 @@ function Modal({ setModalOn, setChoice, func, rID }: any) {
 
 	const search = () => {
 		const tweetData = {
-				apiKey: auth.apiKey,
-				// reportID: localStorage.getItem("draftReportId"),
-				reportID: rID,
-				url: enteredSearch
+			apiKey: auth.apiKey,
+			// reportID: localStorage.getItem("draftReportId"),
+			reportID: rID,
+			url: enteredSearch
 			// 	keyword: enteredSearch,
 			// 	numOfTweets: noOfTweets,
 			// 	sortBy: sort === "-" ? "-" : sort,

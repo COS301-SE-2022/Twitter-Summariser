@@ -74,7 +74,7 @@ function MobileNavigation(props: any) {
 					<Link
 						to="/reports"
 						className="flex flex-row"
-						onClick={() => pageHandler("Published")}
+						onClick={() => pageHandler("Published Reports")}
 					>
 						<div className="items-end pt-1 ">
 							<TiDocumentText style={style} />
@@ -87,7 +87,7 @@ function MobileNavigation(props: any) {
 					<Link
 						to="/drafts"
 						className="flex flex-row"
-						onClick={() => pageHandler("Drafts")}
+						onClick={() => pageHandler("Draft Reports")}
 					>
 						<div className="items-end pt-1 ">
 							<RiDraftLine style={style} />
