@@ -3,15 +3,16 @@ import { header, statusCodes } from "@functions/resources/APIresponse";
 import * as fileType from "file-type";
 import * as AWS from "aws-sdk";
 import middy from "@middy/core";
+import CreatorServices from "../../services";
 
 const allowedMimes = ["image/jpeg", "image/png", "image/jpg"];
 const s3 = new AWS.S3();
 
 export const profileImageUpload = middy(async (event: APIGatewayProxyEventV2): Promise<APIGatewayProxyResultV2> => {
     try {
-        const body = JSON.parse(event.body);
+        const body = JSON.parse(event.body);        
 
-        if (!body || !body.image || !body.mime|| !body.name) {
+        if (!body || !body.image || !body.mime|| !body.name || !body.profile || !body.email) {
             return {
                 statusCode: statusCodes.badRequest,
                 headers: header,
@@ -30,6 +31,18 @@ export const profileImageUpload = middy(async (event: APIGatewayProxyEventV2): P
                 })
             };
         }
+
+        if (body.profile !== "assets/profile.png") {
+            try {
+                await s3.deleteObject({
+                    Bucket: "twitter-summariser-images",
+                    Key: body.profile
+                }).promise();
+
+            } catch (error) {
+                console.error("Error deleting old image in s3: ", error);
+            }
+        }        
 
         const imageData = (body.image.substr(0, 7) == "base64,") ? body.image.substr(7, body.image.length) : body.image;
         const imageBuffer = Buffer.from(imageData, "base64");
@@ -55,13 +68,31 @@ export const profileImageUpload = middy(async (event: APIGatewayProxyEventV2): P
             ACL: "public-read"
         }).promise();
 
-        return {
-            statusCode: statusCodes.Successful,
-            headers: header,
-            body: JSON.stringify({
-                message: "Image uploaded successfully!"
-            })
+
+        const isCreatorUpdated = await CreatorServices.creatorService.updateProfileKey(
+            body.email,
+            `${body.name}.${fileExtension}`
+        );
+
+        if (isCreatorUpdated === true) {
+            return {
+                statusCode: statusCodes.Successful,
+                headers: header,
+                body: JSON.stringify({
+                    message: "Image uploaded successfully!",
+                    profileKey: `${body.name}.${fileExtension}`
+                })
+            }
+        } else {
+            return {
+                statusCode: statusCodes.badRequest,
+                headers: header,
+                body: JSON.stringify({
+                    message: "Error updating profile key"
+                })
+            }
         }
+        
     } catch (error) {
         console.error(error);
         return {

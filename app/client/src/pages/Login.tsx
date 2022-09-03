@@ -112,8 +112,9 @@ function Login() {
 			const { accessToken } = response.data;
 			const { email } = response.data;
 			const { apiKey } = response.data;
+			const { profileKey } = response.data;
 			
-			await setAuth({ username, accessToken, email, apiKey });
+			await setAuth({ username, accessToken, email, apiKey, profileKey });
 			navigate(from, { replace: true });
 		} catch (err) {
 			if ((err as Error).message === "Request failed with status code 401") {

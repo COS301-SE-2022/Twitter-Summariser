@@ -5,16 +5,11 @@ import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import useAuth from "../hooks/useAuth";
 
 function Profile() {
-	const { auth } = useAuth();
-
-	const userInformation = {
-		apiKey: auth.apiKey,
-		author: auth.username,
-		email: auth.email
-	};
+	const { auth, setAuth } = useAuth();
 
 	const imageStyle: any = {
-		backgroundImage: "url(assets/profile.png)"
+		backgroundImage: (auth.profileKey === "assets/profile.png") ? "url(assets/profile.png)" : `https://twitter-summariser-images.s3.amazonaws.com/${  auth.profileKey}`
+	
 	};
 
 	// ############# ~ For Published Reports ~ ####################
@@ -72,7 +67,12 @@ function Profile() {
 			const data = parts?.[1];
 
 			try {
-				await axiosPrivate.post('profileImageUpload', JSON.stringify({ mime, image: data, name: auth.username }), { signal: controller.signal });
+				const response = await axiosPrivate.post('profileImageUpload', JSON.stringify({ mime, image: data, name: auth.username, profile: auth.profileKey, email: auth.email }), { signal: controller.signal });
+				setAuth((prev: any) => ({
+					...prev,
+					profileKey: response.data.profileKey
+				}));
+
 			} catch (error) {
 				console.error(error);
 			}
@@ -119,8 +119,8 @@ function Profile() {
 				</div>
 				{/* div for name, emails, number of reports published, share icon etc */}
 				<div className="h-20 w-2/3 text-center flex flex-col">
-					<div className=" text-3xl font-bold">{userInformation.author}</div>
-					<div className=" italic">{userInformation.email}</div>
+					<div className=" text-3xl font-bold">{auth.username}</div>
+					<div className=" italic">{auth.email}</div>
 				</div>
 
 				<div data-testid="report">
@@ -129,7 +129,7 @@ function Profile() {
 						<div>
 							<div className="flex flex-row justify-around">
 								<h1 className="text-3xl flex flex-row justify-center border-b pb-4 w-5/6 align-middle items-center border-slate-300">
-									{userInformation.author}&lsquo;s Reports
+									{auth.username}&lsquo;s Reports
 								</h1>
 							</div>
 							<div className="mt-4 flex flex-row flex-wrap justify-center">
@@ -142,7 +142,7 @@ function Profile() {
 									{!loading &&
 										(report.length === 0 ? (
 											<div>
-												{userInformation.author} has no published report at
+												{auth.username} has no published report at
 												the moment{" "}
 											</div>
 										) : (
