@@ -65,7 +65,7 @@ function Drafts() {
 	return (
 		<div>
 			{/* Api response comes here */}
-			<div className=" mt-16 p-3 ">
+			<div className=" mt-2 pt-3 ">
 				<div className=" mt-4">
 					<div className="flex flex-row justify-around">
 						<h1 className="text-3xl hidden lg:flex lg:flex-row lg:justify-center border-b pb-4 w-5/6 align-middle items-center border-slate-300">
@@ -78,13 +78,13 @@ function Drafts() {
 
 							{!loading &&
 								(newDraft.length === 0 ? (
-									<div>You have no draft at the moment </div>
+									<div>You have no draft report(s) at the moment. </div>
 								) : (
 									newDraft.map((data) => (
 										<div
 											data-aos="fade-up"
 											data-aos-duration="500"
-											className="m-4 w-auto h-auto  flex flex-col p-2"
+											className="m-4 w-full"
 											key={data.reportID}
 										>
 											<DraftCard
