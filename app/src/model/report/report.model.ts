@@ -9,4 +9,5 @@ export default interface Report {
 	tweets?: any;
 	richtext?: any;
 	permission?: string;
+	profileKey?: string;
 }
