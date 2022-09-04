@@ -32,7 +32,7 @@ function TextSummariser() {
 				</div>
 			</div>
 			<div className="flex flex-col px-4 bg-background font-poppins items-center min-h-screen">
-				<h2 className="text-primary text-2xl font-light mt-6">
+				<h2 className="text-primary text-md font-bold mb-6 mt-6">
 					Summarise text into shorter length.
 				</h2>
 				<form
