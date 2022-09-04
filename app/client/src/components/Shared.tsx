@@ -77,7 +77,7 @@ function Shared() {
 						</h1>
 					</div>
 					<div className="mt-4 flex flex-row flex-wrap justify-center">
-						{loading && <div className="mt-8 pr-8 pl-8">{loadIcon} &nbsp; Loading Reports Shared with me</div>}
+						{loading && <div className="mt-8 pr-8 pl-8">{loadIcon} &nbsp; Loading Reports Shared With You</div>}
 
 						{!loading &&
 							(report.length === 0 ? (
