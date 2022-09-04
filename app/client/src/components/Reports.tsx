@@ -94,7 +94,7 @@ function Reports() {
 						</h1>
 					</div>
 					<div className="mt-4 flex flex-row flex-wrap justify-center">
-						{loading && <div>{loadIcon} &nbsp; Loading My Reports</div>}
+						{loading && <div className="mt-8 pr-8 pl-8">{loadIcon} &nbsp; Loading My Reports</div>}
 
 						{!loading &&
 							(report.length === 0 ? (

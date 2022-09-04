@@ -73,7 +73,7 @@ function Landing() {
 			</div>
 
 			{/* first container ######################################################################################################### */}
-			<div className="w-1/6 p-2 pt-5 flex-col hidden mini-tablet:block h-screen">
+			<div className="w-1/6 pt-5 flex-col hidden mini-tablet:block h-screen">
 				{/* logo comes here */}
 				<Logo width="60.69px" height="54px" page="landing" />
 
