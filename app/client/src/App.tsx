@@ -28,6 +28,7 @@ import Report from "./components/Report";
 import ViewHistory from "./components/ViewHistory";
 import Splash from "./components/Splash";
 import PersistLogin from "./components/PersistLogin";
+import TextSummariser from "./components/TextSummariser";
 
 /*
 	App component that is the root component of the application.
@@ -57,6 +58,7 @@ function App() {
 							<Route path="drafts" element={<Drafts />} />
 							<Route path="shared" element={<Shared />} />
 							<Route path="profile" element={<Profile />} />
+							<Route path="summariser" element={<TextSummariser />} />
 							{/* <Route path="draftReport/*" element={<DraftReport />} /> */}
 							<Route path="report/*" element={<Report />} />
 							<Route path="history" element={<History />} />
