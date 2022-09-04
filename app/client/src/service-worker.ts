@@ -19,7 +19,7 @@ import bcrypjs from "bcryptjs";
 
 declare const self: ServiceWorkerGlobalScope;
 
-
+/*
 const tableName: string = "post-cache";
 
 const dbCache = openDB('Cache-Requests', 1, {
@@ -27,6 +27,7 @@ const dbCache = openDB('Cache-Requests', 1, {
 		db.createObjectStore(tableName);
 	}
 });
+*/
 
 // const { auth } = useAuth();
 
@@ -82,7 +83,7 @@ registerRoute(
 		]
 	})
 );
-
+/*
 registerRoute(
 	new RegExp(/\/dev\/get/),
 
@@ -92,6 +93,7 @@ registerRoute(
 	
 	"POST"
 );
+*/
 
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
@@ -102,6 +104,8 @@ self.addEventListener("message", (event) => {
 });
 
 // Any other custom service worker logic can go here.
+
+/*
 self.addEventListener("fetch", async (event)=> {
 	
 	console.log("Request made to API");
@@ -217,4 +221,5 @@ let deleteValue =async (key: IDBKeyRange) => {
 
 
 }
+*/
 
