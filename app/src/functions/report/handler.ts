@@ -409,12 +409,12 @@ export const getSharedReport = middyfy(
 
 			const re = await ServicesLayer.reportService.getSharedReports(params.apiKey);
 
-			re.map(async (report) => {
-				const user = await ServicesLayer.creatorService.getCreatorByKey(report.apiKey);
+			for (let report of re) {
+				const user = await ServicesLayer.creatorService.getCreatorByKey(report.apiKey); 
 				report.profileKey = user.profileKey;
 				delete report.apiKey;
 				delete report.resultSetID;
-			});
+			}
 	
 			return {
 				statusCode: statusCodes.Successful,
