@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 function ExploreCard(props: any) {
 	const repID = props.data.reportID;
 	const newReportLink = `/report/${repID}`;
+	const imageURL = props.data.profileKey === "assets/profile.png" ? props.data.profileKey : `https://s3.amazonaws.com/twitter-summariser-images/${props.data.profileKey}`;
 
 	const viewReport = () => {
 		// if (localStorage.getItem("reportId")) {
@@ -50,7 +51,7 @@ function ExploreCard(props: any) {
 			<div className="flex items-center justify-center">
 				<p aria-label="Author" title="Author" className="mr-3 ">
 					<img
-						src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
+						src={imageURL}
 						alt="avatar"
 						className="object-cover w-20 h-20 rounded-full shadow-sm"
 					/>
