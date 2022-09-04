@@ -2,13 +2,14 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { middyfy } from "@libs/lambda";
 import { header, statusCodes } from "@functions/resources/APIresponse";
 import { EventBridge, Lambda } from "aws-sdk";
+import axios from "../../../client/src/api/ConfigAxios";
 //import ServicesLayer from "../../services";
 
 // Generation of reports
 export const reportScheduler = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
-			const params = JSON.parse(event.body)
+			const params = JSON.parse(event.body);
 			const eventBridge = new EventBridge();
 			const lambda = new Lambda();
 
@@ -36,7 +37,7 @@ export const reportScheduler = middyfy(
 					{
 						Id: ruleName + '-target',
 						Arn: 'arn:aws:lambda:us-east-1:534808114586:function:twitter-summariser-dev-genScheduledReport',
-						Input: '{ "data": "data for draftReport" } ',
+						Input: params.reportDetails,
 					},
 
 				],
@@ -61,29 +62,41 @@ export const reportScheduler = middyfy(
 	}
 );
 
-export const genScheduledReport = async (params): Promise<string> => {
+export const genScheduledReport = async (params): Promise<void> => {
 	try {
-		return params;
+		const responseST = await axios.post(
+			"searchTweets",
+			JSON.stringify({apiKey: params.apiKey, filterBy: params.filterBy, keyword: params.keyword, numOfTweets: params.numOfTweets, sortBy: params.sortBy })
+		);
+
+		const responseGR = await axios.post(
+			"generateReport",
+			JSON.stringify({ apiKey: params.apiKey, author: params.author, resultSetID: responseST.data["resultSetID"] })
+		);
 	} catch (e) {
 
 	}
 };
 
-export const deleteEventRules = middyfy(async (): Promise<void> => {
+export const deleteEventRules = middyfy(async (event: APIGatewayProxyEvent): Promise<void> => {
 	try {
+		const params = JSON.parse(event.body);
+
 		const eventBridge = new EventBridge();
+
+		const ruleName = params.username+'sRule';
 
 		const rem = {
 			Bus: "default",
-			Ids: [],
-			Rule: "",
+			Ids: [ruleName + '-target'],
+			Rule: ruleName,
 			Force: true
 		};
 		await eventBridge.removeTargets(rem).promise();
 
 		const delRule = {
-			Name: "",
-			Bus: "",
+			Name: ruleName,
+			Bus: "default",
 			Force: true
 		}
 		await eventBridge.deleteRule(delRule);
