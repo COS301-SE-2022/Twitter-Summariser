@@ -10,10 +10,10 @@ export const generateReport = {
 				method: "post",
 				path: "generateReport/",
 				cors: true,
-				authorizer: {
+				/*authorizer: {
 					name: "verifyJWT",
 					type: "Token"
-				}
+				}*/
 			}
 		}
 	]
