@@ -4,7 +4,6 @@ import { randomUUID } from "crypto";
 import { header, statusCodes } from "@functions/resources/APIresponse";
 import ServicesLayer from "../../services";
 import TextStyle from "@model/textStyles/textStyles.model";
-import { Report } from "aws-sdk/clients/codebuild";
 
 // Generation of reports
 export const generateReport = middyfy(
