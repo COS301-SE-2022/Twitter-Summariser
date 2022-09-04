@@ -79,7 +79,7 @@ function Drafts() {
 						</h1>
 					</div>
 					<div className="mt-4 flex flex-row flex-wrap justify-center">
-						{loading && <div>{loadIcon} &nbsp; Loading Drafts</div>}
+						{loading && <div className="mt-8 pr-8 pl-8">{loadIcon} &nbsp; Loading Draft Report(s)</div>}
 						{!loading &&
 							(newDraft.length === 0 ? (
 								<div className="mt-8 pr-8 pl-8">
