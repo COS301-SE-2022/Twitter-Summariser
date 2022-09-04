@@ -92,14 +92,14 @@ export const getAllMyDraftReports = middyfy(
 
 // Retrieval of Published reports
 export const getAllPublishedReports = middyfy(async (): Promise<APIGatewayProxyResult> => {
-	try {
+	try {		
 		const reports = await ServicesLayer.reportService.getAllPublishedReports();
 
-		reports.map(async (report) => {
-			const user = await ServicesLayer.creatorService.getCreatorByKey(report.apiKey);
+		for (let report of reports) {
+			const user = await ServicesLayer.creatorService.getCreatorByKey(report.apiKey); 
 			report.profileKey = user.profileKey;
 			delete report.apiKey;
-		});
+		}
 
 		reports.sort( (a, b) => {
 			return (new Date(b.dateCreated).getTime()) - (new Date(a.dateCreated).getTime());
