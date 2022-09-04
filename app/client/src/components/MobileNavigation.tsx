@@ -122,6 +122,19 @@ function MobileNavigation(props: any) {
 					</Link>
 				</div>
 
+				<div className="pt-4 flex flex-row " key={(7).toString()}>
+					<Link
+						to="/summariser"
+						className="flex flex-row"
+						onClick={() => pageHandler("Text Summarisation")}
+					>
+						<div className="items-end pt-1 ">
+							<RiDraftLine style={style} />
+						</div>
+						<div>&nbsp; Text Summariser</div>
+					</Link>
+				</div>
+
 				<div className="pt-4 flex flex-row items-end">
 					<button type="submit" className="flex flex-row" onClick={signOut}>
 						<div className="items-end pt-1 ">

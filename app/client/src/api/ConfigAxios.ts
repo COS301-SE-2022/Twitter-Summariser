@@ -12,3 +12,8 @@ export const axiosPrivate = axios.create({
 	baseURL: BASE_URL,
 	withCredentials: true
 });
+
+export const axiosPublic = axios.create({
+	baseURL: "https://jpssczahhg.execute-api.us-east-1.amazonaws.com/dev/",
+	withCredentials: true
+});
