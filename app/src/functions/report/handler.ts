@@ -440,6 +440,10 @@ export const getAllMyPublishedReports = middyfy(
 			reports.map(async (report) => {
 				delete report.apiKey;
 			});
+
+			reports.sort( (a, b) => {
+				return (new Date(b.dateCreated).getTime()) - (new Date(a.dateCreated).getTime());
+			});
 			
 			return {
 				statusCode: statusCodes.Successful,
