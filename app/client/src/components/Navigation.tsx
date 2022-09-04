@@ -111,6 +111,19 @@ function Navigation() {
 
 				<div className="pt-4 flex flex-row " key={(7).toString()}>
 					<Link
+						to="/summariser"
+						className="flex flex-row items-center"
+						onClick={() => pageHandler("Text Summarisation")}
+					>
+						<div className="items-end pt-1 ">
+							<RiDraftLine style={style} />
+						</div>
+						<div className="hidden lg:block">&nbsp; Summariser</div>
+					</Link>
+				</div>
+
+				<div className="pt-4 flex flex-row " key={(8).toString()}>
+					<Link
 						to="/profile"
 						className="flex flex-row items-center"
 						onClick={() => pageHandler("Profile")}
