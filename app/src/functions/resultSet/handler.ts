@@ -10,6 +10,9 @@ export const getAllResultSet = middyfy(
 
 			const resultSet = await ServicesLayer.resultSetServices.getResultSets(params.apiKey);
 
+			resultSet.sort( (a, b) => {
+				return (new Date(b.dateCreated).getTime()) - (new Date(a.dateCreated).getTime());
+			});
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
