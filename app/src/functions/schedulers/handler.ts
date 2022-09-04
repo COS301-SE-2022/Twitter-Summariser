@@ -2,6 +2,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { middyfy } from "@libs/lambda";
 import { header, statusCodes } from "@functions/resources/APIresponse";
 import { EventBridge, Lambda } from "aws-sdk";
+import axios from "../../../client/src/api/ConfigAxios";
 //import ServicesLayer from "../../services";
 
 // Generation of reports
@@ -61,9 +62,17 @@ export const reportScheduler = middyfy(
 	}
 );
 
-export const genScheduledReport = async (params): Promise<string> => {
+export const genScheduledReport = async (params): Promise<void> => {
 	try {
-		return params;
+		const responseST = await axios.post(
+			"searchTweets",
+			JSON.stringify({ username: "test", email: "test@gmail.com", password: "M@1c01mm" })
+		);
+
+		const responseGR = await axios.post(
+			"generateReport",
+			JSON.stringify({ username: "test", email: "test@gmail.com", password: "M@1c01mm" })
+		);
 	} catch (e) {
 
 	}
@@ -72,6 +81,7 @@ export const genScheduledReport = async (params): Promise<string> => {
 export const deleteEventRules = middyfy(async (event: APIGatewayProxyEvent): Promise<void> => {
 	try {
 		const params = JSON.parse(event.body);
+
 		const eventBridge = new EventBridge();
 
 		const ruleName = params.username+'sRule';
