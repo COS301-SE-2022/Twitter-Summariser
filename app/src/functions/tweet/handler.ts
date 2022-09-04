@@ -32,8 +32,7 @@ export const searchTweets = middyfy(
 				sort_order: "relevancy"
 			});
 
-			const dd = new Date();
-			const d = new Date(`${dd.toLocaleString()}-02:00`);
+			const d = new Date();
 
 			let id: string;
 			id = "RS-";

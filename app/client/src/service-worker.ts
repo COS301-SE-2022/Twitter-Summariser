@@ -12,10 +12,10 @@ import { ExpirationPlugin } from "workbox-expiration";
 import { precacheAndRoute, createHandlerBoundToURL } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
 import { StaleWhileRevalidate } from "workbox-strategies";
-/*
 import { openDB } from "idb"; 
+import { SHA256 } from "crypto-js";
+// import useAuth from "./hooks/useAuth";
 import bcrypjs from "bcryptjs";
-*/
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -27,17 +27,9 @@ const dbCache = openDB('Cache-Requests', 1, {
 		db.createObjectStore(tableName);
 	}
 });
-
-self.addEventListener("fetch", async (event)=> {
-	
-	console.log("Request made to API");
-	console.log(event);
-
-	if (event.request.method === "POST") {
-		event.respondWith(staleWhileRevalidate(event));
-	}
-});
 */
+
+// const { auth } = useAuth();
 
 clientsClaim();
 
@@ -91,6 +83,17 @@ registerRoute(
 		]
 	})
 );
+/*
+registerRoute(
+	new RegExp(/\/dev\/get/),
+
+	async ({event}) => {
+		return await staleWhileRevalidate(event);
+	}, 
+	
+	"POST"
+);
+*/
 
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
@@ -101,13 +104,26 @@ self.addEventListener("message", (event) => {
 });
 
 // Any other custom service worker logic can go here.
+
 /*
+self.addEventListener("fetch", async (event)=> {
+	
+	console.log("Request made to API");
+	let url = event.request.url;
+	console.log(event.request.url);
+	// console.log(auth.apiKey);
+	if (event.request.method === "POST" && url.includes("/dev/get")) {
+		event.respondWith(staleWhileRevalidate(event));
+	}
+});
+
 const staleWhileRevalidate =async (event: any) => {
 	let entry = await getValue(event.request.clone());
 
-	let getPromise = await fetch(event.request.clone())
+	let getPromise = fetch(event.request.clone())
 					.then((response: any) => {
 						putValue(event.request.clone(), response.clone());
+						location.reload();
 						return response;
 					})
 					.catch((err) => {
@@ -144,9 +160,9 @@ let getValue = async (request: any) => {
 	let cacheData;
 
 	try {
-		let body = await request.stringify();
-
-		const id = bcrypjs.hashSync(body, 10);
+		let url = await request.url;
+		console.log(url);
+		const id = SHA256(url.toString()).toString();
 		
 		console.log(id);
 		const tx = (await dbCache).transaction(tableName, "readonly");
@@ -155,6 +171,11 @@ let getValue = async (request: any) => {
 
 		if (!cacheData) return null;
 
+		let maxAge = 3600;
+
+		if (Date.now() - cacheData.timestamp > maxAge * 1000)
+			return null;
+
 		return new Response(JSON.stringify(cacheData.response.body), cacheData.response);
 	} catch (err) {
 		console.log(err);
@@ -162,13 +183,13 @@ let getValue = async (request: any) => {
 	};
 }
 
-let putValue = async (request:any, response: any) => {
-	let body = await request.stringify();
+let putValue = async (request: any, response: any) => {
+	let url = await request.url;
 	
-	const id = bcrypjs.hashSync(body, 10);
+	const id = SHA256(url.toString()).toString();
 
 	let entry = {
-		query: body.query,
+		// query: body.query,
 		response: await serialisedReponse(response),
 		timestamp: Date.now()
 	}
@@ -201,3 +222,4 @@ let deleteValue =async (key: IDBKeyRange) => {
 
 }
 */
+

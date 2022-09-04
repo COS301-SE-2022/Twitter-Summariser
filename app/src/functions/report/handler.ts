@@ -19,8 +19,7 @@ export const generateReport = middyfy(
 			let id: string;
 			id = "RT-";
 			id += randomUUID();
-			const dd = new Date();
-			const d = new Date(`${dd.toLocaleString()}-02:00`);
+			const d = new Date();
 
 			// Adding blocks
 			let x = -1;
@@ -67,6 +66,14 @@ export const getAllMyDraftReports = middyfy(
 			const params = JSON.parse(event.body);
 			const reports = await ServicesLayer.reportService.getDraftReports(params.apiKey);
 
+			reports.map(async (report) => {
+				delete report.apiKey;
+			});
+			
+			reports.sort( (a, b) => {
+				return (new Date(b.dateCreated).getTime()) - (new Date(a.dateCreated).getTime());
+			});
+
 			// const tweets = await ServicesLayer.tweetService.getTweets(params.resultSetID);
 			return {
 				statusCode: statusCodes.Successful,
@@ -87,6 +94,14 @@ export const getAllMyDraftReports = middyfy(
 export const getAllPublishedReports = middyfy(async (): Promise<APIGatewayProxyResult> => {
 	try {
 		const reports = await ServicesLayer.reportService.getAllPublishedReports();
+
+		reports.map(async (report) => {
+			delete report.apiKey;
+		});
+
+		reports.sort( (a, b) => {
+			return (new Date(b.dateCreated).getTime()) - (new Date(a.dateCreated).getTime());
+		});
 
 		return {
 			statusCode: statusCodes.Successful,
@@ -420,6 +435,14 @@ export const getAllMyPublishedReports = middyfy(
 
 			const reports = await ServicesLayer.reportService.getPublishedReports(params.apiKey);
 
+			reports.map(async (report) => {
+				delete report.apiKey;
+			});
+
+			reports.sort( (a, b) => {
+				return (new Date(b.dateCreated).getTime()) - (new Date(a.dateCreated).getTime());
+			});
+			
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
