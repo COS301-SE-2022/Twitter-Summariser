@@ -4,6 +4,7 @@ import { randomUUID } from "crypto";
 import { header, statusCodes } from "@functions/resources/APIresponse";
 import ServicesLayer from "../../services";
 import TextStyle from "@model/textStyles/textStyles.model";
+import { Report } from "aws-sdk/clients/codebuild";
 
 // Generation of reports
 export const generateReport = middyfy(
@@ -71,6 +72,10 @@ export const getAllMyDraftReports = middyfy(
 				delete report.apiKey;
 			});
 			
+			reports.sort( (a, b) => {
+				return (new Date(b.dateCreated).getTime()) - (new Date(a.dateCreated).getTime());
+			});
+
 			// const tweets = await ServicesLayer.tweetService.getTweets(params.resultSetID);
 			return {
 				statusCode: statusCodes.Successful,
