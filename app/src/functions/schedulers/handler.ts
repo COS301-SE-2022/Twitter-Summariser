@@ -66,12 +66,12 @@ export const genScheduledReport = async (params): Promise<void> => {
 	try {
 		const responseST = await axios.post(
 			"searchTweets",
-			JSON.stringify({ username: "test", email: "test@gmail.com", password: "M@1c01mm" })
+			JSON.stringify({apiKey: params.apiKey, filterBy: params.filterBy, keyword: params.keyword, numOfTweets: params.numOfTweets, sortBy: params.sortBy })
 		);
 
 		const responseGR = await axios.post(
 			"generateReport",
-			JSON.stringify({ username: "test", email: "test@gmail.com", password: "M@1c01mm" })
+			JSON.stringify({ apiKey: params.apiKey, author: params.author, resultSetID: responseST.data["resultSetID"] })
 		);
 	} catch (e) {
 
