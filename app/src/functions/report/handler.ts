@@ -101,6 +101,10 @@ export const getAllPublishedReports = middyfy(async (): Promise<APIGatewayProxyR
 			delete report.apiKey;
 		});
 
+		reports.sort( (a, b) => {
+			return (new Date(b.dateCreated).getTime()) - (new Date(a.dateCreated).getTime());
+		});
+
 		return {
 			statusCode: statusCodes.Successful,
 			headers: header,
