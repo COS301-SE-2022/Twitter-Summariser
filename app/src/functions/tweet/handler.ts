@@ -55,7 +55,7 @@ export const searchTweets = middyfy(
 			await ServicesLayer.resultSetServices.addResultSet({
 				id,
 				apiKey: params.apiKey,
-				dateCreated: d.toString(),
+				dateCreated: dd.toString(),
 				searchPhrase: params.keyword,
 				sortOption: params.sortBy,
 				filterOption: params.filterBy,
