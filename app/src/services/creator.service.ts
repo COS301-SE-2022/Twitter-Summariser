@@ -80,6 +80,26 @@ export default class CreatorService {
 			.catch((err) => err);
 	}
 
+	async updateProfileKey(email: string, key: string): Promise<boolean> {
+		return this.docClient
+			.update({
+				TableName: this.TableName,
+				Key: {
+					email
+				},
+				UpdateExpression: "set #profileKey = :profileKey",
+				ExpressionAttributeNames: {
+					"#profileKey": "profileKey"
+				},
+				ExpressionAttributeValues: {
+					":profileKey": key
+				}
+			})
+			.promise()
+			.then(() => true)
+			.catch((err) => err);
+	}
+
 	async deleteCreator(email: string) {
 		await this.docClient.delete({
 			TableName: this.TableName,

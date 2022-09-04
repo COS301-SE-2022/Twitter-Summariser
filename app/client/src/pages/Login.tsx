@@ -28,6 +28,7 @@ function Login() {
 
 	const [enteredEmail, changeenteredEmail] = useState("");
 	const [validEmail, setValidEmail] = useState(false);
+	const [emailFocus, setEmailFocus] = useState(false);
 
 	const [enteredPassword, changeEnteredPassword] = useState("");
 	const [validPassword, setValidPassword] = useState(false);
@@ -62,7 +63,9 @@ function Login() {
 	);
 
 	useEffect(() => {
-		setValidEmail(enteredEmail.length > 0 && enteredEmail.includes("@"));
+		setValidEmail(
+			enteredEmail.length > 0 && /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(enteredEmail)
+		);
 	}, [enteredEmail]);
 
 	useEffect(() => {
@@ -108,9 +111,11 @@ function Login() {
 
 			const { username } = response.data;
 			const { accessToken } = response.data;
-			const { apiKey } = response.data;
 			const { email } = response.data;
-			await setAuth({ username, accessToken, apiKey, email });
+			const { apiKey } = response.data;
+			const { profileKey } = response.data;
+
+			await setAuth({ username, accessToken, email, apiKey, profileKey });
 			navigate(from, { replace: true });
 		} catch (err) {
 			if ((err as Error).message === "Request failed with status code 401") {
@@ -189,11 +194,20 @@ function Login() {
 						type="text"
 						placeholder="Email"
 						required
-						className="w-60 h-10 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E]"
+						className="w-60 h-10 mb-6 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E]"
 						onChange={usernameHandler}
 						value={enteredEmail}
+						onFocus={() => setEmailFocus(true)}
+						onBlur={() => setEmailFocus(false)}
 					/>
-					<br /> <br />
+					{emailFocus && enteredEmail && !validEmail && (
+						<div className="flex flex-row border-2 rounded-md bg-gray-100 h-10 w-60 justify-center p-2 mb-0 items-center text-sm">
+							<div className="flex flex-col">
+								<p>Should be a valid email</p>
+							</div>
+						</div>
+					)}
+					<br />
 					<input
 						data-testid="password-input"
 						type="password"
@@ -203,12 +217,23 @@ function Login() {
 						onChange={passwordHandler}
 						value={enteredPassword}
 					/>
-					<br />
-					<br />
+					<br /> <br />
+					<div className="flex items-center mb-4">
+						<input
+							id="default-checkbox"
+							type="checkbox"
+							onChange={togglePersist}
+							checked={persist}
+							className="w-5 h-5 text-blue-600 accent-dark-cornflower-blue border rounded-md focus:ring focus:outline-none"
+						/>
+						<label htmlFor="default-checkbox" className="ml-2 text-sm font-medium">
+							Remember this device?
+						</label>
+					</div>
 					{loading && (
 						<button
 							type="button"
-							className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-full items-center"
+							className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50 group hover:shadow button_large text-lg justify-center h-10 w-full items-center"
 							disabled
 						>
 							{/* <svg
@@ -229,20 +254,7 @@ function Login() {
 							disableId={!validEmail || !validPassword ? "true" : "false"}
 						/>
 					)}
-					<br />
-					<div className="flex items-center mb-4">
-						<input
-							id="default-checkbox"
-							type="checkbox"
-							onChange={togglePersist}
-							checked={persist}
-							className="w-5 h-5 text-blue-600 accent-dark-cornflower-blue border rounded-md focus:ring focus:outline-none"
-						/>
-						<label htmlFor="default-checkbox" className="ml-2 text-sm font-medium">
-							Remember this device?
-						</label>
-					</div>
-					<p className="text-[#03045E] text-md text-center font-medium">
+					<p className="text-[#03045E] text-md text-center mt-6 font-medium">
 						Do not have an account?
 						<button
 							data-testid="btn-signup"

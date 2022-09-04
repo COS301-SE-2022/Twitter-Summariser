@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiErrorCircle } from "react-icons/bi";
+// import { useLocation } from "react-router-dom";
 import Button from "./Button";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
-function Modal({ setModalOn, setChoice, func }: any) {
-		const axiosPrivate = useAxiosPrivate();
+function Modal({ setModalOn, setChoice, func, rID }: any) {
+	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
 	const { auth } = useAuth();
 	// const handleOKClick = () => {
@@ -14,6 +15,12 @@ function Modal({ setModalOn, setChoice, func }: any) {
 	// 	setModalOn(false);
 	// 	console.log("setModal false");
 	// };
+
+	// const location = useLocation();
+	// const ind = location.pathname.lastIndexOf("/");
+	// // console.log(location.pathname.substring(ind + 1));
+
+	// const repID = location.pathname.substring(ind + 1);
 
 	const handleCancelClick = () => {
 		setChoice(false);
@@ -53,9 +60,9 @@ function Modal({ setModalOn, setChoice, func }: any) {
 
 			// console.log(tweet.data);
 
-				// console.log( props.func);
+			// console.log( props.func);
 
-				changeLoading(false);
+			changeLoading(false);
 
 			if (tweet.data === "Invalid Tweet url.") {
 				// TWEET NOT FOUND - return error message
@@ -64,6 +71,7 @@ function Modal({ setModalOn, setChoice, func }: any) {
 				// changeNAN(true);
 			} else {
 				// TWEET FOUND - do something with it
+				// console.log("Tweet found");
 				setModalOn(false);
 				func(true);
 
@@ -94,9 +102,10 @@ function Modal({ setModalOn, setChoice, func }: any) {
 
 	const search = () => {
 		const tweetData = {
-				apiKey: auth.apiKey,
-				reportID: localStorage.getItem("draftReportId"),
-				url: enteredSearch
+			apiKey: auth.apiKey,
+			// reportID: localStorage.getItem("draftReportId"),
+			reportID: rID,
+			url: enteredSearch
 			// 	keyword: enteredSearch,
 			// 	numOfTweets: noOfTweets,
 			// 	sortBy: sort === "-" ? "-" : sort,

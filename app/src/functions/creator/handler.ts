@@ -9,8 +9,8 @@ import CreatorServices from "../../services";
 dotenv.config();
 
 export const getAllCreators = middyfy(async (): Promise<APIGatewayProxyResultV2> => {
-	const creators = await CreatorServices.creatorService.getAllCreators();
 	try {
+		const creators = await CreatorServices.creatorService.getAllCreators();
 		return {
 			statusCode: statusCodes.Successful,
 			headers: header,
@@ -95,11 +95,11 @@ export const addCreator = middyfy(
 				username: params.username,
 				password: hashedPass,
 				dateRegistered: new Date().toISOString(),
-				RefreshAccessToken: ""
+				RefreshAccessToken: "",
+				profileKey: "assets/profile.png"
 			});
 
 			const response = {
-				apiKey: creator.apiKey,
 				email: creator.email,
 				username: creator.username
 			};
@@ -140,27 +140,18 @@ export const loginCreator = middyfy(
 		}
 		try {
 			const creator = await CreatorServices.creatorService.getCreator(params.email);
-
-			if (creator === undefined) {
+			if (creator === undefined || (await bcrypt.compare(params.password, creator.password)) !== true) {
 				return {
 					statusCode: statusCodes.unauthorized,
 					headers: header,
-					body: JSON.stringify(`creator ${params.email} not found`)
+					body: JSON.stringify({error: "Invalid email or password"})
 				};
 			}
-			if ((await bcrypt.compare(params.password, creator.password)) !== true) {
-				return {
-					statusCode: statusCodes.unauthorized,
-					headers: header,
-					body: JSON.stringify(`Invalid password for user ${params.email}`)
-				};
-			}
+			
 			// Create the Access Token
 			const accessToken = jwt.sign(
 				{
-					email: creator.email,
-					username: creator.username,
-					apiKey: creator.apiKey
+					username: creator.username
 				},
 				process.env.ACCESS_TOKEN_SECRET,
 				{
@@ -171,9 +162,7 @@ export const loginCreator = middyfy(
 			// Create the Refresh Token
 			const refreshToken = jwt.sign(
 				{
-					email: creator.email,
-					username: creator.username,
-					apiKey: creator.apiKey
+					username: creator.username
 				},
 				process.env.REFRESH_TOKEN_SECRET,
 				{
@@ -188,8 +177,7 @@ export const loginCreator = middyfy(
 			);
 
 			if (isCreatorUpdated === true) {
-				const cookieString = `refreshToken=${refreshToken}; Path=/; HttpOnly; Secure; SameSite=None; max-age=${24 * 60 * 60 * 1000
-					}`;
+				const cookieString = `refreshToken=${refreshToken}; Path=/; HttpOnly; Secure; SameSite=None; max-age=${24 * 60 * 60 * 1000}`;
 				return {
 					statusCode: statusCodes.Successful,
 					headers: {
@@ -200,7 +188,8 @@ export const loginCreator = middyfy(
 						accessToken,
 						email: creator.email,
 						username: creator.username,
-						apiKey: creator.apiKey
+						apiKey: creator.apiKey,
+						profileKey: creator.profileKey
 					})
 				};
 			}
@@ -245,9 +234,7 @@ export const refreshToken = async (event, _context, callback) => {
 
 				const accessToken = jwt.sign(
 					{
-						email: creator.email,
-						username: creator.username,
-						apiKey: creator.apiKey
+						username: creator.username
 					},
 					process.env.ACCESS_TOKEN_SECRET,
 					{
@@ -267,7 +254,8 @@ export const refreshToken = async (event, _context, callback) => {
 						accessToken,
 						email: creator.email,
 						username: creator.username,
-						apiKey: creator.apiKey
+						apiKey: creator.apiKey,
+						profileKey: creator.profileKey
 					})
 				});
 			});

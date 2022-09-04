@@ -6,6 +6,7 @@ import useAuth from "../hooks/useAuth";
 function Reports() {
 	const [report, changeReport] = useState<any[]>([]);
 	const [loading, changeLoading] = useState(true);
+	const [imageURL, changeImageURL] = useState("assets/profile.png");
 	const [shouldRender, changeShouldRender] = useState(false);
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
@@ -24,6 +25,11 @@ function Reports() {
 			);
 			isMounted && changeReport(response.data);
 			isMounted && changeLoading(false);
+
+			if (auth.profileKey !== "assets/profile.png")
+				changeImageURL(
+					`https://twitter-summariser-images.s3.amazonaws.com/${auth.profileKey}`
+				);
 		} catch (error) {
 			console.error(error);
 		}
@@ -80,7 +86,7 @@ function Reports() {
 	return (
 		<div data-testid="report">
 			{/* Api response comes here */}
-			<div className=" mt-16 p-3 border-l border-gray-200">
+			<div className=" mt-3 pt-3">
 				<div className=" mt-4">
 					<div className="flex flex-row justify-around">
 						<h1 className="text-3xl hidden lg:flex lg:flex-row lg:justify-center border-b pb-4 w-5/6 align-middle items-center border-slate-300">
@@ -88,33 +94,29 @@ function Reports() {
 						</h1>
 					</div>
 					<div className="mt-4 flex flex-row flex-wrap justify-center">
-						<div
-							data-testid="reports"
-							className="mt-4 flex flex-row flex-wrap justify-center"
-						>
-							{loading && <div>{loadIcon} &nbsp; Loading My Reports</div>}
+						{loading && <div>{loadIcon} &nbsp; Loading My Reports</div>}
 
-							{!loading &&
-								(report.length === 0 ? (
-									<div>You have no published report at the moment </div>
-								) : (
-									report.map((data) => (
-										<div
-											data-aos="fade-up"
-											data-aos-duration="500"
-											className="m-4 w-auto h-auto  flex flex-col p-2"
-											key={data.reportID}
-										>
-											<ReportCard
-												data={data}
-												onChange={(value: boolean) =>
-													changeShouldRender(value)
-												}
-											/>
-										</div>
-									))
-								))}
-						</div>
+						{!loading &&
+							(report.length === 0 ? (
+								<div className="mt-8 pr-8 pl-8">
+									You have no published report(s) at the moment{" "}
+								</div>
+							) : (
+								report.map((data) => (
+									<div
+										data-aos="fade-up"
+										data-aos-duration="500"
+										className="md:ml-16 md:mr-16 m-2 w-full"
+										key={data.reportID}
+									>
+										<ReportCard
+											data={data}
+											imageURL={imageURL}
+											onChange={(value: boolean) => changeShouldRender(value)}
+										/>
+									</div>
+								))
+							))}
 					</div>
 				</div>
 			</div>

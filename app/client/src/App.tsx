@@ -23,7 +23,7 @@ import Drafts from "./components/Drafts";
 import Shared from "./components/Shared";
 import History from "./components/History";
 import Profile from "./components/Profile";
-import DraftReport from "./components/DraftReport";
+// import DraftReport from "./components/DraftReport";
 import Report from "./components/Report";
 import ViewHistory from "./components/ViewHistory";
 import Splash from "./components/Splash";
@@ -38,10 +38,9 @@ function App() {
 	return (
 		// use the Routes component to render the different page routes of the application based on the pathname of the URL.
 		<Routes>
-
 			{/* Default route that renders Layout component that all pages are rendered on  */}
 			<Route path="/" element={<Layout />}>
-			{/* The three page (3) routes that can be accessed without a user being authenticated  */}
+				{/* The three page (3) routes that can be accessed without a user being authenticated  */}
 				<Route path="splash" element={<Splash />} />
 				<Route path="login" element={<Login />} />
 				<Route path="signup" element={<Signup />} />
@@ -58,7 +57,7 @@ function App() {
 							<Route path="drafts" element={<Drafts />} />
 							<Route path="shared" element={<Shared />} />
 							<Route path="profile" element={<Profile />} />
-							<Route path="draftReport/*" element={<DraftReport />} />
+							{/* <Route path="draftReport/*" element={<DraftReport />} /> */}
 							<Route path="report/*" element={<Report />} />
 							<Route path="history" element={<History />} />
 							<Route path="viewHistory" element={<ViewHistory />} />
