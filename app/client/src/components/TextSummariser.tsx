@@ -53,9 +53,9 @@ function TextSummariser() {
 							/>
 						</div>
 					</div>
-					<div className="flex justify-center space-x-8 items-center ml-2 mr-2 mt-4">
+					<div className="flex justify-center space-x-2 items-center ml-0 mr-0 mt-4">
 						<button
-							className="w-full rounded-lg px-4 py-3 bg-active text-center text-sm font-semibold text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow"
+							className="w-full rounded-lg px-2 py-3 bg-active text-center text-sm font-semibold text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow"
 							type="submit"
 							onClick={(e) => {
 								getResponse();
@@ -70,7 +70,7 @@ function TextSummariser() {
 						)}
 						</button>
 						<button
-							className="w-full rounded-lg px-5 py-3 bg-active text-center text-sm font-semibold text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow"
+							className="w-full rounded-lg px-2 py-3 bg-active text-center text-sm font-semibold text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow"
 							type="submit"
 							onClick={(e) => {e.preventDefault(); setText("")}}
 						>
