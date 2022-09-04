@@ -32,8 +32,7 @@ export const searchTweets = middyfy(
 				sort_order: "relevancy"
 			});
 
-			const dd = new Date();
-			const d = new Date(`${dd.toLocaleString()}-02:00`);
+			const d = new Date();
 
 			let id: string;
 			id = "RS-";
@@ -55,7 +54,7 @@ export const searchTweets = middyfy(
 			await ServicesLayer.resultSetServices.addResultSet({
 				id,
 				apiKey: params.apiKey,
-				dateCreated: dd.toString(),
+				dateCreated: d.toString(),
 				searchPhrase: params.keyword,
 				sortOption: params.sortBy,
 				filterOption: params.filterBy,

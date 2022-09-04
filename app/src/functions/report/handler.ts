@@ -19,8 +19,7 @@ export const generateReport = middyfy(
 			let id: string;
 			id = "RT-";
 			id += randomUUID();
-			const dd = new Date();
-			const d = new Date(`${dd.toLocaleString()}-02:00`);
+			const d = new Date();
 
 			// Adding blocks
 			let x = -1;
@@ -41,7 +40,7 @@ export const generateReport = middyfy(
 				status: "DRAFT",
 				title: title.searchPhrase,
 				apiKey: params.apiKey,
-				dateCreated: dd.toString(),
+				dateCreated: d.toString(),
 				author: params.author
 			});
 
