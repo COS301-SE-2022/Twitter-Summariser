@@ -37,7 +37,7 @@ export const reportScheduler = middyfy(
 					{
 						Id: ruleName + '-target',
 						Arn: 'arn:aws:lambda:us-east-1:534808114586:function:twitter-summariser-dev-genScheduledReport',
-						Input: '{ "data": "data for draftReport" } ',
+						Input: params.reportDetails,
 					},
 
 				],
