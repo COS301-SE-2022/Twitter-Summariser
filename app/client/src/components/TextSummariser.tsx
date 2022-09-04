@@ -17,7 +17,7 @@ function TextSummariser() {
 			setResponse(res.data.text);
 			setLoading(false);
 		} catch (error) {
-			setText("Something went wrong. Could not summarise text.");
+			setResponse("Something went wrong. Could not summarise text.");
 			setLoading(false);
 		}
 	};
