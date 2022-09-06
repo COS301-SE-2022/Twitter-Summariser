@@ -64,19 +64,44 @@ function AdvanceSearch({
 	};
 
 	const triggerScheduleEndpoint = () => {
-		const scheduleData = {
-			scheduleTIme: { schedule },
-			repeatInterval: { repeat },
-			numOfTweets: noOfTweets,
-			sortBy: sort,
-			filterBy: filter,
+		const date = new Date();
+		const utcDate = date.toUTCString();
+		const dateHour = date.getUTCHours();
+		const minute = date.getUTCMinutes();
+		const day = date.getUTCDate();
+		const dateMonth = date.getUTCMonth() + 1;
+		const dateYear = date.getUTCFullYear();
 
-			apiKey: auth.apiKey,
-			keyword: enteredSearch
-			// datetime:datetimeObject
+		// console.log(date);
+		// console.log(utcDate);
+		// console.log(hour);
+		// console.log(minute);
+		// console.log(day);
+		// console.log(month);
+		// console.log(year);
+
+
+
+		const scheduleData = {
+			username: auth.username,
+			fullUTCDate: utcDate,
+			min: minute,
+			hour: dateHour,
+			dateOfMonth: day,
+			month: dateMonth,
+			year: dateYear,
+			reportDetails: {
+				apiKey: auth.apiKey,
+				filterBy: filter,
+				keyword: enteredSearch,
+				numOfTweets: noOfTweets,
+				sortBy: sort,
+				author: auth.username
+
+			}
 		};
 
-		// console.log(enteredSearch);
+		// console.log(scheduleData);
 
 		// use the object "scheduleData" as you see please
 		scheduleData;
