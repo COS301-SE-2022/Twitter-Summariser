@@ -206,8 +206,8 @@ function Report() {
 	// 		}
 	// 	};
 
-	console.log(state);
-	console.log(length);
+	// console.log(state);
+	// console.log(length);
 
 	const isPublished = () => stat === "PUBLISHED";
 
