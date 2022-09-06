@@ -8,11 +8,7 @@ export const analyse = {
             http: {
                 method: "post",
                 path: "analyse/",
-                cors: true,
-                authorizer: {
-                    name: "verifyJWT",
-                    type: "Token"
-                }
+                cors: true
             }
         }
     ]
