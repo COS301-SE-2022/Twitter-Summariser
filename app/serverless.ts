@@ -100,6 +100,14 @@ const serverlessConfiguration: AWS = {
                         Effect: "Allow",
                         Action: "s3:*",
                         Resource: "*"
+                    },
+                    {
+                        Sid: "PermissionsForComprehend",
+                        Effect: "Allow",
+                        Action: [
+                            "comprehend:*",
+                        ],
+                        Resource: "*"
                     }
                 ]
             }
