@@ -19,7 +19,7 @@ import bcrypjs from "bcryptjs";
 
 declare const self: ServiceWorkerGlobalScope;
 
-/*
+
 const tableName: string = "post-cache";
 
 const dbCache = openDB('Cache-Requests', 1, {
@@ -27,7 +27,6 @@ const dbCache = openDB('Cache-Requests', 1, {
 		db.createObjectStore(tableName);
 	}
 });
-*/
 
 // const { auth } = useAuth();
 
@@ -83,17 +82,18 @@ registerRoute(
 		]
 	})
 );
-/*
+
 registerRoute(
-	new RegExp(/\/dev\/get/),
+	new RegExp(/^(http|https):\/\/[a-zA-Z0-9\-\:\.]+(\.com)?\/dev\/get([a-zA-Z])+$/),
 
 	async ({event}) => {
-		return await staleWhileRevalidate(event);
+		console.log("In register route");
+		return await networkFirst(event);
 	}, 
 	
 	"POST"
 );
-*/
+
 
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
@@ -105,7 +105,7 @@ self.addEventListener("message", (event) => {
 
 // Any other custom service worker logic can go here.
 
-/*
+
 self.addEventListener("fetch", async (event)=> {
 	
 	console.log("Request made to API");
@@ -113,28 +113,47 @@ self.addEventListener("fetch", async (event)=> {
 	console.log(event.request.url);
 	// console.log(auth.apiKey);
 	if (event.request.method === "POST" && url.includes("/dev/get")) {
-		event.respondWith(staleWhileRevalidate(event));
+		event.respondWith(networkFirst(event));
 	}
 });
 
-const staleWhileRevalidate =async (event: any) => {
-	let entry = await getValue(event.request.clone());
-
-	let getPromise = fetch(event.request.clone())
+const networkFirst =async (event: any) => {
+	// let entry = await getValue(event.request.clone());
+	return fetch(event.request.clone())
 					.then((response: any) => {
 						putValue(event.request.clone(), response.clone());
-						location.reload();
 						return response;
 					})
-					.catch((err) => {
-						console.log(err);
-					});
+					.catch(() => {
+						return getValue(event.request.clone());
+					})
+	// if (entry) {
+	// 	fetch(event.request.clone())
+	// 				.then((response: any) => {
+	// 					putValue(event.request.clone(), response.clone());
+	// 					return response;
+	// 				})
+	// 	return entry;
+	// } else {
+	// 	return fetch(event.request.clone())
+	// 	.then((response: any) => {
+	// 		putValue(event.request.clone(), response.clone());
+	// 		return response;
+	// 	})
+	// }
+	// let getPromise = fetch(event.request.clone())
+	// 				.then((response: any) => {
+	// 					putValue(event.request.clone(), response.clone());
+	// 					return response;
+	// 				})
 
-	if (entry) {
-		return Promise.resolve(entry);
-	} else {
-		return getPromise;
-	}
+	// return entry || getPromise;
+
+	// if (entry) {
+	// 	return Promise.resolve(entry);
+	// } else {
+	// 	return getPromise;
+	// }
 }
 
 const serialisedReponse =async (response: any) => {
@@ -221,5 +240,4 @@ let deleteValue =async (key: IDBKeyRange) => {
 
 
 }
-*/
 
