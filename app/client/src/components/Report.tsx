@@ -207,6 +207,7 @@ function Report() {
 	// 	};
 
 	// console.log(state);
+	// console.log(length);
 
 	const isPublished = () => stat === "PUBLISHED";
 
@@ -290,7 +291,7 @@ if(isPublished() || isViewer()) {
 					)}
 
 					{/* LAST TWEET */}
-					{data.blockType === "TWEET" && data.position === length - 2 && (
+					{data.blockType === "TWEET" && data.position === length - 1 && (
 						<>
 							<div
 								className=" w-full p-3 flex flex-col justify-center"
@@ -325,7 +326,7 @@ if(isPublished() || isViewer()) {
 					)}
 
 					{data.blockType === "TWEET" &&
-						!(data.position === 1 || data.position === length - 2) && (
+						!(data.position === 1 || data.position === length - 1) && (
 							<>
 								<div
 									className="  w-full p-3 flex flex-col justify-center"
