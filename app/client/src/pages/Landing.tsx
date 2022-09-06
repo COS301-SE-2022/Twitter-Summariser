@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import MobileNavigation from "../components/MobileNavigation";
@@ -14,6 +14,37 @@ function Landing() {
 	const { auth } = useAuth();
 	const logout = useLogout();
 	const navigate = useNavigate();
+	const location = useLocation();
+	const locationURL = location.pathname;
+
+	if (locationURL.match("/report/") && localStorage.getItem("page") === "Home")
+		localStorage.setItem("page", "Published Report");
+	else if (locationURL === "/")
+		localStorage.setItem("page", "Home");
+	else if (locationURL === "/explore")
+		localStorage.setItem("page", "Explore");
+	else if (locationURL === "/profile")
+		localStorage.setItem("page", "Profile");
+	else if (locationURL === "/reports")
+		localStorage.setItem("page", "Published Reports");
+	else if (locationURL === "/drafts")
+		localStorage.setItem("page", "Draft Reports");
+	else if (locationURL === "/shared")
+		localStorage.setItem("page", "Shared Reports");
+	else if (locationURL === "/history")
+		localStorage.setItem("page", "Search History");
+	else if (locationURL === "/summariser")
+		localStorage.setItem("page", "Text Summarisation");
+	else if (locationURL.match("/report/") && localStorage.getItem("page") === "Draft Reports")
+		localStorage.setItem("page", "Draft Report");
+	else if (locationURL.match("/report/") && localStorage.getItem("page") === "Published Reports")
+		localStorage.setItem("page", "Published Report");
+	else if (locationURL.match("/report/") && localStorage.getItem("page") === "Shared Reports")
+		localStorage.setItem("page", "Shared Report");
+	else if (locationURL.match("/report/") && localStorage.getItem("page") === "Explore")
+		localStorage.setItem("page", "Published Report");
+	else if (locationURL === "/viewHistory")
+		localStorage.setItem("page", "Search Result");
 
 	const signOut = async () => {
 		await logout();
