@@ -220,12 +220,15 @@ function Home() {
 	};
 
 	const search = () => {
+		const currentDate = new Date().toUTCString();
+
 		const searchData = {
 			apiKey: auth.apiKey,
 			keyword: enteredSearch,
 			numOfTweets: noOfTweets,
 			sortBy: sort === "-" ? "-" : sort,
-			filterBy: filter === "-" ? "-" : filter
+			filterBy: filter === "-" ? "-" : filter,
+			dateCreated: currentDate
 		};
 
 		// console.log("no of tweets from search: ");
