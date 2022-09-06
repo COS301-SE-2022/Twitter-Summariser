@@ -1,5 +1,4 @@
-import type {AWS}
-from "@serverless/typescript";
+import type {AWS} from "@serverless/typescript";
 import {verifyJWT} from "@functions/authorizers";
 import {genScheduledReport, reportScheduler, deleteEventRules} from "@functions/schedulers";
 import {
@@ -34,6 +33,7 @@ import {
 } from "@functions/report";
 import {profileImageUpload} from "@functions/profileImage";
 import {editBlock, deleteReportBlock} from "@functions/reportBlock";
+import { analyse } from "@functions/sentimentAnalysis";
 import {URL} from "@functions/resources/APIresponse";
 
 const serverlessConfiguration: AWS = {
@@ -140,7 +140,8 @@ const serverlessConfiguration: AWS = {
         profileImageUpload,
         reportScheduler,
         genScheduledReport,
-        deleteEventRules
+        deleteEventRules,
+        analyse
     },
 
     package: {
