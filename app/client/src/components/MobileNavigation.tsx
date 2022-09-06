@@ -6,7 +6,7 @@ import { CgProfile } from "react-icons/cg";
 import { BsShare } from "react-icons/bs";
 import { HiOutlineLogin } from "react-icons/hi";
 import { AiOutlineHistory } from "react-icons/ai";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useLogout from "../hooks/useLogout";
 
@@ -14,10 +14,11 @@ function MobileNavigation(props: any) {
 	const { auth } = useAuth();
 	const logout = useLogout();
 	const navigate = useNavigate();
+	const location  = useLocation();
 	const style = { fontSize: "1.5rem" };
 
-	const pageHandler = (prop: string) => {
-		localStorage.setItem("page", prop);
+	const pageHandler = () => {
+		localStorage.setItem("page", location.pathname);
 		props.handle();
 	};
 
@@ -34,7 +35,7 @@ function MobileNavigation(props: any) {
 				<Link
 					to="/profile"
 					className="flex flex-col"
-					onClick={() => pageHandler("Profile")}
+					onClick={() => pageHandler()}
 				>
 					<div className="items-end pl-4 ">
 						<CgProfile style={style} />
@@ -48,7 +49,7 @@ function MobileNavigation(props: any) {
 
 			<nav className=" flex flex-col pl-4">
 				<div className="pt-4 flex flex-row " key={(1).toString()}>
-					<Link to="/" className="flex flex-row" onClick={() => pageHandler("Home")}>
+					<Link to="/" className="flex flex-row" onClick={() => pageHandler()}>
 						<div className="items-end pt ">
 							<GoHome style={style} />
 							{/* <GoHome /> */}
@@ -61,7 +62,7 @@ function MobileNavigation(props: any) {
 					<Link
 						to="/explore"
 						className="flex flex-row"
-						onClick={() => pageHandler("Explore")}
+						onClick={() => pageHandler()}
 					>
 						<div className="items-end pt-1 ">
 							<BiHash style={style} />
@@ -74,7 +75,7 @@ function MobileNavigation(props: any) {
 					<Link
 						to="/reports"
 						className="flex flex-row"
-						onClick={() => pageHandler("Published Reports")}
+						onClick={() => pageHandler()}
 					>
 						<div className="items-end pt-1 ">
 							<TiDocumentText style={style} />
@@ -87,7 +88,7 @@ function MobileNavigation(props: any) {
 					<Link
 						to="/drafts"
 						className="flex flex-row"
-						onClick={() => pageHandler("Draft Reports")}
+						onClick={() => pageHandler()}
 					>
 						<div className="items-end pt-1 ">
 							<RiDraftLine style={style} />
@@ -100,7 +101,7 @@ function MobileNavigation(props: any) {
 					<Link
 						to="/shared"
 						className="flex flex-row"
-						onClick={() => pageHandler("Shared Reports")}
+						onClick={() => pageHandler()}
 					>
 						<div className="items-end pt-1 ">
 							<BsShare style={style} />
@@ -113,7 +114,7 @@ function MobileNavigation(props: any) {
 					<Link
 						to="/history"
 						className="flex flex-row"
-						onClick={() => pageHandler("Search History")}
+						onClick={() => pageHandler()}
 					>
 						<div className="items-end pt-1 ">
 							<AiOutlineHistory style={style} />
@@ -126,7 +127,7 @@ function MobileNavigation(props: any) {
 					<Link
 						to="/summariser"
 						className="flex flex-row"
-						onClick={() => pageHandler("Text Summarisation")}
+						onClick={() => pageHandler()}
 					>
 						<div className="items-end pt-1 ">
 							<RiDraftLine style={style} />
