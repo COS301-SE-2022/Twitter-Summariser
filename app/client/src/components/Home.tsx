@@ -108,10 +108,16 @@ function Home() {
 	};
 
 	const genRep = async () => {
+
+		const currentDate = new Date().toUTCString(); // get current date convert to UTC string and send as part of request
+		// console.log(currentDate);
+
+
 		const searchData = {
 			apiKey: auth.apiKey,
 			author: auth.username,
-			resultSetID: resultSet
+			resultSetID: resultSet,
+			dateCreated: currentDate // send date as part of request
 		};
 
 		try {
