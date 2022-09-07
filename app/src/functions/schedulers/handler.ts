@@ -3,7 +3,8 @@ import { middyfy } from "@libs/lambda";
 import { header, statusCodes } from "@functions/resources/APIresponse";
 import { EventBridge, Lambda } from "aws-sdk";
 import axios from "../../../client/src/api/ConfigAxios";
-//import ServicesLayer from "../../services";
+import ServicesLayer from "../../services";
+import { randomUUID } from "crypto";
 
 // Generation of reports
 export const reportScheduler = middyfy(
@@ -13,10 +14,11 @@ export const reportScheduler = middyfy(
 			const eventBridge = new EventBridge();
 			const lambda = new Lambda();
 
-			const ruleName = params.username+'sRule';
+			const date_time = new Date(params.date);
+			const ruleName = "SR-"+randomUUID();
 			const ruleParams = {
 				Name: ruleName,
-				ScheduleExpression: 'cron('+ params.min +' '+ params.hour +' ' + params.dateOfMonth +' '+ params.month +' ? '+ params.year +')' //cron(min, hour, date-of-month, month, day-of-week, year)
+				ScheduleExpression: 'cron('+ date_time.getUTCMinutes +' '+ date_time.getUTCHours() +' ' + date_time.getUTCDay() +' '+ date_time.getUTCMonth() +' ? '+ date_time.getUTCFullYear() +')' //cron(min, hour, date-of-month, month, day-of-week, year)
 			};
 
 			const rule = await eventBridge.putRule(ruleParams).promise();
@@ -37,7 +39,7 @@ export const reportScheduler = middyfy(
 					{
 						Id: ruleName + '-target',
 						Arn: 'arn:aws:lambda:us-east-1:534808114586:function:twitter-summariser-dev-genScheduledReport',
-						Input: params.reportDetails,
+						Input: JSON.stringify(params.reportDetails),
 					},
 
 				],
@@ -45,7 +47,7 @@ export const reportScheduler = middyfy(
 
 			const result = await eventBridge.putTargets(targetParams).promise();
 
-			//const tt = await ServicesLayer.scheduleService.addScheduleSetting({id: ruleName, apiKey: params.apiKey, sortOption: params.sortBy, filterOption: params.filterBy, date: params.date, keyword: params.keyword});
+			const tt = await ServicesLayer.scheduleService.addScheduleSetting({id: ruleName, apiKey: params.apiKey, sortOption: params.sortBy, filterOption: params.filterBy, date: params.date, keyword: params.keyword});
 
 			return {
 				statusCode: statusCodes.Successful,
@@ -84,7 +86,7 @@ export const deleteEventRules = middyfy(async (event: APIGatewayProxyEvent): Pro
 
 		const eventBridge = new EventBridge();
 
-		const ruleName = params.username+'sRule';
+		const ruleName = params.ruleName;
 
 		const rem = {
 			Bus: "default",
