@@ -14,11 +14,11 @@ export const reportScheduler = middyfy(
 			const eventBridge = new EventBridge();
 			const lambda = new Lambda();
 
-			const date_time = new Date(params.date);
+			const date_time = new Date(params.fullUTCDate);
 			const ruleName = "SR-"+randomUUID();
 			const ruleParams = {
 				Name: ruleName,
-				ScheduleExpression: 'cron('+ date_time.getUTCMinutes +' '+ date_time.getUTCHours() +' ' + date_time.getUTCDay() +' '+ date_time.getUTCMonth() +' ? '+ date_time.getUTCFullYear() +')' //cron(min, hour, date-of-month, month, day-of-week, year)
+				ScheduleExpression: 'cron('+ date_time.getUTCMinutes() +' '+ date_time.getUTCHours() +' ' + date_time.getUTCDay() +' '+ date_time.getUTCMonth() +' ? '+ date_time.getUTCFullYear() +')' //cron(min, hour, date-of-month, month, day-of-week, year)
 			};
 
 			const rule = await eventBridge.putRule(ruleParams).promise();
