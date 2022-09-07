@@ -7,12 +7,12 @@ import useAuth from "../hooks/useAuth";
 function Profile() {
 	const { auth, setAuth } = useAuth();
 
-	const imageStyle: any = {
+	const [imageStyle, changeImageStyle] = useState({
 		backgroundImage:
 			auth.profileKey === "assets/profile.png"
 				? "url(assets/profile.png)"
-				: `https://twitter-summariser-images.s3.amazonaws.com/${auth.profileKey}`
-	};
+				: `url(https://twitter-summariser-images.s3.amazonaws.com/${auth.profileKey})`
+	});
 
 	// ############# ~ For Published Reports ~ ####################
 
@@ -94,6 +94,14 @@ function Profile() {
 				console.error(error);
 			}
 		};
+
+		changeShouldRender(true);
+		changeImageStyle({
+			backgroundImage:
+				auth.profileKey === "assets/profile.png"
+					? "url(assets/profile.png)"
+					: `url(https://twitter-summariser-images.s3.amazonaws.com/${auth.profileKey})`
+		});
 	};
 
 	const loadIcon = (
