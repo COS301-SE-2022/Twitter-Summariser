@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import useAuth from "../hooks/useAuth";
 
 function HistoryCard(props: any) {
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
+
+	const { auth } = useAuth();
 
 	const setResultSet = () => {
 		localStorage.setItem("resultSetId", props.data.id);
@@ -12,7 +15,7 @@ function HistoryCard(props: any) {
 	const deleteHandler = async () => {
 		const resultDetails = {
 			resultSetID: props.data.id,
-			apiKey: props.data.apiKey
+			apiKey: auth.apiKey
 		};
 
 		try {
