@@ -1086,6 +1086,11 @@
   resolved "https://registry.yarnpkg.com/@colors/colors/-/colors-1.5.0.tgz#bb504579c1cae923e6576a4f5da43d25f97bdbd9"
   integrity sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==
 
+"@coreui/react@^4.3.1":
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/@coreui/react/-/react-4.3.1.tgz#f0d6f354c6bb28273a54d8d0ebf3f53cd20a2744"
+  integrity sha512-vCkxayuqfr1kFnkc+Jg/BMwJXG+MgBJ4pMbWdBuE06e6fr0WQZkWBC9dLL+e9qFWFZkJmNoYut3gZ2tUjd3mtw==
+
 "@csstools/normalize.css@*":
   version "12.0.0"
   resolved "https://registry.yarnpkg.com/@csstools/normalize.css/-/normalize.css-12.0.0.tgz#a9583a75c3f150667771f30b60d9f059473e62c4"
