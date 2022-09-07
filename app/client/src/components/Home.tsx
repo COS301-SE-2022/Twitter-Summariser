@@ -108,10 +108,16 @@ function Home() {
 	};
 
 	const genRep = async () => {
+
+		// const currentDate = new Date().toUTCString(); // get current date convert to UTC string and send as part of request
+		// console.log(currentDate);
+
+
 		const searchData = {
 			apiKey: auth.apiKey,
 			author: auth.username,
 			resultSetID: resultSet
+			// dateCreated: currentDate // send date as part of request
 		};
 
 		try {
@@ -134,6 +140,8 @@ function Home() {
 	const [noOfTweets, changeNoOfTweets] = useState(5);
 	const [sort, changeSort] = useState("-");
 	const [filter, changeFilter] = useState("-");
+	const [dateTime, changeDateTime] = useState(new Date());
+	const [checked, setChecked] = useState(false);
 
 	// UNCOMMENT FOR SCHEDULE REPORT FUNCTIONALITY
 	// const [schedule, changeSchedule] = useState("00:00");
@@ -196,6 +204,46 @@ function Home() {
 	// console.log("sort from search outside function: ");
 	// console.log(sort);
 
+	const scheduleReport = async (scheduleData: any) => {
+		console.log(scheduleData);
+		try {
+			const response = await axiosPrivate.post("reportSchedular", JSON.stringify(scheduleData));
+			changeResponse(await response.data.tweets);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const schedule = () => {
+		const utcDate = dateTime.toUTCString();
+		const dateHour = dateTime.getUTCHours();
+		const minute = dateTime.getUTCMinutes();
+		const day = dateTime.getUTCDate();
+		const dateMonth = dateTime.getUTCMonth() + 1;
+		const dateYear = dateTime.getUTCFullYear()
+
+		const scheduleData = {
+			username: auth.username,
+			fullUTCDate: utcDate,
+			min: minute,
+			hour: dateHour,
+			dateOfMonth: day,
+			month: dateMonth,
+			year: dateYear,
+			reportDetails: {
+				apiKey: auth.apiKey,
+				filterBy: filter,
+				keyword: enteredSearch,
+				numOfTweets: noOfTweets,
+				sortBy: sort,
+				author: auth.username
+
+			}
+		};
+
+		scheduleReport(scheduleData);
+	};
+
 	const searchTwitter = async (searchData: any) => {
 		try {
 			const response = await axiosPrivate.post("searchTweets", JSON.stringify(searchData));
@@ -214,12 +262,19 @@ function Home() {
 	};
 
 	const search = () => {
+		// const currentDate = new Date().toUTCString();
+
+		if(checked){
+			schedule();
+		}
+
 		const searchData = {
 			apiKey: auth.apiKey,
 			keyword: enteredSearch,
 			numOfTweets: noOfTweets,
 			sortBy: sort === "-" ? "-" : sort,
 			filterBy: filter === "-" ? "-" : filter
+			// dateCreated: currentDate
 		};
 
 		// console.log("no of tweets from search: ");
@@ -235,6 +290,10 @@ function Home() {
 			searchTwitter(searchData);
 		}
 	};
+
+
+
+
 
 	const tweetOptions = [];
 	let apiResponse = [<div key="begining div" />];
@@ -970,7 +1029,10 @@ function Home() {
 								changeSort={changeSort}
 								changeFilter={changeFilter}
 								toggleSearch={search}
-								enteredSearch={enteredSearch}
+								setChecked={setChecked}
+								// enteredSearch={enteredSearch}
+								dateTime={dateTime}
+								changeDateTime={changeDateTime}
 							/>
 						)}
 

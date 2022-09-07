@@ -1,7 +1,8 @@
 import { AiOutlineClose } from "react-icons/ai";
 import Checkbox from "@mui/material/Checkbox";
 import { useState } from "react";
-import useAuth from "../hooks/useAuth";
+import DateTimePicker from 'react-datetime-picker';
+// import useAuth from "../hooks/useAuth";
 
 function AdvanceSearch({
 	setAdvanceOn,
@@ -10,35 +11,45 @@ function AdvanceSearch({
 	changeSort,
 	changeFilter,
 	toggleSearch,
-	enteredSearch
+	setChecked,
+	// enteredSearch,
+	dateTime,
+	changeDateTime
 }: any) {
 	const handleCancelClick = () => {
 		setChoice(false);
 		setAdvanceOn(false);
 	};
 
-	const { auth } = useAuth();
+	// const { auth } = useAuth();
 
 	const style = { fontSize: "1.3rem" };
 
-	const [noOfTweets, changeTweets] = useState(10);
-	const [sort, changSort] = useState("-");
-	const [filter, changFilter] = useState("-");
+	// const [noOfTweets, changeTweets] = useState(10);
+	// const [sort, changSort] = useState("-");
+	// const [filter, changFilter] = useState("-");
+
+	// const [date, changeDate] = useState(new Date());
 
 	const tweetHandler = (event: any) => {
-		changeTweets(event.target.value);
+		// changeTweets(event.target.value);
 		changeNoOfTweets(event.target.value);
 	};
 
 	const sortHandler = (event: any) => {
-		changSort(event.target.value);
+		// changSort(event.target.value);
 		changeSort(event.target.value);
 	};
 
 	const filterHandler = (event: any) => {
-		changFilter(event.target.value);
+		// changFilter(event.target.value);
 		changeFilter(event.target.value);
 	};
+
+	// const scheduleHandler = (event: any) => {
+	// 	// changeDate(event.target.value);
+	// 	changeDateTime(event.target.value);
+	// };
 
 	const tweetOptions = [];
 
@@ -46,50 +57,69 @@ function AdvanceSearch({
 		tweetOptions.push(<option key={index.toString()}>{index}</option>);
 	}
 
-	const [schedule, changeSchedule] = useState("00:00");
-	const [repeat, changeRepeat] = useState("Repeat Daily");
+	// const [schedule, changeSchedule] = useState("00:00");
+	// const [repeat, changeRepeat] = useState("Repeat Daily");
 
-	const [checked, setChecked] = useState(false);
+	// const [checked, setChecked] = useState(false);
+	const [checkedValue, setCheckedValue] = useState(false);
 
 	const checkedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setChecked(event.target.checked);
+		setCheckedValue(event.target.checked);
 	};
 
-	const scheduleHandler = (event: any) => {
-		changeSchedule(event.target.value);
-	};
+	// const scheduleHandler = (event: any) => {
+	// 	changeSchedule(event.target.value);
+	// };
 
-	const repeatHandler = (event: any) => {
-		changeRepeat(event.target.value);
-	};
+	// const repeatHandler = (event: any) => {
+	// 	changeRepeat(event.target.value);
+	// };
 
-	const triggerScheduleEndpoint = () => {
-		const scheduleData = {
-			scheduleTIme: { schedule },
-			repeatInterval: { repeat },
-			numOfTweets: noOfTweets,
-			sortBy: sort,
-			filterBy: filter,
+	// const triggerScheduleEndpoint = () => {
+	// 	// const date = new Date();
+	// 	const utcDate = date.toUTCString();
+	// 	const dateHour = date.getUTCHours();
+	// 	const minute = date.getUTCMinutes();
+	// 	const day = date.getUTCDate();
+	// 	const dateMonth = date.getUTCMonth() + 1;
+	// 	const dateYear = date.getUTCFullYear()
 
-			apiKey: auth.apiKey,
-			keyword: enteredSearch
-			// datetime:datetimeObject
-		};
 
-		// console.log(enteredSearch);
+	// 	const scheduleData = {
+	// 		username: auth.username,
+	// 		fullUTCDate: utcDate,
+	// 		min: minute,
+	// 		hour: dateHour,
+	// 		dateOfMonth: day,
+	// 		month: dateMonth,
+	// 		year: dateYear,
+	// 		reportDetails: {
+	// 			apiKey: auth.apiKey,
+	// 			filterBy: filter,
+	// 			keyword: enteredSearch,
+	// 			numOfTweets: noOfTweets,
+	// 			sortBy: sort,
+	// 			author: auth.username
 
-		// use the object "scheduleData" as you see please
-		scheduleData;
+	// 		}
+	// 	};
 
-		// schedule endpoint comes here
-	};
+	// 	console.log(scheduleData);
+
+	// 	// use the object "scheduleData" as you see please
+	// 	scheduleData;
+
+	// 	// schedule endpoint comes here
+	// };
 
 	function advanceSearch() {
+		changeDateTime();
 		toggleSearch();
 		setAdvanceOn(false);
 		setChoice(false);
 
-		triggerScheduleEndpoint();
+		// triggerScheduleEndpoint();
 	}
 
 	return (
@@ -174,15 +204,17 @@ function AdvanceSearch({
 								<div className="border-t flex flex-row items-center">
 									<p className="">Repeat Schedule: </p>
 									<Checkbox
-										checked={checked}
+										checked={checkedValue}
 										onChange={checkedHandler}
 										inputProps={{ "aria-label": "controlled" }}
 									/>
 								</div>
-								{checked && (
+								{checkedValue && (
 									<div className="flex flex-col justify-center items-center p-1">
 										<div className="flex flex-row justify-center items-center p-4 rounded-md bg-slate-200">
-											<div className="mb-0">
+											{/* <DateTimePicker onChange={changeDate} value={date} /> */}
+											<DateTimePicker onChange={changeDateTime} value={dateTime}/>
+											{/* <div className="mb-0">
 												<p className="font-bold">Interval: </p>
 											</div>
 											<select
@@ -195,12 +227,12 @@ function AdvanceSearch({
 												<option value="weekly">Repeat Weekly</option>
 												<option value="monthly">Repeat Monthly</option>
 												<option value="monthly">Repeat Yearly</option>
-											</select>
+											</select> */}
 										</div>
 
 										<br />
 
-										<div className="flex flex-row justify-center items-center p-4 rounded-md bg-slate-200">
+										{/* <div className="flex flex-row justify-center items-center p-4 rounded-md bg-slate-200">
 											<div className="mb-0">
 												<p className="font-bold">Time: </p>
 											</div>
@@ -216,7 +248,7 @@ function AdvanceSearch({
 												<option value="12:00">12:00</option>
 												<option value="18:00">18:00</option>
 											</select>
-										</div>
+										</div> */}
 									</div>
 								)}
 							</div>
