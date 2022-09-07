@@ -5,42 +5,36 @@ import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import useAuth from "../hooks/useAuth";
 
 function Profile() {
-	const { auth, setAuth } = useAuth();
-
-	const [imageStyle, changeImageStyle] = useState({
-		backgroundImage:
-			auth.profileKey === "assets/profile.png"
-				? "url(assets/profile.png)"
-				: `url(https://twitter-summariser-images.s3.amazonaws.com/${auth.profileKey})`
-	});
-
-	// ############# ~ For Published Reports ~ ####################
-
 	const [report, changeReport] = useState<any[]>([]);
 	const [loading, changeLoading] = useState(true);
 	const [imageURL, changeImageURL] = useState("assets/profile.png");
 	const [shouldRender, changeShouldRender] = useState(false);
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
+	
+	const { auth, setAuth } = useAuth();
+	const imageStyle: any = {
+		backgroundImage:
+			auth.profileKey === "assets/profile.png"
+				? "url(assets/profile.png)"
+				: `url(https://twitter-summariser-images.s3.amazonaws.com/${auth.profileKey}?${new Date().getTime()})`,
+	};
 
 	const getReports = async (isMounted: boolean) => {
-		const apiData = {
-			apiKey: auth.apiKey
-		};
-
 		try {
 			const response = await axiosPrivate.post(
 				"getAllMyPublishedReports",
-				JSON.stringify(apiData),
+				JSON.stringify({
+					apiKey: auth.apiKey
+				}),
 				{ signal: controller.signal }
 			);
 			isMounted && changeReport(response.data);
 			isMounted && changeLoading(false);
 
-			if (auth.profileKey !== "assets/profile.png")
-				changeImageURL(
-					`https://twitter-summariser-images.s3.amazonaws.com/${auth.profileKey}`
-				);
+			if (auth.profileKey !== "assets/profile.png"){
+				changeImageURL(`https://twitter-summariser-images.s3.amazonaws.com/${auth.profileKey}?${new Date().getTime()}`);
+			}
 		} catch (error) {
 			console.error(error);
 		}
@@ -61,8 +55,6 @@ function Profile() {
 		getReports(isMounted);
 		changeShouldRender(false);
 	}
-
-	// ############ Image upload functionality implemented here #############
 
 	const imageUpload = (event: any) => {
 		event.preventDefault;
@@ -86,22 +78,16 @@ function Profile() {
 					}),
 					{ signal: controller.signal }
 				);
+
 				setAuth((prev: any) => ({
 					...prev,
 					profileKey: response.data.profileKey
 				}));
+				changeShouldRender(true);
 			} catch (error) {
 				console.error(error);
 			}
 		};
-
-		changeShouldRender(true);
-		changeImageStyle({
-			backgroundImage:
-				auth.profileKey === "assets/profile.png"
-					? "url(assets/profile.png)"
-					: `url(https://twitter-summariser-images.s3.amazonaws.com/${auth.profileKey})`
-		});
 	};
 
 	const loadIcon = (
@@ -123,7 +109,6 @@ function Profile() {
 		</svg>
 	);
 
-	// ###########################################################
 	return (
 		<div data-testid="profile">
 			<div className="flex flex-col items-center mt-3">
@@ -190,10 +175,6 @@ function Profile() {
 						</div>
 					</div>
 				</div>
-
-				{/* {displayPublished && <div className="">Published should be displayed here</div>}
-
-				{displayDraft && <div className="">Draft should be displayed here</div>} */}
 			</div>
 		</div>
 	);
