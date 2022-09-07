@@ -216,20 +216,14 @@ function Home() {
 
 	const schedule = () => {
 		const utcDate = dateTime.toUTCString();
-		const dateHour = dateTime.getUTCHours();
-		const minute = dateTime.getUTCMinutes();
-		const day = dateTime.getUTCDate();
-		const dateMonth = dateTime.getUTCMonth() + 1;
-		const dateYear = dateTime.getUTCFullYear()
+		// const dateHour = dateTime.getUTCHours();
+		// const minute = dateTime.getUTCMinutes();
+		// const day = dateTime.getUTCDate();
+		// const dateMonth = dateTime.getUTCMonth() + 1;
+		// const dateYear = dateTime.getUTCFullYear()
 
 		const scheduleData = {
-			username: auth.username,
 			fullUTCDate: utcDate,
-			min: minute,
-			hour: dateHour,
-			dateOfMonth: day,
-			month: dateMonth,
-			year: dateYear,
 			reportDetails: {
 				apiKey: auth.apiKey,
 				filterBy: filter,
@@ -237,7 +231,6 @@ function Home() {
 				numOfTweets: noOfTweets,
 				sortBy: sort,
 				author: auth.username
-
 			}
 		};
 
