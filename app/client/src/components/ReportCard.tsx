@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import useAuth from "../hooks/useAuth";
 
 function ReportCard(props: any) {
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
+
+	const { auth } = useAuth();
 
 	const repID = props.data.reportID;
 	const newReportLink = `/report/${repID}`;
@@ -20,7 +23,7 @@ function ReportCard(props: any) {
 	const deleteReportHandler = async () => {
 		const resultDetails = {
 			reportID: props.data.reportID,
-			apiKey: props.data.apiKey
+			apiKey: auth.apiKey
 		};
 
 		try {

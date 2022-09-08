@@ -5,9 +5,13 @@ import useAxiosPrivate from "../hooks/useAxiosPrivate";
 function DraftCard(props: any) {
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
+
 	const { auth } = useAuth();
+
 	const draftID = props.data.reportID;
 	const newDraftReportLink = `/report/${draftID}`;
+
+	// console.log(props.data.dateCreated);
 
 	const viewDraftReport = () => {
 		// if (localStorage.getItem("draftReportId")) {
@@ -23,6 +27,8 @@ function DraftCard(props: any) {
 			reportID: props.data.reportID,
 			apiKey: auth.apiKey
 		};		
+
+		// console.log(resultDetails);
 
 		try {
 			await axiosPrivate.post("deleteReport", JSON.stringify(resultDetails), {
