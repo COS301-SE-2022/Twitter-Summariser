@@ -9,12 +9,13 @@ import { AiOutlineHistory } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useLogout from "../hooks/useLogout";
+import "./styles/Navigation.css";
 
 function Navigation() {
 	const { auth } = useAuth();
 	const logout = useLogout();
 	const navigate = useNavigate();
-	const style = { fontSize: "1.5rem" };
+	const style = { fontSize: "1.5rem", hover: "backgroung-color: yellow" };
 
 	const pageHandler = (prop: string) => {
 		localStorage.setItem("page", prop);
@@ -30,21 +31,24 @@ function Navigation() {
 	return (
 		<div className="text-2xl fixed top-20 mt-5 w-auto 2xl:ml-14 xl:ml-3 md:ml-5">
 			<nav>
-				<div className="pt-4 flex flex-row " key={(1).toString()}>
+				<div className="pt-4 flex flex-row changeColor" key={(1).toString()}>
 					<Link
 						to="/"
 						className="flex flex-row items-center"
 						onClick={() => pageHandler("Home")}
 					>
-						<div className="items-end pt ">
-							<GoHome style={style} />
+						<div className="items-end pt">
+							<GoHome
+								style={style}
+								// onMouseOver={({ target }) => (target.style.color = "white")}
+							/>
 							{/* <GoHome /> */}
 						</div>
 						<div className="hidden lg:block">&nbsp; Home</div>
 					</Link>
 				</div>
 
-				<div className="pt-4 flex flex-row " key={(2).toString()}>
+				<div className="pt-4 flex flex-row  changeColor" key={(2).toString()}>
 					<Link
 						to="/explore"
 						className="flex flex-row items-center"
@@ -57,7 +61,7 @@ function Navigation() {
 					</Link>
 				</div>
 
-				<div className="pt-4 flex flex-row " key={(3).toString()}>
+				<div className="pt-4 flex flex-row  changeColor" key={(3).toString()}>
 					<Link
 						to="/reports"
 						className="flex flex-row items-center"
@@ -70,7 +74,7 @@ function Navigation() {
 					</Link>
 				</div>
 
-				<div className="pt-4 flex flex-row" key={(4).toString()}>
+				<div className="pt-4 flex flex-row changeColor" key={(4).toString()}>
 					<Link
 						to="/drafts"
 						className="flex flex-row items-center"
@@ -83,7 +87,7 @@ function Navigation() {
 					</Link>
 				</div>
 
-				<div className="pt-4 flex flex-row " key={(5).toString()}>
+				<div className="pt-4 flex flex-row  changeColor" key={(5).toString()}>
 					<Link
 						to="/shared"
 						className="flex flex-row items-center"
@@ -96,7 +100,7 @@ function Navigation() {
 					</Link>
 				</div>
 
-				<div className="pt-4 flex flex-row " key={(6).toString()}>
+				<div className="pt-4 flex flex-row  changeColor" key={(6).toString()}>
 					<Link
 						to="/history"
 						className="flex flex-row items-center"
@@ -109,7 +113,7 @@ function Navigation() {
 					</Link>
 				</div>
 
-				<div className="pt-4 flex flex-row " key={(7).toString()}>
+				<div className="pt-4 flex flex-row  changeColor" key={(7).toString()}>
 					<Link
 						to="/summariser"
 						className="flex flex-row items-center"
@@ -122,7 +126,7 @@ function Navigation() {
 					</Link>
 				</div>
 
-				<div className="pt-4 flex flex-row " key={(8).toString()}>
+				<div className="pt-4 flex flex-row  changeColor" key={(8).toString()}>
 					<Link
 						to="/profile"
 						className="flex flex-row items-center"
@@ -135,7 +139,7 @@ function Navigation() {
 					</Link>
 				</div>
 
-				<div className="pt-4 flex flex-row items-end">
+				<div className="pt-4 flex flex-row items-end changeColor">
 					<button type="submit" className="flex flex-row" onClick={signOut}>
 						<div className="items-end pt-1 ">
 							<HiOutlineLogin style={style} />

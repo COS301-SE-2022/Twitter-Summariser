@@ -1,3 +1,10 @@
 .fixPosition {
 	position: fixed;
 }
+
+.changeColor {
+	color: black;
+}
+.changeColor:hover {
+	color: rgb(2 62 138);
+}
