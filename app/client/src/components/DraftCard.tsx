@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 function DraftCard(props: any) {
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
-
+	const { auth } = useAuth();
 	const draftID = props.data.reportID;
 	const newDraftReportLink = `/report/${draftID}`;
 
@@ -20,8 +21,8 @@ function DraftCard(props: any) {
 	const deleteDraftHandler = async () => {
 		const resultDetails = {
 			reportID: props.data.reportID,
-			apiKey: props.data.apiKey
-		};
+			apiKey: auth.apiKey
+		};		
 
 		try {
 			await axiosPrivate.post("deleteReport", JSON.stringify(resultDetails), {
