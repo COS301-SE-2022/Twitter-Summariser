@@ -100,7 +100,7 @@ function Home() {
 	};
 
 	const loadingHandler = () => {
-		changeLoading(false);
+		changeLoading(!loading);
 	};
 
 	const generateLoadingHandler = () => {
@@ -108,10 +108,8 @@ function Home() {
 	};
 
 	const genRep = async () => {
-
 		// const currentDate = new Date().toUTCString(); // get current date convert to UTC string and send as part of request
 		// console.log(currentDate);
-
 
 		const searchData = {
 			apiKey: auth.apiKey,
@@ -207,7 +205,10 @@ function Home() {
 	const scheduleReport = async (scheduleData: any) => {
 		console.log(scheduleData);
 		try {
-			const response = await axiosPrivate.post("reportSchedular", JSON.stringify(scheduleData));
+			const response = await axiosPrivate.post(
+				"reportSchedular",
+				JSON.stringify(scheduleData)
+			);
 			changeResponse(await response.data.tweets);
 		} catch (err) {
 			console.error(err);
@@ -220,7 +221,7 @@ function Home() {
 		const minute = dateTime.getUTCMinutes();
 		const day = dateTime.getUTCDate();
 		const dateMonth = dateTime.getUTCMonth() + 1;
-		const dateYear = dateTime.getUTCFullYear()
+		const dateYear = dateTime.getUTCFullYear();
 
 		const scheduleData = {
 			username: auth.username,
@@ -237,7 +238,6 @@ function Home() {
 				numOfTweets: noOfTweets,
 				sortBy: sort,
 				author: auth.username
-
 			}
 		};
 
@@ -264,7 +264,7 @@ function Home() {
 	const search = () => {
 		// const currentDate = new Date().toUTCString();
 
-		if(checked){
+		if (checked) {
 			schedule();
 		}
 
@@ -290,10 +290,6 @@ function Home() {
 			searchTwitter(searchData);
 		}
 	};
-
-
-
-
 
 	const tweetOptions = [];
 	let apiResponse = [<div key="begining div" />];
