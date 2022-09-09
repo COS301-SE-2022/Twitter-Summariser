@@ -40,7 +40,6 @@ function DraftReport() {
 
 	const location = useLocation();
 	const ind = location.pathname.lastIndexOf("/");
-	// console.log(location.pathname.substring(ind + 1));
 
 	const repID = location.pathname.substring(ind + 1);
 	const newReportLink = `/report/${repID}`;
@@ -62,7 +61,6 @@ function DraftReport() {
 	const requiredData = {
 		apiKey: auth.apiKey,
 		reportID: repID
-		// reportID: localStorage.getItem("draftReportId")
 	};
 
 	const [pulse, changePulse] = useState(false);

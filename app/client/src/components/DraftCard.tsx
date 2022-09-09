@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import useAuth from "../hooks/useAuth";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 function DraftCard(props: any) {
 	const axiosPrivate = useAxiosPrivate();
@@ -26,7 +26,7 @@ function DraftCard(props: any) {
 		const resultDetails = {
 			reportID: props.data.reportID,
 			apiKey: auth.apiKey
-		};
+		};		
 
 		// console.log(resultDetails);
 
