@@ -3,11 +3,12 @@ import { BiHash } from "react-icons/bi";
 import { TiDocumentText } from "react-icons/ti";
 import { RiDraftLine } from "react-icons/ri";
 import { CgProfile } from "react-icons/cg";
-import { BsShare } from "react-icons/bs";
+// import { BsShare } from "react-icons/bs";
 import { HiOutlineLogin } from "react-icons/hi";
-import { AiOutlineHistory } from "react-icons/ai";
+// import { AiOutlineHistory } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { CDropdown, CDropdownToggle, CDropdownMenu, CDropdownItem } from "@coreui/react";
 import useAuth from "../hooks/useAuth";
 import useLogout from "../hooks/useLogout";
 import "./styles/Navigation.css";
@@ -44,19 +45,31 @@ function Navigation() {
 	const [publishStyle2, changePublishStyle2] = useState(defaultStyle);
 
 	const [draftsStyle, changeDraftsStyle] = useState(pageDefault);
-	const [draftsStyle2, changeDraftsStyle2] = useState(defaultStyle);
+	// const [draftsStyle2, changeDraftsStyle2] = useState(defaultStyle);
 
 	const [sharedStyle, changeSharedStyle] = useState(pageDefault);
-	const [sharedStyle2, changeSharedStyle2] = useState(defaultStyle);
+	// const [sharedStyle2, changeSharedStyle2] = useState(defaultStyle);
 
 	const [historyStyle, changeHistoryStyle] = useState(pageDefault);
-	const [historyStyle2, changeHistoryStyle2] = useState(defaultStyle);
+	// const [historyStyle2, changeHistoryStyle2] = useState(defaultStyle);
 
 	const [summStyle, changeSummStyle] = useState(pageDefault);
 	const [summStyle2, changeSummStyle2] = useState(defaultStyle);
 
 	const [profileStyle, changeProfileStyle] = useState(pageDefault);
 	const [profileStyle2, changeProfileStyle2] = useState(defaultStyle);
+
+	const [visible, changeVisible] = useState("");
+
+	function toggleDrop() {
+		if (visible === "hidden") {
+			changeVisible("hidden");
+			changeVisible("");
+		} else {
+			changeVisible("");
+			changeVisible("hidden");
+		}
+	}
 
 	function homeHandler() {
 		changeHomeStyle(pageCurrent);
@@ -71,11 +84,14 @@ function Navigation() {
 		changeHomeStyle2(currentStyle);
 		changeExploreStyle2(defaultStyle);
 		changePublishStyle2(defaultStyle);
-		changeDraftsStyle2(defaultStyle);
-		changeSharedStyle2(defaultStyle);
-		changeHistoryStyle2(defaultStyle);
+		// changeDraftsStyle2(defaultStyle);
+		// changeSharedStyle2(defaultStyle);
+		// changeHistoryStyle2(defaultStyle);
 		changeSummStyle2(defaultStyle);
 		changeProfileStyle2(defaultStyle);
+
+		// changeVisible("");
+		// changeVisible("hidden");
 	}
 
 	function exploreHandler() {
@@ -91,11 +107,14 @@ function Navigation() {
 		changeHomeStyle2(defaultStyle);
 		changeExploreStyle2(currentStyle);
 		changePublishStyle2(defaultStyle);
-		changeDraftsStyle2(defaultStyle);
-		changeSharedStyle2(defaultStyle);
-		changeHistoryStyle2(defaultStyle);
+		// changeDraftsStyle2(defaultStyle);
+		// changeSharedStyle2(defaultStyle);
+		// changeHistoryStyle2(defaultStyle);
 		changeSummStyle2(defaultStyle);
 		changeProfileStyle2(defaultStyle);
+
+		// changeVisible("");
+		// changeVisible("hidden");
 	}
 
 	function publishHandler() {
@@ -111,9 +130,9 @@ function Navigation() {
 		changeHomeStyle2(defaultStyle);
 		changeExploreStyle2(defaultStyle);
 		changePublishStyle2(currentStyle);
-		changeDraftsStyle2(defaultStyle);
-		changeSharedStyle2(defaultStyle);
-		changeHistoryStyle2(defaultStyle);
+		// changeDraftsStyle2(defaultStyle);
+		// changeSharedStyle2(defaultStyle);
+		// changeHistoryStyle2(defaultStyle);
 		changeSummStyle2(defaultStyle);
 		changeProfileStyle2(defaultStyle);
 	}
@@ -131,9 +150,9 @@ function Navigation() {
 		changeHomeStyle2(defaultStyle);
 		changeExploreStyle2(defaultStyle);
 		changePublishStyle2(defaultStyle);
-		changeDraftsStyle2(currentStyle);
-		changeSharedStyle2(defaultStyle);
-		changeHistoryStyle2(defaultStyle);
+		// changeDraftsStyle2(currentStyle);
+		// changeSharedStyle2(defaultStyle);
+		// changeHistoryStyle2(defaultStyle);
 		changeSummStyle2(defaultStyle);
 		changeProfileStyle2(defaultStyle);
 	}
@@ -151,9 +170,9 @@ function Navigation() {
 		changeHomeStyle2(defaultStyle);
 		changeExploreStyle2(defaultStyle);
 		changePublishStyle2(defaultStyle);
-		changeDraftsStyle2(defaultStyle);
-		changeSharedStyle2(currentStyle);
-		changeHistoryStyle2(defaultStyle);
+		// changeDraftsStyle2(defaultStyle);
+		// changeSharedStyle2(currentStyle);
+		// changeHistoryStyle2(defaultStyle);
 		changeSummStyle2(defaultStyle);
 		changeProfileStyle2(defaultStyle);
 	}
@@ -171,9 +190,9 @@ function Navigation() {
 		changeHomeStyle2(defaultStyle);
 		changeExploreStyle2(defaultStyle);
 		changePublishStyle2(defaultStyle);
-		changeDraftsStyle2(defaultStyle);
-		changeSharedStyle2(defaultStyle);
-		changeHistoryStyle2(currentStyle);
+		// changeDraftsStyle2(defaultStyle);
+		// changeSharedStyle2(defaultStyle);
+		// changeHistoryStyle2(currentStyle);
 		changeSummStyle2(defaultStyle);
 		changeProfileStyle2(defaultStyle);
 	}
@@ -191,11 +210,14 @@ function Navigation() {
 		changeHomeStyle2(defaultStyle);
 		changeExploreStyle2(defaultStyle);
 		changePublishStyle2(defaultStyle);
-		changeDraftsStyle2(defaultStyle);
-		changeSharedStyle2(defaultStyle);
-		changeHistoryStyle2(defaultStyle);
+		// changeDraftsStyle2(defaultStyle);
+		// changeSharedStyle2(defaultStyle);
+		// changeHistoryStyle2(defaultStyle);
 		changeSummStyle2(currentStyle);
 		changeProfileStyle2(defaultStyle);
+
+		// changeVisible("");
+		// changeVisible("hidden");
 	}
 
 	function profileHandler() {
@@ -211,11 +233,14 @@ function Navigation() {
 		changeHomeStyle2(defaultStyle);
 		changeExploreStyle2(defaultStyle);
 		changePublishStyle2(defaultStyle);
-		changeDraftsStyle2(defaultStyle);
-		changeSharedStyle2(defaultStyle);
-		changeHistoryStyle2(defaultStyle);
+		// changeDraftsStyle2(defaultStyle);
+		// changeSharedStyle2(defaultStyle);
+		// changeHistoryStyle2(defaultStyle);
 		changeSummStyle2(defaultStyle);
 		changeProfileStyle2(currentStyle);
+
+		// changeVisible("");
+		// changeVisible("hidden");
 	}
 
 	return (
@@ -256,76 +281,99 @@ function Navigation() {
 					</Link>
 				</div>
 
-				<div
-					className="pt-4 flex flex-row changeColor"
-					key={(3).toString()}
-					onClick={publishHandler}
-				>
-					<Link
-						to="/reports"
-						className="flex flex-row items-center"
-						onClick={() => pageHandler("Published")}
-					>
-						<div className="items-center pt-1 ">
-							<TiDocumentText style={publishStyle2} />
+				<CDropdown>
+					<CDropdownToggle trigger="click">
+						<div
+							className="pt-4 flex flex-row changeColor"
+							key={(3).toString()}
+							onClick={toggleDrop}
+						>
+							<div className="items-center pt-1 ">
+								<TiDocumentText style={publishStyle2} />
+							</div>
+							<div className={publishStyle}>&nbsp; Report</div>
 						</div>
-						<div className={publishStyle}>&nbsp; Published</div>
-					</Link>
-				</div>
+					</CDropdownToggle>
+					<CDropdownMenu>
+						<CDropdownItem className={visible}>
+							<div
+								className="pt-4 flex flex-row changeColor"
+								key={(3).toString()}
+								onClick={publishHandler}
+							>
+								<Link
+									to="/reports"
+									className="flex flex-row items-center"
+									onClick={() => pageHandler("Published")}
+								>
+									{/* <div className="items-center pt-1 ">
+										<TiDocumentText style={publishStyle2} />
+									</div> */}
+									<div className={publishStyle}>
+										&nbsp; &nbsp; &nbsp;Published
+									</div>
+								</Link>
+							</div>
+						</CDropdownItem>
+						<CDropdownItem className={visible}>
+							<div
+								className="pt-4 flex flex-row changeColor"
+								key={(4).toString()}
+								onClick={draftHandler}
+							>
+								<Link
+									to="/drafts"
+									className="flex flex-row items-center"
+									onClick={() => pageHandler("Drafts")}
+								>
+									{/* <div className="items-end pt-1 ">
+										<RiDraftLine style={draftsStyle2} />
+									</div> */}
+									<div className={draftsStyle}>&nbsp; &nbsp; &nbsp;Drafts</div>
+								</Link>
+							</div>
+						</CDropdownItem>
+						<CDropdownItem className={visible}>
+							<div
+								className="pt-4 flex flex-row changeColor"
+								key={(5).toString()}
+								onClick={sharedHandler}
+							>
+								<Link
+									to="/shared"
+									className="flex flex-row items-center"
+									onClick={() => pageHandler("Shared Reports")}
+								>
+									{/* <div className="items-end pt-1 ">
+										<BsShare style={sharedStyle2} />
+									</div> */}
+									<div className={sharedStyle}>&nbsp; &nbsp; &nbsp;Shared</div>
+								</Link>
+							</div>
+						</CDropdownItem>
+						<CDropdownItem className={visible}>
+							<div
+								className="py-4 flex flex-row changeColor"
+								key={(6).toString()}
+								onClick={historyHandler}
+							>
+								<Link
+									to="/history"
+									className="flex flex-row items-center"
+									onClick={() => pageHandler("Search History")}
+								>
+									{/* <div className="items-end pt-1 ">
+										<AiOutlineHistory style={historyStyle2} />
+									</div> */}
+									<div className={historyStyle}>&nbsp; &nbsp; &nbsp;History</div>
+								</Link>
+							</div>
+						</CDropdownItem>
+					</CDropdownMenu>
+				</CDropdown>
 
 				<div
-					className="pt-4 flex flex-row changeColor"
-					key={(4).toString()}
-					onClick={draftHandler}
-				>
-					<Link
-						to="/drafts"
-						className="flex flex-row items-center"
-						onClick={() => pageHandler("Drafts")}
-					>
-						<div className="items-end pt-1 ">
-							<RiDraftLine style={draftsStyle2} />
-						</div>
-						<div className={draftsStyle}>&nbsp; Drafts</div>
-					</Link>
-				</div>
-
-				<div
-					className="pt-4 flex flex-row changeColor"
-					key={(5).toString()}
-					onClick={sharedHandler}
-				>
-					<Link
-						to="/shared"
-						className="flex flex-row items-center"
-						onClick={() => pageHandler("Shared Reports")}
-					>
-						<div className="items-end pt-1 ">
-							<BsShare style={sharedStyle2} />
-						</div>
-						<div className={sharedStyle}>&nbsp; Shared</div>
-					</Link>
-				</div>
-
-				<div
-					className="pt-4 flex flex-row changeColor"
-					key={(6).toString()}
-					onClick={historyHandler}
-				>
-					<Link
-						to="/history"
-						className="flex flex-row items-center"
-						onClick={() => pageHandler("Search History")}
-					>
-						<div className="items-end pt-1 ">
-							<AiOutlineHistory style={historyStyle2} />
-						</div>
-						<div className={historyStyle}>&nbsp; History</div>
-					</Link>
-				</div>
-
-				<div
-					className="pt-4 flex flex-row changeColor"
+					className="pt-2 flex flex-row changeColor"
 					key={(7).toString()}
 					onClick={summHandler}
 				>
