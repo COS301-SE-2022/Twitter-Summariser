@@ -1,7 +1,7 @@
 import { AiOutlineClose } from "react-icons/ai";
 import Checkbox from "@mui/material/Checkbox";
 import { useState } from "react";
-import DateTimePicker from 'react-datetime-picker';
+import DateTimePicker from "react-datetime-picker";
 // import useAuth from "../hooks/useAuth";
 
 function AdvanceSearch({
@@ -84,7 +84,6 @@ function AdvanceSearch({
 	// 	const day = date.getUTCDate();
 	// 	const dateMonth = date.getUTCMonth() + 1;
 	// 	const dateYear = date.getUTCFullYear()
-
 
 	// 	const scheduleData = {
 	// 		username: auth.username,
@@ -213,7 +212,10 @@ function AdvanceSearch({
 									<div className="flex flex-col justify-center items-center p-1">
 										<div className="flex flex-row justify-center items-center p-4 rounded-md bg-slate-200">
 											{/* <DateTimePicker onChange={changeDate} value={date} /> */}
-											<DateTimePicker onChange={changeDateTime} value={dateTime}/>
+											<DateTimePicker
+												onChange={changeDateTime}
+												value={dateTime}
+											/>
 											{/* <div className="mb-0">
 												<p className="font-bold">Interval: </p>
 											</div>
