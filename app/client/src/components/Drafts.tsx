@@ -14,12 +14,12 @@ function Drafts() {
 
 	const getHistory = async (isMounted: boolean) => {
 		try {
-			[""];
 			const response = await axiosPrivate.post(
 				"getAllMyDraftReports",
 				JSON.stringify({ apiKey: auth.apiKey }),
 				{ signal: controller.signal }
 			);
+			
 			isMounted && changeDraft(response.data);
 			isMounted && changeLoading(false);
 
