@@ -17,7 +17,6 @@ import { SHA256 } from "crypto-js";
 
 declare const self: ServiceWorkerGlobalScope;
 
-
 const tableName: string = "post-cache";
 
 const dbCache = openDB('Cache-Requests', 1, {
@@ -79,14 +78,6 @@ registerRoute(
 	})
 );
 
-registerRoute(
-	"index.html",
-
-	new StaleWhileRevalidate({
-	})
-);
-
-
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
 self.addEventListener("message", (event) => {
@@ -96,7 +87,6 @@ self.addEventListener("message", (event) => {
 });
 
 // Any other custom service worker logic can go here.
-
 
 self.addEventListener("fetch", async (event)=> {
 	
