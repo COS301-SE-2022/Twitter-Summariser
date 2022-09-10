@@ -14,8 +14,6 @@ import { registerRoute } from "workbox-routing";
 import { StaleWhileRevalidate } from "workbox-strategies";
 import { openDB } from "idb"; 
 import { SHA256 } from "crypto-js";
-// import useAuth from "./hooks/useAuth";
-import bcrypjs from "bcryptjs";
 
 declare const self: ServiceWorkerGlobalScope;
 
@@ -27,8 +25,6 @@ const dbCache = openDB('Cache-Requests', 1, {
 		db.createObjectStore(tableName);
 	}
 });
-
-// const { auth } = useAuth();
 
 clientsClaim();
 
@@ -84,14 +80,10 @@ registerRoute(
 );
 
 registerRoute(
-	new RegExp(/^(http|https):\/\/[a-zA-Z0-9\-\:\.]+(\.com)?\/dev\/get([a-zA-Z])+$/),
+	"index.html",
 
-	async ({event}) => {
-		console.log("In register route");
-		return await networkFirst(event);
-	}, 
-	
-	"POST"
+	new StaleWhileRevalidate({
+	})
 );
 
 
@@ -118,7 +110,6 @@ self.addEventListener("fetch", async (event)=> {
 });
 
 const networkFirst =async (event: any) => {
-	// let entry = await getValue(event.request.clone());
 	return fetch(event.request.clone())
 					.then((response: any) => {
 						putValue(event.request.clone(), response.clone());
@@ -127,33 +118,7 @@ const networkFirst =async (event: any) => {
 					.catch(() => {
 						return getValue(event.request.clone());
 					})
-	// if (entry) {
-	// 	fetch(event.request.clone())
-	// 				.then((response: any) => {
-	// 					putValue(event.request.clone(), response.clone());
-	// 					return response;
-	// 				})
-	// 	return entry;
-	// } else {
-	// 	return fetch(event.request.clone())
-	// 	.then((response: any) => {
-	// 		putValue(event.request.clone(), response.clone());
-	// 		return response;
-	// 	})
-	// }
-	// let getPromise = fetch(event.request.clone())
-	// 				.then((response: any) => {
-	// 					putValue(event.request.clone(), response.clone());
-	// 					return response;
-	// 				})
 
-	// return entry || getPromise;
-
-	// if (entry) {
-	// 	return Promise.resolve(entry);
-	// } else {
-	// 	return getPromise;
-	// }
 }
 
 const serialisedReponse =async (response: any) => {
