@@ -1,5 +1,4 @@
-import type {AWS}
-from "@serverless/typescript";
+import type {AWS} from "@serverless/typescript";
 import {verifyJWT} from "@functions/authorizers";
 import {genScheduledReport, reportScheduler, deleteEventRules} from "@functions/schedulers";
 import {
@@ -34,6 +33,7 @@ import {
 } from "@functions/report";
 import {profileImageUpload} from "@functions/profileImage";
 import {editBlock, deleteReportBlock} from "@functions/reportBlock";
+import { analyse } from "@functions/sentimentAnalysis";
 import {URL} from "@functions/resources/APIresponse";
 
 const serverlessConfiguration: AWS = {
@@ -90,15 +90,19 @@ const serverlessConfiguration: AWS = {
                     {
                         Sid: "PermissionForLambda",
                         Effect: "Allow",
-                        "Action": [
-                            "lambda:AddPermission"
-                        ],
+                        Action: "lambda:AddPermission",
                         Resource: "*"
                     },
                     {
                         Sid: "PermissionsForS3",
                         Effect: "Allow",
                         Action: "s3:*",
+                        Resource: "*"
+                    },
+                    {
+                        Sid: "PermissionsForComprehend",
+                        Effect: "Allow",
+                        Action: "comprehend:*",
                         Resource: "*"
                     }
                 ]
@@ -136,7 +140,8 @@ const serverlessConfiguration: AWS = {
         profileImageUpload,
         reportScheduler,
         genScheduledReport,
-        deleteEventRules
+        deleteEventRules,
+        analyse
     },
 
     package: {
