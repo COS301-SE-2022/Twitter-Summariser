@@ -182,27 +182,3 @@ let putValue = async (request: any, response: any) => {
 	const store = tx.objectStore(tableName);
 	await store.put(entry, id);
 }
-
-let putBulkValue =async (values: object[]) => {
-	const tx = (await dbCache).transaction(tableName, "readwrite");
-	const store = tx.objectStore(tableName);
-
-	for (const value of values) {
-		const result = await store.put(value);
-	}
-
-}
-
-// Will be needed in the future (to remove old cache)
-let deleteValue =async (key: IDBKeyRange) => {
-	const tx = (await dbCache).transaction(tableName, "readwrite");
-	const store = tx.objectStore(tableName);
-
-	const result = await store.get(key);
-
-	if (result)
-		await store.delete(key);
-
-
-}
-
