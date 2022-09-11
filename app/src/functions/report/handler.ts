@@ -39,7 +39,7 @@ export const generateReport = middyfy(
 				status: "DRAFT",
 				title: title.searchPhrase,
 				apiKey: params.apiKey,
-				dateCreated: d.getUTCDate().toString(),
+				dateCreated: d.toString(),
 				author: params.author
 			});
 
