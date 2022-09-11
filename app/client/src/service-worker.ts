@@ -90,10 +90,8 @@ self.addEventListener("message", (event) => {
 
 self.addEventListener("fetch", async (event)=> {
 	
-	console.log("Request made to API");
 	let url = event.request.url;
-	console.log(event.request.url);
-	// console.log(auth.apiKey);
+	
 	if (event.request.method === "POST" && url.includes("/dev/get")) {
 		event.respondWith(networkFirst(event));
 	}
@@ -135,10 +133,9 @@ let getValue = async (request: any) => {
 
 	try {
 		let url = await request.url;
-		console.log(url);
+
 		const id = SHA256(url.toString()).toString();
 		
-		console.log(id);
 		const tx = (await dbCache).transaction(tableName, "readonly");
 		const store = tx.objectStore(tableName);
 		cacheData = await store.get(id);
