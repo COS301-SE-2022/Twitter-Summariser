@@ -125,6 +125,8 @@ export const deleteReportBlock = middyfy(
 					});
 					await ServicesLayer.reportBlockService.deleteReportBlock(params.reportBlockID);
 					await ServicesLayer.reportBlockService.deleteReportBlock(bottom.reportBlockID);
+				}else{
+					await ServicesLayer.reportBlockService.deleteReportBlock(params.reportBlockID);
 				}
 			}else{
 				await ServicesLayer.reportBlockService.deleteReportBlock(params.reportBlockID);
