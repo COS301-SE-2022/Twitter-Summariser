@@ -9,10 +9,17 @@ export const getAllResultSet = middyfy(
 			const params = JSON.parse(event.body);
 
 			const resultSet = await ServicesLayer.resultSetServices.getResultSets(params.apiKey);
+			
+			resultSet.map(async (set:any) => {
+				delete set.apiKey;
+			});
 
 			resultSet.sort( (a, b) => {
 				return (new Date(b.dateCreated).getTime()) - (new Date(a.dateCreated).getTime());
 			});
+
+			
+
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
@@ -37,6 +44,8 @@ export const getResultSet = middyfy(
 				params.resultSetID,
 				params.apiKey
 			);
+
+			delete resultSet.apiKey;
 
 			return {
 				statusCode: statusCodes.Successful,
