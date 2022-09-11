@@ -100,7 +100,13 @@ export const deleteReportBlock = middyfy(
 				};
 			}
 
-			await ServicesLayer.reportBlockService.deleteReportBlock(params.reportBlockID);
+			if(params.type === "TWEET"){
+				const tweet = await ServicesLayer.reportBlockService.getReportBlock(params.reportBlockID);
+
+				
+			}else{
+				await ServicesLayer.reportBlockService.deleteReportBlock(params.reportBlockID);
+			}
 
 			return {
 				statusCode: statusCodes.Successful,
