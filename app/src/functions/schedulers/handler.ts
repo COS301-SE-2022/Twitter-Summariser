@@ -86,7 +86,7 @@ export const deleteEventRules = middyfy(async (event: APIGatewayProxyEvent): Pro
 
 		const eventBridge = new EventBridge();
 
-		const ruleName = params.ruleName;
+		const ruleName = params.ruleID;
 
 		const rem = {
 			Bus: "default",
