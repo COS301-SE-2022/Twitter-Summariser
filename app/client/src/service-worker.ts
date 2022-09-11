@@ -163,12 +163,11 @@ let putValue = async (request: any, response: any) => {
 	const id = SHA256(url.toString()).toString();
 
 	let entry = {
-		// query: body.query,
 		response: await serialisedReponse(response),
 		timestamp: Date.now()
 	}
 
 	const tx = (await dbCache).transaction(tableName, "readwrite");
 	const store = tx.objectStore(tableName);
-	await store.put(entry, id);
+	store.put(entry, id);
 }
