@@ -101,16 +101,17 @@ export const deleteReportBlock = middyfy(
 				};
 			}
 
-			if(params.type === "TWEET"){
-				const tweet = await ServicesLayer.reportBlockService.getReportBlock(params.reportBlockID);
-				const report = await ServicesLayer.reportBlockService.getReportBlocks(tweet.reportID);
+			const blck = await ServicesLayer.reportBlockService.getReportBlock(params.reportBlockID);
+
+			if(blck.blockType === "TWEET"){
+				const report = await ServicesLayer.reportBlockService.getReportBlocks(blck.reportID);
 
 				let top = null;
 				let bottom= null;
 				for(const block in report){
-					if(report[block].position === tweet.position-1){
+					if(report[block].position === blck.position-1){
 						top = report[block];
-					}else if (report[block].position === tweet.position+1){
+					}else if (report[block].position === blck.position+1){
 						bottom = report[block];
 					}
 				}
