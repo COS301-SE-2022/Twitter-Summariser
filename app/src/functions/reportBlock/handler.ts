@@ -123,6 +123,8 @@ export const deleteReportBlock = middyfy(
 						position: top.position,
 						richText: top.text + "\n\n" + bottom.text
 					});
+					await ServicesLayer.reportBlockService.deleteReportBlock(params.reportBlockID);
+					await ServicesLayer.reportBlockService.deleteReportBlock(bottom.reportBlockID);
 				}
 			}else{
 				await ServicesLayer.reportBlockService.deleteReportBlock(params.reportBlockID);
