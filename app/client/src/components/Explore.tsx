@@ -64,7 +64,9 @@ function Explore() {
 					</div>
 
 					<div className="mt-4 flex flex-row flex-wrap justify-center">
-						{loading && <div className="mt-8 pr-8 pl-8">{loadIcon} &nbsp; Loading Reports</div>}
+						{loading && (
+							<div className="mt-8 pr-8 pl-8">{loadIcon} &nbsp; Loading Reports</div>
+						)}
 						{!loading &&
 							(report.length === 0 ? (
 								<div className="mt-8 pr-8 pl-8">

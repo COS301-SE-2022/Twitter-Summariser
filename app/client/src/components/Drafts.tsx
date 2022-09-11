@@ -19,13 +19,15 @@ function Drafts() {
 				JSON.stringify({ apiKey: auth.apiKey }),
 				{ signal: controller.signal }
 			);
-			
+
 			isMounted && changeDraft(response.data);
 			isMounted && changeLoading(false);
 
 			if (auth.profileKey !== "assets/profile.png")
 				changeImageURL(
-					`https://twitter-summariser-images.s3.amazonaws.com/${auth.profileKey}?${new Date().getTime()}`
+					`https://twitter-summariser-images.s3.amazonaws.com/${
+						auth.profileKey
+					}?${new Date().getTime()}`
 				);
 		} catch (error) {
 			console.error(error);
@@ -79,7 +81,11 @@ function Drafts() {
 						</h1>
 					</div>
 					<div className="mt-4 flex flex-row flex-wrap justify-center">
-						{loading && <div className="mt-8 pr-8 pl-8">{loadIcon} &nbsp; Loading Draft Report(s)</div>}
+						{loading && (
+							<div className="mt-8 pr-8 pl-8">
+								{loadIcon} &nbsp; Loading Draft Report(s)
+							</div>
+						)}
 						{!loading &&
 							(newDraft.length === 0 ? (
 								<div className="mt-8 pr-8 pl-8">

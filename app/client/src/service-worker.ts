@@ -12,7 +12,7 @@ import { ExpirationPlugin } from "workbox-expiration";
 import { precacheAndRoute, createHandlerBoundToURL } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
 import { StaleWhileRevalidate } from "workbox-strategies";
-import { openDB } from "idb"; 
+import { openDB } from "idb";
 import { SHA256 } from "crypto-js";
 // import useAuth from "./hooks/useAuth";
 import bcrypjs from "bcryptjs";
@@ -222,4 +222,3 @@ let deleteValue =async (key: IDBKeyRange) => {
 
 }
 */
-
