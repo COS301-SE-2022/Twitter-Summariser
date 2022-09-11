@@ -4,4 +4,5 @@ export default interface Tweet {
 	numRetweets: number; // Number of times tweet was retweeted
 	tweetId: string; // Tweet ID
 	text?: string;
+	sentiment?: string;
 }
