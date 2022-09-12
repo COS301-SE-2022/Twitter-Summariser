@@ -9,7 +9,7 @@ function TextSummariser() {
 	const getResponse = async () => {
 		try {
 			setLoading(true);
-			const res = await axiosPublic.post('summarise', {
+			const res = await axiosPublic.post("summarise", {
 				text,
 				min: 100,
 				max: 200
@@ -35,9 +35,7 @@ function TextSummariser() {
 				<h2 className="text-primary text-md font-bold mb-6 mt-6">
 					Summarise text into shorter length.
 				</h2>
-				<form
-					className="flex flex-col justify-between mt-4 w-full"
-				>
+				<form className="flex flex-col justify-between mt-4 w-full">
 					<div className=" w-full">
 						<label htmlFor="text" className=" text-sm font-medium text-primary">
 							Enter the text to summarise:
@@ -64,15 +62,18 @@ function TextSummariser() {
 							}}
 						>
 							{loading ? (
-							<span className="animate-pulse">Loading..</span>
-						) : (
-							<>SUMMARISE TEXT</>
-						)}
+								<span className="animate-pulse">Loading..</span>
+							) : (
+								<>SUMMARISE TEXT</>
+							)}
 						</button>
 						<button
 							className="w-full rounded-lg px-2 py-3 bg-active text-center text-sm font-semibold text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow"
 							type="submit"
-							onClick={(e) => {e.preventDefault(); setText("")}}
+							onClick={(e) => {
+								e.preventDefault();
+								setText("");
+							}}
 						>
 							CLEAR TEXT
 						</button>

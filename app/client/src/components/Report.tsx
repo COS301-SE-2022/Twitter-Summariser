@@ -211,20 +211,20 @@ function Report() {
 
 	const isPublished = () => stat === "PUBLISHED";
 
-const isViewer = () => perm === "VIEWER";
+	const isViewer = () => perm === "VIEWER";
 
-const isOwner = () => perm === "OWNER";
+	const isOwner = () => perm === "OWNER";
 
-if(isPublished() || isViewer()) {
-	state.map((data: any, index: number) =>
-		apiResponse.push(
-			<div className="" key={data.position}>
-				{data.blockType === "RICHTEXT" && (
-					<div className="">
-						{" "}
-						<PublishedText keyValue={index} data={data} status={stat} />{" "}
-					</div>
-				)}
+	if (isPublished() || isViewer()) {
+		state.map((data: any, index: number) =>
+			apiResponse.push(
+				<div className="" key={data.position}>
+					{data.blockType === "RICHTEXT" && (
+						<div className="">
+							{" "}
+							<PublishedText keyValue={index} data={data} status={stat} />{" "}
+						</div>
+					)}
 
 					{data.blockType === "TWEET" && (
 						<div className=" w-full border border-gray-200 p-3" key={data.position}>
