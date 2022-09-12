@@ -13,12 +13,20 @@ export default class TweetService {
 					numComments: data[i].public_metrics.reply_count,
 					numLikes: data[i].public_metrics.like_count,
 					numRetweets: data[i].public_metrics.retweet_count,
-					// text: data[i].text,
+					text: data[i].text,
 					tweetId: data[i].id
 				});
 			}
 		}
 		return tweetList as Tweet[];
+	}
+
+	async createTextForSum(tweets: Tweet[]): Promise<string> {
+		let text = "";
+		for(const tweet in tweets){
+			text += tweets[tweet];
+		}
+		return text;
 	}
 
 	async sortTweets(tweets: Tweet[], sortBy: string): Promise<Tweet[]> {
