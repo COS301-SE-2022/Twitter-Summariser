@@ -29,8 +29,10 @@ export const backupDynamoDB = async () => {
                 TableName: table
             };
 
-            await dynamoDB.createBackup(params).promise();
+            const backupRes = await dynamoDB.createBackup(params).promise();
 
+            // Do not remove, will give feedback on host for successful backup creation
+            console.log({backupRes});
         } catch (e) {
             console.error(e);
         }
