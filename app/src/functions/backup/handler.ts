@@ -20,15 +20,20 @@ export const backupDynamoDB = async () => {
         }
     }
 
-    tables.map(async () => {
-        // try {
-        //     const date = new Date();
+    tables.map(async (table: any) => {
+        try {
+            const date = new Date();
 
-        //     const params = {
-        //         BackupName: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
-        //         TableName: process.env.TableNames;
-        //     }
-        // }
+            const params = {
+                BackupName: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
+                TableName: table
+            };
+
+            await dynamoDB.createBackup(params).promise();
+
+        } catch (e) {
+            console.error(e);
+        }
     })
     
     
