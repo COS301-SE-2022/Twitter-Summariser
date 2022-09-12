@@ -91,9 +91,8 @@ self.addEventListener("message", (event) => {
 
 self.addEventListener("fetch", async (event)=> {
 	
-	console.log("Request made to API");
-	const {url} = event.request;
-	console.log(event.request.url);
+	const url = event.request.url;
+
 	// console.log(auth.apiKey);
 	if (event.request.method === "POST" && url.includes("/dev/get")) {
 		// eslint-disable-next-line no-use-before-define
@@ -105,11 +104,11 @@ const getValue = async (request: any) => {
 	let cacheData;
 
 	try {
+
 		const url = await request.url;
-		console.log(url);
+		
 		const id = SHA256(url.toString()).toString();
 		
-		console.log(id);
 		const tx = (await dbCache).transaction(tableName, "readonly");
 		const store = tx.objectStore(tableName);
 		cacheData = await store.get(id);
