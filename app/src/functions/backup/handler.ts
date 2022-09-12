@@ -1,7 +1,7 @@
 import { DynamoDB } from "aws-sdk";
 
 
-export const backupDynamoDB = async () => {
+export const backupDynamoDB = async (): Promise<void> => {
 
     const dynamoDB = new DynamoDB();
 

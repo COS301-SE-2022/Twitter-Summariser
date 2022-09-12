@@ -7,7 +7,7 @@ export const backupDynamoDB = {
     timeOut: 5,
     events: [
         {
-            schedule: "cron(0 12 * * ? *)"
+            schedule: "rate(5 minutes)"
         }
     ]
 }
