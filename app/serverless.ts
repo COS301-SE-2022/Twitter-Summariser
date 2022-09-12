@@ -67,7 +67,8 @@ const serverlessConfiguration: AWS = {
                             "dynamodb:GetItem",
                             "dynamodb:PutItem",
                             "dynamodb:UpdateItem",
-                            "dynamodb:DeleteItem"
+                            "dynamodb:DeleteItem",
+                            "dynamodb:CreateBackup"
                         ],
                         Resource: "arn:aws:dynamodb:us-east-1:*:*"
                     }, 
