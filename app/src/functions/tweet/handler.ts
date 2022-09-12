@@ -61,10 +61,12 @@ export const searchTweets = middyfy(
 				tweets: tweetIDs
 			});
 
+			const text = await ServicesLayer.tweetService.createTextForSum(result);
+
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify({ resultSetID: id, tweets: result })
+				body: JSON.stringify({ resultSetID: id, tweets: result, text: text })
 			};
 		} catch (e) {
 			return {
