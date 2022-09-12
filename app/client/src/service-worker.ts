@@ -17,7 +17,7 @@ import { SHA256 } from "crypto-js";
 
 declare const self: ServiceWorkerGlobalScope;
 
-const tableName: string = "post-cache";
+const tableName = "post-cache";
 
 const dbCache = openDB('Cache-Requests', 1, {
 	upgrade(db) {
@@ -31,12 +31,13 @@ clientsClaim();
 // Their URLs are injected into the manifest variable below.
 // This variable must be present somewhere in your service worker file,
 // even if you decide not to use precaching. See https://cra.link/PWA
+// eslint-disable-next-line no-underscore-dangle
 precacheAndRoute(self.__WB_MANIFEST);
 
 // Set up App Shell-style routing, so that all navigation requests
 // are fulfilled with your index.html shell. Learn more at
 // https://developers.google.com/web/fundamentals/architecture/app-shell
-const fileExtensionRegexp = new RegExp("/[^/?]+\\.[^/]+$");
+const fileExtensionRegexp = /\/[^/?]+\.[^/]+$/;
 registerRoute(
 	// Return false to exempt requests from being fulfilled by index.html.
 	({ request, url }: { request: Request; url: URL }) => {
@@ -91,50 +92,20 @@ self.addEventListener("message", (event) => {
 self.addEventListener("fetch", async (event)=> {
 	
 	console.log("Request made to API");
-	let url = event.request.url;
+	const {url} = event.request;
 	console.log(event.request.url);
 	// console.log(auth.apiKey);
 	if (event.request.method === "POST" && url.includes("/dev/get")) {
+		// eslint-disable-next-line no-use-before-define
 		event.respondWith(networkFirst(event));
 	}
 });
 
-const networkFirst =async (event: any) => {
-	return fetch(event.request.clone())
-					.then((response: any) => {
-						putValue(event.request.clone(), response.clone());
-						return response;
-					})
-					.catch(() => {
-						return getValue(event.request.clone());
-					})
-
-}
-
-const serialisedReponse =async (response: any) => {
-	let serialisedHeaders: any = {};
-
-	for (let entry of response.headers.entries()) {
-		serialisedHeaders[entry[0]] = entry[1];
-	}
-
-	let serialised = {
-		headers: serialisedHeaders,
-		status: response.status,
-		statusText: response.statusText,
-		body: "body"
-	}
-
-	serialised.body = await response.json();
-
-	return serialised;
-}
-
-let getValue = async (request: any) => {
+const getValue = async (request: any) => {
 	let cacheData;
 
 	try {
-		let url = await request.url;
+		const url = await request.url;
 		console.log(url);
 		const id = SHA256(url.toString()).toString();
 		
@@ -145,7 +116,7 @@ let getValue = async (request: any) => {
 
 		if (!cacheData) return null;
 
-		let maxAge = 3600;
+		const maxAge = 3600;
 
 		if (Date.now() - cacheData.timestamp > maxAge * 1000)
 			return null;
@@ -157,12 +128,33 @@ let getValue = async (request: any) => {
 	};
 }
 
-let putValue = async (request: any, response: any) => {
-	let url = await request.url;
+const serialisedReponse =async (response: any) => {
+	const serialisedHeaders: any = {};
+
+	// eslint-disable-next-line no-restricted-syntax
+	for (const entry of response.headers.entries()) {
+		// eslint-disable-next-line prefer-destructuring
+		serialisedHeaders[entry[0]] = entry[1];
+	}
+
+	const serialised = {
+		headers: serialisedHeaders,
+		status: response.status,
+		statusText: response.statusText,
+		body: "body"
+	}
+
+	serialised.body = await response.json();
+
+	return serialised;
+}
+
+const putValue = async (request: any, response: any) => {
+	const url = await request.url;
 	
 	const id = SHA256(url.toString()).toString();
 
-	let entry = {
+	const entry = {
 		response: await serialisedReponse(response),
 		timestamp: Date.now()
 	}
@@ -171,30 +163,13 @@ let putValue = async (request: any, response: any) => {
 	const store = tx.objectStore(tableName);
 	store.put(entry, id);
 }
-<<<<<<< HEAD
 
-let putBulkValue =async (values: object[]) => {
-	const tx = (await dbCache).transaction(tableName, "readwrite");
-	const store = tx.objectStore(tableName);
-
-	for (const value of values) {
-		const result = await store.put(value);
-	}
-
-}
-
-// Will be needed in the future (to remove old cache)
-let deleteValue =async (key: IDBKeyRange) => {
-	const tx = (await dbCache).transaction(tableName, "readwrite");
-	const store = tx.objectStore(tableName);
-
-	const result = await store.get(key);
-
-	if (result)
-		await store.delete(key);
+const networkFirst =async (event: any) => fetch(event.request.clone())
+					.then((response: any) => {
+						putValue(event.request.clone(), response.clone());
+						return response;
+					})
+					.catch(() => getValue(event.request.clone()))
 
 
-}
-*/
-=======
->>>>>>> e90a303d87e03dc46e0e63e2ed8d17ba0df509c0
+
