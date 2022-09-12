@@ -31,7 +31,6 @@ export const generateReport = middyfy(
 					position: (x += 2),
 					tweetID: tweet
 				});
-				// x += 2;
 			});
 
 			const report = await ServicesLayer.reportService.addReport({
