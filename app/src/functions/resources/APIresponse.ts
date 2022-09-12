@@ -1,4 +1,4 @@
-export const URL = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://d3qb059d3osm13.cloudfront.net";
+export const URL = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://d27s1aprxrgchy.cloudfront.net";
 
 export const header = {
 	"Content-Type": "application/json",
