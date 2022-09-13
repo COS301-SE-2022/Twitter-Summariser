@@ -5,7 +5,7 @@ export const backupDynamoDB = {
     description: "A function to create automated backups of the database tables.",
     events: [
         {
-            schedule: "rate(5 minutes)"
+            schedule: "cron(0 12 * * ? *)"
         }
     ]
 }
