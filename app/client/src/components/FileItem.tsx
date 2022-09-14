@@ -15,13 +15,13 @@ function FileItem(props: any) {
             key={props.file.name}
         >
             <FontAwesomeIcon icon={faFileAlt}/>
-            <p> {props.file.name} </p>
-            <div className='actions'>
+            <p className='truncate md:w-full sm:w-3 text-white font-medium'> {props.file.name} </p>
+            <div className='actions ml-6 md:ml-0'>
                 {props.file.isUploading && 
-                    <FontAwesomeIcon icon={faSpinner} className='fa-spinner'/>
+                    <FontAwesomeIcon icon={faSpinner} className='fa-spinner text-white'/>
                 }
                 {!props.file.isUploading && 
-                    <FontAwesomeIcon icon={faTrash} className='fa-trash' onClick={deleteFile}/>
+                    <FontAwesomeIcon icon={faTrash} className='fa-trash text-white' onClick={deleteFile}/>
                 }
             </div>
         </li>
