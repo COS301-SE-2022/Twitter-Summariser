@@ -1,27 +1,31 @@
-li {
-    font-size: larger;
-    color: #fff;  
-    
-    
-}
-
 li svg {
-    color: #fff;    
+	color: #fff;
 }
 
 li p {
-    flex: 1
+	flex: 1;
 }
 
 svg:first-child {
-    margin-right: 5%;
+	margin-right: 5%;
 }
 
 li .actions {
-    justify-self: flex-end;
-    cursor: pointer;
+	justify-self: flex-end;
+	cursor: pointer;
 }
 
 li .actions .fa-spinner {
-    font-size: 1.2em;
+	font-size: 1.2em;
+	animation: spin infinite 1s linear;
+}
+
+@keyframes spin {
+	from {
+		transform: rotate(0deg);
+	}
+
+	to {
+		transform: rotate(360deg);
+	}
 }

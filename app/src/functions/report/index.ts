@@ -9,7 +9,7 @@ export const generateReport = {
 			http: {
 				method: "post",
 				path: "generateReport/",
-				cors: true,
+				cors: true
 				/*authorizer: {
 					name: "verifyJWT",
 					type: "Token"

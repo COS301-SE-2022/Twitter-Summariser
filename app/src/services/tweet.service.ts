@@ -23,7 +23,7 @@ export default class TweetService {
 
 	async createTextForSum(tweets: Tweet[]): Promise<string> {
 		let text = "";
-		for(const tweet in tweets){
+		for (const tweet in tweets) {
 			text += tweets[tweet];
 		}
 		return text;
