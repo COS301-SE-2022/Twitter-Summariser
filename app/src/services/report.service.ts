@@ -73,12 +73,12 @@ export default class ReportService {
 				}
 			}
 
-			if (!bl && y>0) {
-				if(report[y-1].blockType === "TWEET"){
+			if (!bl && y > 0) {
+				if (report[y - 1].blockType === "TWEET") {
 					rp.push({ blockType: "RICHTEXT", position: x, block: null });
 					count++;
 				}
-			}else if(!bl && x===0){
+			} else if (!bl && x === 0) {
 				rp.push({ blockType: "RICHTEXT", position: x, block: null });
 			}
 			bl = false;
@@ -230,19 +230,21 @@ export default class ReportService {
 	}
 
 	async updateReportTitle(title: string, reportID: string) {
-		await this.docClient.update({
-			TableName: this.TableName,
-			Key: {
-				reportID
-			},
-			UpdateExpression: "SET #title = :title",
-			ExpressionAttributeNames: {
-				"#title": "title"
-			},
-			ExpressionAttributeValues: {
-				":title": title
-			}
-		}).promise();
+		await this.docClient
+			.update({
+				TableName: this.TableName,
+				Key: {
+					reportID
+				},
+				UpdateExpression: "SET #title = :title",
+				ExpressionAttributeNames: {
+					"#title": "title"
+				},
+				ExpressionAttributeValues: {
+					":title": title
+				}
+			})
+			.promise();
 	}
 
 	async deleteReport(id: string) {

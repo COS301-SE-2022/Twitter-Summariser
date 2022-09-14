@@ -85,11 +85,11 @@ export const addCustomTweet = middyfy(
 			const params = JSON.parse(event.body);
 			const lastS = params.url.lastIndexOf("/") + 1;
 			const qm = params.url.lastIndexOf("?");
-			let id : string;
+			let id: string;
 
-			if(qm === -1){
+			if (qm === -1) {
 				id = params.url.substring(lastS);
-			}else{
+			} else {
 				id = params.url.substring(lastS, qm);
 			}
 
@@ -105,7 +105,7 @@ export const addCustomTweet = middyfy(
 
 			const tweets = await ServicesLayer.reportService.getReport(params.reportID);
 
-			const position = tweets.numOfBlocks+1;
+			const position = tweets.numOfBlocks + 1;
 
 			await ServicesLayer.reportBlockService.addReportBlock({
 				blockType: "TWEET",
