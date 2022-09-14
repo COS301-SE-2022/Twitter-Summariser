@@ -13,7 +13,7 @@ const serverlessConfiguration: AWS = {
 
     functions: {
         summarise: {
-            image: "534808114586.dkr.ecr.us-east-1.amazonaws.com/text-summarisation@sha256:fbe46ffcddc67cc1301da562437abd988bbdc29ac70c0f0ce8719500645c621e",
+            handler: "handler.summarise",
             events: [
                 {
                     http: {

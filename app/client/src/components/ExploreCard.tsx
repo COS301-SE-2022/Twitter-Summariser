@@ -3,7 +3,12 @@ import { Link } from "react-router-dom";
 function ExploreCard(props: any) {
 	const repID = props.data.reportID;
 	const newReportLink = `/report/${repID}`;
-	const imageURL = props.data.profileKey === "assets/profile.png" ? props.data.profileKey : `https://s3.amazonaws.com/twitter-summariser-images/${props.data.profileKey}?${new Date().getTime()}`;
+	const imageURL =
+		props.data.profileKey === "assets/profile.png"
+			? props.data.profileKey
+			: `https://s3.amazonaws.com/twitter-summariser-images/${
+					props.data.profileKey
+			  }?${new Date().getTime()}`;
 
 	const viewReport = () => {
 		// if (localStorage.getItem("reportId")) {

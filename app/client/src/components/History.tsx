@@ -70,7 +70,11 @@ function History() {
 						</h1>
 					</div>
 					<div className="mt-4 flex flex-row flex-wrap justify-center">
-						{loading && <div className="mt-8 pr-8 pl-8">{loadIcon} &nbsp; Loading Search Result(s)</div>}
+						{loading && (
+							<div className="mt-8 pr-8 pl-8">
+								{loadIcon} &nbsp; Loading Search Result(s)
+							</div>
+						)}
 						{!loading &&
 							(history.length === 0 ? (
 								<div className="mt-8 pr-8 pl-8">
