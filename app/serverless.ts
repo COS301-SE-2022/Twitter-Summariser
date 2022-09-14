@@ -17,6 +17,7 @@ import {ReportBlockTable} from "@model/reportBlock";
 import {TextStylesTable} from "@model/textStyles";
 import {PermissionTable} from "@model/permission";
 import {ScheduleTable} from "@model/schedule";
+import { NotificationTable } from "@model/notification";
 import {getAllResultSet, getResultSet, deleteResultSet} from "@functions/resultSet";
 import {
     getAllMyDraftReports,
@@ -202,6 +203,7 @@ const serverlessConfiguration: AWS = {
             TextStylesTable,
             PermissionTable,
             ScheduleTable,
+            NotificationTable,
 
             GatewayResponseDefault4XX: {
                 Type: "AWS::ApiGateway::GatewayResponse",
