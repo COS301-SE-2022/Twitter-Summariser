@@ -5,18 +5,28 @@ import FileList from "./FileList";
 function TextSummariser() {
 	const [files, setFiles] = useState([]);
 	const [isDone, setIsDone] = useState(false);
+	const [showSummary, setShowSummary] = useState(false);
+	const [summary, setSummary] = useState("");
 
 	const removeFile = () => {
 		setFiles([]);
-		setIsDone(false)
+		setIsDone(false);
+	};
+
+	const generateSummary = () => {
+		setShowSummary(true);
+		setSummary("This is a summary");
+		setFiles([]);
+		setIsDone(false);
 	};
 
 	const isDoneLoading = () => {
 		setTimeout(() => {
 			setIsDone(true);
-		}, 2000)
-		
-	}
+		}, 2000);
+
+		setSummary("");
+	};
 
 	return (
 		<div className=" mt-3 pt-3 ">
@@ -27,13 +37,43 @@ function TextSummariser() {
 					</h1>
 				</div>
 			</div>
-			<div className="flex flex-col ml-0 md:ml-12 mt-6 px-4 bg-background min-h-screen w-full md:w-10/12">
-				<FileUpload files={files} setFiles={setFiles} removeFile={removeFile} isDoneLoading={isDoneLoading} setIsDone={setIsDone} />
+			<div className="flex flex-col ml-0 md:ml-12 mt-6 fixed px-4 bg-background min-h-screen w-full md:w-10/12">
+				<FileUpload
+					files={files}
+					setFiles={setFiles}
+					removeFile={removeFile}
+					isDoneLoading={isDoneLoading}
+					setIsDone={setIsDone}
+				/>
 				<FileList files={files} removeFile={removeFile} />
 				{isDone && (
-					<button type="submit" className="items-center py-3 mt-6 text-sm font-semibold text-center text-white bg-dark-cornflower-blue rounded-sm  hover:bg-midnight-blue group hover:shadow">GENERATE SUMMARY</button>
+					<button
+						type="submit"
+						onClick={generateSummary}
+						className="items-center py-3 mt-4 text-sm font-semibold text-center text-white bg-dark-cornflower-blue rounded-sm  hover:bg-midnight-blue group hover:shadow"
+					>
+						GENERATE SUMMARY
+					</button>
 				)}
-			</div> 
+				{showSummary && (
+					<div className="w-full mt-4">
+					<label htmlFor="summary" className=" text-sm font-medium text-primary">
+						Summarised Text:
+					</label>
+					<div className="mt-2">
+						<textarea
+							readOnly
+							rows={14}
+							name="summary"
+							id="summary"
+							className="focus:outline-none focus:ring-4 border w-full focus:ring-active text-base p-4 rounded-md"
+							value={summary}
+						/>
+					</div>
+				</div>
+				)}
+				
+			</div>
 		</div>
 	);
 }
