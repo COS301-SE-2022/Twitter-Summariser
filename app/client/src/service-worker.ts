@@ -19,7 +19,7 @@ declare const self: ServiceWorkerGlobalScope;
 
 const tableName = "post-cache";
 
-const dbCache = openDB('Cache-Requests', 1, {
+const dbCache = openDB("Cache-Requests", 1, {
 	upgrade(db) {
 		db.createObjectStore(tableName);
 	}
@@ -89,8 +89,7 @@ self.addEventListener("message", (event) => {
 
 // Any other custom service worker logic can go here.
 
-self.addEventListener("fetch", async (event)=> {
-	
+self.addEventListener("fetch", async (event) => {
 	const url = event.request.url;
 
 	// console.log(auth.apiKey);
@@ -104,11 +103,10 @@ const getValue = async (request: any) => {
 	let cacheData;
 
 	try {
-
 		const url = await request.url;
-		
+
 		const id = SHA256(url.toString()).toString();
-		
+
 		const tx = (await dbCache).transaction(tableName, "readonly");
 		const store = tx.objectStore(tableName);
 		cacheData = await store.get(id);
@@ -117,17 +115,16 @@ const getValue = async (request: any) => {
 
 		const maxAge = 3600;
 
-		if (Date.now() - cacheData.timestamp > maxAge * 1000)
-			return null;
+		if (Date.now() - cacheData.timestamp > maxAge * 1000) return null;
 
 		return new Response(JSON.stringify(cacheData.response.body), cacheData.response);
 	} catch (err) {
 		console.log(err);
 		return null;
-	};
-}
+	}
+};
 
-const serialisedReponse =async (response: any) => {
+const serialisedReponse = async (response: any) => {
 	const serialisedHeaders: any = {};
 
 	// eslint-disable-next-line no-restricted-syntax
@@ -141,34 +138,32 @@ const serialisedReponse =async (response: any) => {
 		status: response.status,
 		statusText: response.statusText,
 		body: "body"
-	}
+	};
 
 	serialised.body = await response.json();
 
 	return serialised;
-}
+};
 
 const putValue = async (request: any, response: any) => {
 	const url = await request.url;
-	
+
 	const id = SHA256(url.toString()).toString();
 
 	const entry = {
 		response: await serialisedReponse(response),
 		timestamp: Date.now()
-	}
+	};
 
 	const tx = (await dbCache).transaction(tableName, "readwrite");
 	const store = tx.objectStore(tableName);
 	store.put(entry, id);
-}
+};
 
-const networkFirst =async (event: any) => fetch(event.request.clone())
-					.then((response: any) => {
-						putValue(event.request.clone(), response.clone());
-						return response;
-					})
-					.catch(() => getValue(event.request.clone()))
-
-
-
+const networkFirst = async (event: any) =>
+	fetch(event.request.clone())
+		.then((response: any) => {
+			putValue(event.request.clone(), response.clone());
+			return response;
+		})
+		.catch(() => getValue(event.request.clone()));

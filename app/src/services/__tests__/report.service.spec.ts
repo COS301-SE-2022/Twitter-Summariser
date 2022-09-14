@@ -362,7 +362,7 @@ describe("report.service", () => {
 	});
 
 	describe("updateStatus", () => {
-		test("Update report status",async () => {
+		test("Update report status", async () => {
 			const addedReports: Report[] = [
 				{
 					reportID: "1111",
@@ -402,7 +402,7 @@ describe("report.service", () => {
 				}
 			];
 
-			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({Items: addedReports}));
+			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Items: addedReports }));
 
 			await ReportService.reportService.updateReportStatus("PUBLISHED", "1114");
 
@@ -418,12 +418,12 @@ describe("report.service", () => {
 				ExpressionAttributeValues: {
 					":status": "PUBLISHED"
 				}
-			})
-		})
-	})
+			});
+		});
+	});
 
 	describe("updateTitle", () => {
-		test("Update report title",async () => {
+		test("Update report title", async () => {
 			const addedReports: Report[] = [
 				{
 					reportID: "1111",
@@ -463,7 +463,7 @@ describe("report.service", () => {
 				}
 			];
 
-			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({Items: addedReports}));
+			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Items: addedReports }));
 
 			await ReportService.reportService.updateReportTitle("New title", "1114");
 
@@ -479,12 +479,12 @@ describe("report.service", () => {
 				ExpressionAttributeValues: {
 					":title": "New title"
 				}
-			})
-		})
-	})
+			});
+		});
+	});
 
 	describe("deleteReport", () => {
-		test("Delete report",async () => {
+		test("Delete report", async () => {
 			const addedReports: Report[] = [
 				{
 					reportID: "1111",
@@ -524,7 +524,7 @@ describe("report.service", () => {
 				}
 			];
 
-			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({Items: addedReports}));
+			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Items: addedReports }));
 
 			await ReportService.reportService.deleteReport("1113");
 
