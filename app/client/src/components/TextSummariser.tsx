@@ -44,6 +44,7 @@ function TextSummariser() {
 					removeFile={removeFile}
 					isDoneLoading={isDoneLoading}
 					setIsDone={setIsDone}
+					setShowSummary={setShowSummary}
 				/>
 				<FileList files={files} removeFile={removeFile} />
 				{isDone && (
