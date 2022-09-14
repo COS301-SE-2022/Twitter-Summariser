@@ -4,10 +4,19 @@ import FileList from "./FileList";
 
 function TextSummariser() {
 	const [files, setFiles] = useState([]);
+	const [isDone, setIsDone] = useState(false);
 
 	const removeFile = () => {
 		setFiles([]);
+		setIsDone(false)
 	};
+
+	const isDoneLoading = () => {
+		setTimeout(() => {
+			setIsDone(true);
+		}, 2000)
+		
+	}
 
 	return (
 		<div className=" mt-3 pt-3 ">
@@ -18,9 +27,12 @@ function TextSummariser() {
 					</h1>
 				</div>
 			</div>
-			<div className="flex flex-col mt-6 px-4 bg-background min-h-screen w-full">
-				<FileUpload files={files} setFiles={setFiles} removeFile={removeFile}/>
-				<FileList files={files} removeFile={removeFile}/>
+			<div className="flex flex-col ml-0 md:ml-12 mt-6 px-4 bg-background min-h-screen w-full md:w-10/12">
+				<FileUpload files={files} setFiles={setFiles} removeFile={removeFile} isDoneLoading={isDoneLoading} setIsDone={setIsDone} />
+				<FileList files={files} removeFile={removeFile} />
+				{isDone && (
+					<button type="submit" className="items-center py-3 mt-6 text-sm font-semibold text-center text-white bg-dark-cornflower-blue rounded-sm  hover:bg-midnight-blue group hover:shadow">GENERATE SUMMARY</button>
+				)}
 			</div> 
 		</div>
 	);
