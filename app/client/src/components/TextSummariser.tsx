@@ -1,10 +1,13 @@
-// import { useStatse } from "react";
+import { useState } from "react";
 import FileUpload from "./FileUpload";
+import FileList from "./FileList";
 
 function TextSummariser() {
-	// const [files, setFiles] = useState([{
-	// 	"name": "File.pdf"
-	// }]);
+	const [files, setFiles] = useState([]);
+
+	const removeFile = () => {
+		setFiles([]);
+	};
 
 	return (
 		<div className=" mt-3 pt-3 ">
@@ -15,9 +18,9 @@ function TextSummariser() {
 					</h1>
 				</div>
 			</div>
-			<div className="flex flex-col mt-6 px-4 bg-background font-poppins items-center min-h-screen">
-				<p className="title">Upload File</p>
-				<FileUpload/>
+			<div className="flex flex-col mt-6 px-4 bg-background min-h-screen w-full">
+				<FileUpload files={files} setFiles={setFiles} removeFile={removeFile}/>
+				<FileList files={files} removeFile={removeFile}/>
 			</div> 
 		</div>
 	);
