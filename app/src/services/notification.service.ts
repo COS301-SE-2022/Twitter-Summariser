@@ -20,6 +20,24 @@ export default class NotificationService {
         return result.Items as Notification[];
     };
 
+    async getReceiverUnreadNotifications(receiver: string): Promise<Notification[]> {
+        const result = await this.docClient.query({
+            TableName: this.TableName,
+            IndexName: "receiverIndex",
+            KeyConditionExpression: "receiver = :receiver",
+            FilterExpression: "#isRead = :isRead",
+            ExpressionAttributeValues: {
+                ":receiver": receiver,
+                ":isRead": false
+            },
+            ExpressionAttributeNames: {
+                "#isRead": "isRead"
+            }
+        }).promise();
+
+        return result.Items as Notification[];
+    };
+
     async addNotification(notification: Notification): Promise<Notification> {
         await this.docClient.put({
             TableName: this.TableName,
