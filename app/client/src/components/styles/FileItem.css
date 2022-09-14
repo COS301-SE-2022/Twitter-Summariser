@@ -1,0 +1,27 @@
+li {
+    font-size: larger;
+    color: #fff;  
+    
+    
+}
+
+li svg {
+    color: #fff;    
+}
+
+li p {
+    flex: 1
+}
+
+svg:first-child {
+    margin-right: 5%;
+}
+
+li .actions {
+    justify-self: flex-end;
+    cursor: pointer;
+}
+
+li .actions .fa-spinner {
+    font-size: 1.2em;
+}
