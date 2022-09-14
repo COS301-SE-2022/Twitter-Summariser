@@ -6,12 +6,34 @@ export const NotificationTable = {
             {
                 AttributeName: "id",
                 AttributeType: "S"
+            },
+            {
+                AttributeName: "receiver",
+                AttributeType: "S"
             }
         ],
         KeySchema: [
             {
                 AttributeName: "id",
                 KeyType: "HASH"
+            }
+        ],
+        GlobalSecondaryIndexes: [
+            {
+                IndexName: "receiverIndex",
+				KeySchema: [
+					{
+						AttributeName: "receiver",
+						KeyType: "HASH"
+					}
+				],
+				Projection: {
+					ProjectionType: "ALL"
+				},
+				ProvisionedThroughput: {
+					ReadCapacityUnits: 5,
+					WriteCapacityUnits: 5
+				}
             }
         ],
         ProvisionedThroughput: {
