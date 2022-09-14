@@ -4,18 +4,20 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 function FileUpload(props: any) {
 	const uploadHandler = (event: any) => {
 		props.setIsDone(false);
-        props.setShowSummary(false);
+		props.setShowSummary(false);
 
 		const file = event.target.files[0];
-		file.isUploading = true;
-		props.setFiles([file]);
-
-		setTimeout(() => {
-			file.isUploading = false;
+		if (file !== undefined) {
+			file.isUploading = true;
 			props.setFiles([file]);
-		}, 2000);
 
-		props.isDoneLoading();
+			setTimeout(() => {
+				file.isUploading = false;
+				props.setFiles([file]);
+			}, 2000);
+
+			props.isDoneLoading();
+		}
 	};
 
 	return (

@@ -37,7 +37,7 @@ function TextSummariser() {
 					</h1>
 				</div>
 			</div>
-			<div className="flex flex-col ml-0 md:ml-12 mt-6 fixed px-4 bg-background min-h-screen w-full md:w-10/12">
+			<div className="flex flex-col ml-0 md:ml-12 mt-6 md:relative fixed px-4 bg-background min-h-screen w-full md:w-10/12">
 				<FileUpload
 					files={files}
 					setFiles={setFiles}
@@ -58,22 +58,21 @@ function TextSummariser() {
 				)}
 				{showSummary && (
 					<div className="w-full mt-4">
-					<label htmlFor="summary" className=" text-sm font-medium text-primary">
-						Summarised Text:
-					</label>
-					<div className="mt-2">
-						<textarea
-							readOnly
-							rows={14}
-							name="summary"
-							id="summary"
-							className="focus:outline-none focus:ring-4 border w-full focus:ring-active text-base p-4 rounded-md"
-							value={summary}
-						/>
+						<label htmlFor="summary" className=" text-sm font-medium text-primary">
+							Summarised Text:
+						</label>
+						<div className="mt-2">
+							<textarea
+								readOnly
+								rows={14}
+								name="summary"
+								id="summary"
+								className="focus:outline-none focus:ring-4 border w-full focus:ring-active text-base p-4 rounded-md"
+								value={summary}
+							/>
+						</div>
 					</div>
-				</div>
 				)}
-				
 			</div>
 		</div>
 	);

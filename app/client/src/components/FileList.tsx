@@ -8,7 +8,9 @@ function FileList(props: any) {
 	return (
 		<ul className="ml-0 mt-2">
 			{props.files &&
-				props.files.map((f: any) => <FileItem file={f} key={f} deleteFile={deleteFileHandler} />)}
+				props.files.map((f: any) => (
+					<FileItem file={f} key={f} deleteFile={deleteFileHandler} />
+				))}
 		</ul>
 	);
 }
