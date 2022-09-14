@@ -7,6 +7,19 @@ export default class NotificationService {
 
     constructor(private docClient: DocumentClient) {};
 
+    async getReceiverNotifications(receiver: string): Promise<Notification[]> {
+      const result = await this.docClient.query({
+            TableName: this.TableName,
+            IndexName: "receiverIndex",
+            KeyConditionExpression: "receiver = :receiver",
+            ExpressionAttributeValues: {
+                ":receiver": receiver
+            }
+        }).promise();
+        
+        return result.Items as Notification[];
+    };
+
     async addNotification(notification: Notification): Promise<Notification> {
         await this.docClient.put({
             TableName: this.TableName,
