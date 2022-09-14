@@ -3,11 +3,6 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 function FileUpload(props: any) {
 
-    // console.log(files);
-    // setFiles([{
-    //     "name": "File.pdf"
-    // }]);
-
     const uploadHandler = (event: any) => {
         const file = event.target.files[0];
         file.isUploading = true;
@@ -34,7 +29,7 @@ function FileUpload(props: any) {
                     Upload File
                 </button>
             </div>
-            <p className='mt-6'>Supported Files:</p>
+            <strong className='mt-6'>Supported Files:</strong>
             <p>.txt .docx .pdf</p>
         </div>
     )
