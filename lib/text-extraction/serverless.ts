@@ -1,13 +1,13 @@
 import type { AWS } from "@serverless/typescript";
 
 const serverlessConfiguration: AWS = {
-    service: "text-extraction",
-    frameworkVersion: "3",
-    provider: {
-        name: "aws",
+	service: "text-extraction",
+	frameworkVersion: "3",
+	provider: {
+		name: "aws",
 		runtime: "nodejs14.x",
-        region: "us-east-1",
-        stage: "dev",
+		region: "us-east-1",
+		stage: "dev",
 		apiGateway: {
 			minimumCompressionSize: 1024,
 			shouldStartNameWithService: true
@@ -16,13 +16,13 @@ const serverlessConfiguration: AWS = {
 			AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
 			NODE_OPTIONS: "--enable-source-maps --stack-trace-limit=1000"
 		}
-    },
+	},
 
-    package: {
+	package: {
 		individually: true
 	},
 
-    custom: {
+	custom: {
 		esbuild: {
 			bundle: true,
 			minify: false,
@@ -37,16 +37,16 @@ const serverlessConfiguration: AWS = {
 		}
 	},
 
-    functions: {
-        app: {
-            handler: "handler.handler",
-            events: [
-                {
-                    httpApi: "*"
-                }
-            ]
-        }
-    }
+	functions: {
+		app: {
+			handler: "handler.handler",
+			events: [
+				{
+					httpApi: "*"
+				}
+			]
+		}
+	}
 };
 
 module.exports = serverlessConfiguration;
