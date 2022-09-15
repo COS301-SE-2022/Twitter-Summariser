@@ -1,22 +1,45 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import links from "../resources/links.json";
+
+const URL = process.env.NODE_ENV === "development" ? links.teLocalhostLink : links.teSeverLink;
 
 function FileUpload(props: any) {
-	const uploadHandler = (event: any) => {
+
+	const uploadHandler = async (event: any) => {
+		props.setFiles([...props.files, event.target.files[0]]);
 		props.setIsDone(false);
 		props.setShowSummary(false);
 
 		const file = event.target.files[0];
 		if (file !== undefined) {
 			file.isUploading = true;
-			props.setFiles([file]);
 
-			setTimeout(() => {
-				file.isUploading = false;
-				props.setFiles([file]);
-			}, 2000);
+			if (file.type === "application/pdf") {
+				const formData = new FormData();
+				formData.append("pdfFile", event.target.files[0]);
 
-			props.isDoneLoading();
+				fetch(URL, {
+					method: "POST",
+					body: formData,
+				}).then((response) => response.text()).then((text) => {
+					props.setExtractedText(text);
+					props.isDoneLoading();
+					file.isUploading = false;
+				});
+			}
+
+			else if (file.type === "text/plain") {
+				const reader = new FileReader();
+				reader.readAsText(file);
+				reader.onload = () => {
+					props.setExtractedText(reader.result as string);
+					props.isDoneLoading();
+					file.isUploading = false;
+				};
+			}
+			console.log(file.type);
+			
 		}
 	};
 
@@ -27,7 +50,7 @@ function FileUpload(props: any) {
 					type="file"
 					className="relative max-w-48 h-12 z-30 opacity-0 cursor-pointer"
 					accept=".txt, .docx, .pdf"
-					onChange={uploadHandler}
+					onChange={(event: any) => uploadHandler(event)}
 				/>
 				<button
 					type="submit"
