@@ -5,6 +5,9 @@ const serverlessCompose = {
         },
         textSummariser: {
             path: './lib/text-summarisation',
+        },
+        textExtraction: {
+            path: './lib/text-extraction',
         }
     }
 }
