@@ -2,7 +2,6 @@ import { GoHome } from "react-icons/go";
 import { BiHash } from "react-icons/bi";
 import { TiDocumentText } from "react-icons/ti";
 import { RiDraftLine } from "react-icons/ri";
-import { CgProfile } from "react-icons/cg";
 import { BsShare } from "react-icons/bs";
 import { HiOutlineLogin } from "react-icons/hi";
 import { AiOutlineHistory } from "react-icons/ai";
@@ -29,15 +28,51 @@ function MobileNavigation(props: any) {
 		navigate("/login");
 	};
 
+	const imageStyle: any = {
+		backgroundImage:
+			auth.profileKey === "assets/profile.png"
+				? "url(assets/profile.png)"
+				: `url(https://twitter-summariser-images.s3.amazonaws.com/${
+						auth.profileKey
+				  }?${new Date().getTime()})`
+	};
+
 	return (
-		<div className="pt-2 text-lg top-20 w-full flex flex-col justify-between z-20">
-			<div className="pt-4 flex flex-row border-b border-gray-200" key={(7).toString()}>
-				<Link to="/profile" className="flex flex-col" onClick={() => pageHandler()}>
-					<div className="items-end pl-4 ">
-						<CgProfile style={style} />
+		<div className="pt-2 text-lg w-full flex flex-col z-20 h-full ">
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<div
+				className="pt-4 flex flex-col justify-center text-center border-b border-gray-200"
+				key={(7).toString()}
+			>
+				<Link
+					to="/profile"
+					className="flex flex-col justify-center"
+					onClick={() => pageHandler()}
+				>
+					<div className="justify-center items-center">
+						<div className="avatar-upload bottom-52">
+							<div className="avatar-edit">
+								<div className="avatar-preview">
+									<div
+										id="imagePreview"
+										style={imageStyle}
+										className="flex flex-row justify-center items-center bg-slate-300"
+									/>
+								</div>
+							</div>
+						</div>
+						{/* Image comes here */}
 					</div>
-					<div className=" font-bold mt-1 pl-4">{auth.username}</div>
-					<div className=" font-light italic text-sm pl-4 mb-1">{auth.email}</div>
+					<br />
+					<div className=" font-bold ">{auth.username}</div>
+					<div className=" font-medium text-sm mb-1">{auth.email}</div>
+					<br />
 				</Link>
 			</div>
 
