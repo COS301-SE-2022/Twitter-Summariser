@@ -78,8 +78,8 @@ function MobileNavigation(props: any) {
 
 			<div>&nbsp;</div>
 
-			<nav className=" flex flex-col pl-4">
-				<div className="pt-4 flex flex-row " key={(1).toString()}>
+			<nav className=" flex flex-col justify-center text-center">
+				<div className="pt-4 flex flex-row text-center justify-center" key={(1).toString()}>
 					<Link to="/" className="flex flex-row" onClick={() => pageHandler()}>
 						<div className="items-end pt ">
 							<GoHome style={style} />
@@ -89,7 +89,10 @@ function MobileNavigation(props: any) {
 					</Link>
 				</div>
 
-				<div className="pt-4 flex flex-row " key={(2).toString()}>
+				<div
+					className="pt-4 flex flex-row text-center justify-center "
+					key={(2).toString()}
+				>
 					<Link to="/explore" className="flex flex-row" onClick={() => pageHandler()}>
 						<div className="items-end pt-1 ">
 							<BiHash style={style} />
@@ -98,7 +101,10 @@ function MobileNavigation(props: any) {
 					</Link>
 				</div>
 
-				<div className="pt-4 flex flex-row " key={(3).toString()}>
+				<div
+					className="pt-4 flex flex-row text-center justify-center "
+					key={(3).toString()}
+				>
 					<Link to="/reports" className="flex flex-row" onClick={() => pageHandler()}>
 						<div className="items-end pt-1 ">
 							<TiDocumentText style={style} />
@@ -107,7 +113,7 @@ function MobileNavigation(props: any) {
 					</Link>
 				</div>
 
-				<div className="pt-4 flex flex-row" key={(4).toString()}>
+				<div className="pt-4 flex flex-row text-center justify-center" key={(4).toString()}>
 					<Link to="/drafts" className="flex flex-row" onClick={() => pageHandler()}>
 						<div className="items-end pt-1 ">
 							<RiDraftLine style={style} />
@@ -116,7 +122,10 @@ function MobileNavigation(props: any) {
 					</Link>
 				</div>
 
-				<div className="pt-4 flex flex-row " key={(5).toString()}>
+				<div
+					className="pt-4 flex flex-row text-center justify-center "
+					key={(5).toString()}
+				>
 					<Link to="/shared" className="flex flex-row" onClick={() => pageHandler()}>
 						<div className="items-end pt-1 ">
 							<BsShare style={style} />
@@ -125,7 +134,10 @@ function MobileNavigation(props: any) {
 					</Link>
 				</div>
 
-				<div className="pt-4 flex flex-row " key={(6).toString()}>
+				<div
+					className="pt-4 flex flex-row text-center justify-center "
+					key={(6).toString()}
+				>
 					<Link to="/history" className="flex flex-row" onClick={() => pageHandler()}>
 						<div className="items-end pt-1 ">
 							<AiOutlineHistory style={style} />
@@ -134,7 +146,10 @@ function MobileNavigation(props: any) {
 					</Link>
 				</div>
 
-				<div className="pt-4 flex flex-row " key={(7).toString()}>
+				<div
+					className="pt-4 flex flex-row text-center justify-center "
+					key={(7).toString()}
+				>
 					<Link to="/summariser" className="flex flex-row" onClick={() => pageHandler()}>
 						<div className="items-end pt-1 ">
 							<RiDraftLine style={style} />
@@ -143,7 +158,7 @@ function MobileNavigation(props: any) {
 					</Link>
 				</div>
 
-				<div className="pt-4 flex flex-row items-end">
+				<div className="pt-4 flex flex-row text-center justify-center">
 					<button type="submit" className="flex flex-row" onClick={signOut}>
 						<div className="items-end pt-1 ">
 							<HiOutlineLogin style={style} />
