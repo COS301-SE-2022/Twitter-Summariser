@@ -38,11 +38,7 @@ function MobileNavigation(props: any) {
 	};
 
 	return (
-		<div className="pt-2 text-lg w-full flex flex-col z-20 bg-gradient-to-b from-dark-cornflower-blue to-white h-full ">
-			<br />
-			<br />
-			<br />
-			<br />
+		<div className="pt-2 text-lg w-full flex flex-col z-20 bg-gradient-to-b from-dark-cornflower-blue to-white h-full justify-around">
 			<br />
 			<br />
 			<br />
@@ -69,19 +65,16 @@ function MobileNavigation(props: any) {
 						</div>
 						{/* Image comes here */}
 					</div>
-					<br />
-					<div className=" font-bold ">{auth.username}</div>
-					<div className=" font-medium text-sm mb-1">{auth.email}</div>
-					<br />
+
+					<div className=" font-bold mt-1">{auth.username}</div>
+					<div className=" font-medium text-sm mb-4">{auth.email}</div>
 				</Link>
 			</div>
 
-			<div>&nbsp;</div>
-
 			<nav className=" flex flex-col justify-center text-center">
-				<div className="pt-4 flex flex-row text-center justify-center" key={(1).toString()}>
+				<div className="flex flex-row text-center justify-center" key={(1).toString()}>
 					<Link to="/" className="flex flex-row" onClick={() => pageHandler()}>
-						<div className="items-end pt ">
+						<div className="items-end ">
 							<GoHome style={style} />
 							{/* <GoHome /> */}
 						</div>
@@ -167,6 +160,7 @@ function MobileNavigation(props: any) {
 					</button>
 				</div>
 			</nav>
+			<div className="mt-2">&nbsp;</div>
 		</div>
 	);
 }
