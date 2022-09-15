@@ -38,7 +38,7 @@ function MobileNavigation(props: any) {
 	};
 
 	return (
-		<div className="pt-2 text-lg w-full flex flex-col z-20 h-full ">
+		<div className="pt-2 text-lg w-full flex flex-col z-20 bg-gradient-to-b from-dark-cornflower-blue to-white h-full ">
 			<br />
 			<br />
 			<br />
