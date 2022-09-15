@@ -5,6 +5,7 @@ import FileList from "./FileList";
 function TextSummariser() {
 	const [files, setFiles] = useState([]);
 	const [isDone, setIsDone] = useState(false);
+	const [extractedText, setExtractedText] = useState("");
 	const [showSummary, setShowSummary] = useState(false);
 	const [summary, setSummary] = useState("");
 
@@ -14,18 +15,16 @@ function TextSummariser() {
 	};
 
 	const generateSummary = () => {
+
+		
+		setSummary(extractedText);
 		setShowSummary(true);
-		setSummary("This is a summary");
 		setFiles([]);
 		setIsDone(false);
 	};
 
 	const isDoneLoading = () => {
-		setTimeout(() => {
-			setIsDone(true);
-		}, 2000);
-
-		setSummary("");
+		setIsDone(true);
 	};
 
 	return (
@@ -45,6 +44,7 @@ function TextSummariser() {
 					isDoneLoading={isDoneLoading}
 					setIsDone={setIsDone}
 					setShowSummary={setShowSummary}
+					setExtractedText={setExtractedText}
 				/>
 				<FileList files={files} removeFile={removeFile} />
 				{isDone && (
