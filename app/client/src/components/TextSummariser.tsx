@@ -1,25 +1,31 @@
 import { useState } from "react";
-import { axiosPublic } from "../api/ConfigAxios";
+import FileUpload from "./FileUpload";
+import FileList from "./FileList";
 
 function TextSummariser() {
-	const [text, setText] = useState("");
-	const [loading, setLoading] = useState(false);
-	const [response, setResponse] = useState("");
+	const [files, setFiles] = useState([]);
+	const [isDone, setIsDone] = useState(false);
+	const [showSummary, setShowSummary] = useState(false);
+	const [summary, setSummary] = useState("");
 
-	const getResponse = async () => {
-		try {
-			setLoading(true);
-			const res = await axiosPublic.post("summarise", {
-				text,
-				min: 100,
-				max: 200
-			});
-			setResponse(res.data.text);
-			setLoading(false);
-		} catch (error) {
-			setResponse("Something went wrong. Could not summarise text.");
-			setLoading(false);
-		}
+	const removeFile = () => {
+		setFiles([]);
+		setIsDone(false);
+	};
+
+	const generateSummary = () => {
+		setShowSummary(true);
+		setSummary("This is a summary");
+		setFiles([]);
+		setIsDone(false);
+	};
+
+	const isDoneLoading = () => {
+		setTimeout(() => {
+			setIsDone(true);
+		}, 2000);
+
+		setSummary("");
 	};
 
 	return (
@@ -31,69 +37,42 @@ function TextSummariser() {
 					</h1>
 				</div>
 			</div>
-			<div className="flex flex-col px-4 bg-background font-poppins items-center min-h-screen">
-				<h2 className="text-primary text-md font-bold mb-6 mt-6">
-					Summarise text into shorter length.
-				</h2>
-				<form className="flex flex-col justify-between mt-4 w-full">
-					<div className=" w-full">
-						<label htmlFor="text" className=" text-sm font-medium text-primary">
-							Enter the text to summarise:
-						</label>
-						<div className="mt-2">
-							<textarea
-								rows={14}
-								name="text"
-								id="text"
-								className="focus:outline-none border focus:ring-4 w-full focus:ring-active text-base p-4 rounded-md"
-								onChange={(e) => setText(e.target.value)}
-								value={text}
-							/>
-						</div>
-					</div>
-					<div className="flex justify-center space-x-2 items-center ml-0 mr-0 mt-4">
-						<button
-							className="w-full rounded-lg px-2 py-3 bg-active text-center text-sm font-semibold text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow"
-							type="submit"
-							onClick={(e) => {
-								getResponse();
-								e.preventDefault();
-								e.stopPropagation();
-							}}
-						>
-							{loading ? (
-								<span className="animate-pulse">Loading..</span>
-							) : (
-								<>SUMMARISE TEXT</>
-							)}
-						</button>
-						<button
-							className="w-full rounded-lg px-2 py-3 bg-active text-center text-sm font-semibold text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow"
-							type="submit"
-							onClick={(e) => {
-								e.preventDefault();
-								setText("");
-							}}
-						>
-							CLEAR TEXT
-						</button>
-					</div>
-					<div className="mt-4 w-full">
+			<div className="flex flex-col ml-0 md:ml-12 mt-6 md:relative fixed px-4 bg-background min-h-screen w-full md:w-10/12">
+				<FileUpload
+					files={files}
+					setFiles={setFiles}
+					removeFile={removeFile}
+					isDoneLoading={isDoneLoading}
+					setIsDone={setIsDone}
+					setShowSummary={setShowSummary}
+				/>
+				<FileList files={files} removeFile={removeFile} />
+				{isDone && (
+					<button
+						type="submit"
+						onClick={generateSummary}
+						className="items-center py-3 mt-4 text-sm font-semibold text-center text-white bg-dark-cornflower-blue rounded-sm  hover:bg-midnight-blue group hover:shadow"
+					>
+						GENERATE SUMMARY
+					</button>
+				)}
+				{showSummary && (
+					<div className="w-full mt-4">
 						<label htmlFor="summary" className=" text-sm font-medium text-primary">
 							Summarised Text:
 						</label>
-						<div className="mt-2 mb-8">
+						<div className="mt-2">
 							<textarea
 								readOnly
 								rows={14}
 								name="summary"
 								id="summary"
 								className="focus:outline-none focus:ring-4 border w-full focus:ring-active text-base p-4 rounded-md"
-								value={response}
+								value={summary}
 							/>
 						</div>
 					</div>
-				</form>
+				)}
 			</div>
 		</div>
 	);

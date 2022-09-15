@@ -4,7 +4,7 @@ import ResultSet from "@model/resultSet/resultSet.model";
 export default class ResultSetService {
 	private TableName = "ResultSetTable";
 
-	constructor(private docClient: DocumentClient) { }
+	constructor(private docClient: DocumentClient) {}
 
 	async getResultSets(key: string): Promise<ResultSet[]> {
 		const result = await this.docClient
