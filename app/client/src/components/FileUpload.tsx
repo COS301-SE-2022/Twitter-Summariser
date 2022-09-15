@@ -38,9 +38,16 @@ function FileUpload(props: any) {
 					file.isUploading = false;
 				};
 			}
-			console.log(file.type);
-			
+			else if (file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+				props.setExtractedText("Still to be implemented");
+				props.isDoneLoading();
+				file.isUploading = false;	
+			}
 		}
+	};
+
+	const clickHandler = (event: any) => {
+		event.target.value = null;
 	};
 
 	return (
@@ -50,7 +57,8 @@ function FileUpload(props: any) {
 					type="file"
 					className="relative max-w-48 h-12 z-30 opacity-0 cursor-pointer"
 					accept=".txt, .docx, .pdf"
-					onChange={(event: any) => uploadHandler(event)}
+					onChange={	uploadHandler	}
+					onClick={	clickHandler 	}
 				/>
 				<button
 					type="submit"
