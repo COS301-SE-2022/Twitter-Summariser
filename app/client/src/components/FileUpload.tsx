@@ -10,6 +10,7 @@ function FileUpload(this: any, props: any) {
 		props.setFiles([...props.files, event.target.files[0]]);
 		props.setIsDone(false);
 		props.setShowSummary(false);
+		props.setError("");
 
 		const file = event.target.files[0];
 		if (file !== undefined) {
@@ -43,6 +44,11 @@ function FileUpload(this: any, props: any) {
 				props.isDoneLoading();
 				file.isUploading = false;	
 			}
+			else {
+				props.setError("File type not supported. Please re-upload a .pdf, .txt or .docx file");
+				props.setFiles([])
+				file.isUploading = false;	
+			}
 		}
 	};
 
@@ -61,7 +67,7 @@ function FileUpload(this: any, props: any) {
 					type="file"
 					id="selectedFile"
 					className="max-w-48 h-14 z-0 top-10  opacity-0 cursor-pointer"
-					accept=".txt, .docx, .pdf"
+					accept=".pdf, .txt, .docx"
 					style={	{	display: "none"	}	}
 					onChange={	uploadHandler.bind(this) 	}
 					onClick={	clickHandler.bind(this)	 	}

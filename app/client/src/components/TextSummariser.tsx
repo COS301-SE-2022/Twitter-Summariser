@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
+import { BiErrorCircle } from "react-icons/bi";
 import FileUpload from "./FileUpload";
 import FileList from "./FileList";
 
@@ -11,6 +12,8 @@ function TextSummariser() {
 	const [showSummary, setShowSummary] = useState(false);
 	const [showSpinner, setShowSpinner] = useState(false);
 	const [summary, setSummary] = useState("");
+	const [error, setError] = useState("");
+	const bStyle = { fontSize: "1.5rem", color: "red" };
 
 	const removeFile = () => {
 		setFiles([]);
@@ -20,9 +23,8 @@ function TextSummariser() {
 	const generateSummary = () => {
 		setShowSpinner(true);
 		setFiles([]);
-		setIsDone(false)
-
-		
+		setIsDone(false);
+				
 		setTimeout(() => {
 			setSummary(extractedText);
 			setShowSpinner(false);
@@ -53,7 +55,14 @@ function TextSummariser() {
 					setIsDone={setIsDone}
 					setShowSummary={setShowSummary}
 					setExtractedText={setExtractedText}
+					setError={setError}
 				/>
+				{error && (
+					<div className="border-2 border-red-500 rounded-md bg-red-300 h-auto mt-6 w-full inline-flex items-center text-center justify-center">
+						<BiErrorCircle style={bStyle} className="fixed left-0 ml-5 mr-4" />
+						<p className=" items-center justify-center ml-4"> {	error	} </p>
+					</div>
+				)}
 				<FileList files={files} removeFile={removeFile} />
 				{isDone && (
 					<button
