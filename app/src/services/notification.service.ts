@@ -71,4 +71,13 @@ export default class NotificationService {
             }
         }).promise();
     }
+
+    async deleteNotification(id: string): Promise<void> {
+        await this.docClient.delete({
+            TableName: this.TableName,
+            Key: {
+                id: id
+            }
+        }).promise();
+    }
 }
