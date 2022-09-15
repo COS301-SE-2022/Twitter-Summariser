@@ -7,6 +7,14 @@ export default class NotificationService {
 
     constructor(private docClient: DocumentClient) {};
 
+    async getNotification(id: string): Promise<Notification> {
+        const result = await this.docClient.get({
+            TableName: this.TableName,
+            Key: { id: id}
+        }).promise();
+
+        return result.Item as Notification;
+    };
     async getReceiverNotifications(receiver: string): Promise<Notification[]> {
       const result = await this.docClient.query({
             TableName: this.TableName,
@@ -47,4 +55,5 @@ export default class NotificationService {
         return notification as Notification;
         
     }
+
 }
