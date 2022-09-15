@@ -56,4 +56,19 @@ export default class NotificationService {
         
     }
 
+    async updateRead(id: string): Promise<void> {
+        await this.docClient.update({
+            TableName: this.TableName,
+            Key: {
+                id: id
+            },
+            UpdateExpression: "SET #isRead = :isRead",
+            ExpressionAttributeValues: {
+                ":isRead": true
+            },
+            ExpressionAttributeNames: {
+                "#isRead": "isRead"
+            }
+        }).promise();
+    }
 }
