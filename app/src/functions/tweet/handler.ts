@@ -81,7 +81,8 @@ export const addCustomTweet = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
 			const params = JSON.parse(event.body);
-			const lastS = params.url.lastIndexOf("/") + 1;
+			const id = params.id;
+			/*const lastS = params.url.lastIndexOf("/") + 1;
 			const qm = params.url.lastIndexOf("?");
 			let id: string;
 
@@ -89,19 +90,20 @@ export const addCustomTweet = middyfy(
 				id = params.url.substring(lastS);
 			} else {
 				id = params.url.substring(lastS, qm);
-			}
+			}*/
+			
 
 			const { data } = await clientV2.get("tweets", { ids: id });
 
-			if(data[0].id === undefined){
+			/*if(data.id === undefined){
 				return {
 					statusCode: statusCodes.Successful,
 					headers: header,
 					body: JSON.stringify("Invalid Tweet url.")
 				};
-			}
+			}*/
 
-			const tweets = await ServicesLayer.reportService.getReport(params.reportID);
+			/*const tweets = await ServicesLayer.reportService.getReport(params.reportID);
 
 			const position = tweets.numOfBlocks + 1;
 
@@ -111,12 +113,12 @@ export const addCustomTweet = middyfy(
 				reportBlockID: `BK-${randomUUID()}`,
 				reportID: params.reportID,
 				tweetID: id
-			});
+			});*/
 
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify(id)
+				body: JSON.stringify(data)
 			};
 		} catch (e) {
 			return {
