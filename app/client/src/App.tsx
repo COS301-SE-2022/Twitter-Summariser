@@ -35,6 +35,7 @@ import TextSummariser from "./components/TextSummariser";
 	- This component is the parent component of the entire application.
 	- This component defines the main pages and the various components that are used rendered within these pages based on the pathname of the current page URL.
 */
+
 function App() {
 	return (
 		// use the Routes component to render the different page routes of the application based on the pathname of the URL.
