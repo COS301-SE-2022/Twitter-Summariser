@@ -1,4 +1,5 @@
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { RiDeleteBinFill } from "react-icons/ri";
 import { useState } from "react";
 
 function NotificationCard(props: any){
@@ -6,18 +7,25 @@ function NotificationCard(props: any){
     const [isOpen, setIsOpen] = useState(false);
     const toggling = () => setIsOpen(!isOpen);
 
-    const optionsMenu = <div>
+    const optionsMenu = <div >
         <div onClick={toggling}>
             <BsThreeDotsVertical />
         </div>
         {isOpen && (
-            <ul>
-                <li>
-                    Delete
-                </li>
-                <li>
+            <ul className="absolute bg-white shadow-lg text-sm w-36 p-5 space-y-3 ">
+                <li className="flex flex-row ">
                     Mark as read
                 </li>
+                <li className="flex flex-row ">
+                    <div>
+                    <RiDeleteBinFill size={18} style={{fill: "#b91c1c"}}/>
+                    </div>
+                    <div>
+                        &nbsp;Delete
+                    </div>
+        
+                </li>
+                
             </ul>
         )}
         
