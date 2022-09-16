@@ -61,12 +61,10 @@ export const searchTweets = middyfy(
 				tweets: tweetIDs
 			});
 
-			const text = await ServicesLayer.tweetService.createTextForSum(result);
-
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify({ resultSetID: id, tweets: result, text: text })
+				body: JSON.stringify({ resultSetID: id, tweets: result})
 			};
 		} catch (e) {
 			return {
@@ -83,17 +81,19 @@ export const addCustomTweet = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
 			const params = JSON.parse(event.body);
-			const lastS = params.url.lastIndexOf("/") + 1;
+			const id = params.id;
+			/*const lastS = params.url.lastIndexOf("/") + 1;
 			const qm = params.url.lastIndexOf("?");
-			let id : string;
+			let id: string;
 
-			if(qm === -1){
+			if (qm === -1) {
 				id = params.url.substring(lastS);
-			}else{
+			} else {
 				id = params.url.substring(lastS, qm);
-			}
+			}*/
+			
 
-			//const { data } = await clientV2.get("tweets", { ids: id });
+			const { data } = await clientV2.get("tweets", { ids: id });
 
 			/*if(data.id === undefined){
 				return {
@@ -103,9 +103,9 @@ export const addCustomTweet = middyfy(
 				};
 			}*/
 
-			const tweets = await ServicesLayer.reportService.getReport(params.reportID);
+			/*const tweets = await ServicesLayer.reportService.getReport(params.reportID);
 
-			const position = tweets.numOfBlocks+1;
+			const position = tweets.numOfBlocks + 1;
 
 			await ServicesLayer.reportBlockService.addReportBlock({
 				blockType: "TWEET",
@@ -113,12 +113,12 @@ export const addCustomTweet = middyfy(
 				reportBlockID: `BK-${randomUUID()}`,
 				reportID: params.reportID,
 				tweetID: id
-			});
+			});*/
 
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify(id)
+				body: JSON.stringify(data)
 			};
 		} catch (e) {
 			return {

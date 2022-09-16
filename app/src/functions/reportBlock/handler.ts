@@ -101,22 +101,31 @@ export const deleteReportBlock = middyfy(
 				};
 			}
 
-			const blck = await ServicesLayer.reportBlockService.getReportBlock(params.reportBlockID);
+			const blck = await ServicesLayer.reportBlockService.getReportBlock(
+				params.reportBlockID
+			);
 
-			if(blck.blockType === "TWEET"){
-				const report = await ServicesLayer.reportBlockService.getReportBlocks(blck.reportID);
+			if (blck.blockType === "TWEET") {
+				const report = await ServicesLayer.reportBlockService.getReportBlocks(
+					blck.reportID
+				);
 
 				let top = null;
-				let bottom= null;
-				for(const block in report){
-					if(report[block].position === blck.position-1){
+				let bottom = null;
+				for (const block in report) {
+					if (report[block].position === blck.position - 1) {
 						top = report[block];
-					}else if (report[block].position === blck.position+1){
+					} else if (report[block].position === blck.position + 1) {
 						bottom = report[block];
+					}
+
+					if(report[block].blockType==='TWEET' && report[block].position>blck.position){
+						report[block].position = report[block].position-2;
+						await ServicesLayer.reportBlockService.addReportBlock(report[block]);
 					}
 				}
 
-				if(top !== undefined && bottom != undefined){
+				if (top !== undefined && bottom != undefined) {
 					await ServicesLayer.reportBlockService.addReportBlock({
 						reportBlockID: top.reportBlockID,
 						reportID: top.reportID,
@@ -126,10 +135,10 @@ export const deleteReportBlock = middyfy(
 					});
 					await ServicesLayer.reportBlockService.deleteReportBlock(params.reportBlockID);
 					await ServicesLayer.reportBlockService.deleteReportBlock(bottom.reportBlockID);
-				}else{
+				} else {
 					await ServicesLayer.reportBlockService.deleteReportBlock(params.reportBlockID);
 				}
-			}else{
+			} else {
 				await ServicesLayer.reportBlockService.deleteReportBlock(params.reportBlockID);
 			}
 

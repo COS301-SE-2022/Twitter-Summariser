@@ -25,24 +25,26 @@ export const getAllCreators = middyfy(async (): Promise<APIGatewayProxyResultV2>
 	}
 });
 
-export const deleteUser = middyfy(async (event: APIGatewayProxyEventV2): Promise<APIGatewayProxyResultV2> => {
-	const params = JSON.parse(event.body);
-	const creator = await CreatorServices.creatorService.deleteCreator(params.email);
+export const deleteUser = middyfy(
+	async (event: APIGatewayProxyEventV2): Promise<APIGatewayProxyResultV2> => {
+		const params = JSON.parse(event.body);
+		const creator = await CreatorServices.creatorService.deleteCreator(params.email);
 
-	try {
-		return {
-			statusCode: statusCodes.Successful,
-			headers: header,
-			body: JSON.stringify(creator)
-		};
-	} catch (error) {
-		return {
-			statusCode: statusCodes.internalError,
-			headers: header,
-			body: JSON.stringify(error)
-		};
+		try {
+			return {
+				statusCode: statusCodes.Successful,
+				headers: header,
+				body: JSON.stringify(creator)
+			};
+		} catch (error) {
+			return {
+				statusCode: statusCodes.internalError,
+				headers: header,
+				body: JSON.stringify(error)
+			};
+		}
 	}
-});
+);
 
 export const addCreator = middyfy(
 	async (event: APIGatewayProxyEventV2): Promise<APIGatewayProxyResultV2> => {
@@ -140,14 +142,17 @@ export const loginCreator = middyfy(
 		}
 		try {
 			const creator = await CreatorServices.creatorService.getCreator(params.email);
-			if (creator === undefined || (await bcrypt.compare(params.password, creator.password)) !== true) {
+			if (
+				creator === undefined ||
+				(await bcrypt.compare(params.password, creator.password)) !== true
+			) {
 				return {
 					statusCode: statusCodes.unauthorized,
 					headers: header,
-					body: JSON.stringify({error: "Invalid email or password"})
+					body: JSON.stringify({ error: "Invalid email or password" })
 				};
 			}
-			
+
 			// Create the Access Token
 			const accessToken = jwt.sign(
 				{
@@ -177,7 +182,9 @@ export const loginCreator = middyfy(
 			);
 
 			if (isCreatorUpdated === true) {
-				const cookieString = `refreshToken=${refreshToken}; Path=/; HttpOnly; Secure; SameSite=None; max-age=${24 * 60 * 60 * 1000}`;
+				const cookieString = `refreshToken=${refreshToken}; Path=/; HttpOnly; Secure; SameSite=None; max-age=${
+					24 * 60 * 60 * 1000
+				}`;
 				return {
 					statusCode: statusCodes.Successful,
 					headers: {
@@ -241,8 +248,9 @@ export const refreshToken = async (event, _context, callback) => {
 						expiresIn: "30m"
 					}
 				);
-				const cookieString = `refreshToken=${token}; Path=/; HttpOnly; Secure; SameSite=None; max-age=${24 * 60 * 60 * 1000
-					}`;
+				const cookieString = `refreshToken=${token}; Path=/; HttpOnly; Secure; SameSite=None; max-age=${
+					24 * 60 * 60 * 1000
+				}`;
 
 				return callback(null, {
 					statusCode: statusCodes.Successful,

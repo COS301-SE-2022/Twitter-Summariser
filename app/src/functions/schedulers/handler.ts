@@ -15,20 +15,31 @@ export const reportScheduler = middyfy(
 			const lambda = new Lambda();
 
 			const date_time = new Date(params.fullUTCDate);
-			const ruleName = "SR-"+randomUUID();
+			const ruleName = "SR-" + randomUUID();
 			const ruleParams = {
 				Name: ruleName,
-				ScheduleExpression: 'cron('+ date_time.getUTCMinutes() +' '+ date_time.getUTCHours() +' ' + date_time.getUTCDate() +' '+ (date_time.getUTCMonth()+1) +' ? '+ date_time.getUTCFullYear() +')' //cron(min, hour, date-of-month, month, day-of-week, year)
+				ScheduleExpression:
+					"cron(" +
+					date_time.getUTCMinutes() +
+					" " +
+					date_time.getUTCHours() +
+					" " +
+					date_time.getUTCDate() +
+					" " +
+					(date_time.getUTCMonth() + 1) +
+					" ? " +
+					date_time.getUTCFullYear() +
+					")" //cron(min, hour, date-of-month, month, day-of-week, year)
 			};
 
 			const rule = await eventBridge.putRule(ruleParams).promise();
 
 			const permissionParams = {
-				Action: 'lambda:InvokeFunction',
-				FunctionName: 'twitter-summariser-dev-genScheduledReport',
-				Principal: 'events.amazonaws.com',
+				Action: "lambda:InvokeFunction",
+				FunctionName: "twitter-summariser-dev-genScheduledReport",
+				Principal: "events.amazonaws.com",
 				StatementId: ruleName,
-				SourceArn: rule.RuleArn,
+				SourceArn: rule.RuleArn
 			};
 
 			await lambda.addPermission(permissionParams).promise();
@@ -37,22 +48,28 @@ export const reportScheduler = middyfy(
 				Rule: ruleName,
 				Targets: [
 					{
-						Id: ruleName + '-target',
-						Arn: 'arn:aws:lambda:us-east-1:390572845174:function:twitter-summariser-dev-genScheduledReport',
-						Input: JSON.stringify(params.reportDetails),
-					},
-
-				],
-			}
+						Id: ruleName + "-target",
+						Arn: "arn:aws:lambda:us-east-1:390572845174:function:twitter-summariser-dev-genScheduledReport",
+						Input: JSON.stringify(params.reportDetails)
+					}
+				]
+			};
 
 			const result = await eventBridge.putTargets(targetParams).promise();
 
-			const tt = await ServicesLayer.scheduleService.addScheduleSetting({id: ruleName, apiKey: params.apiKey, sortOption: params.sortBy, filterOption: params.filterBy, date: params.date, keyword: params.keyword});
+			const tt = await ServicesLayer.scheduleService.addScheduleSetting({
+				id: ruleName,
+				apiKey: params.apiKey,
+				sortOption: params.sortBy,
+				filterOption: params.filterBy,
+				date: params.date,
+				keyword: params.keyword
+			});
 
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify(result)
+				body: JSON.stringify("success")
 			};
 		} catch (e) {
 			return {
@@ -68,16 +85,24 @@ export const genScheduledReport = async (params): Promise<void> => {
 	try {
 		const responseST = await axios.post(
 			"searchTweets",
-			JSON.stringify({apiKey: params.apiKey, filterBy: params.filterBy, keyword: params.keyword, numOfTweets: params.numOfTweets, sortBy: params.sortBy })
+			JSON.stringify({
+				apiKey: params.apiKey,
+				filterBy: params.filterBy,
+				keyword: params.keyword,
+				numOfTweets: params.numOfTweets,
+				sortBy: params.sortBy
+			})
 		);
 
 		const responseGR = await axios.post(
 			"generateReport",
-			JSON.stringify({ apiKey: params.apiKey, author: params.author, resultSetID: responseST.data["resultSetID"] })
+			JSON.stringify({
+				apiKey: params.apiKey,
+				author: params.author,
+				resultSetID: responseST.data["resultSetID"]
+			})
 		);
-	} catch (e) {
-
-	}
+	} catch (e) {}
 };
 
 export const deleteEventRules = middyfy(async (event: APIGatewayProxyEvent): Promise<void> => {
@@ -90,7 +115,7 @@ export const deleteEventRules = middyfy(async (event: APIGatewayProxyEvent): Pro
 
 		const rem = {
 			Bus: "default",
-			Ids: [ruleName + '-target'],
+			Ids: [ruleName + "-target"],
 			Rule: ruleName,
 			Force: true
 		};
@@ -100,9 +125,7 @@ export const deleteEventRules = middyfy(async (event: APIGatewayProxyEvent): Pro
 			Name: ruleName,
 			Bus: "default",
 			Force: true
-		}
+		};
 		await eventBridge.deleteRule(delRule);
-	} catch (e) {
-
-	}
+	} catch (e) {}
 });
