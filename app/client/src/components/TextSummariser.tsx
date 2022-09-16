@@ -1,12 +1,19 @@
 import { useState } from "react";
+import ClipLoader from "react-spinners/ClipLoader";
+import { BiErrorCircle } from "react-icons/bi";
 import FileUpload from "./FileUpload";
 import FileList from "./FileList";
+
 
 function TextSummariser() {
 	const [files, setFiles] = useState([]);
 	const [isDone, setIsDone] = useState(false);
+	const [extractedText, setExtractedText] = useState("");
 	const [showSummary, setShowSummary] = useState(false);
+	const [showSpinner, setShowSpinner] = useState(false);
 	const [summary, setSummary] = useState("");
+	const [error, setError] = useState("");
+	const bStyle = { fontSize: "1.5rem", color: "red" };
 
 	const removeFile = () => {
 		setFiles([]);
@@ -14,18 +21,20 @@ function TextSummariser() {
 	};
 
 	const generateSummary = () => {
-		setShowSummary(true);
-		setSummary("This is a summary");
+		setShowSpinner(true);
 		setFiles([]);
 		setIsDone(false);
+				
+		setTimeout(() => {
+			setSummary(extractedText);
+			setShowSpinner(false);
+			setShowSummary(true);
+		}, 5000);
+		
 	};
 
 	const isDoneLoading = () => {
-		setTimeout(() => {
-			setIsDone(true);
-		}, 2000);
-
-		setSummary("");
+		setIsDone(true);
 	};
 
 	return (
@@ -37,7 +46,7 @@ function TextSummariser() {
 					</h1>
 				</div>
 			</div>
-			<div className="flex flex-col ml-0 md:ml-12 mt-6 md:relative fixed px-4 bg-background min-h-screen w-full md:w-10/12">
+			<div className="flex flex-col ml-0 md:ml-12 mt-4 md:relative fixed px-4 bg-background min-h-screen w-full md:w-10/12">
 				<FileUpload
 					files={files}
 					setFiles={setFiles}
@@ -45,7 +54,15 @@ function TextSummariser() {
 					isDoneLoading={isDoneLoading}
 					setIsDone={setIsDone}
 					setShowSummary={setShowSummary}
+					setExtractedText={setExtractedText}
+					setError={setError}
 				/>
+				{error && (
+					<div className="border-2 border-red-500 rounded-md bg-red-300 h-auto mt-6 w-full inline-flex items-center text-center justify-center">
+						<BiErrorCircle style={bStyle} className="fixed left-0 ml-5 mr-4" />
+						<p className=" items-center justify-center ml-4"> {	error	} </p>
+					</div>
+				)}
 				<FileList files={files} removeFile={removeFile} />
 				{isDone && (
 					<button
@@ -56,18 +73,28 @@ function TextSummariser() {
 						GENERATE SUMMARY
 					</button>
 				)}
+				{showSpinner && (
+					<>
+					<div className="w-full mt-16 justify-center flex flex-col top-50 items-center">
+						<ClipLoader color="#023E8A" size={100} />
+					</div>	
+					<strong className="items-center text-center justify-center w-full p-6">Generating Summary. Please be patient.</strong>
+					</>
+					
+					
+				)}
 				{showSummary && (
-					<div className="w-full mt-4">
-						<label htmlFor="summary" className=" text-sm font-medium text-primary">
-							Summarised Text:
+					<div className="w-full mt-5">
+						<label htmlFor="summary" className=" text-sm font-medium text-primary mb-2">
+							<p className="text-center items-center justify-center">Summarised Text:</p>
 						</label>
-						<div className="mt-2">
+						<div className="mt-5">
 							<textarea
 								readOnly
 								rows={14}
 								name="summary"
 								id="summary"
-								className="focus:outline-none focus:ring-4 border w-full focus:ring-active text-base p-4 rounded-md"
+								className="focus:outline-none focus:ring-4 border-2 border-gray-300 w-full focus:ring-active text-base p-4 rounded-md"
 								value={summary}
 							/>
 						</div>
