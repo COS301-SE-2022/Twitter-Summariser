@@ -3,9 +3,7 @@ import { BiHash } from "react-icons/bi";
 import { TiDocumentText } from "react-icons/ti";
 import { RiDraftLine } from "react-icons/ri";
 import { CgProfile } from "react-icons/cg";
-// import { BsShare } from "react-icons/bs";
 import { HiOutlineLogin } from "react-icons/hi";
-// import { AiOutlineHistory } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { CDropdown, CDropdownToggle, CDropdownMenu, CDropdownItem } from "@coreui/react";
@@ -45,13 +43,10 @@ function Navigation() {
 	const [publishStyle2, changePublishStyle2] = useState(defaultStyle);
 
 	const [draftsStyle, changeDraftsStyle] = useState(pageDefault);
-	// const [draftsStyle2, changeDraftsStyle2] = useState(defaultStyle);
 
 	const [sharedStyle, changeSharedStyle] = useState(pageDefault);
-	// const [sharedStyle2, changeSharedStyle2] = useState(defaultStyle);
 
 	const [historyStyle, changeHistoryStyle] = useState(pageDefault);
-	// const [historyStyle2, changeHistoryStyle2] = useState(defaultStyle);
 
 	const [summStyle, changeSummStyle] = useState(pageDefault);
 	const [summStyle2, changeSummStyle2] = useState(defaultStyle);
@@ -306,9 +301,6 @@ function Navigation() {
 									className="flex flex-row items-center"
 									onClick={() => pageHandler("Published")}
 								>
-									{/* <div className="items-center pt-1 ">
-										<TiDocumentText style={publishStyle2} />
-									</div> */}
 									<div className={publishStyle}>
 										&nbsp; &nbsp; &nbsp;Published
 									</div>
@@ -326,9 +318,6 @@ function Navigation() {
 									className="flex flex-row items-center"
 									onClick={() => pageHandler("Drafts")}
 								>
-									{/* <div className="items-end pt-1 ">
-										<RiDraftLine style={draftsStyle2} />
-									</div> */}
 									<div className={draftsStyle}>&nbsp; &nbsp; &nbsp;Drafts</div>
 								</Link>
 							</div>
@@ -344,9 +333,6 @@ function Navigation() {
 									className="flex flex-row items-center"
 									onClick={() => pageHandler("Shared Reports")}
 								>
-									{/* <div className="items-end pt-1 ">
-										<BsShare style={sharedStyle2} />
-									</div> */}
 									<div className={sharedStyle}>&nbsp; &nbsp; &nbsp;Shared</div>
 								</Link>
 							</div>
@@ -362,9 +348,6 @@ function Navigation() {
 									className="flex flex-row items-center"
 									onClick={() => pageHandler("Search History")}
 								>
-									{/* <div className="items-end pt-1 ">
-										<AiOutlineHistory style={historyStyle2} />
-									</div> */}
 									<div className={historyStyle}>&nbsp; &nbsp; &nbsp;History</div>
 								</Link>
 							</div>

@@ -69,7 +69,7 @@ export const reportScheduler = middyfy(
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify(result)
+				body: JSON.stringify("success")
 			};
 		} catch (e) {
 			return {

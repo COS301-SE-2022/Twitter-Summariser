@@ -87,6 +87,7 @@ function Home() {
 	const [clicked, changeClicked] = useState(false);
 	const [createTitle, changeCreateTitle] = useState("");
 	const [loading, changeLoading] = useState(false);
+	const [scheduleResponse, changeScheduleResponse] = useState("");
 
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
@@ -110,6 +111,7 @@ function Home() {
 	const genRep = async () => {
 		// const currentDate = new Date().toUTCString(); // get current date convert to UTC string and send as part of request
 		// console.log(currentDate);
+		// console.log(scheduleResponse);
 
 		const searchData = {
 			apiKey: auth.apiKey,
@@ -203,13 +205,16 @@ function Home() {
 	// console.log(sort);
 
 	const scheduleReport = async (scheduleData: any) => {
-		console.log(scheduleData);
+		// console.log(scheduleData);
 		try {
 			const response = await axiosPrivate.post(
-				"reportSchedular",
+				"reportScheduler",
 				JSON.stringify(scheduleData)
 			);
-			changeResponse(await response.data.tweets);
+			changeScheduleResponse(await response.data);
+			scheduleResponse;
+			// console.log(await response.data);
+
 		} catch (err) {
 			console.error(err);
 		}
@@ -217,20 +222,14 @@ function Home() {
 
 	const schedule = () => {
 		const utcDate = dateTime.toUTCString();
-		const dateHour = dateTime.getUTCHours();
-		const minute = dateTime.getUTCMinutes();
-		const day = dateTime.getUTCDate();
-		const dateMonth = dateTime.getUTCMonth() + 1;
-		const dateYear = dateTime.getUTCFullYear();
+		// const dateHour = dateTime.getUTCHours();
+		// const minute = dateTime.getUTCMinutes();
+		// const day = dateTime.getUTCDate();
+		// const dateMonth = dateTime.getUTCMonth() + 1;
+		// const dateYear = dateTime.getUTCFullYear()
 
 		const scheduleData = {
-			username: auth.username,
 			fullUTCDate: utcDate,
-			min: minute,
-			hour: dateHour,
-			dateOfMonth: day,
-			month: dateMonth,
-			year: dateYear,
 			reportDetails: {
 				apiKey: auth.apiKey,
 				filterBy: filter,
