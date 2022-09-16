@@ -119,7 +119,10 @@ export const deleteReportBlock = middyfy(
 						bottom = report[block];
 					}
 
-					if``````
+					if(report[block].blockType==='TWEET' && report[block].position>blck.position){
+						report[block].position = report[block].position-2;
+						await ServicesLayer.reportBlockService.addReportBlock(report[block]);
+					}
 				}
 
 				if (top !== undefined && bottom != undefined) {
