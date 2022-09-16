@@ -145,7 +145,7 @@ function Home() {
 
 	// UNCOMMENT FOR SCHEDULE REPORT FUNCTIONALITY
 	// const [schedule, changeSchedule] = useState("00:00");
-	// const [repeat, changeRepeat] = useState("Repeat Daily");
+	const [repeat, changeRepeat] = useState("-");
 
 	// const [checked, setChecked] = useState(false);
 
@@ -170,9 +170,6 @@ function Home() {
 	// 	changeSchedule(event.target.value);
 	// }
 
-	// const repeatHandler = (event: any) => {
-	// 	changeRepeat(event.target.value);
-	// }
 
 	const [pulse, changePulse] = useState(false);
 
@@ -230,6 +227,7 @@ function Home() {
 
 		const scheduleData = {
 			fullUTCDate: utcDate,
+			repeatCyle: repeat,
 			reportDetails: {
 				apiKey: auth.apiKey,
 				filterBy: filter,
@@ -239,6 +237,9 @@ function Home() {
 				author: auth.username
 			}
 		};
+
+		// console.log(scheduleData);
+
 
 		scheduleReport(scheduleData);
 	};
@@ -1023,6 +1024,7 @@ function Home() {
 								changeNoOfTweets={changeNoOfTweets}
 								changeSort={changeSort}
 								changeFilter={changeFilter}
+								changeRepeat={changeRepeat}
 								toggleSearch={search}
 								setChecked={setChecked}
 								// enteredSearch={enteredSearch}
