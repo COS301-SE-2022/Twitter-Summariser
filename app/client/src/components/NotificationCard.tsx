@@ -1,9 +1,30 @@
-
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { useState } from "react";
 
 function NotificationCard(props: any){
+    
+    const [isOpen, setIsOpen] = useState(false);
+    const toggling = () => setIsOpen(!isOpen);
+
+    const optionsMenu = <div>
+        <div onClick={toggling}>
+            <BsThreeDotsVertical />
+        </div>
+        {isOpen && (
+            <ul>
+                <li>
+                    Delete
+                </li>
+                <li>
+                    Mark as read
+                </li>
+            </ul>
+        )}
+        
+    </div>
 
     return (
-        <div className="rounded space-x-5 px-5 py-2 flex items-stretch cursor-pointer"> 
+        <div className="flex flex-row rounded space-x-5 px-5 py-2 flex items-stretch cursor-pointer"> 
             <div>
                 <img
                     src="assets/profile.png"
@@ -15,8 +36,7 @@ function NotificationCard(props: any){
                 <span className="font-bold">{props.username}</span> has shared a report.
                 <span className="relative text-gray-400 text-xs bottom-0 right-0">3 hrs ago</span>
             </div>
-            {/* <div className="flex text-xs bottom-0 right-0">3 hrs ago</div> */}
-            
+            {optionsMenu}
         </div>
     );
 }
