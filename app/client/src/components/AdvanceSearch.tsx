@@ -10,6 +10,7 @@ function AdvanceSearch({
 	changeNoOfTweets,
 	changeSort,
 	changeFilter,
+	changeRepeat,
 	toggleSearch,
 	setChecked,
 	// enteredSearch,
@@ -46,10 +47,10 @@ function AdvanceSearch({
 		changeFilter(event.target.value);
 	};
 
-	// const scheduleHandler = (event: any) => {
-	// 	// changeDate(event.target.value);
-	// 	changeDateTime(event.target.value);
-	// };
+	const repeatHandler = (event: any) => {
+		// changeDate(event.target.value);
+		changeRepeat(event.target.value);
+	};
 
 	const tweetOptions = [];
 
@@ -254,6 +255,26 @@ function AdvanceSearch({
 									</div>
 								)}
 							</div>
+
+							{/* this is for repeat schedule */}
+							{checkedValue && <div className="flex flex-row justify-center items-center p-4 rounded-md bg-slate-200">
+								<div className="mb-0">
+									<p className="font-bold">Repeat:</p>
+								</div>
+								<div className="mt-0">
+									<select
+										data-testid="select-sort"
+										className=" text-black text-center bg-slate-200"
+										onChange={repeatHandler}
+									>
+										<option>-</option>
+										<option value="daily">Daily</option>
+										<option value="weekly">Weekly</option>
+										<option value="monthly">Monthly</option>
+										<option value="annually">Annually</option>
+									</select>
+								</div>
+							</div> }
 
 							<br />
 

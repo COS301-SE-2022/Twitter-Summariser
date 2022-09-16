@@ -52,7 +52,6 @@ function Report() {
 
 	const location = useLocation();
 	const ind = location.pathname.lastIndexOf("/");
-	// console.log(location.pathname.substring(ind + 1));
 
 	const repID = location.pathname.substring(ind + 1);
 
@@ -90,8 +89,6 @@ function Report() {
 			isMounted && setLength(response.data.report.numOfBlocks);
 			isMounted && changePageLoading(false);
 
-			// console.log(response.data.report);
-
 			if (pulseCounter === 0) {
 				changePulse(true);
 			}
@@ -103,8 +100,6 @@ function Report() {
 	useEffect(() => {
 		let isMounted = true;
 		getRep(isMounted);
-
-		// console.log(state.length);
 
 		return () => {
 			isMounted = false;
@@ -176,8 +171,6 @@ function Report() {
 			newPlace: "DOWN"
 		};
 
-		// console.log(resultDetails);
-
 		try {
 			await axiosPrivate.post("reorderTweets", JSON.stringify(resultDetails), {
 				signal: controller.signal
@@ -205,9 +198,6 @@ function Report() {
 	// 			console.error(err);
 	// 		}
 	// 	};
-
-	// console.log(state);
-	// console.log(length);
 
 	const isPublished = () => stat === "PUBLISHED";
 
@@ -526,8 +516,6 @@ function Report() {
 	if (choice) {
 		console.log(choice);
 	}
-
-	// const isOwner = () => author === auth.username || title.substring(0, 4) === "Copy"; // temporary fix need PERMISSION to indicate whether person is owner or not correctly
 
 	return (
 		<div>

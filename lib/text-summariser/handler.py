@@ -31,7 +31,8 @@ def summarise(event, _context):
         preprocessedText = "summarize: " + text
 
         #   Tokenize the text
-        tokenizedText = tokenizer.encode(preprocessedText, return_tensors="pt", max_length=512, truncation=True).to(device)
+        tokenizedText = tokenizer.encode(
+            preprocessedText, return_tensors="pt", max_length=512, truncation=True).to(device)
 
         #   Generate the summary
         summary_ids = model.generate(
@@ -50,10 +51,10 @@ def summarise(event, _context):
             "statusCode": 200,
             "headers": {
                 "Content-Type": "application/json",
-	            "Access-Control-Allow-Methods": "*",
-	            "Access-Control-Allow-Origin": "https://d3qb059d3osm13.cloudfront.net",
-	            "Access-Control-Allow-Headers": "*",
-	            "Access-Control-Allow-Credentials": True
+                "Access-Control-Allow-Methods": "*",
+                "Access-Control-Allow-Origin": "https://d3qb059d3osm13.cloudfront.net",
+                "Access-Control-Allow-Headers": "*",
+                "Access-Control-Allow-Credentials": True
             },
             "body": json.dumps({'text': summary})
         }
@@ -68,4 +69,3 @@ def summarise(event, _context):
             },
             "body": json.dumps({"error": repr(e)})
         }
-        

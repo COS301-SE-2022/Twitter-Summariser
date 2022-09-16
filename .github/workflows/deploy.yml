@@ -36,10 +36,16 @@ jobs:
             ${{ runner.os }}-pip-
             ${{ runner.os }}-
 
-      - name: Install python dependencies
+      - name: Install python dependencies for text summarisation
         run: |
+          cd lib/text-summariser
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Install node dependencies for text extraction
+        run: |
+          cd lib/text-extraction
+          yarn
 
       - name: Install serverless compose dependencies
         run: yarn
