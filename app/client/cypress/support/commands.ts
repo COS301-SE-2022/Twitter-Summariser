@@ -1,4 +1,8 @@
 /// <reference types="cypress" />
+/// <reference types="@cypress-audit/lighthouse" />
+
+import "@cypress-audit/lighthouse/commands";
+
 // ***********************************************
 // This example commands.ts shows you how to
 // create various custom commands and overwrite
