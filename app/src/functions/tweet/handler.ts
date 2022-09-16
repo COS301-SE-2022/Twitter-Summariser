@@ -61,12 +61,10 @@ export const searchTweets = middyfy(
 				tweets: tweetIDs
 			});
 
-			const text = await ServicesLayer.tweetService.createTextForSum(result);
-
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify({ resultSetID: id, tweets: result, text: text })
+				body: JSON.stringify({ resultSetID: id, tweets: result})
 			};
 		} catch (e) {
 			return {
@@ -93,15 +91,15 @@ export const addCustomTweet = middyfy(
 				id = params.url.substring(lastS, qm);
 			}
 
-			//const { data } = await clientV2.get("tweets", { ids: id });
+			const { data } = await clientV2.get("tweets", { ids: id });
 
-			/*if(data.id === undefined){
+			if(data[0].id === undefined){
 				return {
 					statusCode: statusCodes.Successful,
 					headers: header,
 					body: JSON.stringify("Invalid Tweet url.")
 				};
-			}*/
+			}
 
 			const tweets = await ServicesLayer.reportService.getReport(params.reportID);
 
