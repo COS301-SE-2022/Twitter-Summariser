@@ -114,6 +114,8 @@ export const deleteReportBlock = middyfy(
 					}else if (report[block].position === blck.position+1){
 						bottom = report[block];
 					}
+
+					if``````
 				}
 
 				if(top !== undefined && bottom != undefined){
