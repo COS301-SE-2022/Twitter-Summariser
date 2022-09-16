@@ -6,7 +6,6 @@ import { RiDraftLine } from "react-icons/ri";
 import { CgProfile } from "react-icons/cg";
 
 import { HiOutlineLogin } from "react-icons/hi";
-
 import { Link, useNavigate } from "react-router-dom";
 import { useState, Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
