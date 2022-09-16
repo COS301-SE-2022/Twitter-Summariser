@@ -87,6 +87,7 @@ function Home() {
 	const [clicked, changeClicked] = useState(false);
 	const [createTitle, changeCreateTitle] = useState("");
 	const [loading, changeLoading] = useState(false);
+	const [scheduleResponse, changeScheduleResponse] = useState("");
 
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
@@ -110,6 +111,7 @@ function Home() {
 	const genRep = async () => {
 		// const currentDate = new Date().toUTCString(); // get current date convert to UTC string and send as part of request
 		// console.log(currentDate);
+		// console.log(scheduleResponse);
 
 		const searchData = {
 			apiKey: auth.apiKey,
@@ -203,13 +205,16 @@ function Home() {
 	// console.log(sort);
 
 	const scheduleReport = async (scheduleData: any) => {
-		console.log(scheduleData);
+		// console.log(scheduleData);
 		try {
 			const response = await axiosPrivate.post(
 				"reportScheduler",
 				JSON.stringify(scheduleData)
 			);
-			changeResponse(await response.data.tweets);
+			changeScheduleResponse(await response.data);
+			scheduleResponse;
+			// console.log(await response.data);
+
 		} catch (err) {
 			console.error(err);
 		}
