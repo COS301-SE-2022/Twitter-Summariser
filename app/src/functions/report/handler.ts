@@ -68,9 +68,9 @@ export const getAllMyDraftReports = middyfy(
 			reports.map(async (report) => {
 				delete report.apiKey;
 			});
-			
-			reports.sort( (a, b) => {
-				return (new Date(b.dateCreated).getTime()) - (new Date(a.dateCreated).getTime());
+
+			reports.sort((a, b) => {
+				return new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime();
 			});
 
 			// const tweets = await ServicesLayer.tweetService.getTweets(params.resultSetID);
@@ -91,17 +91,17 @@ export const getAllMyDraftReports = middyfy(
 
 // Retrieval of Published reports
 export const getAllPublishedReports = middyfy(async (): Promise<APIGatewayProxyResult> => {
-	try {		
+	try {
 		const reports = await ServicesLayer.reportService.getAllPublishedReports();
 
 		for (let report of reports) {
-			const user = await ServicesLayer.creatorService.getCreatorByKey(report.apiKey); 
+			const user = await ServicesLayer.creatorService.getCreatorByKey(report.apiKey);
 			report.profileKey = user.profileKey;
 			delete report.apiKey;
 		}
 
-		reports.sort( (a, b) => {
-			return (new Date(b.dateCreated).getTime()) - (new Date(a.dateCreated).getTime());
+		reports.sort((a, b) => {
+			return new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime();
 		});
 
 		return {
@@ -409,12 +409,12 @@ export const getSharedReport = middyfy(
 			const re = await ServicesLayer.reportService.getSharedReports(params.apiKey);
 
 			for (let report of re) {
-				const user = await ServicesLayer.creatorService.getCreatorByKey(report.apiKey); 
+				const user = await ServicesLayer.creatorService.getCreatorByKey(report.apiKey);
 				report.profileKey = user.profileKey;
 				delete report.apiKey;
 				delete report.resultSetID;
 			}
-	
+
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
@@ -442,10 +442,10 @@ export const getAllMyPublishedReports = middyfy(
 				delete report.apiKey;
 			});
 
-			reports.sort( (a, b) => {
-				return (new Date(b.dateCreated).getTime()) - (new Date(a.dateCreated).getTime());
+			reports.sort((a, b) => {
+				return new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime();
 			});
-			
+
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,

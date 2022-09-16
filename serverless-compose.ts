@@ -4,7 +4,10 @@ const serverlessCompose = {
             path: './app',
         },
         textSummariser: {
-            path: './lib',
+            path: './lib/text-summariser',
+        },
+        textExtraction: {
+            path: './lib/text-extraction',
         }
     }
 }

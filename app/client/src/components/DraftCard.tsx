@@ -26,7 +26,7 @@ function DraftCard(props: any) {
 		const resultDetails = {
 			reportID: props.data.reportID,
 			apiKey: auth.apiKey
-		};		
+		};
 
 		// console.log(resultDetails);
 

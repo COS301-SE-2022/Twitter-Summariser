@@ -13,6 +13,6 @@ export const axiosPrivate = axios.create({
 	withCredentials: true
 });
 
-export const axiosPublic = axios.create({
+export const axiosTextSummariser = axios.create({
 	baseURL: "https://jpssczahhg.execute-api.us-east-1.amazonaws.com/dev/"
 });

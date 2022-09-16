@@ -28,7 +28,9 @@ function Reports() {
 
 			if (auth.profileKey !== "assets/profile.png")
 				changeImageURL(
-					`https://twitter-summariser-images.s3.amazonaws.com/${auth.profileKey}?${new Date().getTime()}`
+					`https://twitter-summariser-images.s3.amazonaws.com/${
+						auth.profileKey
+					}?${new Date().getTime()}`
 				);
 		} catch (error) {
 			console.error(error);
@@ -94,7 +96,11 @@ function Reports() {
 						</h1>
 					</div>
 					<div className="mt-4 flex flex-row flex-wrap justify-center">
-						{loading && <div className="mt-8 pr-8 pl-8">{loadIcon} &nbsp; Loading My Reports</div>}
+						{loading && (
+							<div className="mt-8 pr-8 pl-8">
+								{loadIcon} &nbsp; Loading My Reports
+							</div>
+						)}
 
 						{!loading &&
 							(report.length === 0 ? (

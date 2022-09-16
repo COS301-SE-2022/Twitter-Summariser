@@ -12,14 +12,14 @@ import { ExpirationPlugin } from "workbox-expiration";
 import { precacheAndRoute, createHandlerBoundToURL } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
 import { StaleWhileRevalidate } from "workbox-strategies";
-import { openDB } from "idb"; 
+import { openDB } from "idb";
 import { SHA256 } from "crypto-js";
 
 declare const self: ServiceWorkerGlobalScope;
 
-const tableName: string = "post-cache";
+const tableName = "post-cache";
 
-const dbCache = openDB('Cache-Requests', 1, {
+const dbCache = openDB("Cache-Requests", 1, {
 	upgrade(db) {
 		db.createObjectStore(tableName);
 	}
@@ -31,12 +31,13 @@ clientsClaim();
 // Their URLs are injected into the manifest variable below.
 // This variable must be present somewhere in your service worker file,
 // even if you decide not to use precaching. See https://cra.link/PWA
+// eslint-disable-next-line no-underscore-dangle
 precacheAndRoute(self.__WB_MANIFEST);
 
 // Set up App Shell-style routing, so that all navigation requests
 // are fulfilled with your index.html shell. Learn more at
 // https://developers.google.com/web/fundamentals/architecture/app-shell
-const fileExtensionRegexp = new RegExp("/[^/?]+\\.[^/]+$");
+const fileExtensionRegexp = /\/[^/?]+\.[^/]+$/;
 registerRoute(
 	// Return false to exempt requests from being fulfilled by index.html.
 	({ request, url }: { request: Request; url: URL }) => {
@@ -88,86 +89,81 @@ self.addEventListener("message", (event) => {
 
 // Any other custom service worker logic can go here.
 
-self.addEventListener("fetch", async (event)=> {
-	
-	console.log("Request made to API");
-	let url = event.request.url;
-	console.log(event.request.url);
+self.addEventListener("fetch", async (event) => {
+	const url = event.request.url;
+
 	// console.log(auth.apiKey);
 	if (event.request.method === "POST" && url.includes("/dev/get")) {
+		// eslint-disable-next-line no-use-before-define
 		event.respondWith(networkFirst(event));
 	}
 });
 
-const networkFirst =async (event: any) => {
-	return fetch(event.request.clone())
-					.then((response: any) => {
-						putValue(event.request.clone(), response.clone());
-						return response;
-					})
-					.catch(() => {
-						return getValue(event.request.clone());
-					})
-
-}
-
-const serialisedReponse =async (response: any) => {
-	let serialisedHeaders: any = {};
-
-	for (let entry of response.headers.entries()) {
-		serialisedHeaders[entry[0]] = entry[1];
-	}
-
-	let serialised = {
-		headers: serialisedHeaders,
-		status: response.status,
-		statusText: response.statusText,
-		body: "body"
-	}
-
-	serialised.body = await response.json();
-
-	return serialised;
-}
-
-let getValue = async (request: any) => {
+const getValue = async (request: any) => {
 	let cacheData;
 
 	try {
-		let url = await request.url;
-		console.log(url);
+		const url = await request.url;
+
 		const id = SHA256(url.toString()).toString();
-		
-		console.log(id);
+
 		const tx = (await dbCache).transaction(tableName, "readonly");
 		const store = tx.objectStore(tableName);
 		cacheData = await store.get(id);
 
 		if (!cacheData) return null;
 
-		let maxAge = 3600;
+		const maxAge = 3600;
 
-		if (Date.now() - cacheData.timestamp > maxAge * 1000)
-			return null;
+		if (Date.now() - cacheData.timestamp > maxAge * 1000) return null;
 
 		return new Response(JSON.stringify(cacheData.response.body), cacheData.response);
 	} catch (err) {
 		console.log(err);
 		return null;
-	};
-}
+	}
+};
 
-let putValue = async (request: any, response: any) => {
-	let url = await request.url;
-	
+const serialisedReponse = async (response: any) => {
+	const serialisedHeaders: any = {};
+
+	// eslint-disable-next-line no-restricted-syntax
+	for (const entry of response.headers.entries()) {
+		// eslint-disable-next-line prefer-destructuring
+		serialisedHeaders[entry[0]] = entry[1];
+	}
+
+	const serialised = {
+		headers: serialisedHeaders,
+		status: response.status,
+		statusText: response.statusText,
+		body: "body"
+	};
+
+	serialised.body = await response.json();
+
+	return serialised;
+};
+
+const putValue = async (request: any, response: any) => {
+	const url = await request.url;
+
 	const id = SHA256(url.toString()).toString();
 
-	let entry = {
+	const entry = {
 		response: await serialisedReponse(response),
 		timestamp: Date.now()
-	}
+	};
 
 	const tx = (await dbCache).transaction(tableName, "readwrite");
 	const store = tx.objectStore(tableName);
 	store.put(entry, id);
-}
+};
+
+const networkFirst = async (event: any) =>
+	fetch(event.request.clone())
+		.then((response: any) => {
+			putValue(event.request.clone(), response.clone());
+			return response;
+		})
+		.catch(() => getValue(event.request.clone()));
