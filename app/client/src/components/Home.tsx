@@ -206,7 +206,7 @@ function Home() {
 		console.log(scheduleData);
 		try {
 			const response = await axiosPrivate.post(
-				"reportSchedular",
+				"reportScheduler",
 				JSON.stringify(scheduleData)
 			);
 			changeResponse(await response.data.tweets);
