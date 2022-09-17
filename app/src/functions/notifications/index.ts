@@ -12,4 +12,19 @@ export const getNotifications = {
             }
         }
     ]
-}
+};
+
+
+export const deleteNotification = {
+    handler: `${handlerPath(__dirname)}/handler.deleteNotification`,
+    description: "A function that deletes a notificaion from the notifications table",
+    events: [
+        {
+            http: {
+                method: "post",
+                path: "deleteNotification/",
+                cors: true
+            }
+        }
+    ]
+};
