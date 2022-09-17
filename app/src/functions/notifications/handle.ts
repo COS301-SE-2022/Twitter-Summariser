@@ -26,3 +26,25 @@ export const getNotifications = middyfy(
         };
     }
 );
+
+export const deleteNotification = middyfy(
+    async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+        try {
+            const params = JSON.parse(event.body);
+
+            await ServicesLayer.notificationService.deleteNotification(params.apiKey);
+
+            return {
+                statusCode: statusCodes.Successful,
+                headers: header,
+                body: JSON.stringify("Notification deleted successfully")
+            };
+        } catch(e) {
+            return {
+                statusCode: statusCodes.internalError,
+                headers: header,
+                body: JSON.stringify(e)
+            };
+        };
+    }
+);
