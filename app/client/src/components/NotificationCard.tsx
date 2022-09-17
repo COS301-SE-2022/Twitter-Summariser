@@ -32,7 +32,7 @@ function NotificationCard(props: any){
     </div>
 
     return (
-        <div className="flex flex-row rounded space-x-5 px-5 py-2 flex items-stretch cursor-pointer"> 
+        <div className="flex flex-row rounded space-x-5 px-5 py-2 flex items-stretch cursor-pointer hover:shadow-md"> 
             <div>
                 <img
                     src="assets/profile.png"
