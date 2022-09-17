@@ -43,12 +43,12 @@ function MobileNavigation(props: any) {
 			<br />
 			<br />
 			<div
-				className="pt-4 flex flex-col justify-center text-center border-b border-gray-200"
+				className="pt-4 flex flex-col border-b border-gray-200"
 				key={(7).toString()}
 			>
 				<Link
 					to="/profile"
-					className="flex flex-col justify-center"
+					className="flex flex-col"
 					onClick={() => pageHandler()}
 				>
 					<div className="justify-center items-center">
@@ -58,7 +58,7 @@ function MobileNavigation(props: any) {
 									<div
 										id="imagePreview"
 										style={imageStyle}
-										className="flex flex-row justify-center items-center bg-slate-300"
+										className="flex flex-row bg-slate-300"
 									/>
 								</div>
 							</div>
@@ -66,13 +66,13 @@ function MobileNavigation(props: any) {
 						{/* Image comes here */}
 					</div>
 
-					<div className=" font-bold mt-1">{auth.username}</div>
-					<div className=" font-medium text-sm mb-4">{auth.email}</div>
+					<div className=" font-bold mt-1 ml-4">{auth.username}</div>
+					<div className=" font-medium text-sm mb-4 ml-4">{auth.email}</div>
 				</Link>
 			</div>
 
-			<nav className=" flex flex-col justify-center text-center">
-				<div className="flex flex-row text-center justify-center" key={(1).toString()}>
+			<nav className=" flex flex-col">
+				<div className="flex flex-row ml-4" key={(1).toString()}>
 					<Link to="/" className="flex flex-row" onClick={() => pageHandler()}>
 						<div className="items-end ">
 							<GoHome style={style} />
@@ -83,7 +83,7 @@ function MobileNavigation(props: any) {
 				</div>
 
 				<div
-					className="pt-4 flex flex-row text-center justify-center "
+					className="pt-4 flex flex-row ml-4"
 					key={(2).toString()}
 				>
 					<Link to="/explore" className="flex flex-row" onClick={() => pageHandler()}>
@@ -95,7 +95,7 @@ function MobileNavigation(props: any) {
 				</div>
 
 				<div
-					className="pt-4 flex flex-row text-center justify-center "
+					className="pt-4 flex flex-row ml-4"
 					key={(3).toString()}
 				>
 					<Link to="/reports" className="flex flex-row" onClick={() => pageHandler()}>
@@ -106,7 +106,7 @@ function MobileNavigation(props: any) {
 					</Link>
 				</div>
 
-				<div className="pt-4 flex flex-row text-center justify-center" key={(4).toString()}>
+				<div className="pt-4 flex flex-row ml-4" key={(4).toString()}>
 					<Link to="/drafts" className="flex flex-row" onClick={() => pageHandler()}>
 						<div className="items-end pt-1 ">
 							<RiDraftLine style={style} />
@@ -116,7 +116,7 @@ function MobileNavigation(props: any) {
 				</div>
 
 				<div
-					className="pt-4 flex flex-row text-center justify-center "
+					className="pt-4 flex flex-row ml-4"
 					key={(5).toString()}
 				>
 					<Link to="/shared" className="flex flex-row" onClick={() => pageHandler()}>
@@ -128,7 +128,7 @@ function MobileNavigation(props: any) {
 				</div>
 
 				<div
-					className="pt-4 flex flex-row text-center justify-center "
+					className="pt-4 flex flex-row ml-4"
 					key={(6).toString()}
 				>
 					<Link to="/history" className="flex flex-row" onClick={() => pageHandler()}>
@@ -140,7 +140,7 @@ function MobileNavigation(props: any) {
 				</div>
 
 				<div
-					className="pt-4 flex flex-row text-center justify-center "
+					className="pt-4 flex flex-row ml-4"
 					key={(7).toString()}
 				>
 					<Link to="/summariser" className="flex flex-row" onClick={() => pageHandler()}>
@@ -151,7 +151,7 @@ function MobileNavigation(props: any) {
 					</Link>
 				</div>
 
-				<div className="pt-4 flex flex-row text-center justify-center">
+				<div className="pt-4 flex flex-row ml-4">
 					<button type="submit" className="flex flex-row" onClick={signOut}>
 						<div className="items-end pt-1 ">
 							<HiOutlineLogin style={style} />

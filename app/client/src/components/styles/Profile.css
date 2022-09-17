@@ -46,8 +46,10 @@
 	margin: auto;
 }
 .avatar-upload .avatar-preview {
-	width: 192px;
-	height: 192px;
+	width: 150px;
+	height: 150px;
+	top: 20px;
+	right: 25px;
 	position: relative;
 	border-radius: 100%;
 	border: 6px solid #f8f8f8;
