@@ -6,6 +6,7 @@ import { BsArrowDown, BsArrowUp, BsShare } from "react-icons/bs";
 import { BiErrorCircle } from "react-icons/bi";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { MdDeleteOutline } from "react-icons/md";
+import { Checkbox } from "@mui/material";
 import Text from "./Text";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
@@ -15,6 +16,9 @@ import "./styles/Animation.css";
 import Modal from "./Modal";
 
 function Report() {
+
+	// console.log("here");
+
 	const style = { fontSize: "1.3rem" };
 	const styleNew = { fontSize: "1.5rem", color: "green" };
 	const iconStyle3 = { fontSize: "1.5rem", color: "red" };
@@ -55,6 +59,15 @@ function Report() {
 
 	const repID = location.pathname.substring(ind + 1);
 
+	const [checkedSentiment, setCheckedSentiment] = useState(false);
+
+	// const [semanticColor, changeSemanticColor] = useState("red");
+	const sentimentColor = "green";
+
+	const checkedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+	  setCheckedSentiment(event.target.checked);
+	};
+
 	const shareHandler = () => {
 		setSuccessfulShare(false);
 		setShare(!share);
@@ -79,7 +92,7 @@ function Report() {
 			const response = await axiosPrivate.post("getReport", JSON.stringify(requiredData), {
 				signal: controller.signal
 			});
-			// console.log(response.data.report);
+
 			isMounted && setPerm(response.data.report.permission);
 			isMounted && setStat(response.data.report.status);
 			isMounted && setState(response.data.report.Report);
@@ -145,6 +158,9 @@ function Report() {
 
 	const apiResponse = [<div key="begining div" />];
 
+	const apiResponseWithSentimentAnalysis = [<div key="begining div" />];
+
+
 	const reorderUpHandler = async (tweetPos: any) => {
 		const resultDetails = {
 			reportID: repID,
@@ -185,25 +201,33 @@ function Report() {
 	// const deleteTweetHandler = async (blockID: any) => {
 	// 		const deleteDetails = {
 	// 			apiKey: auth.apiKey,
-	// 			reportID: localStorage.getItem("draftReportId"),
+	// 			reportID: repID,
 	// 			reportBlockID: blockID
 	// 		};
 
-	// 		try {
-	// 			await axiosPrivate.post("deleteReportBlock", JSON.stringify(deleteDetails), {
-	// 				signal: controller.signal
-	// 			});
-	// 			changeShouldRender(true);
-	// 		} catch (err) {
-	// 			console.error(err);
-	// 		}
-	// 	};
+			// console.log(deleteDetails);
+
+
+		// 	try {
+		// 		await axiosPrivate.post("deleteReportBlock", JSON.stringify(deleteDetails), {
+		// 			signal: controller.signal
+		// 		});
+		// 		changeShouldRender(true);
+		// 	} catch (err) {
+		// 		console.error(err);
+		// 	}
+		// };
 
 	const isPublished = () => stat === "PUBLISHED";
 
 	const isViewer = () => perm === "VIEWER";
 
 	const isOwner = () => perm === "OWNER";
+
+	// console.log("isPublished", isPublished());
+	// console.log("isViewer", isViewer());
+	// console.log("isOwner", isOwner());
+
 
 	if (isPublished() || isViewer()) {
 		state.map((data: any, index: number) =>
@@ -228,7 +252,31 @@ function Report() {
 				</div>
 			)
 		);
+
+		state.map((data: any, index: number) =>
+			apiResponseWithSentimentAnalysis.push(
+				<div className="" key={data.position}>
+					{data.blockType === "RICHTEXT" && (
+						<div className="">
+							{" "}
+							<PublishedText keyValue={index} data={data} status={stat} />{" "}
+						</div>
+					)}
+
+					{data.blockType === "TWEET" && (
+						<div className={` w-full border-2 border-${sentimentColor}-200 p-3`} key={data.position}>
+							<Tweet
+								options={{ align: "center", width: "" }}
+								tweetId={data.block.tweetID}
+								onLoad={done}
+							/>
+						</div>
+					)}
+				</div>
+			)
+		);
 	} else {
+
 		state.map((data: any, index: number) =>
 			apiResponse.push(
 				<div className="" key={data.position}>
@@ -273,10 +321,10 @@ function Report() {
 							</div>
 							{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
 							{/* <div className="w-1/6 flex text-center justify-center">
-						<button type="button" onClick={() => deleteTweetHandler(data.reportBlockID)}>
-							<MdDeleteOutline style={iconStyle3} />
-						</button>
-					</div> */}
+								<button type="button" onClick={() => deleteTweetHandler(data.reportBlockID)}>
+									<MdDeleteOutline style={iconStyle3} />
+								</button>
+							</div> */}
 						</>
 					)}
 
@@ -308,10 +356,10 @@ function Report() {
 							</div>
 							{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
 							{/* <div className="w-1/6 flex text-center justify-center">
-							<button type="button" onClick={() => deleteTweetHandler(data.reportBlockID)}>
-								<MdDeleteOutline style={iconStyle3} />
-							</button>
-						</div> */}
+								<button type="button" onClick={() => deleteTweetHandler(data.reportBlockID)}>
+									<MdDeleteOutline style={iconStyle3} />
+								</button>
+							</div> */}
 						</>
 					)}
 
@@ -361,10 +409,152 @@ function Report() {
 								</div>
 								{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
 								{/* <div className="w-1/6 flex text-center justify-center">
-							<button type="button" onClick={() => deleteTweetHandler(data.reportBlockID)}>
-								<MdDeleteOutline style={iconStyle3} />
-							</button>
-						</div> */}
+									<button type="button" onClick={() => deleteTweetHandler(data.reportBlockID)}>
+										<MdDeleteOutline style={iconStyle3} />
+									</button>
+								</div> */}
+							</>
+						)}
+				</div>
+			)
+		);
+
+		state.map((data: any, index: number) =>
+			apiResponseWithSentimentAnalysis.push(
+				<div className="" key={data.position}>
+					{data.blockType === "RICHTEXT" && (
+						<div className="">
+							{" "}
+							<Text
+								keyValue={index}
+								data={data}
+								rID={repID}
+								onChange={(value: boolean) => changeShouldRender(value)}
+							/>{" "}
+						</div>
+					)}
+
+					{/* FIRST TWEET */}
+					{data.blockType === "TWEET" && data.position === 1 && (
+						<>
+							<div
+								className= {` w-full border-2 border-${sentimentColor}-200 p-3 flex flex-col justify-center`}
+								key={data.position}
+							>
+								<Tweet
+									options={{ align: "center", width: "" }}
+									tweetId={data.block.tweetID}
+									onLoad={done}
+								/>
+								<div className="flex flex-row justify-around">
+									<div
+										className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
+										data-bs-toggle="tooltip"
+										title="Move Tweet Down"
+									>
+										<button type="submit">
+											<BsArrowDown
+												style={style}
+												onClick={() => reorderDownHandler(data.position)}
+											/>
+										</button>
+									</div>
+								</div>
+							</div>
+							{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
+							{/* <div className="w-1/6 flex text-center justify-center">
+								<button type="button" onClick={() => deleteTweetHandler(data.reportBlockID)}>
+									<MdDeleteOutline style={iconStyle3} />
+								</button>
+							</div> */}
+						</>
+					)}
+
+					{/* LAST TWEET */}
+					{data.blockType === "TWEET" && data.position === length - 1 && (
+						<>
+							<div
+								className={` w-full border-2 border-${sentimentColor}-200 p-3 flex flex-col justify-center`}
+								key={data.position}
+							>
+								<div className="flex flex-row justify-around">
+									<div
+										className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
+										data-bs-toggle="tooltip"
+										title="Move Tweet Up"
+									>
+										<button type="submit">
+											<BsArrowUp
+												style={style}
+												onClick={() => reorderUpHandler(data.position)}
+											/>
+										</button>
+									</div>
+								</div>
+								<Tweet
+									options={{ align: "center", width: "" }}
+									tweetId={data.block.tweetID}
+								/>
+							</div>
+							{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
+							{/* <div className="w-1/6 flex text-center justify-center">
+								<button type="button" onClick={() => deleteTweetHandler(data.reportBlockID)}>
+									<MdDeleteOutline style={iconStyle3} />
+								</button>
+							</div> */}
+						</>
+					)}
+
+					{data.blockType === "TWEET" &&
+						!(data.position === 1 || data.position === length - 1) && (
+							<>
+								<div
+									className={` w-full border-2 border-${sentimentColor}-200 p-3 flex flex-col justify-center`}
+									key={data.position}
+								>
+									<div className="flex flex-row justify-around">
+										<div
+											className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
+											data-bs-toggle="tooltip"
+											title="Move Tweet Up"
+										>
+											<button type="submit">
+												<BsArrowUp
+													style={style}
+													onClick={() => reorderUpHandler(data.position)}
+												/>
+											</button>
+										</div>
+									</div>
+
+									<Tweet
+										options={{ align: "center", width: "" }}
+										tweetId={data.block.tweetID}
+									/>
+
+									<div className="flex flex-row justify-around">
+										<div
+											className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
+											data-bs-toggle="tooltip"
+											title="Move Tweet Down"
+										>
+											<button type="submit">
+												<BsArrowDown
+													style={style}
+													onClick={() =>
+														reorderDownHandler(data.position)
+													}
+												/>
+											</button>
+										</div>
+									</div>
+								</div>
+								{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
+								{/* <div className="w-1/6 flex text-center justify-center">
+									<button type="button" onClick={() => deleteTweetHandler(data.reportBlockID)}>
+										<MdDeleteOutline style={iconStyle3} />
+									</button>
+								</div> */}
 							</>
 						)}
 				</div>
@@ -717,9 +907,18 @@ function Report() {
 
 							<br />
 
+					<div className="mb-0">
+						<p className="">Show sentiment analysis:</p>
+						<Checkbox
+							checked={checkedSentiment}
+							onChange={checkedHandler}
+							inputProps={{ 'aria-label': 'controlled' }}
+						/>
+					</div>
+
 							{pulse && pulseOutput}
 
-							<div className="grid grid-cols gap-4 content-center">{apiResponse}</div>
+							<div className="grid grid-cols gap-4 content-center">{!checkedSentiment && apiResponse} {checkedSentiment && apiResponseWithSentimentAnalysis}</div>
 
 							{isOwner() && (
 								<div className="flex justify-center mb-20">
