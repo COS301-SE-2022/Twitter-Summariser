@@ -12,10 +12,40 @@ export const getNotifications = middyfy(
                 params.apiKey
             );
 
+            let responseBody: any = {}
+
+            let responseArray = notifications.map(async (notification) => {
+                let senderUsername: string;
+                let senderUrl: string;
+
+                if (notification.sender !== "SYSTEM") {
+                    const creator = await ServicesLayer.creatorService.getCreatorByKey(notification.sender);
+
+                    senderUsername = creator.username;
+                    senderUrl = creator.profileKey
+                    
+                }
+                else {
+                    senderUsername = notification.sender;
+
+                    senderUrl = "assets/logo.png";
+                }
+
+                delete notification.sender;
+
+                responseBody = { 
+                    ...notification,
+                    senderUsername: senderUsername,
+                    sernderUrl: senderUrl
+                };
+
+                return responseBody;
+            })
+
             return {
                 statusCode: statusCodes.Successful,
                 headers: header,
-                body: JSON.stringify({Notifications: notifications})
+                body: JSON.stringify({notifications: responseArray})
             };
         } catch(e) {
             return {
