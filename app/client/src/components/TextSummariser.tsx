@@ -4,7 +4,6 @@ import { BiErrorCircle } from "react-icons/bi";
 import FileUpload from "./FileUpload";
 import FileList from "./FileList";
 
-
 function TextSummariser() {
 	const [files, setFiles] = useState([]);
 	const [isDone, setIsDone] = useState(false);
@@ -24,13 +23,12 @@ function TextSummariser() {
 		setShowSpinner(true);
 		setFiles([]);
 		setIsDone(false);
-				
+
 		setTimeout(() => {
 			setSummary(extractedText);
 			setShowSpinner(false);
 			setShowSummary(true);
 		}, 5000);
-		
 	};
 
 	const isDoneLoading = () => {
@@ -60,7 +58,7 @@ function TextSummariser() {
 				{error && (
 					<div className="border-2 border-red-500 rounded-md bg-red-300 h-auto mt-6 w-full inline-flex items-center text-center justify-center">
 						<BiErrorCircle style={bStyle} className="fixed left-0 ml-5 mr-4" />
-						<p className=" items-center justify-center ml-4"> {	error	} </p>
+						<p className=" items-center justify-center ml-4"> {error} </p>
 					</div>
 				)}
 				<FileList files={files} removeFile={removeFile} />
@@ -75,18 +73,20 @@ function TextSummariser() {
 				)}
 				{showSpinner && (
 					<>
-					<div className="w-full mt-16 justify-center flex flex-col top-50 items-center">
-						<ClipLoader color="#023E8A" size={100} />
-					</div>	
-					<strong className="items-center text-center justify-center w-full p-6">Generating Summary. Please be patient.</strong>
+						<div className="w-full mt-16 justify-center flex flex-col top-50 items-center">
+							<ClipLoader color="#023E8A" size={100} />
+						</div>
+						<strong className="items-center text-center justify-center w-full p-6">
+							Generating Summary. Please be patient.
+						</strong>
 					</>
-					
-					
 				)}
 				{showSummary && (
 					<div className="w-full mt-5">
 						<label htmlFor="summary" className=" text-sm font-medium text-primary mb-2">
-							<p className="text-center items-center justify-center">Summarised Text:</p>
+							<p className="text-center items-center justify-center">
+								Summarised Text:
+							</p>
 						</label>
 						<div className="mt-5">
 							<textarea

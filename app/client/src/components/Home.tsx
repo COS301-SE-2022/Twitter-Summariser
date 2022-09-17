@@ -170,7 +170,6 @@ function Home() {
 	// 	changeSchedule(event.target.value);
 	// }
 
-
 	const [pulse, changePulse] = useState(false);
 
 	// UNCOMMENT FOR SCHEDULE REPORT FUNCTIONALITY
@@ -211,7 +210,6 @@ function Home() {
 			changeScheduleResponse(await response.data);
 			scheduleResponse;
 			// console.log(await response.data);
-
 		} catch (err) {
 			console.error(err);
 		}
@@ -239,7 +237,6 @@ function Home() {
 		};
 
 		// console.log(scheduleData);
-
 
 		scheduleReport(scheduleData);
 	};

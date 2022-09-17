@@ -42,15 +42,8 @@ function MobileNavigation(props: any) {
 			<br />
 			<br />
 			<br />
-			<div
-				className="pt-4 flex flex-col border-b border-gray-200"
-				key={(7).toString()}
-			>
-				<Link
-					to="/profile"
-					className="flex flex-col"
-					onClick={() => pageHandler()}
-				>
+			<div className="pt-4 flex flex-col border-b border-gray-200" key={(7).toString()}>
+				<Link to="/profile" className="flex flex-col" onClick={() => pageHandler()}>
 					<div className="justify-center items-center">
 						<div className="avatar-upload bottom-52">
 							<div className="avatar-edit">
@@ -82,10 +75,7 @@ function MobileNavigation(props: any) {
 					</Link>
 				</div>
 
-				<div
-					className="pt-4 flex flex-row ml-4"
-					key={(2).toString()}
-				>
+				<div className="pt-4 flex flex-row ml-4" key={(2).toString()}>
 					<Link to="/explore" className="flex flex-row" onClick={() => pageHandler()}>
 						<div className="items-end pt-1 ">
 							<BiHash style={style} />
@@ -94,10 +84,7 @@ function MobileNavigation(props: any) {
 					</Link>
 				</div>
 
-				<div
-					className="pt-4 flex flex-row ml-4"
-					key={(3).toString()}
-				>
+				<div className="pt-4 flex flex-row ml-4" key={(3).toString()}>
 					<Link to="/reports" className="flex flex-row" onClick={() => pageHandler()}>
 						<div className="items-end pt-1 ">
 							<TiDocumentText style={style} />
@@ -115,10 +102,7 @@ function MobileNavigation(props: any) {
 					</Link>
 				</div>
 
-				<div
-					className="pt-4 flex flex-row ml-4"
-					key={(5).toString()}
-				>
+				<div className="pt-4 flex flex-row ml-4" key={(5).toString()}>
 					<Link to="/shared" className="flex flex-row" onClick={() => pageHandler()}>
 						<div className="items-end pt-1 ">
 							<BsShare style={style} />
@@ -127,10 +111,7 @@ function MobileNavigation(props: any) {
 					</Link>
 				</div>
 
-				<div
-					className="pt-4 flex flex-row ml-4"
-					key={(6).toString()}
-				>
+				<div className="pt-4 flex flex-row ml-4" key={(6).toString()}>
 					<Link to="/history" className="flex flex-row" onClick={() => pageHandler()}>
 						<div className="items-end pt-1 ">
 							<AiOutlineHistory style={style} />
@@ -139,10 +120,7 @@ function MobileNavigation(props: any) {
 					</Link>
 				</div>
 
-				<div
-					className="pt-4 flex flex-row ml-4"
-					key={(7).toString()}
-				>
+				<div className="pt-4 flex flex-row ml-4" key={(7).toString()}>
 					<Link to="/summariser" className="flex flex-row" onClick={() => pageHandler()}>
 						<div className="items-end pt-1 ">
 							<RiDraftLine style={style} />
