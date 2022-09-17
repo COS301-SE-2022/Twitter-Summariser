@@ -5,6 +5,7 @@ import { EventBridge, Lambda } from "aws-sdk";
 import axios from "../../../client/src/api/ConfigAxios";
 import ServicesLayer from "../../services";
 import { randomUUID } from "crypto";
+import Notification from "@model/notification/notification.model";
 
 // Generation of reports
 export const reportScheduler = middyfy(
@@ -102,6 +103,19 @@ export const genScheduledReport = async (params): Promise<void> => {
 				resultSetID: responseST.data["resultSetID"]
 			})
 		);
+
+		const notification: Notification = {
+			id: "NT-"+ randomUUID(),
+			sender: "SYSTEM",
+			receiver: params.apiKey,
+			type: "SCHEDULER",
+			content: responseGR.data.title,
+			isRead: false,
+			dateCreated: new Date()
+		}
+
+		await ServicesLayer.notificationService.addNotification(notification);
+
 	} catch (e) {}
 };
 
