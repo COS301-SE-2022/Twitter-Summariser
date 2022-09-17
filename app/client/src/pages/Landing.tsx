@@ -1,12 +1,15 @@
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
+import {Toaster} from "react-hot-toast";
 import MobileNavigation from "../components/MobileNavigation";
 import Logo from "../components/Logo";
 import Navigation from "../components/Navigation";
+import Notifications from "../components/Notifications";
 import "./styles/Landing.css";
 import useLogout from "../hooks/useLogout";
 import useAuth from "../hooks/useAuth";
+
 
 import { ScrollToTop } from "../components/scroll/ScrollToTop";
 
@@ -110,13 +113,12 @@ function Landing() {
 			</div>
 
 			{/* third container ######################################################################################################### */}
-			{/* <div className=" xl:flex xl:w-1/4 xl:p-2 xl:pt-5 xl:relative xl:mr-14 hidden">
-				<div className="fixed rounded bg-gray-200 h-2/3 ml-8 p-5 2xl:w-80 xl:w-64 ">
-					<h1 className="text-xl font-bold">Drafts to report</h1>
-					<div className="w-full flex flex-col" />
-				</div>
-			</div> */}
+			<div className=" xl:flex xl:w-1/4 xl:p-2 xl:pt-5 xl:relative xl:mr-14 hidden">
+				<Notifications/>
+			</div>
+			<Toaster/>	
 		</div>
+		
 	);
 }
 
