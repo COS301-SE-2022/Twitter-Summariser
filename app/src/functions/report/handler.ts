@@ -233,7 +233,7 @@ export const shareReport = middyfy(
 						type: "SHARE",
 						content: report.title,
 						isRead: false,
-						dateCreated: undefined
+						dateCreated: new Date()
 					}
 
 					await ServicesLayer.notificationService.addNotification(notification);

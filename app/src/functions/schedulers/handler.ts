@@ -111,7 +111,7 @@ export const genScheduledReport = async (params): Promise<void> => {
 			type: "SCHEDULER",
 			content: responseGR.data.title,
 			isRead: false,
-			dateCreated: undefined
+			dateCreated: new Date()
 		}
 
 		await ServicesLayer.notificationService.addNotification(notification);
