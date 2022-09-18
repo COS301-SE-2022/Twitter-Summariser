@@ -1138,9 +1138,9 @@
     chalk "^4.1.0"
 
 "@coreui/react@^4.3.1":
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/@coreui/react/-/react-4.3.1.tgz#f0d6f354c6bb28273a54d8d0ebf3f53cd20a2744"
-  integrity sha512-vCkxayuqfr1kFnkc+Jg/BMwJXG+MgBJ4pMbWdBuE06e6fr0WQZkWBC9dLL+e9qFWFZkJmNoYut3gZ2tUjd3mtw==
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/@coreui/react/-/react-4.4.0.tgz#a1b5e35b93c73db4326bb41151b779287fc64185"
+  integrity sha512-72ZKArQQCMknqaE5AHDdOGy/kTl7xDK/I8reuWX6uTHLRD3Rz85pIA5IUzHafLIOlte8Sci0fdWYG8UshpXQyQ==
 
 "@cspotcode/source-map-support@^0.8.0":
   version "0.8.1"
@@ -2656,6 +2656,13 @@
   resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
   integrity sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==
 
+"@types/pizzip@^3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@types/pizzip/-/pizzip-3.0.2.tgz#02590804f67311f003b1565d62e49766936add2e"
+  integrity sha512-tawT8YAMYCOPLmyx945+0bbmL/XB0ldwX7gemWhGhYmot2a3wsKQCaJw2Nr3KK+bbpTcl4cbJRkQS2jscKn/qw==
+  dependencies:
+    "@types/node" "*"
+
 "@types/prettier@^2.1.5":
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-2.7.0.tgz#ea03e9f0376a4446f44797ca19d9c46c36e352dc"
@@ -3037,6 +3044,11 @@
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@wojtekmaj/date-utils/-/date-utils-1.0.3.tgz#2dcfd92881425c5923e429c2aec86fb3609032a1"
   integrity sha512-1VPkkTBk07gMR1fjpBtse4G+oJqpmE+0gUFB0dg3VIL7qJmUVaBoD/vlzMm/jNeOPfvlmerl1lpnsZyBUFIRuw==
+
+"@xmldom/xmldom@^0.8.2":
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/@xmldom/xmldom/-/xmldom-0.8.2.tgz#b695ff674e8216efa632a3d36ad51ae9843380c0"
+  integrity sha512-+R0juSseERyoPvnBQ/cZih6bpF7IpCXlWbHRoCRzYzqpz6gWHOgf8o4MOEf6KBVuOyqU+gCNLkCWVIJAro8XyQ==
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
@@ -4818,6 +4830,13 @@ doctrine@^3.0.0:
   integrity sha512-yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==
   dependencies:
     esutils "^2.0.2"
+
+docxtemplater@^3.31.3:
+  version "3.31.3"
+  resolved "https://registry.yarnpkg.com/docxtemplater/-/docxtemplater-3.31.3.tgz#9c78f75ab437feec8fd2eadedab80179eb122640"
+  integrity sha512-GPVc0WWkt2ePlM9SzR/Im8wV67wCM9VAivcrkcCNkfFCZitTUPlV+I8xlGtzTIgG0o9/s8tdS1NMbOngL3Zuhw==
+  dependencies:
+    "@xmldom/xmldom" "^0.8.2"
 
 dom-accessibility-api@^0.5.6, dom-accessibility-api@^0.5.9:
   version "0.5.14"
@@ -8676,6 +8695,11 @@ pa11y@^6.2.3:
     puppeteer "~9.1.1"
     semver "~7.3.5"
 
+pako@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/pako/-/pako-2.0.4.tgz#6cebc4bbb0b6c73b0d5b8d7e8476e2b2fbea576d"
+  integrity sha512-v8tweI900AUkZN6heMU/4Uy4cXRc2AYNRggVmTR+dEncawDJgCdLMximOVA2p4qO57WMynangsfGRb5WD6L1Bg==
+
 param-case@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/param-case/-/param-case-3.0.4.tgz#7d17fe4aa12bde34d4a77d91acfb6219caad01c5"
@@ -8798,6 +8822,13 @@ pirates@^4.0.4:
   version "4.0.5"
   resolved "https://registry.yarnpkg.com/pirates/-/pirates-4.0.5.tgz#feec352ea5c3268fb23a37c702ab1699f35a5f3b"
   integrity sha512-8V9+HQPupnaXMA23c5hvl69zXvTwTzyAYasnkb0Tts4XvO4CliqONMOnvlq26rkhLC3nWDFBJf73LU1e1VZLaQ==
+
+pizzip@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/pizzip/-/pizzip-3.1.1.tgz#4f4896189da7386e5060b148696e116a61cb2bd0"
+  integrity sha512-+SYbkj87i+/4LR2F0lIeLTRFg95aj14OhGka988Jg8HiXZVOifdBIWaKZTnfZFvvUl5torCXQ/e+wZ6D23hPuQ==
+  dependencies:
+    pako "^2.0.4"
 
 pkg-dir@4.2.0, pkg-dir@^4.1.0, pkg-dir@^4.2.0:
   version "4.2.0"
