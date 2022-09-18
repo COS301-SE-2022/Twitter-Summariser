@@ -31,7 +31,7 @@ describe("reportBlock.service", () => {
 
 			expect(db.get).toHaveBeenCalledWith({
 				TableName: "ReportBlockTable",
-				Key: { id: "9000" }
+				Key: { reportBlockID: "9000" }
 			});
 
 			const expected = {
