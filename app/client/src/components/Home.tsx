@@ -90,6 +90,8 @@ function Home() {
 	const [loading, changeLoading] = useState(false);
 	const [scheduleResponse, changeScheduleResponse] = useState("");
 
+	const [showTrends, changeShowTrends] = useState(true);
+
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
 	const [generateLoading, changeGenerateLoading] = useState(false);
@@ -306,6 +308,7 @@ let searchInput = document.getElementById("default-search") as HTMLInputElement;
 
 	const search = () => {
 		// const currentDate = new Date().toUTCString();
+		changeShowTrends(false);
 
 		if (checked) {
 			schedule();
@@ -1126,11 +1129,11 @@ let searchInput = document.getElementById("default-search") as HTMLInputElement;
 					</div>
 
 
-					<h1 className="text-2xl hidden lg:flex lg:flex-row lg:justify-center border-b pb-4 w-5/6 align-middle items-center border-slate-300">
-						LATEST TRENDS
-					</h1>
-
-						{trendsResponse}
+					{showTrends && <div>
+						<h1 className="text-2xl hidden lg:flex lg:flex-row lg:justify-center border-b pb-4 w-5/6 align-middle items-center border-slate-300">
+							LATEST TRENDS
+						</h1>
+						{trendsResponse} </div>}
 				</div>
 			)}
 		</div>
