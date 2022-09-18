@@ -132,8 +132,6 @@ export const deleteReportBlock = middyfy(
 						position: top.position,
 						richText: top.text + "\n\n" + bottom.text
 					});
-					await ServicesLayer.reportBlockService.deleteReportBlock(params.reportBlockID);
-					await ServicesLayer.reportBlockService.deleteReportBlock(bottom.reportBlockID);
 
 					report.map(async (block) => {
 						if(block.blockType==='RICHTEXT' && block.position>blck.position){
@@ -141,6 +139,10 @@ export const deleteReportBlock = middyfy(
 							await ServicesLayer.reportBlockService.addReportBlock(block);
 						}
 					})
+
+
+					await ServicesLayer.reportBlockService.deleteReportBlock(params.reportBlockID);
+					await ServicesLayer.reportBlockService.deleteReportBlock(bottom.reportBlockID);
 				} else {
 					await ServicesLayer.reportBlockService.deleteReportBlock(params.reportBlockID);
 				}
