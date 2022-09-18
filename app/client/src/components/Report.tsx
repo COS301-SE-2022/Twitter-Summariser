@@ -819,12 +819,12 @@ function Report() {
 										)}
 									</div>
 								</div>
-								<div
+								{!isPublished() && !isViewer() && <div
 									className="ml-2 p-4 text-blue-500 cursor-pointer"
 									onClick={clicked}
 								>
 									Add Custom Tweets
-								</div>
+								</div>}
 								{modalOn && (
 									<Modal
 										setModalOn={setModalOn}
@@ -909,14 +909,14 @@ function Report() {
 
 							<br />
 
-					 <div className="mb-0">
+					 {!isPublished() && !isViewer() && <div className="mb-0">
 						<p className="">Show sentiment analysis:</p>
 						<Checkbox
 							checked={checkedSentiment}
 							onChange={checkedHandler}
 							inputProps={{ 'aria-label': 'controlled' }}
 						/>
-					</div>
+					</div>}
 
 							{pulse && pulseOutput}
 
