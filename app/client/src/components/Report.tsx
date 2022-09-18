@@ -16,7 +16,6 @@ import "./styles/Animation.css";
 import Modal from "./Modal";
 
 function Report() {
-
 	// console.log("here");
 
 	const style = { fontSize: "1.3rem" };
@@ -63,11 +62,11 @@ function Report() {
 
 	// const [semanticColor, changeSemanticColor] = useState("red");
 	const sentimentColor = "green";
-		const sentimentColor2 = "yellow";
-			const sentimentColor3 = "red";
+	const sentimentColor2 = "yellow";
+	const sentimentColor3 = "red";
 
 	const checkedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-	  setCheckedSentiment(event.target.checked);
+		setCheckedSentiment(event.target.checked);
 	};
 
 	const shareHandler = () => {
@@ -162,7 +161,6 @@ function Report() {
 
 	const apiResponseWithSentimentAnalysis = [<div key="begining div" />];
 
-
 	const reorderUpHandler = async (tweetPos: any) => {
 		const resultDetails = {
 			reportID: repID,
@@ -201,24 +199,23 @@ function Report() {
 
 	// UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY
 	const deleteTweetHandler = async (blockID: any) => {
-			const deleteDetails = {
-				apiKey: auth.apiKey,
-				reportID: repID,
-				reportBlockID: blockID
-			};
-
-			// console.log(deleteDetails);
-
-
-			try {
-				await axiosPrivate.post("deleteReportBlock", JSON.stringify(deleteDetails), {
-					signal: controller.signal
-				});
-				changeShouldRender(true);
-			} catch (err) {
-				console.error(err);
-			}
+		const deleteDetails = {
+			apiKey: auth.apiKey,
+			reportID: repID,
+			reportBlockID: blockID
 		};
+
+		// console.log(deleteDetails);
+
+		try {
+			await axiosPrivate.post("deleteReportBlock", JSON.stringify(deleteDetails), {
+				signal: controller.signal
+			});
+			changeShouldRender(true);
+		} catch (err) {
+			console.error(err);
+		}
+	};
 
 	const isPublished = () => stat === "PUBLISHED";
 
@@ -229,7 +226,6 @@ function Report() {
 	// console.log("isPublished", isPublished());
 	// console.log("isViewer", isViewer());
 	// console.log("isOwner", isOwner());
-
 
 	if (isPublished() || isViewer()) {
 		state.map((data: any, index: number) =>
@@ -278,7 +274,6 @@ function Report() {
 		// 	)
 		// );
 	} else {
-
 		state.map((data: any, index: number) =>
 			apiResponse.push(
 				<div className="" key={data.position}>
@@ -323,7 +318,10 @@ function Report() {
 							</div>
 							{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
 							<div className="w-1/6 flex text-center justify-center">
-								<button type="button" onClick={() => deleteTweetHandler(data.reportBlockID)}>
+								<button
+									type="button"
+									onClick={() => deleteTweetHandler(data.reportBlockID)}
+								>
 									<MdDeleteOutline style={iconStyle3} />
 								</button>
 							</div>
@@ -358,7 +356,10 @@ function Report() {
 							</div>
 							{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
 							<div className="w-1/6 flex text-center justify-center">
-								<button type="button" onClick={() => deleteTweetHandler(data.reportBlockID)}>
+								<button
+									type="button"
+									onClick={() => deleteTweetHandler(data.reportBlockID)}
+								>
 									<MdDeleteOutline style={iconStyle3} />
 								</button>
 							</div>
@@ -411,7 +412,10 @@ function Report() {
 								</div>
 								{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
 								<div className="w-1/6 flex text-center justify-center">
-									<button type="button" onClick={() => deleteTweetHandler(data.reportBlockID)}>
+									<button
+										type="button"
+										onClick={() => deleteTweetHandler(data.reportBlockID)}
+									>
 										<MdDeleteOutline style={iconStyle3} />
 									</button>
 								</div>
@@ -440,7 +444,7 @@ function Report() {
 					{data.blockType === "TWEET" && data.position === 1 && (
 						<>
 							<div
-								className= {` w-full border-2 border-${sentimentColor}-200 p-3 flex flex-col justify-center`}
+								className={` w-full border-2 border-${sentimentColor}-200 p-3 flex flex-col justify-center`}
 								key={data.position}
 							>
 								<Tweet
@@ -465,7 +469,10 @@ function Report() {
 							</div>
 							{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
 							<div className="w-1/6 flex text-center justify-center">
-								<button type="button" onClick={() => deleteTweetHandler(data.reportBlockID)}>
+								<button
+									type="button"
+									onClick={() => deleteTweetHandler(data.reportBlockID)}
+								>
 									<MdDeleteOutline style={iconStyle3} />
 								</button>
 							</div>
@@ -500,7 +507,10 @@ function Report() {
 							</div>
 							{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
 							<div className="w-1/6 flex text-center justify-center">
-								<button type="button" onClick={() => deleteTweetHandler(data.reportBlockID)}>
+								<button
+									type="button"
+									onClick={() => deleteTweetHandler(data.reportBlockID)}
+								>
 									<MdDeleteOutline style={iconStyle3} />
 								</button>
 							</div>
@@ -553,7 +563,10 @@ function Report() {
 								</div>
 								{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
 								<div className="w-1/6 flex text-center justify-center">
-									<button type="button" onClick={() => deleteTweetHandler(data.reportBlockID)}>
+									<button
+										type="button"
+										onClick={() => deleteTweetHandler(data.reportBlockID)}
+									>
 										<MdDeleteOutline style={iconStyle3} />
 									</button>
 								</div>
@@ -819,12 +832,14 @@ function Report() {
 										)}
 									</div>
 								</div>
-								{!isPublished() && !isViewer() && <div
-									className="ml-2 p-4 text-blue-500 cursor-pointer"
-									onClick={clicked}
-								>
-									Add Custom Tweets
-								</div>}
+								{!isPublished() && !isViewer() && (
+									<div
+										className="ml-2 p-4 text-blue-500 cursor-pointer"
+										onClick={clicked}
+									>
+										Add Custom Tweets
+									</div>
+								)}
 								{modalOn && (
 									<Modal
 										setModalOn={setModalOn}
@@ -909,18 +924,23 @@ function Report() {
 
 							<br />
 
-					 {!isPublished() && !isViewer() && <div className="mb-0">
-						<p className="">Show sentiment analysis:</p>
-						<Checkbox
-							checked={checkedSentiment}
-							onChange={checkedHandler}
-							inputProps={{ 'aria-label': 'controlled' }}
-						/>
-					</div>}
+							{!isPublished() && !isViewer() && (
+								<div className="mb-0">
+									<p className="">Show sentiment analysis:</p>
+									<Checkbox
+										checked={checkedSentiment}
+										onChange={checkedHandler}
+										inputProps={{ "aria-label": "controlled" }}
+									/>
+								</div>
+							)}
 
 							{pulse && pulseOutput}
 
-							<div className="grid grid-cols gap-4 content-center">{!checkedSentiment && apiResponse} {checkedSentiment && apiResponseWithSentimentAnalysis}</div>
+							<div className="grid grid-cols gap-4 content-center">
+								{!checkedSentiment && apiResponse}{" "}
+								{checkedSentiment && apiResponseWithSentimentAnalysis}
+							</div>
 
 							{isOwner() && (
 								<div className="flex justify-center mb-20">

@@ -42,20 +42,20 @@ function FileUpload(this: any, props: any) {
 			} else if (
 				file.type ===
 				"application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-			) {				
+			) {
 				const reader = new FileReader();
-  				reader.onload =  (e: any) => {
-    				const content = e.target.result;
+				reader.onload = (e: any) => {
+					const content = e.target.result;
 					const zip = new PizZip();
 					zip.load(content);
 					const doc = new Docxtemplater(zip);
 					const text = doc.getFullText();
 					props.setExtractedText(text);
 					props.isDoneLoading();
-					file.isUploading = false;					
-  				};
-  				reader.readAsBinaryString(event.target.files[0]);
-			} else {				
+					file.isUploading = false;
+				};
+				reader.readAsBinaryString(event.target.files[0]);
+			} else {
 				props.setError("File type not supported.");
 				props.setFiles([]);
 				file.isUploading = false;
