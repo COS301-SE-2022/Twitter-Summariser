@@ -5,5 +5,5 @@ export default interface Notification {
     type: string,
     content: string,
     isRead: boolean,
-    dateCreated: Date
+    dateCreated: string
 }
