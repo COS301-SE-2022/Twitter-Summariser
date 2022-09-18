@@ -37,12 +37,11 @@ function SharedCard(props: any) {
 					<p className="text-sm font-medium leading-4 text-gray-600">Author</p>
 				</div> */}
 			</div>
-			<br />
 
 			<p
 				aria-label="Article"
 				title="Jingle Bells"
-				className="flex items-center justify-center mb-3 text-2xl font-bold leading-5 text-black transition-colors duration-200 hover:text-deep-purple-accent-400"
+				className="flex items-center justify-center mt-2 mb-3 text-2xl font-bold leading-5 text-black transition-colors duration-200 hover:text-deep-purple-accent-400"
 			>
 				{props.data.title}
 			</p>
@@ -62,7 +61,7 @@ function SharedCard(props: any) {
 					</Carousel.Item>
 				</Carousel>
 			</p>
-			<div className="flex mt-4 space-x-3 items-center justify-center">
+			<div className="flex mt-3 space-x-3 items-center justify-center">
 				<div className="items-center py-2 px-3 text-xs font-semibold text-center text-white bg-dark-cornflower-blue rounded-md  hover:bg-midnight-blue group hover:shadow">
 					<button onClick={viewReport} type="submit">
 						{" "}
