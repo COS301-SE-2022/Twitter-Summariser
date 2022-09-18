@@ -41,7 +41,7 @@ function DraftCard(props: any) {
 	};
 
 	return (
-		<div className="pt-5 pb-5 pl-1 pr-1 m-1 mt-2 bg-white border rounded-lg transform hover:shadow-md hover:scale-105 transition duration-200 ease-in">
+		<div className="pt-5 pb-5 pl-1 pr-1 m-1 mt-2 bg-gradient-to-b from-blue-50 via-sky-100 border rounded-lg transform hover:shadow-md hover:scale-105 transition duration-200 ease-in hover:bg-blue-200">
 			{/* <div className="flex items-center justify-center">
 				<p aria-label="Author" title="Author" className="mr-3 ">
 					<img

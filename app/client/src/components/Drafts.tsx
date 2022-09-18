@@ -96,7 +96,7 @@ function Drafts() {
 									<div
 										data-aos="fade-up"
 										data-aos-duration="500"
-										className="sm:w-1/2 w-full"
+										className="sm:w-1/2 w-full mt-4"
 										key={data.reportID}
 									>
 										<DraftCard
