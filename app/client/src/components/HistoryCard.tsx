@@ -47,16 +47,15 @@ function HistoryCard(props: any) {
 	}
 
 	return (
-		<div className="pt-5 pb-5 pl-1 pr-1 m-1 mt-2 bg-gradient-to-b from-blue-50 via-sky-100 border rounded-lg transform hover:shadow-md hover:scale-105 transition duration-200 ease-in hover:bg-blue-200">
+		<div className="pt-4 pb-4 pl-1 pr-1 m-2 mt-2 bg-gradient-to-b from-blue-50 via-sky-100 border rounded-lg transform hover:shadow-md hover:scale-105 transition duration-200 ease-in hover:bg-blue-200">
 			<p
 				aria-label="Article"
-				title="Jingle Bells"
-				className="flex items-center justify-center mb-3 text-2xl font-bold leading-5 text-black transition-colors duration-200 hover:text-deep-purple-accent-400"
+				title={props.data.searchPhrase}
+				className="flex items-center justify-center mb-3 text-xl font-bold leading-5 text-black transition-colors duration-200 hover:text-deep-purple-accent-400"
 			>
 				{props.data.searchPhrase}
 			</p>
-			<br />
-			<p className="flex mb-3 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase">
+			<p className="flex mb-2 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase">
 				<Carousel controls={false} indicators={false}>
 					<Carousel.Item>
 						<span className=" font-semiboldtext-deep-purple-accent-400">
@@ -78,16 +77,16 @@ function HistoryCard(props: any) {
 					</Carousel.Item>
 				</Carousel>
 			</p>
-			<div className="flex mt-8 space-x-4 md:mt-8 items-center justify-center">
+			<div className="flex mt-4 space-x-3 items-center justify-center">
 				<Link to="/viewHistory">
-					<div className="rounded-sm items-center py-2.5 px-2 text-sm font-semibold text-center text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow">
+					<div className="items-center py-2 px-3 text-xs font-semibold text-center text-white bg-dark-cornflower-blue rounded-md  hover:bg-midnight-blue group hover:shadow">
 						<button onClick={setResultSet} type="submit">
 							{" "}
 							VIEW HISTORY{" "}
 						</button>
 					</div>
 				</Link>
-				<div className="rounded-sm inline-flex items-center py-2.5 px-2 text-sm font-semibold text-center bg-crimson  text-white hover:bg-midnight-blue group hover:shadow">
+				<div className="inline-flex items-center py-2 px-3 text-xs font-semibold text-center bg-crimson rounded-md text-white hover:bg-midnight-blue group hover:shadow">
 					<button onClick={deleteHandler} type="submit">
 						{" "}
 						DELETE HISTORY{" "}
