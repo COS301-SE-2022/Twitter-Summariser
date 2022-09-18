@@ -110,22 +110,19 @@ function DraftCard(props: any) {
 						{props.data.title}
 					</p> */}
 					<p className="flex flex-row mt-2 mb-2 text-gray-600 text-xs text-center items-center justify-center font-semibold tracking-wide uppercase">
-						{/* <span className=" font-semiboldtext-deep-purple-accent-400"> */}
 						Are you sure you want to delete this draft?
-						{/* </span> */}
 					</p>
 					<div className="flex mt-4 mb-2 space-x-3 items-center justify-center">
-						{/* <Link to={newDraftReportLink}> */}
-						<div className="items-center py-2.5 px-4 text-xs font-semibold text-center text-white bg-dark-cornflower-blue rounded-md  hover:bg-midnight-blue group hover:shadow">
-							<button onClick={optionhandler} type="submit">
-								CANCEL
-							</button>
-						</div>
-						{/* </Link> */}
 						<div className="inline-flex items-center py-2.5 px-4 text-xs font-semibold text-center bg-dark-cornflower-blue rounded-md text-white hover:bg-midnight-blue group hover:shadow">
 							<button onClick={deleteDraftHandler} type="submit">
 								{" "}
 								DELETE DRAFT{" "}
+							</button>
+						</div>
+
+						<div className="items-center py-2.5 px-4 text-xs font-semibold text-center text-white bg-dark-cornflower-blue rounded-md  hover:bg-midnight-blue group hover:shadow">
+							<button onClick={optionhandler} type="submit">
+								CANCEL
 							</button>
 						</div>
 					</div>

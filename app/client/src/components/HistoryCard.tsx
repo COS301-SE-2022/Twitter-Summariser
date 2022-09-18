@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Carousel from "react-bootstrap/Carousel";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import useAuth from "../hooks/useAuth";
 
@@ -56,20 +57,37 @@ function HistoryCard(props: any) {
 			</p>
 			<br />
 			<p className="flex mb-3 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase">
-				<span className=" font-semiboldtext-deep-purple-accent-400">
-					History - {props.data.dateCreated.substring(4, 16)}
-				</span>
+				<Carousel>
+					<Carousel.Item>
+						<span className=" font-semiboldtext-deep-purple-accent-400">
+							History - {props.data.dateCreated.substring(4, 16)}
+						</span>
+						{/* <h3>First slide label</h3> */}
+					</Carousel.Item>
+					<Carousel.Item>
+						<span className=" font-semiboldtext-deep-purple-accent-400">
+							Sorted By - {sort}
+						</span>
+						{/* <h3>Second slide label</h3> */}
+					</Carousel.Item>
+					<Carousel.Item>
+						<span className=" font-semiboldtext-deep-purple-accent-400">
+							Filtered By - {filter}
+						</span>
+						{/* <h3>Third slide label</h3> */}
+					</Carousel.Item>
+				</Carousel>
 			</p>
-			<p className="flex mb-3 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase">
+			{/* <p className="flex mb-3 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase">
 				<span className=" font-semiboldtext-deep-purple-accent-400">
 					Sorted By - {sort}
 				</span>
-			</p>
-			<p className="flex mb-3 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase">
+			</p> */}
+			{/* <p className="flex mb-3 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase">
 				<span className=" font-semiboldtext-deep-purple-accent-400">
 					Filtered By - {filter}
 				</span>
-			</p>
+			</p> */}
 			<div className="flex mt-8 space-x-4 md:mt-8 items-center justify-center">
 				<Link to="/viewHistory">
 					<div className="rounded-sm items-center py-2.5 px-2 text-sm font-semibold text-center text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow">

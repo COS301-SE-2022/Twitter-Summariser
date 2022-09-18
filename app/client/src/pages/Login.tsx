@@ -151,7 +151,7 @@ function Login() {
 	return (
 		<div
 			data-testid="login"
-			className="flex justify-center flex-col flex-row items-center h-screen w-screen"
+			className="flex justify-center flex-col  items-center h-screen w-screen"
 		>
 			<div>
 				<Logo width="136px" height="121px" page="login" />
