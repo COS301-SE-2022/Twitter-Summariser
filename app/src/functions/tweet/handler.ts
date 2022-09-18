@@ -95,7 +95,7 @@ export const addCustomTweet = middyfy(
 
 			const  data = await clientV2.get("tweets", { ids: id });
 
-			if(data["id"] === undefined){
+			if(data.id === undefined){
 				return {
 					statusCode: statusCodes.Successful,
 					headers: header,
