@@ -62,8 +62,8 @@ function SharedCard(props: any) {
 					</Carousel.Item>
 				</Carousel>
 			</p>
-			<div className="flex mt-8 space-x-4 md:mt-8 items-center justify-center">
-				<div className="rounded-sm items-center py-2.5 px-16 text-sm font-semibold text-center text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow">
+			<div className="flex mt-4 space-x-3 items-center justify-center">
+				<div className="items-center py-2 px-3 text-xs font-semibold text-center text-white bg-dark-cornflower-blue rounded-md  hover:bg-midnight-blue group hover:shadow">
 					<button onClick={viewReport} type="submit">
 						{" "}
 						VIEW REPORT{" "}
