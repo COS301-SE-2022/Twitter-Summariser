@@ -124,16 +124,19 @@ function Home() {
 		},
 ];
 
+let searchInput = document.getElementById("default-search") as HTMLInputElement;
+
 	const trendsResponse = [<div key="begining div" />];
 
 	mockTrends.map((tweetData) =>
 		trendsResponse.push(
-			<div key={tweetData.id} className="cursor-pointer pb-2 text-midnight-blue font-semibold" onClick={() => {console.log(tweetData);
-			}}>
+			<div key={tweetData.id} className="cursor-pointer pb-2 text-midnight-blue font-semibold" onClick={() => {searchInput = document.getElementById("default-search") as HTMLInputElement; searchInput.value = tweetData.trend; changeEnteredSearch(tweetData.trend)}}>
 				#{tweetData.trend}
 			</div>
 		)
 	);
+
+
 
 	const searchHandler = (event: any) => {
 		changeEnteredSearch(event.target.value);
