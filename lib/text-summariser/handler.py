@@ -1,6 +1,7 @@
 import json
 import torch
 import re
+import socket
 from transformers import T5Tokenizer, T5ForConditionalGeneration
 
 
@@ -10,6 +11,9 @@ device = torch.device("cpu")
 
 
 def summarise(event, _context):
+    url = "http://localhost:3000" if socket.gethostname() == "127.0.0.1" or (
+        not "169.254" in socket.gethostname()) else "https://d1iu4v0tkw22ih.cloudfront.net"
+
     try:
         #   Get the parameters from the event
         try:
@@ -52,7 +56,7 @@ def summarise(event, _context):
             "headers": {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Methods": "*",
-                "Access-Control-Allow-Origin": "https://d3qb059d3osm13.cloudfront.net",
+                "Access-Control-Allow-Origin": url,
                 "Access-Control-Allow-Headers": "*",
                 "Access-Control-Allow-Credentials": True
             },
@@ -64,7 +68,7 @@ def summarise(event, _context):
             "statusCode": 500,
             "headers": {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Origin': url,
                 "Access-Control-Allow-Credentials": True
             },
             "body": json.dumps({"error": repr(e)})
