@@ -1,12 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import Docxtemplater from "docxtemplater";
+import PizZip from "pizzip";
 import links from "../resources/links.json";
 
 const URL = process.env.NODE_ENV === "development" ? links.teLocalhostLink : links.teSeverLink;
 
 function FileUpload(this: any, props: any) {
 	const uploadHandler = async (event: any) => {
-		props.setFiles([...props.files, event.target.files[0]]);
+		props.setFiles([event.target.files[0]]);
 		props.setIsDone(false);
 		props.setShowSummary(false);
 		props.setError("");
@@ -40,14 +42,21 @@ function FileUpload(this: any, props: any) {
 			} else if (
 				file.type ===
 				"application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-			) {
-				props.setExtractedText("Still to be implemented");
-				props.isDoneLoading();
-				file.isUploading = false;
-			} else {
-				props.setError(
-					"File type not supported."
-				);
+			) {				
+				const reader = new FileReader();
+  				reader.onload =  (e: any) => {
+    				const content = e.target.result;
+					const zip = new PizZip();
+					zip.load(content);
+					const doc = new Docxtemplater(zip);
+					const text = doc.getFullText();
+					props.setExtractedText(text);
+					props.isDoneLoading();
+					file.isUploading = false;					
+  				};
+  				reader.readAsBinaryString(event.target.files[0]);
+			} else {				
+				props.setError("File type not supported.");
 				props.setFiles([]);
 				file.isUploading = false;
 			}
