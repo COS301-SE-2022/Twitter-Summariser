@@ -80,7 +80,7 @@ function Drafts() {
 							Drafts
 						</h1>
 					</div>
-					<div className="mt-4 flex flex-row flex-wrap justify-center">
+					<div className="mt-4 flex flex-row flex-wrap justify-center p-5">
 						{loading && (
 							<div className="mt-8 pr-8 pl-8">
 								{loadIcon} &nbsp; Loading Draft Report(s)
@@ -96,7 +96,7 @@ function Drafts() {
 									<div
 										data-aos="fade-up"
 										data-aos-duration="500"
-										className="md:ml-16 md:mr-16 m-2 w-full"
+										className="w-1/2 "
 										key={data.reportID}
 									>
 										<DraftCard
