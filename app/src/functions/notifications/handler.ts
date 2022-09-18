@@ -13,17 +13,17 @@ export const getNotifications = middyfy(
             );
 
             let responseBody: any = {}
-
-            let responseArray = notifications.map(async (notification) => {
+            
+            let responseArray = await Promise.all( notifications.map(async (notification) => {
                 let senderUsername: string;
                 let senderUrl: string;
-
+                console.log(notification);
                 if (notification.sender !== "SYSTEM") {
                     const creator = await ServicesLayer.creatorService.getCreatorByKey(notification.sender);
 
                     senderUsername = creator.username;
-                    senderUrl = creator.profileKey
-                    
+                    senderUrl = creator.profileKey;
+
                 }
                 else {
                     senderUsername = notification.sender;
@@ -33,14 +33,17 @@ export const getNotifications = middyfy(
 
                 delete notification.sender;
 
-                responseBody = { 
+                return {
                     ...notification,
                     senderUsername: senderUsername,
-                    sernderUrl: senderUrl
+                    senderUrl: senderUrl
                 };
 
-                return responseBody;
-            })
+
+            }))
+
+            
+            console.log(responseArray);
 
             return {
                 statusCode: statusCodes.Successful,

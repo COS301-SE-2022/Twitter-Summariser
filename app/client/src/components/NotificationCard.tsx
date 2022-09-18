@@ -6,6 +6,18 @@ function NotificationCard(props: any) {
 	const [isOpen, setIsOpen] = useState(false);
 	const toggling = () => setIsOpen(!isOpen);
 
+	const description = () => {
+		if (props.data.type === "SHARE") {
+			return "has shared a report, ";
+		
+		} 
+			return "You have a new scheduled report, ";
+
+		
+		
+			// return ("You have a new scheduled report, "+props.data.content);
+	}
+
 	const optionsMenu = (
 		<div>
 			<div onClick={toggling}>
@@ -31,12 +43,15 @@ function NotificationCard(props: any) {
 				<img
 					src="assets/profile.png"
 					alt="avatar"
-					className="object-cover w-9 h-9 rounded-full shadow-sm"
+					className="object-cover w-12 h-17 rounded-full shadow-sm"
 				/>
 			</div>
-			<div className="flex flex-col">
-				<span className="font-bold">{props.username}</span> has shared a report.
-				<span className="relative text-gray-400 text-xs bottom-0 right-0">3 hrs ago</span>
+			<div className="flex flex-col text-sm">
+				<div className="inline">
+					<b>{props.data.senderUsername}</b> {description()} <b className="font-bold">{props.data.content}</b>
+				</div>
+				
+				<div className="relative text-gray-400 text-xs bottom-0 right-0">3 hrs ago</div>
 			</div>
 			{optionsMenu}
 		</div>

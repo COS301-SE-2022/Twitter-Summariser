@@ -1,6 +1,9 @@
 // import {MdOutlineClose} from "react-icons/md";
 // import { MdNotificationsActive } from "react-icons/md";
 // import toast from "react-hot-toast";
+import { useEffect, useState } from "react";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import useAuth from "../hooks/useAuth";
 import NotificationCard from "./NotificationCard";
 
 // const notify = () => {
@@ -27,7 +30,44 @@ import NotificationCard from "./NotificationCard";
 // }
 
 function Notifications() {
-	const notifications: any = [];
+
+	const [notifications, changeNotifications] = useState<any[]>([]);
+	const [shouldRender, changeShouldRender] = useState(false)
+	const axiosPrivate = useAxiosPrivate();
+	const controller = new AbortController();
+	const { auth } = useAuth();
+
+	const getNotifications =async (isMounted: boolean) => {
+		try {
+			const response = await axiosPrivate.post(
+				"getNotifications",
+				JSON.stringify({apiKey: auth.apiKey}),
+				{ signal: controller.signal}
+			);
+			console.log(response);
+			isMounted && changeNotifications(response.data.notifications);
+		
+		} catch(e) {
+			console.error(e);
+		}
+	}
+
+	useEffect(() => {
+		let isMounted = true;
+		getNotifications(isMounted);
+
+		return () => {
+			isMounted = false;
+			controller.abort();
+		}
+	}, []);
+
+	if (shouldRender === true) {
+		const isMounted = true;
+		getNotifications(isMounted);
+		changeShouldRender(false);
+	}
+
 
 	return (
 		<div className="fixed rounded space-y-4  bg-white shadow-md h-2/3 ml-8 p-5 2xl:w-80 xl:w-64 ">
@@ -38,8 +78,11 @@ function Notifications() {
 					notifications.length === 0 ? (
 						<div className="text-center">No notifications at the moment.</div>
 					) : (
-						notifications.map((notification: any) => (
-							<NotificationCard username={notification.username} />
+						notifications.map((notification) => (
+							<NotificationCard 
+								data={notification} 
+								onChange= {(value: boolean) => changeShouldRender(value)}
+							/>
 						))
 					)
 					// <button type="submit" onClick={notify}>Not part of design</button>
