@@ -5,6 +5,7 @@ import { header, statusCodes } from "@functions/resources/APIresponse";
 import ServicesLayer from "../../services";
 import TextStyle from "@model/textStyles/textStyles.model";
 import Notification from "@model/notification/notification.model";
+import { clientV2 } from "@functions/resources/twitterV2.client";
 
 // Generation of reports
 export const generateReport = middyfy(
@@ -21,6 +22,8 @@ export const generateReport = middyfy(
 			id = "RT-";
 			id += randomUUID();
 			const d = new Date();
+
+			const { data } = await clientV2.get("tweets", { ids: tweets });
 
 			// Adding blocks
 			let x = -1;
