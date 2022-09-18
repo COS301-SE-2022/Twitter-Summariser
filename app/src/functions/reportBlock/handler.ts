@@ -124,13 +124,13 @@ export const deleteReportBlock = middyfy(
 					}
 				})
 
-				if (top !== undefined && bottom != undefined) {
+				if (top !== undefined && bottom != undefined) { 
 					await ServicesLayer.reportBlockService.addReportBlock({
 						reportBlockID: top.reportBlockID,
 						reportID: top.reportID,
 						blockType: "RICHTEXT",
 						position: top.position,
-						richText: top.text + "\n\n" + bottom.text
+						richText: top.richText + "\n\n" + bottom.richText
 					});
 					await ServicesLayer.reportBlockService.deleteReportBlock(params.reportBlockID);
 					await ServicesLayer.reportBlockService.deleteReportBlock(bottom.reportBlockID);
