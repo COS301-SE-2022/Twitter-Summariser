@@ -28,7 +28,7 @@ function TextSummariser() {
 
 		try {
 			const response = await axiosTextSummariser.post(
-				"",
+				"summarise",
 				{
 					text: extractedText,
 					min: 100,
