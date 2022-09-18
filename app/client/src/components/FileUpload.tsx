@@ -46,7 +46,7 @@ function FileUpload(this: any, props: any) {
 				file.isUploading = false;
 			} else {
 				props.setError(
-					"File type not supported. Please re-upload a .pdf, .txt or .docx file"
+					"File type not supported."
 				);
 				props.setFiles([]);
 				file.isUploading = false;
@@ -69,7 +69,7 @@ function FileUpload(this: any, props: any) {
 					type="file"
 					id="selectedFile"
 					className="max-w-48 h-14 z-0 top-10  opacity-0 cursor-pointer"
-					accept=".pdf, .txt, .docx"
+					accept=".pdf, .txt, .docx, .doc"
 					style={{ display: "none" }}
 					onChange={uploadHandler.bind(this)}
 					onClick={clickHandler.bind(this)}

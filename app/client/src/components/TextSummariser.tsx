@@ -22,11 +22,11 @@ function TextSummariser() {
 	};
 
 	const generateSummary = async () => {		
-		setShowSpinner(true);
-		setFiles([]);
-		setIsDone(false);
-
 		try {
+			setShowSpinner(true);
+			setFiles([]);
+			setIsDone(false);
+
 			const response = await axiosTextSummariser.post(
 				"summarise",
 				{
@@ -38,20 +38,18 @@ function TextSummariser() {
 					signal: controller.signal
 				}
 			);
-			console.log("Hello");
-			
-			console.log(response.data);
-		} catch (err) {
-			console.error(err);
-		}
-
-		console.log("Done");
-
-		setTimeout(() => {
-			setSummary(extractedText);
+				
+			setSummary(response.data.text);
 			setShowSpinner(false);
 			setShowSummary(true);
-		}, 5000);
+		} catch (err) {
+			setSummary("");
+			setShowSpinner(false);
+			setShowSummary(false);
+			setError("Failed to generate summary");
+			console.error(err);
+
+		}
 	};
 
 	const isDoneLoading = () => {
@@ -79,9 +77,9 @@ function TextSummariser() {
 					setError={setError}
 				/>
 				{error && (
-					<div className="border-2 border-red-500 rounded-md bg-red-300 h-auto mt-6 w-full inline-flex items-center text-center justify-center">
-						<BiErrorCircle style={bStyle} className="fixed left-0 ml-5 mr-4" />
-						<p className=" items-center justify-center ml-4"> {error} </p>
+					<div className="border-2 border-red-500 rounded-md bg-red-300 p-2 h-auto mt-6 w-full inline-flex items-center text-center justify-center">
+						<BiErrorCircle style={bStyle} className="fixed left-0 ml-8 mr-4" />
+						<p className=" items-center justify-center"> {error} </p>
 					</div>
 				)}
 				<FileList files={files} removeFile={removeFile} />
