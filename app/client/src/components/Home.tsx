@@ -120,7 +120,7 @@ let searchInput = document.getElementById("default-search") as HTMLInputElement;
 	const sentimentColor = "green";
 
 	const checkedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-	  setCheckedSentiment(event.target.checked);
+		setCheckedSentiment(event.target.checked);
 	};
 
 	const [pulse, changePulse] = useState(false);
@@ -218,7 +218,7 @@ let searchInput = document.getElementById("default-search") as HTMLInputElement;
 	searchResponse.map((data) =>
 		apiResponse.push(
 			<div className="pb-8" key={data.tweetId}>
-				<Tweet options={{ align: "center"}} tweetId={data.tweetId} onLoad={done} />
+				<Tweet options={{ align: "center" }} tweetId={data.tweetId} onLoad={done} />
 			</div>
 		)
 	);
@@ -226,7 +226,7 @@ let searchInput = document.getElementById("default-search") as HTMLInputElement;
 	searchResponse.map((data) =>
 		apiResponseWithSentimentAnalysis.push(
 			<div className={`pb-8 border-2 border-${sentimentColor}-500`} key={data.tweetId}>
-				<Tweet options={{ align: "center"}} tweetId={data.tweetId} onLoad={done} />
+				<Tweet options={{ align: "center" }} tweetId={data.tweetId} onLoad={done} />
 			</div>
 		)
 	);
@@ -451,13 +451,12 @@ let searchInput = document.getElementById("default-search") as HTMLInputElement;
 								</button>
 							) : (
 								<>
-								<Button
-									text="Generate Report"
-									size="large"
-									handle={generate}
-									type="generate"
-								/>
-
+									<Button
+										text="Generate Report"
+										size="large"
+										handle={generate}
+										type="generate"
+									/>
 								</>
 							)}
 						</div>
@@ -470,7 +469,7 @@ let searchInput = document.getElementById("default-search") as HTMLInputElement;
 						<Checkbox
 							checked={checkedSentiment}
 							onChange={checkedHandler}
-							inputProps={{ 'aria-label': 'controlled' }}
+							inputProps={{ "aria-label": "controlled" }}
 						/>
 					</div>
 
