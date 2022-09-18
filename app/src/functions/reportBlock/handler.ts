@@ -118,7 +118,7 @@ export const deleteReportBlock = middyfy(
 						bottom = block;
 					}
 
-					if(block.blockType==='TWEET' && block.position>blck.position){
+					if(block.position>blck.position){
 						block.position = block.position-2;
 						await ServicesLayer.reportBlockService.addReportBlock(block);
 					}
@@ -132,15 +132,6 @@ export const deleteReportBlock = middyfy(
 						position: top.position,
 						richText: top.text + "\n\n" + bottom.text
 					});
-
-					report.map(async (block) => {
-						if(block.blockType==='RICHTEXT' && block.position>blck.position){
-							block.position = block.position-1;
-							await ServicesLayer.reportBlockService.addReportBlock(block);
-						}
-					})
-
-
 					await ServicesLayer.reportBlockService.deleteReportBlock(params.reportBlockID);
 					await ServicesLayer.reportBlockService.deleteReportBlock(bottom.reportBlockID);
 				} else {
