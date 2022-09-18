@@ -4,6 +4,7 @@ import { randomUUID } from "crypto";
 import { header, statusCodes } from "@functions/resources/APIresponse";
 import ServicesLayer from "../../services";
 import TextStyle from "@model/textStyles/textStyles.model";
+import Notification from "@model/notification/notification.model";
 
 // Generation of reports
 export const generateReport = middyfy(
@@ -222,6 +223,21 @@ export const shareReport = middyfy(
 						reportID: params.reportID,
 						type: params.type
 					});
+
+					const report = await ServicesLayer.reportService.getReport(params.reportID);
+
+					const notification: Notification = {
+						id: "NT-"+ randomUUID(),
+						sender: params.apiKey,
+						receiver: shareTo.apiKey,
+						type: "SHARE",
+						content: report.title,
+						isRead: false,
+						dateCreated: new Date()
+					}
+
+					await ServicesLayer.notificationService.addNotification(notification);
+
 				} else {
 					return {
 						statusCode: statusCodes.Successful,

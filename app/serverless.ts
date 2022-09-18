@@ -37,6 +37,7 @@ import { editBlock, deleteReportBlock } from "@functions/reportBlock";
 import { analyse } from "@functions/sentimentAnalysis";
 import { URL } from "@functions/resources/APIresponse";
 import { backupDynamoDB } from "@functions/backup";
+import { getNotifications, deleteNotification } from "@functions/notifications";
 
 const serverlessConfiguration: AWS = {
 	service: "twitter-summariser",
@@ -149,7 +150,9 @@ const serverlessConfiguration: AWS = {
 		genScheduledReport,
 		deleteEventRules,
 		analyse,
-		backupDynamoDB
+		backupDynamoDB,
+		getNotifications,
+		deleteNotification
 	},
 
 	package: {

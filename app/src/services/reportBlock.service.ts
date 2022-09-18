@@ -10,7 +10,7 @@ export default class ReportBlockService {
 		const result = await this.docClient
 			.get({
 				TableName: this.TableName,
-				Key: { id: reportBlockID }
+				Key: { reportBlockID: reportBlockID }
 			})
 			.promise();
 
