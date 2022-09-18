@@ -29,11 +29,11 @@ function TextSummariser() {
 		try {
 			const response = await axiosTextSummariser.post(
 				"",
-				JSON.stringify({
+				{
 					text: extractedText,
 					min: 100,
 					max: 200,
-				}),
+				},
 				{
 					signal: controller.signal
 				}
