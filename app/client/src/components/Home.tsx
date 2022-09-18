@@ -97,6 +97,44 @@ function Home() {
 
 	const style = { fontSize: "1.5rem" };
 
+	const mockTrends = [
+		{
+			id: 0,
+			trend: "QueenElizabeth"
+		},
+		{
+			id: 1,
+			trend: "ESKOM"
+		},
+		{
+			id: 2,
+			trend: "Haaland"
+		},
+		{
+			id: 3,
+			trend: "COVID19"
+		},
+		{
+			id: 4,
+			trend: "Biden"
+		},
+		{
+			id: 5,
+			trend: "Ramaphosa"
+		},
+];
+
+	const trendsResponse = [<div key="begining div" />];
+
+	mockTrends.map((tweetData) =>
+		trendsResponse.push(
+			<div key={tweetData.id} className="cursor-pointer pb-2 text-midnight-blue font-semibold" onClick={() => {console.log(tweetData);
+			}}>
+				#{tweetData.trend}
+			</div>
+		)
+	);
+
 	const searchHandler = (event: any) => {
 		changeEnteredSearch(event.target.value);
 	};
@@ -773,7 +811,7 @@ function Home() {
 				</div>
 			)}
 			{!homeDefault && (
-				<div className="mt-8 mini-tablet:mt-0 border-b">
+				<div className="mt-8 mini-tablet:mt-0">
 					<div className="flex justify-center pt-8 pl-8 pr-8 pb-2">
 						<label
 							htmlFor="default-search"
@@ -1007,6 +1045,8 @@ function Home() {
 						/>
 					</div>
 
+
+
 					{loading && (
 						<div className="flex flex-row justify-center my-2">
 							{loadIcon} &nbsp; Loading Tweets
@@ -1015,6 +1055,11 @@ function Home() {
 
 					{/* Api response comes here */}
 					<div data-testid="result" className="flex flex-col">
+						{/* {!clicked && <div>
+							LATEST TRENDS
+							{trendsResponse}
+							</div>} */}
+
 						{clicked && (
 							<div
 								className="mt-4 ml-6 mb-4 flex flex-col flex-wrap justify-center"
@@ -1076,6 +1121,13 @@ function Home() {
 
 						{checkedSentiment && apiResponseWithSentimentAnalysis}
 					</div>
+
+
+					<h1 className="text-2xl hidden lg:flex lg:flex-row lg:justify-center border-b pb-4 w-5/6 align-middle items-center border-slate-300">
+						LATEST TRENDS
+					</h1>
+
+						{trendsResponse}
 				</div>
 			)}
 		</div>
