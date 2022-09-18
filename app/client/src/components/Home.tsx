@@ -7,6 +7,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 // import for check box
 // import Checkbox from '@mui/material/Checkbox';
 
+import { Checkbox } from "@mui/material";
 import ExploreCard from "./ExploreCard";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
@@ -147,11 +148,14 @@ function Home() {
 	// const [schedule, changeSchedule] = useState("00:00");
 	const [repeat, changeRepeat] = useState("-");
 
-	// const [checked, setChecked] = useState(false);
+	const [checkedSentiment, setCheckedSentiment] = useState(false);
 
-	// const checkedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-	//   setChecked(event.target.checked);
-	// };
+	// const [semanticColor, changeSemanticColor] = useState("red");
+	const sentimentColor = "green";
+
+	const checkedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+	  setCheckedSentiment(event.target.checked);
+	};
 
 	// const tweetHandler = (event: any) => {
 	// 	changeNoOfTweets(event.target.value);
@@ -249,6 +253,7 @@ function Home() {
 			const response = await axiosPrivate.post("searchTweets", JSON.stringify(searchData));
 			changeResultSet(await response.data.resultSetID);
 			changeResponse(await response.data.tweets);
+			// console.log(await response.data);
 			changeLoading(false);
 			changePulse(true);
 		} catch (err) {
@@ -294,6 +299,8 @@ function Home() {
 	const tweetOptions = [];
 	let apiResponse = [<div key="begining div" />];
 
+	const apiResponseWithSentimentAnalysis = [<div key="begining div" />];
+
 	for (let index = 5; index <= 100; index += 5) {
 		tweetOptions.push(<option key={index.toString()}>{index}</option>);
 	}
@@ -316,7 +323,24 @@ function Home() {
 			// 	<HomeTweet tweetData={data} />
 			// </div>
 			<div className="pb-8" key={data.tweetId}>
-				<Tweet options={{ align: "center" }} tweetId={data.tweetId} onLoad={done} />
+				<Tweet options={{ align: "center"}} tweetId={data.tweetId} onLoad={done} />
+			</div>
+		)
+	);
+
+	searchResponse.map((data) =>
+		// enteredSearch !== "" &&
+		apiResponseWithSentimentAnalysis.push(
+			// <div key={data.tweetId}>
+			// 	<HomeTweet tweetData={data} />
+			// </div>
+
+			// <div className={`pb-8 border-2 border-${data.sentimentColor}-500`} key={data.tweetId}>
+			// 	<Tweet options={{ align: "center"}} tweetId={data.tweetId} onLoad={done} />
+			// </div>
+
+			<div className={`pb-8 border-2 border-${sentimentColor}-500`} key={data.tweetId}>
+				<Tweet options={{ align: "center"}} tweetId={data.tweetId} onLoad={done} />
 			</div>
 		)
 	);
@@ -960,16 +984,30 @@ function Home() {
 									{loadIcon}
 								</button>
 							) : (
+								<>
 								<Button
 									text="Generate Report"
 									size="large"
 									handle={generate}
 									type="generate"
 								/>
+
+								</>
 							)}
 						</div>
 						{/* // </div> */}
 						{/* )} */}
+					</div>
+
+					<br />
+
+					<div className="mb-0">
+						<p className="">Show sentiment analysis:</p>
+						<Checkbox
+							checked={checkedSentiment}
+							onChange={checkedHandler}
+							inputProps={{ 'aria-label': 'controlled' }}
+						/>
 					</div>
 
 					{loading && (
@@ -1037,7 +1075,9 @@ function Home() {
 
 						{pulse && pulseOutput}
 
-						{apiResponse}
+						{!checkedSentiment && apiResponse}
+
+						{checkedSentiment && apiResponseWithSentimentAnalysis}
 					</div>
 				</div>
 			)}
