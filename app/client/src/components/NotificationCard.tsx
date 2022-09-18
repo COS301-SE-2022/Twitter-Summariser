@@ -1,10 +1,15 @@
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { RiDeleteBinFill } from "react-icons/ri";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import useAuth from "../hooks/useAuth";
 
 function NotificationCard(props: any) {
 	const [isOpen, setIsOpen] = useState(false);
 	const toggling = () => setIsOpen(!isOpen);
+	const axiosPrivate = useAxiosPrivate();
+	const controller = new AbortController();
+	const { auth } = useAuth();
 
 	const description = () => {
 		if (props.data.type === "SHARE") {
@@ -35,6 +40,24 @@ function NotificationCard(props: any) {
 		return tString;
 	}
 
+	const deleteNotificationHandler =async () => {
+		try {
+			await axiosPrivate.post(
+				"deleteNotification",
+				JSON.stringify(
+					{
+						apiKey: auth.apiKey,
+						id: props.data.id
+					}
+				),
+				{ signal: controller.signal }
+			);
+			props.onChange(true);
+		} catch(e) {
+			console.error(e);
+		}
+	}
+
 	const optionsMenu = (
 		<div>
 			<div onClick={toggling}>
@@ -43,7 +66,7 @@ function NotificationCard(props: any) {
 			{isOpen && (
 				<ul className="absolute bg-white shadow-lg text-sm w-36 p-5 space-y-3 ">
 					<li className="flex flex-row ">Mark as read</li>
-					<li className="flex flex-row ">
+					<li onClick={deleteNotificationHandler} className="flex flex-row " >
 						<div>
 							<RiDeleteBinFill size={18} style={{ fill: "#b91c1c" }} />
 						</div>
@@ -53,6 +76,8 @@ function NotificationCard(props: any) {
 			)}
 		</div>
 	);
+
+
 
 	return (
 		<div className="flex flex-row rounded space-x-5 px-5 py-2 flex items-stretch cursor-pointer hover:shadow-md">

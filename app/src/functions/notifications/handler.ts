@@ -65,7 +65,7 @@ export const deleteNotification = middyfy(
         try {
             const params = JSON.parse(event.body);
 
-            await ServicesLayer.notificationService.deleteNotification(params.apiKey);
+            await ServicesLayer.notificationService.deleteNotification(params.id);
 
             return {
                 statusCode: statusCodes.Successful,
