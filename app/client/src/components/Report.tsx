@@ -63,6 +63,8 @@ function Report() {
 
 	// const [semanticColor, changeSemanticColor] = useState("red");
 	const sentimentColor = "green";
+		const sentimentColor2 = "yellow";
+			const sentimentColor3 = "red";
 
 	const checkedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
 	  setCheckedSentiment(event.target.checked);
@@ -198,25 +200,25 @@ function Report() {
 	};
 
 	// UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY
-	// const deleteTweetHandler = async (blockID: any) => {
-	// 		const deleteDetails = {
-	// 			apiKey: auth.apiKey,
-	// 			reportID: repID,
-	// 			reportBlockID: blockID
-	// 		};
+	const deleteTweetHandler = async (blockID: any) => {
+			const deleteDetails = {
+				apiKey: auth.apiKey,
+				reportID: repID,
+				reportBlockID: blockID
+			};
 
 			// console.log(deleteDetails);
 
 
-		// 	try {
-		// 		await axiosPrivate.post("deleteReportBlock", JSON.stringify(deleteDetails), {
-		// 			signal: controller.signal
-		// 		});
-		// 		changeShouldRender(true);
-		// 	} catch (err) {
-		// 		console.error(err);
-		// 	}
-		// };
+			try {
+				await axiosPrivate.post("deleteReportBlock", JSON.stringify(deleteDetails), {
+					signal: controller.signal
+				});
+				changeShouldRender(true);
+			} catch (err) {
+				console.error(err);
+			}
+		};
 
 	const isPublished = () => stat === "PUBLISHED";
 
@@ -253,28 +255,28 @@ function Report() {
 			)
 		);
 
-		state.map((data: any, index: number) =>
-			apiResponseWithSentimentAnalysis.push(
-				<div className="" key={data.position}>
-					{data.blockType === "RICHTEXT" && (
-						<div className="">
-							{" "}
-							<PublishedText keyValue={index} data={data} status={stat} />{" "}
-						</div>
-					)}
+		// state.map((data: any, index: number) =>
+		// 	apiResponseWithSentimentAnalysis.push(
+		// 		<div className="" key={data.position}>
+		// 			{data.blockType === "RICHTEXT" && (
+		// 				<div className="">
+		// 					{" "}
+		// 					<PublishedText keyValue={index} data={data} status={stat} />{" "}
+		// 				</div>
+		// 			)}
 
-					{data.blockType === "TWEET" && (
-						<div className={` w-full border-2 border-${sentimentColor}-200 p-3`} key={data.position}>
-							<Tweet
-								options={{ align: "center", width: "" }}
-								tweetId={data.block.tweetID}
-								onLoad={done}
-							/>
-						</div>
-					)}
-				</div>
-			)
-		);
+		// 			{data.blockType === "TWEET" && (
+		// 				<div className={` w-full border-2 border-${sentimentColor}-200 p-3`} key={data.position}>
+		// 					<Tweet
+		// 						options={{ align: "center", width: "" }}
+		// 						tweetId={data.block.tweetID}
+		// 						onLoad={done}
+		// 					/>
+		// 				</div>
+		// 			)}
+		// 		</div>
+		// 	)
+		// );
 	} else {
 
 		state.map((data: any, index: number) =>
@@ -320,11 +322,11 @@ function Report() {
 								</div>
 							</div>
 							{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
-							{/* <div className="w-1/6 flex text-center justify-center">
+							<div className="w-1/6 flex text-center justify-center">
 								<button type="button" onClick={() => deleteTweetHandler(data.reportBlockID)}>
 									<MdDeleteOutline style={iconStyle3} />
 								</button>
-							</div> */}
+							</div>
 						</>
 					)}
 
@@ -355,11 +357,11 @@ function Report() {
 								/>
 							</div>
 							{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
-							{/* <div className="w-1/6 flex text-center justify-center">
+							<div className="w-1/6 flex text-center justify-center">
 								<button type="button" onClick={() => deleteTweetHandler(data.reportBlockID)}>
 									<MdDeleteOutline style={iconStyle3} />
 								</button>
-							</div> */}
+							</div>
 						</>
 					)}
 
@@ -408,11 +410,11 @@ function Report() {
 									</div>
 								</div>
 								{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
-								{/* <div className="w-1/6 flex text-center justify-center">
+								<div className="w-1/6 flex text-center justify-center">
 									<button type="button" onClick={() => deleteTweetHandler(data.reportBlockID)}>
 										<MdDeleteOutline style={iconStyle3} />
 									</button>
-								</div> */}
+								</div>
 							</>
 						)}
 				</div>
@@ -462,11 +464,11 @@ function Report() {
 								</div>
 							</div>
 							{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
-							{/* <div className="w-1/6 flex text-center justify-center">
+							<div className="w-1/6 flex text-center justify-center">
 								<button type="button" onClick={() => deleteTweetHandler(data.reportBlockID)}>
 									<MdDeleteOutline style={iconStyle3} />
 								</button>
-							</div> */}
+							</div>
 						</>
 					)}
 
@@ -474,7 +476,7 @@ function Report() {
 					{data.blockType === "TWEET" && data.position === length - 1 && (
 						<>
 							<div
-								className={` w-full border-2 border-${sentimentColor}-200 p-3 flex flex-col justify-center`}
+								className={` w-full border-2 border-${sentimentColor2}-200 p-3 flex flex-col justify-center`}
 								key={data.position}
 							>
 								<div className="flex flex-row justify-around">
@@ -497,11 +499,11 @@ function Report() {
 								/>
 							</div>
 							{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
-							{/* <div className="w-1/6 flex text-center justify-center">
+							<div className="w-1/6 flex text-center justify-center">
 								<button type="button" onClick={() => deleteTweetHandler(data.reportBlockID)}>
 									<MdDeleteOutline style={iconStyle3} />
 								</button>
-							</div> */}
+							</div>
 						</>
 					)}
 
@@ -509,7 +511,7 @@ function Report() {
 						!(data.position === 1 || data.position === length - 1) && (
 							<>
 								<div
-									className={` w-full border-2 border-${sentimentColor}-200 p-3 flex flex-col justify-center`}
+									className={` w-full border-2 border-${sentimentColor3}-200 p-3 flex flex-col justify-center`}
 									key={data.position}
 								>
 									<div className="flex flex-row justify-around">
@@ -550,11 +552,11 @@ function Report() {
 									</div>
 								</div>
 								{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
-								{/* <div className="w-1/6 flex text-center justify-center">
+								<div className="w-1/6 flex text-center justify-center">
 									<button type="button" onClick={() => deleteTweetHandler(data.reportBlockID)}>
 										<MdDeleteOutline style={iconStyle3} />
 									</button>
-								</div> */}
+								</div>
 							</>
 						)}
 				</div>
@@ -907,7 +909,7 @@ function Report() {
 
 							<br />
 
-					<div className="mb-0">
+					 <div className="mb-0">
 						<p className="">Show sentiment analysis:</p>
 						<Checkbox
 							checked={checkedSentiment}
