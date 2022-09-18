@@ -47,7 +47,7 @@ function HistoryCard(props: any) {
 	}
 
 	return (
-		<div className="pt-8 pb-8 pr-2 pl-2 m-2 mt-4 bg-white border rounded-lg transform hover:shadow-2xl hover:scale-105 transition duration-200 ease-in">
+		<div className="pt-5 pb-5 pl-1 pr-1 m-1 mt-2 bg-gradient-to-b from-blue-50 via-sky-100 border rounded-lg transform hover:shadow-md hover:scale-105 transition duration-200 ease-in hover:bg-blue-200">
 			<p
 				aria-label="Article"
 				title="Jingle Bells"
@@ -57,7 +57,7 @@ function HistoryCard(props: any) {
 			</p>
 			<br />
 			<p className="flex mb-3 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase">
-				<Carousel>
+				<Carousel controls={false} indicators={false}>
 					<Carousel.Item>
 						<span className=" font-semiboldtext-deep-purple-accent-400">
 							History - {props.data.dateCreated.substring(4, 16)}
@@ -78,16 +78,6 @@ function HistoryCard(props: any) {
 					</Carousel.Item>
 				</Carousel>
 			</p>
-			{/* <p className="flex mb-3 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase">
-				<span className=" font-semiboldtext-deep-purple-accent-400">
-					Sorted By - {sort}
-				</span>
-			</p> */}
-			{/* <p className="flex mb-3 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase">
-				<span className=" font-semiboldtext-deep-purple-accent-400">
-					Filtered By - {filter}
-				</span>
-			</p> */}
 			<div className="flex mt-8 space-x-4 md:mt-8 items-center justify-center">
 				<Link to="/viewHistory">
 					<div className="rounded-sm items-center py-2.5 px-2 text-sm font-semibold text-center text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow">
