@@ -154,7 +154,7 @@ function Home() {
 	const sentimentColor = "green";
 
 	const checkedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-	  setCheckedSentiment(event.target.checked);
+		setCheckedSentiment(event.target.checked);
 	};
 
 	// const tweetHandler = (event: any) => {
@@ -320,7 +320,7 @@ function Home() {
 			// 	<HomeTweet tweetData={data} />
 			// </div>
 			<div className="pb-8" key={data.tweetId}>
-				<Tweet options={{ align: "center"}} tweetId={data.tweetId} onLoad={done} />
+				<Tweet options={{ align: "center" }} tweetId={data.tweetId} onLoad={done} />
 			</div>
 		)
 	);
@@ -337,7 +337,7 @@ function Home() {
 			// </div>
 
 			<div className={`pb-8 border-2 border-${sentimentColor}-500`} key={data.tweetId}>
-				<Tweet options={{ align: "center"}} tweetId={data.tweetId} onLoad={done} />
+				<Tweet options={{ align: "center" }} tweetId={data.tweetId} onLoad={done} />
 			</div>
 		)
 	);
@@ -982,13 +982,12 @@ function Home() {
 								</button>
 							) : (
 								<>
-								<Button
-									text="Generate Report"
-									size="large"
-									handle={generate}
-									type="generate"
-								/>
-
+									<Button
+										text="Generate Report"
+										size="large"
+										handle={generate}
+										type="generate"
+									/>
 								</>
 							)}
 						</div>
@@ -1003,7 +1002,7 @@ function Home() {
 						<Checkbox
 							checked={checkedSentiment}
 							onChange={checkedHandler}
-							inputProps={{ 'aria-label': 'controlled' }}
+							inputProps={{ "aria-label": "controlled" }}
 						/>
 					</div>
 
