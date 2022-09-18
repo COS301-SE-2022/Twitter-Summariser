@@ -13,9 +13,26 @@ function NotificationCard(props: any) {
 		} 
 			return "You have a new scheduled report, ";
 
-		
-		
-			// return ("You have a new scheduled report, "+props.data.content);
+	}
+
+	const timeDifference = () => {
+		let tString;
+		const diff = (new Date().valueOf() - new Date(props.data.dateCreated).valueOf());
+		const diffDays = Math.floor(diff / 86400000);
+		const diffHrs = Math.floor((diff % 86400000) / 3600000);
+		const diffMins = Math.floor(((diff % 86400000) %3600000) / 60000);
+		const diffSecs = diff / 1000;
+
+		if (diffDays !== 0) {
+			tString = `${diffDays} days ago`;
+		} else if (diffHrs !==0) {
+			tString = `${diffHrs} hours ago`;
+		} else if (diffMins !== 0) {
+			tString = `${diffMins} minutes ago`;
+		} else {
+			tString = `${diffSecs} seconds ago`;
+		}
+		return tString;
 	}
 
 	const optionsMenu = (
@@ -41,7 +58,7 @@ function NotificationCard(props: any) {
 		<div className="flex flex-row rounded space-x-5 px-5 py-2 flex items-stretch cursor-pointer hover:shadow-md">
 			<div>
 				<img
-					src="assets/profile.png"
+					src={props.data.senderUrl}
 					alt="avatar"
 					className="object-cover w-12 h-17 rounded-full shadow-sm"
 				/>
@@ -51,7 +68,9 @@ function NotificationCard(props: any) {
 					<b>{props.data.senderUsername}</b> {description()} <b className="font-bold">{props.data.content}</b>
 				</div>
 				
-				<div className="relative text-gray-400 text-xs bottom-0 right-0">3 hrs ago</div>
+				<div className="relative text-gray-400 text-xs bottom-0 right-0">
+					{timeDifference()}
+				</div>
 			</div>
 			{optionsMenu}
 		</div>
