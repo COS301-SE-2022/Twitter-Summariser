@@ -48,7 +48,7 @@ function DraftCard(props: any) {
 	}
 
 	return (
-		<div className="pt-5 pb-5 pl-1 pr-1 m-1 mt-2 bg-gradient-to-b from-blue-50 via-sky-100 border rounded-lg transform hover:shadow-md hover:scale-105 transition duration-200 ease-in hover:bg-blue-200">
+		<div className="pt-4 pb-4 pl-1 pr-1 m-2 mt-2 bg-gradient-to-b from-blue-50 via-sky-100 border rounded-lg transform hover:shadow-md hover:scale-105 transition duration-200 ease-in hover:bg-blue-200">
 			{/* <div className="flex items-center justify-center">
 				<p aria-label="Author" title="Author" className="mr-3 ">
 					<img
@@ -85,14 +85,14 @@ function DraftCard(props: any) {
 					</p>
 					<div className="flex mt-4 space-x-3 items-center justify-center">
 						<Link to={newDraftReportLink}>
-							<div className="items-center py-2.5 px-4 text-xs font-semibold text-center text-white bg-dark-cornflower-blue rounded-md  hover:bg-midnight-blue group hover:shadow">
+							<div className="items-center py-2 px-3 text-xs font-semibold text-center text-white bg-dark-cornflower-blue rounded-md  hover:bg-midnight-blue group hover:shadow">
 								<button onClick={viewDraftReport} type="submit">
 									{" "}
 									VIEW DRAFT{" "}
 								</button>
 							</div>
 						</Link>
-						<div className="inline-flex items-center py-2.5 px-4 text-xs font-semibold text-center bg-dark-cornflower-blue rounded-md text-white hover:bg-midnight-blue group hover:shadow">
+						<div className="inline-flex items-center py-2 px-3 text-xs font-semibold text-center bg-dark-cornflower-blue rounded-md text-white hover:bg-midnight-blue group hover:shadow">
 							<button onClick={optionhandler} type="submit">
 								{" "}
 								DELETE DRAFT{" "}
