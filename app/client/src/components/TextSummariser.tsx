@@ -3,8 +3,10 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { BiErrorCircle } from "react-icons/bi";
 import FileUpload from "./FileUpload";
 import FileList from "./FileList";
+import { axiosTextSummariser } from "../api/ConfigAxios";
 
 function TextSummariser() {
+	const controller = new AbortController();
 	const [files, setFiles] = useState([]);
 	const [isDone, setIsDone] = useState(false);
 	const [extractedText, setExtractedText] = useState("");
@@ -19,10 +21,33 @@ function TextSummariser() {
 		setIsDone(false);
 	};
 
-	const generateSummary = () => {
+	const generateSummary = async () => {
+		console.log("What is going on?");
+		
 		setShowSpinner(true);
 		setFiles([]);
 		setIsDone(false);
+
+		try {
+			const response = await axiosTextSummariser.post(
+				"summarise",
+				JSON.stringify({
+					text: extractedText,
+					min: 100,
+					max: 200,
+				}),
+				{
+					signal: controller.signal
+				}
+			);
+			console.log("Hello");
+			
+			console.log(response.data);
+		} catch (err) {
+			console.error(err);
+		}
+
+		console.log("Done");
 
 		setTimeout(() => {
 			setSummary(extractedText);
