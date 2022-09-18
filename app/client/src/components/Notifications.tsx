@@ -21,36 +21,32 @@ import NotificationCard from "./NotificationCard";
 //                 <MdOutlineClose />
 //             </div>
 //         </div>
-        
+
 //     ),
 //     {id: "unique-notifications", position: "top-center"})
 // }
 
 function Notifications() {
+	const notifications: any = [];
 
-    const notifications:any = [];
+	return (
+		<div className="fixed rounded space-y-4  bg-white shadow-md h-2/3 ml-8 p-5 2xl:w-80 xl:w-64 ">
+			<h1 className="text-xl text-center font-bold">Notifications</h1>
 
-    return (
-        
-        <div className="fixed rounded space-y-4  bg-white shadow-md h-2/3 ml-8 p-5 2xl:w-80 xl:w-64 ">
-            <h1 className="text-xl text-center font-bold">Notifications</h1>
-    
-            <div className="w-full flex flex-col "  >
-                
-                {notifications.length === 0 ? 
-                    <div className="text-center">No notifications at the moment.</div>
-                    :
-                    notifications.map((notification: any) => (
-                        <NotificationCard 
-                            username = {notification.username}
-                        />
-                    ))
-                // <button type="submit" onClick={notify}>Not part of design</button>
-                }
-            </div>
-        </div>
-				
-    );
+			<div className="w-full flex flex-col ">
+				{
+					notifications.length === 0 ? (
+						<div className="text-center">No notifications at the moment.</div>
+					) : (
+						notifications.map((notification: any) => (
+							<NotificationCard username={notification.username} />
+						))
+					)
+					// <button type="submit" onClick={notify}>Not part of design</button>
+				}
+			</div>
+		</div>
+	);
 }
 
 export default Notifications;

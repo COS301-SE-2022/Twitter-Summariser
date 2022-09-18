@@ -30,7 +30,6 @@ import Splash from "./components/Splash";
 import PersistLogin from "./components/PersistLogin";
 import TextSummariser from "./components/TextSummariser";
 
-
 /*
 	App component that is the root component of the application.
 	- This component is the parent component of the entire application.
@@ -39,7 +38,6 @@ import TextSummariser from "./components/TextSummariser";
 
 function App() {
 	return (
-		
 		// use the Routes component to render the different page routes of the application based on the pathname of the URL.
 		<Routes>
 			{/* Default route that renders Layout component that all pages are rendered on  */}
@@ -72,7 +70,6 @@ function App() {
 			</Route>
 			<Route path="*" element={<PageNotFound />} />
 		</Routes>
-		
 	);
 }
 
