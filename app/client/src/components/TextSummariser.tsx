@@ -21,16 +21,14 @@ function TextSummariser() {
 		setIsDone(false);
 	};
 
-	const generateSummary = async () => {
-		console.log("What is going on?");
-		
+	const generateSummary = async () => {		
 		setShowSpinner(true);
 		setFiles([]);
 		setIsDone(false);
 
 		try {
 			const response = await axiosTextSummariser.post(
-				"summarise",
+				"",
 				JSON.stringify({
 					text: extractedText,
 					min: 100,
