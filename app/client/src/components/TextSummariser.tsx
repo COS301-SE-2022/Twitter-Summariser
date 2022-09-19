@@ -4,10 +4,10 @@ import { BiErrorCircle } from "react-icons/bi";
 import { Radio } from "@material-tailwind/react";
 import FileUpload from "./FileUpload";
 import FileList from "./FileList";
-// import { axiosTextSummariser } from "../api/ConfigAxios";
+import { axiosTextSummariser } from "../api/ConfigAxios";
 
 function TextSummariser() {
-	// const controller = new AbortController();
+	const controller = new AbortController();
 	const [files, setFiles] = useState([]);
 	const [isDone, setIsDone] = useState(false);
 	const [extractedText, setExtractedText] = useState("");
@@ -28,33 +28,6 @@ function TextSummariser() {
 	};
 
 	const generateSummary = async (s: string, option: string) => {
-		// try {
-		// 	setShowSpinner(true);
-		// 	setFiles([]);
-		// 	setIsDone(false);
-
-		// 	const response = await axiosTextSummariser.post(
-		// 		"summarise",
-		// 		{
-		// 			text: s,
-		// 			min: 100,
-		// 			max: 200
-		// 		},
-		// 		{
-		// 			signal: controller.signal
-		// 		}
-		// 	);
-
-		// 	setSummary(response.data.text);
-		// 	setShowSpinner(false);
-		// 	setShowSummary(true);
-		// } catch (err) {
-		// 	setSummary("");
-		// 	setShowSpinner(false);
-		// 	setShowSummary(false);
-		// 	setError("Failed to generate summary");
-		// 	console.error(err);
-		// }
 		if (option === "first") {
 			setFirstFlowControl(true);
 			setSecondFlowControl(false);
@@ -63,17 +36,28 @@ function TextSummariser() {
 			setSecondFlowControl(true);
 		}
 
+		try {
+			setShowSpinner(true);
+			setShowSummary(false);
+			setFiles([]);
+			setIsDone(false);
 
-		setShowSpinner(true);
-		setShowSummary(false);
-		setFiles([]);
-		setIsDone(false);
+			const response = await axiosTextSummariser.post(
+				"summarise",
+				{	text: s,	min: 100,	max: 200	},
+				{	signal: controller.signal			}
+			);
 
-		setTimeout(() => {
-			setSummary(s);
+			setSummary(response.data.text);
 			setShowSpinner(false);
 			setShowSummary(true);
-		}, 2000);
+		} catch (err) {
+			setSummary("");
+			setShowSpinner(false);
+			setShowSummary(false);
+			setError("Failed to generate summary");
+			console.error(err);
+		}
 	};
 
 	const isDoneLoading = () => {
