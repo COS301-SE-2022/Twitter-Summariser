@@ -30,14 +30,6 @@ export const generateReport = middyfy(
 				tweets = tweets + " " + tweet.text;
 				return tweets;
 			});
-			
-			await ServicesLayer.reportBlockService.addReportBlock({
-				reportBlockID: `BK-${randomUUID()}`,
-				reportID: id,
-				blockType: "RICHTEXT",
-				position: 0,
-				richText: twts
-			});
 
 			// Adding blocks
 			let x = -1;
@@ -59,6 +51,14 @@ export const generateReport = middyfy(
 				apiKey: params.apiKey,
 				dateCreated: d.toString(),
 				author: params.author
+			});
+
+			await ServicesLayer.reportBlockService.addReportBlock({
+				reportBlockID: `BK-${randomUUID()}`,
+				reportID: id,
+				blockType: "RICHTEXT",
+				position: 0,
+				richText: twts
 			});
 
 			return {
