@@ -2,6 +2,11 @@ import React from "react";
 import { Tab } from "@headlessui/react";
 import { classNames } from "../utils/classNames";
 
+import Reports from "./Reports";
+import Drafts from "./Drafts";
+import Shared from "./Shared";
+import History from "./History";
+
 function Something() {
 	return (
 		<div className="flex flex-col justify-center items-center text-center w-full p-2 z-50">
@@ -65,7 +70,7 @@ function Something() {
 							"ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
 						)}
 					>
-						content 1
+						<Reports />
 					</Tab.Panel>
 					<Tab.Panel
 						key="2"
@@ -74,7 +79,7 @@ function Something() {
 							"ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
 						)}
 					>
-						content 2
+						<Drafts />
 					</Tab.Panel>
 					<Tab.Panel
 						key="3"
@@ -83,7 +88,7 @@ function Something() {
 							"ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
 						)}
 					>
-						content 3
+						<Shared />
 					</Tab.Panel>
 					<Tab.Panel
 						key="4"
@@ -92,7 +97,7 @@ function Something() {
 							"ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
 						)}
 					>
-						content 4
+						<History />
 					</Tab.Panel>
 				</Tab.Panels>
 			</Tab.Group>
