@@ -91,8 +91,11 @@ function Reports() {
 			<div className=" mt-3 pt-3">
 				<div className=" mt-4">
 					<div className="flex flex-row justify-around">
-						<h1 className="text-3xl hidden lg:flex lg:flex-row lg:justify-center  pb-4 w-5/6 align-middle items-center">
-							My Reports
+						<h1
+							className="text-2xl hidden lg:flex lg:flex-row lg:justify-center border-b 
+ border-slate-300  pb-4 w-5/6 align-middle items-center"
+						>
+							Published
 						</h1>
 					</div>
 
