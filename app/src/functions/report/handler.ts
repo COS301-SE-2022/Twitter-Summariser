@@ -5,6 +5,7 @@ import { header, statusCodes } from "@functions/resources/APIresponse";
 import ServicesLayer from "../../services";
 import TextStyle from "@model/textStyles/textStyles.model";
 import Notification from "@model/notification/notification.model";
+import { clientV2 } from "@functions/resources/twitterV2.client";
 
 // Generation of reports
 export const generateReport = middyfy(
@@ -21,6 +22,13 @@ export const generateReport = middyfy(
 			id = "RT-";
 			id += randomUUID();
 			const d = new Date();
+
+			const { data } = await clientV2.get("tweets", { ids: tweets });
+
+			let twts= "";
+      		for(let tweet in data){
+      		  twts += " " + data[tweet].text;
+      		}
 
 			// Adding blocks
 			let x = -1;
@@ -42,6 +50,14 @@ export const generateReport = middyfy(
 				apiKey: params.apiKey,
 				dateCreated: d.toString(),
 				author: params.author
+			});
+
+			await ServicesLayer.reportBlockService.addReportBlock({
+				reportBlockID: `BK-${randomUUID()}`,
+				reportID: id,
+				blockType: "RICHTEXT",
+				position: 0,
+				richText: twts
 			});
 
 			return {
@@ -233,7 +249,7 @@ export const shareReport = middyfy(
 						type: "SHARE",
 						content: report.title,
 						isRead: false,
-						dateCreated: new Date()
+						dateCreated: (new Date()).toString()
 					}
 
 					await ServicesLayer.notificationService.addNotification(notification);
