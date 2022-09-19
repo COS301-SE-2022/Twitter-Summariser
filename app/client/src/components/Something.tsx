@@ -9,14 +9,14 @@ import History from "./History";
 
 function Something() {
 	return (
-		<div className="flex flex-col justify-center items-center text-center w-full p-2 z-50 mt-8">
+		<div className="flex flex-col justify-center items-center text-center w-full p-2 mt-8">
 			<div className="flex flex-row justify-around">
 				<h1 className="text-3xl hidden lg:flex lg:flex-row lg:justify-center  pb-4 align-middle items-center">
 					My Reports
 				</h1>
 			</div>
 			<Tab.Group>
-				<Tab.List className="flex space-x-1 rounded-xl bg-white p-1 w-full border">
+				<Tab.List className="flex space-x-1 rounded-xl bg-white p-1 w-full border sm:mt-0 mt-4">
 					<Tab
 						key="1"
 						className={({ selected }) =>
