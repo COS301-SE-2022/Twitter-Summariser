@@ -205,8 +205,8 @@ function TextSummariser() {
 						</button>
 					</div>
 					{error && secondFlowControl && (
-						<div className="border-2 border-red-500 rounded-md bg-red-300 flex py-2 mt-4 mr-4 ml-4">
-							<BiErrorCircle style={bStyle} className=" left-0 ml-8" />
+						<div className="border-2 border-red-500 rounded-md bg-red-300 flex py-2 mt-4">
+							<BiErrorCircle style={bStyle} className="ml-4" />
 							<p className=" items-center justify-center"> {error} </p>
 						</div>
 					)}
