@@ -26,10 +26,8 @@ export const generateReport = middyfy(
 			const { data } = await clientV2.get("tweets", { ids: tweets });
 
 			let twts = data.map(async (tweet) =>{
-				let tweets: string[];
-				tweet.push(tweet.text);
-				
-				return tweets;
+				let tweets: string;
+				tweets = tweets + " " + tweet.text;
 			});
 
 			// Adding blocks
