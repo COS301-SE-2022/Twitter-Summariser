@@ -11,8 +11,6 @@ export const getNotifications = middyfy(
             const notifications = await ServicesLayer.notificationService.getReceiverNotifications(
                 params.apiKey
             );
-
-            let responseBody: any = {}
             
             let responseArray = await Promise.all( notifications.map(async (notification) => {
                 let senderUsername: string;
@@ -41,9 +39,6 @@ export const getNotifications = middyfy(
 
 
             }))
-
-            
-            console.log(responseArray);
 
             return {
                 statusCode: statusCodes.Successful,

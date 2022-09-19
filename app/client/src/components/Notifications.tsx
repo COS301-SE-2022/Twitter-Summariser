@@ -44,7 +44,7 @@ function Notifications() {
 				JSON.stringify({apiKey: auth.apiKey}),
 				{ signal: controller.signal}
 			);
-			console.log(response);
+	
 			isMounted && changeNotifications(response.data.notifications);
 		
 		} catch(e) {
