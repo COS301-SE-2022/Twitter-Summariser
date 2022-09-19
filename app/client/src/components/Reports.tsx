@@ -89,12 +89,16 @@ function Reports() {
 		<div data-testid="report">
 			{/* Api response comes here */}
 			<div className=" mt-3 pt-3">
-				<div className=" mt-4">
+				<div className=" mt-2 sm:mt-4">
 					<div className="flex flex-row justify-around">
-						<h1 className="text-3xl hidden lg:flex lg:flex-row lg:justify-center border-b pb-4 w-5/6 align-middle items-center border-slate-300">
-							My Reports
+						<h1
+							className="text-2xl lg:flex flex-row justify-center border-b 
+ border-slate-300  pb-4 w-5/6 align-middle items-center"
+						>
+							Published
 						</h1>
 					</div>
+
 					<div className="mt-2 flex flex-row flex-wrap justify-center p-2">
 						{loading && (
 							<div className="mt-8 pr-8 pl-8">

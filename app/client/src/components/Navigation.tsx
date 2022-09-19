@@ -7,9 +7,10 @@ import { CgProfile } from "react-icons/cg";
 
 import { HiOutlineLogin } from "react-icons/hi";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, Fragment } from "react";
-import { Menu, Transition } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import { useState } from "react";
+// import { useState, Fragment } from "react";
+// import { Menu, Transition } from "@headlessui/react";
+// import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 import useAuth from "../hooks/useAuth";
 import useLogout from "../hooks/useLogout";
@@ -43,13 +44,13 @@ function Navigation() {
 	const [exploreStyle, changeExploreStyle] = useState(pageDefault);
 	const [exploreStyle2, changeExploreStyle2] = useState(defaultStyle);
 
-	const [publishStyle, changePublishStyle] = useState(pageDefault);
+	// const [publishStyle, changePublishStyle] = useState(pageDefault);
 
-	const [draftsStyle, changeDraftsStyle] = useState(pageDefault);
+	// const [draftsStyle, changeDraftsStyle] = useState(pageDefault);
 
-	const [sharedStyle, changeSharedStyle] = useState(pageDefault);
+	// const [sharedStyle, changeSharedStyle] = useState(pageDefault);
 
-	const [historyStyle, changeHistoryStyle] = useState(pageDefault);
+	// const [historyStyle, changeHistoryStyle] = useState(pageDefault);
 
 	const [summStyle, changeSummStyle] = useState(pageDefault);
 	const [summStyle2, changeSummStyle2] = useState(defaultStyle);
@@ -57,7 +58,7 @@ function Navigation() {
 	const [profileStyle, changeProfileStyle] = useState(pageDefault);
 	const [profileStyle2, changeProfileStyle2] = useState(defaultStyle);
 
-	const [reportH, setReportH] = useState(false);
+	// const [reportH, setReportH] = useState(false);
 
 	const [reportStyle, changeReportStyle] = useState("hidden lg:block");
 	const [reportStyle2, changeReportStyle2] = useState(defaultStyle);
@@ -65,10 +66,10 @@ function Navigation() {
 	function homeHandler() {
 		changeHomeStyle(pageCurrent);
 		changeExploreStyle(pageDefault);
-		changePublishStyle(pageDefault);
-		changeDraftsStyle(pageDefault);
-		changeSharedStyle(pageDefault);
-		changeHistoryStyle(pageDefault);
+		// changePublishStyle(pageDefault);
+		// changeDraftsStyle(pageDefault);
+		// changeSharedStyle(pageDefault);
+		// changeHistoryStyle(pageDefault);
 		changeSummStyle(pageDefault);
 		changeProfileStyle(pageDefault);
 
@@ -79,17 +80,17 @@ function Navigation() {
 		changeSummStyle2(defaultStyle);
 		changeProfileStyle2(defaultStyle);
 
-		setReportH(false);
+		// setReportH(false);
 		changeReportStyle("hidden lg:block");
 	}
 
 	function exploreHandler() {
 		changeHomeStyle(pageDefault);
 		changeExploreStyle(pageCurrent);
-		changePublishStyle(pageDefault);
-		changeDraftsStyle(pageDefault);
-		changeSharedStyle(pageDefault);
-		changeHistoryStyle(pageDefault);
+		// changePublishStyle(pageDefault);
+		// changeDraftsStyle(pageDefault);
+		// changeSharedStyle(pageDefault);
+		// changeHistoryStyle(pageDefault);
 		changeSummStyle(pageDefault);
 		changeProfileStyle(pageDefault);
 
@@ -100,20 +101,20 @@ function Navigation() {
 		changeSummStyle2(defaultStyle);
 		changeProfileStyle2(defaultStyle);
 
-		setReportH(false);
+		// setReportH(false);
 		changeReportStyle("hidden lg:block");
 	}
 
 	function publishHandler() {
-		setReportH(true);
+		// setReportH(true);
 		changeReportStyle("hidden lg:block text-blue-800");
 
 		changeHomeStyle(pageDefault);
 		changeExploreStyle(pageDefault);
-		changePublishStyle(pageCurrent);
-		changeDraftsStyle(pageDefault);
-		changeSharedStyle(pageDefault);
-		changeHistoryStyle(pageDefault);
+		// changePublishStyle(pageCurrent);
+		// changeDraftsStyle(pageDefault);
+		// changeSharedStyle(pageDefault);
+		// changeHistoryStyle(pageDefault);
 		changeSummStyle(pageDefault);
 		changeProfileStyle(pageDefault);
 
@@ -125,76 +126,76 @@ function Navigation() {
 		changeProfileStyle2(defaultStyle);
 	}
 
-	function draftHandler() {
-		setReportH(true);
-		changeReportStyle("hidden lg:block text-blue-800");
-		changeHomeStyle(pageDefault);
-		changeExploreStyle(pageDefault);
-		changePublishStyle(pageDefault);
-		changeDraftsStyle(pageCurrent);
-		changeSharedStyle(pageDefault);
-		changeHistoryStyle(pageDefault);
-		changeSummStyle(pageDefault);
-		changeProfileStyle(pageDefault);
+	// function draftHandler() {
+	// 	setReportH(true);
+	// 	changeReportStyle("hidden lg:block text-blue-800");
+	// 	changeHomeStyle(pageDefault);
+	// 	changeExploreStyle(pageDefault);
+	// 	changePublishStyle(pageDefault);
+	// 	changeDraftsStyle(pageCurrent);
+	// 	changeSharedStyle(pageDefault);
+	// 	changeHistoryStyle(pageDefault);
+	// 	changeSummStyle(pageDefault);
+	// 	changeProfileStyle(pageDefault);
 
-		changeHomeStyle2(defaultStyle);
-		changeExploreStyle2(defaultStyle);
-		changeReportStyle2(currentStyle);
+	// 	changeHomeStyle2(defaultStyle);
+	// 	changeExploreStyle2(defaultStyle);
+	// 	changeReportStyle2(currentStyle);
 
-		changeSummStyle2(defaultStyle);
-		changeProfileStyle2(defaultStyle);
-	}
+	// 	changeSummStyle2(defaultStyle);
+	// 	changeProfileStyle2(defaultStyle);
+	// }
 
-	function sharedHandler() {
-		setReportH(true);
-		changeReportStyle("hidden lg:block text-blue-800");
-		changeHomeStyle(pageDefault);
-		changeExploreStyle(pageDefault);
-		changePublishStyle(pageDefault);
-		changeDraftsStyle(pageDefault);
-		changeSharedStyle(pageCurrent);
-		changeHistoryStyle(pageDefault);
-		changeSummStyle(pageDefault);
-		changeProfileStyle(pageDefault);
+	// function sharedHandler() {
+	// 	setReportH(true);
+	// 	changeReportStyle("hidden lg:block text-blue-800");
+	// 	changeHomeStyle(pageDefault);
+	// 	changeExploreStyle(pageDefault);
+	// 	changePublishStyle(pageDefault);
+	// 	changeDraftsStyle(pageDefault);
+	// 	changeSharedStyle(pageCurrent);
+	// 	changeHistoryStyle(pageDefault);
+	// 	changeSummStyle(pageDefault);
+	// 	changeProfileStyle(pageDefault);
 
-		changeHomeStyle2(defaultStyle);
-		changeExploreStyle2(defaultStyle);
-		changeReportStyle2(currentStyle);
+	// 	changeHomeStyle2(defaultStyle);
+	// 	changeExploreStyle2(defaultStyle);
+	// 	changeReportStyle2(currentStyle);
 
-		changeSummStyle2(defaultStyle);
-		changeProfileStyle2(defaultStyle);
-	}
+	// 	changeSummStyle2(defaultStyle);
+	// 	changeProfileStyle2(defaultStyle);
+	// }
 
-	function historyHandler() {
-		setReportH(true);
-		changeReportStyle("hidden lg:block text-blue-800");
-		changeHomeStyle(pageDefault);
-		changeExploreStyle(pageDefault);
-		changePublishStyle(pageDefault);
-		changeDraftsStyle(pageDefault);
-		changeSharedStyle(pageDefault);
-		changeHistoryStyle(pageCurrent);
-		changeSummStyle(pageDefault);
-		changeProfileStyle(pageDefault);
+	// function historyHandler() {
+	// 	setReportH(true);
+	// 	changeReportStyle("hidden lg:block text-blue-800");
+	// 	changeHomeStyle(pageDefault);
+	// 	changeExploreStyle(pageDefault);
+	// 	changePublishStyle(pageDefault);
+	// 	changeDraftsStyle(pageDefault);
+	// 	changeSharedStyle(pageDefault);
+	// 	changeHistoryStyle(pageCurrent);
+	// 	changeSummStyle(pageDefault);
+	// 	changeProfileStyle(pageDefault);
 
-		changeHomeStyle2(defaultStyle);
-		changeExploreStyle2(defaultStyle);
-		changeReportStyle2(currentStyle);
+	// 	changeHomeStyle2(defaultStyle);
+	// 	changeExploreStyle2(defaultStyle);
+	// 	changeReportStyle2(currentStyle);
 
-		changeSummStyle2(defaultStyle);
-		changeProfileStyle2(defaultStyle);
-	}
+	// 	changeSummStyle2(defaultStyle);
+	// 	changeProfileStyle2(defaultStyle);
+	// }
 
 	function summHandler() {
-		setReportH(false);
+		// setReportH(false);
 		changeReportStyle("hidden lg:block");
 
 		changeHomeStyle(pageDefault);
 		changeExploreStyle(pageDefault);
-		changePublishStyle(pageDefault);
-		changeDraftsStyle(pageDefault);
-		changeSharedStyle(pageDefault);
-		changeHistoryStyle(pageDefault);
+		// changePublishStyle(pageDefault);
+		// changeDraftsStyle(pageDefault);
+		// changeSharedStyle(pageDefault);
+		// changeHistoryStyle(pageDefault);
 		changeSummStyle(pageCurrent);
 		changeProfileStyle(pageDefault);
 
@@ -207,15 +208,15 @@ function Navigation() {
 	}
 
 	function profileHandler() {
-		setReportH(false);
+		// setReportH(false);
 		changeReportStyle("hidden lg:block");
 
 		changeHomeStyle(pageDefault);
 		changeExploreStyle(pageDefault);
-		changePublishStyle(pageDefault);
-		changeDraftsStyle(pageDefault);
-		changeSharedStyle(pageDefault);
-		changeHistoryStyle(pageDefault);
+		// changePublishStyle(pageDefault);
+		// changeDraftsStyle(pageDefault);
+		// changeSharedStyle(pageDefault);
+		// changeHistoryStyle(pageDefault);
 		changeSummStyle(pageDefault);
 		changeProfileStyle(pageCurrent);
 
@@ -264,7 +265,24 @@ function Navigation() {
 					</Link>
 				</div>
 
-				<Menu as="div" className="relative">
+				<div
+					className="pt-4 flex flex-row changeColor"
+					key={(2).toString()}
+					onClick={publishHandler}
+				>
+					<Link
+						to="/something"
+						className="flex flex-row items-center"
+						onClick={() => pageHandler("something")}
+					>
+						<div className="items-end">
+							<TiDocumentText style={reportStyle2} />
+						</div>
+						<div className={reportStyle}>&nbsp; Report</div>
+					</Link>
+				</div>
+
+				{/* <Menu as="div" className="relative">
 					<div className="changeColor" key={(3).toString()}>
 						<Menu.Button className=" flex flex-row justify-center bg-white py-2 pt-4 items-center">
 							<div className="items-end">
@@ -300,11 +318,11 @@ function Navigation() {
 												to="/reports"
 												className="flex flex-row items-center"
 												onClick={() => pageHandler("Published")}
-											>
-												{/* <div className="items-center pt-1 ">
+											> */}
+				{/* <div className="items-center pt-1 ">
 													<TiDocumentText style={publishStyle2} />
 												</div> */}
-												<div
+				{/* <div
 													className={publishStyle}
 													onClick={publishHandler}
 												>
@@ -324,11 +342,11 @@ function Navigation() {
 												to="/drafts"
 												className="flex flex-col items-center justify-center"
 												onClick={() => pageHandler("Drafts")}
-											>
-												{/* <div className="items-end pt-1 ">
+											> */}
+				{/* <div className="items-end pt-1 ">
 										<RiDraftLine style={draftsStyle2} />
 									</div> */}
-												<div className={draftsStyle} onClick={draftHandler}>
+				{/* <div className={draftsStyle} onClick={draftHandler}>
 													Drafts
 												</div>
 											</Link>
@@ -345,11 +363,11 @@ function Navigation() {
 												to="/shared"
 												className="flex flex-row items-center"
 												onClick={() => pageHandler("Shared Reports")}
-											>
-												{/* <div className="items-end pt-1 ">
+											> */}
+				{/* <div className="items-end pt-1 ">
 										<BsShare style={sharedStyle2} />
 									</div> */}
-												<div
+				{/* <div
 													className={sharedStyle}
 													onClick={sharedHandler}
 												>
@@ -370,11 +388,11 @@ function Navigation() {
 													to="/history"
 													className="flex flex-row items-center"
 													onClick={() => pageHandler("Search History")}
-												>
-													{/* <div className="items-end pt-1 ">
+												> */}
+				{/* <div className="items-end pt-1 ">
 										<AiOutlineHistory style={historyStyle2} />
 									</div> */}
-													<div
+				{/* <div
 														className={historyStyle}
 														onClick={historyHandler}
 													>
@@ -388,7 +406,7 @@ function Navigation() {
 							</div>
 						</Menu.Items>
 					</Transition>
-				</Menu>
+				</Menu> */}
 
 				{/* <button
 					id="dropdownDefault"
@@ -450,7 +468,7 @@ function Navigation() {
 				</div> */}
 
 				<div
-					className="pt-2 flex flex-row changeColor"
+					className="pt-4 flex flex-row changeColor"
 					key={(7).toString()}
 					onClick={summHandler}
 				>
