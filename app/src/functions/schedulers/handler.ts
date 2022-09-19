@@ -2,7 +2,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { middyfy } from "@libs/lambda";
 import { header, statusCodes } from "@functions/resources/APIresponse";
 import { EventBridge, Lambda } from "aws-sdk";
-import axios from "../../../client/src/api/ConfigAxios";
+import axiosPrivate from "../../../client/src/api/ConfigAxios";
 import ServicesLayer from "../../services";
 import { randomUUID } from "crypto";
 import Notification from "@model/notification/notification.model";
@@ -84,7 +84,7 @@ export const reportScheduler = middyfy(
 
 export const genScheduledReport = async (params): Promise<void> => {
 	try {
-		const responseST = await axios.post(
+		const responseST = await axiosPrivate.post(
 			"searchTweets",
 			JSON.stringify({
 				apiKey: params.apiKey,
@@ -95,7 +95,7 @@ export const genScheduledReport = async (params): Promise<void> => {
 			})
 		);
 
-		const responseGR = await axios.post(
+		const responseGR = await axiosPrivate.post(
 			"generateReport",
 			JSON.stringify({
 				apiKey: params.apiKey,
