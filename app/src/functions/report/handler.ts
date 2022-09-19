@@ -28,6 +28,15 @@ export const generateReport = middyfy(
 			let twts = data.map(async (tweet) =>{
 				let tweets: string;
 				tweets = tweets + " " + tweet.text;
+				return tweets;
+			});
+			
+			await ServicesLayer.reportBlockService.addReportBlock({
+				reportBlockID: `BK-${randomUUID()}`,
+				reportID: id,
+				blockType: "RICHTEXT",
+				position: 0,
+				richText: twts
 			});
 
 			// Adding blocks
