@@ -785,13 +785,13 @@ function Report() {
 						</div>
 					) : (
 						<div className="mt-16 ">
-							{!isOwner() &&
+							{!isOwner() && (
 								<div>
 									<h1 className="text-m hidden lg:flex lg:flex-row lg:justify-center align-middle items-center italic opacity-50">
 										{perm} MODE
 									</h1>
 								</div>
-							}
+							)}
 							<div className="flex flex-col">
 								<div className="flex flex-row justify-between">
 									<div className="ml-2 p-4">
@@ -961,13 +961,10 @@ function Report() {
 									{/* </Link> */}
 								</div>
 							)}
-
-
 						</div>
 					)}
 					<br /> <br /> <br />
 				</div>
-
 			)}
 		</div>
 	);
