@@ -8,7 +8,7 @@ function FileItem(props: any) {
 	};
 
 	return (
-		<li className="bg-[#0054BE] items-center rounded-sm flex p-3 mt-4" key={props.file.name}>
+		<li className="bg-[#0054BE] items-center rounded-sm flex p-2.5 mt-2" key={props.file.name}>
 			<FontAwesomeIcon icon={faFileAlt} />
 			<p className="truncate md:w-full sm:w-3 text-white font-medium"> {props.file.name} </p>
 			<div className="actions ml-6 md:ml-0">
