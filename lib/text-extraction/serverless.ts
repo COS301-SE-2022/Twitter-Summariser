@@ -52,7 +52,11 @@ const serverlessConfiguration: AWS = {
 			handler: "handler.handler",
 			events: [
 				{
-					httpApi: "*"
+					http: {
+						method: "post",
+						path: "extract-text",
+						cors: true
+					}
 				}
 			]
 		}
