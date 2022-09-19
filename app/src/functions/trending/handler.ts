@@ -12,6 +12,7 @@ export const searchTweets = middyfy(
             const response = await fetch('https://api.twitter.com/1.1/trends/place.json?id=1'+params.region, {
                 method: 'GET',
                 headers: {
+                    Authorization: 'Bearer '+process.env.BEARER_TOKEN,
                     Accept: 'application/json',
                 },
             });
