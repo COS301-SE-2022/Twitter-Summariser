@@ -4,7 +4,7 @@ import fetch from 'node-fetch'
 import { statusCodes, header } from "@functions/resources/APIresponse";
 
 
-export const searchTweets = middyfy(
+export const getTrendingTopics = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
 			const params = JSON.parse(event.body);
