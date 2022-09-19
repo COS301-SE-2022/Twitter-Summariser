@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Carousel from "react-bootstrap/Carousel";
 
 function ExploreCard(props: any) {
 	const repID = props.data.reportID;
@@ -61,7 +62,7 @@ function ExploreCard(props: any) {
 						className="object-cover w-20 h-20 rounded-full shadow-sm"
 					/>
 				</p>
-				<div>
+				{/* <div>
 					<p
 						aria-label="Author"
 						title="Author"
@@ -70,23 +71,34 @@ function ExploreCard(props: any) {
 						{props.data.author}
 					</p>
 					<p className="text-sm font-medium leading-4 text-gray-600">Author</p>
-				</div>
+				</div> */}
 			</div>
-			<br />
 
 			<p
 				aria-label="Article"
 				title="Jingle Bells"
-				className="flex items-center justify-center mb-3 text-2xl font-bold leading-5 text-black transition-colors duration-200 hover:text-deep-purple-accent-400"
+				className="flex items-center justify-center mt-2 mb-3 text-2xl font-bold leading-5 text-black transition-colors duration-200 hover:text-deep-purple-accent-400"
 			>
 				{props.data.title}
 			</p>
-			<p className="flex mb-3 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase">
-				<span className=" font-semiboldtext-deep-purple-accent-400">
-					Published Report - {props.data.dateCreated.substring(4, 16)}
-				</span>
+			<p className="flex mb-2 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase">
+				<Carousel controls={false} indicators={false}>
+					<Carousel.Item>
+						<span className=" font-semiboldtext-deep-purple-accent-400">
+							AUTHOR - {props.data.author}
+						</span>
+						{/* <h3>First slide label</h3> */}
+					</Carousel.Item>
+					<Carousel.Item>
+						<span className=" font-semiboldtext-deep-purple-accent-400">
+							Published Report - {props.data.dateCreated.substring(0, 16)}
+						</span>
+						{/* <h3>Second slide label</h3> */}
+					</Carousel.Item>
+				</Carousel>
 			</p>
-			<div className="flex mt-8 space-x-4 md:mt-8 items-center justify-center">
+
+			<div className="flex mt-3 space-x-3items-center justify-center">
 				<Link to={newReportLink}>
 					<div className="rounded-sm items-center py-2.5 px-16 text-sm font-semibold text-center text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow">
 						<button onClick={viewReport} type="submit">
