@@ -38,6 +38,7 @@ import { analyse } from "@functions/sentimentAnalysis";
 import { URL } from "@functions/resources/APIresponse";
 import { backupDynamoDB } from "@functions/backup";
 import { getNotifications, deleteNotification } from "@functions/notifications";
+import { getTrendingTopics } from "@functions/trending";
 
 const serverlessConfiguration: AWS = {
 	service: "twitter-summariser",
@@ -152,7 +153,8 @@ const serverlessConfiguration: AWS = {
 		analyse,
 		backupDynamoDB,
 		getNotifications,
-		deleteNotification
+		deleteNotification,
+		getTrendingTopics
 	},
 
 	package: {
