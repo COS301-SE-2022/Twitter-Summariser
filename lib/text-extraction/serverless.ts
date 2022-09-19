@@ -18,6 +18,10 @@ const serverlessConfiguration: AWS = {
 		}
 	},
 
+	plugins: [
+		"serverless-offline"
+	],
+
 	package: {
 		individually: true
 	},
