@@ -76,7 +76,7 @@ function ExploreCard(props: any) {
 
 			<p
 				aria-label="Article"
-				title="Jingle Bells"
+				title={props.data.title}
 				className="flex items-center justify-center mt-2 mb-3 text-2xl font-bold leading-5 text-black transition-colors duration-200 hover:text-deep-purple-accent-400"
 			>
 				{props.data.title}
@@ -98,9 +98,9 @@ function ExploreCard(props: any) {
 				</Carousel>
 			</p>
 
-			<div className="flex mt-3 space-x-3items-center justify-center">
+			<div className="flex mt-3 space-x-3 items-center justify-center">
 				<Link to={newReportLink}>
-					<div className="rounded-sm items-center py-2.5 px-16 text-sm font-semibold text-center text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow">
+					<div className="items-center py-2 px-3 text-xs font-semibold text-center text-white bg-dark-cornflower-blue rounded-md  hover:bg-midnight-blue group hover:shadow">
 						<button onClick={viewReport} type="submit">
 							{" "}
 							VIEW REPORT{" "}
