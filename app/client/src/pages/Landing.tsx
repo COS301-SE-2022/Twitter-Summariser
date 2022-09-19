@@ -28,6 +28,7 @@ function Landing() {
 	else if (locationURL === "/drafts") localStorage.setItem("page", "Draft Reports");
 	else if (locationURL === "/shared") localStorage.setItem("page", "Shared Reports");
 	else if (locationURL === "/history") localStorage.setItem("page", "Search History");
+	else if (locationURL === "/something") localStorage.setItem("page", "Reports");
 	else if (locationURL === "/summariser") localStorage.setItem("page", "Text Summarisation");
 	else if (locationURL.match("/report/") && localStorage.getItem("page") === "Draft Reports")
 		localStorage.setItem("page", "Draft Report");

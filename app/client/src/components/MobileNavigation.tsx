@@ -45,7 +45,7 @@ function MobileNavigation(props: any) {
 			  }?${new Date().getTime()}`;
 
 	return (
-		<div className="pt-2 text-lg w-full flex flex-col z-20 bg-gradient-to-b from-dark-cornflower-blue to-white h-full justify-around">
+		<div className="pt-2 text-lg w-full flex flex-col z-20 bg-gradient-to-b from-dark-cornflower-blue to-white h-full justify-evenly">
 			{/* <br />
 			<br />
 			<br /> */}
