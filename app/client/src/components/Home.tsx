@@ -154,7 +154,7 @@ function Home() {
 	const sentimentColor = "green";
 
 	const checkedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-	  setCheckedSentiment(event.target.checked);
+		setCheckedSentiment(event.target.checked);
 	};
 
 	// const tweetHandler = (event: any) => {
@@ -173,7 +173,6 @@ function Home() {
 	// const scheduleHandler = (event: any) => {
 	// 	changeSchedule(event.target.value);
 	// }
-
 
 	const [pulse, changePulse] = useState(false);
 
@@ -215,7 +214,6 @@ function Home() {
 			changeScheduleResponse(await response.data);
 			scheduleResponse;
 			// console.log(await response.data);
-
 		} catch (err) {
 			console.error(err);
 		}
@@ -243,7 +241,6 @@ function Home() {
 		};
 
 		// console.log(scheduleData);
-
 
 		scheduleReport(scheduleData);
 	};
@@ -323,7 +320,7 @@ function Home() {
 			// 	<HomeTweet tweetData={data} />
 			// </div>
 			<div className="pb-8" key={data.tweetId}>
-				<Tweet options={{ align: "center"}} tweetId={data.tweetId} onLoad={done} />
+				<Tweet options={{ align: "center" }} tweetId={data.tweetId} onLoad={done} />
 			</div>
 		)
 	);
@@ -340,7 +337,7 @@ function Home() {
 			// </div>
 
 			<div className={`pb-8 border-2 border-${sentimentColor}-500`} key={data.tweetId}>
-				<Tweet options={{ align: "center"}} tweetId={data.tweetId} onLoad={done} />
+				<Tweet options={{ align: "center" }} tweetId={data.tweetId} onLoad={done} />
 			</div>
 		)
 	);
@@ -763,7 +760,7 @@ function Home() {
 											<div
 												data-aos="fade-up"
 												data-aos-duration="500"
-												className="md:ml-16 md:mr-16 m-2 w-full"
+												className="sm:w-1/2 w-full mt-2"
 												key={data.reportID}
 											>
 												<ExploreCard data={data} />
@@ -985,13 +982,12 @@ function Home() {
 								</button>
 							) : (
 								<>
-								<Button
-									text="Generate Report"
-									size="large"
-									handle={generate}
-									type="generate"
-								/>
-
+									<Button
+										text="Generate Report"
+										size="large"
+										handle={generate}
+										type="generate"
+									/>
 								</>
 							)}
 						</div>
@@ -1006,7 +1002,7 @@ function Home() {
 						<Checkbox
 							checked={checkedSentiment}
 							onChange={checkedHandler}
-							inputProps={{ 'aria-label': 'controlled' }}
+							inputProps={{ "aria-label": "controlled" }}
 						/>
 					</div>
 
