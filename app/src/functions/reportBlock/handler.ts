@@ -3,7 +3,6 @@ import { middyfy } from "@libs/lambda";
 import { randomUUID } from "crypto";
 import { header, statusCodes } from "@functions/resources/APIresponse";
 import ServicesLayer from "../../services";
-import { lock } from "superagent";
 
 // function for writing and editing text on textBox
 export const editBlock = middyfy(
@@ -112,26 +111,26 @@ export const deleteReportBlock = middyfy(
 
 				let top = null;
 				let bottom = null;
-				for (const block in report) {
-					if (report[block].position === blck.position - 1) {
-						top = report[block];
-					} else if (report[block].position === blck.position + 1) {
-						bottom = report[block];
+				report.map(async (block) => {
+					if (block.position === blck.position - 1) {
+						top = block;
+					} else if (block.position === blck.position + 1) {
+						bottom = block;
 					}
 
-					if(report[block].blockType==='TWEET' && report[block].position>blck.position){
-						report[block].position = report[block].position-2;
-						await ServicesLayer.reportBlockService.addReportBlock(report[block]);
+					if(block.position>blck.position){
+						block.position = block.position-2;
+						await ServicesLayer.reportBlockService.addReportBlock(block);
 					}
-				}
+				})
 
-				if (top !== undefined && bottom != undefined) {
+				if (top !== undefined && bottom != undefined) { 
 					await ServicesLayer.reportBlockService.addReportBlock({
 						reportBlockID: top.reportBlockID,
 						reportID: top.reportID,
 						blockType: "RICHTEXT",
 						position: top.position,
-						richText: top.text + "\n\n" + bottom.text
+						richText: top.richText + "\n\n" + bottom.richText
 					});
 					await ServicesLayer.reportBlockService.deleteReportBlock(params.reportBlockID);
 					await ServicesLayer.reportBlockService.deleteReportBlock(bottom.reportBlockID);

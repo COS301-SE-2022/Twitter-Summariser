@@ -14,5 +14,5 @@ export const axiosPrivate = axios.create({
 });
 
 export const axiosTextSummariser = axios.create({
-	baseURL: "https://jpssczahhg.execute-api.us-east-1.amazonaws.com/dev/"
+	baseURL: "https://n41fxulrk4.execute-api.us-east-1.amazonaws.com/dev/"
 });
