@@ -42,20 +42,20 @@ function FileUpload(this: any, props: any) {
 			} else if (
 				file.type ===
 				"application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-			) {				
+			) {
 				const reader = new FileReader();
-  				reader.onload =  (e: any) => {
-    				const content = e.target.result;
+				reader.onload = (e: any) => {
+					const content = e.target.result;
 					const zip = new PizZip();
 					zip.load(content);
 					const doc = new Docxtemplater(zip);
 					const text = doc.getFullText();
 					props.setExtractedText(text);
 					props.isDoneLoading();
-					file.isUploading = false;					
-  				};
-  				reader.readAsBinaryString(event.target.files[0]);
-			} else {				
+					file.isUploading = false;
+				};
+				reader.readAsBinaryString(event.target.files[0]);
+			} else {
 				props.setError("File type not supported.");
 				props.setFiles([]);
 				file.isUploading = false;
@@ -72,7 +72,7 @@ function FileUpload(this: any, props: any) {
 	};
 
 	return (
-		<div className="file-card bg-[#edf2f7] border mt-4 p-4 w-full flex items-center justify-between flex-col overflow-hidden">
+		<div className="file-card bg-[#edf2f7] border mt-2 p-4 w-full flex items-center justify-between flex-col overflow-hidden">
 			<div className="file-inputs relative mb-4">
 				<input
 					type="file"
@@ -86,7 +86,7 @@ function FileUpload(this: any, props: any) {
 				<button
 					type="submit"
 					onClick={uploadFiles.bind(this)}
-					className="items-center cursor-pointer justify-center flex h-12 w-48 md:w-64 text-sm font-semibold text-center text-white bg-dark-cornflower-blue rounded-md  hover:bg-midnight-blue group hover:shadow"
+					className="items-center cursor-pointer justify-center flex h-12 w-48 md:w-64 text-sm font-semibold text-center text-white bg-dark-cornflower-blue rounded-sm  hover:bg-midnight-blue group hover:shadow"
 				>
 					<i className="w-6 h-6 bg-white text-dark-cornflower-blue rounded-full flex justify-center items-center mr-2">
 						<FontAwesomeIcon icon={faPlus} />
@@ -95,7 +95,7 @@ function FileUpload(this: any, props: any) {
 				</button>
 			</div>
 			<strong className="mt-6">Supported Files:</strong>
-			<p>*.txt *.docx *.pdf</p>
+			<p>*.txt *.docx *.doc *.pdf</p>
 		</div>
 	);
 }
