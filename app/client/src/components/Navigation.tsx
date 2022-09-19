@@ -264,6 +264,23 @@ function Navigation() {
 					</Link>
 				</div>
 
+				<div
+					className="pt-4 flex flex-row changeColor"
+					key={(2).toString()}
+					onClick={exploreHandler}
+				>
+					<Link
+						to="/something"
+						className="flex flex-row items-center"
+						onClick={() => pageHandler("something")}
+					>
+						<div className="items-end pt-1 ">
+							<BiHash style={exploreStyle2} />
+						</div>
+						<div className={exploreStyle}>&nbsp; something</div>
+					</Link>
+				</div>
+
 				<Menu as="div" className="relative">
 					<div className="changeColor" key={(3).toString()}>
 						<Menu.Button className=" flex flex-row justify-center bg-white py-2 pt-4 items-center">
