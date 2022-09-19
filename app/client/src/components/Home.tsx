@@ -53,22 +53,28 @@ function Home() {
 		{
 			id: 5,
 			trend: "Ramaphosa"
-		},
-];
+		}
+	];
 
-let searchInput = document.getElementById("default-search") as HTMLInputElement;
+	let searchInput = document.getElementById("default-search") as HTMLInputElement;
 
 	const trendsResponse = [<div key="begining div" />];
 
 	mockTrends.map((tweetData) =>
 		trendsResponse.push(
-			<div key={tweetData.id} className="cursor-pointer pb-2 text-midnight-blue font-semibold" onClick={() => {searchInput = document.getElementById("default-search") as HTMLInputElement; searchInput.value = tweetData.trend; changeEnteredSearch(tweetData.trend)}}>
+			<div
+				key={tweetData.id}
+				className="cursor-pointer pb-2 text-midnight-blue font-semibold"
+				onClick={() => {
+					searchInput = document.getElementById("default-search") as HTMLInputElement;
+					searchInput.value = tweetData.trend;
+					changeEnteredSearch(tweetData.trend);
+				}}
+			>
 				#{tweetData.trend}
 			</div>
 		)
 	);
-
-
 
 	const searchHandler = (event: any) => {
 		changeEnteredSearch(event.target.value);
@@ -83,7 +89,6 @@ let searchInput = document.getElementById("default-search") as HTMLInputElement;
 	};
 
 	const genRep = async () => {
-
 		const searchData = {
 			apiKey: auth.apiKey,
 			author: auth.username,
@@ -123,10 +128,26 @@ let searchInput = document.getElementById("default-search") as HTMLInputElement;
 		setCheckedSentiment(event.target.checked);
 	};
 
+	// const tweetHandler = (event: any) => {
+	// 	changeNoOfTweets(event.target.value);
+	// };
+
+	// const sortHandler = (event: any) => {
+	// 	changeSort(event.target.value);
+	// };
+
+	// const filterHandler = (event: any) => {
+	// 	changeFilter(event.target.value);
+	// };
+
+	// UNCOMMENT FOR SCHEDULE REPORT FUNCTIONALITY
+	// const scheduleHandler = (event: any) => {
+	// 	changeSchedule(event.target.value);
+	// }
+
 	const [pulse, changePulse] = useState(false);
 
 	const scheduleReport = async (scheduleData: any) => {
-
 		try {
 			const response = await axiosPrivate.post(
 				"reportScheduler",
@@ -156,6 +177,8 @@ let searchInput = document.getElementById("default-search") as HTMLInputElement;
 			}
 		};
 
+		// console.log(scheduleData);
+
 		scheduleReport(scheduleData);
 	};
 
@@ -173,7 +196,6 @@ let searchInput = document.getElementById("default-search") as HTMLInputElement;
 	};
 
 	const search = () => {
-
 		changeShowTrends(false);
 
 		if (checked) {
@@ -362,7 +384,7 @@ let searchInput = document.getElementById("default-search") as HTMLInputElement;
 											<div
 												data-aos="fade-up"
 												data-aos-duration="500"
-												className="md:ml-16 md:mr-16 m-2 w-full"
+												className="sm:w-1/2 w-full mt-2"
 												key={data.reportID}
 											>
 												<ExploreCard data={data} />
@@ -473,8 +495,6 @@ let searchInput = document.getElementById("default-search") as HTMLInputElement;
 						/>
 					</div>
 
-
-
 					{loading && (
 						<div className="flex flex-row justify-center my-2">
 							{loadIcon} &nbsp; Loading Tweets
@@ -500,10 +520,7 @@ let searchInput = document.getElementById("default-search") as HTMLInputElement;
 										data-aos-delay="700"
 									>
 										<div className="">
-											<button
-												data-testid="btn-report"
-												type="submit"
-											>
+											<button data-testid="btn-report" type="submit">
 												<p className="font-bold">{createTitle}</p>
 											</button>
 										</div>
@@ -542,12 +559,14 @@ let searchInput = document.getElementById("default-search") as HTMLInputElement;
 						{checkedSentiment && apiResponseWithSentimentAnalysis}
 					</div>
 
-
-					{showTrends && <div>
-						<h1 className="text-2xl hidden lg:flex lg:flex-row lg:justify-center border-b pb-4 w-5/6 align-middle items-center border-slate-300">
-							LATEST TRENDS
-						</h1>
-						{trendsResponse} </div>}
+					{showTrends && (
+						<div>
+							<h1 className="text-2xl hidden lg:flex lg:flex-row lg:justify-center border-b pb-4 w-5/6 align-middle items-center border-slate-300">
+								LATEST TRENDS
+							</h1>
+							{trendsResponse}{" "}
+						</div>
+					)}
 				</div>
 			)}
 		</div>
