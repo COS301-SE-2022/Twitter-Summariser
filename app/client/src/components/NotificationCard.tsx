@@ -1,6 +1,6 @@
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { RiDeleteBinFill } from "react-icons/ri";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import useAuth from "../hooks/useAuth";
 
@@ -66,11 +66,14 @@ function NotificationCard(props: any) {
 			{isOpen && (
 				<ul className="absolute bg-white shadow-lg text-sm w-36 p-5 space-y-3 ">
 					<li className="flex flex-row ">Mark as read</li>
-					<li onClick={deleteNotificationHandler} className="flex flex-row " >
-						<div>
-							<RiDeleteBinFill size={18} style={{ fill: "#b91c1c" }} />
-						</div>
-						<div>&nbsp;Delete</div>
+					<li className="flex flex-row "> 
+							<div onClick={deleteNotificationHandler}>
+								<RiDeleteBinFill size={18} style={{ fill: "#b91c1c" }} />
+							</div>
+							<div onClick={deleteNotificationHandler}>
+								&nbsp;Delete
+							</div>
+						
 					</li>
 				</ul>
 			)}
