@@ -32,15 +32,14 @@ export const generateReport = middyfy(
       		}
 
 			//Summarizing text
-			const responseTS = await axiosTextSummmariser.post(
-				"summariser",
-				JSON.stringify({
-					text: twts,
-					min: 100,
-					max: 200
-				})
-			);
-
+			// const responseTS = await axiosTextSummmariser.post(
+			// 	"summariser",
+			// 	JSON.stringify({
+			// 		text: twts,
+			// 		min: 100,
+			// 		max: 200
+			// 	})
+			// );
 			// Adding blocks
 			let x = -1;
 			tweets.map(async (tweet) => {
@@ -69,7 +68,7 @@ export const generateReport = middyfy(
 				reportID: id,
 				blockType: "RICHTEXT",
 				position: 0,
-				richText: responseTS.data.text
+				richText: twts
 			});
 
 			const sid = `ST-${randomUUID()}`;
@@ -86,7 +85,7 @@ export const generateReport = middyfy(
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify({ Report: report, summarisedText:  responseTS.data.text})
+				body: JSON.stringify({ Report: report, summarisedText:  twts})
 			};
 		} catch (e) {
 			return {
