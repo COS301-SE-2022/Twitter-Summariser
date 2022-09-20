@@ -520,6 +520,20 @@ export const editTitle = middyfy(
 		try {
 			const params = JSON.parse(event.body);
 
+			if (
+				!(await ServicesLayer.permissionService.verifyEditor(
+					params.reportID,
+					params.apiKey
+				)) &&
+				!(await ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey))
+			) {
+				return {
+					statusCode: statusCodes.unauthorized,
+					headers: header,
+					body: JSON.stringify("Don't have enough permissions to edit this report.")
+				};
+			}
+
 			const reports = await ServicesLayer.reportService.updateReportTitle(params.title, params.reportID);
 
 			return {
