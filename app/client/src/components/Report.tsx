@@ -4,7 +4,7 @@ import { Tweet } from "react-twitter-widgets";
 import { GrCopy } from "react-icons/gr";
 import { BsArrowDown, BsArrowUp, BsShare } from "react-icons/bs";
 import { BiErrorCircle } from "react-icons/bi";
-import { AiOutlineCheckCircle, AiOutlineEye } from "react-icons/ai";
+import { AiOutlineCheckCircle, AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { MdDeleteOutline } from "react-icons/md";
 // import { Checkbox } from "@mui/material";
 import Text from "./Text";
@@ -950,7 +950,7 @@ function Report() {
 								</div>
 							)} */}
 
-							{!isPublished() && !isViewer() && (
+							{!isPublished() && !isViewer() && !checkedSentiment && (
 								<div
 									className=""
 									data-bs-toggle="tooltip"
@@ -958,6 +958,18 @@ function Report() {
 								>
 									<button type="submit">
 										<AiOutlineEye style={style} onClick={checkedHandler} />
+									</button>
+								</div>
+							)}
+
+							{!isPublished() && !isViewer() && checkedSentiment && (
+								<div
+									className=""
+									data-bs-toggle="tooltip"
+									title="Hide sentiment analysis"
+								>
+									<button type="submit">
+										<AiOutlineEyeInvisible style={style} onClick={checkedHandler} />
 									</button>
 								</div>
 							)}
