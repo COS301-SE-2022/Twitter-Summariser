@@ -632,7 +632,7 @@ function Report() {
 			await axiosPrivate.post("cloneReport", JSON.stringify(resultDetails), {
 				signal: controller.signal
 			});
-			navigate("/drafts");
+			navigate("/allReports");
 		} catch (err) {
 			console.error(err);
 		}
