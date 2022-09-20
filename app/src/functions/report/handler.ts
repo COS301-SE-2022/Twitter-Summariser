@@ -2,6 +2,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { middyfy } from "@libs/lambda";
 import { randomUUID } from "crypto";
 import { header, statusCodes } from "@functions/resources/APIresponse";
+import axiosTextSummmariser from "../../../client/src/api/ConfigAxios";
 import ServicesLayer from "../../services";
 import TextStyle from "@model/textStyles/textStyles.model";
 import Notification from "@model/notification/notification.model";
@@ -30,6 +31,15 @@ export const generateReport = middyfy(
       		  twts += " " + data[tweet].text;
       		}
 
+			//Summarizing text
+			// const responseTS = await axiosTextSummmariser.post(
+			// 	"summariser",
+			// 	JSON.stringify({
+			// 		text: twts,
+			// 		min: 100,
+			// 		max: 200
+			// 	})
+			// );
 			// Adding blocks
 			let x = -1;
 			tweets.map(async (tweet) => {
@@ -52,18 +62,30 @@ export const generateReport = middyfy(
 				author: params.author
 			});
 
+			const tb = `BK-${randomUUID()}`;
 			await ServicesLayer.reportBlockService.addReportBlock({
-				reportBlockID: `BK-${randomUUID()}`,
+				reportBlockID: tb,
 				reportID: id,
 				blockType: "RICHTEXT",
 				position: 0,
 				richText: twts
 			});
 
+			const sid = `ST-${randomUUID()}`;
+			await ServicesLayer.textStyleService.addStyle({
+				textStylesID: sid,
+				reportBlockID: tb,
+				align: " text-left",
+				bold: " font-bold",
+				colour: " text-black",
+				italic: "",
+				size: " text-xs"
+			});
+
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify({ Report: report })
+				body: JSON.stringify({ Report: report, summarisedText:  twts})
 			};
 		} catch (e) {
 			return {

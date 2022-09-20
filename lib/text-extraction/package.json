@@ -17,5 +17,8 @@
 		"pdf-parse": "^1.1.1",
 		"prettier": "^2.7.1",
 		"serverless-http": "^3.0.2"
+	},
+	"devDependencies": {
+		"serverless-offline": "^10.1.0"
 	}
 }

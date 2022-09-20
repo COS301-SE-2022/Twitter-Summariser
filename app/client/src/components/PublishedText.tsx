@@ -19,13 +19,26 @@ function PublishedText(props: any) {
 	} else {
 		// editButton = false;
 		// console.log(props.data.block.text.length);
-		style2 =
-			style2 +
-			props.data.block.style[0].italic +
-			props.data.block.style[0].bold +
-			props.data.block.style[0].size +
-			props.data.block.style[0].align +
-			props.data.block.style[0].colour;
+
+		props.data.block.style.length
+
+		if(props.data.block.style.length !== 0){
+			style2 =
+				style2 +
+				props.data.block.style[0].italic +
+				props.data.block.style[0].bold +
+				props.data.block.style[0].size +
+				props.data.block.style[0].align +
+				props.data.block.style[0].colour;
+		}
+
+		// style2 =
+		// 	style2 +
+		// 	props.data.block.style[0].italic +
+		// 	props.data.block.style[0].bold +
+		// 	props.data.block.style[0].size +
+		// 	props.data.block.style[0].align +
+		// 	props.data.block.style[0].colour;
 
 		// tempText = props.data.block.text;
 

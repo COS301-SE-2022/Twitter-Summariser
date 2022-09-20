@@ -177,7 +177,7 @@ function Profile() {
 						/>
 						<label htmlFor="imageUpload" />
 					</div>
-					<div className="avatar-preview">
+					<div className="avatar-preview ml-10">
 						<div
 							id="imagePreview"
 							style={imageStyle}
