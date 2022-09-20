@@ -4,9 +4,9 @@ import { Tweet } from "react-twitter-widgets";
 import { GrCopy } from "react-icons/gr";
 import { BsArrowDown, BsArrowUp, BsShare } from "react-icons/bs";
 import { BiErrorCircle } from "react-icons/bi";
-import { AiOutlineCheckCircle } from "react-icons/ai";
+import { AiOutlineCheckCircle, AiOutlineEye } from "react-icons/ai";
 import { MdDeleteOutline } from "react-icons/md";
-import { Checkbox } from "@mui/material";
+// import { Checkbox } from "@mui/material";
 import Text from "./Text";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
@@ -65,8 +65,16 @@ function Report() {
 	const sentimentColor2 = "yellow";
 	const sentimentColor3 = "red";
 
-	const checkedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setCheckedSentiment(event.target.checked);
+	// const checkedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+	// 	setCheckedSentiment(event.target.checked);
+	// };
+
+	const checkedHandler = () => {
+		if(checkedSentiment) {
+			setCheckedSentiment(false);
+		} else {
+			setCheckedSentiment(true);
+		}
 	};
 
 	const shareHandler = () => {
@@ -931,7 +939,7 @@ function Report() {
 
 							<br />
 
-							{!isPublished() && !isViewer() && (
+							{/* {!isPublished() && !isViewer() && (
 								<div className="mb-0">
 									<p className="">Show sentiment analysis:</p>
 									<Checkbox
@@ -939,6 +947,18 @@ function Report() {
 										onChange={checkedHandler}
 										inputProps={{ "aria-label": "controlled" }}
 									/>
+								</div>
+							)} */}
+
+							{!isPublished() && !isViewer() && (
+								<div
+									className=""
+									data-bs-toggle="tooltip"
+									title="Show sentiment analysis"
+								>
+									<button type="submit">
+										<AiOutlineEye style={style} onClick={checkedHandler} />
+									</button>
 								</div>
 							)}
 
