@@ -70,7 +70,7 @@ function Notifications() {
 
 
 	return (
-		<div className="fixed rounded space-y-4  bg-white shadow-md h-2/3 ml-8 p-5 2xl:w-80 xl:w-64 ">
+		<div className="fixed rounded space-y-4  bg-white shadow-md h-2/3 ml-8 p-3 2xl:w-80 xl:w-64 ">
 			<h1 className="text-xl text-center font-bold">Notifications</h1>
 
 			<div className="w-full flex flex-col ">

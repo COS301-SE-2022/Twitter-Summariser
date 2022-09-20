@@ -83,7 +83,7 @@ function NotificationCard(props: any) {
 
 
 	return (
-		<div className="flex flex-row rounded space-x-5 px-5 py-2 flex items-stretch cursor-pointer hover:shadow-md">
+		<div className="flex flex-row rounded space-x-5 px-3 py-3 flex items-stretch cursor-pointer hover:shadow-md">
 			<div>
 				<img
 					src={props.data.senderUrl}
