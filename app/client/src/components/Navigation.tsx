@@ -271,7 +271,7 @@ function Navigation() {
 					onClick={publishHandler}
 				>
 					<Link
-						to="/something"
+						to="/allReports"
 						className="flex flex-row items-center"
 						onClick={() => pageHandler("something")}
 					>
