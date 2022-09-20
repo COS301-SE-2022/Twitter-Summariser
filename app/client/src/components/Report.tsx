@@ -4,7 +4,7 @@ import { Tweet } from "react-twitter-widgets";
 import { GrCopy } from "react-icons/gr";
 import { BsArrowDown, BsArrowUp, BsShare } from "react-icons/bs";
 import { BiErrorCircle } from "react-icons/bi";
-import { AiOutlineCheckCircle, AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { AiOutlineCheckCircle, AiOutlineEye, AiOutlineEyeInvisible, AiFillEdit } from "react-icons/ai";
 import { MdDeleteOutline } from "react-icons/md";
 // import { Checkbox } from "@mui/material";
 import Text from "./Text";
@@ -65,6 +65,16 @@ function Report() {
 	const sentimentColor = "green";
 	const sentimentColor2 = "yellow";
 	const sentimentColor3 = "red";
+
+	const [editTitle, setEditTitle] = useState(false);
+
+	const editTitleHandler = () => {
+		if(editTitle) {
+			setEditTitle(false);
+		} else {
+			setEditTitle(true);
+		}
+	}
 
 	// const checkedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
 	// 	setCheckedSentiment(event.target.checked);
@@ -804,7 +814,21 @@ function Report() {
 							<div className="flex flex-col">
 								<div className="flex flex-row justify-between">
 									<div className="ml-2 p-4">
-										<h1 className="text-3xl font-bold">{title}</h1>
+										{!editTitle && <div className="flex flex-row items-end justify-between items-center">
+												<h1 className="text-3xl font-bold">{title}</h1>
+												<div className="">&nbsp;&nbsp;</div>
+											<div
+												className=""
+												data-bs-toggle="tooltip"
+												title="Edit Title"
+											>
+												<button type="submit">
+													<AiFillEdit style={style} onClick={editTitleHandler} />
+												</button>
+											</div>
+
+										</div>}
+										{/* <h1 className="text-3xl font-bold">{title}</h1> */}
 										<br />
 										<h2 className="italic font-bold">Created By: {author}</h2>
 										<h3 className="italic text-xs">Date Created: {date}</h3>
