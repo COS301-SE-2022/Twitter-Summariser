@@ -1,7 +1,8 @@
 // import {MdOutlineClose} from "react-icons/md";
 // import { MdNotificationsActive } from "react-icons/md";
 // import toast from "react-hot-toast";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { NotificationsContext } from "../context/NotificationsContext";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import useAuth from "../hooks/useAuth";
 import NotificationCard from "./NotificationCard";
@@ -30,10 +31,10 @@ import NotificationCard from "./NotificationCard";
 // }
 
 function Notifications() {
-
-	const [notifications, changeNotifications] = useState<any[]>([]);
+	const { notifications} = useContext(NotificationsContext);
 	const [shouldRender, changeShouldRender] = useState(false)
 	const axiosPrivate = useAxiosPrivate();
+	const { addNotifications } = useContext(NotificationsContext);
 	const controller = new AbortController();
 	const { auth } = useAuth();
 
@@ -45,7 +46,7 @@ function Notifications() {
 				{ signal: controller.signal}
 			);
 	
-			isMounted && changeNotifications(response.data.notifications);
+			isMounted && addNotifications(response.data.notifications);
 		
 		} catch(e) {
 			console.error(e);
@@ -78,7 +79,7 @@ function Notifications() {
 					notifications.length === 0 ? (
 						<div className="text-center">No notifications at the moment.</div>
 					) : (
-						notifications.map((notification) => (
+						notifications.map((notification: any) => (
 							<NotificationCard 
 								data={notification} 
 								onChange= {(value: boolean) => changeShouldRender(value)}

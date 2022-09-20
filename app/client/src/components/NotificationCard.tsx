@@ -52,6 +52,7 @@ function NotificationCard(props: any) {
 				),
 				{ signal: controller.signal }
 			);
+			toggling();
 			props.onChange(true);
 		} catch(e) {
 			console.error(e);
