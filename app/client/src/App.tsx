@@ -56,7 +56,7 @@ function App() {
 						<Route path="/" element={<Landing />}>
 							<Route path="/" element={<Home />} />
 							<Route path="explore" element={<Explore />} />
-							<Route path="something" element={<Something />} />
+							<Route path="allReports" element={<Something />} />
 							<Route path="reports" element={<Reports />} />
 							<Route path="drafts" element={<Drafts />} />
 							<Route path="shared" element={<Shared />} />

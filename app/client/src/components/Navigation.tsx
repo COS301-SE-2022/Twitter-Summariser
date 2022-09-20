@@ -267,11 +267,11 @@ function Navigation() {
 
 				<div
 					className="pt-4 flex flex-row changeColor"
-					key={(2).toString()}
+					key={(3).toString()}
 					onClick={publishHandler}
 				>
 					<Link
-						to="/something"
+						to="/allReports"
 						className="flex flex-row items-center"
 						onClick={() => pageHandler("something")}
 					>
