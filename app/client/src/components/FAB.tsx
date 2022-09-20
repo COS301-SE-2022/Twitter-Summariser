@@ -16,12 +16,12 @@ function FAB() {
         dateCreated: (new Date()).toString(),
         senderUsername: "tlholo",
         senderUrl: "assets/profile.png",
-        content: "The queen"
+        content: "Queen Elizabeth"
     }
 
     const modal = (
-        <div className="fixed flex items-center inset-0 justify-center bg-black opacity-75">
-            <div className="bg-white rounded opacity-100  text-black"> 
+        <div className="fixed flex items-center inset-0 justify-center bg-black/75">
+            <div className="bg-white rounded max-w-sm  text-black"> 
                 <div className="flex flex-row content-center p-2.5">
                     <h3 className=" text-lg text-center font-bold"> Notifications </h3>
                     <button onClick={toggling} type="button" className="absolute right-8">
@@ -44,9 +44,9 @@ function FAB() {
     );
 
     return (
-        <div   className="fixed flex z-90  w-16 h-16 lg:hidden rounded-full bg-black justify-center items-center  bottom-8 right-8 hover:cursor">
-			<div onClick={toggling}>
-                <BsFillBellFill style={{ fill: "white" }} />
+        <div>
+			<div className="fixed flex w-16 h-16 lg:hidden rounded-full bg-midnight-blue justify-center items-center  bottom-8 right-8" onClick={toggling}>
+                <BsFillBellFill style={{ fill: "white", transform: isOpen ? "rotate(45deg)" : "none"}} />
             </div>
 			
 			{isOpen && (
