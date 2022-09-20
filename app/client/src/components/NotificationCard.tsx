@@ -64,7 +64,7 @@ function NotificationCard(props: any) {
 				<BsThreeDotsVertical />
 			</div>
 			{isOpen && (
-				<ul className="absolute bg-white shadow-lg text-sm w-36 p-3 md:p-5 space-y-3 ">
+				<ul className="absolute right-5 bg-white shadow-lg text-sm w-36 p-3 md:p-5 space-y-3 ">
 					<li className="flex flex-row ">Mark as read</li>
 					<li className="flex flex-row "> 
 							<div onClick={deleteNotificationHandler}>
