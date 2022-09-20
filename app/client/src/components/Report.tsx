@@ -19,6 +19,7 @@ function Report() {
 	// console.log("here");
 
 	const style = { fontSize: "1.3rem" };
+	const style2 = { fontSize: "1.5rem" };
 	const styleNew = { fontSize: "1.5rem", color: "green" };
 	const iconStyle3 = { fontSize: "1.5rem", color: "red" };
 	const iconStyle4 = { fontSize: "1.8rem", color: "red" };
@@ -810,6 +811,32 @@ function Report() {
 									</div>
 
 									<div className="flex flex-row items-end p-4 justify-between items-center">
+										{!isPublished() && !isViewer() && !checkedSentiment && (
+											<div
+												className=""
+												data-bs-toggle="tooltip"
+												title="Show sentiment analysis"
+											>
+												<button type="submit">
+													<AiOutlineEye style={style2} onClick={checkedHandler} />
+												</button>
+											</div>
+										)}
+
+										{!isPublished() && !isViewer() && checkedSentiment && (
+											<div
+												className=""
+												data-bs-toggle="tooltip"
+												title="Hide sentiment analysis"
+											>
+												<button type="submit">
+													<AiOutlineEyeInvisible style={style2} onClick={checkedHandler} />
+												</button>
+											</div>
+										)}
+
+										<div className="">&nbsp;&nbsp;</div>
+
 										{isOwner() && (
 											<div
 												className=""
@@ -950,7 +977,7 @@ function Report() {
 								</div>
 							)} */}
 
-							{!isPublished() && !isViewer() && !checkedSentiment && (
+							{/* {!isPublished() && !isViewer() && !checkedSentiment && (
 								<div
 									className=""
 									data-bs-toggle="tooltip"
@@ -972,7 +999,7 @@ function Report() {
 										<AiOutlineEyeInvisible style={style} onClick={checkedHandler} />
 									</button>
 								</div>
-							)}
+							)} */}
 
 							{pulse && pulseOutput}
 
