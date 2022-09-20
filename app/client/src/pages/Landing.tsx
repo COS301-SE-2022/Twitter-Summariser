@@ -11,6 +11,7 @@ import useLogout from "../hooks/useLogout";
 import useAuth from "../hooks/useAuth";
 
 import { ScrollToTop } from "../components/scroll/ScrollToTop";
+import FAB from "../components/FAB";
 
 function Landing() {
 	const { auth } = useAuth();
@@ -116,6 +117,8 @@ function Landing() {
 				<Notifications />
 			</div>
 			<Toaster />
+
+			<FAB/>
 		</div>
 	);
 }
