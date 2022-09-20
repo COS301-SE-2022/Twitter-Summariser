@@ -705,7 +705,7 @@ function Report() {
 			await axiosPrivate.post("deleteReport", JSON.stringify(resultDetails), {
 				signal: controller.signal
 			});
-			navigate("/drafts");
+			navigate("/allReports");
 		} catch (err) {
 			console.error(err);
 		}
