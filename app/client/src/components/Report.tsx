@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
 import { GrCopy } from "react-icons/gr";
+import { GiConfirmed, GiCancel } from "react-icons/gi";
 import { BsArrowDown, BsArrowUp, BsShare } from "react-icons/bs";
 import { BiErrorCircle } from "react-icons/bi";
 import { AiOutlineCheckCircle, AiOutlineEye, AiOutlineEyeInvisible, AiFillEdit } from "react-icons/ai";
@@ -67,14 +68,30 @@ function Report() {
 	const sentimentColor3 = "red";
 
 	const [editTitle, setEditTitle] = useState(false);
+	const [titleValue, setTitleValue] = useState("");
 
-	const editTitleHandler = () => {
+	const editTitleHandler = (editType : boolean) => {
 		if(editTitle) {
+			if(editType){
+				setTitle(titleValue);
+			}
 			setEditTitle(false);
 		} else {
 			setEditTitle(true);
 		}
 	}
+
+	// const cancelEditTitleHandler = () => {
+	// 	if(editTitle) {
+	// 		setEditTitle(false);
+	// 	} else {
+	// 		setEditTitle(true);
+	// 	}
+	// }
+
+	const editTitleInputHandler = (event: any) => {
+		setTitleValue(event.target.value);
+	};
 
 	// const checkedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
 	// 	setCheckedSentiment(event.target.checked);
@@ -823,7 +840,37 @@ function Report() {
 												title="Edit Title"
 											>
 												<button type="submit">
-													<AiFillEdit style={style} onClick={editTitleHandler} />
+													<AiFillEdit style={style} onClick={() => editTitleHandler(true)} />
+												</button>
+											</div>
+
+										</div>}
+										{editTitle && <div className="flex flex-row items-end justify-between items-center">
+												<input
+													type="edit"
+													id="edit-title"
+													className="p-3 pl-10 w-11/12 text-sm text-gray-900 bg-gray-50 rounded-full border-gray-200 border focus:outline-none focus:ring focus:border-blue-500"
+													value={titleValue}
+													onChange={editTitleInputHandler}
+													placeholder={title}
+												/>
+												<div className="">&nbsp;&nbsp;</div>
+											<div
+												className=""
+												data-bs-toggle="tooltip"
+												title="Update Title"
+											>
+												<button type="submit">
+													<GiConfirmed style={style} onClick={() => editTitleHandler(true)} />
+												</button>
+											</div>
+											<div
+												className=""
+												data-bs-toggle="tooltip"
+												title="Cancel"
+											>
+												<button type="submit">
+													<GiCancel style={style} onClick={() => editTitleHandler(false)} />
 												</button>
 											</div>
 
