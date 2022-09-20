@@ -267,7 +267,7 @@ function Navigation() {
 
 				<div
 					className="pt-4 flex flex-row changeColor"
-					key={(2).toString()}
+					key={(3).toString()}
 					onClick={publishHandler}
 				>
 					<Link
