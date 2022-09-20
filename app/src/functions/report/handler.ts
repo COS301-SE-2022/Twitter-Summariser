@@ -32,14 +32,15 @@ export const generateReport = middyfy(
       		}
 
 			//Summarizing text
-			// const responseTS = await axiosTextSummmariser.post(
-			// 	"summariser",
-			// 	JSON.stringify({
-			// 		text: twts,
-			// 		min: 100,
-			// 		max: 200
-			// 	})
-			// );
+			const responseTS = await axiosTextSummmariser.post(
+				"summariser",
+				{
+					text: twts,
+					min: 100,
+					max: 200
+				}
+			);
+
 			// Adding blocks
 			let x = -1;
 			tweets.map(async (tweet) => {
@@ -68,7 +69,7 @@ export const generateReport = middyfy(
 				reportID: id,
 				blockType: "RICHTEXT",
 				position: 0,
-				richText: twts
+				richText: responseTS.data.text
 			});
 
 			const sid = `ST-${randomUUID()}`;
@@ -85,7 +86,7 @@ export const generateReport = middyfy(
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify({ Report: report, summarisedText:  twts})
+				body: JSON.stringify({ Report: report, summarisedText: responseTS.data.text})
 			};
 		} catch (e) {
 			return {
@@ -484,7 +485,6 @@ export const getSharedReport = middyfy(
 	}
 );
 
-// Adding a custom tweet
 export const getAllMyPublishedReports = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
@@ -499,6 +499,28 @@ export const getAllMyPublishedReports = middyfy(
 			reports.sort((a, b) => {
 				return new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime();
 			});
+
+			return {
+				statusCode: statusCodes.Successful,
+				headers: header,
+				body: JSON.stringify(reports)
+			};
+		} catch (e) {
+			return {
+				statusCode: statusCodes.internalError,
+				headers: header,
+				body: JSON.stringify(e)
+			};
+		}
+	}
+);
+
+export const editTitle = middyfy(
+	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+		try {
+			const params = JSON.parse(event.body);
+
+			const reports = await ServicesLayer.reportService.updateReportTitle(params.title, params.reportID);
 
 			return {
 				statusCode: statusCodes.Successful,
