@@ -98,7 +98,7 @@ function MobileNavigation(props: any) {
 
 				<div className="pt-4 flex flex-row ml-4" key={(3).toString()}>
 					<Link
-						to="/something"
+						to="/allReports"
 						className="flex flex-row items-center"
 						onClick={() => pageHandler()}
 					>
