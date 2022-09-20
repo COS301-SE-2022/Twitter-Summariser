@@ -4,7 +4,7 @@ import { TiDocumentText } from "react-icons/ti";
 import { RiDraftLine } from "react-icons/ri";
 // import { BsShare } from "react-icons/bs";
 import { HiOutlineLogin } from "react-icons/hi";
-// import { AiOutlineHistory } from "react-icons/ai";
+import { AiOutlineHistory } from "react-icons/ai";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useLogout from "../hooks/useLogout";
@@ -146,7 +146,7 @@ function MobileNavigation(props: any) {
 						</div>
 						<div>&nbsp; Shared</div>
 					</Link>
-				</div>
+		</div> */}
 
 				<div className="pt-4 flex flex-row ml-4" key={(6).toString()}>
 					<Link
@@ -159,7 +159,7 @@ function MobileNavigation(props: any) {
 						</div>
 						<div>&nbsp; History</div>
 					</Link>
-				</div> */}
+				</div>
 
 				<div className="pt-4 flex flex-row ml-4" key={(7).toString()}>
 					<Link
