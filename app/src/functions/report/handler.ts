@@ -485,7 +485,6 @@ export const getSharedReport = middyfy(
 	}
 );
 
-// Adding a custom tweet
 export const getAllMyPublishedReports = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
@@ -500,6 +499,28 @@ export const getAllMyPublishedReports = middyfy(
 			reports.sort((a, b) => {
 				return new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime();
 			});
+
+			return {
+				statusCode: statusCodes.Successful,
+				headers: header,
+				body: JSON.stringify(reports)
+			};
+		} catch (e) {
+			return {
+				statusCode: statusCodes.internalError,
+				headers: header,
+				body: JSON.stringify(e)
+			};
+		}
+	}
+);
+
+export const editTitle = middyfy(
+	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+		try {
+			const params = JSON.parse(event.body);
+
+			const reports = await ServicesLayer.reportService.updateReportTitle(params.title, params.reportID);
 
 			return {
 				statusCode: statusCodes.Successful,
