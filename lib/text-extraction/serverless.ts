@@ -18,6 +18,10 @@ const serverlessConfiguration: AWS = {
 		}
 	},
 
+	plugins: [
+		"serverless-offline"
+	],
+
 	package: {
 		individually: true
 	},
@@ -34,6 +38,12 @@ const serverlessConfiguration: AWS = {
 			},
 			platform: "node",
 			concurrency: 10
+		},
+
+		"serverless-offline": {
+			httpPort: 5000,
+			websocketPort: 5001,
+			lambdaPort: 5002
 		}
 	},
 
