@@ -200,3 +200,21 @@ export const getAllMyPublishedReports = {
 		}
 	]
 };
+
+export const editTitle = {
+	handler: `${handlerPath(__dirname)}/handler.editTitle`,
+	description: "A function that allows user to change the title",
+	events: [
+		{
+			http: {
+				method: "post",
+				path: "getAllMyPublishedReports/",
+				cors: true,
+				authorizer: {
+					name: "verifyJWT",
+					type: "Token"
+				}
+			}
+		}
+	]
+};
