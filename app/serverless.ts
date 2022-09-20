@@ -30,7 +30,8 @@ import {
 	unpublishReport,
 	deleteReport,
 	getSharedReport,
-	getAllMyPublishedReports
+	getAllMyPublishedReports,
+	editTitle
 } from "@functions/report";
 import { profileImageUpload } from "@functions/profileImage";
 import { editBlock, deleteReportBlock } from "@functions/reportBlock";
@@ -154,7 +155,8 @@ const serverlessConfiguration: AWS = {
 		backupDynamoDB,
 		getNotifications,
 		deleteNotification,
-		getTrendingTopics
+		getTrendingTopics,
+		editTitle
 	},
 
 	package: {
