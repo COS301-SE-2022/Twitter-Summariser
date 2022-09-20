@@ -208,7 +208,7 @@ export const editTitle = {
 		{
 			http: {
 				method: "post",
-				path: "getAllMyPublishedReports/",
+				path: "editTitle/",
 				cors: true,
 				authorizer: {
 					name: "verifyJWT",
