@@ -62,12 +62,24 @@ export const generateReport = middyfy(
 				author: params.author
 			});
 
+			const tb = `BK-${randomUUID()}`;
 			await ServicesLayer.reportBlockService.addReportBlock({
-				reportBlockID: `BK-${randomUUID()}`,
+				reportBlockID: tb,
 				reportID: id,
 				blockType: "RICHTEXT",
 				position: 0,
 				richText: twts
+			});
+
+			const sid = `ST-${randomUUID()}`;
+			await ServicesLayer.textStyleService.addStyle({
+				textStylesID: sid,
+				reportBlockID: tb,
+				align: " text-left",
+				bold: " font-bold",
+				colour: " text-black",
+				italic: "",
+				size: " text-xs"
 			});
 
 			return {
