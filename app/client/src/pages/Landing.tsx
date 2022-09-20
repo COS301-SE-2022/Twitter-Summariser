@@ -11,7 +11,7 @@ import useLogout from "../hooks/useLogout";
 import useAuth from "../hooks/useAuth";
 
 import { ScrollToTop } from "../components/scroll/ScrollToTop";
-import FAB from "../components/FAB";
+import MobileNotifications from "../components/MobileNotifications";
 import NotificationsProvider from "../context/NotificationsContext";
 
 function Landing() {
@@ -125,7 +125,7 @@ function Landing() {
 			</div>
 			<Toaster />
 
-			<FAB/>
+			<MobileNotifications/>
 			</NotificationsProvider>
 		</div>
 	);

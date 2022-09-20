@@ -5,7 +5,7 @@ import NotificationCard from "./NotificationCard";
 import { NotificationsContext } from "../context/NotificationsContext";
 
 
-function FAB() {
+function MobileNotifications() {
     const { notifications} = useContext(NotificationsContext);
 
     const [isOpen, setIsOpen] = useState(false);
@@ -56,4 +56,4 @@ function FAB() {
     );
 }
 
-export default FAB;
+export default MobileNotifications;
