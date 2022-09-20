@@ -70,10 +70,30 @@ function Report() {
 	const [editTitle, setEditTitle] = useState(false);
 	const [titleValue, setTitleValue] = useState("");
 
-	const editTitleHandler = (editType : boolean) => {
+	const editTitleHandler = async (editType : boolean) => {
 		if(editTitle) {
 			if(editType){
 				setTitle(titleValue);
+				// const titleVal = title;
+
+				const editTitleDetails = {
+				reportID: repID,
+				apiKey: auth.apiKey,
+				title: titleValue
+			};
+
+			// console.log(titleValue);
+
+
+			try {
+				await axiosPrivate.post("editTitle", JSON.stringify(editTitleDetails), {
+					signal: controller.signal
+				});
+				// changeShouldRender(true);
+			} catch (err) {
+				console.error(err);
+			}
+
 			}
 			setEditTitle(false);
 		} else {
@@ -91,6 +111,8 @@ function Report() {
 
 	const editTitleInputHandler = (event: any) => {
 		setTitleValue(event.target.value);
+		// console.log(titleValue);
+
 	};
 
 	// const checkedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -847,12 +869,12 @@ function Report() {
 										</div>}
 										{editTitle && <div className="flex flex-row items-end justify-between items-center">
 												<input
-													type="edit"
+													type="search"
 													id="edit-title"
 													className="p-3 pl-10 w-11/12 text-sm text-gray-900 bg-gray-50 rounded-full border-gray-200 border focus:outline-none focus:ring focus:border-blue-500"
 													value={titleValue}
 													onChange={editTitleInputHandler}
-													placeholder={title}
+													placeholder="Enter new title"
 												/>
 												<div className="">&nbsp;&nbsp;</div>
 											<div
