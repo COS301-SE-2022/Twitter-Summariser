@@ -4,9 +4,9 @@ import { Tweet } from "react-twitter-widgets";
 import { GrCopy } from "react-icons/gr";
 import { BsArrowDown, BsArrowUp, BsShare } from "react-icons/bs";
 import { BiErrorCircle } from "react-icons/bi";
-import { AiOutlineCheckCircle } from "react-icons/ai";
+import { AiOutlineCheckCircle, AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { MdDeleteOutline } from "react-icons/md";
-import { Checkbox } from "@mui/material";
+// import { Checkbox } from "@mui/material";
 import Text from "./Text";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
@@ -19,6 +19,7 @@ function Report() {
 	// console.log("here");
 
 	const style = { fontSize: "1.3rem" };
+	const style2 = { fontSize: "1.5rem" };
 	const styleNew = { fontSize: "1.5rem", color: "green" };
 	const iconStyle3 = { fontSize: "1.5rem", color: "red" };
 	const iconStyle4 = { fontSize: "1.8rem", color: "red" };
@@ -65,8 +66,16 @@ function Report() {
 	const sentimentColor2 = "yellow";
 	const sentimentColor3 = "red";
 
-	const checkedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setCheckedSentiment(event.target.checked);
+	// const checkedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+	// 	setCheckedSentiment(event.target.checked);
+	// };
+
+	const checkedHandler = () => {
+		if(checkedSentiment) {
+			setCheckedSentiment(false);
+		} else {
+			setCheckedSentiment(true);
+		}
 	};
 
 	const shareHandler = () => {
@@ -632,7 +641,7 @@ function Report() {
 			await axiosPrivate.post("cloneReport", JSON.stringify(resultDetails), {
 				signal: controller.signal
 			});
-			navigate("/drafts");
+			navigate("/allReports");
 		} catch (err) {
 			console.error(err);
 		}
@@ -705,7 +714,7 @@ function Report() {
 			await axiosPrivate.post("deleteReport", JSON.stringify(resultDetails), {
 				signal: controller.signal
 			});
-			navigate("/drafts");
+			navigate("/allReports");
 		} catch (err) {
 			console.error(err);
 		}
@@ -802,6 +811,32 @@ function Report() {
 									</div>
 
 									<div className="flex flex-row items-end p-4 justify-between items-center">
+										{!isPublished() && !isViewer() && !checkedSentiment && (
+											<div
+												className=""
+												data-bs-toggle="tooltip"
+												title="Show sentiment analysis"
+											>
+												<button type="submit">
+													<AiOutlineEye style={style2} onClick={checkedHandler} />
+												</button>
+											</div>
+										)}
+
+										{!isPublished() && !isViewer() && checkedSentiment && (
+											<div
+												className=""
+												data-bs-toggle="tooltip"
+												title="Hide sentiment analysis"
+											>
+												<button type="submit">
+													<AiOutlineEyeInvisible style={style2} onClick={checkedHandler} />
+												</button>
+											</div>
+										)}
+
+										<div className="">&nbsp;&nbsp;</div>
+
 										{isOwner() && (
 											<div
 												className=""
@@ -931,7 +966,7 @@ function Report() {
 
 							<br />
 
-							{!isPublished() && !isViewer() && (
+							{/* {!isPublished() && !isViewer() && (
 								<div className="mb-0">
 									<p className="">Show sentiment analysis:</p>
 									<Checkbox
@@ -940,7 +975,31 @@ function Report() {
 										inputProps={{ "aria-label": "controlled" }}
 									/>
 								</div>
+							)} */}
+
+							{/* {!isPublished() && !isViewer() && !checkedSentiment && (
+								<div
+									className=""
+									data-bs-toggle="tooltip"
+									title="Show sentiment analysis"
+								>
+									<button type="submit">
+										<AiOutlineEye style={style} onClick={checkedHandler} />
+									</button>
+								</div>
 							)}
+
+							{!isPublished() && !isViewer() && checkedSentiment && (
+								<div
+									className=""
+									data-bs-toggle="tooltip"
+									title="Hide sentiment analysis"
+								>
+									<button type="submit">
+										<AiOutlineEyeInvisible style={style} onClick={checkedHandler} />
+									</button>
+								</div>
+							)} */}
 
 							{pulse && pulseOutput}
 
