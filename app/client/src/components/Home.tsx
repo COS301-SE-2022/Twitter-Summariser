@@ -425,7 +425,7 @@ function Home() {
 							<input
 								type="search"
 								id="default-search"
-								className="p-3 pl-10 w-11/12 text-sm text-gray-900 bg-gray-50 rounded-full border-gray-200 border focus:outline-none focus:ring focus:border-blue-500"
+								className="pl-10 w-11/12 text-sm text-gray-900 bg-gray-50 rounded-full border-gray-200 border focus:outline-none focus:ring focus:border-blue-500"
 								value={enteredSearch}
 								onChange={searchHandler}
 								placeholder="Search Twitter..."
