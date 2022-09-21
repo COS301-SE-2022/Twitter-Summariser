@@ -7,13 +7,16 @@ import ServicesLayer from "../../services";
 import { randomUUID } from "crypto";
 import Notification from "@model/notification/notification.model";
 
+	const eventBridge = new EventBridge();
+	const lambda = new Lambda();
+
 // Generation of reports
 export const reportScheduler = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
 			const params = JSON.parse(event.body);
-			const eventBridge = new EventBridge();
-			const lambda = new Lambda();
+			/*const eventBridge = new EventBridge();
+			const lambda = new Lambda();*/
 
 			const date_time = new Date(params.fullUTCDate);
 			const ruleName = "SR-" + randomUUID();
