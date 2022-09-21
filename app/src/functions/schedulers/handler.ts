@@ -101,7 +101,7 @@ export const genScheduledReport = async (params): Promise<void> => {
 		let responseST: any;
 
 		const searchParams = {
-			FunctionName: "text-summarisation-dev-summarise",
+			FunctionName: "twitter-summariser-dev-searchTweets",
 			InvocationType: "RequestResponse",
 			Payload: JSON.stringify({ 
 				apiKey: params.apiKey,
@@ -132,7 +132,7 @@ export const genScheduledReport = async (params): Promise<void> => {
 		let responseGR: any;
 
 		const generateParams = {
-			FunctionName: "text-summarisation-dev-summarise",
+			FunctionName: "twitter-summariser-dev-generateReport",
 			InvocationType: "RequestResponse",
 			Payload: JSON.stringify({ 
 				apiKey: params.apiKey,
