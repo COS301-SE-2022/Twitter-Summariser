@@ -1,11 +1,31 @@
 import { createContext, useState } from "react";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import useAuth from "../hooks/useAuth";
 
 export const NotificationsContext = createContext<any>({});
 
 function NotificationsProvider({children}: any) {
     
-    
+    const axiosPrivate = useAxiosPrivate();
+	const controller = new AbortController();
+	const { auth } = useAuth();
+
     const [notifications, setNotifications] = useState<any[]>([]);
+
+    const getNotifications =async (isMounted: boolean) => {
+        try {
+			const response = await axiosPrivate.post(
+				"getNotifications",
+				JSON.stringify({apiKey: auth.apiKey}),
+				{ signal: controller.signal}
+			);
+	
+			isMounted && setNotifications(response.data.notifications);
+		
+		} catch(e) {
+			console.error(e);
+		}
+    }
 
     const addNotifications =async (notification:any) => {
         setNotifications(
@@ -23,7 +43,7 @@ function NotificationsProvider({children}: any) {
         setNotifications(notifications);
     }
 
-    return <NotificationsContext.Provider value={{notifications, addNotifications, removeNotification}}>
+    return <NotificationsContext.Provider value={{notifications, getNotifications, addNotifications, removeNotification}}>
         {children}
     </NotificationsContext.Provider>
 }

@@ -3,8 +3,8 @@
 // import toast from "react-hot-toast";
 import { useEffect, useState, useContext } from "react";
 import { NotificationsContext } from "../context/NotificationsContext";
-import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import useAuth from "../hooks/useAuth";
+// import useAxiosPrivate from "../hooks/useAxiosPrivate";
+// import useAuth from "../hooks/useAuth";
 import NotificationCard from "./NotificationCard";
 
 // const notify = () => {
@@ -31,27 +31,27 @@ import NotificationCard from "./NotificationCard";
 // }
 
 function Notifications() {
-	const { notifications} = useContext(NotificationsContext);
+	const { notifications, getNotifications} = useContext(NotificationsContext);
 	const [shouldRender, changeShouldRender] = useState(false)
-	const axiosPrivate = useAxiosPrivate();
-	const { addNotifications } = useContext(NotificationsContext);
+	// const axiosPrivate = useAxiosPrivate();
+	// const { addNotifications } = useContext(NotificationsContext);
 	const controller = new AbortController();
-	const { auth } = useAuth();
+	// const { auth } = useAuth();
 
-	const getNotifications =async (isMounted: boolean) => {
-		try {
-			const response = await axiosPrivate.post(
-				"getNotifications",
-				JSON.stringify({apiKey: auth.apiKey}),
-				{ signal: controller.signal}
-			);
+	// const getNotifications =async (isMounted: boolean) => {
+	// 	try {
+	// 		const response = await axiosPrivate.post(
+	// 			"getNotifications",
+	// 			JSON.stringify({apiKey: auth.apiKey}),
+	// 			{ signal: controller.signal}
+	// 		);
 	
-			isMounted && addNotifications(response.data.notifications);
+	// 		isMounted && addNotifications(response.data.notifications);
 		
-		} catch(e) {
-			console.error(e);
-		}
-	}
+	// 	} catch(e) {
+	// 		console.error(e);
+	// 	}
+	// }
 
 	useEffect(() => {
 		let isMounted = true;

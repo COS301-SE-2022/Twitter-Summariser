@@ -1,4 +1,4 @@
-import { useState, useContext} from "react";
+import { useState, useContext, useEffect} from "react";
 import { BsFillBellFill } from "react-icons/bs";
 import { IoCloseOutline } from "react-icons/io5";
 import NotificationCard from "./NotificationCard";
@@ -6,13 +6,32 @@ import { NotificationsContext } from "../context/NotificationsContext";
 
 
 function MobileNotifications() {
-    const { notifications} = useContext(NotificationsContext);
+    const { notifications, getNotifications} = useContext(NotificationsContext);
 
     const [isOpen, setIsOpen] = useState(false);
+    const [shouldRender, changeShouldRender] = useState(false);
+    const controller = new AbortController();
+    
 	const toggling = () => {
         console.log(isOpen);
         setIsOpen(!isOpen); 
     }
+
+    useEffect(() => {
+		let isMounted = true;
+		getNotifications(isMounted);
+
+		return () => {
+			isMounted = false;
+			controller.abort();
+		}
+	}, []);
+
+	if (shouldRender === true) {
+		const isMounted = true;
+		getNotifications(isMounted);
+		changeShouldRender(false);
+	}
 
     const modal = () => (
             <div className="lg:hidden fixed flex items-center inset-0 justify-center bg-black/75">
@@ -33,6 +52,7 @@ function MobileNotifications() {
                                 <NotificationCard 
                                     data={notification}
                                     key={notification.id}
+                                    onChange= {(value: boolean) => changeShouldRender(value)}
                                 />
                             ))
                         )

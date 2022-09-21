@@ -1,17 +1,18 @@
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import useAuth from "../hooks/useAuth";
 
 function NotificationCard(props: any) {
 	const [isOpen, setIsOpen] = useState(false);
+	const navigate = useNavigate();
 	const toggling = () => setIsOpen(!isOpen);
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
 	const { auth } = useAuth();
 
-	console.log(props.data.senderUrl)
 	const imageURL =
 		props.data.senderUrl === "assets/profile.png"
 			? props.data.senderUrl
@@ -25,6 +26,10 @@ function NotificationCard(props: any) {
 		}
 		return "A newly generated report has landed, ";
 	};
+
+	const navigateToReports = () => {
+		navigate("/allReports");
+	}
 
 	const timeDifference = () => {
 		let tString;
@@ -100,6 +105,7 @@ function NotificationCard(props: any) {
 	return (
 		<div className="flex flex-row rounded space-x-5 px-3 py-3 items-center cursor-pointer hover:shadow-md"
 			key={props.data.id}
+			onClick={navigateToReports}
 		>
 			<div>
 				<img
