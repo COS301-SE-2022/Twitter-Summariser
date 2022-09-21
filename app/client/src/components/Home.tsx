@@ -4,6 +4,8 @@ import { Tweet } from "react-twitter-widgets";
 import { BsThreeDotsVertical } from "react-icons/bs";
 // import { Checkbox } from "@mui/material";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+// import { Checkbox } from "@mui/material";
+import axios from "axios";
 import ExploreCard from "./ExploreCard";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
@@ -100,8 +102,18 @@ function Home() {
 		};
 
 		try {
-			const response = await axiosPrivate.post("generateReport", JSON.stringify(searchData));
+
+			const response = await axios.post(
+        		"https://betuh6rejrtpyywnwkbckrdnea0bypye.lambda-url.us-east-1.on.aws/",
+        		JSON.stringify(searchData),
+        		{
+          			headers: {
+            			"Content-Type": "application/json",
+        			}
+        		}
+      		);
 			changeGenerateLoading(false);
+			console.log(response.data.report);
 			changeDate(response.data.Report.dateCreated.substring(0, 10));
 			changeDraftReport(response.data.Report.reportID);
 

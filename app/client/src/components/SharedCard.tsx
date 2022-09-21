@@ -17,7 +17,8 @@ function SharedCard(props: any) {
 		navigate(newReportLink);
 	};
 	return (
-		<div className="pt-4 pb-4 pl-1 pr-1 m-2 mt-2 bg-gradient-to-b from-blue-50 via-sky-100 border rounded-lg transform hover:shadow-md hover:scale-105 transition duration-200 ease-in hover:bg-blue-200">
+		<div className="pt-4 pb-4 pl-10 pr-10 m-2 mt-2 bg-gradient-to-b from-blue-50 via-sky-100 border rounded-lg transform hover:shadow-md hover:scale-105 transition duration-200 ease-in hover:bg-blue-200">
+			<div className=" mx-20 p-0 my-0"> </div>
 			<div className="flex items-center justify-center">
 				<p aria-label="Author" title="Author" className="mr-3 ">
 					<img
@@ -40,12 +41,12 @@ function SharedCard(props: any) {
 
 			<p
 				aria-label="Article"
-				title="Jingle Bells"
+				title={props.data.title}
 				className="flex items-center justify-center mt-2 mb-3 text-2xl font-bold leading-5 text-black transition-colors duration-200 hover:text-deep-purple-accent-400"
 			>
 				{props.data.title}
 			</p>
-			<p className="flex mb-2 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase">
+			<p className="flex mb-2 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase h-10">
 				<Carousel controls={false} indicators={false}>
 					<Carousel.Item>
 						<span className=" font-semiboldtext-deep-purple-accent-400">
@@ -65,7 +66,7 @@ function SharedCard(props: any) {
 				<div className="items-center py-2 px-3 text-xs font-semibold text-center text-white bg-dark-cornflower-blue rounded-md  hover:bg-midnight-blue group hover:shadow">
 					<button onClick={viewReport} type="submit">
 						{" "}
-						VIEW REPORT{" "}
+						VIEW{" "}
 					</button>
 				</div>
 			</div>

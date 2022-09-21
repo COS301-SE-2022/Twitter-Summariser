@@ -88,14 +88,14 @@ function DraftCard(props: any) {
 							<div className="items-center py-2 px-3 text-xs font-semibold text-center text-white bg-dark-cornflower-blue rounded-md  hover:bg-midnight-blue group hover:shadow">
 								<button onClick={viewDraftReport} type="submit">
 									{" "}
-									VIEW DRAFT{" "}
+									VIEW{" "}
 								</button>
 							</div>
 						</Link>
 						<div className="inline-flex items-center py-2 px-3 text-xs font-semibold text-center bg-dark-cornflower-blue rounded-md text-white hover:bg-midnight-blue group hover:shadow">
 							<button onClick={optionhandler} type="submit">
 								{" "}
-								DELETE DRAFT{" "}
+								DELETE{" "}
 							</button>
 						</div>
 					</div>

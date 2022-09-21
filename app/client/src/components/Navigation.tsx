@@ -1,6 +1,7 @@
 import { GoHome } from "react-icons/go";
 import { BiHash } from "react-icons/bi";
 import { TiDocumentText } from "react-icons/ti";
+import { AiOutlineHistory } from "react-icons/ai";
 
 import { RiDraftLine } from "react-icons/ri";
 import { CgProfile } from "react-icons/cg";
@@ -50,7 +51,8 @@ function Navigation() {
 
 	// const [sharedStyle, changeSharedStyle] = useState(pageDefault);
 
-	// const [historyStyle, changeHistoryStyle] = useState(pageDefault);
+	const [historyStyle, changeHistoryStyle] = useState(pageDefault);
+	const [historyStyle2, changeHistoryStyle2] = useState(defaultStyle);
 
 	const [summStyle, changeSummStyle] = useState(pageDefault);
 	const [summStyle2, changeSummStyle2] = useState(defaultStyle);
@@ -69,7 +71,7 @@ function Navigation() {
 		// changePublishStyle(pageDefault);
 		// changeDraftsStyle(pageDefault);
 		// changeSharedStyle(pageDefault);
-		// changeHistoryStyle(pageDefault);
+		changeHistoryStyle(pageDefault);
 		changeSummStyle(pageDefault);
 		changeProfileStyle(pageDefault);
 
@@ -79,6 +81,7 @@ function Navigation() {
 
 		changeSummStyle2(defaultStyle);
 		changeProfileStyle2(defaultStyle);
+		changeHistoryStyle2(defaultStyle);
 
 		// setReportH(false);
 		changeReportStyle("hidden lg:block");
@@ -90,7 +93,7 @@ function Navigation() {
 		// changePublishStyle(pageDefault);
 		// changeDraftsStyle(pageDefault);
 		// changeSharedStyle(pageDefault);
-		// changeHistoryStyle(pageDefault);
+		changeHistoryStyle(pageDefault);
 		changeSummStyle(pageDefault);
 		changeProfileStyle(pageDefault);
 
@@ -100,6 +103,7 @@ function Navigation() {
 
 		changeSummStyle2(defaultStyle);
 		changeProfileStyle2(defaultStyle);
+		changeHistoryStyle2(defaultStyle);
 
 		// setReportH(false);
 		changeReportStyle("hidden lg:block");
@@ -114,13 +118,14 @@ function Navigation() {
 		// changePublishStyle(pageCurrent);
 		// changeDraftsStyle(pageDefault);
 		// changeSharedStyle(pageDefault);
-		// changeHistoryStyle(pageDefault);
+		changeHistoryStyle(pageDefault);
 		changeSummStyle(pageDefault);
 		changeProfileStyle(pageDefault);
 
 		changeHomeStyle2(defaultStyle);
 		changeExploreStyle2(defaultStyle);
 		changeReportStyle2(currentStyle);
+		changeHistoryStyle2(defaultStyle);
 
 		changeSummStyle2(defaultStyle);
 		changeProfileStyle2(defaultStyle);
@@ -166,25 +171,26 @@ function Navigation() {
 	// 	changeProfileStyle2(defaultStyle);
 	// }
 
-	// function historyHandler() {
-	// 	setReportH(true);
-	// 	changeReportStyle("hidden lg:block text-blue-800");
-	// 	changeHomeStyle(pageDefault);
-	// 	changeExploreStyle(pageDefault);
-	// 	changePublishStyle(pageDefault);
-	// 	changeDraftsStyle(pageDefault);
-	// 	changeSharedStyle(pageDefault);
-	// 	changeHistoryStyle(pageCurrent);
-	// 	changeSummStyle(pageDefault);
-	// 	changeProfileStyle(pageDefault);
+	function historyHandler() {
+		// setReportH(true);
+		changeReportStyle(pageDefault);
+		changeHomeStyle(pageDefault);
+		changeExploreStyle(pageDefault);
+		// changePublishStyle(pageDefault);
+		// changeDraftsStyle(pageDefault);
+		// changeSharedStyle(pageDefault);
+		changeHistoryStyle(pageCurrent);
+		changeSummStyle(pageDefault);
+		changeProfileStyle(pageDefault);
 
-	// 	changeHomeStyle2(defaultStyle);
-	// 	changeExploreStyle2(defaultStyle);
-	// 	changeReportStyle2(currentStyle);
+		changeHomeStyle2(defaultStyle);
+		changeExploreStyle2(defaultStyle);
+		changeReportStyle2(defaultStyle);
+		changeHistoryStyle2(currentStyle);
 
-	// 	changeSummStyle2(defaultStyle);
-	// 	changeProfileStyle2(defaultStyle);
-	// }
+		changeSummStyle2(defaultStyle);
+		changeProfileStyle2(defaultStyle);
+	}
 
 	function summHandler() {
 		// setReportH(false);
@@ -195,13 +201,14 @@ function Navigation() {
 		// changePublishStyle(pageDefault);
 		// changeDraftsStyle(pageDefault);
 		// changeSharedStyle(pageDefault);
-		// changeHistoryStyle(pageDefault);
+		changeHistoryStyle(pageDefault);
 		changeSummStyle(pageCurrent);
 		changeProfileStyle(pageDefault);
 
 		changeHomeStyle2(defaultStyle);
 		changeExploreStyle2(defaultStyle);
 		changeReportStyle2(defaultStyle);
+		changeHistoryStyle2(defaultStyle);
 
 		changeSummStyle2(currentStyle);
 		changeProfileStyle2(defaultStyle);
@@ -216,13 +223,14 @@ function Navigation() {
 		// changePublishStyle(pageDefault);
 		// changeDraftsStyle(pageDefault);
 		// changeSharedStyle(pageDefault);
-		// changeHistoryStyle(pageDefault);
+		changeHistoryStyle(pageDefault);
 		changeSummStyle(pageDefault);
 		changeProfileStyle(pageCurrent);
 
 		changeHomeStyle2(defaultStyle);
 		changeExploreStyle2(defaultStyle);
 		changeReportStyle2(defaultStyle);
+		changeHistoryStyle2(defaultStyle);
 		changeSummStyle2(defaultStyle);
 		changeProfileStyle2(currentStyle);
 	}
@@ -279,6 +287,23 @@ function Navigation() {
 							<TiDocumentText style={reportStyle2} />
 						</div>
 						<div className={reportStyle}>&nbsp; Report</div>
+					</Link>
+				</div>
+
+				<div
+					className="pt-4 flex flex-row changeColor"
+					key={(6).toString()}
+					onClick={historyHandler}
+				>
+					<Link
+						to="/history"
+						className="flex flex-row items-center"
+						onClick={() => pageHandler("Search History")}
+					>
+						<div className="items-end">
+							<AiOutlineHistory style={historyStyle2} />
+						</div>
+						<div className={historyStyle}>&nbsp; History</div>
 					</Link>
 				</div>
 

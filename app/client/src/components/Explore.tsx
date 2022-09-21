@@ -56,7 +56,7 @@ function Explore() {
 		<div data-testid="report">
 			{/* Api response comes here */}
 			<div className=" mt-3 pt-3 ">
-				<div className=" mt-4">
+				<div className=" mt-4 text-center">
 					<div className="flex flex-row justify-around">
 						<h1 className="text-3xl hidden lg:flex lg:flex-row lg:justify-center border-b pb-4 w-5/6 align-middle items-center border-slate-300">
 							Explore
