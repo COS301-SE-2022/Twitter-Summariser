@@ -81,7 +81,7 @@ function ExploreCard(props: any) {
 			>
 				{props.data.title}
 			</p>
-			<p className="flex mb-2 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase">
+			<p className="flex mb-2 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase h-10">
 				<Carousel controls={false} indicators={false}>
 					<Carousel.Item>
 						<span className=" font-semiboldtext-deep-purple-accent-400">
@@ -103,7 +103,7 @@ function ExploreCard(props: any) {
 					<div className="items-center py-2 px-3 text-xs font-semibold text-center text-white bg-dark-cornflower-blue rounded-md  hover:bg-midnight-blue group hover:shadow">
 						<button onClick={viewReport} type="submit">
 							{" "}
-							VIEW REPORT{" "}
+							VIEW{" "}
 						</button>
 					</div>
 				</Link>
