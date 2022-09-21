@@ -5,7 +5,7 @@ import { classNames } from "../utils/classNames";
 import Reports from "./Reports";
 import Drafts from "./Drafts";
 import Shared from "./Shared";
-import History from "./History";
+// import History from "./History";
 
 function Something() {
 	return (
@@ -53,7 +53,7 @@ function Something() {
 					>
 						Shared
 					</Tab>
-					<Tab
+					{/* <Tab
 						key="4"
 						className={({ selected }) =>
 							classNames(
@@ -64,7 +64,7 @@ function Something() {
 						}
 					>
 						History
-					</Tab>
+					</Tab> */}
 				</Tab.List>
 
 				<Tab.Panels className="mt-2">
@@ -95,7 +95,7 @@ function Something() {
 					>
 						<Shared />
 					</Tab.Panel>
-					<Tab.Panel
+					{/* <Tab.Panel
 						key="4"
 						className={classNames(
 							"rounded-xl bg-white",
@@ -103,7 +103,7 @@ function Something() {
 						)}
 					>
 						<History />
-					</Tab.Panel>
+					</Tab.Panel> */}
 				</Tab.Panels>
 			</Tab.Group>
 		</div>
