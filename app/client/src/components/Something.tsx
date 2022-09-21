@@ -68,31 +68,13 @@ function Something() {
 				</Tab.List>
 
 				<Tab.Panels className="mt-2">
-					<Tab.Panel
-						key="1"
-						className={classNames(
-							"rounded-xl bg-white",
-							"ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
-						)}
-					>
+					<Tab.Panel key="1" className={classNames("rounded-xl bg-white")}>
 						<Reports />
 					</Tab.Panel>
-					<Tab.Panel
-						key="2"
-						className={classNames(
-							"rounded-xl bg-white",
-							"ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
-						)}
-					>
+					<Tab.Panel key="2" className={classNames("rounded-xl bg-white")}>
 						<Drafts />
 					</Tab.Panel>
-					<Tab.Panel
-						key="3"
-						className={classNames(
-							"rounded-xl bg-white",
-							"ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
-						)}
-					>
+					<Tab.Panel key="3" className={classNames("rounded-xl bg-white")}>
 						<Shared />
 					</Tab.Panel>
 					{/* <Tab.Panel
