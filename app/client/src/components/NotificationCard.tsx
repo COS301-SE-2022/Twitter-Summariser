@@ -47,14 +47,14 @@ function NotificationCard(props: any) {
 			} else {
 				tString = `${diffMins} minutes ago`;
 			}
-		} else { 
-			if (diffSecs === 1) {
-				tString = `${diffSecs} second ago`;
-			} else {
-				tString = `${diffSecs} seconds ago`;
-			}
+		} else if (diffSecs === 1) {
+			tString = `${diffSecs} second ago`;
 			
+		} else {
+			tString = `${diffSecs} seconds ago`;
 		}
+			
+		
 		return tString;
 	}
 

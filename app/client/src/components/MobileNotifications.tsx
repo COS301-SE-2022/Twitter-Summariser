@@ -6,7 +6,7 @@ import { NotificationsContext } from "../context/NotificationsContext";
 
 
 function MobileNotifications() {
-    const { notifications, unRead} = useContext(NotificationsContext);
+    const { notifications} = useContext(NotificationsContext);
 
     const [isOpen, setIsOpen] = useState(false);
 	const toggling = () => {
@@ -17,8 +17,8 @@ function MobileNotifications() {
     const modal = () => (
             <div className="lg:hidden fixed flex items-center inset-0 justify-center bg-black/75">
                 <div className="bg-white rounded max-w-sm  text-black"> 
-                    <div className="flex flex-row content-center  p-2.5">
-                        <h3 className=" text-lg text-center font-bold"> Notifications </h3>
+                    <div className="flex flex-row content-center  p-2.5 border-solid border-gray border-b-2">
+                        <h3 className=" text-lg text-center font-bold "> Notifications </h3>
                         
                         <button onClick={toggling} type="button" className="ml-28">
                             <IoCloseOutline size={22}  />
