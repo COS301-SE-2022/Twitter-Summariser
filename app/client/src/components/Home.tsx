@@ -22,6 +22,8 @@ function Home() {
 
 	const [showTrends, changeShowTrends] = useState(true);
 
+	const [showSentimentOption, changeShowSentimentOption] = useState(false);
+
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
 	const [generateLoading, changeGenerateLoading] = useState(false);
@@ -197,6 +199,7 @@ function Home() {
 
 	const search = () => {
 		changeShowTrends(false);
+		changeShowSentimentOption(true);
 
 		if (checked) {
 			schedule();
@@ -486,14 +489,14 @@ function Home() {
 
 					<br />
 
-					<div className="mb-0">
+					{showSentimentOption && <div className="mb-0">
 						<p className="">Show sentiment analysis:</p>
 						<Checkbox
 							checked={checkedSentiment}
 							onChange={checkedHandler}
 							inputProps={{ "aria-label": "controlled" }}
 						/>
-					</div>
+					</div>}
 
 					{loading && (
 						<div className="flex flex-row justify-center my-2">
