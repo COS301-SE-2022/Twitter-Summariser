@@ -83,6 +83,7 @@ function Notifications() {
 						notifications.map((notification: any) => (
 							<NotificationCard 
 								data={notification} 
+								key={notification.id}
 								onChange= {(value: boolean) => changeShouldRender(value)}
 							/>
 						))

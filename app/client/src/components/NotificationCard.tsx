@@ -11,11 +11,19 @@ function NotificationCard(props: any) {
 	const controller = new AbortController();
 	const { auth } = useAuth();
 
+	console.log(props.data.senderUrl)
+	const imageURL =
+		props.data.senderUrl === "assets/profile.png"
+			? props.data.senderUrl
+			: `https://s3.amazonaws.com/twitter-summariser-images/${
+					props.data.senderUrl
+			  }?${new Date().getTime()}`;
+
 	const description = () => {
 		if (props.data.type === "SHARE") {
-			return "has shared a report, ";
+			return " has shared a report, ";
 		}
-		return "You have a new scheduled report, ";
+		return "A newly generated report has landed, ";
 	};
 
 	const timeDifference = () => {
@@ -95,14 +103,20 @@ function NotificationCard(props: any) {
 		>
 			<div>
 				<img
-					src={props.data.senderUrl}
+					src={imageURL}
 					alt="avatar"
 					className="object-cover w-12 h-17 rounded-full shadow-sm"
 				/>
 			</div>
 			<div className="flex flex-col text-sm">
 				<div className="inline">
-					<b>{props.data.senderUsername}</b> {description()}{" "}
+					{
+						props.data.type === "SHARE" && 
+							<b>{props.data.senderUsername}</b> 
+						
+					}
+
+					{description()}{" "}
 					<b className="font-bold">{props.data.content}</b>
 				</div>
 
