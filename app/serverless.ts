@@ -100,7 +100,7 @@ const serverlessConfiguration: AWS = {
 					{
 						Sid: "PermissionForLambda",
 						Effect: "Allow",
-						Action: "lambda:AddPermission",
+						Action: "lambda:*",
 						Resource: "*"
 					},
 					{

@@ -2,7 +2,10 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { Checkbox } from "@mui/material";
+// import { Checkbox } from "@mui/material";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+// import { Checkbox } from "@mui/material";
+import axios from "axios";
 import ExploreCard from "./ExploreCard";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
@@ -21,6 +24,9 @@ function Home() {
 	const [scheduleResponse, changeScheduleResponse] = useState("");
 
 	const [showTrends, changeShowTrends] = useState(true);
+
+	const [showSentimentOption, changeShowSentimentOption] = useState(false);
+	const style2 = { fontSize: "1.5rem" };
 
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
@@ -96,8 +102,18 @@ function Home() {
 		};
 
 		try {
-			const response = await axiosPrivate.post("generateReport", JSON.stringify(searchData));
+
+			const response = await axios.post(
+        		"https://betuh6rejrtpyywnwkbckrdnea0bypye.lambda-url.us-east-1.on.aws/",
+        		JSON.stringify(searchData),
+        		{
+          			headers: {
+            			"Content-Type": "application/json",
+        			}
+        		}
+      		);
 			changeGenerateLoading(false);
+			console.log(response.data.report);
 			changeDate(response.data.Report.dateCreated.substring(0, 10));
 			changeDraftReport(response.data.Report.reportID);
 
@@ -124,8 +140,16 @@ function Home() {
 	// const [semanticColor, changeSemanticColor] = useState("red");
 	const sentimentColor = "green";
 
-	const checkedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setCheckedSentiment(event.target.checked);
+	// const checkedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+	// 	setCheckedSentiment(event.target.checked);
+	// };
+
+	const checkedHandler = () => {
+		if(checkedSentiment) {
+			setCheckedSentiment(false);
+		} else {
+			setCheckedSentiment(true);
+		}
 	};
 
 	// const tweetHandler = (event: any) => {
@@ -197,6 +221,7 @@ function Home() {
 
 	const search = () => {
 		changeShowTrends(false);
+		changeShowSentimentOption(true);
 
 		if (checked) {
 			schedule();
@@ -486,14 +511,44 @@ function Home() {
 
 					<br />
 
-					<div className="mb-0">
-						<p className="">Show sentiment analysis:</p>
-						<Checkbox
-							checked={checkedSentiment}
-							onChange={checkedHandler}
-							inputProps={{ "aria-label": "controlled" }}
-						/>
+					{showSentimentOption && !checkedSentiment &&
+					// <div className="mb-0">
+					// 	<p className="">Show sentiment analysis:</p>
+					// 	<Checkbox
+					// 		checked={checkedSentiment}
+					// 		onChange={checkedHandler}
+					// 		inputProps={{ "aria-label": "controlled" }}
+					// 	/>
+					// </div>
+					<div
+						className=""
+						data-bs-toggle="tooltip"
+						title="Show sentiment analysis"
+					>
+						<button type="submit">
+							<AiOutlineEye style={style2} onClick={checkedHandler} />
+						</button>
 					</div>
+					}
+					{showSentimentOption && checkedSentiment &&
+					// <div className="mb-0">
+					// 	<p className="">Show sentiment analysis:</p>
+					// 	<Checkbox
+					// 		checked={checkedSentiment}
+					// 		onChange={checkedHandler}
+					// 		inputProps={{ "aria-label": "controlled" }}
+					// 	/>
+					// </div>
+					<div
+						className=""
+						data-bs-toggle="tooltip"
+						title="Show sentiment analysis"
+					>
+						<button type="submit">
+							<AiOutlineEyeInvisible style={style2} onClick={checkedHandler} />
+						</button>
+					</div>
+					}
 
 					{loading && (
 						<div className="flex flex-row justify-center my-2">
