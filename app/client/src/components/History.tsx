@@ -65,7 +65,7 @@ function History() {
 			<div className=" mt-2 pt-3 ">
 				<div className="mt-4">
 					<div className="flex flex-row justify-around">
-						<h1 className="hidden text-3xl pt-4 lg:flex  lg:flex-row  lg:justify-center border-b pb-4 w-5/6 align-middle items-center border-slate-300">
+						<h1 className="hidden text-3xl pt-4 mini-tablet:flex  mini-tablet:flex-row  mini-tablet:justify-center border-b pb-4 w-5/6 align-middle items-center border-slate-300">
 							Search Result History
 						</h1>
 					</div>
