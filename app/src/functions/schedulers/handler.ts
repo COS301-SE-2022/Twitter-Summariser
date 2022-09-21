@@ -59,9 +59,9 @@ export const reportScheduler = middyfy(
 				]
 			};
 
-			const result = await eventBridge.putTargets(targetParams).promise();
+			await eventBridge.putTargets(targetParams).promise();
 
-			const tt = await ServicesLayer.scheduleService.addScheduleSetting({
+			await ServicesLayer.scheduleService.addScheduleSetting({
 				id: ruleName,
 				apiKey: params.apiKey,
 				sortOption: params.sortBy,
@@ -87,7 +87,7 @@ export const reportScheduler = middyfy(
 
 export const genScheduledReport = async (params): Promise<void> => {
 	try {
-		const responseST = await axiosPrivate.post(
+		/*const responseST = await axiosPrivate.post(
 			"searchTweets",
 			JSON.stringify({
 				apiKey: params.apiKey,
@@ -96,16 +96,58 @@ export const genScheduledReport = async (params): Promise<void> => {
 				numOfTweets: params.numOfTweets,
 				sortBy: params.sortBy
 			})
-		);
+		);*/
 
-		const responseGR = await axiosPrivate.post(
+		let responseST: any;
+
+		const searchParams = {
+			FunctionName: "text-summarisation-dev-summarise",
+			InvocationType: "RequestResponse",
+			Payload: JSON.stringify({ 
+				apiKey: params.apiKey,
+				filterBy: params.filterBy,
+				keyword: params.keyword,
+				numOfTweets: params.numOfTweets,
+				sortBy: params.sortBy
+			})
+		};
+
+		await lambda.invoke(searchParams, function (data, err) {
+			if (err) {
+				console.log(err);
+			} else {
+				responseST = data;
+			}
+		}).promise();
+
+		/*const responseGR = await axiosPrivate.post(
 			"generateReport",
 			JSON.stringify({
 				apiKey: params.apiKey,
 				author: params.author,
 				resultSetID: responseST.data["resultSetID"]
 			})
-		);
+		);*/
+
+		let responseGR: any;
+
+		const generateParams = {
+			FunctionName: "text-summarisation-dev-summarise",
+			InvocationType: "RequestResponse",
+			Payload: JSON.stringify({ 
+				apiKey: params.apiKey,
+				author: params.author,
+				resultSetID: responseST.data["resultSetID"]
+			})
+		};
+
+		await lambda.invoke(generateParams, function (data, err) {
+			if (err) {
+				console.log(err);
+			} else {
+				responseGR = data;
+			}
+		}).promise();
 
 		const notification: Notification = {
 			id: "NT-"+ randomUUID(),
