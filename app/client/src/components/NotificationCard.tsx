@@ -90,7 +90,9 @@ function NotificationCard(props: any) {
 	);
 
 	return (
-		<div className="flex flex-row rounded space-x-5 px-3 py-3 items-center cursor-pointer hover:shadow-md">
+		<div className="flex flex-row rounded space-x-5 px-3 py-3 items-center cursor-pointer hover:shadow-md"
+			key={props.data.id}
+		>
 			<div>
 				<img
 					src={props.data.senderUrl}
