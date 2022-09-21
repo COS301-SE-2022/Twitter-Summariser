@@ -1,13 +1,8 @@
-import {  APIGatewayProxyResultV2 } from "aws-lambda";
-import { middyfy } from "@libs/lambda";
-import { header, statusCodes } from "@functions/resources/APIresponse";
 import { Lambda } from "aws-sdk";
-
 
 const lambda = new Lambda();
 
-
-export const warmupTextSummariser = middyfy(async (): Promise<APIGatewayProxyResultV2> => {
+export const warmupTextSummariser = async () => {
 	try {
 
         const lambdaParams = {
@@ -28,17 +23,10 @@ export const warmupTextSummariser = middyfy(async (): Promise<APIGatewayProxyRes
             }
         }).promise();
 
-        return {
-            statusCode: statusCodes.Successful,
-            headers: header,
-            body: JSON.stringify("Function Warmed Up")
-        };
+        console.log("Warmup complete");
+        
 		
 	} catch (error) {
-		return {
-			statusCode: statusCodes.internalError,
-			headers: header,
-			body: JSON.stringify(error)
-		};
+		console.error(error);
 	}
-});
+};
