@@ -71,7 +71,7 @@ function DraftCard(props: any) {
 			{/* <br /> */}
 			{!options ? (
 				<>
-					<div className=" mx-40"> </div>
+					<div className=" mx-48"> </div>
 					<p
 						aria-label="Article"
 						title={props.data.title}
@@ -110,7 +110,7 @@ function DraftCard(props: any) {
 					>
 						{props.data.title}
 					</p> */}
-					<div className=" mx-40"> </div>
+					<div className=" mx-52"> </div>
 					<p className="flex flex-row mt-2 mb-2 text-gray-600 text-xs text-center items-center justify-center font-semibold tracking-wide uppercase">
 						Are you sure you want to delete this draft?
 					</p>
