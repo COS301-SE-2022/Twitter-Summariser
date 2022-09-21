@@ -11,6 +11,8 @@ import useLogout from "../hooks/useLogout";
 import useAuth from "../hooks/useAuth";
 
 import { ScrollToTop } from "../components/scroll/ScrollToTop";
+import MobileNotifications from "../components/MobileNotifications";
+import NotificationsProvider from "../context/NotificationsContext";
 
 function Landing() {
 	const { auth } = useAuth();
@@ -112,11 +114,19 @@ function Landing() {
 				<ScrollToTop />
 			</div>
 
+
+			<NotificationsProvider>
 			{/* third container ######################################################################################################### */}
 			<div className=" xl:flex xl:w-1/4 xl:p-2 xl:pt-5 xl:relative xl:mr-14 hidden">
-				<Notifications />
+				
+					<Notifications />
+				
+				
 			</div>
 			<Toaster />
+
+			<MobileNotifications/>
+			</NotificationsProvider>
 		</div>
 	);
 }

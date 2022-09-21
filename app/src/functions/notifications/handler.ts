@@ -11,6 +11,10 @@ export const getNotifications = middyfy(
             const notifications = await ServicesLayer.notificationService.getReceiverNotifications(
                 params.apiKey
             );
+
+            notifications.sort((a, b) => {
+                return new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime();
+            });
             
             let responseArray = await Promise.all( notifications.map(async (notification) => {
                 let senderUsername: string;
@@ -30,6 +34,7 @@ export const getNotifications = middyfy(
                 }
 
                 delete notification.sender;
+                delete notification.receiver;
 
                 return {
                     ...notification,
