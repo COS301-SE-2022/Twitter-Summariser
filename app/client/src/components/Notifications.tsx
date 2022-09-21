@@ -78,6 +78,7 @@ function Notifications() {
 				{
 					notifications.length === 0 ? (
 						<div className="text-center">No notifications at the moment.</div>
+						
 					) : (
 						notifications.map((notification: any) => (
 							<NotificationCard 

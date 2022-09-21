@@ -6,7 +6,7 @@ import { NotificationsContext } from "../context/NotificationsContext";
 
 
 function MobileNotifications() {
-    const { notifications} = useContext(NotificationsContext);
+    const { notifications, unRead} = useContext(NotificationsContext);
 
     const [isOpen, setIsOpen] = useState(false);
 	const toggling = () => {
@@ -45,7 +45,8 @@ function MobileNotifications() {
 
     return (
         <div>
-			<div className="fixed flex w-16 h-16 lg:hidden rounded-full bg-midnight-blue justify-center items-center  bottom-8 right-8" onClick={toggling}>
+			<div  className="fixed flex w-16 h-16 lg:hidden rounded-full bg-midnight-blue justify-center items-center  bottom-8 right-8" onClick={toggling}>
+                {/* <span style={{visibility: unRead ? "visible" : "hidden"}} className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"/> */}
                 <BsFillBellFill style={{ fill: "white", transform: isOpen ? "rotate(45deg)" : "none"}} />
             </div>
 			

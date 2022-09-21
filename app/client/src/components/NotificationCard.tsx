@@ -26,16 +26,34 @@ function NotificationCard(props: any) {
 		const diffDays = Math.floor(diff / 86400000);
 		const diffHrs = Math.floor((diff % 86400000) / 3600000);
 		const diffMins = Math.floor(((diff % 86400000) %3600000) / 60000);
-		const diffSecs = diff / 1000;
+		const diffSecs = Math.floor(diff / 1000);
 
 		if (diffDays !== 0) {
-			tString = `${diffDays} days ago`;
+			if (diffDays === 1) {
+				tString = `${diffDays} day ago`;
+			}
+			else {
+				tString = `${diffDays} days ago`;
+			}
 		} else if (diffHrs !==0) {
-			tString = `${diffHrs} hours ago`;
+			if (diffHrs === 1) {
+				tString = `${diffHrs} hour ago`;
+			} else {
+				tString = `${diffHrs} hours ago`;
+			}
 		} else if (diffMins !== 0) {
-			tString = `${diffMins} minutes ago`;
-		} else {
-			tString = `${diffSecs} seconds ago`;
+			if (diffMins ===1 ) {
+				tString = `${diffMins} minute ago`;
+			} else {
+				tString = `${diffMins} minutes ago`;
+			}
+		} else { 
+			if (diffSecs === 1) {
+				tString = `${diffSecs} second ago`;
+			} else {
+				tString = `${diffSecs} seconds ago`;
+			}
+			
 		}
 		return tString;
 	}
@@ -66,7 +84,7 @@ function NotificationCard(props: any) {
 			</div>
 			{isOpen && (
 				<ul className="absolute right-5 bg-white shadow-lg text-sm w-36 p-3 md:p-5 space-y-3 ">
-					<li className="flex flex-row ">Mark as read</li>
+					{/* <li className="flex flex-row ">Mark as read</li> */}
 					<li className="flex flex-row "> 
 							<div onClick={deleteNotificationHandler}>
 								<RiDeleteBinFill size={18} style={{ fill: "#b91c1c" }} />
