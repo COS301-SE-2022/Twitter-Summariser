@@ -1,27 +1,29 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
+import { Lambda } from "aws-sdk";
 import { middyfy } from "@libs/lambda";
 import { randomUUID } from "crypto";
 import { header, statusCodes } from "@functions/resources/APIresponse";
-import axiosTextSummmariser from "../../../client/src/api/ConfigAxios";
 import ServicesLayer from "../../services";
 import TextStyle from "@model/textStyles/textStyles.model";
 import Notification from "@model/notification/notification.model";
 import { clientV2 } from "@functions/resources/twitterV2.client";
 
+const lambda = new Lambda();
+
 // Generation of reports
 export const generateReport = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-		try {
-			const params = JSON.parse(event.body);
+		try {		
+			const params = event.body;		
+
 			const title = await ServicesLayer.resultSetServices.getResultSet(
-				params.resultSetID,
-				params.apiKey
+				params["resultSetID"],
+				params["apiKey"]
 			);
+			
 			const { tweets } = title;
 
-			let id: string;
-			id = "RT-";
-			id += randomUUID();
+			let id: string = "RT-" + randomUUID();
 			const d = new Date();
 
 			const { data } = await clientV2.get("tweets", { ids: tweets });
@@ -31,15 +33,26 @@ export const generateReport = middyfy(
       		  twts += " " + data[tweet].text;
       		}
 
-			//Summarizing text
-			const responseTS = await axiosTextSummmariser.post(
-				"summariser",
-				{
+			//	Summarizing text
+			const lambdaParams = {
+				FunctionName: "text-summarisation-dev-summarise",
+				InvocationType: "RequestResponse",
+				Payload: JSON.stringify({ 
 					text: twts,
 					min: 100,
 					max: 200
+				})
+			};
+
+			const responseTS = await lambda.invoke(lambdaParams, function(data, err) {
+				if (err) {
+					console.log(err);
+				} else {
+					console.log(data);
 				}
-			);
+			}).promise();
+			const sText =  JSON.parse(JSON.parse(responseTS.Payload.toLocaleString()).body).text;
+			
 
 			// Adding blocks
 			let x = -1;
@@ -53,15 +66,19 @@ export const generateReport = middyfy(
 				});
 			});
 
+			console.log("Added blocks");
+
 			const report = await ServicesLayer.reportService.addReport({
 				reportID: id,
-				resultSetID: params.resultSetID,
+				resultSetID: params["resultSetID"],
 				status: "DRAFT",
 				title: title.searchPhrase,
-				apiKey: params.apiKey,
+				apiKey: params["apiKey"],
 				dateCreated: d.toString(),
-				author: params.author
+				author: params["author"]
 			});
+
+			console.log("Added report");
 
 			const tb = `BK-${randomUUID()}`;
 			await ServicesLayer.reportBlockService.addReportBlock({
@@ -69,8 +86,10 @@ export const generateReport = middyfy(
 				reportID: id,
 				blockType: "RICHTEXT",
 				position: 0,
-				richText: responseTS.data.text
+				richText: sText
 			});
+
+			console.log("Added rich text");
 
 			const sid = `ST-${randomUUID()}`;
 			await ServicesLayer.textStyleService.addStyle({
@@ -83,15 +102,16 @@ export const generateReport = middyfy(
 				size: " text-xs"
 			});
 
+			console.log("Added style");
+
+
 			return {
 				statusCode: statusCodes.Successful,
-				headers: header,
-				body: JSON.stringify({ Report: report, summarisedText: responseTS.data.text})
+				body: JSON.stringify({ Report: report, summarisedText: sText }),
 			};
 		} catch (e) {
 			return {
 				statusCode: statusCodes.internalError,
-				headers: header,
 				body: JSON.stringify(e)
 			};
 		}
