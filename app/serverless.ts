@@ -40,6 +40,7 @@ import { URL } from "@functions/resources/APIresponse";
 import { backupDynamoDB } from "@functions/backup";
 import { getNotifications, deleteNotification } from "@functions/notifications";
 import { getTrendingTopics } from "@functions/trending";
+import { warmupTextSummariser } from "@functions/warmup";
 
 const serverlessConfiguration: AWS = {
 	service: "twitter-summariser",
@@ -100,7 +101,7 @@ const serverlessConfiguration: AWS = {
 					{
 						Sid: "PermissionForLambda",
 						Effect: "Allow",
-						Action: "lambda:AddPermission",
+						Action: "lambda:*",
 						Resource: "*"
 					},
 					{
@@ -156,7 +157,8 @@ const serverlessConfiguration: AWS = {
 		getNotifications,
 		deleteNotification,
 		getTrendingTopics,
-		editTitle
+		editTitle,
+		warmupTextSummariser
 	},
 
 	package: {

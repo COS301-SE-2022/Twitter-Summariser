@@ -79,7 +79,7 @@ function ReportCard(props: any) {
 		<div className="pt-4 pb-4 pl-10 pr-10 m-2 mt-2 bg-gradient-to-b from-blue-50 via-sky-100 border rounded-lg transform hover:shadow-md hover:scale-105 transition duration-200 ease-in hover:bg-blue-200">
 			{!options ? (
 				<>
-					<div className=" mx-20 p-0 my-0"> </div>
+					<div className=" mx-40 p-0 my-0"> </div>
 					<div className="flex items-center justify-center">
 						<p aria-label="Author" title="Author" className="mr-3 ">
 							<img
@@ -103,7 +103,7 @@ function ReportCard(props: any) {
 					<p
 						aria-label="Article"
 						title={props.data.title}
-						className="flex items-center justify-center mt-2 mb-3 text-2xl font-bold leading-5 text-black transition-colors duration-200 hover:text-deep-purple-accent-400"
+						className="flex items-center justify-center mt-2 mb-3 text-2xl font-bold leading-5 text-black transition-colors duration-200 hover:text-deep-purple-accent-400 w-auto"
 					>
 						{props.data.title}
 					</p>
@@ -149,6 +149,7 @@ function ReportCard(props: any) {
 					>
 						{props.data.title}
 					</p> */}
+					<div className=" mx-44 p-0 my-0"> </div>
 					<p className="flex flex-row mt-12 mb-2 text-gray-600 text-xs text-center items-center justify-center font-semibold tracking-wide uppercase">
 						Are you sure you want to delete this report?
 					</p>
@@ -156,7 +157,7 @@ function ReportCard(props: any) {
 						<div className="inline-flex items-center py-2.5 px-4 text-xs font-semibold text-center bg-dark-cornflower-blue rounded-md text-white hover:bg-midnight-blue group hover:shadow">
 							<button onClick={deleteReportHandler} type="submit">
 								{" "}
-								DELETE REPORT{" "}
+								DELETE{" "}
 							</button>
 						</div>
 
