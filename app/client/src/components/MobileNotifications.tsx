@@ -53,6 +53,11 @@ function MobileNotifications() {
                                     data={notification}
                                     key={notification.id}
                                     onChange= {(value: boolean) => changeShouldRender(value)}
+                                    onChangePage= {(value: boolean) => {
+                                        if (value){
+                                            toggling()
+                                        }
+                                    }}
                                 />
                             ))
                         )

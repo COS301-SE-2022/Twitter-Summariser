@@ -28,7 +28,8 @@ function NotificationCard(props: any) {
 	};
 
 	const navigateToReports = () => {
-		navigate("/allReports");
+		navigate(`/report/${props.data.content}`);
+		props.onChangePage(true);
 	}
 
 	const timeDifference = () => {
@@ -123,7 +124,7 @@ function NotificationCard(props: any) {
 					}
 
 					{description()}{" "}
-					<b className="font-bold">{props.data.content}</b>
+					<b className="font-bold">{props.data.title}</b>
 				</div>
 
 				<div className="relative text-gray-400 text-xs bottom-0 right-0">

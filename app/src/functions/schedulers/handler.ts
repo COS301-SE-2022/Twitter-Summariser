@@ -154,7 +154,7 @@ export const genScheduledReport = async (params): Promise<void> => {
 			sender: "SYSTEM",
 			receiver: params.apiKey,
 			type: "SCHEDULER",
-			content: responseGR.data.title,
+			content: responseGR.data.reportID,
 			isRead: false,
 			dateCreated: (new Date()).toString()
 		}
