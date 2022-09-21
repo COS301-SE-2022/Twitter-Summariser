@@ -79,7 +79,7 @@ function ReportCard(props: any) {
 		<div className="pt-4 pb-4 pl-2 pr-2 m-2 mt-2 bg-gradient-to-b from-blue-50 via-sky-100 border rounded-lg transform hover:shadow-md hover:scale-105 transition duration-200 ease-in hover:bg-blue-200">
 			{!options ? (
 				<>
-					<div className="flex items-center justify-center">
+					<div className="flex items-center justify-center mx-20">
 						<p aria-label="Author" title="Author" className="mr-3 ">
 							<img
 								src={props.imageURL}
