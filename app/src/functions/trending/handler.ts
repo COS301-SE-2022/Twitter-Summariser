@@ -9,10 +9,15 @@ export const getTrendingTopics = middyfy(
 
 			const twitterClient = new TwitterApi(process.env.BEARER_TOKEN);
 
-			const response = await twitterClient.v1.trendsByPlace(1);
+			const response = await twitterClient.v1.trendsByPlace(23424942);
+
+			let data = [];
+			response[0].trends.map( async (trend) => {
+				data.push(trend.name);
+			})
 
 			/*const response = await axios.get(
-				"https://api.twitter.com/1.1/trends/place.json?id=1",
+				"https://api.twitter.com/1.1/trends/place.json?id=23424942",
 				{
 					headers: {
 						Authorization: "Bearer " + process.env.BEARER_TOKEN,
@@ -37,7 +42,7 @@ export const getTrendingTopics = middyfy(
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify(response)
+				body: JSON.stringify(data)
 			};
 		} catch (e) {
 			return {

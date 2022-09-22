@@ -4,6 +4,7 @@ import { randomUUID } from "crypto";
 import { header, statusCodes } from "@functions/resources/APIresponse";
 import { clientV2 } from "../resources/twitterV2.client";
 import ServicesLayer from "../../services";
+import * as AWS from "aws-sdk";
 
 export const searchTweets = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
@@ -183,6 +184,40 @@ export const reorderTweets = middyfy(
 				statusCode: statusCodes.Successful,
 				headers: header,
 				body: JSON.stringify("Operation Successful")
+			};
+		} catch (e) {
+			return {
+				statusCode: statusCodes.internalError,
+				headers: header,
+				body: JSON.stringify(e)
+			};
+		}
+	}
+);
+
+const Comprehend = new AWS.Comprehend();
+
+export const getSentiment = middyfy(
+	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+		try {
+			const params = JSON.parse(event.body);
+			const { data } = await clientV2.get("tweets", { ids: params.tweets });
+
+			let result = [];
+			data.map( async (tweets) => {
+				const params = {
+					LanguageCode: "en",
+					TextList: [tweets.text]
+				};
+
+				const sentimentResults = await Comprehend.batchDetectSentiment(params).promise();
+				result.push({sentiment: sentimentResults.ResultList[0], id: tweets.id})
+			})
+
+			return {
+				statusCode: statusCodes.Successful,
+				headers: header,
+				body: JSON.stringify(result)
 			};
 		} catch (e) {
 			return {
