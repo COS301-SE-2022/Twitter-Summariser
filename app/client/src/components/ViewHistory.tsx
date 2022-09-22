@@ -68,20 +68,33 @@ function ViewHistory() {
 		};
 
 		try {
-			const response = await axios.post(
-				"https://betuh6rejrtpyywnwkbckrdnea0bypye.lambda-url.us-east-1.on.aws/",
-				JSON.stringify(searchData),
-				{
-					headers: {
-						"Content-Type": "application/json"
+			if (process.env.NODE_ENV === "production") {
+				const response = await axios.post(
+					"https://betuh6rejrtpyywnwkbckrdnea0bypye.lambda-url.us-east-1.on.aws/",
+					JSON.stringify(searchData),
+					{
+						headers: {
+							"Content-Type": "application/json"
+						}
 					}
-				}
-			);
+				);
 
-			changeGenerateLoading(false);
-			changeDate(await response.data.Report.dateCreated.substring(0, 10));
-			changeDraftReport(response.data.Report.reportID);
-			changeClicked(true);
+				changeGenerateLoading(false);
+				changeDate(await response.data.Report.dateCreated.substring(0, 10));
+				changeDraftReport(response.data.Report.reportID);
+				changeClicked(true);
+			} else {
+				const response = await axiosPrivate.post(
+					"generateReport",
+					JSON.stringify(searchData),
+					{ signal: controller.signal }
+				);
+
+				changeGenerateLoading(false);
+				changeDate(await response.data.Report.dateCreated.substring(0, 10));
+				changeDraftReport(response.data.Report.reportID);
+				changeClicked(true);
+			}
 		} catch (error) {
 			console.error(error);
 		}
