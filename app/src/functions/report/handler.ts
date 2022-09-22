@@ -13,14 +13,14 @@ const lambda = new Lambda();
 // Generation of reports
 export const generateReport = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-		try {		
-			const params = typeof(event.body) == "string" ? JSON.parse(event.body) : event.body;
+		try {
+			const params = typeof event.body == "string" ? JSON.parse(event.body) : event.body;
 
 			const title = await ServicesLayer.resultSetServices.getResultSet(
 				params["resultSetID"],
 				params["apiKey"]
 			);
-			
+
 			const { tweets } = title;
 
 			let id: string = "RT-" + randomUUID();
@@ -28,13 +28,13 @@ export const generateReport = middyfy(
 
 			const { data } = await clientV2.get("tweets", { ids: tweets });
 
-			let twts= "";
-      		for(let tweet in data){
-      		  twts += " " + data[tweet].text;
-      		}
+			let twts = "";
+			for (let tweet in data) {
+				twts += " " + data[tweet].text;
+			}
 
 			let sText: string = "";
-		
+
 			if (process.env.NODE_ENV === "development") {
 				sText = "This is test text";
 			} else {
@@ -42,23 +42,25 @@ export const generateReport = middyfy(
 				const lambdaParams = {
 					FunctionName: "text-summarisation-dev-summarise",
 					InvocationType: "RequestResponse",
-					Payload: JSON.stringify({ 
+					Payload: JSON.stringify({
 						text: twts,
 						min: 100,
 						max: 200
 					})
 				};
 
-				const responseTS = await lambda.invoke(lambdaParams, function(data, err) {
-					if (err) {
-						console.log(err);
-					} else {
-						console.log(data);
-					}
-				}).promise();
-				sText =  JSON.parse(JSON.parse(responseTS.Payload.toLocaleString()).body).text;
+				const responseTS = await lambda
+					.invoke(lambdaParams, function (data, err) {
+						if (err) {
+							console.log(err);
+						} else {
+							console.log(data);
+						}
+					})
+					.promise();
+				sText = JSON.parse(JSON.parse(responseTS.Payload.toLocaleString()).body).text;
 			}
-			
+
 			// Adding blocks
 			let x = -1;
 			tweets.map(async (tweet) => {
@@ -103,7 +105,7 @@ export const generateReport = middyfy(
 
 			return {
 				statusCode: statusCodes.Successful,
-				body: JSON.stringify({ Report: report, summarisedText: sText }),
+				body: JSON.stringify({ Report: report, summarisedText: sText })
 			};
 		} catch (e) {
 			return {
@@ -282,17 +284,16 @@ export const shareReport = middyfy(
 					// const report = await ServicesLayer.reportService.getReport(params.reportID);
 
 					const notification: Notification = {
-						id: "NT-"+ randomUUID(),
+						id: "NT-" + randomUUID(),
 						sender: params.apiKey,
 						receiver: shareTo.apiKey,
 						type: "SHARE",
 						content: params.reportID,
 						isRead: false,
-						dateCreated: (new Date()).toString()
-					}
+						dateCreated: new Date().toString()
+					};
 
 					await ServicesLayer.notificationService.addNotification(notification);
-
 				} else {
 					return {
 						statusCode: statusCodes.Successful,
@@ -550,7 +551,10 @@ export const editTitle = middyfy(
 				};
 			}
 
-			const reports = await ServicesLayer.reportService.updateReportTitle(params.title, params.reportID);
+			const reports = await ServicesLayer.reportService.updateReportTitle(
+				params.title,
+				params.reportID
+			);
 
 			return {
 				statusCode: statusCodes.Successful,

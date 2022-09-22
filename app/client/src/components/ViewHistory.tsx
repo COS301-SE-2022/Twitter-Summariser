@@ -79,8 +79,7 @@ function ViewHistory() {
 				changeDate(await response.data.Report.dateCreated.substring(0, 10));
 				changeDraftReport(response.data.Report.reportID);
 				changeClicked(true);
-			}
-			else {
+			} else {
 				const response = await axios.post(
 					"https://betuh6rejrtpyywnwkbckrdnea0bypye.lambda-url.us-east-1.on.aws/",
 					JSON.stringify(searchData),

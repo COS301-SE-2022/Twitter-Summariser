@@ -7,8 +7,8 @@ import ServicesLayer from "../../services";
 import { randomUUID } from "crypto";
 import Notification from "@model/notification/notification.model";
 
-	const eventBridge = new EventBridge();
-	const lambda = new Lambda();
+const eventBridge = new EventBridge();
+const lambda = new Lambda();
 
 // Generation of reports
 export const reportScheduler = middyfy(
@@ -103,7 +103,7 @@ export const genScheduledReport = async (params): Promise<void> => {
 		const searchParams = {
 			FunctionName: "twitter-summariser-dev-searchTweets",
 			InvocationType: "RequestResponse",
-			Payload: JSON.stringify({ 
+			Payload: JSON.stringify({
 				apiKey: params.apiKey,
 				filterBy: params.filterBy,
 				keyword: params.keyword,
@@ -112,13 +112,15 @@ export const genScheduledReport = async (params): Promise<void> => {
 			})
 		};
 
-		await lambda.invoke(searchParams, function (data, err) {
-			if (err) {
-				console.log(err);
-			} else {
-				responseST = data;
-			}
-		}).promise();
+		await lambda
+			.invoke(searchParams, function (data, err) {
+				if (err) {
+					console.log(err);
+				} else {
+					responseST = data;
+				}
+			})
+			.promise();
 
 		/*const responseGR = await axiosPrivate.post(
 			"generateReport",
@@ -134,33 +136,34 @@ export const genScheduledReport = async (params): Promise<void> => {
 		const generateParams = {
 			FunctionName: "twitter-summariser-dev-generateReport",
 			InvocationType: "RequestResponse",
-			Payload: JSON.stringify({ 
+			Payload: JSON.stringify({
 				apiKey: params.apiKey,
 				author: params.author,
 				resultSetID: responseST.data["resultSetID"]
 			})
 		};
 
-		await lambda.invoke(generateParams, function (data, err) {
-			if (err) {
-				console.log(err);
-			} else {
-				responseGR = data;
-			}
-		}).promise();
+		await lambda
+			.invoke(generateParams, function (data, err) {
+				if (err) {
+					console.log(err);
+				} else {
+					responseGR = data;
+				}
+			})
+			.promise();
 
 		const notification: Notification = {
-			id: "NT-"+ randomUUID(),
+			id: "NT-" + randomUUID(),
 			sender: "SYSTEM",
 			receiver: params.apiKey,
 			type: "SCHEDULER",
 			content: responseGR.data.reportID,
 			isRead: false,
-			dateCreated: (new Date()).toString()
-		}
+			dateCreated: new Date().toString()
+		};
 
 		await ServicesLayer.notificationService.addNotification(notification);
-
 	} catch (e) {}
 };
 

@@ -1,83 +1,93 @@
 import { DocumentClient } from "aws-sdk/clients/dynamodb";
 import Notification from "@model/notification/notification.model";
 
-
 export default class NotificationService {
-    private TableName = "NotificationTable";
+	private TableName = "NotificationTable";
 
-    constructor(private docClient: DocumentClient) {};
+	constructor(private docClient: DocumentClient) {}
 
-    async getNotification(id: string): Promise<Notification> {
-        const result = await this.docClient.get({
-            TableName: this.TableName,
-            Key: { id: id}
-        }).promise();
+	async getNotification(id: string): Promise<Notification> {
+		const result = await this.docClient
+			.get({
+				TableName: this.TableName,
+				Key: { id: id }
+			})
+			.promise();
 
-        return result.Item as Notification;
-    };
-    async getReceiverNotifications(receiver: string): Promise<Notification[]> {
-      const result = await this.docClient.query({
-            TableName: this.TableName,
-            IndexName: "receiverIndex",
-            KeyConditionExpression: "receiver = :receiver",
-            ExpressionAttributeValues: {
-                ":receiver": receiver
-            }
-        }).promise();
-        
-        return result.Items as Notification[];
-    };
+		return result.Item as Notification;
+	}
+	async getReceiverNotifications(receiver: string): Promise<Notification[]> {
+		const result = await this.docClient
+			.query({
+				TableName: this.TableName,
+				IndexName: "receiverIndex",
+				KeyConditionExpression: "receiver = :receiver",
+				ExpressionAttributeValues: {
+					":receiver": receiver
+				}
+			})
+			.promise();
 
-    async getReceiverUnreadNotifications(receiver: string): Promise<Notification[]> {
-        const result = await this.docClient.query({
-            TableName: this.TableName,
-            IndexName: "receiverIndex",
-            KeyConditionExpression: "receiver = :receiver",
-            FilterExpression: "#isRead = :isRead",
-            ExpressionAttributeValues: {
-                ":receiver": receiver,
-                ":isRead": false
-            },
-            ExpressionAttributeNames: {
-                "#isRead": "isRead"
-            }
-        }).promise();
+		return result.Items as Notification[];
+	}
 
-        return result.Items as Notification[];
-    };
+	async getReceiverUnreadNotifications(receiver: string): Promise<Notification[]> {
+		const result = await this.docClient
+			.query({
+				TableName: this.TableName,
+				IndexName: "receiverIndex",
+				KeyConditionExpression: "receiver = :receiver",
+				FilterExpression: "#isRead = :isRead",
+				ExpressionAttributeValues: {
+					":receiver": receiver,
+					":isRead": false
+				},
+				ExpressionAttributeNames: {
+					"#isRead": "isRead"
+				}
+			})
+			.promise();
 
-    async addNotification(notification: Notification): Promise<Notification> {
-        await this.docClient.put({
-            TableName: this.TableName,
-            Item: notification
-        }).promise();
+		return result.Items as Notification[];
+	}
 
-        return notification as Notification;
-        
-    }
+	async addNotification(notification: Notification): Promise<Notification> {
+		await this.docClient
+			.put({
+				TableName: this.TableName,
+				Item: notification
+			})
+			.promise();
 
-    async updateRead(id: string): Promise<void> {
-        await this.docClient.update({
-            TableName: this.TableName,
-            Key: {
-                id: id
-            },
-            UpdateExpression: "SET #isRead = :isRead",
-            ExpressionAttributeValues: {
-                ":isRead": true
-            },
-            ExpressionAttributeNames: {
-                "#isRead": "isRead"
-            }
-        }).promise();
-    }
+		return notification as Notification;
+	}
 
-    async deleteNotification(id: string): Promise<void> {
-        await this.docClient.delete({
-            TableName: this.TableName,
-            Key: {
-                id: id
-            }
-        }).promise();
-    }
+	async updateRead(id: string): Promise<void> {
+		await this.docClient
+			.update({
+				TableName: this.TableName,
+				Key: {
+					id: id
+				},
+				UpdateExpression: "SET #isRead = :isRead",
+				ExpressionAttributeValues: {
+					":isRead": true
+				},
+				ExpressionAttributeNames: {
+					"#isRead": "isRead"
+				}
+			})
+			.promise();
+	}
+
+	async deleteNotification(id: string): Promise<void> {
+		await this.docClient
+			.delete({
+				TableName: this.TableName,
+				Key: {
+					id: id
+				}
+			})
+			.promise();
+	}
 }

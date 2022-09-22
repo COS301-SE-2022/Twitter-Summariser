@@ -139,7 +139,7 @@ function Home() {
 					changeClicked(true);
 				}
 			}
-		 } catch (error) {
+		} catch (error) {
 			console.error(error);
 		}
 	};
