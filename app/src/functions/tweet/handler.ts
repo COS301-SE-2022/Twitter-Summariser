@@ -203,7 +203,7 @@ export const getSentiment = middyfy(
 			const params = JSON.parse(event.body);
 			const { data } = await clientV2.get("tweets", { ids: params.tweets });
 
-			let twts = [];
+			let result = [];
 			data.map( async (tweets) => {
 				const params = {
 					LanguageCode: "en",
@@ -211,13 +211,13 @@ export const getSentiment = middyfy(
 				};
 
 				const sentimentResults = await Comprehend.batchDetectSentiment(params).promise();
-				twts.push({sentiment: sentimentResults.ResultList[0], id: tweets.id})
+				result.push({sentiment: sentimentResults.ResultList[0], id: tweets.id})
 			})
 
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify(data)
+				body: JSON.stringify(result)
 			};
 		} catch (e) {
 			return {
