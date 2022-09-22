@@ -7,6 +7,7 @@ function Drafts() {
 	const [draft, changeDraft] = useState<any[]>([]);
 	const [loading, changeLoading] = useState(true);
 	const [imageURL, changeImageURL] = useState("assets/profile.png");
+	// const [style, changeStyle] = useState("sm:w-1/2 w-full mr-5/2");
 	const [shouldRender, changeShouldRender] = useState(false);
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
@@ -71,10 +72,13 @@ function Drafts() {
 
 	const newDraft = draft.filter((data) => data.status === "DRAFT").map((data) => data);
 
+
+	
+
 	return (
 		<div>
-			<div className=" mt-3 pt-3 ">
-				<div className=" mt-2 sm:mt-4">
+			<div className="">
+				<div className="">
 					<div className="mt-2 flex flex-row flex-wrap justify-center p-2">
 						{loading && (
 							<>
@@ -94,7 +98,7 @@ function Drafts() {
 									<div
 										data-aos="fade-up"
 										data-aos-duration="500"
-										className="sm:w-1/2 w-full mt-2"
+										className={newDraft.length > 1 ? "sm:w-1/2 w-full mr-5/2" : "w-full mr-5/2"}
 										key={data.reportID}
 									>
 										<DraftCard
