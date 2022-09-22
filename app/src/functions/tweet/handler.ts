@@ -193,3 +193,29 @@ export const reorderTweets = middyfy(
 		}
 	}
 );
+
+export const getSentiment = middyfy(
+	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+		try {
+			const params = JSON.parse(event.body);
+			const { data } = await clientV2.get("tweets", { ids: params.tweets });
+
+			let twts = [];
+			data.map( async (tweets) => {
+				
+			})
+
+			return {
+				statusCode: statusCodes.Successful,
+				headers: header,
+				body: JSON.stringify(data)
+			};
+		} catch (e) {
+			return {
+				statusCode: statusCodes.internalError,
+				headers: header,
+				body: JSON.stringify(e)
+			};
+		}
+	}
+);
