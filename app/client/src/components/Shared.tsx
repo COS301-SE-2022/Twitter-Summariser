@@ -78,9 +78,12 @@ function Shared() {
 					</div>
 					<div className="mt-2 flex flex-row flex-wrap justify-center p-2">
 						{loading && (
-							<div className="mt-8 pr-8 pl-8">
-								{loadIcon} &nbsp; Loading Reports Shared With You
-							</div>
+							<>
+								<div className="mt-8 justify-center inline items-center w-full">
+									{loadIcon} &nbsp; Loading Reports Shared With You
+								</div>
+								<div className="mt-8 pr-8 pl-8"> </div>
+							</>
 						)}
 
 						{!loading &&
