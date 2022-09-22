@@ -102,28 +102,45 @@ function Home() {
 		};
 
 		try {
+			if (process.env.NODE_ENV === "production") {
+				const response = await axios.post(
+					"https://betuh6rejrtpyywnwkbckrdnea0bypye.lambda-url.us-east-1.on.aws/",
+					JSON.stringify(searchData),
+					{
+						headers: {
+							"Content-Type": "application/json"
+						}
+					}
+				);
 
-			const response = await axios.post(
-        		"https://betuh6rejrtpyywnwkbckrdnea0bypye.lambda-url.us-east-1.on.aws/",
-        		JSON.stringify(searchData),
-        		{
-          			headers: {
-            			"Content-Type": "application/json",
-        			}
-        		}
-      		);
-			changeGenerateLoading(false);
-			console.log(response.data.report);
-			changeDate(response.data.Report.dateCreated.substring(0, 10));
-			changeDraftReport(response.data.Report.reportID);
+				changeGenerateLoading(false);
+				changeDate(response.data.Report.dateCreated.substring(0, 10));
+				changeDraftReport(response.data.Report.reportID);
 
-			if (enteredSearch !== "") {
-				changeCreateTitle(enteredSearch);
-				changeEnteredSearch("");
-				changeClicked(true);
+				if (enteredSearch !== "") {
+					changeCreateTitle(enteredSearch);
+					changeEnteredSearch("");
+					changeClicked(true);
+				}
+			} else {
+				const response = await axiosPrivate.post(
+					"generateReport",
+					JSON.stringify(searchData),
+					{ signal: controller.signal }
+				);
+
+				changeGenerateLoading(false);
+				changeDate(response.data.Report.dateCreated.substring(0, 10));
+				changeDraftReport(response.data.Report.reportID);
+
+				if (enteredSearch !== "") {
+					changeCreateTitle(enteredSearch);
+					changeEnteredSearch("");
+					changeClicked(true);
+				}
 			}
-		} catch (err) {
-			console.error(err);
+		 } catch (error) {
+			console.error(error);
 		}
 	};
 
@@ -145,7 +162,7 @@ function Home() {
 	// };
 
 	const checkedHandler = () => {
-		if(checkedSentiment) {
+		if (checkedSentiment) {
 			setCheckedSentiment(false);
 		} else {
 			setCheckedSentiment(true);
@@ -179,7 +196,6 @@ function Home() {
 			);
 			changeScheduleResponse(await response.data);
 			scheduleResponse;
-			// console.log(await response.data);
 		} catch (err) {
 			console.error(err);
 		}
@@ -483,7 +499,7 @@ function Home() {
 							{apiResponse.length === 1 ? (
 								<button
 									type="button"
-									className="flex flex-col bg-dark-cornflower-blue rounded-sm text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center disabled"
+									className="flex flex-col bg-dark-cornflower-blue rounded-sm text-white font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center disabled"
 									disabled
 								>
 									Generate Report
@@ -511,44 +527,36 @@ function Home() {
 
 					<br />
 
-					{showSentimentOption && !checkedSentiment &&
-					// <div className="mb-0">
-					// 	<p className="">Show sentiment analysis:</p>
-					// 	<Checkbox
-					// 		checked={checkedSentiment}
-					// 		onChange={checkedHandler}
-					// 		inputProps={{ "aria-label": "controlled" }}
-					// 	/>
-					// </div>
-					<div
-						className=""
-						data-bs-toggle="tooltip"
-						title="Show sentiment analysis"
-					>
-						<button type="submit">
-							<AiOutlineEye style={style2} onClick={checkedHandler} />
-						</button>
-					</div>
-					}
-					{showSentimentOption && checkedSentiment &&
-					// <div className="mb-0">
-					// 	<p className="">Show sentiment analysis:</p>
-					// 	<Checkbox
-					// 		checked={checkedSentiment}
-					// 		onChange={checkedHandler}
-					// 		inputProps={{ "aria-label": "controlled" }}
-					// 	/>
-					// </div>
-					<div
-						className=""
-						data-bs-toggle="tooltip"
-						title="Show sentiment analysis"
-					>
-						<button type="submit">
-							<AiOutlineEyeInvisible style={style2} onClick={checkedHandler} />
-						</button>
-					</div>
-					}
+					{showSentimentOption && !checkedSentiment && (
+						// <div className="mb-0">
+						// 	<p className="">Show sentiment analysis:</p>
+						// 	<Checkbox
+						// 		checked={checkedSentiment}
+						// 		onChange={checkedHandler}
+						// 		inputProps={{ "aria-label": "controlled" }}
+						// 	/>
+						// </div>
+						<div className="" data-bs-toggle="tooltip" title="Show sentiment analysis">
+							<button type="submit">
+								<AiOutlineEye style={style2} onClick={checkedHandler} />
+							</button>
+						</div>
+					)}
+					{showSentimentOption && checkedSentiment && (
+						// <div className="mb-0">
+						// 	<p className="">Show sentiment analysis:</p>
+						// 	<Checkbox
+						// 		checked={checkedSentiment}
+						// 		onChange={checkedHandler}
+						// 		inputProps={{ "aria-label": "controlled" }}
+						// 	/>
+						// </div>
+						<div className="" data-bs-toggle="tooltip" title="Show sentiment analysis">
+							<button type="submit">
+								<AiOutlineEyeInvisible style={style2} onClick={checkedHandler} />
+							</button>
+						</div>
+					)}
 
 					{loading && (
 						<div className="flex flex-row justify-center my-2">
