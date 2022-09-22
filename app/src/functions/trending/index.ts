@@ -6,7 +6,7 @@ export const getTrendingTopics = {
 	events: [
 		{
 			http: {
-				method: "get",
+				method: "post",
 				path: "getTrendingTopics/",
 				cors: true
 			}
