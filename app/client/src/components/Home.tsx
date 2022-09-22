@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
 import { BsThreeDotsVertical } from "react-icons/bs";
 // import { Checkbox } from "@mui/material";
@@ -32,6 +32,7 @@ function Home() {
 	const controller = new AbortController();
 	const [generateLoading, changeGenerateLoading] = useState(false);
 	const { auth } = useAuth();
+	const navigate = useNavigate();
 
 	const style = { fontSize: "1.5rem" };
 
@@ -118,6 +119,9 @@ function Home() {
 					changeEnteredSearch("");
 					changeClicked(true);
 				}
+
+				navigate(`/report/${response.data.Report.reportID}`);
+				
 			} else {
 				const response = await axios.post(
 					"https://betuh6rejrtpyywnwkbckrdnea0bypye.lambda-url.us-east-1.on.aws/",
