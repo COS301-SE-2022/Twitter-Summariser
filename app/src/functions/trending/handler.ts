@@ -1,13 +1,17 @@
 import { APIGatewayProxyResult } from "aws-lambda";
 import { middyfy } from "@libs/lambda";
 import { statusCodes, header } from "@functions/resources/APIresponse";
-import axios from "axios";
+import { TwitterApi } from 'twitter-api-v2';
 
 export const getTrendingTopics = middyfy(
 	async (): Promise<APIGatewayProxyResult> => {
 		try {
 
-			const response = await axios.get(
+			const twitterClient = new TwitterApi(process.env.BEARER_TOKEN);
+
+			const response = await twitterClient.v1.trendsByPlace(1);
+
+			/*const response = await axios.get(
 				"https://api.twitter.com/1.1/trends/place.json?id=1",
 				{
 					headers: {
@@ -16,7 +20,7 @@ export const getTrendingTopics = middyfy(
 						"Content-type": "application/json"
 					}
 				}
-			)
+			)*/
 
 			/*const response = await fetch(
 				"https://api.twitter.com/1.1/trends/place.json?id=1" + params.region,
