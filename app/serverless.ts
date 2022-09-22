@@ -9,7 +9,7 @@ import {
 	logoutCreator,
 	deleteUser
 } from "@functions/creator";
-import { searchTweets, addCustomTweet, reorderTweets } from "@functions/tweet";
+import { searchTweets, addCustomTweet, reorderTweets, getSentiment } from "@functions/tweet";
 import { CreatorTable } from "@model/creator/index";
 import { ResultSetTable } from "@model/resultSet";
 import { ReportTable } from "@model/report";
@@ -158,7 +158,8 @@ const serverlessConfiguration: AWS = {
 		deleteNotification,
 		getTrendingTopics,
 		editTitle,
-		warmupTextSummariser
+		warmupTextSummariser,
+		getSentiment
 	},
 
 	package: {
