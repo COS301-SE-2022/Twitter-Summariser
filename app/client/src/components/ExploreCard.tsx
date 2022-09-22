@@ -21,38 +21,6 @@ function ExploreCard(props: any) {
 	};
 
 	return (
-		// <div>
-		// 	<div className="m-4 w-auto h-20 rounded-md flex flex-row justify-between items-center p-2">
-		// 		<div className="">
-		// 			<div className="">
-		// 				<Link to="/getPublishedReport">
-		// 					<button data-testid="btn-report" type="submit" onClick={viewReport}>
-		// 						<p className="font-bold">{props.data.title}</p>
-		// 					</button>
-		// 				</Link>
-		// 			</div>
-		// 			<div className="mt-2">
-		// 				<p className="italic text-xs">Author: {props.data.author}</p>
-		// 			</div>
-		// 			<div className="">
-		// 				<p className="italic text-xs">
-		// 					Created on: {props.data.dateCreated.substring(0, 16)}
-		// 				</p>
-		// 			</div>
-		// 		</div>
-
-		// {/* <button type="button" >
-		// 	<div
-		// 		className=" pl-4 flex flex-row justify-center items-center"
-		// 		data-bs-toggle="tooltip"
-		// 		title="Delete Report"
-		// 	>
-
-		// 	</div>
-		// </button> */}
-		// 	{/* </div>
-		// </div> */}
-
 		<div className="pt-3 pb-3 pl-3 pr-3 m-4 bg-gradient-to-b from-blue-50 via-sky-100 border rounded-sm transform hover:shadow-md hover:scale-105 transition duration-200 ease-in hover:bg-blue-200">
 			<div className="flex items-center justify-center">
 				<p aria-label="Author" title="Author" className="mr-3 ">
@@ -77,13 +45,11 @@ function ExploreCard(props: any) {
 						<span className=" font-semiboldtext-deep-purple-accent-400">
 							AUTHOR - {props.data.author}
 						</span>
-						{/* <h3>First slide label</h3> */}
 					</Carousel.Item>
 					<Carousel.Item>
 						<span className=" font-semiboldtext-deep-purple-accent-400">
 							Published Report - {props.data.dateCreated.substring(0, 16)}
 						</span>
-						{/* <h3>Second slide label</h3> */}
 					</Carousel.Item>
 				</Carousel>
 			</div>

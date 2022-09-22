@@ -70,19 +70,16 @@ function HistoryCard(props: any) {
 								<span className=" font-semiboldtext-deep-purple-accent-400">
 									History - {props.data.dateCreated.substring(4, 16)}
 								</span>
-								{/* <h3>First slide label</h3> */}
 							</Carousel.Item>
 							<Carousel.Item>
 								<span className=" font-semiboldtext-deep-purple-accent-400">
 									Sorted By - {sort}
 								</span>
-								{/* <h3>Second slide label</h3> */}
 							</Carousel.Item>
 							<Carousel.Item>
 								<span className=" font-semiboldtext-deep-purple-accent-400">
 									Filtered By - {filter}
 								</span>
-								{/* <h3>Third slide label</h3> */}
 							</Carousel.Item>
 						</Carousel>
 					</div>
@@ -103,13 +100,6 @@ function HistoryCard(props: any) {
 				</>
 			) : (
 				<>
-					{/* <p
-						aria-label="Article"
-						title={props.data.title}
-						className="flex items-center justify-center mb-3 text-xl font-bold leading-5 text-black transition-colors duration-200 hover:text-deep-purple-accent-400"
-					>
-						{props.data.title}
-					</p> */}
 					<p className="flex flex-row mt-2 mb-2 text-gray-600 text-xs text-center items-center justify-center font-semibold tracking-wide uppercase">
 						Are you sure you want to delete this search result?
 					</p>

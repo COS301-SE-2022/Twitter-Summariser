@@ -105,7 +105,6 @@ function Drafts() {
 									</div>
 								))
 							))}
-						{/* </div> */}
 					</div>
 				</div>
 			</div>

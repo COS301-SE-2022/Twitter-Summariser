@@ -73,13 +73,11 @@ function ReportCard(props: any) {
 								<span className=" font-semiboldtext-deep-purple-accent-400">
 									AUTHOR - {props.data.author}
 								</span>
-								{/* <h3>First slide label</h3> */}
 							</Carousel.Item>
 							<Carousel.Item>
 								<span className=" font-semiboldtext-deep-purple-accent-400">
 									Published Report - {props.data.dateCreated.substring(0, 16)}
 								</span>
-								{/* <h3>Second slide label</h3> */}
 							</Carousel.Item>
 						</Carousel>
 					</div>
