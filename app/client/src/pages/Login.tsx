@@ -165,7 +165,7 @@ function Login() {
 			</div>
 			{!isSignup && <br />}
 			{isSignup && (
-				<div className="flex flex-row border-2 border-green-700 rounded-md bg-green-300 h-auto mini-tablet:w-auto w-60 m-4 mb- p-2">
+				<div className="flex flex-row border-2 border-green-700 rounded-sm bg-green-300 h-auto mini-tablet:w-auto w-60 m-4 mb- p-2">
 					<AiOutlineCheckCircle style={style} className="mini-tablet:mt-0 mt-3" />
 					<p className="pl-5 items-center justify-center">
 						Ready to Explore Twitter Summarizer
@@ -173,14 +173,14 @@ function Login() {
 				</div>
 			)}
 			{wrongCredentials && (
-				<div className="flex flex-row border-2 border-red-500 rounded-md bg-red-300 h-auto w-60 m-4 mb-5 p-2">
+				<div className="flex flex-row border-2 border-red-500 rounded-sm bg-red-300 h-auto w-60 m-4 mb-5 p-2">
 					<BiErrorCircle style={bStyle} />
 					<p className="pl-2 items-center justify-center">Invalid email or password</p>
 				</div>
 			)}
 
 			{!wrongCredentials && !rightCredentials && (
-				<div className="flex flex-row border-2 border-red-500 rounded-md bg-red-300 h-15 w-60 m-2 mb-5 pb-5 pl-2">
+				<div className="flex flex-row border-2 border-red-500 rounded-sm bg-red-300 h-15 w-60 m-2 mb-5 pb-5 pl-2">
 					<BiErrorCircle style={aStyle} className="mini-tablet:mt- mt-3" />
 					<p className="pl-5 pt-3 items-center justify-center">
 						Something went wrong. Please try again later.
@@ -194,14 +194,14 @@ function Login() {
 						type="text"
 						placeholder="Email"
 						required
-						className="w-60 h-10 mb-6 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E]"
+						className="w-60 h-10 mb-6 border-gray-200 border rounded-sm text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E]"
 						onChange={usernameHandler}
 						value={enteredEmail}
 						onFocus={() => setEmailFocus(true)}
 						onBlur={() => setEmailFocus(false)}
 					/>
 					{emailFocus && enteredEmail && !validEmail && (
-						<div className="flex flex-row border-2 rounded-md bg-gray-100 h-10 w-60 justify-center p-2 mb-0 items-center text-sm">
+						<div className="flex flex-row border-2 rounded-sm bg-gray-100 h-10 w-60 justify-center p-2 mb-0 items-center text-sm">
 							<div className="flex flex-col">
 								<p>Should be a valid email</p>
 							</div>
@@ -213,7 +213,7 @@ function Login() {
 						type="password"
 						placeholder="Password"
 						required
-						className="w-60 h-10 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A]"
+						className="w-60 h-10 border-gray-200 border rounded-sm text-center text-md focus:outline-none focus:ring focus:border-[#023E8A]"
 						onChange={passwordHandler}
 						value={enteredPassword}
 					/>
@@ -224,7 +224,7 @@ function Login() {
 							type="checkbox"
 							onChange={togglePersist}
 							checked={persist}
-							className="w-5 h-5 text-blue-600 accent-dark-cornflower-blue border rounded-md focus:ring focus:outline-none"
+							className="w-5 h-5 text-blue-600 accent-dark-cornflower-blue border rounded-sm focus:ring focus:outline-none"
 						/>
 						<label htmlFor="default-checkbox" className="ml-2 text-sm font-medium">
 							Remember this device?
@@ -233,7 +233,7 @@ function Login() {
 					{loading && (
 						<button
 							type="button"
-							className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50 group hover:shadow button_large text-lg justify-center h-10 w-full items-center"
+							className="flex flex-col bg-dark-cornflower-blue rounded-sm text-white  font-semibold opacity-50 group hover:shadow button_large text-lg justify-center h-10 w-full items-center"
 							disabled
 						>
 							{/* <svg

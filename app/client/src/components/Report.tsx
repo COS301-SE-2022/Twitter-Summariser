@@ -5,7 +5,12 @@ import { GrCopy } from "react-icons/gr";
 import { GiConfirmed, GiCancel } from "react-icons/gi";
 import { BsArrowDown, BsArrowUp, BsShare } from "react-icons/bs";
 import { BiErrorCircle } from "react-icons/bi";
-import { AiOutlineCheckCircle, AiOutlineEye, AiOutlineEyeInvisible, AiFillEdit } from "react-icons/ai";
+import {
+	AiOutlineCheckCircle,
+	AiOutlineEye,
+	AiOutlineEyeInvisible,
+	AiFillEdit
+} from "react-icons/ai";
 import { MdDeleteOutline } from "react-icons/md";
 // import { Checkbox } from "@mui/material";
 import Text from "./Text";
@@ -70,36 +75,34 @@ function Report() {
 	const [editTitle, setEditTitle] = useState(false);
 	const [titleValue, setTitleValue] = useState("");
 
-	const editTitleHandler = async (editType : boolean) => {
-		if(editTitle) {
-			if(editType){
+	const editTitleHandler = async (editType: boolean) => {
+		if (editTitle) {
+			if (editType) {
 				setTitle(titleValue);
 				// const titleVal = title;
 
 				const editTitleDetails = {
-				reportID: repID,
-				apiKey: auth.apiKey,
-				title: titleValue
-			};
+					reportID: repID,
+					apiKey: auth.apiKey,
+					title: titleValue
+				};
 
-			// console.log(titleValue);
+				// console.log(titleValue);
 
-
-			try {
-				await axiosPrivate.post("editTitle", JSON.stringify(editTitleDetails), {
-					signal: controller.signal
-				});
-				// changeShouldRender(true);
-			} catch (err) {
-				console.error(err);
-			}
-
+				try {
+					await axiosPrivate.post("editTitle", JSON.stringify(editTitleDetails), {
+						signal: controller.signal
+					});
+					// changeShouldRender(true);
+				} catch (err) {
+					console.error(err);
+				}
 			}
 			setEditTitle(false);
 		} else {
 			setEditTitle(true);
 		}
-	}
+	};
 
 	// const cancelEditTitleHandler = () => {
 	// 	if(editTitle) {
@@ -112,7 +115,6 @@ function Report() {
 	const editTitleInputHandler = (event: any) => {
 		setTitleValue(event.target.value);
 		// console.log(titleValue);
-
 	};
 
 	// const checkedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -120,7 +122,7 @@ function Report() {
 	// };
 
 	const checkedHandler = () => {
-		if(checkedSentiment) {
+		if (checkedSentiment) {
 			setCheckedSentiment(false);
 		} else {
 			setCheckedSentiment(true);
@@ -853,21 +855,26 @@ function Report() {
 							<div className="flex flex-col">
 								<div className="flex flex-row justify-between">
 									<div className="ml-2 p-4">
-										{!editTitle && <div className="flex flex-row items-end justify-between items-center">
+										{!editTitle && (
+											<div className="flex flex-row items-end justify-between items-center">
 												<h1 className="text-3xl font-bold">{title}</h1>
 												<div className="">&nbsp;&nbsp;</div>
-											<div
-												className=""
-												data-bs-toggle="tooltip"
-												title="Edit Title"
-											>
-												<button type="submit">
-													<AiFillEdit style={style} onClick={() => editTitleHandler(true)} />
-												</button>
+												<div
+													className=""
+													data-bs-toggle="tooltip"
+													title="Edit Title"
+												>
+													<button type="submit">
+														<AiFillEdit
+															style={style}
+															onClick={() => editTitleHandler(true)}
+														/>
+													</button>
+												</div>
 											</div>
-
-										</div>}
-										{editTitle && <div className="flex flex-row items-end justify-between items-center">
+										)}
+										{editTitle && (
+											<div className="flex flex-row items-end justify-between items-center">
 												<input
 													type="search"
 													id="edit-title"
@@ -877,26 +884,32 @@ function Report() {
 													placeholder="Enter new title"
 												/>
 												<div className="">&nbsp;&nbsp;</div>
-											<div
-												className=""
-												data-bs-toggle="tooltip"
-												title="Update Title"
-											>
-												<button type="submit">
-													<GiConfirmed style={style} onClick={() => editTitleHandler(true)} />
-												</button>
+												<div
+													className=""
+													data-bs-toggle="tooltip"
+													title="Update Title"
+												>
+													<button type="submit">
+														<GiConfirmed
+															style={style}
+															onClick={() => editTitleHandler(true)}
+														/>
+													</button>
+												</div>
+												<div
+													className=""
+													data-bs-toggle="tooltip"
+													title="Cancel"
+												>
+													<button type="submit">
+														<GiCancel
+															style={style}
+															onClick={() => editTitleHandler(false)}
+														/>
+													</button>
+												</div>
 											</div>
-											<div
-												className=""
-												data-bs-toggle="tooltip"
-												title="Cancel"
-											>
-												<button type="submit">
-													<GiCancel style={style} onClick={() => editTitleHandler(false)} />
-												</button>
-											</div>
-
-										</div>}
+										)}
 										{/* <h1 className="text-3xl font-bold">{title}</h1> */}
 										<br />
 										<h2 className="italic font-bold">Created By: {author}</h2>
@@ -911,7 +924,10 @@ function Report() {
 												title="Show sentiment analysis"
 											>
 												<button type="submit">
-													<AiOutlineEye style={style2} onClick={checkedHandler} />
+													<AiOutlineEye
+														style={style2}
+														onClick={checkedHandler}
+													/>
 												</button>
 											</div>
 										)}
@@ -923,7 +939,10 @@ function Report() {
 												title="Hide sentiment analysis"
 											>
 												<button type="submit">
-													<AiOutlineEyeInvisible style={style2} onClick={checkedHandler} />
+													<AiOutlineEyeInvisible
+														style={style2}
+														onClick={checkedHandler}
+													/>
 												</button>
 											</div>
 										)}
