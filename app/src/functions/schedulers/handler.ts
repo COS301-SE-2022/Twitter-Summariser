@@ -110,6 +110,7 @@ export const genScheduledReport = async (params): Promise<void> => {
 			})
 		};
 
+	
 		const responseST = await lambda
 			.invoke(searchParams, function (data, err) {
 				if (err) {
