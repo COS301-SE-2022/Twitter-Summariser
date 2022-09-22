@@ -63,7 +63,7 @@ function Explore() {
 						</h1>
 					</div>
 
-					<div className="mt-2 flex flex-row flex-wrap justify-center p-2">
+					<div className="flex flex-row flex-wrap justify-center p-2">
 						{loading && (
 							<div className="mt-8 pr-8 pl-8">{loadIcon} &nbsp; Loading Reports</div>
 						)}
@@ -77,7 +77,7 @@ function Explore() {
 									<div
 										data-aos="fade-up"
 										data-aos-duration="500"
-										className="sm:w-1/2 w-full mt-2"
+										className="sm:w-1/2 w-full"
 										key={data.reportID}
 									>
 										<ExploreCard data={data} />

@@ -118,13 +118,13 @@ export const deleteReportBlock = middyfy(
 						bottom = block;
 					}
 
-					if(block.position>blck.position){
-						block.position = block.position-2;
+					if (block.position > blck.position) {
+						block.position = block.position - 2;
 						await ServicesLayer.reportBlockService.addReportBlock(block);
 					}
-				})
+				});
 
-				if (top !== undefined && bottom != undefined) { 
+				if (top !== undefined && bottom != undefined) {
 					await ServicesLayer.reportBlockService.addReportBlock({
 						reportBlockID: top.reportBlockID,
 						reportID: top.reportID,

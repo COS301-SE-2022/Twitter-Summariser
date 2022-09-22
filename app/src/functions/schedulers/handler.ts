@@ -2,13 +2,13 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { middyfy } from "@libs/lambda";
 import { header, statusCodes } from "@functions/resources/APIresponse";
 import { EventBridge, Lambda } from "aws-sdk";
-import axiosPrivate from "../../../client/src/api/ConfigAxios";
 import ServicesLayer from "../../services";
 import { randomUUID } from "crypto";
 import Notification from "@model/notification/notification.model";
+import axiosPrivate from "../../../client/src/api/ConfigAxios";
 
-	const eventBridge = new EventBridge();
-	const lambda = new Lambda();
+const eventBridge = new EventBridge();
+const lambda = new Lambda();
 
 // Generation of reports
 export const reportScheduler = middyfy(
@@ -98,12 +98,10 @@ export const genScheduledReport = async (params): Promise<void> => {
 			})
 		);
 
-		/*let responseST: any;
-
-		const searchParams = {
+		/*const searchParams = {
 			FunctionName: "twitter-summariser-dev-searchTweets",
 			InvocationType: "RequestResponse",
-			Payload: JSON.stringify({ 
+			Payload: JSON.stringify({
 				apiKey: params.apiKey,
 				filterBy: params.filterBy,
 				keyword: params.keyword,
@@ -112,13 +110,16 @@ export const genScheduledReport = async (params): Promise<void> => {
 			})
 		};
 
-		await lambda.invoke(searchParams, function (data, err) {
-			if (err) {
-				console.log(err);
-			} else {
-				responseST = data;
-			}
-		}).promise();*/
+	
+		const responseST = await lambda
+			.invoke(searchParams, function (data, err) {
+				if (err) {
+					console.log(err);
+				} else {
+					console.log(data);
+				}
+			})
+			.promise();*/
 
 		/*const responseGR = await axiosPrivate.post(
 			"generateReport",
@@ -129,38 +130,38 @@ export const genScheduledReport = async (params): Promise<void> => {
 			})
 		);*/
 
-		let responseGR: any;
 
 		const generateParams = {
 			FunctionName: "twitter-summariser-dev-generateReport",
 			InvocationType: "RequestResponse",
-			Payload: JSON.stringify({ 
+			Payload: JSON.stringify({
 				apiKey: params.apiKey,
 				author: params.author,
-				resultSetID: responseST.data["resultSetID"]
+				resultSetID: responseST.data.resultSetID
 			})
 		};
 
-		await lambda.invoke(generateParams, function (data, err) {
-			if (err) {
-				console.log(err);
-			} else {
-				responseGR = data;
-			}
-		}).promise();
+		const responseGR = await lambda
+			.invoke(generateParams, function (data, err) {
+				if (err) {
+					console.log(err);
+				} else {
+					console.log(data);
+				}
+			})
+			.promise();
 
 		const notification: Notification = {
-			id: "NT-"+ randomUUID(),
+			id: "NT-" + randomUUID(),
 			sender: "SYSTEM",
 			receiver: params.apiKey,
 			type: "SCHEDULER",
-			content: responseGR.data.reportID,
+			content: JSON.parse(JSON.parse(responseGR.Payload.toLocaleString()).body).reportID,
 			isRead: false,
-			dateCreated: (new Date()).toString()
-		}
+			dateCreated: new Date().toString()
+		};
 
 		await ServicesLayer.notificationService.addNotification(notification);
-
 	} catch (e) {}
 };
 
