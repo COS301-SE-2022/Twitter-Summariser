@@ -5,6 +5,7 @@ import { EventBridge, Lambda } from "aws-sdk";
 import ServicesLayer from "../../services";
 import { randomUUID } from "crypto";
 import Notification from "@model/notification/notification.model";
+import axiosPrivate from "../../../client/src/api/ConfigAxios";
 
 const eventBridge = new EventBridge();
 const lambda = new Lambda();
@@ -86,7 +87,7 @@ export const reportScheduler = middyfy(
 
 export const genScheduledReport = async (params): Promise<void> => {
 	try {
-		/*const responseST = await axiosPrivate.post(
+		const responseST = await axiosPrivate.post(
 			"searchTweets",
 			JSON.stringify({
 				apiKey: params.apiKey,
@@ -95,10 +96,9 @@ export const genScheduledReport = async (params): Promise<void> => {
 				numOfTweets: params.numOfTweets,
 				sortBy: params.sortBy
 			})
-		);*/
+		);
 
-
-		const searchParams = {
+		/*const searchParams = {
 			FunctionName: "twitter-summariser-dev-searchTweets",
 			InvocationType: "RequestResponse",
 			Payload: JSON.stringify({
@@ -119,7 +119,7 @@ export const genScheduledReport = async (params): Promise<void> => {
 					console.log(data);
 				}
 			})
-			.promise();
+			.promise();*/
 
 		/*const responseGR = await axiosPrivate.post(
 			"generateReport",
@@ -137,7 +137,7 @@ export const genScheduledReport = async (params): Promise<void> => {
 			Payload: JSON.stringify({
 				apiKey: params.apiKey,
 				author: params.author,
-				resultSetID: JSON.parse(JSON.parse(responseST.Payload.toLocaleString()).body).resultSetID
+				resultSetID: responseST.data.resultSetID
 			})
 		};
 
