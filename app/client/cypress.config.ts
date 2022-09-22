@@ -5,8 +5,6 @@ declare const require: any;
 const { lighthouse, prepareAudit } = require("@cypress-audit/lighthouse");
 const { pa11y } = require("@cypress-audit/pa11y");
 
-
-
 export default defineConfig({
 	e2e: {
 		baseUrl: "http://localhost:3000",
@@ -19,8 +17,8 @@ export default defineConfig({
 
 			on("task", {
 				lighthouse: lighthouse(),
-				pa11y: pa11y(console.log.bind(console)),
+				pa11y: pa11y(console.log.bind(console))
 			});
-		},
-	},
+		}
+	}
 });

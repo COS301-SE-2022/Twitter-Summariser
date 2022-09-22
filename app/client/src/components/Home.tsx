@@ -102,7 +102,23 @@ function Home() {
 		};
 
 		try {
-			if (process.env.NODE_ENV === "production") {
+			if (process.env.NODE_ENV === "development") {
+				const response = await axiosPrivate.post(
+					"generateReport",
+					JSON.stringify(searchData),
+					{ signal: controller.signal }
+				);
+
+				changeGenerateLoading(false);
+				changeDate(response.data.Report.dateCreated.substring(0, 10));
+				changeDraftReport(response.data.Report.reportID);
+
+				if (enteredSearch !== "") {
+					changeCreateTitle(enteredSearch);
+					changeEnteredSearch("");
+					changeClicked(true);
+				}
+			} else {
 				const response = await axios.post(
 					"https://betuh6rejrtpyywnwkbckrdnea0bypye.lambda-url.us-east-1.on.aws/",
 					JSON.stringify(searchData),
@@ -122,24 +138,8 @@ function Home() {
 					changeEnteredSearch("");
 					changeClicked(true);
 				}
-			} else {
-				const response = await axiosPrivate.post(
-					"generateReport",
-					JSON.stringify(searchData),
-					{ signal: controller.signal }
-				);
-
-				changeGenerateLoading(false);
-				changeDate(response.data.Report.dateCreated.substring(0, 10));
-				changeDraftReport(response.data.Report.reportID);
-
-				if (enteredSearch !== "") {
-					changeCreateTitle(enteredSearch);
-					changeEnteredSearch("");
-					changeClicked(true);
-				}
 			}
-		 } catch (error) {
+		} catch (error) {
 			console.error(error);
 		}
 	};

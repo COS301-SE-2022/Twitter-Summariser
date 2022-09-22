@@ -68,7 +68,18 @@ function ViewHistory() {
 		};
 
 		try {
-			if (process.env.NODE_ENV === "production") {
+			if (process.env.NODE_ENV === "development") {
+				const response = await axiosPrivate.post(
+					"generateReport",
+					JSON.stringify(searchData),
+					{ signal: controller.signal }
+				);
+
+				changeGenerateLoading(false);
+				changeDate(await response.data.Report.dateCreated.substring(0, 10));
+				changeDraftReport(response.data.Report.reportID);
+				changeClicked(true);
+			} else {
 				const response = await axios.post(
 					"https://betuh6rejrtpyywnwkbckrdnea0bypye.lambda-url.us-east-1.on.aws/",
 					JSON.stringify(searchData),
@@ -77,17 +88,6 @@ function ViewHistory() {
 							"Content-Type": "application/json"
 						}
 					}
-				);
-
-				changeGenerateLoading(false);
-				changeDate(await response.data.Report.dateCreated.substring(0, 10));
-				changeDraftReport(response.data.Report.reportID);
-				changeClicked(true);
-			} else {
-				const response = await axiosPrivate.post(
-					"generateReport",
-					JSON.stringify(searchData),
-					{ signal: controller.signal }
 				);
 
 				changeGenerateLoading(false);

@@ -64,7 +64,7 @@ export const searchTweets = middyfy(
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify({ resultSetID: id, tweets: result})
+				body: JSON.stringify({ resultSetID: id, tweets: result })
 			};
 		} catch (e) {
 			return {
@@ -91,11 +91,10 @@ export const addCustomTweet = middyfy(
 			} else {
 				id = params.url.substring(lastS, qm);
 			}
-			
 
 			const { data } = await clientV2.get("tweets", { ids: id });
 
-			if(data[0].id === undefined){
+			if (data[0].id === undefined) {
 				return {
 					statusCode: statusCodes.Successful,
 					headers: header,
