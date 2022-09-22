@@ -14,7 +14,7 @@ const lambda = new Lambda();
 export const generateReport = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {		
-			const params = event.body;		
+			const params = typeof(event.body) == "string" ? JSON.parse(event.body) : event.body;
 
 			const title = await ServicesLayer.resultSetServices.getResultSet(
 				params["resultSetID"],
@@ -33,25 +33,31 @@ export const generateReport = middyfy(
       		  twts += " " + data[tweet].text;
       		}
 
-			//	Summarizing text
-			const lambdaParams = {
-				FunctionName: "text-summarisation-dev-summarise",
-				InvocationType: "RequestResponse",
-				Payload: JSON.stringify({ 
-					text: twts,
-					min: 100,
-					max: 200
-				})
-			};
+			let sText: string = "";
+		
+			if (process.env.NODE_ENV === "production") {
+				//	Summarizing text
+				const lambdaParams = {
+					FunctionName: "text-summarisation-dev-summarise",
+					InvocationType: "RequestResponse",
+					Payload: JSON.stringify({ 
+						text: twts,
+						min: 100,
+						max: 200
+					})
+				};
 
-			const responseTS = await lambda.invoke(lambdaParams, function(data, err) {
-				if (err) {
-					console.log(err);
-				} else {
-					console.log(data);
-				}
-			}).promise();
-			const sText =  JSON.parse(JSON.parse(responseTS.Payload.toLocaleString()).body).text;
+				const responseTS = await lambda.invoke(lambdaParams, function(data, err) {
+					if (err) {
+						console.log(err);
+					} else {
+						console.log(data);
+					}
+				}).promise();
+				sText =  JSON.parse(JSON.parse(responseTS.Payload.toLocaleString()).body).text;
+			} else {
+				sText = "This is a test text";
+			}
 			
 
 			// Adding blocks
@@ -66,8 +72,6 @@ export const generateReport = middyfy(
 				});
 			});
 
-			console.log("Added blocks");
-
 			const report = await ServicesLayer.reportService.addReport({
 				reportID: id,
 				resultSetID: params["resultSetID"],
@@ -78,8 +82,6 @@ export const generateReport = middyfy(
 				author: params["author"]
 			});
 
-			console.log("Added report");
-
 			const tb = `BK-${randomUUID()}`;
 			await ServicesLayer.reportBlockService.addReportBlock({
 				reportBlockID: tb,
@@ -88,8 +90,6 @@ export const generateReport = middyfy(
 				position: 0,
 				richText: sText
 			});
-
-			console.log("Added rich text");
 
 			const sid = `ST-${randomUUID()}`;
 			await ServicesLayer.textStyleService.addStyle({
@@ -101,9 +101,6 @@ export const generateReport = middyfy(
 				italic: "",
 				size: " text-xs"
 			});
-
-			console.log("Added style");
-
 
 			return {
 				statusCode: statusCodes.Successful,
