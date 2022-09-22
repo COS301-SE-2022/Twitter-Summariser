@@ -283,14 +283,14 @@ export const shareReport = middyfy(
 						type: params.type
 					});
 
-					const report = await ServicesLayer.reportService.getReport(params.reportID);
+					// const report = await ServicesLayer.reportService.getReport(params.reportID);
 
 					const notification: Notification = {
 						id: "NT-"+ randomUUID(),
 						sender: params.apiKey,
 						receiver: shareTo.apiKey,
 						type: "SHARE",
-						content: report.title,
+						content: params.reportID,
 						isRead: false,
 						dateCreated: (new Date()).toString()
 					}

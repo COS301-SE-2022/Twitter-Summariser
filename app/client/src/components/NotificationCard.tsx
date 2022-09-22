@@ -1,22 +1,36 @@
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import useAuth from "../hooks/useAuth";
 
 function NotificationCard(props: any) {
 	const [isOpen, setIsOpen] = useState(false);
+	const navigate = useNavigate();
 	const toggling = () => setIsOpen(!isOpen);
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
 	const { auth } = useAuth();
 
+	const imageURL =
+		props.data.senderUrl === "assets/profile.png"
+			? props.data.senderUrl
+			: `https://s3.amazonaws.com/twitter-summariser-images/${
+					props.data.senderUrl
+			  }?${new Date().getTime()}`;
+
 	const description = () => {
 		if (props.data.type === "SHARE") {
-			return "has shared a report, ";
+			return " has shared a report, ";
 		}
-		return "You have a new scheduled report, ";
+		return "A newly generated report has landed, ";
 	};
+
+	const navigateToReports = () => {
+		navigate(`/report/${props.data.content}`);
+		props.onChangePage(true);
+	}
 
 	const timeDifference = () => {
 		let tString;
@@ -90,18 +104,27 @@ function NotificationCard(props: any) {
 	);
 
 	return (
-		<div className="flex flex-row rounded space-x-5 px-3 py-3 items-center cursor-pointer hover:shadow-md">
+		<div className="flex flex-row rounded space-x-5 px-3 py-3 items-center cursor-pointer hover:shadow-md"
+			key={props.data.id}
+			onClick={navigateToReports}
+		>
 			<div>
 				<img
-					src={props.data.senderUrl}
+					src={imageURL}
 					alt="avatar"
 					className="object-cover w-12 h-17 rounded-full shadow-sm"
 				/>
 			</div>
 			<div className="flex flex-col text-sm">
 				<div className="inline">
-					<b>{props.data.senderUsername}</b> {description()}{" "}
-					<b className="font-bold">{props.data.content}</b>
+					{
+						props.data.type === "SHARE" && 
+							<b>{props.data.senderUsername}</b> 
+						
+					}
+
+					{description()}{" "}
+					<b className="font-bold">{props.data.title}</b>
 				</div>
 
 				<div className="relative text-gray-400 text-xs bottom-0 right-0">

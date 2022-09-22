@@ -33,13 +33,16 @@ export const getNotifications = middyfy(
                     senderUrl = "assets/logo.png";
                 }
 
+                const report = await ServicesLayer.reportService.getReport(notification.content);
+
                 delete notification.sender;
                 delete notification.receiver;
 
                 return {
                     ...notification,
                     senderUsername: senderUsername,
-                    senderUrl: senderUrl
+                    senderUrl: senderUrl,
+                    title: report.title
                 };
 
 

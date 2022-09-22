@@ -117,7 +117,7 @@ function Landing() {
 
 			<NotificationsProvider>
 			{/* third container ######################################################################################################### */}
-			<div className=" xl:flex xl:w-1/4 xl:p-2 xl:pt-5 xl:relative xl:mr-14 hidden">
+			<div className=" lg:flex lg:w-1/4 lg:p-2 lg:pt-5 lg:relative lg:mr-14 hidden">
 				
 					<Notifications />
 				
