@@ -66,6 +66,31 @@ describe("notification.service", () => {
                 TableName: "NotificationTable",
                 Item: notification
             });
-        })
-    })
-})
+        });
+    });
+
+    describe("deleteNotification", () => {
+        test("Delete notification",async () => {
+            const notification: Notification = {
+                id: "1234",
+                sender: "dfberki",
+                receiver: "jnrjNGgn",
+                type: "SHARE",
+                content: "Report Title",
+                isRead: false,
+                dateCreated: "2022-01-01"
+            };
+
+            awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({Item: notification}));
+
+            await NotificationService.notificationService.deleteNotification("1234");
+
+            expect(db.delete).toHaveBeenCalledWith({
+                TableName: "NotificationTable",
+                Key: {
+                    id: "1234"
+                }
+            });
+        });
+    });
+});
