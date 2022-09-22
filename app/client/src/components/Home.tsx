@@ -468,7 +468,7 @@ function Home() {
 							{loading && (
 								<button
 									type="button"
-									className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
+									className="flex flex-col bg-dark-cornflower-blue rounded-sm text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
 									disabled
 								>
 									{/* </svg> */}
@@ -483,7 +483,7 @@ function Home() {
 							{apiResponse.length === 1 ? (
 								<button
 									type="button"
-									className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center disabled"
+									className="flex flex-col bg-dark-cornflower-blue rounded-sm text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center disabled"
 									disabled
 								>
 									Generate Report
@@ -491,7 +491,7 @@ function Home() {
 							) : generateLoading ? (
 								<button
 									type="button"
-									className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
+									className="flex flex-col bg-dark-cornflower-blue rounded-sm text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
 									disabled
 								>
 									{loadIcon}
@@ -569,7 +569,7 @@ function Home() {
 								<h1 className="text-2xl ml-2">Newly created report</h1>
 								<Link to={newDraftReportLink}>
 									<div
-										className="m-4 w-1/4 h-20 bg-white border rounded-lg hover:shadow-2xl flex flex-col p-2"
+										className="m-4 w-1/4 h-20 bg-white border rounded-sm hover:shadow-2xl flex flex-col p-2"
 										data-aos="zoom-in"
 										data-aos-duration="500"
 										data-aos-delay="700"
