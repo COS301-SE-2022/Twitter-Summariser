@@ -98,39 +98,6 @@ export const genScheduledReport = async (params): Promise<void> => {
 			})
 		);
 
-		/*const searchParams = {
-			FunctionName: "twitter-summariser-dev-searchTweets",
-			InvocationType: "RequestResponse",
-			Payload: JSON.stringify({
-				apiKey: params.apiKey,
-				filterBy: params.filterBy,
-				keyword: params.keyword,
-				numOfTweets: params.numOfTweets,
-				sortBy: params.sortBy
-			})
-		};
-
-	
-		const responseST = await lambda
-			.invoke(searchParams, function (data, err) {
-				if (err) {
-					console.log(err);
-				} else {
-					console.log(data);
-				}
-			})
-			.promise();*/
-
-		/*const responseGR = await axiosPrivate.post(
-			"generateReport",
-			JSON.stringify({
-				apiKey: params.apiKey,
-				author: params.author,
-				resultSetID: responseST.data["resultSetID"]
-			})
-		);*/
-
-
 		const generateParams = {
 			FunctionName: "twitter-summariser-dev-generateReport",
 			InvocationType: "RequestResponse",
@@ -142,11 +109,9 @@ export const genScheduledReport = async (params): Promise<void> => {
 		};
 
 		const responseGR = await lambda
-			.invoke(generateParams, function (data, err) {
+			.invoke(generateParams, function (_data, err) {
 				if (err) {
 					console.log(err);
-				} else {
-					console.log(data);
 				}
 			})
 			.promise();
