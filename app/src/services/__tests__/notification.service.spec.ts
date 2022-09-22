@@ -48,4 +48,24 @@ describe("notification.service", () => {
             expect(notification).toEqual(expected);
         });
     });
+
+    describe("addNotification", () => {
+        test("Add Notification",async () => {
+            const notification: Notification = {
+                id: "1234",
+                sender: "dfberki",
+                receiver: "jnrjNGgn",
+                type: "SHARE",
+                content: "Report Title",
+                isRead: false,
+                dateCreated: "2022-01-01"
+            };
+
+            await NotificationService.notificationService.addNotification(notification);
+            expect(db.put).toHaveBeenCalledWith({
+                TableName: "NotificationTable",
+                Item: notification
+            });
+        })
+    })
 })
