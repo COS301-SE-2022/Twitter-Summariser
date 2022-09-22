@@ -2,7 +2,6 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { middyfy } from "@libs/lambda";
 import { header, statusCodes } from "@functions/resources/APIresponse";
 import { EventBridge, Lambda } from "aws-sdk";
-import axiosPrivate from "../../../client/src/api/ConfigAxios";
 import ServicesLayer from "../../services";
 import { randomUUID } from "crypto";
 import Notification from "@model/notification/notification.model";
@@ -98,7 +97,6 @@ export const genScheduledReport = async (params): Promise<void> => {
 			})
 		);*/
 
-		let responseST: any;
 
 		const searchParams = {
 			FunctionName: "twitter-summariser-dev-searchTweets",
@@ -112,12 +110,13 @@ export const genScheduledReport = async (params): Promise<void> => {
 			})
 		};
 
-		await lambda
+	
+		const responseST = await lambda
 			.invoke(searchParams, function (data, err) {
 				if (err) {
 					console.log(err);
 				} else {
-					responseST = data;
+					console.log(data);
 				}
 			})
 			.promise();
@@ -131,7 +130,6 @@ export const genScheduledReport = async (params): Promise<void> => {
 			})
 		);*/
 
-		let responseGR: any;
 
 		const generateParams = {
 			FunctionName: "twitter-summariser-dev-generateReport",
@@ -139,16 +137,16 @@ export const genScheduledReport = async (params): Promise<void> => {
 			Payload: JSON.stringify({
 				apiKey: params.apiKey,
 				author: params.author,
-				resultSetID: responseST.data["resultSetID"]
+				resultSetID: JSON.parse(JSON.parse(responseST.Payload.toLocaleString()).body).resultSetID
 			})
 		};
 
-		await lambda
+		const responseGR = await lambda
 			.invoke(generateParams, function (data, err) {
 				if (err) {
 					console.log(err);
 				} else {
-					responseGR = data;
+					console.log(data);
 				}
 			})
 			.promise();
@@ -158,7 +156,7 @@ export const genScheduledReport = async (params): Promise<void> => {
 			sender: "SYSTEM",
 			receiver: params.apiKey,
 			type: "SCHEDULER",
-			content: responseGR.data.reportID,
+			content: JSON.parse(JSON.parse(responseGR.Payload.toLocaleString()).body).reportID,
 			isRead: false,
 			dateCreated: new Date().toString()
 		};
