@@ -12,7 +12,7 @@ export const getTrendingTopics = middyfy(
 			const response = await twitterClient.v1.trendsByPlace(23424942);
 
 			let data = [];
-			const data = response[0].trends.map( async (trend) => {
+			response[0].trends.map( async (trend) => {
 				data.push(trend.name);
 			})
 
