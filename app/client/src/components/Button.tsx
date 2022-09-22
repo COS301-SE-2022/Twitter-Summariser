@@ -1,8 +1,8 @@
 function Button(props: any) {
 	const coloursAndEffects =
 		props.disableId === "true"
-			? "bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50"
-			: "bg-dark-cornflower-blue rounded-lg text-white font-semibold hover:bg-midnight-blue group hover:shadow";
+			? "bg-dark-cornflower-blue rounded-sm text-white  font-semibold opacity-50"
+			: "bg-dark-cornflower-blue rounded-sm text-white font-semibold hover:bg-midnight-blue group hover:shadow";
 	const coloursAndEffectsDelete =
 		props.disableId === "true"
 			? "bg-crimson rounded-lg text-white  font-semibold opacity-50"
