@@ -35,7 +35,9 @@ export const generateReport = middyfy(
 
 			let sText: string = "";
 		
-			if (process.env.NODE_ENV === "production") {
+			if (process.env.NODE_ENV === "development") {
+				sText = "This is test text";
+			} else {
 				//	Summarizing text
 				const lambdaParams = {
 					FunctionName: "text-summarisation-dev-summarise",
@@ -55,8 +57,6 @@ export const generateReport = middyfy(
 					}
 				}).promise();
 				sText =  JSON.parse(JSON.parse(responseTS.Payload.toLocaleString()).body).text;
-			} else {
-				sText = "This is a test text";
 			}
 			
 			// Adding blocks
