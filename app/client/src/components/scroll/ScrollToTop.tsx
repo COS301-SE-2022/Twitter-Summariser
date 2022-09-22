@@ -30,13 +30,13 @@ export function ScrollToTop() {
 	}, []);
 
 	return (
-		<div className="fixed flex flex-row justify-center bottom-3 w-full z-50">
+		<div className="fixed flex flex-row justify-center bottom-8 w-full z-50">
 			<button
 				type="button"
 				onClick={scrollToTop}
 				className={classNames(
 					isVisble ? "opacity-100" : "opacity-0",
-					"inline-flex items-center p-3 rounded-full shadow-sm text-white bg-dark-cornflower-blue transition-opacity hover:bg-blue-800 focus:outline-none focus:ring-offset-2 focus:ring-blue-500"
+					"inline-flex items-center p-3 rounded-full shadow-sm text-white bg-midnight-blue transition-opacity hover:bg-blue-800 focus:outline-none focus:ring-offset-2 focus:ring-blue-500"
 				)}
 			>
 				<BiArrowFromBottom className="h-6 w-6" aria-hidden="true" />
