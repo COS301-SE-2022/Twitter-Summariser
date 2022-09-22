@@ -4,6 +4,7 @@ import { randomUUID } from "crypto";
 import { header, statusCodes } from "@functions/resources/APIresponse";
 import { clientV2 } from "../resources/twitterV2.client";
 import ServicesLayer from "../../services";
+import * as AWS from "aws-sdk";
 
 export const searchTweets = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
@@ -194,6 +195,8 @@ export const reorderTweets = middyfy(
 	}
 );
 
+const Comprehend = new AWS.Comprehend();
+
 export const getSentiment = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
@@ -202,7 +205,7 @@ export const getSentiment = middyfy(
 
 			let twts = [];
 			data.map( async (tweets) => {
-				
+				twts.push({text: tweets.text, id: tweets.id})
 			})
 
 			return {
