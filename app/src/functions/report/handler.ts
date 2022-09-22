@@ -59,7 +59,6 @@ export const generateReport = middyfy(
 				sText = "This is a test text";
 			}
 			
-
 			// Adding blocks
 			let x = -1;
 			tweets.map(async (tweet) => {
