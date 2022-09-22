@@ -45,7 +45,7 @@ function ReportCard(props: any) {
 	}
 
 	return (
-		<div className="pt-4 pb-4 pl-1 pr-1 md:pl-4 md:pr-4 m-2 bg-gradient-to-b from-blue-50 via-sky-100  bg-white border rounded-lg transform hover:shadow-2xl hover:scale-105 transition duration-200 ease-in">
+		<div className="pt-3 pb-3 pl-3 pr-3 md:pl-4 md:pr-4 sm:m-4 m-2 bg-gradient-to-b from-blue-50 via-sky-100  bg-white border rounded-lg transform hover:shadow-2xl hover:scale-105 transition duration-200 ease-in">
 			{!options ? (
 				<>
 					<div className=" p-0 my-0"> </div>
