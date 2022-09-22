@@ -20,9 +20,9 @@ function PublishedText(props: any) {
 		// editButton = false;
 		// console.log(props.data.block.text.length);
 
-		props.data.block.style.length
+		props.data.block.style.length;
 
-		if(props.data.block.style.length !== 0){
+		if (props.data.block.style.length !== 0) {
 			style2 =
 				style2 +
 				props.data.block.style[0].italic +

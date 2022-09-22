@@ -114,18 +114,14 @@ function Landing() {
 				<ScrollToTop />
 			</div>
 
-
 			<NotificationsProvider>
-			{/* third container ######################################################################################################### */}
-			<div className=" lg:flex lg:w-1/4 lg:p-2 lg:pt-5 lg:relative lg:mr-14 hidden">
-				
+				{/* third container ######################################################################################################### */}
+				<div className=" lg:flex lg:w-1/4 lg:p-2 lg:pt-5 lg:relative lg:mr-14 hidden">
 					<Notifications />
-				
-				
-			</div>
-			<Toaster />
+				</div>
+				<Toaster />
 
-			<MobileNotifications/>
+				<MobileNotifications />
 			</NotificationsProvider>
 		</div>
 	);

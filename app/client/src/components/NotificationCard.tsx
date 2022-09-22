@@ -30,7 +30,7 @@ function NotificationCard(props: any) {
 	const navigateToReports = () => {
 		navigate(`/report/${props.data.content}`);
 		props.onChangePage(true);
-	}
+	};
 
 	const timeDifference = () => {
 		let tString;
@@ -104,7 +104,8 @@ function NotificationCard(props: any) {
 	);
 
 	return (
-		<div className="flex flex-row rounded space-x-5 px-3 py-3 items-center cursor-pointer hover:shadow-md"
+		<div
+			className="flex flex-row rounded space-x-5 px-3 py-3 items-center cursor-pointer hover:shadow-md"
 			key={props.data.id}
 			onClick={navigateToReports}
 		>
@@ -117,14 +118,8 @@ function NotificationCard(props: any) {
 			</div>
 			<div className="flex flex-col text-sm">
 				<div className="inline">
-					{
-						props.data.type === "SHARE" && 
-							<b>{props.data.senderUsername}</b> 
-						
-					}
-
-					{description()}{" "}
-					<b className="font-bold">{props.data.title}</b>
+					{props.data.type === "SHARE" && <b>{props.data.senderUsername}</b>}
+					{description()} <b className="font-bold">{props.data.title}</b>
 				</div>
 
 				<div className="relative text-gray-400 text-xs bottom-0 right-0">

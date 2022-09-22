@@ -69,14 +69,14 @@ function ViewHistory() {
 
 		try {
 			const response = await axios.post(
-        		"https://betuh6rejrtpyywnwkbckrdnea0bypye.lambda-url.us-east-1.on.aws/",
-        		JSON.stringify(searchData),
-        		{
-          			headers: {
-            			"Content-Type": "application/json",
-        			}
-        		}
-      		);
+				"https://betuh6rejrtpyywnwkbckrdnea0bypye.lambda-url.us-east-1.on.aws/",
+				JSON.stringify(searchData),
+				{
+					headers: {
+						"Content-Type": "application/json"
+					}
+				}
+			);
 
 			changeGenerateLoading(false);
 			changeDate(await response.data.Report.dateCreated.substring(0, 10));

@@ -44,8 +44,8 @@ function TextSummariser() {
 
 			const response = await axiosTextSummariser.post(
 				"summarise",
-				{	text: s,	min: 100,	max: 200	},
-				{	signal: controller.signal			}
+				{ text: s, min: 100, max: 200 },
+				{ signal: controller.signal }
 			);
 
 			setSummary(response.data.text);
@@ -64,7 +64,7 @@ function TextSummariser() {
 		setIsDone(true);
 	};
 
-	const handleFirstOption = () => {	
+	const handleFirstOption = () => {
 		setFirstOption(true);
 		setSecondOption(false);
 	};
@@ -210,7 +210,7 @@ function TextSummariser() {
 							<p className=" items-center justify-center"> {error} </p>
 						</div>
 					)}
-					{(secondFlowControl && showSpinner) && (
+					{secondFlowControl && showSpinner && (
 						<>
 							<div className="w-full mt-10 justify-center flex flex-col top-50 items-center">
 								<ClipLoader color="#023E8A" size={100} />
