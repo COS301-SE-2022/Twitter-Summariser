@@ -54,7 +54,7 @@ function HistoryCard(props: any) {
 	}
 
 	return (
-		<div className="p-4 ml-4 mr-4 mt-2 mb-2 md:w-full bg-gradient-to-b from-blue-50 via-sky-100 border rounded-sm transform hover:shadow-md hover:scale-105 transition duration-200 ease-in hover:bg-blue-200">
+		<div className="pt-3 pb-3 pl-3 pr-3 m-2 bg-gradient-to-b from-blue-50 via-sky-100 border rounded-sm transform hover:shadow-md hover:scale-105 transition duration-200 ease-in hover:bg-blue-200">
 			{!options ? (
 				<>
 					<p
@@ -86,7 +86,7 @@ function HistoryCard(props: any) {
 							</Carousel.Item>
 						</Carousel>
 					</div>
-					<div className="flex mt-8 space-x-4 md:mt-8 items-center justify-center">
+					<div className="flex mt-4 space-x-4 md:mt-8 items-center justify-center">
 						<Link to="/viewHistory">
 							<div className="rounded-sm items-center py-2.5 px-10 text-sm font-semibold text-center text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow">
 								<button onClick={setResultSet} type="submit">

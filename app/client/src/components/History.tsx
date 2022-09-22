@@ -85,7 +85,7 @@ function History() {
 									<div
 										data-aos="fade-up"
 										data-aos-duration="500"
-										className="sm:w-1/2 w-full mt-2"
+										className="sm:w-1/2 w-full mr-5/2"
 										key={data.id}
 									>
 										<HistoryCard
