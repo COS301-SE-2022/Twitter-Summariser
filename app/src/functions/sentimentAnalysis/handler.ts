@@ -28,8 +28,8 @@ export const analyse = middy(
 
 		try {
 			// Entity Extraction
-			/*const entityResults = await Comprehend.batchDetectEntities(params).promise();
-			const entities = entityResults.ResultList[0];*/
+			const entityResults = await Comprehend.batchDetectEntities(params).promise();
+			const entities = entityResults.ResultList[0];
 
 			// Sentiment Analysis
 			const sentimentResults = await Comprehend.batchDetectSentiment(params).promise();
@@ -39,7 +39,7 @@ export const analyse = middy(
 				statusCode: statusCodes.Successful,
 				headers: header,
 				body: JSON.stringify({
-					/*entities,*/
+					entities,
 					sentiment
 				})
 			};
