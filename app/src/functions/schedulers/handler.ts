@@ -87,7 +87,7 @@ export const reportScheduler = middyfy(
 
 export const genScheduledReport = async (params): Promise<void> => {
 	try {
-		/*const responseST = await axiosPrivate.post(
+		const responseST = await axiosPrivate.post(
 			"searchTweets",
 			JSON.stringify({
 				apiKey: params.apiKey,
@@ -96,9 +96,9 @@ export const genScheduledReport = async (params): Promise<void> => {
 				numOfTweets: params.numOfTweets,
 				sortBy: params.sortBy
 			})
-		);*/
+		);
 
-		let responseST: any;
+		/*let responseST: any;
 
 		const searchParams = {
 			FunctionName: "twitter-summariser-dev-searchTweets",
@@ -118,7 +118,7 @@ export const genScheduledReport = async (params): Promise<void> => {
 			} else {
 				responseST = data;
 			}
-		}).promise();
+		}).promise();*/
 
 		/*const responseGR = await axiosPrivate.post(
 			"generateReport",
