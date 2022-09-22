@@ -103,7 +103,6 @@ function Home() {
 
 		try {
 			if (process.env.NODE_ENV === "development") {
-				console.log("development");
 				const response = await axiosPrivate.post(
 					"generateReport",
 					JSON.stringify(searchData),

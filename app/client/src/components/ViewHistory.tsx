@@ -69,7 +69,6 @@ function ViewHistory() {
 
 		try {
 			if (process.env.NODE_ENV === "development") {
-				console.log("In development mode");
 				const response = await axiosPrivate.post(
 					"generateReport",
 					JSON.stringify(searchData),
