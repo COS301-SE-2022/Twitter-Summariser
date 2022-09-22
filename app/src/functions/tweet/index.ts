@@ -42,3 +42,17 @@ export const reorderTweets = {
 		}
 	]
 };
+
+export const getSentiment = {
+	handler: `${handlerPath(__dirname)}/handler.getSentiment`,
+	description: "A function that returns the sentiment of givne tweets",
+	events: [
+		{
+			http: {
+				method: "post",
+				path: "getSentiment/",
+				cors: true
+			}
+		}
+	]
+};
