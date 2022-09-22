@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import Carousel from "react-bootstrap/Carousel";
+// import Carousel from "react-bootstrap/Carousel";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import useAuth from "../hooks/useAuth";
 
@@ -45,41 +45,10 @@ function ReportCard(props: any) {
 	}
 
 	return (
-		// <div>
-		//     <div className="m-4 w-auto h-20 rounded-md flex flex-row justify-between items-center p-2">
-		//         <div className="">
-		//             <div className="">
-		//                 <Link to="/getPublishedReport">
-		//                     <button data-testid="btn-report" type="submit" onClick={viewReport}>
-		//                         <p className="font-bold">{props.data.title}</p>
-		//                     </button>
-		//                 </Link>
-		//             </div>
-		//             <div className="mt-2">
-		//                 <p className="italic text-xs">Author: {props.data.author}</p>
-		//             </div>
-		//             <div className="">
-		//                 <p className="italic text-xs">
-		//                     Created on: {props.data.dateCreated.substring(0, 16)}
-		//                 </p>
-		//             </div>
-		//         </div>
-
-		//         <button type="button" onClick={deleteReportHandler}>
-		//             <div
-		//                 className=" pl-4 flex flex-row justify-center items-center"
-		//                 data-bs-toggle="tooltip"
-		//                 title="Delete Report"
-		//             >
-		//                 <MdDeleteOutline style={iconStyle3} />
-		//             </div>
-		//         </button>
-		//     </div>
-		// </div>
-		<div className="pt-4 pb-4 pl-10 pr-10 m-2 mt-2 bg-gradient-to-b from-blue-50 via-sky-100 border rounded-lg transform hover:shadow-md hover:scale-105 transition duration-200 ease-in hover:bg-blue-200">
-			{!options ? (
+		<div className="pt-4 pb-4 pl-1 pr-1 md:pl-4 md:pr-4 m-2 bg-gradient-to-b from-blue-50 via-sky-100  bg-white border rounded-lg transform hover:shadow-2xl hover:scale-105 transition duration-200 ease-in">
+					{!options ? (
 				<>
-					<div className=" mx-40 p-0 my-0"> </div>
+					<div className=" p-0 my-0"> </div>
 					<div className="flex items-center justify-center">
 						<p aria-label="Author" title="Author" className="mr-3 ">
 							<img
@@ -103,39 +72,23 @@ function ReportCard(props: any) {
 					<p
 						aria-label="Article"
 						title={props.data.title}
-						className="flex items-center justify-center mt-2 mb-3 text-2xl font-bold leading-5 text-black transition-colors duration-200 hover:text-deep-purple-accent-400 w-auto"
+						className="flex items-center justify-center mt-2 mb-3 text-2xl font-bold leading-5 text-black transition-colors duration-200 hover:text-deep-purple-accent-400"
 					>
 						{props.data.title}
 					</p>
-					<p className="flex mb-2 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase h-10">
-						<Carousel controls={false} indicators={false}>
-							<Carousel.Item>
-								<span className=" font-semiboldtext-deep-purple-accent-400">
-									AUTHOR - {props.data.author}
-								</span>
-								{/* <h3>First slide label</h3> */}
-							</Carousel.Item>
-							<Carousel.Item>
-								<span className=" font-semiboldtext-deep-purple-accent-400">
-									Published Report - {props.data.dateCreated.substring(0, 16)}
-								</span>
-								{/* <h3>Second slide label</h3> */}
-							</Carousel.Item>
-						</Carousel>
-					</p>
-					<div className="flex mt-3 space-x-3 items-center justify-center">
+			
+					
+					<div className="flex mt-8 space-x-4 md:mt-8 items-center justify-center">
 						<Link to={newReportLink}>
-							<div className="items-center py-2 px-3 text-xs font-semibold text-center text-white bg-dark-cornflower-blue rounded-md  hover:bg-midnight-blue group hover:shadow">
+							<div className="rounded-sm items-center py-2.5 px-10 text-sm font-semibold text-center text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow">
 								<button onClick={viewReport} type="submit">
-									{" "}
-									VIEW{" "}
+									View
 								</button>
 							</div>
 						</Link>
-						<div className="inline-flex items-center py-2 px-3 text-xs font-semibold text-center bg-dark-cornflower-blue rounded-md text-white hover:bg-midnight-blue group hover:shadow">
+						<div className="rounded-sm inline-flex items-center py-2.5 px-8 text-sm font-semibold text-center bg-dark-cornflower-blue  text-white hover:bg-midnight-blue group hover:shadow">
 							<button onClick={optionhandler} type="submit">
-								{" "}
-								DELETE{" "}
+								Delete
 							</button>
 						</div>
 					</div>
@@ -149,27 +102,29 @@ function ReportCard(props: any) {
 					>
 						{props.data.title}
 					</p> */}
-					<div className=" mx-44 p-0 my-0"> </div>
 					<p className="flex flex-row mt-12 mb-2 text-gray-600 text-xs text-center items-center justify-center font-semibold tracking-wide uppercase">
 						Are you sure you want to delete this report?
 					</p>
-					<div className="flex mt-4 mb-12 space-x-3 items-center justify-center">
-						<div className="inline-flex items-center py-2.5 px-4 text-xs font-semibold text-center bg-dark-cornflower-blue rounded-md text-white hover:bg-midnight-blue group hover:shadow">
+					<div className="flex mt-8 space-x-4 md:mt-8 items-center justify-center">
+						<div className="rounded-sm items-center py-2.5 px-10 space-x-4 text-sm font-semibold text-center text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow">
 							<button onClick={deleteReportHandler} type="submit">
-								{" "}
-								DELETE{" "}
+								Yes
 							</button>
 						</div>
-
-						<div className="items-center py-2.5 px-4 text-xs font-semibold text-center text-white bg-dark-cornflower-blue rounded-md  hover:bg-midnight-blue group hover:shadow">
+						<div className="rounded-sm inline-flex items-center py-2.5 px-8 text-sm font-semibold text-center bg-dark-cornflower-blue text-white hover:bg-midnight-blue group hover:shadow">
 							<button onClick={optionhandler} type="submit">
-								CANCEL
+								Cancel
 							</button>
 						</div>
 					</div>
 				</>
 			)}
 		</div>
+
+	
+		// <div className="pt-4 pb-4 pl-10 pr-10 m-2 mt-2 bg-gradient-to-b from-blue-50 via-sky-100 border rounded-lg transform hover:shadow-md hover:scale-105 transition duration-200 ease-in hover:bg-blue-200">
+	
+		// </div>
 	);
 }
 
