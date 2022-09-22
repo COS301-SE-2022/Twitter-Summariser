@@ -134,7 +134,7 @@ function Signup() {
 			<br />
 			<div>
 				{errorStatus && (
-					<div className="flex flex-row border-2 border-red-500 rounded-sm bg-red-300 h-auto w-60 m-4 mb-5 p-2">
+					<div className="flex flex-row border-2 border-red-500 rounded-md bg-red-300 h-auto w-60 m-4 mb-5 p-2">
 						<BiErrorCircle style={style} />
 						<p className="p-1 pl-2">{errorMessage}</p>
 					</div>
@@ -152,10 +152,10 @@ function Signup() {
 						autoComplete="off"
 						className={
 							validUsername && enteredUsername
-								? "w-60 h-10 border-2 rounded-sm text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-green-200"
+								? "w-60 h-10 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-green-200"
 								: !validUsername && enteredUsername
-								? "w-60 h-10 border-2 rounded-sm text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-red-200"
-								: "w-60 h-10 border-gray-200 border rounded-sm text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E]"
+								? "w-60 h-10 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-red-200"
+								: "w-60 h-10 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E]"
 						}
 						onChange={(event) => changeEnteredUsername(event.target.value)}
 						value={enteredUsername}
@@ -164,7 +164,7 @@ function Signup() {
 						onBlur={() => setUsernameFocus(false)}
 					/>
 					{usernameFocus && enteredUsername && !validUsername && (
-						<div className="instructions flex flex-row border-2 rounded-sm mt-4 bg-gray-100 h-auto w-60 p-2 justify-center items-center text-sm">
+						<div className="instructions flex flex-row border-2 rounded-md mt-4 bg-gray-100 h-auto w-60 p-2 justify-center items-center text-sm">
 							<div className="flex flex-col">
 								<p className="items-center justify-center">
 									Username should be 3-16 characters and alphanumeric
@@ -180,10 +180,10 @@ function Signup() {
 						autoComplete="off"
 						className={
 							validEmail && enteredEmail
-								? "w-60 h-10 border-2 rounded-sm text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-green-200 mb-6"
+								? "w-60 h-10 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-green-200 mb-6"
 								: !validEmail && enteredEmail
-								? "w-60 h-10 border-2 rounded-sm text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-red-200 mb-6"
-								: "w-60 h-10 border-gray-200 border rounded-sm text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] mb-6"
+								? "w-60 h-10 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-red-200 mb-6"
+								: "w-60 h-10 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] mb-6"
 						}
 						onChange={(event) => changeEnteredEmail(event.target.value)}
 						value={enteredEmail}
@@ -192,7 +192,7 @@ function Signup() {
 						onBlur={() => setEmailFocus(false)}
 					/>
 					{emailFocus && enteredEmail && !validEmail && (
-						<div className="flex flex-row border-2 rounded-sm bg-gray-100 h-10 w-60 justify-center p-2 mb-4 items-center text-sm">
+						<div className="flex flex-row border-2 rounded-md bg-gray-100 h-10 w-60 justify-center p-2 mb-4 items-center text-sm">
 							<div className="flex flex-col">
 								<p>Should be a valid email</p>
 							</div>
@@ -207,10 +207,10 @@ function Signup() {
 							autoComplete="new-password"
 							className={
 								validPassword && enteredPassword
-									? "w-60 h-10 border-2 rounded-sm text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-green-200"
+									? "w-60 h-10 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-green-200"
 									: !validPassword && enteredPassword
-									? "w-60 h-10 border-2 rounded-sm text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-red-200"
-									: "w-60 h-10 border-gray-200 border rounded-sm text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E]"
+									? "w-60 h-10 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-red-200"
+									: "w-60 h-10 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E]"
 							}
 							onChange={(event) => changeEnteredPassword(event.target.value)}
 							value={enteredPassword}
@@ -219,7 +219,7 @@ function Signup() {
 							onBlur={() => setPasswordFocus(false)}
 						/>
 						{passwordFocus && enteredPassword && !validPassword && (
-							<div className="flex flex-row border-2 rounded-sm bg-gray-100 h-auto w-60 mini-tablet:w-auto p-2 mt-4 items-center text-sm">
+							<div className="flex flex-row border-2 rounded-md bg-gray-100 h-auto w-60 mini-tablet:w-auto p-2 mt-4 items-center text-sm">
 								<div className="flex flex-col">
 									<p>
 										<strong>Password should be: </strong>
@@ -242,10 +242,10 @@ function Signup() {
 							autoComplete="off"
 							className={
 								validConfirmPassword && enteredConfirmPassword
-									? "w-60 h-10 border-2 rounded-sm text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-green-200 mb-3"
+									? "w-60 h-10 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-green-200 mb-3"
 									: !validConfirmPassword && enteredConfirmPassword
-									? "w-60 h-10 border-2 rounded-sm text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-red-200 mb-3"
-									: "w-60 h-10 border-gray-200 border rounded-sm text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] mb-3"
+									? "w-60 h-10 border-2 rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] border-red-200 mb-3"
+									: "w-60 h-10 border-gray-200 border rounded-md text-center text-md focus:outline-none focus:ring focus:border-[#023E8A] focus:text-[#03045E] mb-3"
 							}
 							onChange={(event) => changeEnteredConfirmPassword(event.target.value)}
 							value={enteredConfirmPassword}
@@ -258,7 +258,7 @@ function Signup() {
 						(!confirmPasswordFocus &&
 							!validConfirmPassword &&
 							enteredConfirmPassword)) && (
-						<div className="flex flex-row border-2 rounded-sm bg-gray-100 h-auto w-60 p-2 mb-4 items-center text-sm">
+						<div className="flex flex-row border-2 rounded-md bg-gray-100 h-auto w-60 p-2 mb-4 items-center text-sm">
 							<div className="flex flex-col">
 								<p>The passwords do not match</p>
 							</div>
@@ -267,7 +267,7 @@ function Signup() {
 					{loading && (
 						<button
 							type="button"
-							className="flex flex-col bg-dark-cornflower-blue rounded-sm text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-full items-center"
+							className="flex flex-col bg-dark-cornflower-blue rounded-full text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-full items-center"
 							disabled
 						>
 							{/* <svg
