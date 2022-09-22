@@ -205,7 +205,13 @@ export const getSentiment = middyfy(
 
 			let twts = [];
 			data.map( async (tweets) => {
-				twts.push({text: tweets.text, id: tweets.id})
+				const params = {
+					LanguageCode: "en",
+					TextList: [tweets.text]
+				};
+
+				const sentimentResults = await Comprehend.batchDetectSentiment(params).promise();
+				twts.push({sentiment: sentimentResults.ResultList[0], id: tweets.id})
 			})
 
 			return {
