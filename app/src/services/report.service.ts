@@ -1,10 +1,10 @@
 import { DocumentClient } from "aws-sdk/clients/dynamodb";
 import Report from "@model/report/report.model";
 import Permission from "@model/permission/permissions.model";
-
 import ServicesLayer from ".";
 import { Lambda } from "aws-sdk";
 import { randomUUID } from "crypto";
+import { clientV2 } from "@functions/resources/twitterV2.client";
 
 export default class ReportService {
 	// add function to get all published reports
