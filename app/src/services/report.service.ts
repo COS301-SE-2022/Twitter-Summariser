@@ -3,7 +3,6 @@ import Report from "@model/report/report.model";
 import Permission from "@model/permission/permissions.model";
 
 import ServicesLayer from ".";
-import { clientV2 } from "@functions/resources/twitterV2.client";
 import { Lambda } from "aws-sdk";
 import { randomUUID } from "crypto";
 
