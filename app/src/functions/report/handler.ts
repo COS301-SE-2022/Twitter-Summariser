@@ -1,22 +1,21 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
-import { Lambda } from "aws-sdk";
 import { middyfy } from "@libs/lambda";
 import { randomUUID } from "crypto";
 import { header, statusCodes } from "@functions/resources/APIresponse";
 import ServicesLayer from "../../services";
 import TextStyle from "@model/textStyles/textStyles.model";
 import Notification from "@model/notification/notification.model";
-import { clientV2 } from "@functions/resources/twitterV2.client";
 
-const lambda = new Lambda();
 
 // Generation of reports
 export const generateReport = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {		
-			const params = typeof(event.body) == "string" ? JSON.parse(event.body) : event.body;
+			//const params = event.body;		
 
-			const title = await ServicesLayer.resultSetServices.getResultSet(
+			const data = ServicesLayer.reportService.genrateReport( JSON.parse(event.body) );
+
+			/*const title = await ServicesLayer.resultSetServices.getResultSet(
 				params["resultSetID"],
 				params["apiKey"]
 			);
@@ -33,32 +32,27 @@ export const generateReport = middyfy(
       		  twts += " " + data[tweet].text;
       		}
 
-			let sText: string = "";
-		
-			if (process.env.NODE_ENV === "production") {
-				//	Summarizing text
-				const lambdaParams = {
-					FunctionName: "text-summarisation-dev-summarise",
-					InvocationType: "RequestResponse",
-					Payload: JSON.stringify({ 
-						text: twts,
-						min: 100,
-						max: 200
-					})
-				};
+			//	Summarizing text
+			const lambdaParams = {
+				FunctionName: "text-summarisation-dev-summarise",
+				InvocationType: "RequestResponse",
+				Payload: JSON.stringify({ 
+					text: twts,
+					min: 100,
+					max: 200
+				})
+			};
 
-				const responseTS = await lambda.invoke(lambdaParams, function(data, err) {
-					if (err) {
-						console.log(err);
-					} else {
-						console.log(data);
-					}
-				}).promise();
-				sText =  JSON.parse(JSON.parse(responseTS.Payload.toLocaleString()).body).text;
-			} else {
-				sText = "This is a test text";
-			}
+			const responseTS = await lambda.invoke(lambdaParams, function(data, err) {
+				if (err) {
+					console.log(err);
+				} else {
+					console.log(data);
+				}
+			}).promise();
+			const sText =  JSON.parse(JSON.parse(responseTS.Payload.toLocaleString()).body).text;
 			
+
 			// Adding blocks
 			let x = -1;
 			tweets.map(async (tweet) => {
@@ -71,6 +65,8 @@ export const generateReport = middyfy(
 				});
 			});
 
+			console.log("Added blocks");
+
 			const report = await ServicesLayer.reportService.addReport({
 				reportID: id,
 				resultSetID: params["resultSetID"],
@@ -81,6 +77,8 @@ export const generateReport = middyfy(
 				author: params["author"]
 			});
 
+			console.log("Added report");
+
 			const tb = `BK-${randomUUID()}`;
 			await ServicesLayer.reportBlockService.addReportBlock({
 				reportBlockID: tb,
@@ -89,6 +87,8 @@ export const generateReport = middyfy(
 				position: 0,
 				richText: sText
 			});
+
+			console.log("Added rich text");
 
 			const sid = `ST-${randomUUID()}`;
 			await ServicesLayer.textStyleService.addStyle({
@@ -101,9 +101,12 @@ export const generateReport = middyfy(
 				size: " text-xs"
 			});
 
+			console.log("Added style");*/
+
+
 			return {
 				statusCode: statusCodes.Successful,
-				body: JSON.stringify({ Report: report, summarisedText: sText }),
+				body: JSON.stringify(data),
 			};
 		} catch (e) {
 			return {

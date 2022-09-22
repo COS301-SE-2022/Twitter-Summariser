@@ -3,6 +3,9 @@ import Report from "@model/report/report.model";
 import Permission from "@model/permission/permissions.model";
 
 import ServicesLayer from ".";
+import { clientV2 } from "@functions/resources/twitterV2.client";
+import { Lambda } from "aws-sdk";
+import { randomUUID } from "crypto";
 
 export default class ReportService {
 	// add function to get all published reports
@@ -262,5 +265,100 @@ export default class ReportService {
 	async verifyOwner(reportID: string, apiKey: string): Promise<boolean> {
 		const per = await this.getReport(reportID);
 		return per.apiKey === apiKey;
+	}
+
+	//Generate Report
+	async genrateReport(params: any): Promise<any> {
+
+		const lambda = new Lambda();
+		const title = await ServicesLayer.resultSetServices.getResultSet(
+			params.resultSetID,
+			params.apiKey
+		);
+		
+		const { tweets } = title;
+
+		let id: string = "RT-" + randomUUID();
+		const d = new Date();
+
+		const { data } = await clientV2.get("tweets", { ids: tweets });
+
+		let twts= "";
+		  for(let tweet in data){
+			twts += " " + data[tweet].text;
+		  }
+
+		//	Summarizing text
+		const lambdaParams = {
+			FunctionName: "text-summarisation-dev-summarise",
+			InvocationType: "RequestResponse",
+			Payload: JSON.stringify({ 
+				text: twts,
+				min: 100,
+				max: 200
+			})
+		};
+
+		const responseTS = await lambda.invoke(lambdaParams, function(data, err) {
+			if (err) {
+				console.log(err);
+			} else {
+				console.log(data);
+			}
+		}).promise();
+		const sText =  JSON.parse(JSON.parse(responseTS.Payload.toLocaleString()).body).text;
+		
+
+		// Adding blocks
+		let x = -1;
+		tweets.map(async (tweet) => {
+			await ServicesLayer.reportBlockService.addReportBlock({
+				reportBlockID: `BK-${randomUUID()}`,
+				reportID: id,
+				blockType: "TWEET",
+				position: (x += 2),
+				tweetID: tweet
+			});
+		});
+
+		console.log("Added blocks");
+
+		const report = await ServicesLayer.reportService.addReport({
+			reportID: id,
+			resultSetID: params.resultSetID,
+			status: "DRAFT",
+			title: title.searchPhrase,
+			apiKey: params.apiKey,
+			dateCreated: d.toString(),
+			author: params.author
+		});
+
+		console.log("Added report");
+
+		const tb = `BK-${randomUUID()}`;
+		await ServicesLayer.reportBlockService.addReportBlock({
+			reportBlockID: tb,
+			reportID: id,
+			blockType: "RICHTEXT",
+			position: 0,
+			richText: sText
+		});
+
+		console.log("Added rich text");
+
+		const sid = `ST-${randomUUID()}`;
+		await ServicesLayer.textStyleService.addStyle({
+			textStylesID: sid,
+			reportBlockID: tb,
+			align: " text-left",
+			bold: " font-bold",
+			colour: " text-black",
+			italic: "",
+			size: " text-xs"
+		});
+
+		console.log("Added style");
+
+		return { Report: report, summarisedText: sText };
 	}
 }
