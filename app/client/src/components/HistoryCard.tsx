@@ -64,7 +64,7 @@ function HistoryCard(props: any) {
 					>
 						{props.data.searchPhrase}
 					</p>
-					<p className="flex mb-2 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase">
+					<div className="flex mb-2 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase">
 						<Carousel controls={false} indicators={false}>
 							<Carousel.Item>
 								<span className=" font-semiboldtext-deep-purple-accent-400">
@@ -85,7 +85,7 @@ function HistoryCard(props: any) {
 								{/* <h3>Third slide label</h3> */}
 							</Carousel.Item>
 						</Carousel>
-					</p>
+					</div>
 					<div className="flex mt-8 space-x-4 md:mt-8 items-center justify-center">
 						<Link to="/viewHistory">
 							<div className="rounded-sm items-center py-2.5 px-8 text-sm font-semibold text-center text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow">
