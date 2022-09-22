@@ -208,7 +208,7 @@ function Profile() {
 						<div>
 							<div className="flex flex-row justify-around">
 								<h1 className="text-3xl flex flex-row justify-center border-b pb-4 w-5/6 align-middle items-center border-slate-300">
-									{auth.username}&lsquo;s Reports
+									Reports
 								</h1>
 							</div>
 							<div
@@ -219,9 +219,7 @@ function Profile() {
 
 								{!loading &&
 									(report.length === 0 ? (
-										<div>
-											{auth.username} has no published report at the moment{" "}
-										</div>
+										<div>You have no published report at the moment.</div>
 									) : (
 										report.map((data) => (
 											<div
