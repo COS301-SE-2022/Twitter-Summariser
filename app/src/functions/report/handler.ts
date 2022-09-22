@@ -11,9 +11,9 @@ import Notification from "@model/notification/notification.model";
 export const generateReport = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {		
-			//const params = event.body;		
+			const params = typeof(event.body) == "string" ? JSON.parse(event.body) : event.body;		
 
-			const data = ServicesLayer.reportService.genrateReport( JSON.parse(event.body) );
+			const data = ServicesLayer.reportService.genrateReport( params );
 
 			/*const title = await ServicesLayer.resultSetServices.getResultSet(
 				params["resultSetID"],
