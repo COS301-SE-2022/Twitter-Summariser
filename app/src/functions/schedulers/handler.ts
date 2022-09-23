@@ -111,7 +111,7 @@ export const genScheduledReport = async (params): Promise<void> => {
 		const responseGR = await lambda
 			.invoke(generateParams, function (_data, err) {
 				if (err) {
-					console.log(err);
+					console.error(err);
 				}
 			})
 			.promise();
