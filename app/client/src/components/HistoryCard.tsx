@@ -85,13 +85,13 @@ function HistoryCard(props: any) {
 					</div>
 					<div className="flex mt-4 space-x-6 md:mt-8 items-center justify-center">
 						<Link to="/viewHistory">
-							<div className="rounded-md items-center py-2.5 px-10 text-sm font-semibold text-center text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow">
+							<div className="rounded-sm items-center py-2.5 px-10 text-sm font-semibold text-center text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow">
 								<button onClick={setResultSet} type="submit">
 									View
 								</button>
 							</div>
 						</Link>
-						<div className="rounded-md inline-flex items-center py-2.5 px-8 text-sm font-semibold text-center bg-dark-cornflower-blue  text-white hover:bg-midnight-blue group hover:shadow">
+						<div className="rounded-sm inline-flex items-center py-2.5 px-8 text-sm font-semibold text-center bg-dark-cornflower-blue  text-white hover:bg-midnight-blue group hover:shadow">
 							<button onClick={optionhandler} type="submit">
 								Delete
 							</button>
@@ -104,12 +104,12 @@ function HistoryCard(props: any) {
 						Are you sure you want to delete this search result?
 					</p>
 					<div className="flex mt-8 space-x-6 md:mt-8 items-center justify-center">
-						<div className="rounded-md items-center py-2.5 px-10 text-sm font-semibold text-center text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow">
+						<div className="rounded-sm items-center py-2.5 px-10 text-sm font-semibold text-center text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow">
 							<button onClick={deleteHandler} type="submit">
 								Yes
 							</button>
 						</div>
-						<div className="rounded-md inline-flex items-center py-2.5 px-8 text-sm font-semibold text-center bg-dark-cornflower-blue text-white hover:bg-midnight-blue group hover:shadow">
+						<div className="rounded-sm inline-flex items-center py-2.5 px-8 text-sm font-semibold text-center bg-dark-cornflower-blue text-white hover:bg-midnight-blue group hover:shadow">
 							<button onClick={optionhandler} type="submit">
 								Cancel
 							</button>

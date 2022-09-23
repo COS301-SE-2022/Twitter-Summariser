@@ -15,7 +15,7 @@ export const generateReport = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
 			let params;
-			if (event.body.apiKey !== undefined || event.body.apiKey !== null) {
+			if ((event.body.apiKey !== undefined || event.body.apiKey !== null) && process.env.NODE_ENV !== "development" ) {
 				params = event.body;
 			} else {
 				params =
