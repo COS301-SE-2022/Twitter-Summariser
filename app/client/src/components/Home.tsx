@@ -485,11 +485,11 @@ function Home() {
 
 					{/* this is for the search button */}
 					<div className="flex flex-row flex-wrap justify-around pt-3 pb-3 items-center">
-						<div className="pt-3">
+						<div className="md:ml-0 ml-4">
 							{loading && (
 								<button
 									type="button"
-									className="flex flex-col bg-dark-cornflower-blue rounded-full text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
+									className="rounded-full items-center py-2.5 md:px-20 px-20 text-sm font-semibold text-center text-white bg-dark-cornflower-blue opacity-50"
 									disabled
 								>
 									{/* </svg> */}
@@ -497,14 +497,14 @@ function Home() {
 								</button>
 							)}
 							{!loading && (
-								<Button text="Search" size="large" handle={search} type="search" />
+								<button type="submit" onClick={search} className="rounded-full items-center py-2.5 md:px-20 px-16 text-sm font-semibold text-center text-white hover:bg-dark-cornflower-blue  bg-midnight-blue group hover:shadow" >Search</button>
 							)}
 						</div>
-						<div className="pt-3">
+						<div className="mr-4">
 							{apiResponse.length === 1 ? (
 								<button
 									type="button"
-									className="flex flex-col bg-dark-cornflower-blue rounded-full text-white font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center disabled"
+									className="rounded-full items-center py-2.5 md:px-14 px-8 text-sm font-semibold text-center text-white bg-dark-cornflower-blue opacity-50 disabled"
 									disabled
 								>
 									Generate Report
@@ -512,19 +512,18 @@ function Home() {
 							) : generateLoading ? (
 								<button
 									type="button"
-									className="flex flex-col bg-dark-cornflower-blue rounded-full text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
+									className="rounded-full items-center py-2.5 md:px-20 px-16 text-sm font-semibold text-center text-white bg-dark-cornflower-blue opacity-50 "
 									disabled
 								>
 									{loadIcon}
 								</button>
 							) : (
 								<>
-									<Button
-										text="Generate Report"
-										size="large"
-										handle={generate}
-										type="generate"
-									/>
+									<button
+										className="rounded-full items-center py-2.5 md:px-14 px-8 text-sm font-semibold text-center text-white hover:bg-dark-cornflower-blue  bg-midnight-blue group hover:shadow"
+										onClick={generate}
+										type="submit"
+									>Generate Report </button>
 								</>
 							)}
 						</div>
