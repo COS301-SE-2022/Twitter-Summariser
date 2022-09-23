@@ -15,10 +15,18 @@ export const generateReport = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
 			let params;
-			if (event.body.apiKey !== undefined || event.body.apiKey !== null) {
+			if (
+				(event.body.apiKey !== undefined || event.body.apiKey !== null) &&
+				process.env.NODE_ENV !== "development"
+			) {
 				params = event.body;
 			} else {
-				params = typeof event.body == "string" ? JSON.parse(event.body) : (typeof event == "object" ? event : event.body);
+				params =
+					typeof event.body == "string"
+						? JSON.parse(event.body)
+						: typeof event == "object"
+						? event
+						: event.body;
 			}
 
 			const title = await ServicesLayer.resultSetServices.getResultSet(

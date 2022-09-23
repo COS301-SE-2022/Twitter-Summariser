@@ -45,7 +45,7 @@ function ReportCard(props: any) {
 	}
 
 	return (
-		<div className="pt-3 pb-3 pl-3 pr-3 md:pl-4 md:pr-4 sm:m-4 m-2 bg-gradient-to-b from-blue-50 via-sky-100  bg-white border rounded-lg transform hover:shadow-2xl hover:scale-105 transition duration-200 ease-in">
+		<div className="rounded-lg pt-3 pb-3 md:pl-20 md:pr-20 pr-16 pl-16 ml-2 mr-2 mb-4 bg-gradient-to-b from-blue-50 via-sky-100  bg-white border transform hover:shadow-2xl hover:scale-105 transition duration-200 ease-in">
 			{!options ? (
 				<>
 					<div className=" p-0 my-0"> </div>
@@ -68,7 +68,7 @@ function ReportCard(props: any) {
 					</p>
 
 					<div className="flex mb-2 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase h-10">
-						<Carousel controls={false} indicators={false}>
+						<Carousel controls={false} indicators={false} className="fixed">
 							<Carousel.Item>
 								<span className=" font-semiboldtext-deep-purple-accent-400">
 									AUTHOR - {props.data.author}
@@ -98,11 +98,11 @@ function ReportCard(props: any) {
 					</div>
 				</>
 			) : (
-				<div className="pt-8 pb-16">
-					<p className="flex flex-row mt-12 mb-2 text-gray-600 text-xs text-center items-center justify-center font-semibold tracking-wide uppercase">
+				<div className="pt-8 ">
+					<p className="flex flex-row mt-12 mb-2 text-gray-600 text-xs text-center items-center justify-center font-semibold uppercase">
 						Are you sure you want to delete this report?
 					</p>
-					<div className="flex mt-8 space-x-4 md:mt-8 items-center justify-center">
+					<div className="flex mt-20 space-x-4 md:mt-14 items-center justify-center">
 						<div className="rounded-sm items-center py-2.5 px-10 space-x-4 text-sm font-semibold text-center text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow">
 							<button onClick={deleteReportHandler} type="submit">
 								Yes

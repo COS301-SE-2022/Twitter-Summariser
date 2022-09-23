@@ -9,13 +9,13 @@ describe("Testing Intgeration of API with Lambda Back-end using signup", () => {
 	// Making api call and Testing API -> Lambda
 	let response: any;
 
-	it("Make an a valid API Call", async() =>{
+	it("Make an a valid API Call", async () => {
 		response = await axiosPrivate.post(
 			"signup",
 			JSON.stringify({ username: "test", email: "test@gmail.com", password: "M@1c01mm" })
 		);
-                apikey = response.data["apiKey"]
-	})
+		apikey = response.data["apiKey"];
+	});
 
 	test("Test that API receieves request", async () => {
 		expect(response).toBeDefined;
@@ -43,12 +43,12 @@ describe("Testing Intgeration Lambda Back-end with DynamoDB using login", () => 
 	// Invoking Lambda function directly
 	let response: any;
 
-	it("Make an a valid API Call", async() =>{
+	it("Make an a valid API Call", async () => {
 		response = await axiosPrivate.post(
-			'login',
+			"login",
 			JSON.stringify({ email: "test@gmail.com", password: "M@1c01mm" })
 		);
-	})
+	});
 
 	test("Test that backend triggered correctly", async () => {
 		expect(response).toBeDefined;
@@ -76,12 +76,18 @@ describe("Testing Intgeration Lambda Back-end with DynamoDB using Search", () =>
 	// Invoking Lambda function directly
 	let response: any;
 
-	it("Make an a valid API Call", async() =>{
+	it("Make an a valid API Call", async () => {
 		response = await axiosPrivate.post(
-			'searchTweets',
-			JSON.stringify({ apiKey: apikey, keyword: "Test", numOfTweets: "2", sortBy: "byLikes", filterBy: "verifiedTweets" })
+			"searchTweets",
+			JSON.stringify({
+				apiKey: apikey,
+				keyword: "Test",
+				numOfTweets: "2",
+				sortBy: "byLikes",
+				filterBy: "verifiedTweets"
+			})
 		);
-	})
+	});
 
 	test("Test that backend triggered correctly", async () => {
 		expect(response).toBeDefined;
@@ -108,12 +114,12 @@ describe("Testing Intgeration Lambda Back-end with DynamoDB using delete user", 
 	// Invoking Lambda function directly
 	let response: any;
 
-	it("Make an a valid API Call", async() =>{
+	it("Make an a valid API Call", async () => {
 		response = await axiosPrivate.post(
-			'deleteUser',
+			"deleteUser",
 			JSON.stringify({ email: "test@gmail.com" })
 		);
-	})
+	});
 
 	test("Test that backend triggered correctly", async () => {
 		expect(response).toBeDefined;
