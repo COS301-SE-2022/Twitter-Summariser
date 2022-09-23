@@ -91,11 +91,7 @@ function Shared() {
 									<div
 										data-aos="fade-up"
 										data-aos-duration="500"
-										className= {
-											report.length > 1
-												? "sm:w-1/2 w-full"
-												: "w-full"
-										}
+										className={report.length > 1 ? "sm:w-1/2 w-full" : "w-full"}
 										key={data.reportID}
 									>
 										<SharedCard data={data} />

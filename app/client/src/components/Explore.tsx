@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import { useState } from "react";
 import ExploreCard from "./ExploreCard";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
@@ -10,11 +10,9 @@ function Explore() {
 
 	const getReports = async (isMounted: boolean) => {
 		try {
-			const response = await axiosPrivate.post(
-				"getAllPublishedReports",
-				JSON.stringify({}),
-				{ signal: controller.signal }
-			);
+			const response = await axiosPrivate.post("getAllPublishedReports", JSON.stringify({}), {
+				signal: controller.signal
+			});
 			isMounted && changeReport(response.data);
 			isMounted && changeLoading(false);
 		} catch (error) {

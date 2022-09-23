@@ -96,9 +96,7 @@ function Drafts() {
 										data-aos="fade-up"
 										data-aos-duration="500"
 										className={
-											newDraft.length > 1
-												? "sm:w-1/2 w-full"
-												: "w-full"
+											newDraft.length > 1 ? "sm:w-1/2 w-full" : "w-full"
 										}
 										key={data.reportID}
 									>
