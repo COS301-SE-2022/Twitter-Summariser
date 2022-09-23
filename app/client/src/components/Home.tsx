@@ -346,43 +346,43 @@ function Home() {
 		// console.log(inp);
 
 		if(inp > 0 && inp <= 10){
-			console.log("10");
+			// console.log("10");
 			return 10;
 		}
 		if(inp > 10 && inp <= 20){
-			console.log("20");
+			// console.log("20");
 			return 20;
 		}
 		if(inp > 20 && inp <= 30){
-			console.log("30");
+			// console.log("30");
 			return 30;
 		}
 		if(inp > 30 && inp <= 40){
-			console.log("40");
+			// console.log("40");
 			return 40;
 		}
 		if(inp > 40 && inp <= 50){
-			console.log("50");
+			// console.log("50");
 			return 50;
 		}
 		if(inp > 50 && inp <= 60){
-			console.log("60");
+			// console.log("60");
 			return 60;
 		}
 		if(inp > 60 && inp <= 70){
-			console.log("70");
+			// console.log("70");
 			return 70;
 		}
 		if(inp > 70 && inp <= 80){
-			console.log("80");
+			// console.log("80");
 			return 80;
 		}
 		if (inp > 80 && inp <= 90){
-			console.log("90");
+			// console.log("90");
 			return 90;
 		}
 		if (inp > 90 && inp <= 100){
-			console.log("100");
+			// console.log("100");
 			return 100;
 		}
 
@@ -427,7 +427,7 @@ function Home() {
 		)
 	);
 
-	console.log(sentimentResponse);
+	// console.log(sentimentResponse);
 
 
 	const draftID = draftReport;
@@ -479,7 +479,7 @@ function Home() {
 	}
 
 	const [report, changeReport] = useState<any[]>([]);
-	const [trends, changeTrends] = useState<any[]>([]);
+	// const [trends, changeTrends] = useState<any[]>([]);
 
 	useEffect(() => {
 		let isMounted = true;
@@ -506,30 +506,30 @@ function Home() {
 		};
 	}, [axiosPrivate]);
 
-	useEffect(() => {
-		let isMounted = true;
+	// useEffect(() => {
+	// 	let isMounted = true;
 
-		const getTrends = async () => {
-			try {
-				const response = await axiosPrivate.post(
-					"getTrendingTopics",
-					JSON.stringify({}),
-					{ signal: controller.signal }
-				);
-				isMounted && changeTrends(response.data);
-				isMounted && changeLoading(false);
-			} catch (error) {
-				console.error(error);
-			}
-		};
+	// 	const getTrends = async () => {
+	// 		try {
+	// 			const response = await axiosPrivate.post(
+	// 				"getTrendingTopics",
+	// 				JSON.stringify({}),
+	// 				{ signal: controller.signal }
+	// 			);
+	// 			isMounted && changeTrends(response.data);
+	// 			isMounted && changeLoading(false);
+	// 		} catch (error) {
+	// 			console.error(error);
+	// 		}
+	// 	};
 
-		getTrends();
+	// 	getTrends();
 
-		return () => {
-			isMounted = false;
-			controller.abort();
-		};
-	}, [axiosPrivate]);
+	// 	return () => {
+	// 		isMounted = false;
+	// 		controller.abort();
+	// 	};
+	// }, [axiosPrivate]);
 
 	const [homeDefault, changeHomeDefault] = useState(true);
 
@@ -795,8 +795,8 @@ function Home() {
 							<h1 className="text-2xl hidden lg:flex lg:flex-row lg:justify-center border-b pb-4 w-5/6 align-middle items-center border-slate-300">
 								LATEST TRENDS
 							</h1>
-						{loading && <div>{loadIcon} &nbsp; Loading latest Trending Topics</div>}
-						{!loading &&
+						{/* {loading && <div>{loadIcon} &nbsp; Loading latest Trending Topics</div>} */}
+						{/* {!loading &&
 							(trends.length === 0 ? (
 								<div>There are no trends at the moment </div>
 							) : (
@@ -805,12 +805,12 @@ function Home() {
 										#{data}
 									</div>
 								))
-							))}
+							))} */}
 
-						{/* <div>
+						<div>
 
 								{trendsResponse}
-							</div> */}
+							</div>
 						</>
 					)}
 				</div>
