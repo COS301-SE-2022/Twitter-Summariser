@@ -12,7 +12,7 @@ device = torch.device("cpu")
 
 def summarise(event, _context):
     url = "http://localhost:3000" if socket.gethostname() == "127.0.0.1" or (
-        not "169.254" in socket.gethostname()) else "https://d1iu4v0tkw22ih.cloudfront.net"
+        not "169.254" in socket.gethostname()) else "https://d2cjqnmnraumby.cloudfront.net"
 
     try:
         #   Get the parameters from the event
