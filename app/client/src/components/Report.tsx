@@ -1,5 +1,6 @@
 import { useEffect, useState, Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
+import Form from "react-bootstrap/Form";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
 import { GrCopy } from "react-icons/gr";
@@ -21,7 +22,8 @@ import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Button from "./Button";
 import PublishedText from "./PublishedText";
 import "./styles/Animation.css";
-import Modal from "./Modal";
+// import Modal from "./Modal";
+import Modals from "./Modals";
 
 function Report() {
 	// console.log("here");
@@ -30,6 +32,8 @@ function Report() {
 	// const style2 = { fontSize: "1.5rem" };
 	const styleNew = { fontSize: "1.5rem", color: "green" };
 	const iconStyle3 = { fontSize: "1.5rem", color: "red" };
+	const styleCorrect = { fontSize: "1.5rem", color: "green" };
+	const styleWrong = { fontSize: "1.5rem", color: "red" };
 	// const iconStyle4 = { fontSize: "1.8rem", color: "red" };
 
 	const [share, setShare] = useState(false);
@@ -160,6 +164,7 @@ function Report() {
 			isMounted && setStat(response.data.report.status);
 			isMounted && setState(response.data.report.Report);
 			isMounted && setTitle(response.data.report.title);
+			isMounted && setTitleValue(response.data.report.title);
 			isMounted && setAuthor(response.data.report.author);
 			isMounted && setDate(response.data.report.dateCreated.substring(0, 16));
 			isMounted && setLength(response.data.report.numOfBlocks);
@@ -1305,7 +1310,7 @@ function Report() {
 									<h3 className="italic text-xs">Date Created: {date}</h3>
 								</div>
 
-								<div className="flex flex-row items-end p-4 justify-between items-center">
+								<div className="flex flex-row items-end p-4 justify-between">
 									<div
 										className=""
 										data-bs-toggle="tooltip"
@@ -1361,7 +1366,7 @@ function Report() {
 								<div className="flex flex-row justify-between">
 									<div className="ml-2 p-4">
 										{!editTitle && (
-											<div className="flex flex-row items-end justify-between items-center">
+											<div className="flex flex-row items-end justify-between">
 												<h1 className="text-3xl font-bold">{title}</h1>
 												<div className="">&nbsp;&nbsp;</div>
 												<div
@@ -1379,15 +1384,25 @@ function Report() {
 											</div>
 										)}
 										{editTitle && (
-											<div className="flex flex-row items-end justify-between items-center">
-												<input
+											<div className="flex flex-row items-center justify-between">
+												<Form>
+													<Form.Group>
+														<Form.Control
+															type="search"
+															value={titleValue}
+															onChange={editTitleInputHandler}
+															placeholder="Enter new title"
+														/>
+													</Form.Group>
+												</Form>
+												{/* <input
 													type="search"
 													id="edit-title"
 													className="p-3 pl-10 w-11/12 text-sm text-gray-900 bg-gray-50 rounded-full border-gray-200 border focus:outline-none focus:ring focus:border-blue-500"
 													value={titleValue}
 													onChange={editTitleInputHandler}
 													placeholder="Enter new title"
-												/>
+												/> */}
 												<div className="">&nbsp;&nbsp;</div>
 												<div
 													className=""
@@ -1396,11 +1411,13 @@ function Report() {
 												>
 													<button type="submit">
 														<GiConfirmed
-															style={style}
+															style={styleCorrect}
 															onClick={() => editTitleHandler(true)}
 														/>
 													</button>
 												</div>
+
+												<div className="">&nbsp;&nbsp;</div>
 												<div
 													className=""
 													data-bs-toggle="tooltip"
@@ -1408,7 +1425,7 @@ function Report() {
 												>
 													<button type="submit">
 														<GiCancel
-															style={style}
+															style={styleWrong}
 															onClick={() => editTitleHandler(false)}
 														/>
 													</button>
@@ -1416,12 +1433,14 @@ function Report() {
 											</div>
 										)}
 										{/* <h1 className="text-3xl font-bold">{title}</h1> */}
-										<br />
-										<h2 className="italic font-bold">Created By: {author}</h2>
-										<h3 className="italic text-xs">Date Created: {date}</h3>
+										{/* <br /> */}
+										<h2 className="italic text-xs mt-2">
+											Created By: {author}
+										</h2>
+										<h2 className="italic text-xs">Date Created: {date}</h2>
 									</div>
 
-									<div className="flex flex-row items-end p-4 justify-between items-center">
+									<div className="flex flex-row items-end p-4 justify-between">
 										{/* {!isPublished() && !isViewer() && !checkedSentiment && (
 											<div
 												className=""
@@ -1793,19 +1812,20 @@ function Report() {
 									</div> */}
 								</div>
 								{!isPublished() && !isViewer() && (
-									<div
-										className="ml-2 p-4 text-blue-500 cursor-pointer"
-										onClick={clicked}
-									>
-										Add Custom Tweets
+									<div className="ml-2 w-auto" onClick={clicked}>
+										<p className="text-blue-500 cursor-pointer pl-6">
+											Add Custom Tweets
+										</p>
 									</div>
 								)}
 								{modalOn && (
-									<Modal
+									<Modals
 										setModalOn={setModalOn}
 										setChoice={setChoice}
 										func={changeShouldRender}
 										rID={repID}
+										show
+										modalChoice="addTweet"
 									/>
 								)}
 							</div>
