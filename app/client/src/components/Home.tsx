@@ -484,7 +484,7 @@ function Home() {
 							{loading && (
 								<button
 									type="button"
-									className="flex flex-col bg-dark-cornflower-blue rounded-sm text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
+									className="flex flex-col bg-dark-cornflower-blue rounded-full text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
 									disabled
 								>
 									{/* </svg> */}
@@ -499,7 +499,7 @@ function Home() {
 							{apiResponse.length === 1 ? (
 								<button
 									type="button"
-									className="flex flex-col bg-dark-cornflower-blue rounded-sm text-white font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center disabled"
+									className="flex flex-col bg-dark-cornflower-blue rounded-full text-white font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center disabled"
 									disabled
 								>
 									Generate Report
@@ -507,7 +507,7 @@ function Home() {
 							) : generateLoading ? (
 								<button
 									type="button"
-									className="flex flex-col bg-dark-cornflower-blue rounded-sm text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
+									className="flex flex-col bg-dark-cornflower-blue rounded-full text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
 									disabled
 								>
 									{loadIcon}
