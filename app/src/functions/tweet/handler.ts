@@ -4,6 +4,7 @@ import { randomUUID } from "crypto";
 import { header, statusCodes } from "@functions/resources/APIresponse";
 import { clientV2 } from "../resources/twitterV2.client";
 import ServicesLayer from "../../services";
+import * as AWS from "aws-sdk";
 
 export const searchTweets = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
@@ -64,7 +65,7 @@ export const searchTweets = middyfy(
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify({ resultSetID: id, tweets: result})
+				body: JSON.stringify({ resultSetID: id, tweets: result })
 			};
 		} catch (e) {
 			return {
@@ -91,11 +92,10 @@ export const addCustomTweet = middyfy(
 			} else {
 				id = params.url.substring(lastS, qm);
 			}
-			
 
 			const { data } = await clientV2.get("tweets", { ids: id });
 
-			if(data[0].id === undefined){
+			if (data[0].id === undefined) {
 				return {
 					statusCode: statusCodes.Successful,
 					headers: header,
@@ -184,6 +184,45 @@ export const reorderTweets = middyfy(
 				statusCode: statusCodes.Successful,
 				headers: header,
 				body: JSON.stringify("Operation Successful")
+			};
+		} catch (e) {
+			return {
+				statusCode: statusCodes.internalError,
+				headers: header,
+				body: JSON.stringify(e)
+			};
+		}
+	}
+);
+
+const Comprehend = new AWS.Comprehend();
+
+export const getSentiment = middyfy(
+	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+		try {
+			const params = JSON.parse(event.body)
+			const { data } = await clientV2.get("tweets", { ids: params.tweets });
+			let result = [];
+			let twts = [];
+
+			for (let x = 0; x < data.length; x++) {
+				twts.push(data[x].text);
+			}
+
+			const param = {
+				LanguageCode: "en",
+				TextList: twts
+			};
+			const sentimentResults = await Comprehend.batchDetectSentiment(param).promise();
+
+			for (let x = 0; x < data.length; x++) {
+				result.push({ sentimentWord: sentimentResults.ResultList[x].Sentiment, sentiment: sentimentResults.ResultList[x].SentimentScore, id: data[x].id })
+			}
+
+			return {
+				statusCode: statusCodes.Successful,
+				headers: header,
+				body: JSON.stringify(result)
 			};
 		} catch (e) {
 			return {

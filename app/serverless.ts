@@ -9,16 +9,16 @@ import {
 	logoutCreator,
 	deleteUser
 } from "@functions/creator";
-import {searchTweets, addCustomTweet, reorderTweets} from "@functions/tweet";
-import {CreatorTable} from "@model/creator/index";
-import {ResultSetTable} from "@model/resultSet";
-import {ReportTable} from "@model/report";
-import {ReportBlockTable} from "@model/reportBlock";
-import {TextStylesTable} from "@model/textStyles";
-import {PermissionTable} from "@model/permission";
-import {ScheduleTable} from "@model/schedule";
+import { searchTweets, addCustomTweet, reorderTweets, getSentiment } from "@functions/tweet";
+import { CreatorTable } from "@model/creator/index";
+import { ResultSetTable } from "@model/resultSet";
+import { ReportTable } from "@model/report";
+import { ReportBlockTable } from "@model/reportBlock";
+import { TextStylesTable } from "@model/textStyles";
+import { PermissionTable } from "@model/permission";
+import { ScheduleTable } from "@model/schedule";
 import { NotificationTable } from "@model/notification";
-import {getAllResultSet, getResultSet, deleteResultSet} from "@functions/resultSet";
+import { getAllResultSet, getResultSet, deleteResultSet } from "@functions/resultSet";
 import {
 	getAllMyDraftReports,
 	getAllPublishedReports,
@@ -158,7 +158,8 @@ const serverlessConfiguration: AWS = {
 		deleteNotification,
 		getTrendingTopics,
 		editTitle,
-		warmupTextSummariser
+		warmupTextSummariser,
+		getSentiment
 	},
 
 	package: {
@@ -206,16 +207,16 @@ const serverlessConfiguration: AWS = {
 		}
 	},
 
-    resources: {
-        Resources: {
-            CreatorTable,
-            ResultSetTable,
-            ReportTable,
-            ReportBlockTable,
-            TextStylesTable,
-            PermissionTable,
-            ScheduleTable,
-            NotificationTable,
+	resources: {
+		Resources: {
+			CreatorTable,
+			ResultSetTable,
+			ReportTable,
+			ReportBlockTable,
+			TextStylesTable,
+			PermissionTable,
+			ScheduleTable,
+			NotificationTable,
 
 			GatewayResponseDefault4XX: {
 				Type: "AWS::ApiGateway::GatewayResponse",

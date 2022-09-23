@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
 import { BsThreeDotsVertical } from "react-icons/bs";
 // import { Checkbox } from "@mui/material";
@@ -34,6 +34,7 @@ function Home() {
 	const controller = new AbortController();
 	const [generateLoading, changeGenerateLoading] = useState(false);
 	const { auth } = useAuth();
+	const navigate = useNavigate();
 
 	const style = { fontSize: "1.5rem" };
 
@@ -104,9 +105,28 @@ function Home() {
 		};
 
 		try {
-			if (process.env.NODE_ENV === "production") {
+			if (process.env.NODE_ENV === "development") {
+				const response = await axiosPrivate.post(
+					"generateReport",
+					JSON.stringify(searchData),
+					{ signal: controller.signal }
+				);
+
+				changeGenerateLoading(false);
+				changeDate(response.data.Report.dateCreated.substring(0, 10));
+				changeDraftReport(response.data.Report.reportID);
+
+				if (enteredSearch !== "") {
+					changeCreateTitle(enteredSearch);
+					changeEnteredSearch("");
+					changeClicked(true);
+				}
+
+				navigate(`/report/${response.data.Report.reportID}`);
+				
+			} else {
 				const response = await axios.post(
-					"https://betuh6rejrtpyywnwkbckrdnea0bypye.lambda-url.us-east-1.on.aws/",
+					"https://v3wxwnpzytm77wf7dfiqp6q3om0mrlis.lambda-url.us-east-1.on.aws/",
 					JSON.stringify(searchData),
 					{
 						headers: {
@@ -124,24 +144,8 @@ function Home() {
 					changeEnteredSearch("");
 					changeClicked(true);
 				}
-			} else {
-				const response = await axiosPrivate.post(
-					"generateReport",
-					JSON.stringify(searchData),
-					{ signal: controller.signal }
-				);
-
-				changeGenerateLoading(false);
-				changeDate(response.data.Report.dateCreated.substring(0, 10));
-				changeDraftReport(response.data.Report.reportID);
-
-				if (enteredSearch !== "") {
-					changeCreateTitle(enteredSearch);
-					changeEnteredSearch("");
-					changeClicked(true);
-				}
 			}
-		 } catch (error) {
+		} catch (error) {
 			console.error(error);
 		}
 	};
@@ -548,7 +552,7 @@ function Home() {
 							{loading && (
 								<button
 									type="button"
-									className="flex flex-col bg-dark-cornflower-blue rounded-sm text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
+									className="flex flex-col bg-dark-cornflower-blue rounded-full text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
 									disabled
 								>
 									{/* </svg> */}
@@ -563,7 +567,7 @@ function Home() {
 							{apiResponse.length === 1 ? (
 								<button
 									type="button"
-									className="flex flex-col bg-dark-cornflower-blue rounded-sm text-white font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center disabled"
+									className="flex flex-col bg-dark-cornflower-blue rounded-full text-white font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center disabled"
 									disabled
 								>
 									Generate Report
@@ -571,7 +575,7 @@ function Home() {
 							) : generateLoading ? (
 								<button
 									type="button"
-									className="flex flex-col bg-dark-cornflower-blue rounded-sm text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
+									className="flex flex-col bg-dark-cornflower-blue rounded-full text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
 									disabled
 								>
 									{loadIcon}

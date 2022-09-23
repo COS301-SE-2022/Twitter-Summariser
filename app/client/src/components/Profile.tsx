@@ -211,34 +211,45 @@ function Profile() {
 									Reports
 								</h1>
 							</div>
-							<div
-								data-testid="reports"
-								className="mt-4 flex flex-row flex-wrap justify-center"
-							>
-								{loading && <div>{loadIcon} &nbsp; Loading My Reports</div>}
+							<div data-testid="report">
+			{/* Api response comes here */}
+			<div className="">
+				<div className=" ">
+					<div className=" flex flex-row flex-wrap justify-center p-2">
+						{loading && (
+							<>
+								<div className="mt-8 justify-center inline items-center w-full">
+									{loadIcon} &nbsp; Loading My Reports
+								</div>
+								<div className="mt-8 pr-8 pl-8"> </div>
+							</>
+						)}
 
-								{!loading &&
-									(report.length === 0 ? (
-										<div>You have no published report at the moment.</div>
-									) : (
-										report.map((data) => (
-											<div
-												data-aos="fade-up"
-												data-aos-duration="500"
-												className="md:ml-16 md:mr-16 m-2 w-full"
-												key={data.reportID}
-											>
-												<ReportCard
-													data={data}
-													imageURL={imageURL}
-													onChange={(value: boolean) =>
-														changeShouldRender(value)
-													}
-												/>
-											</div>
-										))
-									))}
-							</div>
+						{!loading &&
+							(report.length === 0 ? (
+								<div className="mt-8 pr-8 pl-8">
+									You have no published report(s) at the moment{" "}
+								</div>
+							) : (
+								report.map((data) => (
+									<div
+										data-aos="fade-up"
+										data-aos-duration="500"
+										className="sm:w-1/2 w-full mr-5/2"
+										key={data.reportID}
+									>
+										<ReportCard
+											data={data}
+											imageURL={imageURL}
+											onChange={(value: boolean) => changeShouldRender(value)}
+										/>
+									</div>
+								))
+							))}
+					</div>
+				</div>
+			</div>
+		</div>
 						</div>
 					</div>
 				</div>

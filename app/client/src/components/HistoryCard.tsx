@@ -54,7 +54,7 @@ function HistoryCard(props: any) {
 	}
 
 	return (
-		<div className="p-4 ml-4 mr-4 mt-2 mb-2 md:w-full bg-gradient-to-b from-blue-50 via-sky-100 border rounded-sm transform hover:shadow-md hover:scale-105 transition duration-200 ease-in hover:bg-blue-200">
+		<div className="pt-3 pb-3 pl-3 pr-3 m-2 bg-gradient-to-b from-blue-50 via-sky-100 border rounded-lg transform hover:shadow-md hover:scale-105 transition duration-200 ease-in hover:bg-blue-200">
 			{!options ? (
 				<>
 					<p
@@ -64,37 +64,34 @@ function HistoryCard(props: any) {
 					>
 						{props.data.searchPhrase}
 					</p>
-					<p className="flex mb-2 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase">
+					<div className="flex mb-2 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase">
 						<Carousel controls={false} indicators={false}>
 							<Carousel.Item>
 								<span className=" font-semiboldtext-deep-purple-accent-400">
 									History - {props.data.dateCreated.substring(4, 16)}
 								</span>
-								{/* <h3>First slide label</h3> */}
 							</Carousel.Item>
 							<Carousel.Item>
 								<span className=" font-semiboldtext-deep-purple-accent-400">
 									Sorted By - {sort}
 								</span>
-								{/* <h3>Second slide label</h3> */}
 							</Carousel.Item>
 							<Carousel.Item>
 								<span className=" font-semiboldtext-deep-purple-accent-400">
 									Filtered By - {filter}
 								</span>
-								{/* <h3>Third slide label</h3> */}
 							</Carousel.Item>
 						</Carousel>
-					</p>
-					<div className="flex mt-8 space-x-4 md:mt-8 items-center justify-center">
+					</div>
+					<div className="flex mt-4 space-x-6 md:mt-8 items-center justify-center">
 						<Link to="/viewHistory">
-							<div className="rounded-sm items-center py-2.5 px-8 text-sm font-semibold text-center text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow">
+							<div className="rounded-md items-center py-2.5 px-10 text-sm font-semibold text-center text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow">
 								<button onClick={setResultSet} type="submit">
 									View
 								</button>
 							</div>
 						</Link>
-						<div className="rounded-sm inline-flex items-center py-2.5 px-8 text-sm font-semibold text-center bg-dark-cornflower-blue  text-white hover:bg-midnight-blue group hover:shadow">
+						<div className="rounded-md inline-flex items-center py-2.5 px-8 text-sm font-semibold text-center bg-dark-cornflower-blue  text-white hover:bg-midnight-blue group hover:shadow">
 							<button onClick={optionhandler} type="submit">
 								Delete
 							</button>
@@ -103,23 +100,16 @@ function HistoryCard(props: any) {
 				</>
 			) : (
 				<>
-					{/* <p
-						aria-label="Article"
-						title={props.data.title}
-						className="flex items-center justify-center mb-3 text-xl font-bold leading-5 text-black transition-colors duration-200 hover:text-deep-purple-accent-400"
-					>
-						{props.data.title}
-					</p> */}
 					<p className="flex flex-row mt-2 mb-2 text-gray-600 text-xs text-center items-center justify-center font-semibold tracking-wide uppercase">
 						Are you sure you want to delete this search result?
 					</p>
-					<div className="flex mt-8 space-x-4 md:mt-8 items-center justify-center">
-						<div className="rounded-sm items-center py-2.5 px-10 space-x-4 text-sm font-semibold text-center text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow">
+					<div className="flex mt-8 space-x-6 md:mt-8 items-center justify-center">
+						<div className="rounded-md items-center py-2.5 px-10 text-sm font-semibold text-center text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow">
 							<button onClick={deleteHandler} type="submit">
 								Yes
 							</button>
 						</div>
-						<div className="rounded-sm inline-flex items-center py-2.5 px-8 text-sm font-semibold text-center bg-dark-cornflower-blue text-white hover:bg-midnight-blue group hover:shadow">
+						<div className="rounded-md inline-flex items-center py-2.5 px-8 text-sm font-semibold text-center bg-dark-cornflower-blue text-white hover:bg-midnight-blue group hover:shadow">
 							<button onClick={optionhandler} type="submit">
 								Cancel
 							</button>

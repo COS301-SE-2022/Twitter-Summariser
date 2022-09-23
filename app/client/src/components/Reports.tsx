@@ -88,15 +88,9 @@ function Reports() {
 	return (
 		<div data-testid="report">
 			{/* Api response comes here */}
-			<div className=" mt-3 pt-3">
-				<div className=" mt-2 sm:mt-4">
-					<div className="flex flex-row justify-around">
-						<h1 className="text-2xl lg:flex flex-row justify-center border-b border-slate-300  pb-4 w-5/6 align-middle items-center">
-							Published
-						</h1>
-					</div>
-
-					<div className="mt-2 flex flex-row flex-wrap justify-center p-2">
+			<div className="">
+				<div className=" ">
+					<div className=" flex flex-row flex-wrap justify-center p-2">
 						{loading && (
 							<>
 								<div className="mt-8 justify-center inline items-center w-full">
@@ -116,7 +110,7 @@ function Reports() {
 									<div
 										data-aos="fade-up"
 										data-aos-duration="500"
-										className="sm:w-1/2 w-full mt-2"
+										className={report.length > 1 ? "sm:w-1/2 w-full mr-5/2" : "w-full mr-5/2"}
 										key={data.reportID}
 									>
 										<ReportCard

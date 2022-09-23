@@ -1,11 +1,8 @@
-import React from "react";
 import { Tab } from "@headlessui/react";
 import { classNames } from "../utils/classNames";
-
 import Reports from "./Reports";
 import Drafts from "./Drafts";
 import Shared from "./Shared";
-// import History from "./History";
 
 function Something() {
 	return (
@@ -53,18 +50,6 @@ function Something() {
 					>
 						Shared
 					</Tab>
-					{/* <Tab
-						key="4"
-						className={({ selected }) =>
-							classNames(
-								"w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700",
-								"ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
-								selected ? "bg-blue-100  shadow" : "text-blue-700 hover:bg-blue-50"
-							)
-						}
-					>
-						History
-					</Tab> */}
 				</Tab.List>
 
 				<Tab.Panels className="mt-2">
