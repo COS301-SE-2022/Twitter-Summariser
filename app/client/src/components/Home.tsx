@@ -123,7 +123,7 @@ function Home() {
 				}
 
 				navigate(`/report/${response.data.Report.reportID}`);
-				
+
 			} else {
 				const response = await axios.post(
 					"https://v3wxwnpzytm77wf7dfiqp6q3om0mrlis.lambda-url.us-east-1.on.aws/",
@@ -161,7 +161,7 @@ function Home() {
 	const [checkedSentiment, setCheckedSentiment] = useState(false);
 
 	// const [semanticColor, changeSemanticColor] = useState("red");
-	const sentimentColor = "green";
+	// const sentimentColor = "green";
 
 	// const checkedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
 	// 	setCheckedSentiment(event.target.checked);
@@ -224,25 +224,41 @@ function Home() {
 		scheduleReport(scheduleData);
 	};
 
+	const done = () => {
+		changePulse(false);
+	};
+
+	const apiResponseWithSentimentAnalysis = [<div key="begining div" />];
+
+
+	// 	// searchResponse.map((data) =>
+	// 	// 	apiResponseWithSentimentAnalysis.push(
+	// 	// 		<div className={`pb-8 border-2 border-${sentimentCol}-500`} key={data.tweetId}>
+	// 	// 			<Tweet options={{ align: "center" }} tweetId={data.tweetId} onLoad={done} />
+	// 	// 		</div>
+	// 	// 	)
+	// 	// );
+	// }
+
 	const viewSentimentAnalysis = async (sentimentData: any) => {
+		// console.log(sentimentData);
+
 		try {
 			const response = await axiosPrivate.post(
 				"getSentiment",
 				JSON.stringify(sentimentData)
 			);
 			changeSentimentResponse(await response.data);
-			console.log(sentimentResponse);
-
 		} catch (err) {
 			console.error(err);
 		}
 	};
 
-	const analyse = () => {
+	const analyse = (resp : any) => {
 
-		searchResponse.map((data) =>
+		resp.map((data: { tweetId: any; }) =>
 			analyseData.push(
-				data.tweetID
+				data.tweetId
 			)
 		);
 
@@ -250,7 +266,7 @@ function Home() {
 			tweets: analyseData
 		};
 
-		// console.log(scheduleData);
+		// console.log(sentimentData);
 
 		viewSentimentAnalysis(sentimentData);
 	};
@@ -260,7 +276,9 @@ function Home() {
 			setCheckedSentiment(false);
 		} else {
 			setCheckedSentiment(true);
-			analyse();
+			// console.log(searchResponse);
+
+			analyse(searchResponse);
 		}
 	};
 
@@ -269,15 +287,16 @@ function Home() {
 			const response = await axiosPrivate.post("searchTweets", JSON.stringify(searchData));
 			changeResultSet(await response.data.resultSetID);
 			changeResponse(await response.data.tweets);
-			console.log(await response.data.tweets);
+			// console.log(await response.data.tweets);
 			changeLoading(false);
 			changePulse(true);
+			analyse(await response.data.tweets);
 		} catch (err) {
 			console.error(err);
 		}
 	};
 
-	const search = () => {
+	const search = async () => {
 		changeShowTrends(false);
 		changeShowSentimentOption(true);
 
@@ -297,13 +316,14 @@ function Home() {
 			loadingHandler();
 			changeClicked(false);
 			searchTwitter(searchData);
+
 		}
 	};
 
 	const tweetOptions = [];
 	let apiResponse = [<div key="begining div" />];
 
-	const apiResponseWithSentimentAnalysis = [<div key="begining div" />];
+	// const apiResponseWithSentimentAnalysis = [<div key="begining div" />];
 
 	for (let index = 5; index <= 100; index += 5) {
 		tweetOptions.push(<option key={index.toString()}>{index}</option>);
@@ -316,9 +336,58 @@ function Home() {
 		}
 	};
 
-	const done = () => {
-		changePulse(false);
-	};
+	// const done = () => {
+	// 	changePulse(false);
+	// };
+
+	function opacityValue(inp : number) : number {
+		// console.log(inp);
+
+		if(inp > 0 && inp <= 10){
+			console.log("10");
+			return 10;
+		}
+		if(inp > 10 && inp <= 20){
+			console.log("20");
+			return 20;
+		}
+		if(inp > 20 && inp <= 30){
+			console.log("30");
+			return 30;
+		}
+		if(inp > 30 && inp <= 40){
+			console.log("40");
+			return 40;
+		}
+		if(inp > 40 && inp <= 50){
+			console.log("50");
+			return 50;
+		}
+		if(inp > 50 && inp <= 60){
+			console.log("60");
+			return 60;
+		}
+		if(inp > 60 && inp <= 70){
+			console.log("70");
+			return 70;
+		}
+		if(inp > 70 && inp <= 80){
+			console.log("80");
+			return 80;
+		}
+		if (inp > 80 && inp <= 90){
+			console.log("90");
+			return 90;
+		}
+		if (inp > 90 && inp <= 100){
+			console.log("100");
+			return 100;
+		}
+
+		// console.log("here");
+
+		return 0;
+	}
 
 	searchResponse.map((data) =>
 		apiResponse.push(
@@ -328,13 +397,36 @@ function Home() {
 		)
 	);
 
-	searchResponse.map((data) =>
+	sentimentResponse.map((data) =>
 		apiResponseWithSentimentAnalysis.push(
-			<div className={`pb-8 border-2 border-${sentimentColor}-500`} key={data.tweetId}>
-				<Tweet options={{ align: "center" }} tweetId={data.tweetId} onLoad={done} />
-			</div>
+			<>
+				{data.sentimentWord === "NEGATIVE" && <div className={` border-2 border-red-500 border-opacity-${opacityValue(Math.floor(data.sentiment.Negative * 100))}  `} key={data.id + 1} >
+					<Tweet options={{ align: "center" }} tweetId={data.id} onLoad={done}  />
+					<p className="text-red-500">Negative - {Math.floor(data.sentiment.Negative * 100)} %</p>
+				</div>}
+				{/* <br /> */}
+				{data.sentimentWord === "POSITIVE" && <div className={` border-2 border-green-500 border-opacity-${opacityValue(Math.floor(data.sentiment.Positive * 100))} `} key={data.id + 2}>
+					<Tweet options={{ align: "center" }} tweetId={data.id} onLoad={done} />
+					<p className="text-green-500">Positive - {Math.floor(data.sentiment.Positive * 100)} %</p>
+				</div>}
+				{/* <br /> */}
+				{data.sentimentWord === "MIXED" && <div className={` border-2 border-gray-500 border-opacity-${opacityValue(Math.floor(data.sentiment.Mixed * 100))} `} key={data.id + 3}>
+					<Tweet options={{ align: "center" }} tweetId={data.id} onLoad={done} />
+					<p className="text-gray-500">Mixed - {Math.floor(data.sentiment.Mixed * 100)} %</p>
+				</div>}
+				{/* <br /> */}
+				{data.sentimentWord === "NEUTRAL" && <div className={` border-2 border-blue-500 border-opacity-${opacityValue(Math.floor(data.sentiment.Neutral * 100))} `} key={data.id + 4}>
+					<Tweet options={{ align: "center" }} tweetId={data.id} onLoad={done}  />
+					{/* Neutral - {Math.floor(data.sentiment.Neutral * 100)} % */}
+					<p className="text-blue-500">Neutral - {Math.floor(data.sentiment.Neutral * 100)} %</p>
+				</div>}
+				<br />
+			</>
 		)
 	);
+
+	console.log(sentimentResponse);
+
 
 	const draftID = draftReport;
 	const newDraftReportLink = `/report/${draftID}`;
@@ -454,7 +546,7 @@ function Home() {
 	};
 
 	if (choice) {
-		console.log(choice);
+		// console.log(choice);
 	}
 
 	return (
