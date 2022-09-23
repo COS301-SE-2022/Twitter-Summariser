@@ -1,6 +1,6 @@
 {
-	"serverLink": "https://5ek0pcqlt4.execute-api.us-east-1.amazonaws.com/dev/",
+	"serverLink": "https://jbxcjukl69.execute-api.us-east-1.amazonaws.com/dev/",
 	"localhostLink": "http://localhost:4000/dev/",
-	"teSeverLink": "https://dgnbcqv9k1.execute-api.us-east-1.amazonaws.com/extract-text",
+	"teSeverLink": "https://5pxzw2gqkf.execute-api.us-east-1.amazonaws.com/extract-text",
 	"teLocalhostLink": "http://localhost:5000/extract-text"
 }
