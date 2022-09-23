@@ -12,7 +12,6 @@ function MobileNotifications() {
 	const controller = new AbortController();
 
 	const toggling = () => {
-		console.log(isOpen);
 		setIsOpen(!isOpen);
 	};
 

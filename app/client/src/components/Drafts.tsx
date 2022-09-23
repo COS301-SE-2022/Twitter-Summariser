@@ -72,9 +72,6 @@ function Drafts() {
 
 	const newDraft = draft.filter((data) => data.status === "DRAFT").map((data) => data);
 
-
-	
-
 	return (
 		<div>
 			<div className="">
@@ -98,7 +95,9 @@ function Drafts() {
 									<div
 										data-aos="fade-up"
 										data-aos-duration="500"
-										className={newDraft.length > 1 ? "sm:w-1/2 w-full mr-5/2" : "w-full mr-5/2"}
+										className={
+											newDraft.length > 1 ? "sm:w-1/2 w-full" : "w-full"
+										}
 										key={data.reportID}
 									>
 										<DraftCard
