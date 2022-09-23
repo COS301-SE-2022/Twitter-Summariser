@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
+// import { Transition, Dialog } from "@headlessui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -11,7 +12,8 @@ import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Button from "./Button";
 import "./styles/Animation.css";
-import AdvanceSearch from "./AdvanceSearch";
+// import AdvanceSearch from "./AdvanceSearch";
+import Modals from "./Modals";
 
 function Home() {
 	const [enteredSearch, changeEnteredSearch] = useState("");
@@ -760,7 +762,7 @@ function Home() {
 
 						{/* advanced search modal */}
 						{advance && (
-							<AdvanceSearch
+							<Modals
 								setAdvanceOn={setAdvanceOn}
 								setChoice={setChoice}
 								changeNoOfTweets={changeNoOfTweets}
@@ -772,6 +774,8 @@ function Home() {
 								// enteredSearch={enteredSearch}
 								dateTime={dateTime}
 								changeDateTime={changeDateTime}
+								modalChoice="advancedSearch"
+								show={advance}
 							/>
 						)}
 

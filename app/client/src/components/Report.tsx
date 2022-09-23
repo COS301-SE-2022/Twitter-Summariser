@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
+import { Menu, Transition } from "@headlessui/react";
+import Form from "react-bootstrap/Form";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
 import { GrCopy } from "react-icons/gr";
 import { GiConfirmed, GiCancel } from "react-icons/gi";
-import { BsArrowDown, BsArrowUp, BsShare } from "react-icons/bs";
+import { FiSettings } from "react-icons/fi";
+import { BsArrowDown, BsArrowUp, BsShare, BsThreeDots } from "react-icons/bs";
 import { BiErrorCircle } from "react-icons/bi";
 import {
 	AiOutlineCheckCircle,
@@ -19,16 +22,19 @@ import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Button from "./Button";
 import PublishedText from "./PublishedText";
 import "./styles/Animation.css";
-import Modal from "./Modal";
+// import Modal from "./Modal";
+import Modals from "./Modals";
 
 function Report() {
 	// console.log("here");
 
 	const style = { fontSize: "1.3rem" };
-	const style2 = { fontSize: "1.5rem" };
+	// const style2 = { fontSize: "1.5rem" };
 	const styleNew = { fontSize: "1.5rem", color: "green" };
 	const iconStyle3 = { fontSize: "1.5rem", color: "red" };
-	const iconStyle4 = { fontSize: "1.8rem", color: "red" };
+	const styleCorrect = { fontSize: "1.5rem", color: "green" };
+	const styleWrong = { fontSize: "1.5rem", color: "red" };
+	// const iconStyle4 = { fontSize: "1.8rem", color: "red" };
 
 	const [share, setShare] = useState(false);
 	const [successfulShare, setSuccessfulShare] = useState(false);
@@ -158,6 +164,7 @@ function Report() {
 			isMounted && setStat(response.data.report.status);
 			isMounted && setState(response.data.report.Report);
 			isMounted && setTitle(response.data.report.title);
+			isMounted && setTitleValue(response.data.report.title);
 			isMounted && setAuthor(response.data.report.author);
 			isMounted && setDate(response.data.report.dateCreated.substring(0, 16));
 			isMounted && setLength(response.data.report.numOfBlocks);
@@ -356,12 +363,91 @@ function Report() {
 								className=" w-full p-3 flex flex-col justify-center"
 								key={data.position}
 							>
+								<div className="flex w-full justify-end">
+									<div className="top-0 right-1">
+										<Menu as="div" className="relative inline-block text-left">
+											<div>
+												<Menu.Button className="inline-flex w-full justify-center rounded-md  bg-dark-cornflower-blue px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+													<BsThreeDots />
+												</Menu.Button>
+											</div>
+											<Transition
+												as={Fragment}
+												enter="transition ease-out duration-100"
+												enterFrom="transform opacity-0 scale-95"
+												enterTo="transform opacity-100 scale-100"
+												leave="transition ease-in duration-75"
+												leaveFrom="transform opacity-100 scale-100"
+												leaveTo="transform opacity-0 scale-95"
+											>
+												<Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+													<div className="px-1 py-1 ">
+														<Menu.Item>
+															{({ active }) => (
+																<button
+																	type="button"
+																	className={`${
+																		active
+																			? "bg-slate-200 text-gray-900"
+																			: "text-gray-900"
+																	} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+																	onClick={() =>
+																		reorderDownHandler(
+																			data.position
+																		)
+																	}
+																>
+																	{
+																		// eslint-disable-next-line no-use-before-define
+																		<ArrowDownIcon
+																			className="mr-2 h-5 w-5"
+																			aria-hidden="true"
+																		/>
+																	}
+																	Move Tweet down
+																</button>
+															)}
+														</Menu.Item>
+													</div>
+													<div className="px-1 py-1 ">
+														<Menu.Item>
+															{({ active }) => (
+																<button
+																	type="button"
+																	className={`${
+																		active
+																			? "bg-slate-200 text-gray-900"
+																			: "text-gray-900"
+																	} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+																	onClick={() =>
+																		deleteTweetHandler(
+																			data.reportBlockID
+																		)
+																	}
+																>
+																	{
+																		// eslint-disable-next-line no-use-before-define
+																		<DeleteIcon
+																			className="mr-2 h-5 w-5"
+																			aria-hidden="true"
+																		/>
+																	}
+																	Delete Tweet
+																</button>
+															)}
+														</Menu.Item>
+													</div>
+												</Menu.Items>
+											</Transition>
+										</Menu>
+									</div>
+								</div>
 								<Tweet
 									options={{ align: "center", width: "" }}
 									tweetId={data.block.tweetID}
 									onLoad={done}
 								/>
-								<div className="flex flex-row justify-around">
+								{/* <div className="flex flex-row justify-around">
 									<div
 										className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
 										data-bs-toggle="tooltip"
@@ -374,17 +460,17 @@ function Report() {
 											/>
 										</button>
 									</div>
-								</div>
+								</div> */}
 							</div>
 							{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
-							<div className="w-1/6 flex text-center justify-center">
+							{/* <div className="w-1/6 flex text-center justify-center">
 								<button
 									type="button"
 									onClick={() => deleteTweetHandler(data.reportBlockID)}
 								>
 									<MdDeleteOutline style={iconStyle3} />
 								</button>
-							</div>
+							</div> */}
 						</>
 					)}
 
@@ -395,7 +481,86 @@ function Report() {
 								className=" w-full p-3 flex flex-col justify-center"
 								key={data.position}
 							>
-								<div className="flex flex-row justify-around">
+								<div className="flex w-full justify-end">
+									<div className="top-0 right-1">
+										<Menu as="div" className="relative inline-block text-left">
+											<div>
+												<Menu.Button className="inline-flex w-full justify-center rounded-md  bg-dark-cornflower-blue px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+													<BsThreeDots />
+												</Menu.Button>
+											</div>
+											<Transition
+												as={Fragment}
+												enter="transition ease-out duration-100"
+												enterFrom="transform opacity-0 scale-95"
+												enterTo="transform opacity-100 scale-100"
+												leave="transition ease-in duration-75"
+												leaveFrom="transform opacity-100 scale-100"
+												leaveTo="transform opacity-0 scale-95"
+											>
+												<Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+													<div className="px-1 py-1 ">
+														<Menu.Item>
+															{({ active }) => (
+																<button
+																	type="button"
+																	className={`${
+																		active
+																			? "bg-slate-200 text-gray-900"
+																			: "text-gray-900"
+																	} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+																	onClick={() =>
+																		reorderUpHandler(
+																			data.position
+																		)
+																	}
+																>
+																	{
+																		// eslint-disable-next-line no-use-before-define
+																		<ArrowUpIcon
+																			className="mr-2 h-5 w-5"
+																			aria-hidden="true"
+																		/>
+																	}
+																	Move Tweet up
+																</button>
+															)}
+														</Menu.Item>
+													</div>
+													<div className="px-1 py-1 ">
+														<Menu.Item>
+															{({ active }) => (
+																<button
+																	type="button"
+																	className={`${
+																		active
+																			? "bg-slate-200 text-gray-900"
+																			: "text-gray-900"
+																	} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+																	onClick={() =>
+																		deleteTweetHandler(
+																			data.reportBlockID
+																		)
+																	}
+																>
+																	{
+																		// eslint-disable-next-line no-use-before-define
+																		<DeleteIcon
+																			className="mr-2 h-5 w-5"
+																			aria-hidden="true"
+																		/>
+																	}
+																	Delete Tweet
+																</button>
+															)}
+														</Menu.Item>
+													</div>
+												</Menu.Items>
+											</Transition>
+										</Menu>
+									</div>
+								</div>
+								{/* <div className="flex flex-row justify-around">
 									<div
 										className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
 										data-bs-toggle="tooltip"
@@ -408,24 +573,25 @@ function Report() {
 											/>
 										</button>
 									</div>
-								</div>
+								</div> */}
 								<Tweet
 									options={{ align: "center", width: "" }}
 									tweetId={data.block.tweetID}
 								/>
 							</div>
 							{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
-							<div className="w-1/6 flex text-center justify-center">
+							{/* <div className="w-1/6 flex text-center justify-center">
 								<button
 									type="button"
 									onClick={() => deleteTweetHandler(data.reportBlockID)}
 								>
 									<MdDeleteOutline style={iconStyle3} />
 								</button>
-							</div>
+							</div> */}
 						</>
 					)}
 
+					{/* TWEETS IN-BETWEEN */}
 					{data.blockType === "TWEET" &&
 						!(data.position === 1 || data.position === length - 1) && (
 							<>
@@ -433,7 +599,115 @@ function Report() {
 									className="  w-full p-3 flex flex-col justify-center"
 									key={data.position}
 								>
-									<div className="flex flex-row justify-around">
+									<div className="flex w-full justify-end">
+										<div className="top-0 right-1">
+											<Menu
+												as="div"
+												className="relative inline-block text-left"
+											>
+												<div>
+													<Menu.Button className="inline-flex w-full justify-center rounded-md  bg-dark-cornflower-blue px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+														<BsThreeDots />
+													</Menu.Button>
+												</div>
+												<Transition
+													as={Fragment}
+													enter="transition ease-out duration-100"
+													enterFrom="transform opacity-0 scale-95"
+													enterTo="transform opacity-100 scale-100"
+													leave="transition ease-in duration-75"
+													leaveFrom="transform opacity-100 scale-100"
+													leaveTo="transform opacity-0 scale-95"
+												>
+													<Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+														<div className="px-1 py-1 ">
+															<Menu.Item>
+																{({ active }) => (
+																	<button
+																		type="button"
+																		className={`${
+																			active
+																				? "bg-slate-200 text-gray-900"
+																				: "text-gray-900"
+																		} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+																		onClick={() =>
+																			reorderUpHandler(
+																				data.position
+																			)
+																		}
+																	>
+																		{
+																			// eslint-disable-next-line no-use-before-define
+																			<ArrowUpIcon
+																				className="mr-2 h-5 w-5"
+																				aria-hidden="true"
+																			/>
+																		}
+																		Move Tweet up
+																	</button>
+																)}
+															</Menu.Item>
+															<Menu.Item>
+																{({ active }) => (
+																	<button
+																		type="button"
+																		className={`${
+																			active
+																				? "bg-slate-200 text-gray-900"
+																				: "text-gray-900"
+																		} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+																		onClick={() =>
+																			reorderDownHandler(
+																				data.position
+																			)
+																		}
+																	>
+																		{
+																			// eslint-disable-next-line no-use-before-define
+																			<ArrowDownIcon
+																				className="mr-2 h-5 w-5"
+																				aria-hidden="true"
+																			/>
+																		}
+																		Move Tweet down
+																	</button>
+																)}
+															</Menu.Item>
+														</div>
+														<div className="px-1 py-1 ">
+															<Menu.Item>
+																{({ active }) => (
+																	<button
+																		type="button"
+																		className={`${
+																			active
+																				? "bg-slate-200 text-gray-900"
+																				: "text-gray-900"
+																		} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+																		onClick={() =>
+																			deleteTweetHandler(
+																				data.reportBlockID
+																			)
+																		}
+																	>
+																		{
+																			// eslint-disable-next-line no-use-before-define
+																			<DeleteIcon
+																				className="mr-2 h-5 w-5"
+																				aria-hidden="true"
+																			/>
+																		}
+																		Delete Tweet
+																	</button>
+																)}
+															</Menu.Item>
+														</div>
+													</Menu.Items>
+												</Transition>
+											</Menu>
+										</div>
+									</div>
+									{/* <div className="flex flex-row justify-around">
 										<div
 											className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
 											data-bs-toggle="tooltip"
@@ -446,14 +720,14 @@ function Report() {
 												/>
 											</button>
 										</div>
-									</div>
+									</div> */}
 
 									<Tweet
 										options={{ align: "center", width: "" }}
 										tweetId={data.block.tweetID}
 									/>
 
-									<div className="flex flex-row justify-around">
+									{/* <div className="flex flex-row justify-around">
 										<div
 											className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
 											data-bs-toggle="tooltip"
@@ -468,17 +742,17 @@ function Report() {
 												/>
 											</button>
 										</div>
-									</div>
+									</div> */}
 								</div>
 								{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
-								<div className="w-1/6 flex text-center justify-center">
+								{/* <div className="w-1/6 flex text-center justify-center">
 									<button
 										type="button"
 										onClick={() => deleteTweetHandler(data.reportBlockID)}
 									>
 										<MdDeleteOutline style={iconStyle3} />
 									</button>
-								</div>
+								</div> */}
 							</>
 						)}
 				</div>
@@ -507,35 +781,100 @@ function Report() {
 								className={` w-full border-2 border-${sentimentColor}-200 p-3 flex flex-col justify-center`}
 								key={data.position}
 							>
+								<div className="flex w-full justify-end">
+									<div className="top-0 right-1">
+										<Menu as="div" className="relative inline-block text-left">
+											<div>
+												<Menu.Button className="inline-flex w-full justify-center rounded-md  bg-dark-cornflower-blue px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+													<BsThreeDots />
+												</Menu.Button>
+											</div>
+											<Transition
+												as={Fragment}
+												enter="transition ease-out duration-100"
+												enterFrom="transform opacity-0 scale-95"
+												enterTo="transform opacity-100 scale-100"
+												leave="transition ease-in duration-75"
+												leaveFrom="transform opacity-100 scale-100"
+												leaveTo="transform opacity-0 scale-95"
+											>
+												<Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+													<div className="px-1 py-1 ">
+														<Menu.Item>
+															{({ active }) => (
+																<button
+																	type="button"
+																	className={`${
+																		active
+																			? "bg-slate-200 text-gray-900"
+																			: "text-gray-900"
+																	} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+																	onClick={() =>
+																		reorderDownHandler(
+																			data.position
+																		)
+																	}
+																>
+																	{
+																		// eslint-disable-next-line no-use-before-define
+																		<ArrowDownIcon
+																			className="mr-2 h-5 w-5"
+																			aria-hidden="true"
+																		/>
+																	}
+																	Move Tweet down
+																</button>
+															)}
+														</Menu.Item>
+													</div>
+													<div className="px-1 py-1 ">
+														<Menu.Item>
+															{({ active }) => (
+																<button
+																	type="button"
+																	className={`${
+																		active
+																			? "bg-slate-200 text-gray-900"
+																			: "text-gray-900"
+																	} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+																	onClick={() =>
+																		deleteTweetHandler(
+																			data.reportBlockID
+																		)
+																	}
+																>
+																	{
+																		// eslint-disable-next-line no-use-before-define
+																		<DeleteIcon
+																			className="mr-2 h-5 w-5"
+																			aria-hidden="true"
+																		/>
+																	}
+																	Delete Tweet
+																</button>
+															)}
+														</Menu.Item>
+													</div>
+												</Menu.Items>
+											</Transition>
+										</Menu>
+									</div>
+								</div>
 								<Tweet
 									options={{ align: "center", width: "" }}
 									tweetId={data.block.tweetID}
 									onLoad={done}
 								/>
-								<div className="flex flex-row justify-around">
-									<div
-										className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
-										data-bs-toggle="tooltip"
-										title="Move Tweet Down"
-									>
-										<button type="submit">
-											<BsArrowDown
-												style={style}
-												onClick={() => reorderDownHandler(data.position)}
-											/>
-										</button>
-									</div>
-								</div>
 							</div>
 							{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
-							<div className="w-1/6 flex text-center justify-center">
+							{/* <div className="w-1/6 flex text-center justify-center">
 								<button
 									type="button"
 									onClick={() => deleteTweetHandler(data.reportBlockID)}
 								>
 									<MdDeleteOutline style={iconStyle3} />
 								</button>
-							</div>
+							</div> */}
 						</>
 					)}
 
@@ -546,7 +885,86 @@ function Report() {
 								className={` w-full border-2 border-${sentimentColor2}-200 p-3 flex flex-col justify-center`}
 								key={data.position}
 							>
-								<div className="flex flex-row justify-around">
+								<div className="flex w-full justify-end">
+									<div className="top-0 right-1">
+										<Menu as="div" className="relative inline-block text-left">
+											<div>
+												<Menu.Button className="inline-flex w-full justify-center rounded-md  bg-dark-cornflower-blue px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+													<BsThreeDots />
+												</Menu.Button>
+											</div>
+											<Transition
+												as={Fragment}
+												enter="transition ease-out duration-100"
+												enterFrom="transform opacity-0 scale-95"
+												enterTo="transform opacity-100 scale-100"
+												leave="transition ease-in duration-75"
+												leaveFrom="transform opacity-100 scale-100"
+												leaveTo="transform opacity-0 scale-95"
+											>
+												<Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+													<div className="px-1 py-1 ">
+														<Menu.Item>
+															{({ active }) => (
+																<button
+																	type="button"
+																	className={`${
+																		active
+																			? "bg-slate-200 text-gray-900"
+																			: "text-gray-900"
+																	} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+																	onClick={() =>
+																		reorderUpHandler(
+																			data.position
+																		)
+																	}
+																>
+																	{
+																		// eslint-disable-next-line no-use-before-define
+																		<ArrowUpIcon
+																			className="mr-2 h-5 w-5"
+																			aria-hidden="true"
+																		/>
+																	}
+																	Move Tweet up
+																</button>
+															)}
+														</Menu.Item>
+													</div>
+													<div className="px-1 py-1 ">
+														<Menu.Item>
+															{({ active }) => (
+																<button
+																	type="button"
+																	className={`${
+																		active
+																			? "bg-slate-200 text-gray-900"
+																			: "text-gray-900"
+																	} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+																	onClick={() =>
+																		deleteTweetHandler(
+																			data.reportBlockID
+																		)
+																	}
+																>
+																	{
+																		// eslint-disable-next-line no-use-before-define
+																		<DeleteIcon
+																			className="mr-2 h-5 w-5"
+																			aria-hidden="true"
+																		/>
+																	}
+																	Delete Tweet
+																</button>
+															)}
+														</Menu.Item>
+													</div>
+												</Menu.Items>
+											</Transition>
+										</Menu>
+									</div>
+								</div>
+								{/* <div className="flex flex-row justify-around">
 									<div
 										className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
 										data-bs-toggle="tooltip"
@@ -559,24 +977,25 @@ function Report() {
 											/>
 										</button>
 									</div>
-								</div>
+								</div> */}
 								<Tweet
 									options={{ align: "center", width: "" }}
 									tweetId={data.block.tweetID}
 								/>
 							</div>
 							{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
-							<div className="w-1/6 flex text-center justify-center">
+							{/* <div className="w-1/6 flex text-center justify-center">
 								<button
 									type="button"
 									onClick={() => deleteTweetHandler(data.reportBlockID)}
 								>
 									<MdDeleteOutline style={iconStyle3} />
 								</button>
-							</div>
+							</div> */}
 						</>
 					)}
 
+					{/* TWEETS IN-BETWEEN */}
 					{data.blockType === "TWEET" &&
 						!(data.position === 1 || data.position === length - 1) && (
 							<>
@@ -584,7 +1003,115 @@ function Report() {
 									className={` w-full border-2 border-${sentimentColor3}-200 p-3 flex flex-col justify-center`}
 									key={data.position}
 								>
-									<div className="flex flex-row justify-around">
+									<div className="flex w-full justify-end">
+										<div className="top-0 right-1">
+											<Menu
+												as="div"
+												className="relative inline-block text-left"
+											>
+												<div>
+													<Menu.Button className="inline-flex w-full justify-center rounded-md bg-dark-cornflower-blue px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+														<BsThreeDots />
+													</Menu.Button>
+												</div>
+												<Transition
+													as={Fragment}
+													enter="transition ease-out duration-100"
+													enterFrom="transform opacity-0 scale-95"
+													enterTo="transform opacity-100 scale-100"
+													leave="transition ease-in duration-75"
+													leaveFrom="transform opacity-100 scale-100"
+													leaveTo="transform opacity-0 scale-95"
+												>
+													<Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+														<div className="px-1 py-1 ">
+															<Menu.Item>
+																{({ active }) => (
+																	<button
+																		type="button"
+																		className={`${
+																			active
+																				? "bg-slate-200 text-gray-900"
+																				: "text-gray-900"
+																		} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+																		onClick={() =>
+																			reorderUpHandler(
+																				data.position
+																			)
+																		}
+																	>
+																		{
+																			// eslint-disable-next-line no-use-before-define
+																			<ArrowUpIcon
+																				className="mr-2 h-5 w-5"
+																				aria-hidden="true"
+																			/>
+																		}
+																		Move Tweet up
+																	</button>
+																)}
+															</Menu.Item>
+															<Menu.Item>
+																{({ active }) => (
+																	<button
+																		type="button"
+																		className={`${
+																			active
+																				? "bg-slate-200 text-gray-900"
+																				: "text-gray-900"
+																		} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+																		onClick={() =>
+																			reorderDownHandler(
+																				data.position
+																			)
+																		}
+																	>
+																		{
+																			// eslint-disable-next-line no-use-before-define
+																			<ArrowDownIcon
+																				className="mr-2 h-5 w-5"
+																				aria-hidden="true"
+																			/>
+																		}
+																		Move Tweet down
+																	</button>
+																)}
+															</Menu.Item>
+														</div>
+														<div className="px-1 py-1 ">
+															<Menu.Item>
+																{({ active }) => (
+																	<button
+																		type="button"
+																		className={`${
+																			active
+																				? "bg-slate-200 text-gray-900"
+																				: "text-gray-900"
+																		} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+																		onClick={() =>
+																			deleteTweetHandler(
+																				data.reportBlockID
+																			)
+																		}
+																	>
+																		{
+																			// eslint-disable-next-line no-use-before-define
+																			<DeleteIcon
+																				className="mr-2 h-5 w-5"
+																				aria-hidden="true"
+																			/>
+																		}
+																		Delete Tweet
+																	</button>
+																)}
+															</Menu.Item>
+														</div>
+													</Menu.Items>
+												</Transition>
+											</Menu>
+										</div>
+									</div>
+									{/* <div className="flex flex-row justify-around">
 										<div
 											className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
 											data-bs-toggle="tooltip"
@@ -597,39 +1124,22 @@ function Report() {
 												/>
 											</button>
 										</div>
-									</div>
+									</div> */}
 
 									<Tweet
 										options={{ align: "center", width: "" }}
 										tweetId={data.block.tweetID}
 									/>
-
-									<div className="flex flex-row justify-around">
-										<div
-											className="flex flex-row justify-center bg-gradient-to-r from-white to-gray-50 hover:shadow-2xl py-3 w-3/4 mx-5"
-											data-bs-toggle="tooltip"
-											title="Move Tweet Down"
-										>
-											<button type="submit">
-												<BsArrowDown
-													style={style}
-													onClick={() =>
-														reorderDownHandler(data.position)
-													}
-												/>
-											</button>
-										</div>
-									</div>
 								</div>
 								{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
-								<div className="w-1/6 flex text-center justify-center">
+								{/* <div className="w-1/6 flex text-center justify-center">
 									<button
 										type="button"
 										onClick={() => deleteTweetHandler(data.reportBlockID)}
 									>
 										<MdDeleteOutline style={iconStyle3} />
 									</button>
-								</div>
+								</div> */}
 							</>
 						)}
 				</div>
@@ -800,7 +1310,7 @@ function Report() {
 									<h3 className="italic text-xs">Date Created: {date}</h3>
 								</div>
 
-								<div className="flex flex-row items-end p-4 justify-between items-center">
+								<div className="flex flex-row items-end p-4 justify-between">
 									<div
 										className=""
 										data-bs-toggle="tooltip"
@@ -856,7 +1366,7 @@ function Report() {
 								<div className="flex flex-row justify-between">
 									<div className="ml-2 p-4">
 										{!editTitle && (
-											<div className="flex flex-row items-end justify-between items-center">
+											<div className="flex flex-row items-end justify-between">
 												<h1 className="text-3xl font-bold">{title}</h1>
 												<div className="">&nbsp;&nbsp;</div>
 												<div
@@ -874,15 +1384,25 @@ function Report() {
 											</div>
 										)}
 										{editTitle && (
-											<div className="flex flex-row items-end justify-between items-center">
-												<input
+											<div className="flex flex-row items-center justify-between">
+												<Form>
+													<Form.Group>
+														<Form.Control
+															type="search"
+															value={titleValue}
+															onChange={editTitleInputHandler}
+															placeholder="Enter new title"
+														/>
+													</Form.Group>
+												</Form>
+												{/* <input
 													type="search"
 													id="edit-title"
 													className="p-3 pl-10 w-11/12 text-sm text-gray-900 bg-gray-50 rounded-full border-gray-200 border focus:outline-none focus:ring focus:border-blue-500"
 													value={titleValue}
 													onChange={editTitleInputHandler}
 													placeholder="Enter new title"
-												/>
+												/> */}
 												<div className="">&nbsp;&nbsp;</div>
 												<div
 													className=""
@@ -891,11 +1411,13 @@ function Report() {
 												>
 													<button type="submit">
 														<GiConfirmed
-															style={style}
+															style={styleCorrect}
 															onClick={() => editTitleHandler(true)}
 														/>
 													</button>
 												</div>
+
+												<div className="">&nbsp;&nbsp;</div>
 												<div
 													className=""
 													data-bs-toggle="tooltip"
@@ -903,7 +1425,7 @@ function Report() {
 												>
 													<button type="submit">
 														<GiCancel
-															style={style}
+															style={styleWrong}
 															onClick={() => editTitleHandler(false)}
 														/>
 													</button>
@@ -911,13 +1433,15 @@ function Report() {
 											</div>
 										)}
 										{/* <h1 className="text-3xl font-bold">{title}</h1> */}
-										<br />
-										<h2 className="italic font-bold">Created By: {author}</h2>
-										<h3 className="italic text-xs">Date Created: {date}</h3>
+										{/* <br /> */}
+										<h2 className="italic text-xs mt-2">
+											Created By: {author}
+										</h2>
+										<h2 className="italic text-xs">Date Created: {date}</h2>
 									</div>
 
-									<div className="flex flex-row items-end p-4 justify-between items-center">
-										{!isPublished() && !isViewer() && !checkedSentiment && (
+									<div className="flex flex-row items-end p-4 justify-between">
+										{/* {!isPublished() && !isViewer() && !checkedSentiment && (
 											<div
 												className=""
 												data-bs-toggle="tooltip"
@@ -945,11 +1469,11 @@ function Report() {
 													/>
 												</button>
 											</div>
-										)}
+										)} */}
 
-										<div className="">&nbsp;&nbsp;</div>
+										{/* <div className="">&nbsp;&nbsp;</div> */}
 
-										{isOwner() && (
+										{/* {isOwner() && (
 											<div
 												className=""
 												data-bs-toggle="tooltip"
@@ -959,8 +1483,8 @@ function Report() {
 													<BsShare style={style} onClick={shareHandler} />
 												</button>
 											</div>
-										)}
-										<div className="">&nbsp;&nbsp;</div>
+										)} */}
+										{/* <div className="">&nbsp;&nbsp;</div>
 										<div
 											className=""
 											data-bs-toggle="tooltip"
@@ -970,8 +1494,8 @@ function Report() {
 											<button type="submit">
 												<GrCopy style={iconStyle3} />
 											</button>
-										</div>
-										<div className="" />
+										</div> */}
+										{/* <div className="" />
 										{isOwner() && (
 											<div
 												className=""
@@ -983,23 +1507,325 @@ function Report() {
 													<MdDeleteOutline style={iconStyle4} />
 												</button>
 											</div>
-										)}
+										)} */}
+										<Menu as="div" className="relative inline-block text-left">
+											<div>
+												<Menu.Button className="inline-flex w-full justify-center rounded-full  bg-dark-cornflower-blue px-2 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+													<FiSettings style={style} />
+												</Menu.Button>
+											</div>
+											<Transition
+												as={Fragment}
+												enter="transition ease-out duration-100"
+												enterFrom="transform opacity-0 scale-95"
+												enterTo="transform opacity-100 scale-100"
+												leave="transition ease-in duration-75"
+												leaveFrom="transform opacity-100 scale-100"
+												leaveTo="transform opacity-0 scale-95"
+											>
+												<Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+													<div className="px-1 py-1 ">
+														{!isPublished() &&
+															!isViewer() &&
+															!checkedSentiment && (
+																<Menu.Item>
+																	{({ active }) => (
+																		<button
+																			type="button"
+																			className={`${
+																				active
+																					? "bg-slate-200 text-gray-900"
+																					: "text-gray-900"
+																			} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+																			onClick={checkedHandler}
+																		>
+																			{
+																				// eslint-disable-next-line no-use-before-define
+																				<SentimentIcon
+																					className="mr-2 h-5 w-5"
+																					aria-hidden="true"
+																				/>
+																			}
+																			Sentiment
+																		</button>
+																	)}
+																</Menu.Item>
+															)}
+														{!isPublished() &&
+															!isViewer() &&
+															checkedSentiment && (
+																<Menu.Item>
+																	{({ active }) => (
+																		<button
+																			type="button"
+																			className={`${
+																				active
+																					? "bg-slate-200 text-gray-900"
+																					: "text-gray-900"
+																			} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+																			onClick={checkedHandler}
+																		>
+																			{
+																				// eslint-disable-next-line no-use-before-define
+																				<NonSentimentIcon
+																					className="mr-2 h-5 w-5"
+																					aria-hidden="true"
+																				/>
+																			}
+																			Sentiment
+																		</button>
+																	)}
+																</Menu.Item>
+															)}
+														{isOwner() && (
+															<Menu.Item>
+																{({ active }) => (
+																	<button
+																		type="button"
+																		className={`${
+																			active
+																				? "bg-slate-200 text-gray-900"
+																				: "text-gray-900"
+																		} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+																		onClick={shareHandler}
+																	>
+																		{
+																			// eslint-disable-next-line no-use-before-define
+																			<ShareIcon
+																				className="mr-2 h-5 w-5"
+																				aria-hidden="true"
+																			/>
+																		}
+																		Share
+																	</button>
+																)}
+															</Menu.Item>
+														)}
+														<Menu.Item>
+															{({ active }) => (
+																<button
+																	type="button"
+																	className={`${
+																		active
+																			? "bg-slate-200 text-gray-900"
+																			: "text-gray-900"
+																	} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+																	onClick={cloneReportHandler}
+																>
+																	{
+																		// eslint-disable-next-line no-use-before-define
+																		<CloneIcon
+																			className="mr-2 h-5 w-5"
+																			aria-hidden="true"
+																		/>
+																	}
+																	Clone
+																</button>
+															)}
+														</Menu.Item>
+													</div>
+													{isOwner() && (
+														<div className="px-1 py-1">
+															<Menu.Item>
+																{({ active }) => (
+																	<button
+																		type="button"
+																		className={`${
+																			active
+																				? "bg-slate-200 text-gray-900"
+																				: "text-gray-900"
+																		} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+																		onClick={
+																			deleteReportHandler
+																		}
+																	>
+																		{
+																			// eslint-disable-next-line no-use-before-define
+																			<DeleteIcon
+																				className="mr-2 h-5 w-5 text-violet-400"
+																				aria-hidden="true"
+																			/>
+																		}
+																		Delete
+																	</button>
+																)}
+															</Menu.Item>
+														</div>
+													)}
+												</Menu.Items>
+											</Transition>
+										</Menu>
 									</div>
+
+									{/* <div className="fixed top-16 w-56 text-right">
+										<Menu as="div" className="relative inline-block text-left">
+											<div>
+												<Menu.Button className="inline-flex w-full justify-center rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+													Options
+													<ChevronDownIcon
+														className="ml-2 -mr-1 h-5 w-5 text-violet-200 hover:text-violet-100"
+														aria-hidden="true"
+													/>
+												</Menu.Button>
+											</div>
+											<Transition
+												as={Fragment}
+												enter="transition ease-out duration-100"
+												enterFrom="transform opacity-0 scale-95"
+												enterTo="transform opacity-100 scale-100"
+												leave="transition ease-in duration-75"
+												leaveFrom="transform opacity-100 scale-100"
+												leaveTo="transform opacity-0 scale-95"
+											>
+												<Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+													<div className="px-1 py-1 ">
+														{!isPublished() &&
+															!isViewer() &&
+															!checkedSentiment && (
+																<Menu.Item>
+																	{({ active }) => (
+																		<button
+																			type="button"
+																			className={`${
+																				active
+																					? "bg-violet-500 text-white"
+																					: "text-gray-900"
+																			} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+																			onClick={checkedHandler}
+																		>
+																			{
+																				// eslint-disable-next-line no-use-before-define
+																				<SentimentIcon
+																					className="mr-2 h-5 w-5"
+																					aria-hidden="true"
+																				/>
+																			}
+																			Sentiment
+																		</button>
+																	)}
+																</Menu.Item>
+															)}
+														{!isPublished() &&
+															!isViewer() &&
+															checkedSentiment && (
+																<Menu.Item>
+																	{({ active }) => (
+																		<button
+																			type="button"
+																			className={`${
+																				active
+																					? "bg-violet-500 text-white"
+																					: "text-gray-900"
+																			} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+																			onClick={checkedHandler}
+																		>
+																			{
+																				// eslint-disable-next-line no-use-before-define
+																				<NonSentimentIcon
+																					className="mr-2 h-5 w-5"
+																					aria-hidden="true"
+																				/>
+																			}
+																			Sentiment
+																		</button>
+																	)}
+																</Menu.Item>
+															)}
+														{isOwner() && (
+															<Menu.Item>
+																{({ active }) => (
+																	<button
+																		type="button"
+																		className={`${
+																			active
+																				? "bg-violet-500 text-white"
+																				: "text-gray-900"
+																		} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+																		onClick={shareHandler}
+																	>
+																		{
+																			// eslint-disable-next-line no-use-before-define
+																			<ShareIcon
+																				className="mr-2 h-5 w-5"
+																				aria-hidden="true"
+																			/>
+																		}
+																		Share
+																	</button>
+																)}
+															</Menu.Item>
+														)}
+														<Menu.Item>
+															{({ active }) => (
+																<button
+																	type="button"
+																	className={`${
+																		active
+																			? "bg-violet-500 text-white"
+																			: "text-gray-900"
+																	} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+																	onClick={cloneReportHandler}
+																>
+																	{
+																		// eslint-disable-next-line no-use-before-define
+																		<CloneIcon
+																			className="mr-2 h-5 w-5"
+																			aria-hidden="true"
+																		/>
+																	}
+																	Clone
+																</button>
+															)}
+														</Menu.Item>
+													</div>
+													{isOwner() && (
+														<div className="px-1 py-1">
+															<Menu.Item>
+																{({ active }) => (
+																	<button
+																		type="button"
+																		className={`${
+																			active
+																				? "bg-violet-500 text-white"
+																				: "text-gray-900"
+																		} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+																		onClick={
+																			deleteReportHandler
+																		}
+																	>
+																		{
+																			// eslint-disable-next-line no-use-before-define
+																			<DeleteIcon
+																				className="mr-2 h-5 w-5 text-violet-400"
+																				aria-hidden="true"
+																			/>
+																		}
+																		Delete
+																	</button>
+																)}
+															</Menu.Item>
+														</div>
+													)}
+												</Menu.Items>
+											</Transition>
+										</Menu>
+									</div> */}
 								</div>
 								{!isPublished() && !isViewer() && (
-									<div
-										className="ml-2 p-4 text-blue-500 cursor-pointer"
-										onClick={clicked}
-									>
-										Add Custom Tweets
+									<div className="ml-2 w-auto" onClick={clicked}>
+										<p className="text-blue-500 cursor-pointer pl-6">
+											Add Custom Tweets
+										</p>
 									</div>
 								)}
 								{modalOn && (
-									<Modal
+									<Modals
 										setModalOn={setModalOn}
 										setChoice={setChoice}
 										func={changeShouldRender}
 										rID={repID}
+										show
+										modalChoice="addTweet"
 									/>
 								)}
 							</div>
@@ -1137,6 +1963,104 @@ function Report() {
 					<br /> <br /> <br />
 				</div>
 			)}
+		</div>
+	);
+}
+
+function SentimentIcon(props: any) {
+	const style2 = { fontSize: "1.3rem" };
+	return (
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		<div {...props}>
+			<AiOutlineEye style={style2} />
+		</div>
+		// <svg {...props} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+		// 	<path d="M4 13V16H7L16 7L13 4L4 13Z" fill="#EDE9FE" stroke="#A78BFA" strokeWidth="2" />
+		// </svg>
+	);
+}
+
+function NonSentimentIcon(props: any) {
+	const style2 = { fontSize: "1.3rem" };
+	return (
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		<div {...props}>
+			<AiOutlineEyeInvisible style={style2} />
+		</div>
+		// <svg {...props} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+		// 	<path d="M4 13V16H7L16 7L13 4L4 13Z" fill="#EDE9FE" stroke="#A78BFA" strokeWidth="2" />
+		// </svg>
+	);
+}
+
+function ShareIcon(props: any) {
+	const style = { fontSize: "1.1rem" };
+	return (
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		<div {...props}>
+			<BsShare style={style} />
+		</div>
+		// <svg {...props} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+		// 	<path d="M4 13V16H7L16 7L13 4L4 13Z" fill="#EDE9FE" stroke="#A78BFA" strokeWidth="2" />
+		// </svg>
+	);
+}
+
+function CloneIcon(props: any) {
+	const iconStyle3 = { fontSize: "1.1rem", color: "red" };
+	return (
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		<div {...props}>
+			<GrCopy style={iconStyle3} />
+		</div>
+		// <svg {...props} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+		// 	<path d="M4 4H12V12H4V4Z" fill="#EDE9FE" stroke="#A78BFA" strokeWidth="2" />
+		// 	<path d="M8 8H16V16H8V8Z" fill="#EDE9FE" stroke="#A78BFA" strokeWidth="2" />
+		// </svg>
+	);
+}
+
+function DeleteIcon(props: any) {
+	const iconStyle4 = { fontSize: "1.3rem", color: "red" };
+	return (
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		<div {...props}>
+			<MdDeleteOutline style={iconStyle4} />
+		</div>
+		// <svg {...props} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+		// 	<rect
+		// 		x="5"
+		// 		y="6"
+		// 		width="10"
+		// 		height="10"
+		// 		fill="#EDE9FE"
+		// 		stroke="#A78BFA"
+		// 		strokeWidth="2"
+		// 	/>
+		// 	<path d="M3 6H17" stroke="#A78BFA" strokeWidth="2" />
+		// 	<path d="M8 6V4H12V6" stroke="#A78BFA" strokeWidth="2" />
+		// </svg>
+	);
+}
+
+function ArrowDownIcon(props: any) {
+	const style = { fontSize: "1.1rem" };
+
+	return (
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		<div {...props}>
+			<BsArrowDown style={style} />
+		</div>
+	);
+}
+
+function ArrowUpIcon(props: any) {
+	const style = { fontSize: "1.1rem" };
+
+	return (
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		<div {...props}>
+			<BsArrowUp style={style} />
 		</div>
 	);
 }
