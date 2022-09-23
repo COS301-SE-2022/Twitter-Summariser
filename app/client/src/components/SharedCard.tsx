@@ -51,7 +51,7 @@ function SharedCard(props: any) {
 			</div>
 
 			<div className="flex mt-2 space-x-4 md:mt-8 items-center justify-center">
-				<div className="rounded-lg items-center py-2.5 px-16 text-sm font-semibold text-center text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow">
+				<div className="rounded-sm items-center py-2.5 px-16 text-sm font-semibold text-center text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow">
 					<button onClick={viewReport} type="submit">
 						VIEW
 					</button>
