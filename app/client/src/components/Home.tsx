@@ -23,6 +23,8 @@ function Home() {
 	const [loading, changeLoading] = useState(false);
 	const [scheduleResponse, changeScheduleResponse] = useState("");
 
+	const [sentimentResponse, changeSentimentResponse] = useState<any[]>([]);
+
 	const [showTrends, changeShowTrends] = useState(true);
 
 	const [showSentimentOption, changeShowSentimentOption] = useState(false);
@@ -161,13 +163,7 @@ function Home() {
 	// 	setCheckedSentiment(event.target.checked);
 	// };
 
-	const checkedHandler = () => {
-		if (checkedSentiment) {
-			setCheckedSentiment(false);
-		} else {
-			setCheckedSentiment(true);
-		}
-	};
+
 
 	// const tweetHandler = (event: any) => {
 	// 	changeNoOfTweets(event.target.value);
@@ -187,6 +183,8 @@ function Home() {
 	// }
 
 	const [pulse, changePulse] = useState(false);
+
+	const analyseData: any[] =  [];
 
 	const scheduleReport = async (scheduleData: any) => {
 		try {
@@ -222,12 +220,52 @@ function Home() {
 		scheduleReport(scheduleData);
 	};
 
+	const viewSentimentAnalysis = async (sentimentData: any) => {
+		try {
+			const response = await axiosPrivate.post(
+				"getSentiment",
+				JSON.stringify(sentimentData)
+			);
+			changeSentimentResponse(await response.data);
+			console.log(sentimentResponse);
+
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const analyse = () => {
+
+		searchResponse.map((data) =>
+			analyseData.push(
+				data.tweetID
+			)
+		);
+
+		const sentimentData = {
+			tweets: analyseData
+		};
+
+		// console.log(scheduleData);
+
+		viewSentimentAnalysis(sentimentData);
+	};
+
+	const checkedHandler = () => {
+		if (checkedSentiment) {
+			setCheckedSentiment(false);
+		} else {
+			setCheckedSentiment(true);
+			analyse();
+		}
+	};
+
 	const searchTwitter = async (searchData: any) => {
 		try {
 			const response = await axiosPrivate.post("searchTweets", JSON.stringify(searchData));
 			changeResultSet(await response.data.resultSetID);
 			changeResponse(await response.data.tweets);
-			// console.log(await response.data);
+			console.log(await response.data.tweets);
 			changeLoading(false);
 			changePulse(true);
 		} catch (err) {
@@ -343,6 +381,7 @@ function Home() {
 	}
 
 	const [report, changeReport] = useState<any[]>([]);
+	const [trends, changeTrends] = useState<any[]>([]);
 
 	useEffect(() => {
 		let isMounted = true;
@@ -362,6 +401,31 @@ function Home() {
 		};
 
 		getReports();
+
+		return () => {
+			isMounted = false;
+			controller.abort();
+		};
+	}, [axiosPrivate]);
+
+	useEffect(() => {
+		let isMounted = true;
+
+		const getTrends = async () => {
+			try {
+				const response = await axiosPrivate.post(
+					"getTrendingTopics",
+					JSON.stringify({}),
+					{ signal: controller.signal }
+				);
+				isMounted && changeTrends(response.data);
+				isMounted && changeLoading(false);
+			} catch (error) {
+				console.error(error);
+			}
+		};
+
+		getTrends();
 
 		return () => {
 			isMounted = false;
@@ -622,13 +686,32 @@ function Home() {
 						{checkedSentiment && apiResponseWithSentimentAnalysis}
 					</div>
 
+
+
+
+
 					{showTrends && (
-						<div>
+						<>
 							<h1 className="text-2xl hidden lg:flex lg:flex-row lg:justify-center border-b pb-4 w-5/6 align-middle items-center border-slate-300">
 								LATEST TRENDS
 							</h1>
-							{trendsResponse}{" "}
-						</div>
+						{loading && <div>{loadIcon} &nbsp; Loading latest Trending Topics</div>}
+						{!loading &&
+							(trends.length === 0 ? (
+								<div>There are no trends at the moment </div>
+							) : (
+								trends.map((data) => (
+									<div>
+										#{data}
+									</div>
+								))
+							))}
+
+						{/* <div>
+
+								{trendsResponse}
+							</div> */}
+						</>
 					)}
 				</div>
 			)}
