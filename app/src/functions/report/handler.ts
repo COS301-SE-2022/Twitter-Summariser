@@ -14,7 +14,12 @@ const lambda = new Lambda();
 export const generateReport = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
-			const params = typeof event.body == "string" ? JSON.parse(event.body) : (typeof event == "object" ? event : event.body);
+			let params;
+			if (event.body.apiKey !== undefined || event.body.apiKey !== null) {
+				params = event.body;
+			} else {
+				params = typeof event.body == "string" ? JSON.parse(event.body) : (typeof event == "object" ? event : event.body);
+			}
 
 			const title = await ServicesLayer.resultSetServices.getResultSet(
 				params["resultSetID"],
