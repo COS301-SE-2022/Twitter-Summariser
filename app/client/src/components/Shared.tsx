@@ -69,9 +69,9 @@ function Shared() {
 	return (
 		<div data-testid="shared">
 			{/* Api response comes here */}
-			<div className=" mt-3 pt-3">
-				<div className=" mt-2 sm:mt-4">
-					<div className="mt-2 flex flex-row flex-wrap justify-center p-2">
+			<div className="">
+				<div className="">
+					<div className="flex flex-row flex-wrap justify-center p-2">
 						{loading && (
 							<>
 								<div className="mt-8 justify-center inline items-center w-full">
@@ -91,7 +91,11 @@ function Shared() {
 									<div
 										data-aos="fade-up"
 										data-aos-duration="500"
-										className="sm:w-1/2 w-full mt-2"
+										className= {
+											report.length > 1
+												? "sm:w-1/2 w-full"
+												: "w-full"
+										}
 										key={data.reportID}
 									>
 										<SharedCard data={data} />
