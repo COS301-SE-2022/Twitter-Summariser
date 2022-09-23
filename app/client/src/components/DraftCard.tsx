@@ -131,7 +131,7 @@ function DraftCard(props: any) {
 		// 		</>
 		// 	)}
 		// </div>
-		<div className="pt-3 pb-3 pl-3 pr-3 m-2  bg-gradient-to-b from-blue-50 via-sky-100 border rounded-md transform hover:shadow-md hover:scale-105 transition duration-200 ease-in hover:bg-blue-200">
+		<div className="pt-3 pb-3 md:pl-8 md:pr-8 pl-16 pr-16 ml-1 mr-1 mb-4  bg-gradient-to-b from-blue-50 via-sky-100 border rounded-lg transform hover:shadow-md hover:scale-105 transition duration-200 ease-in hover:bg-blue-200">
 			{!options ? (
 				<>
 					<p
@@ -149,13 +149,13 @@ function DraftCard(props: any) {
 
 					<div className="flex mt-4 space-x-4 md:mt-8 items-center justify-center">
 						<Link to={newDraftReportLink}>
-							<div className="rounded-md items-center py-2.5 px-10 text-sm font-semibold text-center text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow">
+							<div className="rounded-sm items-center py-2.5 px-10 text-sm font-semibold text-center text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow">
 								<button onClick={viewDraftReport} type="submit">
 									View
 								</button>
 							</div>
 						</Link>
-						<div className="rounded-md inline-flex items-center py-2.5 px-8 text-sm font-semibold text-center bg-dark-cornflower-blue  text-white hover:bg-midnight-blue group hover:shadow">
+						<div className="rounded-sm inline-flex items-center py-2.5 px-8 text-sm font-semibold text-center bg-dark-cornflower-blue  text-white hover:bg-midnight-blue group hover:shadow">
 							<button onClick={optionhandler} type="submit">
 								Delete
 							</button>
@@ -168,12 +168,12 @@ function DraftCard(props: any) {
 						Are you sure you want to delete this draft report?
 					</p>
 					<div className="flex mt-8 space-x-4 md:mt-8 items-center justify-center">
-						<div className="rounded-md items-center py-2.5 px-10 space-x-4 text-sm font-semibold text-center text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow">
+						<div className="rounded-sm items-center py-2.5 px-10 space-x-4 text-sm font-semibold text-center text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow">
 							<button onClick={deleteDraftHandler} type="submit">
 								Yes
 							</button>
 						</div>
-						<div className="rounded-md inline-flex items-center py-2.5 px-8 text-sm font-semibold text-center bg-dark-cornflower-blue text-white hover:bg-midnight-blue group hover:shadow">
+						<div className="rounded-sm inline-flex items-center py-2.5 px-8 text-sm font-semibold text-center bg-dark-cornflower-blue text-white hover:bg-midnight-blue group hover:shadow">
 							<button onClick={optionhandler} type="submit">
 								Cancel
 							</button>
