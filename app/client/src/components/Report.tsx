@@ -22,7 +22,8 @@ import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Button from "./Button";
 import PublishedText from "./PublishedText";
 import "./styles/Animation.css";
-import Modal from "./Modal";
+// import Modal from "./Modal";
+import Modals from "./Modals";
 
 function Report() {
 	// console.log("here");
@@ -1433,10 +1434,10 @@ function Report() {
 										)}
 										{/* <h1 className="text-3xl font-bold">{title}</h1> */}
 										{/* <br /> */}
-										<h2 className="italic font-bold mt-2">
+										<h2 className="italic text-xs mt-2">
 											Created By: {author}
 										</h2>
-										<h3 className="italic text-xs">Date Created: {date}</h3>
+										<h2 className="italic text-xs">Date Created: {date}</h2>
 									</div>
 
 									<div className="flex flex-row items-end p-4 justify-between">
@@ -1811,19 +1812,20 @@ function Report() {
 									</div> */}
 								</div>
 								{!isPublished() && !isViewer() && (
-									<div
-										className="ml-2 p-4 text-blue-500 cursor-pointer"
-										onClick={clicked}
-									>
-										Add Custom Tweets
+									<div className="ml-2 w-auto" onClick={clicked}>
+										<p className="text-blue-500 cursor-pointer pl-6">
+											Add Custom Tweets
+										</p>
 									</div>
 								)}
 								{modalOn && (
-									<Modal
+									<Modals
 										setModalOn={setModalOn}
 										setChoice={setChoice}
 										func={changeShouldRender}
 										rID={repID}
+										show
+										modalChoice="addTweet"
 									/>
 								)}
 							</div>
