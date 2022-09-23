@@ -200,7 +200,7 @@ const Comprehend = new AWS.Comprehend();
 export const getSentiment = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
-			const params = JSON.parse(event.body)
+			const params = JSON.parse(event.body);
 			const { data } = await clientV2.get("tweets", { ids: params.tweets });
 			let result = [];
 			let twts = [];
@@ -216,7 +216,11 @@ export const getSentiment = middyfy(
 			const sentimentResults = await Comprehend.batchDetectSentiment(param).promise();
 
 			for (let x = 0; x < data.length; x++) {
-				result.push({ sentimentWord: sentimentResults.ResultList[x].Sentiment, sentiment: sentimentResults.ResultList[x].SentimentScore, id: data[x].id })
+				result.push({
+					sentimentWord: sentimentResults.ResultList[x].Sentiment,
+					sentiment: sentimentResults.ResultList[x].SentimentScore,
+					id: data[x].id
+				});
 			}
 
 			return {

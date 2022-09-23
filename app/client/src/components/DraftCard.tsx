@@ -142,11 +142,11 @@ function DraftCard(props: any) {
 						{props.data.title}
 					</p>
 					<p className="flex mb-2 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase">
-		 				<span className=" font-semiboldtext-deep-purple-accent-400">
-		 					Draft Report - {props.data.dateCreated.substring(4, 16)}
-		 				</span>
-		 			</p>
-					
+						<span className=" font-semiboldtext-deep-purple-accent-400">
+							Draft Report - {props.data.dateCreated.substring(4, 16)}
+						</span>
+					</p>
+
 					<div className="flex mt-4 space-x-4 md:mt-8 items-center justify-center">
 						<Link to={newDraftReportLink}>
 							<div className="rounded-md items-center py-2.5 px-10 text-sm font-semibold text-center text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow">

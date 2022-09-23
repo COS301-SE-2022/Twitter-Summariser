@@ -18,7 +18,12 @@ export const generateReport = middyfy(
 			if (event.body.apiKey !== undefined || event.body.apiKey !== null) {
 				params = event.body;
 			} else {
-				params = typeof event.body == "string" ? JSON.parse(event.body) : (typeof event == "object" ? event : event.body);
+				params =
+					typeof event.body == "string"
+						? JSON.parse(event.body)
+						: typeof event == "object"
+						? event
+						: event.body;
 			}
 
 			const title = await ServicesLayer.resultSetServices.getResultSet(
