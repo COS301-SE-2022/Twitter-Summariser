@@ -30,6 +30,7 @@ import Splash from "./components/Splash";
 import PersistLogin from "./components/PersistLogin";
 import TextSummariser from "./components/TextSummariser";
 import Something from "./components/Something";
+import TestPage from "./pages/TestPage";
 
 /*
 	App component that is the root component of the application.
@@ -47,6 +48,7 @@ function App() {
 				<Route path="splash" element={<Splash />} />
 				<Route path="login" element={<Login />} />
 				<Route path="signup" element={<Signup />} />
+				<Route path="test" element={<TestPage />} />
 				{/* The persistent login component that ensures user can only access the above pages until they have been validated as a valid user */}
 				<Route element={<PersistLogin />}>
 					{/* The RequiredAuth component which renders the pages that require users to be properly authenticated before accessing certain components */}
