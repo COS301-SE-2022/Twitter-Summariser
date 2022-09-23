@@ -64,7 +64,7 @@ function ButtonComponent({page, text, type, size, handle, disableId, isLoading, 
           className={`${fixedStyle} ${sizeStyle}`}
           disabled={disableId}
         >
-          {buttonText} {`${disableId}`}
+          {buttonText}
         </button>
       }
 			{/* {!size() && !isDelete() && (
