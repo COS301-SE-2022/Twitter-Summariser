@@ -72,7 +72,7 @@ function FileUpload(this: any, props: any) {
 	};
 
 	return (
-		<div className="file-card bg-[#edf2f7] border mt-2 p-4 w-full flex items-center justify-between flex-col overflow-hidden">
+		<div className="file-card rounded-lg bg-[#edf2f7] border mt-2 p-4 w-full flex items-center justify-between flex-col overflow-hidden">
 			<div className="file-inputs relative mb-4">
 				<input
 					type="file"

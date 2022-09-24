@@ -5,92 +5,94 @@ import NotificationService from "..";
 const db = new DocumentClient();
 
 describe("notification.service", () => {
-    beforeAll(() => {
-        jest.useFakeTimers("modern");
-        jest.setSystemTime(new Date(2022, 1, 1));
-    });
+	beforeAll(() => {
+		jest.useFakeTimers("modern");
+		jest.setSystemTime(new Date(2022, 1, 1));
+	});
 
-    beforeEach(() => {
-        awsSdkPromiseResponse.mockReset();
-    });
+	beforeEach(() => {
+		awsSdkPromiseResponse.mockReset();
+	});
 
-    describe("getNotification", () => {
-        test("Get Notification",async () => {
-            const addedNotification: Notification = {
-                id: "1234",
-                sender: "dfberki",
-                receiver: "jnrjNGgn",
-                type: "SHARE",
-                content: "Report Title",
-                isRead: false,
-                dateCreated: "2022-01-01"
-            };
+	describe("getNotification", () => {
+		test("Get Notification", async () => {
+			const addedNotification: Notification = {
+				id: "1234",
+				sender: "dfberki",
+				receiver: "jnrjNGgn",
+				type: "SHARE",
+				content: "Report Title",
+				isRead: false,
+				dateCreated: "2022-01-01"
+			};
 
-            awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Item: addedNotification}));
+			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Item: addedNotification }));
 
-            const notification = await NotificationService.notificationService.getNotification("1234");
+			const notification = await NotificationService.notificationService.getNotification(
+				"1234"
+			);
 
-            expect(db.get).toHaveBeenCalledWith({
-                TableName: "NotificationTable",
-                Key: { id: "1234"}
-            });
+			expect(db.get).toHaveBeenCalledWith({
+				TableName: "NotificationTable",
+				Key: { id: "1234" }
+			});
 
-            const expected: Notification = {
-                id: "1234",
-                sender: "dfberki",
-                receiver: "jnrjNGgn",
-                type: "SHARE",
-                content: "Report Title",
-                isRead: false,
-                dateCreated: "2022-01-01"
-            };
+			const expected: Notification = {
+				id: "1234",
+				sender: "dfberki",
+				receiver: "jnrjNGgn",
+				type: "SHARE",
+				content: "Report Title",
+				isRead: false,
+				dateCreated: "2022-01-01"
+			};
 
-            expect(notification).toEqual(expected);
-        });
-    });
+			expect(notification).toEqual(expected);
+		});
+	});
 
-    describe("addNotification", () => {
-        test("Add Notification",async () => {
-            const notification: Notification = {
-                id: "1234",
-                sender: "dfberki",
-                receiver: "jnrjNGgn",
-                type: "SHARE",
-                content: "Report Title",
-                isRead: false,
-                dateCreated: "2022-01-01"
-            };
+	describe("addNotification", () => {
+		test("Add Notification", async () => {
+			const notification: Notification = {
+				id: "1234",
+				sender: "dfberki",
+				receiver: "jnrjNGgn",
+				type: "SHARE",
+				content: "Report Title",
+				isRead: false,
+				dateCreated: "2022-01-01"
+			};
 
-            await NotificationService.notificationService.addNotification(notification);
-            expect(db.put).toHaveBeenCalledWith({
-                TableName: "NotificationTable",
-                Item: notification
-            });
-        });
-    });
+			await NotificationService.notificationService.addNotification(notification);
+			expect(db.put).toHaveBeenCalledWith({
+				TableName: "NotificationTable",
+				Item: notification
+			});
+		});
+	});
 
-    describe("deleteNotification", () => {
-        test("Delete notification",async () => {
-            const notification: Notification = {
-                id: "1234",
-                sender: "dfberki",
-                receiver: "jnrjNGgn",
-                type: "SHARE",
-                content: "Report Title",
-                isRead: false,
-                dateCreated: "2022-01-01"
-            };
+	describe("deleteNotification", () => {
+		test("Delete notification", async () => {
+			const notification: Notification = {
+				id: "1234",
+				sender: "dfberki",
+				receiver: "jnrjNGgn",
+				type: "SHARE",
+				content: "Report Title",
+				isRead: false,
+				dateCreated: "2022-01-01"
+			};
 
-            awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({Item: notification}));
+			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Item: notification }));
 
-            await NotificationService.notificationService.deleteNotification("1234");
+			await NotificationService.notificationService.deleteNotification("1234");
 
-            expect(db.delete).toHaveBeenCalledWith({
-                TableName: "NotificationTable",
-                Key: {
-                    id: "1234"
-                }
-            });
-        });
-    });
+			expect(db.delete).toHaveBeenCalledWith({
+				TableName: "NotificationTable",
+				Key: {
+					id: "1234"
+				}
+			});
+		});
+	});
 });

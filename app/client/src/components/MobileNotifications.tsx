@@ -12,7 +12,6 @@ function MobileNotifications() {
 	const controller = new AbortController();
 
 	const toggling = () => {
-		console.log(isOpen);
 		setIsOpen(!isOpen);
 	};
 
@@ -65,18 +64,17 @@ function MobileNotifications() {
 	);
 
 	return (
-		<div>
-			<div
-				className="fixed flex w-16 h-16 lg:hidden rounded-full bg-midnight-blue justify-center items-center  bottom-8 right-8 cursor-pointer"
+		<div className="fixed flex flex-row justify-end bottom-4 w-full right-2 z-50">
+			<button
+				type="button"
 				onClick={toggling}
+				className="opacity-100 inline-flex items-center p-3 rounded-full shadow-sm text-white bg-midnight-blue transition-opacity hover:bg-blue-800 focus:outline-none focus:ring-offset-2 focus:ring-blue-500"
+	
 			>
-				{/* <span style={{visibility: unRead ? "visible" : "hidden"}} className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"/> */}
-				<BsFillBellFill
-					style={{ fill: "white", transform: isOpen ? "rotate(45deg)" : "none" }}
-				/>
-			</div>
+				<BsFillBellFill className="h-6 w-6" aria-hidden="true" />
+			</button>
 
-			{isOpen && modal()}
+			{isOpen && modal() }
 		</div>
 	);
 }

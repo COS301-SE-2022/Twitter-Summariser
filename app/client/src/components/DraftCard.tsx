@@ -131,7 +131,7 @@ function DraftCard(props: any) {
 		// 		</>
 		// 	)}
 		// </div>
-		<div className="pt-3 pb-3 pl-3 pr-3 m-2  bg-gradient-to-b from-blue-50 via-sky-100 border rounded-sm transform hover:shadow-md hover:scale-105 transition duration-200 ease-in hover:bg-blue-200">
+		<div className="pt-3 pb-3 md:pl-8 md:pr-8 pl-16 pr-16 ml-1 mr-1 mb-4  bg-gradient-to-b from-blue-50 via-sky-100 border rounded-lg transform hover:shadow-md hover:scale-105 transition duration-200 ease-in hover:bg-blue-200">
 			{!options ? (
 				<>
 					<p
@@ -142,11 +142,11 @@ function DraftCard(props: any) {
 						{props.data.title}
 					</p>
 					<p className="flex mb-2 text-gray-600 text-xs items-center justify-center font-semibold tracking-wide uppercase">
-		 				<span className=" font-semiboldtext-deep-purple-accent-400">
-		 					Draft Report - {props.data.dateCreated.substring(4, 16)}
-		 				</span>
-		 			</p>
-					
+						<span className=" font-semiboldtext-deep-purple-accent-400">
+							Draft Report - {props.data.dateCreated.substring(4, 16)}
+						</span>
+					</p>
+
 					<div className="flex mt-4 space-x-4 md:mt-8 items-center justify-center">
 						<Link to={newDraftReportLink}>
 							<div className="rounded-sm items-center py-2.5 px-10 text-sm font-semibold text-center text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow">

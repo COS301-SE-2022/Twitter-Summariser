@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
+// import { Transition, Dialog } from "@headlessui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -11,7 +12,8 @@ import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Button from "./Button";
 import "./styles/Animation.css";
-import AdvanceSearch from "./AdvanceSearch";
+// import AdvanceSearch from "./AdvanceSearch";
+import Modals from "./Modals";
 
 function Home() {
 	const [enteredSearch, changeEnteredSearch] = useState("");
@@ -22,6 +24,8 @@ function Home() {
 	const [createTitle, changeCreateTitle] = useState("");
 	const [loading, changeLoading] = useState(false);
 	const [scheduleResponse, changeScheduleResponse] = useState("");
+
+	const [sentimentResponse, changeSentimentResponse] = useState<any[]>([]);
 
 	const [showTrends, changeShowTrends] = useState(true);
 
@@ -121,10 +125,10 @@ function Home() {
 				}
 
 				navigate(`/report/${response.data.Report.reportID}`);
-				
+
 			} else {
 				const response = await axios.post(
-					"https://betuh6rejrtpyywnwkbckrdnea0bypye.lambda-url.us-east-1.on.aws/",
+					"https://v3wxwnpzytm77wf7dfiqp6q3om0mrlis.lambda-url.us-east-1.on.aws/",
 					JSON.stringify(searchData),
 					{
 						headers: {
@@ -159,19 +163,13 @@ function Home() {
 	const [checkedSentiment, setCheckedSentiment] = useState(false);
 
 	// const [semanticColor, changeSemanticColor] = useState("red");
-	const sentimentColor = "green";
+	// const sentimentColor = "green";
 
 	// const checkedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
 	// 	setCheckedSentiment(event.target.checked);
 	// };
 
-	const checkedHandler = () => {
-		if (checkedSentiment) {
-			setCheckedSentiment(false);
-		} else {
-			setCheckedSentiment(true);
-		}
-	};
+
 
 	// const tweetHandler = (event: any) => {
 	// 	changeNoOfTweets(event.target.value);
@@ -191,6 +189,8 @@ function Home() {
 	// }
 
 	const [pulse, changePulse] = useState(false);
+
+	const analyseData: any[] =  [];
 
 	const scheduleReport = async (scheduleData: any) => {
 		try {
@@ -226,20 +226,79 @@ function Home() {
 		scheduleReport(scheduleData);
 	};
 
-	const searchTwitter = async (searchData: any) => {
+	const done = () => {
+		changePulse(false);
+	};
+
+	const apiResponseWithSentimentAnalysis = [<div key="begining div" />];
+
+
+	// 	// searchResponse.map((data) =>
+	// 	// 	apiResponseWithSentimentAnalysis.push(
+	// 	// 		<div className={`pb-8 border-2 border-${sentimentCol}-500`} key={data.tweetId}>
+	// 	// 			<Tweet options={{ align: "center" }} tweetId={data.tweetId} onLoad={done} />
+	// 	// 		</div>
+	// 	// 	)
+	// 	// );
+	// }
+
+	const viewSentimentAnalysis = async (sentimentData: any) => {
+		// console.log(sentimentData);
+
 		try {
-			const response = await axiosPrivate.post("searchTweets", JSON.stringify(searchData));
-			changeResultSet(await response.data.resultSetID);
-			changeResponse(await response.data.tweets);
-			// console.log(await response.data);
-			changeLoading(false);
-			changePulse(true);
+			const response = await axiosPrivate.post(
+				"getSentiment",
+				JSON.stringify(sentimentData)
+			);
+			changeSentimentResponse(await response.data);
 		} catch (err) {
 			console.error(err);
 		}
 	};
 
-	const search = () => {
+	const analyse = (resp : any) => {
+
+		resp.map((data: { tweetId: any; }) =>
+			analyseData.push(
+				data.tweetId
+			)
+		);
+
+		const sentimentData = {
+			tweets: analyseData
+		};
+
+		// console.log(sentimentData);
+
+		viewSentimentAnalysis(sentimentData);
+	};
+
+	const checkedHandler = () => {
+		if (checkedSentiment) {
+			setCheckedSentiment(false);
+		} else {
+			setCheckedSentiment(true);
+			// console.log(searchResponse);
+
+			analyse(searchResponse);
+		}
+	};
+
+	const searchTwitter = async (searchData: any) => {
+		try {
+			const response = await axiosPrivate.post("searchTweets", JSON.stringify(searchData));
+			changeResultSet(await response.data.resultSetID);
+			changeResponse(await response.data.tweets);
+			// console.log(await response.data.tweets);
+			changeLoading(false);
+			changePulse(true);
+			analyse(await response.data.tweets);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const search = async () => {
 		changeShowTrends(false);
 		changeShowSentimentOption(true);
 
@@ -259,13 +318,14 @@ function Home() {
 			loadingHandler();
 			changeClicked(false);
 			searchTwitter(searchData);
+
 		}
 	};
 
 	const tweetOptions = [];
 	let apiResponse = [<div key="begining div" />];
 
-	const apiResponseWithSentimentAnalysis = [<div key="begining div" />];
+	// const apiResponseWithSentimentAnalysis = [<div key="begining div" />];
 
 	for (let index = 5; index <= 100; index += 5) {
 		tweetOptions.push(<option key={index.toString()}>{index}</option>);
@@ -278,9 +338,58 @@ function Home() {
 		}
 	};
 
-	const done = () => {
-		changePulse(false);
-	};
+	// const done = () => {
+	// 	changePulse(false);
+	// };
+
+	function opacityValue(inp : number) : number {
+		// console.log(inp);
+
+		if(inp > 0 && inp <= 10){
+			// console.log("10");
+			return 10;
+		}
+		if(inp > 10 && inp <= 20){
+			// console.log("20");
+			return 20;
+		}
+		if(inp > 20 && inp <= 30){
+			// console.log("30");
+			return 30;
+		}
+		if(inp > 30 && inp <= 40){
+			// console.log("40");
+			return 40;
+		}
+		if(inp > 40 && inp <= 50){
+			// console.log("50");
+			return 50;
+		}
+		if(inp > 50 && inp <= 60){
+			// console.log("60");
+			return 60;
+		}
+		if(inp > 60 && inp <= 70){
+			// console.log("70");
+			return 70;
+		}
+		if(inp > 70 && inp <= 80){
+			// console.log("80");
+			return 80;
+		}
+		if (inp > 80 && inp <= 90){
+			// console.log("90");
+			return 90;
+		}
+		if (inp > 90 && inp <= 100){
+			// console.log("100");
+			return 100;
+		}
+
+		// console.log("here");
+
+		return 0;
+	}
 
 	searchResponse.map((data) =>
 		apiResponse.push(
@@ -290,13 +399,36 @@ function Home() {
 		)
 	);
 
-	searchResponse.map((data) =>
+	sentimentResponse.map((data) =>
 		apiResponseWithSentimentAnalysis.push(
-			<div className={`pb-8 border-2 border-${sentimentColor}-500`} key={data.tweetId}>
-				<Tweet options={{ align: "center" }} tweetId={data.tweetId} onLoad={done} />
-			</div>
+			<>
+				{data.sentimentWord === "NEGATIVE" && <div className={` border-2 border-red-500 border-opacity-${opacityValue(Math.floor(data.sentiment.Negative * 100))}  `} key={data.id + 1} >
+					<Tweet options={{ align: "center" }} tweetId={data.id} onLoad={done}  />
+					<p className="text-red-500">Negative - {Math.floor(data.sentiment.Negative * 100)} %</p>
+				</div>}
+				{/* <br /> */}
+				{data.sentimentWord === "POSITIVE" && <div className={` border-2 border-green-500 border-opacity-${opacityValue(Math.floor(data.sentiment.Positive * 100))} `} key={data.id + 2}>
+					<Tweet options={{ align: "center" }} tweetId={data.id} onLoad={done} />
+					<p className="text-green-500">Positive - {Math.floor(data.sentiment.Positive * 100)} %</p>
+				</div>}
+				{/* <br /> */}
+				{data.sentimentWord === "MIXED" && <div className={` border-2 border-gray-500 border-opacity-${opacityValue(Math.floor(data.sentiment.Mixed * 100))} `} key={data.id + 3}>
+					<Tweet options={{ align: "center" }} tweetId={data.id} onLoad={done} />
+					<p className="text-gray-500">Mixed - {Math.floor(data.sentiment.Mixed * 100)} %</p>
+				</div>}
+				{/* <br /> */}
+				{data.sentimentWord === "NEUTRAL" && <div className={` border-2 border-blue-500 border-opacity-${opacityValue(Math.floor(data.sentiment.Neutral * 100))} `} key={data.id + 4}>
+					<Tweet options={{ align: "center" }} tweetId={data.id} onLoad={done}  />
+					{/* Neutral - {Math.floor(data.sentiment.Neutral * 100)} % */}
+					<p className="text-blue-500">Neutral - {Math.floor(data.sentiment.Neutral * 100)} %</p>
+				</div>}
+				<br />
+			</>
 		)
 	);
+
+	// console.log(sentimentResponse);
+
 
 	const draftID = draftReport;
 	const newDraftReportLink = `/report/${draftID}`;
@@ -347,6 +479,7 @@ function Home() {
 	}
 
 	const [report, changeReport] = useState<any[]>([]);
+	// const [trends, changeTrends] = useState<any[]>([]);
 
 	useEffect(() => {
 		let isMounted = true;
@@ -373,6 +506,31 @@ function Home() {
 		};
 	}, [axiosPrivate]);
 
+	// useEffect(() => {
+	// 	let isMounted = true;
+
+	// 	const getTrends = async () => {
+	// 		try {
+	// 			const response = await axiosPrivate.post(
+	// 				"getTrendingTopics",
+	// 				JSON.stringify({}),
+	// 				{ signal: controller.signal }
+	// 			);
+	// 			isMounted && changeTrends(response.data);
+	// 			isMounted && changeLoading(false);
+	// 		} catch (error) {
+	// 			console.error(error);
+	// 		}
+	// 	};
+
+	// 	getTrends();
+
+	// 	return () => {
+	// 		isMounted = false;
+	// 		controller.abort();
+	// 	};
+	// }, [axiosPrivate]);
+
 	const [homeDefault, changeHomeDefault] = useState(true);
 
 	const displayHomeSearch = () => {
@@ -390,7 +548,7 @@ function Home() {
 	};
 
 	if (choice) {
-		console.log(choice);
+		// console.log(choice);
 	}
 
 	return (
@@ -488,7 +646,7 @@ function Home() {
 							{loading && (
 								<button
 									type="button"
-									className="flex flex-col bg-dark-cornflower-blue rounded-sm text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
+									className="flex flex-col bg-dark-cornflower-blue rounded-full text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
 									disabled
 								>
 									{/* </svg> */}
@@ -503,7 +661,7 @@ function Home() {
 							{apiResponse.length === 1 ? (
 								<button
 									type="button"
-									className="flex flex-col bg-dark-cornflower-blue rounded-sm text-white font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center disabled"
+									className="flex flex-col bg-dark-cornflower-blue rounded-full text-white font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center disabled"
 									disabled
 								>
 									Generate Report
@@ -511,7 +669,7 @@ function Home() {
 							) : generateLoading ? (
 								<button
 									type="button"
-									className="flex flex-col bg-dark-cornflower-blue rounded-sm text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
+									className="flex flex-col bg-dark-cornflower-blue rounded-full text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
 									disabled
 								>
 									{loadIcon}
@@ -604,7 +762,7 @@ function Home() {
 
 						{/* advanced search modal */}
 						{advance && (
-							<AdvanceSearch
+							<Modals
 								setAdvanceOn={setAdvanceOn}
 								setChoice={setChoice}
 								changeNoOfTweets={changeNoOfTweets}
@@ -616,6 +774,8 @@ function Home() {
 								// enteredSearch={enteredSearch}
 								dateTime={dateTime}
 								changeDateTime={changeDateTime}
+								modalChoice="advancedSearch"
+								show={advance}
 							/>
 						)}
 
@@ -626,13 +786,32 @@ function Home() {
 						{checkedSentiment && apiResponseWithSentimentAnalysis}
 					</div>
 
+
+
+
+
 					{showTrends && (
-						<div>
+						<>
 							<h1 className="text-2xl hidden lg:flex lg:flex-row lg:justify-center border-b pb-4 w-5/6 align-middle items-center border-slate-300">
 								LATEST TRENDS
 							</h1>
-							{trendsResponse}{" "}
-						</div>
+						{/* {loading && <div>{loadIcon} &nbsp; Loading latest Trending Topics</div>} */}
+						{/* {!loading &&
+							(trends.length === 0 ? (
+								<div>There are no trends at the moment </div>
+							) : (
+								trends.map((data) => (
+									<div>
+										#{data}
+									</div>
+								))
+							))} */}
+
+						<div>
+
+								{trendsResponse}
+							</div>
+						</>
 					)}
 				</div>
 			)}

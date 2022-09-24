@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ExploreCard from "./ExploreCard";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
@@ -6,32 +6,30 @@ function Explore() {
 	const [report, changeReport] = useState<any[]>([]);
 	const [loading, changeLoading] = useState(true);
 	const axiosPrivate = useAxiosPrivate();
+	const controller = new AbortController();
 
-	useEffect(() => {
-		let isMounted = true;
-		const controller = new AbortController();
+	const getReports = async (isMounted: boolean) => {
+		try {
+			const response = await axiosPrivate.post("getAllPublishedReports", JSON.stringify({}), {
+				signal: controller.signal
+			});
+			isMounted && changeReport(response.data);
+			isMounted && changeLoading(false);
+		} catch (error) {
+			console.error(error);
+		}
+	};
 
-		const getReports = async () => {
-			try {
-				const response = await axiosPrivate.post(
-					"getAllPublishedReports",
-					JSON.stringify({}),
-					{ signal: controller.signal }
-				);
-				isMounted && changeReport(response.data);
-				isMounted && changeLoading(false);
-			} catch (error) {
-				console.error(error);
-			}
-		};
+	getReports(true);
 
-		getReports();
-
-		return () => {
-			isMounted = false;
-			controller.abort();
-		};
-	}, [axiosPrivate]);
+	// useEffect(() => {
+	// 	let isMounted = true;
+	// 	getReports(isMounted);
+	// 	return () => {
+	// 		isMounted = false;
+	// 		controller.abort();
+	// 	};
+	// }, [axiosPrivate]);
 
 	const loadIcon = (
 		<svg

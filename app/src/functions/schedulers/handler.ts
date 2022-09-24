@@ -53,7 +53,7 @@ export const reportScheduler = middyfy(
 				Targets: [
 					{
 						Id: ruleName + "-target",
-						Arn: "arn:aws:lambda:us-east-1:390572845174:function:twitter-summariser-dev-genScheduledReport",
+						Arn: "arn:aws:lambda:us-east-1:626449495923:function:twitter-summariser-dev-genScheduledReport",
 						Input: JSON.stringify(params.reportDetails)
 					}
 				]
@@ -111,7 +111,7 @@ export const genScheduledReport = async (params): Promise<void> => {
 		const responseGR = await lambda
 			.invoke(generateParams, function (_data, err) {
 				if (err) {
-					console.log(err);
+					console.error(err);
 				}
 			})
 			.promise();

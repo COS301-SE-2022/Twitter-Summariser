@@ -30,7 +30,7 @@ export function ScrollToTop() {
 	}, []);
 
 	return (
-		<div className="fixed flex flex-row justify-center bottom-8 w-full z-50">
+		<div className="fixed flex flex-row justify-end right-2 bottom-20 z-50">
 			<button
 				type="button"
 				onClick={scrollToTop}

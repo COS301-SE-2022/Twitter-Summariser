@@ -110,7 +110,11 @@ function Reports() {
 									<div
 										data-aos="fade-up"
 										data-aos-duration="500"
-										className={report.length > 1 ? "sm:w-1/2 w-full mr-5/2" : "w-full mr-5/2"}
+										className={
+											report.length > 1
+												? "sm:w-1/2 w-full mr-5/2"
+												: "w-full mr-5/2"
+										}
 										key={data.reportID}
 									>
 										<ReportCard
