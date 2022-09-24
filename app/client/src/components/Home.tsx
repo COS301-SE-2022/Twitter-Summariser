@@ -601,7 +601,7 @@ function Home() {
 			)}
 			{!homeDefault && (
 				<div className="mt-8 mini-tablet:mt-0">
-					<div className="flex justify-center pt-8 pl-8 pr-8 pb-2">
+					<div className="flex justify-center pt-8 pl-4 pr-8 pb-2">
 						<label
 							htmlFor="default-search"
 							className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
@@ -642,7 +642,7 @@ function Home() {
 
 					{/* this is for the search button */}
 					<div className="flex flex-row flex-wrap justify-around pt-3 pb-3 items-center">
-						<div className="md:ml-0 ml-4">
+						<div className="md:ml-0 ml-2">
 							{loading && (
 								<button
 									type="button"
@@ -663,7 +663,7 @@ function Home() {
 								</button>
 							)}
 						</div>
-						<div className="mr-4">
+						<div className="mr-2">
 							{apiResponse.length === 1 ? (
 								<button
 									type="button"
