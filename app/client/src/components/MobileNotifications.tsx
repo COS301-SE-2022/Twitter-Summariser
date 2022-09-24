@@ -64,7 +64,7 @@ function MobileNotifications() {
 	);
 
 	return (
-		<div className="fixed flex flex-row justify-end bottom-4 w-full right-2 z-50">
+		<div className="lg:hidden fixed flex flex-row justify-end bottom-4 w-full right-2 z-50">
 			<button
 				type="button"
 				onClick={toggling}
