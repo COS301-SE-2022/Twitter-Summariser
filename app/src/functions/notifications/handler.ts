@@ -16,8 +16,13 @@ export const getNotifications = middyfy(
 				return new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime();
 			});
 
-			let responseArray = await Promise.all(
-				notifications.map(async (notification) => {
+			let responseArray = await notifications.reduce(async (result, notification) => {
+				let resultArray = await result;
+				const report = await ServicesLayer.reportService.getReport(
+					notification.content
+				);
+
+				if (report.status !== "DELETED") {
 					let senderUsername: string;
 					let senderUrl: string;
 					console.log(notification);
@@ -34,21 +39,20 @@ export const getNotifications = middyfy(
 						senderUrl = "assets/logo.png";
 					}
 
-					const report = await ServicesLayer.reportService.getReport(
-						notification.content
-					);
-
 					delete notification.sender;
 					delete notification.receiver;
 
-					return {
+					resultArray.push({
 						...notification,
 						senderUsername: senderUsername,
 						senderUrl: senderUrl,
 						title: report.title
-					};
-				})
-			);
+					});
+				} else {
+					ServicesLayer.notificationService.deleteNotification(notification.id);
+				}
+				return result;
+			}, Promise.resolve([]));
 
 			return {
 				statusCode: statusCodes.Successful,
