@@ -601,7 +601,7 @@ function Home() {
 			)}
 			{!homeDefault && (
 				<div className="mt-8 mini-tablet:mt-0">
-					<div className="flex justify-center pt-8 pl-8 pr-8 pb-2">
+					<div className="flex justify-center pt-8 pl-4 pr-8 pb-2">
 						<label
 							htmlFor="default-search"
 							className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
@@ -642,11 +642,11 @@ function Home() {
 
 					{/* this is for the search button */}
 					<div className="flex flex-row flex-wrap justify-around pt-3 pb-3 items-center">
-						<div className="pt-3">
+						<div className="md:ml-0 ml-2">
 							{loading && (
 								<button
 									type="button"
-									className="flex flex-col bg-dark-cornflower-blue rounded-full text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
+									className="rounded-full items-center py-2.5 md:px-20 px-20 text-sm font-semibold text-center text-white bg-dark-cornflower-blue opacity-50"
 									disabled
 								>
 									{/* </svg> */}
@@ -654,14 +654,20 @@ function Home() {
 								</button>
 							)}
 							{!loading && (
-								<Button text="Search" size="large" handle={search} type="search" />
+								<button
+									type="submit"
+									onClick={search}
+									className="rounded-full items-center py-2.5 md:px-20 px-16 text-sm font-semibold text-center text-white hover:bg-dark-cornflower-blue  bg-midnight-blue group hover:shadow"
+								>
+									Search
+								</button>
 							)}
 						</div>
-						<div className="pt-3">
+						<div className="mr-2">
 							{apiResponse.length === 1 ? (
 								<button
 									type="button"
-									className="flex flex-col bg-dark-cornflower-blue rounded-full text-white font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center disabled"
+									className="rounded-full items-center py-2.5 md:px-14 px-8 text-sm font-semibold text-center text-white bg-dark-cornflower-blue opacity-50 disabled"
 									disabled
 								>
 									Generate Report
@@ -669,19 +675,20 @@ function Home() {
 							) : generateLoading ? (
 								<button
 									type="button"
-									className="flex flex-col bg-dark-cornflower-blue rounded-full text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
+									className="rounded-full items-center py-2.5 md:px-20 px-16 text-sm font-semibold text-center text-white bg-dark-cornflower-blue opacity-50 "
 									disabled
 								>
 									{loadIcon}
 								</button>
 							) : (
 								<>
-									<Button
-										text="Generate Report"
-										size="large"
-										handle={generate}
-										type="generate"
-									/>
+									<button
+										className="rounded-full items-center py-2.5 md:px-14 px-8 text-sm font-semibold text-center text-white hover:bg-dark-cornflower-blue  bg-midnight-blue group hover:shadow"
+										onClick={generate}
+										type="submit"
+									>
+										Generate Report{" "}
+									</button>
 								</>
 							)}
 						</div>
@@ -791,8 +798,8 @@ function Home() {
 
 
 					{showTrends && (
-						<>
-							<h1 className="text-2xl hidden lg:flex lg:flex-row lg:justify-center border-b pb-4 w-5/6 align-middle items-center border-slate-300">
+						<div className="md:mt-0 mt-2 items-center justify-center ml-8 mr-8">
+							<h1 className="text-2xl  flex flex-row justify-center border-b-4 mb-2  pb-4 w-full mr-16 align-middle items-center border-slate-300">
 								LATEST TRENDS
 							</h1>
 						{/* {loading && <div>{loadIcon} &nbsp; Loading latest Trending Topics</div>} */}
@@ -811,7 +818,7 @@ function Home() {
 
 								{trendsResponse}
 							</div>
-						</>
+						</div>
 					)}
 				</div>
 			)}
