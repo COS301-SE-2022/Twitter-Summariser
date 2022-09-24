@@ -145,6 +145,8 @@ function Home() {
 					changeEnteredSearch("");
 					changeClicked(true);
 				}
+
+				navigate(`/report/${response.data.Report.reportID}`);
 			}
 		} catch (error) {
 			console.error(error);
