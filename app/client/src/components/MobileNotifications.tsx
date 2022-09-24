@@ -69,12 +69,11 @@ function MobileNotifications() {
 				type="button"
 				onClick={toggling}
 				className="opacity-100 inline-flex items-center p-3 rounded-full shadow-sm text-white bg-midnight-blue transition-opacity hover:bg-blue-800 focus:outline-none focus:ring-offset-2 focus:ring-blue-500"
-	
 			>
 				<BsFillBellFill className="h-6 w-6" aria-hidden="true" />
 			</button>
 
-			{isOpen && modal() }
+			{isOpen && modal()}
 		</div>
 	);
 }

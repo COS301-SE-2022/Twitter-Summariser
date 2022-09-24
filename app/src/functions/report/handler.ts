@@ -45,7 +45,7 @@ export const generateReport = middyfy(
 			for (let tweet in data) {
 				twts += " " + data[tweet].text;
 			}
-
+			
 			let sText: string = "";
 
 			if (process.env.NODE_ENV === "development") {

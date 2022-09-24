@@ -8,11 +8,11 @@ export const reportScheduler = {
 			http: {
 				method: "post",
 				path: "reportScheduler/",
-				cors: true /*,
+				cors: true ,
 				authorizer: {
 					name: "verifyJWT",
 					type: "Token"
-				}*/
+				}
 			}
 		}
 	]

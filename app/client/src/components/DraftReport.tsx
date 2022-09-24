@@ -107,6 +107,7 @@ function DraftReport() {
 			await axiosPrivate.post("publishReport", JSON.stringify(resultInfo), {
 				signal: controller.signal
 			});
+
 			navigate(newReportLink);
 		} catch (error) {
 			console.error(error);

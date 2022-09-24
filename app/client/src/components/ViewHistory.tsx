@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
@@ -19,6 +19,7 @@ function ViewHistory() {
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
 	const { auth } = useAuth();
+	const navigate = useNavigate();
 
 	const generateLoadingHandler = () => {
 		changeGenerateLoading(!generateLoading);
@@ -79,6 +80,7 @@ function ViewHistory() {
 				changeDate(await response.data.Report.dateCreated.substring(0, 10));
 				changeDraftReport(response.data.Report.reportID);
 				changeClicked(true);
+				navigate(`/report/${response.data.Report.reportID}`);
 			} else {
 				const response = await axios.post(
 					"https://v3wxwnpzytm77wf7dfiqp6q3om0mrlis.lambda-url.us-east-1.on.aws/",
