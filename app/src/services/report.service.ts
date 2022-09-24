@@ -3,7 +3,7 @@ import Report from "@model/report/report.model";
 import Permission from "@model/permission/permissions.model";
 import * as AWS from "aws-sdk";
 import ServicesLayer from ".";
-import { clientV2 } from "@functions/resources/twitterV2.client";
+import Twitter from "twitter-v2";
 
 export default class ReportService {
 	// add function to get all published reports
@@ -89,6 +89,10 @@ export default class ReportService {
 			}
 			bl = false;
 		}
+
+		const clientV2 = new Twitter({
+			bearer_token: process.env.BEARER_TOKEN
+		});
 
 		const { data } = await clientV2.get("tweets", { ids: tweets });
 		const Comprehend = new AWS.Comprehend();
