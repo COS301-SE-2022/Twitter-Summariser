@@ -374,9 +374,9 @@ function Modals({
 										{checkedValue && (
 											<div className="mt-2 mb-2 relative justify-center items-center align-center text-center">
 												<DateTimePicker
+													calendarClassName="pr-16 justify-start items-start align-start text-start"
 													calendarIcon={null}
 													clearIcon={null}
-													disableClock
 													disableCalendar
 													onChange={changeDateTime}
 													value={dateTime}
