@@ -108,7 +108,6 @@ function Home() {
 				}
 
 				navigate(`/report/${response.data.Report.reportID}`);
-
 			} else {
 				const response = await axios.post(
 					"https://v3wxwnpzytm77wf7dfiqp6q3om0mrlis.lambda-url.us-east-1.on.aws/",
@@ -129,6 +128,8 @@ function Home() {
 					changeEnteredSearch("");
 					changeClicked(true);
 				}
+
+				navigate(`/report/${response.data.Report.reportID}`);
 			}
 		} catch (error) {
 			console.error(error);
@@ -136,12 +137,11 @@ function Home() {
 	};
 
 	const [searchResponse, changeResponse] = useState<any[]>([]);
-	const [noOfTweets, changeNoOfTweets] = useState(5);
-	const [sort, changeSort] = useState("-");
-	const [filter, changeFilter] = useState("-");
+	const [noOfTweets, changeNoOfTweets] = useState(10);
+	const [sort, changeSort] = useState("byLikes");
+	const [filter, changeFilter] = useState("verifiedTweets");
 	const [dateTime, changeDateTime] = useState(new Date());
 	const [checked, setChecked] = useState(false);
-	const [repeat, changeRepeat] = useState("-");
 
 	const [checkedSentiment, setCheckedSentiment] = useState(false);
 
@@ -151,8 +151,6 @@ function Home() {
 	// const checkedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
 	// 	setCheckedSentiment(event.target.checked);
 	// };
-
-
 
 	// const tweetHandler = (event: any) => {
 	// 	changeNoOfTweets(event.target.value);
@@ -173,7 +171,7 @@ function Home() {
 
 	const [pulse, changePulse] = useState(false);
 
-	const analyseData: any[] =  [];
+	const analyseData: any[] = [];
 
 	const scheduleReport = async (scheduleData: any) => {
 		try {
@@ -193,7 +191,6 @@ function Home() {
 
 		const scheduleData = {
 			fullUTCDate: utcDate,
-			repeatCyle: repeat,
 			reportDetails: {
 				apiKey: auth.apiKey,
 				filterBy: filter,
@@ -203,9 +200,6 @@ function Home() {
 				author: auth.username
 			}
 		};
-
-		// console.log(scheduleData);
-
 		scheduleReport(scheduleData);
 	};
 
@@ -214,7 +208,6 @@ function Home() {
 	};
 
 	const apiResponseWithSentimentAnalysis = [<div key="begining div" />];
-
 
 	// 	// searchResponse.map((data) =>
 	// 	// 	apiResponseWithSentimentAnalysis.push(
@@ -229,23 +222,15 @@ function Home() {
 		// console.log(sentimentData);
 
 		try {
-			const response = await axiosPrivate.post(
-				"getSentiment",
-				JSON.stringify(sentimentData)
-			);
+			const response = await axiosPrivate.post("getSentiment", JSON.stringify(sentimentData));
 			changeSentimentResponse(await response.data);
 		} catch (err) {
 			console.error(err);
 		}
 	};
 
-	const analyse = (resp : any) => {
-
-		resp.map((data: { tweetId: any; }) =>
-			analyseData.push(
-				data.tweetId
-			)
-		);
+	const analyse = (resp: any) => {
+		resp.map((data: { tweetId: any }) => analyseData.push(data.tweetId));
 
 		const sentimentData = {
 			tweets: analyseData
@@ -301,7 +286,6 @@ function Home() {
 			loadingHandler();
 			changeClicked(false);
 			searchTwitter(searchData);
-
 		}
 	};
 
@@ -325,46 +309,46 @@ function Home() {
 	// 	changePulse(false);
 	// };
 
-	function opacityValue(inp : number) : number {
+	function opacityValue(inp: number): number {
 		// console.log(inp);
 
-		if(inp > 0 && inp <= 10){
+		if (inp > 0 && inp <= 10) {
 			// console.log("10");
 			return 10;
 		}
-		if(inp > 10 && inp <= 20){
+		if (inp > 10 && inp <= 20) {
 			// console.log("20");
 			return 20;
 		}
-		if(inp > 20 && inp <= 30){
+		if (inp > 20 && inp <= 30) {
 			// console.log("30");
 			return 30;
 		}
-		if(inp > 30 && inp <= 40){
+		if (inp > 30 && inp <= 40) {
 			// console.log("40");
 			return 40;
 		}
-		if(inp > 40 && inp <= 50){
+		if (inp > 40 && inp <= 50) {
 			// console.log("50");
 			return 50;
 		}
-		if(inp > 50 && inp <= 60){
+		if (inp > 50 && inp <= 60) {
 			// console.log("60");
 			return 60;
 		}
-		if(inp > 60 && inp <= 70){
+		if (inp > 60 && inp <= 70) {
 			// console.log("70");
 			return 70;
 		}
-		if(inp > 70 && inp <= 80){
+		if (inp > 70 && inp <= 80) {
 			// console.log("80");
 			return 80;
 		}
-		if (inp > 80 && inp <= 90){
+		if (inp > 80 && inp <= 90) {
 			// console.log("90");
 			return 90;
 		}
-		if (inp > 90 && inp <= 100){
+		if (inp > 90 && inp <= 100) {
 			// console.log("100");
 			return 100;
 		}
@@ -385,33 +369,68 @@ function Home() {
 	sentimentResponse.map((data) =>
 		apiResponseWithSentimentAnalysis.push(
 			<>
-				{data.sentimentWord === "NEGATIVE" && <div className={` border-2 border-red-500 border-opacity-${opacityValue(Math.floor(data.sentiment.Negative * 100))}  `} key={data.id + 1} >
-					<Tweet options={{ align: "center" }} tweetId={data.id} onLoad={done}  />
-					<p className="text-red-500">Negative - {Math.floor(data.sentiment.Negative * 100)} %</p>
-				</div>}
+				{data.sentimentWord === "NEGATIVE" && (
+					<div
+						className={` border-2 border-red-500 border-opacity-${opacityValue(
+							Math.floor(data.sentiment.Negative * 100)
+						)}  `}
+						key={data.id + 1}
+					>
+						<Tweet options={{ align: "center" }} tweetId={data.id} onLoad={done} />
+						<p className="text-red-500">
+							Negative - {Math.floor(data.sentiment.Negative * 100)} %
+						</p>
+					</div>
+				)}
 				{/* <br /> */}
-				{data.sentimentWord === "POSITIVE" && <div className={` border-2 border-green-500 border-opacity-${opacityValue(Math.floor(data.sentiment.Positive * 100))} `} key={data.id + 2}>
-					<Tweet options={{ align: "center" }} tweetId={data.id} onLoad={done} />
-					<p className="text-green-500">Positive - {Math.floor(data.sentiment.Positive * 100)} %</p>
-				</div>}
+				{data.sentimentWord === "POSITIVE" && (
+					<div
+						className={` border-2 border-green-500 border-opacity-${opacityValue(
+							Math.floor(data.sentiment.Positive * 100)
+						)} `}
+						key={data.id + 2}
+					>
+						<Tweet options={{ align: "center" }} tweetId={data.id} onLoad={done} />
+						<p className="text-green-500">
+							Positive - {Math.floor(data.sentiment.Positive * 100)} %
+						</p>
+					</div>
+				)}
 				{/* <br /> */}
-				{data.sentimentWord === "MIXED" && <div className={` border-2 border-gray-500 border-opacity-${opacityValue(Math.floor(data.sentiment.Mixed * 100))} `} key={data.id + 3}>
-					<Tweet options={{ align: "center" }} tweetId={data.id} onLoad={done} />
-					<p className="text-gray-500">Mixed - {Math.floor(data.sentiment.Mixed * 100)} %</p>
-				</div>}
+				{data.sentimentWord === "MIXED" && (
+					<div
+						className={` border-2 border-gray-500 border-opacity-${opacityValue(
+							Math.floor(data.sentiment.Mixed * 100)
+						)} `}
+						key={data.id + 3}
+					>
+						<Tweet options={{ align: "center" }} tweetId={data.id} onLoad={done} />
+						<p className="text-gray-500">
+							Mixed - {Math.floor(data.sentiment.Mixed * 100)} %
+						</p>
+					</div>
+				)}
 				{/* <br /> */}
-				{data.sentimentWord === "NEUTRAL" && <div className={` border-2 border-blue-500 border-opacity-${opacityValue(Math.floor(data.sentiment.Neutral * 100))} `} key={data.id + 4}>
-					<Tweet options={{ align: "center" }} tweetId={data.id} onLoad={done}  />
-					{/* Neutral - {Math.floor(data.sentiment.Neutral * 100)} % */}
-					<p className="text-blue-500">Neutral - {Math.floor(data.sentiment.Neutral * 100)} %</p>
-				</div>}
+				{data.sentimentWord === "NEUTRAL" && (
+					<div
+						className={` border-2 border-blue-500 border-opacity-${opacityValue(
+							Math.floor(data.sentiment.Neutral * 100)
+						)} `}
+						key={data.id + 4}
+					>
+						<Tweet options={{ align: "center" }} tweetId={data.id} onLoad={done} />
+						{/* Neutral - {Math.floor(data.sentiment.Neutral * 100)} % */}
+						<p className="text-blue-500">
+							Neutral - {Math.floor(data.sentiment.Neutral * 100)} %
+						</p>
+					</div>
+				)}
 				<br />
 			</>
 		)
 	);
 
 	// console.log(sentimentResponse);
-
 
 	const draftID = draftReport;
 	const newDraftReportLink = `/report/${draftID}`;
@@ -843,10 +862,8 @@ function Home() {
 								changeNoOfTweets={changeNoOfTweets}
 								changeSort={changeSort}
 								changeFilter={changeFilter}
-								changeRepeat={changeRepeat}
 								toggleSearch={search}
 								setChecked={setChecked}
-								// enteredSearch={enteredSearch}
 								dateTime={dateTime}
 								changeDateTime={changeDateTime}
 								modalChoice="advancedSearch"
@@ -861,17 +878,13 @@ function Home() {
 						{checkedSentiment && apiResponseWithSentimentAnalysis}
 					</div>
 
-
-
-
-
 					{showTrends && (
 						<div className="md:mt-0 mt-2 items-center justify-center ml-8 mr-8">
 							<h1 className="text-2xl  flex flex-row justify-center border-b-4 mb-2  pb-4 w-full mr-16 align-middle items-center border-slate-300">
 								LATEST TRENDS
 							</h1>
-						{/* {loading && <div>{loadIcon} &nbsp; Loading latest Trending Topics</div>} */}
-						{/* {!loading &&
+							{/* {loading && <div>{loadIcon} &nbsp; Loading latest Trending Topics</div>} */}
+							{/* {!loading &&
 							(trends.length === 0 ? (
 								<div>There are no trends at the moment </div>
 							) : (
@@ -882,10 +895,7 @@ function Home() {
 								))
 							))} */}
 
-						<div>
-
-								{trendsResponse}
-							</div>
+							<div>{trendsResponse}</div>
 						</div>
 					)}
 				</div>

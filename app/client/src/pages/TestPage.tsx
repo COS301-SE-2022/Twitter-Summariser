@@ -2,24 +2,23 @@
 import LoginPage from "../components/LoginPage";
 
 function TestPage() {
-
 	const mockValue = "";
 
-const mockHandler = (event: any) => {
-  event;
-}
+	const mockHandler = (event: any) => {
+		event;
+	};
 
-const mockFocus = () => {
-  true;
-}
+	const mockFocus = () => {
+		true;
+	};
 
-const mockBlur = () => {
-  false;
-}
+	const mockBlur = () => {
+		false;
+	};
 
-// *************************
+	// *************************
 
-const mockLoadIcon = (
+	const mockLoadIcon = (
 		<svg
 			role="status"
 			className="inline mr-1 w-5 h-5 text-gray-200 animate-spin dark:text-slate-600 fill-gray-600 dark:fill-gray-300"
@@ -45,25 +44,25 @@ const mockLoadIcon = (
 		label: "Don't have an account?",
 		handler: mockHandler,
 		text: "Sign Up"
-	}
+	};
 
 	const mockLoginPageData = {
 		page: "login",
-  	subHandler: mockHandler,
-  	changeHandler: mockHandler,
-  	changeValue: mockValue,
-  	focusMethod: mockFocus,
-  	blurMethod: mockBlur,
-  	passwordHandler: mockHandler,
-  	passwordValue: mockValue,
-  	checkedChangeHandler: mockHandler,
-  	checkedValue: mockValue,
-  	isLoading: false,
-  	loaderIcon: mockLoadIcon,
-  	emailValidity: true,
-  	passwordValidity : true,
-  	linkInfo : mockLinkData
-	}
+		subHandler: mockHandler,
+		changeHandler: mockHandler,
+		changeValue: mockValue,
+		focusMethod: mockFocus,
+		blurMethod: mockBlur,
+		passwordHandler: mockHandler,
+		passwordValue: mockValue,
+		checkedChangeHandler: mockHandler,
+		checkedValue: mockValue,
+		isLoading: false,
+		loaderIcon: mockLoadIcon,
+		emailValidity: true,
+		passwordValidity: true,
+		linkInfo: mockLinkData
+	};
 
 	return (
 		<>

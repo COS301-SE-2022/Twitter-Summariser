@@ -96,6 +96,7 @@ function ViewHistory() {
 				changeDate(await response.data.Report.dateCreated.substring(0, 10));
 				changeDraftReport(response.data.Report.reportID);
 				changeClicked(true);
+				navigate(`/report/${response.data.Report.reportID}`);
 			}
 		} catch (error) {
 			console.error(error);

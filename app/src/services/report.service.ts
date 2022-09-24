@@ -1,9 +1,8 @@
 import { DocumentClient } from "aws-sdk/clients/dynamodb";
 import Report from "@model/report/report.model";
 import Permission from "@model/permission/permissions.model";
-import * as AWS from "aws-sdk";
+
 import ServicesLayer from ".";
-import Twitter from "twitter-v2";
 
 export default class ReportService {
 	// add function to get all published reports
@@ -39,8 +38,7 @@ export default class ReportService {
 
 			if (type === "TWEET") {
 				ob.block = {
-					tweetID: block.tweetID,
-					sentiment: {}
+					tweetID: block.tweetID
 				};
 			} else if (type === "RICHTEXT") {
 				const style = await ServicesLayer.textStyleService.getStyle(block.reportBlockID);
@@ -56,7 +54,6 @@ export default class ReportService {
 		await Promise.all(promises);
 		await ServicesLayer.reportBlockService.sortReportBlocks(report);
 		const rp = [];
-		let tweets= [];
 		let bl = false;
 		let count = 0;
 		let max;
@@ -70,9 +67,6 @@ export default class ReportService {
 			if (report[y] !== undefined) {
 				if (report[y].position === x) {
 					rp.push(report[y]);
-					if (report[y].blockType === "TWEET"){
-						tweets.push(report[y].id)
-					}
 					bl = true;
 					count++;
 					y++;
@@ -90,30 +84,6 @@ export default class ReportService {
 			bl = false;
 		}
 
-		const clientV2 = new Twitter({bearer_token: process.env.BEARER_TOKEN});
-
-		const { data } = await clientV2.get("tweets", { ids: tweets });
-		const Comprehend = new AWS.Comprehend();
-		let twts = [];
-
-		for (let x = 0; x < data.length; x++) {
-			twts.push(data[x].text);
-		}
-
-		const param = {
-			LanguageCode: "en",
-			TextList: twts
-		};
-		const sentimentResults = await Comprehend.batchDetectSentiment(param).promise();
-
-		for (let x = 0; x < data.length; x++) {
-			rp[x*2].block.sentiment = {
-				sentimentWord: sentimentResults.ResultList[x].Sentiment,
-				sentiment: sentimentResults.ResultList[x].SentimentScore,
-				id: data[x].id
-			};
-		}
-			
 		item.Report = rp;
 		item.numOfBlocks = count;
 

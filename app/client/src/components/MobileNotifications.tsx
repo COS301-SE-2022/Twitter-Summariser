@@ -8,7 +8,7 @@ function MobileNotifications() {
 	const { notifications, getNotifications } = useContext(NotificationsContext);
 
 	const [isOpen, setIsOpen] = useState(false);
-	const [shouldRender, changeShouldRender] = useState(false);
+	const [shouldRender, changeShouldRender] = useState(true);
 	const controller = new AbortController();
 
 	const toggling = () => {
@@ -27,8 +27,10 @@ function MobileNotifications() {
 
 	if (shouldRender === true) {
 		const isMounted = true;
-		getNotifications(isMounted);
-		changeShouldRender(false);
+		setTimeout(() => {
+			getNotifications(isMounted);
+		}, 10000);
+		// changeShouldRender(false);
 	}
 
 	const modal = () => (
@@ -64,7 +66,7 @@ function MobileNotifications() {
 	);
 
 	return (
-		<div className="fixed flex flex-row justify-end bottom-4 w-full right-2 z-50">
+		<div className="lg:hidden fixed flex flex-row justify-end bottom-4 w-full right-2 z-50">
 			<button
 				type="button"
 				onClick={toggling}
