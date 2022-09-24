@@ -20,8 +20,9 @@ function Explore() {
 		}
 	};
 
-	getReports(true);
-
+	setTimeout(() => {
+		getReports(true);
+	}, 10000);
 	// useEffect(() => {
 	// 	let isMounted = true;
 	// 	getReports(isMounted);

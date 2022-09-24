@@ -145,6 +145,8 @@ function Home() {
 					changeEnteredSearch("");
 					changeClicked(true);
 				}
+
+				navigate(`/report/${response.data.Report.reportID}`);
 			}
 		} catch (error) {
 			console.error(error);
@@ -153,8 +155,8 @@ function Home() {
 
 	const [searchResponse, changeResponse] = useState<any[]>([]);
 	const [noOfTweets, changeNoOfTweets] = useState(10);
-	const [sort, changeSort] = useState("-");
-	const [filter, changeFilter] = useState("-");
+	const [sort, changeSort] = useState("byLikes");
+	const [filter, changeFilter] = useState("verifiedTweets");
 	const [dateTime, changeDateTime] = useState(new Date());
 	const [checked, setChecked] = useState(false);
 
