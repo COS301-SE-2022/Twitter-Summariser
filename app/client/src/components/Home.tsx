@@ -152,12 +152,11 @@ function Home() {
 	};
 
 	const [searchResponse, changeResponse] = useState<any[]>([]);
-	const [noOfTweets, changeNoOfTweets] = useState(5);
+	const [noOfTweets, changeNoOfTweets] = useState(10);
 	const [sort, changeSort] = useState("-");
 	const [filter, changeFilter] = useState("-");
 	const [dateTime, changeDateTime] = useState(new Date());
 	const [checked, setChecked] = useState(false);
-	const [repeat, changeRepeat] = useState("-");
 
 	const [checkedSentiment, setCheckedSentiment] = useState(false);
 
@@ -207,7 +206,6 @@ function Home() {
 
 		const scheduleData = {
 			fullUTCDate: utcDate,
-			repeatCyle: repeat,
 			reportDetails: {
 				apiKey: auth.apiKey,
 				filterBy: filter,
@@ -217,9 +215,6 @@ function Home() {
 				author: auth.username
 			}
 		};
-
-		// console.log(scheduleData);
-
 		scheduleReport(scheduleData);
 	};
 
@@ -797,10 +792,8 @@ function Home() {
 								changeNoOfTweets={changeNoOfTweets}
 								changeSort={changeSort}
 								changeFilter={changeFilter}
-								changeRepeat={changeRepeat}
 								toggleSearch={search}
 								setChecked={setChecked}
-								// enteredSearch={enteredSearch}
 								dateTime={dateTime}
 								changeDateTime={changeDateTime}
 								modalChoice="advancedSearch"
