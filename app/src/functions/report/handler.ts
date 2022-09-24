@@ -493,12 +493,16 @@ export const getSharedReport = middyfy(
 
 			const re = await ServicesLayer.reportService.getSharedReports(params.apiKey);
 
-			for (let report of re) {
-				const user = await ServicesLayer.creatorService.getCreatorByKey(report.apiKey);
-				report.profileKey = user.profileKey;
-				delete report.apiKey;
-				delete report.resultSetID;
-			}
+			re.forEach(async (report, index) => {
+				if (report.status === "DELETED") {
+					re.splice(index, 1);
+				} else {
+					const user = await ServicesLayer.creatorService.getCreatorByKey(report.apiKey);
+					report.profileKey = user.profileKey;
+					delete report.apiKey;
+					delete report.resultSetID;
+				}
+			});
 
 			return {
 				statusCode: statusCodes.Successful,
