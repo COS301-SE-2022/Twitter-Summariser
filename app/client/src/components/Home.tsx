@@ -41,51 +41,34 @@ function Home() {
 	const style = { fontSize: "1.5rem" };
 
 	const mockTrends = [
-		{
-			id: 0,
-			trend: "QueenElizabeth"
-		},
-		{
-			id: 1,
-			trend: "ESKOM"
-		},
-		{
-			id: 2,
-			trend: "Haaland"
-		},
-		{
-			id: 3,
-			trend: "COVID19"
-		},
-		{
-			id: 4,
-			trend: "Biden"
-		},
-		{
-			id: 5,
-			trend: "Ramaphosa"
-		}
+		"#QueenElizabeth",
+		 "#ESKOM",
+		 "#Haaland",
+		 "COVID19",
+		 "Biden",
+		 "Ramaphosa"
+
 	];
 
 	let searchInput = document.getElementById("default-search") as HTMLInputElement;
 
 	const trendsResponse = [<div key="begining div" />];
 
-	mockTrends.map((tweetData) =>
-		trendsResponse.push(
-			<div
-				key={tweetData.id}
-				className="cursor-pointer pb-2 text-midnight-blue font-semibold"
-				onClick={() => {
-					searchInput = document.getElementById("default-search") as HTMLInputElement;
-					searchInput.value = tweetData.trend;
-					changeEnteredSearch(tweetData.trend);
-				}}
-			>
-				#{tweetData.trend}
-			</div>
-		)
-	);
+	// mockTrends.map((tweetData) =>
+	// 	trendsResponse.push(
+	// 		<div
+	// 			key={mockTrends.indexOf(tweetData)}
+	// 			className="cursor-pointer pb-2 text-midnight-blue font-semibold"
+	// 			onClick={() => {
+	// 				searchInput = document.getElementById("default-search") as HTMLInputElement;
+	// 				searchInput.value = tweetData
+	// 				changeEnteredSearch(tweetData);
+	// 			}}
+	// 		>
+	// 			{tweetData}
+	// 		</div>
+	// 	)
+	// );
 
 	const searchHandler = (event: any) => {
 		changeEnteredSearch(event.target.value);
@@ -478,13 +461,77 @@ function Home() {
 		i++;
 	}
 
+	const [trends, changeTrends] = useState<any[]>([]);
+
+	const getTrends = async (isMounted : boolean) => {
+
+		const trendData = {
+			apiKey : auth.apiKey
+		};
+
+			try {
+				const response = await axiosPrivate.post("getTrendingTopics",JSON.stringify(trendData));
+				isMounted && changeTrends(response.data);
+				// console.log(await response.data);
+				changeLoading(false);
+			} catch (error) {
+				console.error(error);
+			}
+		};
+
+	useEffect(() => {
+		let isMounted = true;
+		getTrends(isMounted);
+
+		return () => {
+			isMounted = false;
+			controller.abort();
+		};
+	}, []);
+
+	// const getTrends = async () => {
+
+	// 	const trendData = {};
+
+	// 		try {
+	// 			const response = await axiosPrivate.post("getTrendingTopics",JSON.stringify(trendData));
+	// 			// isMounted && changeTrends(response.data);
+	// 			console.log(await response.data);
+	// 			changeLoading(false);
+	// 		} catch (error) {
+	// 			console.error(error);
+	// 		}
+	// 	};
+
+		// getTrends();
+
+		trends.map((tweetData) =>
+		trendsResponse.push(
+			<div
+				key={mockTrends.indexOf(tweetData)}
+				className="cursor-pointer pb-2 text-midnight-blue font-semibold"
+				onClick={() => {
+					searchInput = document.getElementById("default-search") as HTMLInputElement;
+					searchInput.value = tweetData
+					changeEnteredSearch(tweetData);
+				}}
+			>
+				{tweetData}
+			</div>
+		)
+	);
+
+
+
 	const [report, changeReport] = useState<any[]>([]);
-	// const [trends, changeTrends] = useState<any[]>([]);
+
 
 	useEffect(() => {
 		let isMounted = true;
 
 		const getReports = async () => {
+			console.log(JSON.stringify({}));
+
 			try {
 				const response = await axiosPrivate.post(
 					"getAllPublishedReports",
@@ -498,7 +545,26 @@ function Home() {
 			}
 		};
 
+		// const getTrends = async () => {
+		// 	try {
+		// 		const response = await axiosPrivate.post(
+		// 			"getTrendingTopics",
+		// 			JSON.stringify({}),
+		// 			{ signal: controller.signal }
+		// 		);
+		// 		// isMounted && changeTrends(response.data);
+		// 		console.log(await response.data);
+
+		// 		isMounted && changeLoading(false);
+		// 	} catch (error) {
+		// 		console.error(error);
+		// 	}
+		// };
+
 		getReports();
+		// getReports;
+
+		// getTrends();
 
 		return () => {
 			isMounted = false;
@@ -513,10 +579,12 @@ function Home() {
 	// 		try {
 	// 			const response = await axiosPrivate.post(
 	// 				"getTrendingTopics",
-	// 				JSON.stringify({}),
-	// 				{ signal: controller.signal }
+	// 				JSON.stringify({})
+	// 				// { signal: controller.signal }
 	// 			);
-	// 			isMounted && changeTrends(response.data);
+	// 			// isMounted && changeTrends(response.data);
+	// 			console.log(await response.data);
+
 	// 			isMounted && changeLoading(false);
 	// 		} catch (error) {
 	// 			console.error(error);
