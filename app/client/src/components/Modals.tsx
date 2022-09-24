@@ -2,7 +2,6 @@ import { useState, Fragment } from "react";
 import { Transition, Dialog } from "@headlessui/react";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiErrorCircle } from "react-icons/bi";
-import { Checkbox } from "@mui/material";
 import DateTimePicker from "react-datetime-picker";
 import Form from "react-bootstrap/Form";
 import Button from "./Button";
@@ -15,10 +14,8 @@ function Modals({
 	changeNoOfTweets,
 	changeSort,
 	changeFilter,
-	changeRepeat,
 	toggleSearch,
 	setChecked,
-	// enteredSearch,
 	dateTime,
 	changeDateTime,
 	modalChoice,
@@ -63,15 +60,14 @@ function Modals({
 	};
 
 	const sortHandler = (event: any) => {
+		console.log("Sort by: ", event.target.value);
+
 		changeSort(event.target.value);
 	};
 
 	const filterHandler = (event: any) => {
+		console.log("Fitler by: ", event.target.value);
 		changeFilter(event.target.value);
-	};
-
-	const repeatHandler = (event: any) => {
-		changeRepeat(event.target.value);
 	};
 
 	const tweetOptions = [];
@@ -86,10 +82,10 @@ function Modals({
 
 	const [checkedValue, setCheckedValue] = useState(false);
 
-	const checkedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setChecked(event.target.checked);
-		setCheckedValue(event.target.checked);
-	};
+	// const checkedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+	// 	setChecked(event.target.checked);
+	// 	setCheckedValue(event.target.checked);
+	// };
 
 	function advanceSearch() {
 		changeDateTime();
@@ -227,141 +223,174 @@ function Modals({
 												/>
 											</div>
 										</Dialog.Title>
-										<div className="mt-2">
-											<div className="flex flex-col justify-center items-center mt-4 py-6 px-5 text-lg  text-zinc-600   mb-5 ">
-												{/* certain options and search button comes here */}
-												<div className="flex flex-row flex-wrap justify-around items-center p-4 rounded-md bg-slate-200 w-full">
-													<div className="mb-0">
-														<p className="font-bold">Tweets:</p>
-													</div>
-													&nbsp;
-													<div className="mt-0 w-1/2">
-														<Form.Select
-															data-testid="select-num-tweets"
-															className="bg-slate-200"
-															onChange={tweetHandler}
-														>
-															{tweetOptions}
-														</Form.Select>
-													</div>
-												</div>
-												<br />
 
-												{/* this is for the Fitlering options */}
-												<div className="flex flex-row flex-wrap justify-around items-center p-4 rounded-md bg-slate-200 w-full">
-													<div className="mb-0">
-														<p className=" font-bold">Filter:</p>
-													</div>
-													&nbsp;
-													<div className="mt-0 w-1/2">
-														<Form.Select
-															data-testid="select-filter"
-															className="bg-slate-200"
-															onChange={filterHandler}
-															// value={filter}
-														>
-															<option>-</option>
-															<option value="verifiedTweets">
-																Verified Tweets
-															</option>
-															<option value="noneReply">
-																Non-Replies
-															</option>
-														</Form.Select>
-													</div>
-												</div>
-												<br />
-
-												{/* this is for the sorting options */}
-												<div className="flex flex-row flex-wrap justify-around items-center p-4 rounded-md bg-slate-200 w-full">
-													<div className="mb-0">
-														<p className="font-bold">Sort By:</p>
-													</div>
-													<div className="mt-0 w-1/2">
-														<Form.Select
-															data-testid="select-sort"
-															className="bg-slate-200"
-															onChange={sortHandler}
-														>
-															<option>-</option>
-															<option value="byLikes">Likes</option>
-															<option value="byComments">
-																Comments
-															</option>
-															<option value="byRetweets">
-																Re-tweets
-															</option>
-														</Form.Select>
-													</div>
-												</div>
-
-												<br />
-
-												{/* this is for the schedule report */}
-												<div className="flex flex-col justify-center items-center p-1">
-													<div className="mb-0">
-														<p className="">Schedule Report</p>
-													</div>
-													<div className="border-t flex flex-row items-center">
-														<p className="">Repeat Schedule: </p>
-														<Checkbox
-															checked={checkedValue}
-															onChange={checkedHandler}
-															inputProps={{
-																"aria-label": "controlled"
-															}}
-														/>
-													</div>
-													{checkedValue && (
-														<div className="flex flex-col justify-center items-center p-1 mb-2">
-															<div className="flex flex-row justify-center items-center p-4 rounded-md bg-slate-200">
-																<DateTimePicker
-																	onChange={changeDateTime}
-																	value={dateTime}
-																/>
-															</div>
-														</div>
-													)}
-												</div>
-
-												{/* this is for repeat schedule */}
-												{checkedValue && (
-													<div className="flex flex-row flex-wrap justify-around items-center p-4 rounded-md bg-slate-200 w-full">
-														<div className="mb-0">
-															<p className="font-bold">Repeat:</p>
-														</div>
-														<div className="mt-0 w-1/2">
-															<Form.Select
-																data-testid="select-sort"
-																className="bg-slate-200"
-																onChange={repeatHandler}
-															>
-																<option>-</option>
-																<option value="daily">Daily</option>
-																<option value="weekly">
-																	Weekly
-																</option>
-																<option value="monthly">
-																	Monthly
-																</option>
-																<option value="annually">
-																	Annually
-																</option>
-															</Form.Select>
-														</div>
-													</div>
-												)}
-
-												<br />
-
-												<button
-													type="button"
-													className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-													onClick={advanceSearch}
-												>
-													Search
-												</button>
+										<div className="w-full mt-4 text-center ">
+											<strong>
+												<h6 className="mb- text-center">
+													Number of Tweets:{" "}
+												</h6>
+											</strong>
+											<input
+												type="range"
+												min="10"
+												max="50"
+												defaultValue={10}
+												className="w-full mt-2"
+												onChange={tweetHandler}
+												step="10"
+											/>
+											<div className="w-full flex justify-between text-xs px-2 mb-2 ">
+												<span>10</span>
+												<span>20</span>
+												<span>30</span>
+												<span>40</span>
+												<span>50</span>
 											</div>
+
+											<div className="d-md-flex justify-start align-center mb-1 py-2">
+												<strong>
+													<h6 className="mb-2 text-center">Sort By: </h6>
+												</strong>
+												<div className="justify-center items-center align-center text-center">
+													<div className="form-check form-check-inline mb-0 md:ml-4">
+														<input
+															className="form-check-input"
+															type="radio"
+															defaultChecked
+															name="sortOptions"
+															id="likes"
+															value="byLikes"
+															onClick={sortHandler}
+														/>
+														<label
+															className="form-check-label"
+															htmlFor="likes"
+														>
+															Likes
+														</label>
+													</div>
+
+													<div className="form-check form-check-inline mb-0 me-4">
+														<input
+															className="form-check-input"
+															type="radio"
+															name="sortOptions"
+															id="comments"
+															value="byComments"
+															onClick={sortHandler}
+														/>
+														<label
+															className="form-check-label"
+															htmlFor="comments"
+														>
+															Comments
+														</label>
+													</div>
+
+													<div className="form-check form-check-inline mb-0">
+														<input
+															className="form-check-input"
+															type="radio"
+															name="sortOptions"
+															id="retweets"
+															value="byRetweets"
+															onClick={sortHandler}
+														/>
+														<label
+															className="form-check-label"
+															htmlFor="retweets"
+														>
+															Retweets
+														</label>
+													</div>
+												</div>
+											</div>
+											<div className="d-md-flex justify-start  mb-1 py-2">
+												<strong>
+													<h6 className="mb-2 text-center">
+														Filter By:{" "}
+													</h6>
+												</strong>
+												<div className="justify-center items-center align-center text-center">
+													<div className="form-check form-check-inline mb-0  md:ml-4">
+														<input
+															className="form-check-input"
+															type="radio"
+															defaultChecked
+															name="filterOptions"
+															id="verifiedTweets"
+															value="verifiedTweets"
+															onClick={filterHandler}
+														/>
+														<label
+															className="form-check-label"
+															htmlFor="verifiedTweets"
+														>
+															Verified Tweets
+														</label>
+													</div>
+
+													<div className="form-check form-check-inline mb-0">
+														<input
+															className="form-check-input"
+															type="radio"
+															name="filterOptions"
+															id="noneReplies"
+															value="noneReply"
+															onClick={filterHandler}
+														/>
+														<label
+															className="form-check-label"
+															htmlFor="nonReplies"
+														>
+															Non-Replies
+														</label>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div className="justify-center items-center text-center mt-3">
+											<label
+												htmlFor="default-toggle"
+												className="inline-flex relative items-center align-center text-center  justify-center cursor-pointer"
+											>
+												<input
+													type="checkbox"
+													value="checkedValue"
+													onClick={() => {
+														setCheckedValue(!checkedValue);
+														setChecked(!checkedValue);
+														console.log(checkedValue);
+													}}
+													id="default-toggle"
+													className="sr-only peer"
+												/>
+												<div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600" />
+												<span className="ml-3 text-md font-medium text-center">
+													Schedule Report
+												</span>
+											</label>
+										</div>
+										{checkedValue && (
+											<div className="mt-2 mb-2 relative justify-center items-center align-center text-center">
+												<DateTimePicker
+													calendarIcon={null}
+													clearIcon={null}
+													disableClock
+													disableCalendar
+													onChange={changeDateTime}
+													value={dateTime}
+												/>
+											</div>
+										)}
+										<div className="w-full justify-center items-center align-center text-center">
+											<button
+												type="button"
+												className="items-center py-2.5 mb-3  mt-3 w-4/6 text-sm font-semibold text-center justify-center align-center text-white bg-dark-cornflower-blue rounded-lg  hover:bg-midnight-blue group hover:shadow"
+												onClick={advanceSearch}
+											>
+												{checkedValue ? "Schedule & Search" : "Search"}
+											</button>
 										</div>
 									</Dialog.Panel>
 								</Transition.Child>

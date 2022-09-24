@@ -63,7 +63,9 @@ function Explore() {
 
 					<div className="flex flex-row flex-wrap justify-center p-2">
 						{loading && (
-							<div className="mt-8 justify-center inline items-center w-full">{loadIcon} &nbsp; Loading Reports</div>
+							<div className="mt-8 justify-center inline items-center w-full">
+								{loadIcon} &nbsp; Loading Reports
+							</div>
 						)}
 						{!loading &&
 							(report.length === 0 ? (
