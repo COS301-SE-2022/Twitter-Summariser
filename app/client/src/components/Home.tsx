@@ -24,7 +24,7 @@ function Home() {
 	const [createTitle, changeCreateTitle] = useState("");
 	const [loading, changeLoading] = useState(false);
 	const [scheduleResponse, changeScheduleResponse] = useState("");
-
+	
 	const [showTrends, changeShowTrends] = useState(true);
 
 	const [showSentimentOption, changeShowSentimentOption] = useState(false);
@@ -629,11 +629,11 @@ function Home() {
 					</div>
 
 					{showTrends && (
-						<div>
-							<h1 className="text-2xl hidden lg:flex lg:flex-row lg:justify-center border-b pb-4 w-5/6 align-middle items-center border-slate-300">
+						<div className="md:mt-0 mt-2 items-center justify-center ml-8 mr-8">
+							<h1 className="text-2xl  flex flex-row justify-center border-b-4 mb-2  pb-4 w-full mr-16 align-middle items-center border-slate-300">
 								LATEST TRENDS
 							</h1>
-							{trendsResponse}{" "}
+							{trendsResponse}
 						</div>
 					)}
 				</div>
