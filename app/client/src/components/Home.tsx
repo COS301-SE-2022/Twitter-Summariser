@@ -24,7 +24,7 @@ function Home() {
 	const [createTitle, changeCreateTitle] = useState("");
 	const [loading, changeLoading] = useState(false);
 	const [scheduleResponse, changeScheduleResponse] = useState("");
-	
+
 	const [showTrends, changeShowTrends] = useState(true);
 
 	const [showSentimentOption, changeShowSentimentOption] = useState(false);
@@ -497,7 +497,13 @@ function Home() {
 								</button>
 							)}
 							{!loading && (
-								<button type="submit" onClick={search} className="rounded-full items-center py-2.5 md:px-20 px-16 text-sm font-semibold text-center text-white hover:bg-dark-cornflower-blue  bg-midnight-blue group hover:shadow" >Search</button>
+								<button
+									type="submit"
+									onClick={search}
+									className="rounded-full items-center py-2.5 md:px-20 px-16 text-sm font-semibold text-center text-white hover:bg-dark-cornflower-blue  bg-midnight-blue group hover:shadow"
+								>
+									Search
+								</button>
 							)}
 						</div>
 						<div className="mr-4">
@@ -523,7 +529,9 @@ function Home() {
 										className="rounded-full items-center py-2.5 md:px-14 px-8 text-sm font-semibold text-center text-white hover:bg-dark-cornflower-blue  bg-midnight-blue group hover:shadow"
 										onClick={generate}
 										type="submit"
-									>Generate Report </button>
+									>
+										Generate Report{" "}
+									</button>
 								</>
 							)}
 						</div>
