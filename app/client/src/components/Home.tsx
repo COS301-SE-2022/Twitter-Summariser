@@ -798,16 +798,8 @@ function Home() {
 
 
 					{showTrends && (
-<<<<<<< HEAD
 						<div className="md:mt-0 mt-2 items-center justify-center ml-8 mr-8">
 							<h1 className="text-2xl  flex flex-row justify-center border-b-4 mb-2  pb-4 w-full mr-16 align-middle items-center border-slate-300">
-								LATEST TRENDS
-							</h1>
-							{trendsResponse}
-						</div>
-=======
-						<>
-							<h1 className="text-2xl hidden lg:flex lg:flex-row lg:justify-center border-b pb-4 w-5/6 align-middle items-center border-slate-300">
 								LATEST TRENDS
 							</h1>
 						{/* {loading && <div>{loadIcon} &nbsp; Loading latest Trending Topics</div>} */}
@@ -826,8 +818,7 @@ function Home() {
 
 								{trendsResponse}
 							</div>
-						</>
->>>>>>> a2d6360ae23326158060902013016f46b988ff3c
+						</div>
 					)}
 				</div>
 			)}

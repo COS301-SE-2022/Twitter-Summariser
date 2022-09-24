@@ -32,7 +32,7 @@ function Landing() {
 	else if (locationURL === "/allReports") localStorage.setItem("page", "Reports");
 	else if (locationURL === "/summariser") localStorage.setItem("page", "Text Summarisation");
 	else if (locationURL === "/viewHistory") localStorage.setItem("page", "Search Result");
-	
+
 	const signOut = async () => {
 		await logout();
 		auth.accessToken = undefined;
