@@ -116,6 +116,8 @@ export const genScheduledReport = async (params): Promise<void> => {
 			})
 			.promise();
 
+		console.log(responseGR);
+
 		const notification: Notification = {
 			id: "NT-" + randomUUID(),
 			sender: "SYSTEM",
