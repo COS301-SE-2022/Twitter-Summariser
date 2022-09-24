@@ -40,15 +40,15 @@ function Home() {
 
 	const style = { fontSize: "1.5rem" };
 
-	const mockTrends = [
-		"#QueenElizabeth",
-		 "#ESKOM",
-		 "#Haaland",
-		 "COVID19",
-		 "Biden",
-		 "Ramaphosa"
+	// const mockTrends = [
+	// 	"#QueenElizabeth",
+	// 	 "#ESKOM",
+	// 	 "#Haaland",
+	// 	 "COVID19",
+	// 	 "Biden",
+	// 	 "Ramaphosa"
 
-	];
+	// ];
 
 	let searchInput = document.getElementById("default-search") as HTMLInputElement;
 
@@ -527,7 +527,7 @@ function Home() {
 		trends.map((tweetData) =>
 		trendsResponse.push(
 			<div
-				key={mockTrends.indexOf(tweetData)}
+				key={trends.indexOf(tweetData)}
 				className="cursor-pointer pb-2 text-midnight-blue font-semibold"
 				onClick={() => {
 					searchInput = document.getElementById("default-search") as HTMLInputElement;
