@@ -90,9 +90,7 @@ export default class ReportService {
 			bl = false;
 		}
 
-		const clientV2 = new Twitter({
-			bearer_token: process.env.BEARER_TOKEN
-		});
+		const clientV2 = new Twitter({bearer_token: process.env.BEARER_TOKEN});
 
 		const { data } = await clientV2.get("tweets", { ids: tweets });
 		const Comprehend = new AWS.Comprehend();
