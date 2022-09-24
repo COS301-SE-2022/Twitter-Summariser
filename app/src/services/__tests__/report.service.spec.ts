@@ -5,7 +5,7 @@ import { DocumentClient, awsSdkPromiseResponse } from "../../__mocks__/aws-sdk";
 
 const db = new DocumentClient();
 
-/*describe("report.service", () => {
+describe("report.service", () => {
 	beforeAll(() => {
 		jest.useFakeTimers("modern");
 		jest.setSystemTime(new Date(2022, 1, 1));
@@ -15,7 +15,7 @@ const db = new DocumentClient();
 		awsSdkPromiseResponse.mockReset();
 	});
 
-	describe("getReport", () => {
+	/*describe("getReport", () => {
 		test("Get Report", async () => {
 			const addedReport: Report = {
 				reportID: "1111",
