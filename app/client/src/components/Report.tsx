@@ -170,6 +170,9 @@ function Report() {
 			isMounted && setLength(response.data.report.numOfBlocks);
 			isMounted && changePageLoading(false);
 
+			// isMounted && console.log(response.data.report);
+
+
 			if (pulseCounter === 0) {
 				changePulse(true);
 			}
@@ -475,7 +478,7 @@ function Report() {
 					)}
 
 					{/* LAST TWEET */}
-					{data.blockType === "TWEET" && data.position === length - 1 && (
+					{data.blockType === "TWEET" && data.position === length - 2 && (
 						<>
 							<div
 								className=" w-full p-3 flex flex-col justify-center"
@@ -593,7 +596,7 @@ function Report() {
 
 					{/* TWEETS IN-BETWEEN */}
 					{data.blockType === "TWEET" &&
-						!(data.position === 1 || data.position === length - 1) && (
+						!(data.position === 1 || data.position === length - 2) && (
 							<>
 								<div
 									className="  w-full p-3 flex flex-col justify-center"
@@ -1374,12 +1377,12 @@ function Report() {
 													data-bs-toggle="tooltip"
 													title="Edit Title"
 												>
-													<button type="submit">
+													{!isViewer() && <button type="submit">
 														<AiFillEdit
 															style={style}
 															onClick={() => editTitleHandler(true)}
 														/>
-													</button>
+													</button>}
 												</div>
 											</div>
 										)}
