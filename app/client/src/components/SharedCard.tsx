@@ -31,7 +31,7 @@ function SharedCard(props: any) {
 			<p
 				aria-label="Article"
 				title={props.data.title}
-				className="flex items-center justify-center mt-2 mb-2 text-2xl font-bold leading-5 text-black transition-colors duration-200 hover:text-deep-purple-accent-400"
+				className="flex items-center justify-center mt-3 mb-2 h-10 text-2xl font-bold leading-5 text-black transition-colors duration-200 hover:text-deep-purple-accent-400"
 			>
 				{props.data.title}
 			</p>

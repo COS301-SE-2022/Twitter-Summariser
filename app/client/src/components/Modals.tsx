@@ -1,6 +1,7 @@
 import { useState, Fragment } from "react";
+import { useLocation } from "react-router-dom";
 import { Transition, Dialog } from "@headlessui/react";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineCheckCircle } from "react-icons/ai";
 import { BiErrorCircle } from "react-icons/bi";
 import DateTimePicker from "react-datetime-picker";
 import Form from "react-bootstrap/Form";
@@ -22,7 +23,8 @@ function Modals({
 	show,
 	setModalOn,
 	func,
-	rID
+	rID,
+	setShare
 }: any) {
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
@@ -36,6 +38,10 @@ function Modals({
 	const handleCancelClickAddTweet = () => {
 		setChoice(false);
 		setModalOn(false);
+	};
+
+	const handleCancelClickShare = () => {
+		setShare(false);
 	};
 
 	const style = { fontSize: "1.3rem" };
@@ -179,6 +185,67 @@ function Modals({
 			/>
 		</svg>
 	);
+
+	const [enteredShare, changeEnteredShare] = useState("");
+	const [successfulShare, setSuccessfulShare] = useState(false);
+	const [NAN, changeNAN] = useState(false);
+	// const [share, setShare] = useState(false);
+	const [type, changeType] = useState("VIEWER");
+
+	const location = useLocation();
+	const ind = location.pathname.lastIndexOf("/");
+	const repID = location.pathname.substring(ind + 1);
+	const styleNew = { fontSize: "1.5rem", color: "green" };
+
+	const requiredDataForShare = {
+		apiKey: auth.apiKey,
+		reportID: repID,
+		email: enteredShare,
+		type
+	};
+
+	// const shareHandler = () => {
+	// 	setSuccessfulShare(false);
+	// 	setShare(!share);
+	// };
+
+	const enteredShareHandler = (event: any) => {
+		changeNAN(false);
+		changeEnteredShare(event.target.value);
+	};
+
+	const typeHandler = (event: any) => {
+		changeType(event.target.value);
+	};
+
+	const [shareLoadIcon, setShareLoadIcon] = useState(false);
+
+	const shareReport = async (repData: any) => {
+		try {
+			const data = await axiosPrivate.post("shareReport", JSON.stringify(repData), {
+				signal: controller.signal
+			});
+
+			if (data.data === "User is not found within system.") {
+				changeNAN(true);
+				setShareLoadIcon(false);
+			} else {
+				changeNAN(false);
+				setSuccessfulShare(true);
+				setShareLoadIcon(false);
+				// setShare(false);
+			}
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const shareSearchHandler = () => {
+		if (enteredShare !== "") {
+			shareReport(requiredDataForShare);
+			setShareLoadIcon(!shareLoadIcon);
+		}
+	};
 
 	return (
 		<div>
@@ -521,6 +588,206 @@ function Modals({
 								No
 							</button>
 						</div> */}
+										</div>
+									</Dialog.Panel>
+								</Transition.Child>
+							</div>
+						</div>
+					</Dialog>
+				</Transition>
+			)}
+
+			{modalChoice === "shareReport" && (
+				<Transition appear show={show} as={Fragment}>
+					<Dialog as="div" className="relative z-10" onClose={() => setShare(false)}>
+						<Transition.Child
+							as={Fragment}
+							enter="ease-out duration-300"
+							enterFrom="opacity-0"
+							enterTo="opacity-100"
+							leave="ease-in duration-200"
+							leaveFrom="opacity-100"
+							leaveTo="opacity-0"
+						>
+							<div className="fixed inset-0 bg-black bg-opacity-25" />
+						</Transition.Child>
+
+						<div className="fixed inset-0 overflow-y-auto">
+							<div className="flex min-h-full items-center justify-center p-4 text-center">
+								<Transition.Child
+									as={Fragment}
+									enter="ease-out duration-300"
+									enterFrom="opacity-0 scale-95"
+									enterTo="opacity-100 scale-100"
+									leave="ease-in duration-200"
+									leaveFrom="opacity-100 scale-100"
+									leaveTo="opacity-0 scale-95"
+								>
+									<Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white pt-10 pl-6 pr-6 pb-0 text-left align-middle shadow-xl transition-all">
+										<Dialog.Title
+											as="h3"
+											className="text-lg font-medium leading-6 text-gray-900"
+										>
+											<div className="absolute top-0 left-0 p-6 font-bold">
+												Share report
+											</div>
+											<div className="absolute top-0 right-0 p-6 cursor-pointer text-red-600">
+												<AiOutlineClose
+													style={style}
+													onClick={handleCancelClickShare}
+												/>
+											</div>
+										</Dialog.Title>
+										{/* <div className="flex-col justify-center   p-12 ">
+											{invalidURL && (
+												<div className="flex flex-row border-2 border-red-500 rounded-md bg-red-300 h-auto w-60 m-4 mb-5 p-2">
+													<BiErrorCircle style={bStyle} />
+													<p className="pl-2 items-center justify-center">
+														Invalid URL
+													</p>
+												</div>
+											)}
+											<div className="flex flex-col justify-center items-center  text-lg  text-zinc-600  my-2">
+												<Form className="w-full mb-3">
+													<Form.Group>
+														<Form.Control
+															type="search"
+															value={enteredSearch}
+															onChange={searchHandler}
+															placeholder="Enter the tweet URL..."
+															className="w-full"
+														/>
+													</Form.Group>
+												</Form>
+
+												{loading && (
+													<button
+														type="button"
+														className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
+														disabled
+													>
+														{loadIcon}
+													</button>
+												)}
+												{!loading && (
+													<Button
+														text="Search"
+														size="large"
+														handle={search}
+														type="search"
+													/>
+												)}
+											</div>
+										</div> */}
+										<div className="flex-col justify-center   p-12 ">
+											<div className="flex flex-col justify-center items-center  text-lg  text-zinc-600  my-2">
+												{NAN && (
+													<div className="flex flex-row flex-wrap justify-center items-center p-2 mb-4 w-full border-2 border-red-500 rounded-md bg-red-300">
+														<BiErrorCircle style={style} />
+														<p>User Does not Exist</p>
+													</div>
+												)}
+												{successfulShare && (
+													<div className="flex flex-row flex-wrap justify-center items-center p-2 mb-4 w-full border-2 border-green-700 rounded-md bg-green-300">
+														<AiOutlineCheckCircle style={styleNew} />
+														<p>Report shared successfully</p>
+													</div>
+												)}
+												<Form className="w-full mb-3">
+													<Form.Group>
+														<Form.Control
+															type="search"
+															onChange={enteredShareHandler}
+															placeholder="enter user email ..."
+															className="w-full h-12"
+														/>
+													</Form.Group>
+												</Form>
+												{/* <input
+														data-testid="search"
+														type="search"
+														className="
+									nosubmit
+									w-full
+									px-3
+									py-1.5
+									text-lg
+									font-normal
+									text-gray-700
+									bg-clip-padding
+									border border-solid border-gray-300
+									rounded-lg
+									focus:text-gray-700 focus:bg-white focus:border-twitter-blue focus:outline-none
+									bg-gray-200
+								"
+														onChange={enteredShareHandler}
+														placeholder="enter user email ..."
+													/> */}
+
+												{/*  */}
+
+												<div className="flex flex-row flex-wrap justify-around items-center p-3 rounded-md bg-slate-100 w-full">
+													<div className="mb-0">
+														<p className="font-bold">Allow User to:</p>
+													</div>
+													&nbsp;
+													<div className="mt-0 w-1/2">
+														<Form.Select
+															data-testid="select-num-tweets"
+															className="bg-slate-100"
+															onChange={typeHandler}
+														>
+															<option value="VIEWER">View</option>
+															<option value="EDITOR">Edit</option>
+														</Form.Select>
+													</div>
+												</div>
+
+												{/* this is for the Fitlering options */}
+												{/* <div className="flex flex-row flex-wrap w-1/3 justify-center">
+													<p className="">Allow User to: </p> &nbsp;
+													<select
+														data-testid="select-filter"
+														className=" text-black text-center"
+														onChange={typeHandler}
+													>
+														<option value="VIEWER">View</option>
+														<option value="EDITOR">Edit</option>
+													</select>
+												</div> */}
+
+												{/* this is for the search button */}
+												{/* <div className="flex flex-row w-1/3 justify-center pt-3">
+													<button
+														data-testid="btn-search"
+														type="submit"
+														className="button w-3/4 text-lg p-0.5"
+														onClick={shareSearchHandler}
+													>
+														Share
+													</button>
+												</div> */}
+
+												<div className="w-full justify-center items-center align-center text-center">
+													{shareLoadIcon ? (
+														<button
+															type="button"
+															className="items-center py-2.5 mb-1 mt-3 w-4/6 text-sm font-semibold text-center justify-center align-center text-white bg-dark-cornflower-blue opacity-50 rounded-lg  group"
+															onClick={shareSearchHandler}
+														>
+															{loadIcon}
+														</button>
+													) : (
+														<button
+															type="button"
+															className="items-center py-2.5 mb-1 mt-3 w-4/6 text-sm font-semibold text-center justify-center align-center text-white bg-dark-cornflower-blue rounded-lg  hover:bg-midnight-blue group hover:shadow"
+															onClick={shareSearchHandler}
+														>
+															Share
+														</button>
+													)}
+												</div>
+											</div>
 										</div>
 									</Dialog.Panel>
 								</Transition.Child>
