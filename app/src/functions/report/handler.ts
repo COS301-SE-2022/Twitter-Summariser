@@ -31,7 +31,7 @@ export const generateReport = middyfy(
 			if(params["reportID"] === undefined){
 				id = "RT-" + randomUUID();
 			}else{
-				id = params.reportID;
+				id = params["reportID"];
 			}
 			const d = new Date();
 
