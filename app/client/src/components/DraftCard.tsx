@@ -131,7 +131,7 @@ function DraftCard(props: any) {
 		// 		</>
 		// 	)}
 		// </div>
-		<div className="pt-3 pb-3 md:pl-8 md:pr-8 pl-16 pr-16 ml-1 mr-1 mb-4  bg-gradient-to-b from-blue-50 via-sky-100 border rounded-lg transform hover:shadow-md hover:scale-105 transition duration-200 ease-in hover:bg-blue-200">
+		<div className="pt-3 pb-3 pl-8 pr-8 ml-1 mr-1 mb-4  bg-gradient-to-b from-blue-50 via-sky-100 border rounded-lg transform hover:shadow-md hover:scale-105 transition duration-200 ease-in hover:bg-blue-200">
 			{!options ? (
 				<>
 					<p

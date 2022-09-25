@@ -30,7 +30,6 @@ function MobileNotifications() {
 		setTimeout(() => {
 			getNotifications(isMounted);
 		}, 10000);
-		// changeShouldRender(false);
 	}
 
 	const modal = () => (
