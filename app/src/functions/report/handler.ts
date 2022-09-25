@@ -27,8 +27,24 @@ export const generateReport = middyfy(
 
 			const { tweets } = title;
 
-			let id: string = "RT-" + randomUUID();
+			let id: string;
+			if(params["reportID"] === undefined){
+				id = "RT-" + randomUUID();
+			}else{
+				id = params["reportID"];
+			}
 			const d = new Date();
+
+			const report = await ServicesLayer.reportService.addReport({
+				reportID: id,
+				resultSetID: params["resultSetID"],
+				status: "DRAFT",
+				title: title.searchPhrase,
+				apiKey: params["apiKey"],
+				dateCreated: d.toString(),
+				author: params["author"],
+				blockNumber: tweets.length
+			});
 
 			const { data } = await clientV2.get("tweets", { ids: tweets });
 
@@ -75,17 +91,6 @@ export const generateReport = middyfy(
 					position: (x += 2),
 					tweetID: tweet
 				});
-			});
-
-			const report = await ServicesLayer.reportService.addReport({
-				reportID: id,
-				resultSetID: params["resultSetID"],
-				status: "DRAFT",
-				title: title.searchPhrase,
-				apiKey: params["apiKey"],
-				dateCreated: d.toString(),
-				author: params["author"],
-				blockNumber: tweets.length
 			});
 
 			const tb = `BK-${randomUUID()}`;
