@@ -24,7 +24,6 @@ function Explore() {
 		getReports(true);
 	}, 2000);
 
-
 	const loadIcon = (
 		<svg
 			role="status"

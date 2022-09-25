@@ -7,11 +7,7 @@ import { GrCopy } from "react-icons/gr";
 import { GiConfirmed, GiCancel } from "react-icons/gi";
 import { IoOptionsOutline } from "react-icons/io5";
 import { BsArrowDown, BsArrowUp, BsShare, BsThreeDots } from "react-icons/bs";
-import {
-	AiOutlineEye,
-	AiOutlineEyeInvisible,
-	AiFillEdit
-} from "react-icons/ai";
+import { AiOutlineEye, AiOutlineEyeInvisible, AiFillEdit } from "react-icons/ai";
 import { MdDeleteOutline } from "react-icons/md";
 import Text from "./Text";
 import useAuth from "../hooks/useAuth";
@@ -455,7 +451,7 @@ function Report() {
 										</Menu>
 									</div>
 								</div>
-								
+
 								<Tweet
 									options={{ align: "center", width: "" }}
 									tweetId={data.block.tweetID}
@@ -912,7 +908,6 @@ function Report() {
 											</Menu>
 										</div>
 									</div>
-								
 
 									<Tweet
 										options={{ align: "center", width: "" }}
@@ -1123,12 +1118,16 @@ function Report() {
 													data-bs-toggle="tooltip"
 													title="Edit Title"
 												>
-													{!isViewer() && <button type="submit">
-														<AiFillEdit
-															style={style}
-															onClick={() => editTitleHandler(true)}
-														/>
-													</button>}
+													{!isViewer() && (
+														<button type="submit">
+															<AiFillEdit
+																style={style}
+																onClick={() =>
+																	editTitleHandler(true)
+																}
+															/>
+														</button>
+													)}
 												</div>
 											</div>
 										)}
@@ -1348,10 +1347,8 @@ function Report() {
 								)}
 							</div>
 
-							{share && (
-								<Modals show modalChoice="shareReport" setShare={setShare} />
-							)}
-							
+							{share && <Modals show modalChoice="shareReport" setShare={setShare} />}
+
 							{pulse && pulseOutput}
 
 							<div className="grid grid-cols gap-4 content-center">
@@ -1415,7 +1412,6 @@ function CloneIcon(props: any) {
 		<div {...props}>
 			<GrCopy style={iconStyle3} />
 		</div>
-
 	);
 }
 
@@ -1426,7 +1422,6 @@ function DeleteIcon(props: any) {
 		<div {...props}>
 			<MdDeleteOutline style={iconStyle4} />
 		</div>
-		
 	);
 }
 

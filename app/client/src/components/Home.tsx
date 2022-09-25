@@ -160,7 +160,7 @@ function Home() {
 
 	const analyse = (resp: any) => {
 		resp.map((data: { tweetId: any }) => analyseData.push(data.tweetId));
-		const sentimentData = {	tweets: analyseData };
+		const sentimentData = { tweets: analyseData };
 		viewSentimentAnalysis(sentimentData);
 	};
 

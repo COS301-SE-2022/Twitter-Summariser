@@ -85,7 +85,6 @@ function Modals({
 
 	const [checkedValue, setCheckedValue] = useState(false);
 
-
 	function advanceSearch() {
 		changeDateTime();
 		toggleSearch();
@@ -397,6 +396,7 @@ function Modals({
 													calendarIcon={null}
 													clearIcon={null}
 													disableCalendar
+													disableClock
 													onChange={changeDateTime}
 													value={dateTime}
 												/>

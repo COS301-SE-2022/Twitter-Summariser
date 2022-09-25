@@ -46,7 +46,6 @@ function Modal({ setModalOn, setChoice, func, rID }: any) {
 				// TWEET FOUND - do something with it
 				setModalOn(false);
 				func(true);
-
 			}
 		} catch (err) {
 			console.error(err);

@@ -120,7 +120,6 @@ function DraftReport() {
 
 	const publishHandler = () => {
 		publishReport(requiredData);
-
 	};
 
 	const apiResponse = [<div key="begining div" />];
@@ -160,7 +159,6 @@ function DraftReport() {
 			console.error(err);
 		}
 	};
-
 
 	state.map((data: any, index: number) =>
 		apiResponse.push(
@@ -205,7 +203,7 @@ function DraftReport() {
 							</div>
 						</div>
 					</>
-				)}			
+				)}
 
 				{/* LAST TWEET */}
 				{data.blockType === "TWEET" && data.position === state.length - 1 && (

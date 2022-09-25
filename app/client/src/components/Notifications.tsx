@@ -7,7 +7,6 @@ function Notifications() {
 	const [shouldRender, changeShouldRender] = useState(false);
 	const controller = new AbortController();
 
-
 	useEffect(() => {
 		let isMounted = true;
 		getNotifications(isMounted);
@@ -31,19 +30,17 @@ function Notifications() {
 			</h1>
 
 			<div className="w-full flex flex-col ">
-				{
-					notifications.length === 0 ? (
-						<div className="text-center">No notifications at the moment.</div>
-					) : (
-						notifications.map((notification: any) => (
-							<NotificationCard
-								data={notification}
-								key={notification.id}
-								onChange={(value: boolean) => changeShouldRender(value)}
-							/>
-						))
-					)
-				}
+				{notifications.length === 0 ? (
+					<div className="text-center">No notifications at the moment.</div>
+				) : (
+					notifications.map((notification: any) => (
+						<NotificationCard
+							data={notification}
+							key={notification.id}
+							onChange={(value: boolean) => changeShouldRender(value)}
+						/>
+					))
+				)}
 			</div>
 		</div>
 	);

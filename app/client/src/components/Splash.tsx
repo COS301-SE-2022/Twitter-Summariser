@@ -81,7 +81,7 @@ function Splash() {
 				<div>
 					<h1 className="text-midnight-blue font-bold text-3xl">Welcome</h1>
 				</div>
-				
+
 				<div>
 					<div className="flex flex-row">&nbsp;</div>
 					<Button text="Sign Up" size="large" handle={signUpHandler} type="signUp" />
