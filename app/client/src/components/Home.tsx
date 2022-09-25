@@ -732,7 +732,7 @@ function Home() {
 							{loading && (
 								<button
 									type="button"
-									className="rounded-full items-center py-2.5 md:px-20 px-20 text-sm font-semibold text-center text-white bg-dark-cornflower-blue opacity-50"
+									className="rounded-full items-center py-2.5 md:px-14 px-14 text-sm font-semibold text-center text-white bg-dark-cornflower-blue opacity-50"
 									disabled
 								>
 									{/* </svg> */}
@@ -743,7 +743,7 @@ function Home() {
 								<button
 									type="submit"
 									onClick={search}
-									className="rounded-full items-center py-2.5 md:px-20 px-16 text-sm font-semibold text-center text-white hover:bg-dark-cornflower-blue  bg-midnight-blue group hover:shadow"
+									className="rounded-full items-center py-2.5 md:px-14 px-14 text-sm font-semibold text-center text-white hover:bg-dark-cornflower-blue  bg-midnight-blue group hover:shadow"
 								>
 									Search
 								</button>
@@ -753,7 +753,7 @@ function Home() {
 							{apiResponse.length === 1 ? (
 								<button
 									type="button"
-									className="rounded-full items-center py-2.5 md:px-14 px-8 text-sm font-semibold text-center text-white bg-dark-cornflower-blue opacity-50 disabled"
+									className="rounded-full items-center py-2.5 md:px-14 px-4 text-sm font-semibold text-center text-white bg-dark-cornflower-blue opacity-50 disabled"
 									disabled
 								>
 									Generate Report
@@ -769,7 +769,7 @@ function Home() {
 							) : (
 								<>
 									<button
-										className="rounded-full items-center py-2.5 md:px-14 px-8 text-sm font-semibold text-center text-white hover:bg-dark-cornflower-blue  bg-midnight-blue group hover:shadow"
+										className="rounded-full items-center py-2.5 md:px-14 px-4 text-sm font-semibold text-center text-white hover:bg-dark-cornflower-blue  bg-midnight-blue group hover:shadow"
 										onClick={generate}
 										type="submit"
 									>
