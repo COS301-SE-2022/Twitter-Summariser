@@ -7,6 +7,7 @@ import ServicesLayer from "../../services";
 import TextStyle from "@model/textStyles/textStyles.model";
 import Notification from "@model/notification/notification.model";
 import { clientV2 } from "@functions/resources/twitterV2.client";
+import * as AWS from "aws-sdk";
 
 const lambda = new Lambda();
 
@@ -326,6 +327,8 @@ export const shareReport = middyfy(
 	}
 );
 
+const Comprehend = new AWS.Comprehend();
+
 // Get report function
 export const getReport = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
@@ -398,6 +401,7 @@ export const getReport = middyfy(
 			await Promise.all(promises);
 			await ServicesLayer.reportBlockService.sortReportBlocks(result);
 			const rp = [];
+			const tweets = [];
 			let bl = false;
 			let count = 0;
 			let max;
@@ -411,6 +415,9 @@ export const getReport = middyfy(
 				if (result[y] !== undefined) {
 					if (result[y].position === x) {
 						rp.push(result[y]);
+						if(result[y].blockType==='TWEET'){
+							tweets.push(result[y].block.tweetID)
+						}
 						bl = true;
 						count++;
 						y++;
@@ -426,6 +433,28 @@ export const getReport = middyfy(
 					rp.push({ blockType: "RICHTEXT", position: x, block: null });
 				}
 				bl = false;
+			}
+
+			const { data } = await clientV2.get("tweets", { ids: params.tweets });
+
+			let twts = [];
+
+			for (let x = 0; x < data.length; x++) {
+				twts.push(data[x].text);
+			}
+
+			const param = {
+				LanguageCode: "en",
+				TextList: twts
+			};
+			const sentimentResults = await Comprehend.batchDetectSentiment(param).promise();
+
+			for (let x = 0; x < data.length; x++) {
+				rp[2*x+1].block.sentiment = {
+					sentimentWord: sentimentResults.ResultList[x].Sentiment,
+					sentiment: sentimentResults.ResultList[x].SentimentScore,
+					id: data[x].id
+				};
 			}
 
 			report.Report = rp;
