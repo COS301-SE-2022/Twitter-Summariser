@@ -15,13 +15,9 @@ export const generateReport = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		try {
 			let params;
-			if (event.apiKey !== null) {
-				params = event;
-			} else if (event.body.apiKey !== null && process.env.NODE_ENV !== "development") {
-				params = event.body;
-			} else {
-				params = JSON.parse(event.body)  ;
-			}
+			if (event.apiKey) params = event;
+			else if (event.body.apiKey) params = event.body;
+			else params = JSON.parse(event.body);
 
 			const title = await ServicesLayer.resultSetServices.getResultSet(
 				params["resultSetID"],
@@ -39,7 +35,7 @@ export const generateReport = middyfy(
 			for (let tweet in data) {
 				twts += " " + data[tweet].text;
 			}
-			
+
 			let sText: string = "";
 
 			if (process.env.NODE_ENV === "development") {
