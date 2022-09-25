@@ -209,8 +209,7 @@ export const cloneReport = middyfy(
 			id = "RT-";
 			id += randomUUID();
 
-			const dd = new Date();
-			const d = new Date(`${dd.toLocaleString()}-02:00`);
+			const d = new Date();
 
 			report.reportID = id;
 			report.title = "Copy of " + report.title;
@@ -355,22 +354,84 @@ export const getReport = middyfy(
 				params.apiKey
 			);
 
-			report = await ServicesLayer.reportService.getReport(params.reportID);
+			//report = await ServicesLayer.reportService.getReport(params.reportID);
 
 			if (per !== undefined) {
 				report.permission = per.type;
-			} else if (ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)) {
+			} else if (params.apiKey ===  report.apiKey) {
 				report.permission = "OWNER";
 			} else {
 				report.permission = "VIEWER";
 			}
 
+			const result = [];
+
+			const reportBlocks = await ServicesLayer.reportBlockService.getReportBlocks(report.reportID);
+
+			const promises = reportBlocks.map(async (block) => {
+				const type = block.blockType;
+				const ob = {} as any;
+
+				ob.blockType = type;
+				ob.position = block.position;
+				ob.reportBlockID = block.reportBlockID;
+
+				if (type === "TWEET") {
+					ob.block = {
+						tweetID: block.tweetID
+					};
+				} else if (type === "RICHTEXT") {
+					const style = await ServicesLayer.textStyleService.getStyle(block.reportBlockID);
+					ob.block = {
+						text: block.richText,
+						position: block.position,
+						style
+					};
+				}
+				result.push(ob);
+			});
+
+			await Promise.all(promises);
+			await ServicesLayer.reportBlockService.sortReportBlocks(result);
+			const rp = [];
+			let bl = false;
+			let count = 0;
+			let max;
+
+			for (let y = 0; y < result.length; y++) {
+				max = result[y].position;
+			}
+
+			let y = 0;
+			for (let x = 0; x < max + 2; x++) {
+				if (result[y] !== undefined) {
+					if (result[y].position === x) {
+						rp.push(result[y]);
+						bl = true;
+						count++;
+						y++;
+					}
+				}
+
+				if (!bl && y > 0) {
+					if (result[y - 1].blockType === "TWEET") {
+						rp.push({ blockType: "RICHTEXT", position: x, block: null });
+						count++;
+					}
+				} else if (!bl && x === 0) {
+					rp.push({ blockType: "RICHTEXT", position: x, block: null });
+				}
+				bl = false;
+			}
+
+			report.Report = rp;
+			report.numOfBlocks = count;
 			delete report.apiKey;
 
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify({ report })
+				body: JSON.stringify({report})
 			};
 		} catch (e) {
 			return {
