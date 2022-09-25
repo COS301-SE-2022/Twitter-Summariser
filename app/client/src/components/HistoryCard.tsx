@@ -54,7 +54,7 @@ function HistoryCard(props: any) {
 	}
 
 	return (
-		<div className="pt-3 pb-3 pl-3 pr-3 m-2 bg-gradient-to-b from-blue-50 via-sky-100 border rounded-lg transform hover:shadow-md hover:scale-105 transition duration-200 ease-in hover:bg-blue-200">
+		<div className="pt-3 pb-3 pl-3 pr-3 m-2 mb-4 bg-gradient-to-b from-blue-50 via-sky-100 border rounded-lg transform hover:shadow-md hover:scale-105 transition duration-200 ease-in hover:bg-blue-200">
 			{!options ? (
 				<>
 					<p

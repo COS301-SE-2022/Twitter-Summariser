@@ -7,6 +7,7 @@ import ServicesLayer from "../../services";
 import TextStyle from "@model/textStyles/textStyles.model";
 import Notification from "@model/notification/notification.model";
 import { clientV2 } from "@functions/resources/twitterV2.client";
+import * as AWS from "aws-sdk";
 
 const lambda = new Lambda();
 
@@ -327,6 +328,8 @@ export const shareReport = middyfy(
 	}
 );
 
+const Comprehend = new AWS.Comprehend();
+
 // Get report function
 export const getReport = middyfy(
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
@@ -359,7 +362,7 @@ export const getReport = middyfy(
 
 			if (per !== undefined) {
 				report.permission = per.type;
-			} else if (params.apiKey ===  report.apiKey) {
+			} else if (params.apiKey === report.apiKey) {
 				report.permission = "OWNER";
 			} else {
 				report.permission = "VIEWER";
@@ -367,7 +370,9 @@ export const getReport = middyfy(
 
 			const result = [];
 
-			const reportBlocks = await ServicesLayer.reportBlockService.getReportBlocks(report.reportID);
+			const reportBlocks = await ServicesLayer.reportBlockService.getReportBlocks(
+				report.reportID
+			);
 
 			const promises = reportBlocks.map(async (block) => {
 				const type = block.blockType;
@@ -382,7 +387,9 @@ export const getReport = middyfy(
 						tweetID: block.tweetID
 					};
 				} else if (type === "RICHTEXT") {
-					const style = await ServicesLayer.textStyleService.getStyle(block.reportBlockID);
+					const style = await ServicesLayer.textStyleService.getStyle(
+						block.reportBlockID
+					);
 					ob.block = {
 						text: block.richText,
 						position: block.position,
@@ -395,6 +402,7 @@ export const getReport = middyfy(
 			await Promise.all(promises);
 			await ServicesLayer.reportBlockService.sortReportBlocks(result);
 			const rp = [];
+			const tweets = [];
 			let bl = false;
 			let count = 0;
 			let max;
@@ -408,6 +416,9 @@ export const getReport = middyfy(
 				if (result[y] !== undefined) {
 					if (result[y].position === x) {
 						rp.push(result[y]);
+						if(result[y].blockType==='TWEET'){
+							tweets.push(result[y].block.tweetID)
+						}
 						bl = true;
 						count++;
 						y++;
@@ -425,6 +436,28 @@ export const getReport = middyfy(
 				bl = false;
 			}
 
+			const { data } = await clientV2.get("tweets", { ids: tweets });
+
+			let twts = [];
+
+			for (let x = 0; x < data.length; x++) {
+				twts.push(data[x].text);
+			}
+
+			const param = {
+				LanguageCode: "en",
+				TextList: twts
+			};
+			const sentimentResults = await Comprehend.batchDetectSentiment(param).promise();
+
+			for (let x = 0; x < data.length; x++) {
+				rp[2*x+1].block.sentiment = {
+					sentimentWord: sentimentResults.ResultList[x].Sentiment,
+					sentiment: sentimentResults.ResultList[x].SentimentScore,
+					id: data[x].id
+				};
+			}
+
 			report.Report = rp;
 			report.numOfBlocks = count;
 			delete report.apiKey;
@@ -432,7 +465,7 @@ export const getReport = middyfy(
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify({report})
+				body: JSON.stringify({ report })
 			};
 		} catch (e) {
 			return {
