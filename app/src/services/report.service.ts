@@ -137,7 +137,11 @@ export default class ReportService {
 		await this.docClient
 			.put({
 				TableName: this.TableName,
-				Item: report
+				Item: report,
+				ConditionExpression: "reportID <> :reportID",
+				ExpressionAttributeValues: {
+					":reportID": report.reportID
+				}
 			})
 			.promise();
 

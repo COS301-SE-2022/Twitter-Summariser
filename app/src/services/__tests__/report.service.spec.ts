@@ -379,7 +379,13 @@ describe("report.service", () => {
 			};
 
 			await ReportService.reportService.addReport(report);
-			expect(db.put).toHaveBeenCalledWith({ TableName: "ReportTable", Item: report });
+			expect(db.put).toHaveBeenCalledWith({ 
+				TableName: "ReportTable", 
+				Item: report, 
+				ConditionExpression: "reportID <> :reportID",
+				ExpressionAttributeValues: {
+					":reportID": report.reportID
+				} });
 		});
 	});
 
