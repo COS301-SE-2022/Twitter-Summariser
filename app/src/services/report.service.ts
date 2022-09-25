@@ -181,6 +181,24 @@ export default class ReportService {
 			.promise();
 	}
 
+	async updateReportBlockNum(num: number, reportID: string) {
+		await this.docClient
+			.update({
+				TableName: this.TableName,
+				Key: {
+					reportID
+				},
+				UpdateExpression: "SET #blockNumber = :num",
+				ExpressionAttributeNames: {
+					"#blockNumber": "blockNumber"
+				},
+				ExpressionAttributeValues: {
+					":num": num
+				}
+			})
+			.promise();
+	}
+
 	async deleteReport(id: string) {
 		await this.docClient
 			.delete({

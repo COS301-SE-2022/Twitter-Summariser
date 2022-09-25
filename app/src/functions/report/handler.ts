@@ -83,7 +83,8 @@ export const generateReport = middyfy(
 				title: title.searchPhrase,
 				apiKey: params["apiKey"],
 				dateCreated: d.toString(),
-				author: params["author"]
+				author: params["author"],
+				blockNumber: tweets.length
 			});
 
 			const tb = `BK-${randomUUID()}`;
