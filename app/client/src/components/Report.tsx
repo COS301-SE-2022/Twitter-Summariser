@@ -7,9 +7,9 @@ import { GrCopy } from "react-icons/gr";
 import { GiConfirmed, GiCancel } from "react-icons/gi";
 import { FiSettings } from "react-icons/fi";
 import { BsArrowDown, BsArrowUp, BsShare, BsThreeDots } from "react-icons/bs";
-import { BiErrorCircle } from "react-icons/bi";
+// import { BiErrorCircle } from "react-icons/bi";
 import {
-	AiOutlineCheckCircle,
+	// AiOutlineCheckCircle,
 	AiOutlineEye,
 	AiOutlineEyeInvisible,
 	AiFillEdit
@@ -30,18 +30,18 @@ function Report() {
 
 	const style = { fontSize: "1.3rem" };
 	// const style2 = { fontSize: "1.5rem" };
-	const styleNew = { fontSize: "1.5rem", color: "green" };
+	// const styleNew = { fontSize: "1.5rem", color: "green" };
 	const iconStyle3 = { fontSize: "1.5rem", color: "red" };
 	const styleCorrect = { fontSize: "1.5rem", color: "green" };
 	const styleWrong = { fontSize: "1.5rem", color: "red" };
 	// const iconStyle4 = { fontSize: "1.8rem", color: "red" };
 
 	const [share, setShare] = useState(false);
-	const [successfulShare, setSuccessfulShare] = useState(false);
-	const [enteredShare, changeEnteredShare] = useState("");
+	// const [successfulShare, setSuccessfulShare] = useState(false);
+	// const [enteredShare, changeEnteredShare] = useState("");
 
-	const [NAN, changeNAN] = useState(false);
-	const [type, changeType] = useState("VIEWER");
+	// const [NAN, changeNAN] = useState(false);
+	// const [type, changeType] = useState("VIEWER");
 
 	const [shouldRender, changeShouldRender] = useState(false);
 
@@ -136,18 +136,18 @@ function Report() {
 	};
 
 	const shareHandler = () => {
-		setSuccessfulShare(false);
+		// setSuccessfulShare(false);
 		setShare(!share);
 	};
 
-	const enteredShareHandler = (event: any) => {
-		changeNAN(false);
-		changeEnteredShare(event.target.value);
-	};
+	// const enteredShareHandler = (event: any) => {
+	// 	changeNAN(false);
+	// 	changeEnteredShare(event.target.value);
+	// };
 
-	const typeHandler = (event: any) => {
-		changeType(event.target.value);
-	};
+	// const typeHandler = (event: any) => {
+	// 	changeType(event.target.value);
+	// };
 
 	const requiredData = {
 		apiKey: auth.apiKey,
@@ -1234,36 +1234,36 @@ function Report() {
 		i++;
 	}
 
-	const requiredDataForShare = {
-		apiKey: auth.apiKey,
-		reportID: repID,
-		email: enteredShare,
-		type
-	};
+	// const requiredDataForShare = {
+	// 	apiKey: auth.apiKey,
+	// 	reportID: repID,
+	// 	email: enteredShare,
+	// 	type
+	// };
 
-	const shareReport = async (repData: any) => {
-		try {
-			const data = await axiosPrivate.post("shareReport", JSON.stringify(repData), {
-				signal: controller.signal
-			});
+	// const shareReport = async (repData: any) => {
+	// 	try {
+	// 		const data = await axiosPrivate.post("shareReport", JSON.stringify(repData), {
+	// 			signal: controller.signal
+	// 		});
 
-			if (data.data === "User is not found within system.") {
-				changeNAN(true);
-			} else {
-				changeNAN(false);
-				setSuccessfulShare(true);
-				setShare(false);
-			}
-		} catch (err) {
-			console.error(err);
-		}
-	};
+	// 		if (data.data === "User is not found within system.") {
+	// 			changeNAN(true);
+	// 		} else {
+	// 			changeNAN(false);
+	// 			setSuccessfulShare(true);
+	// 			setShare(false);
+	// 		}
+	// 	} catch (err) {
+	// 		console.error(err);
+	// 	}
+	// };
 
-	const shareSearchHandler = () => {
-		if (enteredShare !== "") {
-			shareReport(requiredDataForShare);
-		}
-	};
+	// const shareSearchHandler = () => {
+	// 	if (enteredShare !== "") {
+	// 		shareReport(requiredDataForShare);
+	// 	}
+	// };
 
 	const deleteReportHandler = async () => {
 		const resultDetails = {
@@ -1832,77 +1832,78 @@ function Report() {
 
 							{/* search */}
 							{share && (
-								<div className="flex flex-col">
-									{NAN && (
-										<div className="flex flex-row border-2 border-red-500 rounded-md bg-red-300 h-auto w-2/4 ml-6 p-2">
-											<BiErrorCircle style={style} />
-											<p>User Does not Exist</p>
-										</div>
-									)}
-									<div className="flex justify-center p-2 border-l border-r border-gray-200 mt-16 mini-tablet:mt-0">
-										<div className="w-3/4 mb-3">
-											<input
-												data-testid="search"
-												type="search"
-												className="
-									nosubmit
-									w-full
-									px-3
-									py-1.5
-									text-lg
-									font-normal
-									text-gray-700
-									bg-clip-padding
-									border border-solid border-gray-300
-									rounded-lg
-									focus:text-gray-700 focus:bg-white focus:border-twitter-blue focus:outline-none
-									bg-gray-200
-								"
-												onChange={enteredShareHandler}
-												placeholder="enter user email ..."
-											/>
-										</div>
-									</div>
+								<Modals show modalChoice="shareReport" setShare={setShare} />
+								// <div className="flex flex-col">
+								// 	{NAN && (
+								// 		<div className="flex flex-row border-2 border-red-500 rounded-md bg-red-300 h-auto w-2/4 ml-6 p-2">
+								// 			<BiErrorCircle style={style} />
+								// 			<p>User Does not Exist</p>
+								// 		</div>
+								// 	)}
+								// 	<div className="flex justify-center p-2 border-l border-r border-gray-200 mt-16 mini-tablet:mt-0">
+								// 		<div className="w-3/4 mb-3">
+								// 			<input
+								// 				data-testid="search"
+								// 				type="search"
+								// 				className="
+								// 	nosubmit
+								// 	w-full
+								// 	px-3
+								// 	py-1.5
+								// 	text-lg
+								// 	font-normal
+								// 	text-gray-700
+								// 	bg-clip-padding
+								// 	border border-solid border-gray-300
+								// 	rounded-lg
+								// 	focus:text-gray-700 focus:bg-white focus:border-twitter-blue focus:outline-none
+								// 	bg-gray-200
+								// "
+								// 				onChange={enteredShareHandler}
+								// 				placeholder="enter user email ..."
+								// 			/>
+								// 		</div>
+								// 	</div>
 
-									<div className="flex flex-col flex-wrap justify-around pt-3 pb-3 border border-gray-200 items-center">
-										{/*  */}
+								// 	<div className="flex flex-col flex-wrap justify-around pt-3 pb-3 border border-gray-200 items-center">
+								// {/*  */}
 
-										{/* this is for the Fitlering options */}
-										<div className="flex flex-row flex-wrap w-1/3 justify-center">
-											<p className="">Allow User to: </p> &nbsp;
-											<select
-												data-testid="select-filter"
-												className=" text-black text-center"
-												onChange={typeHandler}
-											>
-												<option value="VIEWER">View</option>
-												<option value="EDITOR">Edit</option>
-											</select>
-										</div>
+								// {/* this is for the Fitlering options */}
+								// {/* <div className="flex flex-row flex-wrap w-1/3 justify-center">
+								// <p className="">Allow User to: </p> &nbsp;
+								// <select
+								// 	data-testid="select-filter"
+								// 	className=" text-black text-center"
+								// 	onChange={typeHandler}
+								// >
+								// 	<option value="VIEWER">View</option>
+								// 	<option value="EDITOR">Edit</option>
+								// </select>
+								// </div> */}
 
-										{/* this is for the search button */}
-										<div className="flex flex-row w-1/3 justify-center pt-3">
-											<button
-												data-testid="btn-search"
-												type="submit"
-												className="button w-3/4 text-lg p-0.5"
-												onClick={shareSearchHandler}
-											>
-												Share
-											</button>
-										</div>
-									</div>
-								</div>
+								// {/* this is for the search button */}
+								// {/* <div className="flex flex-row w-1/3 justify-center pt-3">
+								// <button
+								// 	data-testid="btn-search"
+								// 	type="submit"
+								// 	className="button w-3/4 text-lg p-0.5"
+								// 	onClick={shareSearchHandler}
+								// >
+								// 	Share
+								// </button>
+								// </div>
+								// </div>
+								// </div> */}
 							)}
 
-							{successfulShare && (
+							{/* {successfulShare && (
 								<div className="flex flex-row border-2 border-green-700 rounded-md bg-green-300 h-auto w-auto w-2/4 ml-6 p-2">
 									<AiOutlineCheckCircle style={styleNew} />
 									<p>Report shared successfully</p>
 								</div>
-							)}
+							)} */}
 
-							<br />
+							{/* <br /> */}
 
 							{/* {!isPublished() && !isViewer() && (
 								<div className="mb-0">
