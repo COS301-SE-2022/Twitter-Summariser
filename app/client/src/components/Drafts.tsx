@@ -7,7 +7,6 @@ function Drafts() {
 	const [draft, changeDraft] = useState<any[]>([]);
 	const [loading, changeLoading] = useState(true);
 	const [imageURL, changeImageURL] = useState("assets/profile.png");
-	// const [style, changeStyle] = useState("sm:w-1/2 w-full mr-5/2");
 	const [shouldRender, changeShouldRender] = useState(false);
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();

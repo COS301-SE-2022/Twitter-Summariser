@@ -361,7 +361,7 @@ export const getReport = middyfy(
 
 			if (per !== undefined) {
 				report.permission = per.type;
-			} else if (params.apiKey ===  report.apiKey) {
+			} else if (params.apiKey === report.apiKey) {
 				report.permission = "OWNER";
 			} else {
 				report.permission = "VIEWER";
@@ -369,7 +369,9 @@ export const getReport = middyfy(
 
 			const result = [];
 
-			const reportBlocks = await ServicesLayer.reportBlockService.getReportBlocks(report.reportID);
+			const reportBlocks = await ServicesLayer.reportBlockService.getReportBlocks(
+				report.reportID
+			);
 
 			const promises = reportBlocks.map(async (block) => {
 				const type = block.blockType;
@@ -384,7 +386,9 @@ export const getReport = middyfy(
 						tweetID: block.tweetID
 					};
 				} else if (type === "RICHTEXT") {
-					const style = await ServicesLayer.textStyleService.getStyle(block.reportBlockID);
+					const style = await ServicesLayer.textStyleService.getStyle(
+						block.reportBlockID
+					);
 					ob.block = {
 						text: block.richText,
 						position: block.position,
@@ -431,7 +435,7 @@ export const getReport = middyfy(
 				bl = false;
 			}
 
-			const { data } = await clientV2.get("tweets", { ids: params.tweets });
+			const { data } = await clientV2.get("tweets", { ids: tweets });
 
 			let twts = [];
 
@@ -460,7 +464,7 @@ export const getReport = middyfy(
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify({report})
+				body: JSON.stringify({ report })
 			};
 		} catch (e) {
 			return {

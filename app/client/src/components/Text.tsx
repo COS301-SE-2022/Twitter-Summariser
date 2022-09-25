@@ -15,9 +15,7 @@ function Text(props: any) {
 	const [italic, setItalic] = useState("");
 	const [bold, setBold] = useState("");
 	const { auth } = useAuth();
-
 	const repID = props.rID;
-	// const newDraftReportLink = `/draftReport/${repID}`;
 
 	const italicHandler = () => {
 		if (italic === "") {
@@ -75,7 +73,6 @@ function Text(props: any) {
 		}
 	};
 
-	//   const color = " text-black";
 	const [color, setColor] = useState(" text-black");
 
 	const colorHandler = (event: any) => {
@@ -103,7 +100,6 @@ function Text(props: any) {
 	const deleteTextHandler = async () => {
 		const resultDetails = {
 			apiKey: auth.apiKey,
-			// reportID: localStorage.getItem("draftReportId"),
 			reportID: repID,
 			reportBlockID: props.data.reportBlockID
 		};
@@ -148,7 +144,6 @@ function Text(props: any) {
 				Align: align
 			},
 			text: report,
-			// reportID: localStorage.getItem("draftReportId"),
 			reportID: repID,
 			position: textPos,
 			apiKey: auth.apiKey
@@ -167,7 +162,6 @@ function Text(props: any) {
 				Align: align
 			},
 			text: report,
-			// reportID: localStorage.getItem("draftReportId"),
 			reportID: repID,
 			styleID: props.data.block.style[0].textStylesID,
 			reportBlockID: props.data.reportBlockID,
@@ -178,15 +172,11 @@ function Text(props: any) {
 		setSecondEditor(!secondEditor);
 	};
 
-	// let editButton = false;
 	let style2 = "w-full h-auto mt-2 p-2";
-	// let tempText = "";
 
 	if (props.data.block === null) {
 		// editButton = true;
 	} else {
-		// editButton = false;
-		// console.log(props.data.block.style.length);
 		props.data.block.style.length;
 
 		if (props.data.block.style.length !== 0) {
@@ -198,19 +188,6 @@ function Text(props: any) {
 				props.data.block.style[0].align +
 				props.data.block.style[0].colour;
 		}
-		// style2 =
-		// 	style2 +
-		// 	props.data.block.style[0].italic +
-		// 	props.data.block.style[0].bold +
-		// 	props.data.block.style[0].size +
-		// 	props.data.block.style[0].align +
-		// 	props.data.block.style[0].colour;
-
-		// tempText = props.data.block.text;
-
-		// style = style2;
-
-		// console.log(style2);
 	}
 
 	return (
@@ -435,12 +412,6 @@ function Text(props: any) {
 								<div className="w-full">
 									<textarea className={style} onChange={textHandler} />
 								</div>
-
-								{/* <div className="w-1/6 flex text-center justify-center">
-									<button type="button" onClick={textEditorHandler}>
-										<MdDeleteOutline style={iconStyle3} />
-									</button>
-								</div> */}
 							</div>
 
 							<div className="flex flex-row justify-center mb-2">
