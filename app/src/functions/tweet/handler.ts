@@ -105,7 +105,7 @@ export const addCustomTweet = middyfy(
 
 			const tweets = await ServicesLayer.reportService.getReport(params.reportID);
 
-			const position = tweets.numOfBlocks + 1;
+			const position = tweets.numOfBlocks;
 
 			await ServicesLayer.reportBlockService.addReportBlock({
 				blockType: "TWEET",
