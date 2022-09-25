@@ -34,7 +34,7 @@ function MobileNotifications() {
 	}
 
 	const modal = () => (
-		<div className="lg:hidden fixed flex items-center inset-0 justify-center bg-black/75">
+		<div className="lg:hidden fixed flex items-center inset-0 justify-center pl-6 pr-6 bg-black/75">
 			<div className="bg-white rounded max-w-sm  text-black">
 				<div className="flex flex-row content-center justify-between  p-2.5 border-solid border-gray border-b-2">
 					<h3 className=" text-lg text-center font-bold "> Notifications </h3>
