@@ -1198,8 +1198,12 @@ function Report() {
 	const cloneReportHandler = async () => {
 		const resultDetails = {
 			reportID: repID,
-			apiKey: auth.apiKey
+			apiKey: auth.apiKey,
+			author: auth.username
 		};
+
+		// console.log(resultDetails);
+
 
 		try {
 			await axiosPrivate.post("cloneReport", JSON.stringify(resultDetails), {
