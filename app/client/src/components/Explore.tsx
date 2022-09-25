@@ -22,15 +22,8 @@ function Explore() {
 
 	setTimeout(() => {
 		getReports(true);
-	}, 10000);
-	// useEffect(() => {
-	// 	let isMounted = true;
-	// 	getReports(isMounted);
-	// 	return () => {
-	// 		isMounted = false;
-	// 		controller.abort();
-	// 	};
-	// }, [axiosPrivate]);
+	}, 2000);
+
 
 	const loadIcon = (
 		<svg
