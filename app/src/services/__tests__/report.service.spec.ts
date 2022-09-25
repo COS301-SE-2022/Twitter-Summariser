@@ -24,7 +24,8 @@ describe("report.service", () => {
 				apiKey: "ABdggekj23",
 				dateCreated: "2022-01-01",
 				title: "This is my report",
-				author: "Test"
+				author: "Test",
+				blockNumber: 0
 			};
 
 			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Item: addedReport }));
@@ -43,7 +44,8 @@ describe("report.service", () => {
 				apiKey: "ABdggekj23",
 				dateCreated: "2022-01-01",
 				title: "This is my report",
-				author: "Test"
+				author: "Test",
+				blockNumber: 0
 			};
 
 			expect(report).toEqual(expected);
@@ -69,7 +71,8 @@ describe("report.service", () => {
 				apiKey: "ABdggekj23",
 				dateCreated: "2022-01-01",
 				title: "This is my report",
-				author: "Test"
+				author: "Test",
+				blockNumber: 0
 			};
 
 			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Item: addedReport }));
@@ -92,7 +95,8 @@ describe("report.service", () => {
 					apiKey: "ABdggekj23",
 					dateCreated: "2022-01-01",
 					title: "This is my report",
-					author: "Test"
+					author: "Test",
+					blockNumber: 0
 				},
 				{
 					reportID: "1112",
@@ -101,7 +105,8 @@ describe("report.service", () => {
 					apiKey: "ABdggekj23",
 					dateCreated: "2022-01-01",
 					title: "This is my other report",
-					author: "Test"
+					author: "Test",
+					blockNumber: 0
 				},
 				{
 					reportID: "1113",
@@ -110,7 +115,8 @@ describe("report.service", () => {
 					apiKey: "ABdggekj23",
 					dateCreated: "2022-01-01",
 					title: "This is my other other report",
-					author: "Test"
+					author: "Test",
+					blockNumber: 0
 				},
 				{
 					reportID: "1114",
@@ -119,7 +125,8 @@ describe("report.service", () => {
 					apiKey: "ABdggekj23",
 					dateCreated: "2022-01-01",
 					title: "This is my other other other report",
-					author: "Test"
+					author: "Test",
+					blockNumber: 0
 				}
 			];
 
@@ -144,7 +151,8 @@ describe("report.service", () => {
 					apiKey: "ABdggekj23",
 					dateCreated: "2022-01-01",
 					title: "This is my report",
-					author: "Test"
+					author: "Test",
+					blockNumber: 0
 				},
 				{
 					reportID: "1112",
@@ -153,7 +161,8 @@ describe("report.service", () => {
 					apiKey: "ABdggekj23",
 					dateCreated: "2022-01-01",
 					title: "This is my other report",
-					author: "Test"
+					author: "Test",
+					blockNumber: 0
 				},
 				{
 					reportID: "1113",
@@ -162,7 +171,8 @@ describe("report.service", () => {
 					apiKey: "ABdggekj23",
 					dateCreated: "2022-01-01",
 					title: "This is my other other report",
-					author: "Test"
+					author: "Test",
+					blockNumber: 0
 				},
 				{
 					reportID: "1114",
@@ -171,7 +181,8 @@ describe("report.service", () => {
 					apiKey: "ABdggekj23",
 					dateCreated: "2022-01-01",
 					title: "This is my other other other report",
-					author: "Test"
+					author: "Test",
+					blockNumber: 0
 				}
 			];
 
@@ -199,7 +210,8 @@ describe("report.service", () => {
 					apiKey: "ABgT78ggekj23",
 					dateCreated: "2022-01-01",
 					title: "This is my report",
-					author: "Test"
+					author: "Test",
+					blockNumber: 0
 				},
 				{
 					reportID: "1112",
@@ -208,7 +220,8 @@ describe("report.service", () => {
 					apiKey: "ABPlgekj23",
 					dateCreated: "2022-01-01",
 					title: "This is my other report",
-					author: "Test"
+					author: "Test",
+					blockNumber: 0
 				},
 				{
 					reportID: "1113",
@@ -217,7 +230,8 @@ describe("report.service", () => {
 					apiKey: "ABdglIgekj23",
 					dateCreated: "2022-01-01",
 					title: "This is my other other report",
-					author: "Test"
+					author: "Test",
+					blockNumber: 0
 				},
 				{
 					reportID: "1114",
@@ -226,7 +240,8 @@ describe("report.service", () => {
 					apiKey: "AJJgekj23",
 					dateCreated: "2022-01-01",
 					title: "This is my other other other report",
-					author: "Test"
+					author: "Test",
+					blockNumber: 0
 				}
 			];
 
@@ -250,7 +265,8 @@ describe("report.service", () => {
 					apiKey: "ABdggekj23",
 					dateCreated: "2022-01-01",
 					title: "This is my report",
-					author: "Test"
+					author: "Test",
+					blockNumber: 0
 				},
 				{
 					reportID: "1112",
@@ -259,7 +275,8 @@ describe("report.service", () => {
 					apiKey: "ABdggekj23",
 					dateCreated: "2022-01-01",
 					title: "This is my other report",
-					author: "Test"
+					author: "Test",
+					blockNumber: 0
 				},
 				{
 					reportID: "1113",
@@ -268,7 +285,8 @@ describe("report.service", () => {
 					apiKey: "ABdggekj23",
 					dateCreated: "2022-01-01",
 					title: "This is my other other report",
-					author: "Test"
+					author: "Test",
+					blockNumber: 0
 				},
 				{
 					reportID: "1114",
@@ -277,7 +295,8 @@ describe("report.service", () => {
 					apiKey: "ABdggekj23",
 					dateCreated: "2022-01-01",
 					title: "This is my other other other report",
-					author: "Test"
+					author: "Test",
+					blockNumber: 0
 				}
 			];
 
@@ -307,7 +326,8 @@ describe("report.service", () => {
 					apiKey: "ABdggekj23",
 					dateCreated: "2022-01-01",
 					title: "This is my report",
-					author: "Test"
+					author: "Test",
+					blockNumber: 0
 				},
 				{
 					reportID: "1112",
@@ -316,7 +336,8 @@ describe("report.service", () => {
 					apiKey: "ABdggekj23",
 					dateCreated: "2022-01-01",
 					title: "This is my other report",
-					author: "Test"
+					author: "Test",
+					blockNumber: 0
 				},
 				{
 					reportID: "1113",
@@ -325,7 +346,8 @@ describe("report.service", () => {
 					apiKey: "ABdggekj23",
 					dateCreated: "2022-01-01",
 					title: "This is my other other report",
-					author: "Test"
+					author: "Test",
+					blockNumber: 0
 				},
 				{
 					reportID: "1114",
@@ -334,7 +356,8 @@ describe("report.service", () => {
 					apiKey: "ABdggekj23",
 					dateCreated: "2022-01-01",
 					title: "This is my other other other report",
-					author: "Test"
+					author: "Test",
+					blockNumber: 0
 				}
 			];
 
@@ -351,7 +374,8 @@ describe("report.service", () => {
 				apiKey: "ABdggekj23",
 				dateCreated: "2022-01-01",
 				title: "This is my report",
-				author: "Test"
+				author: "Test",
+				blockNumber: 0
 			};
 
 			await ReportService.reportService.addReport(report);
@@ -369,7 +393,8 @@ describe("report.service", () => {
 					apiKey: "ABdggekj23",
 					dateCreated: "2022-01-01",
 					title: "This is my report",
-					author: "Test"
+					author: "Test",
+					blockNumber: 0
 				},
 				{
 					reportID: "1112",
@@ -378,7 +403,8 @@ describe("report.service", () => {
 					apiKey: "ABdggekj23",
 					dateCreated: "2022-01-01",
 					title: "This is my other report",
-					author: "Test"
+					author: "Test",
+					blockNumber: 0
 				},
 				{
 					reportID: "1113",
@@ -387,7 +413,8 @@ describe("report.service", () => {
 					apiKey: "ABdggekj23",
 					dateCreated: "2022-01-01",
 					title: "This is my other other report",
-					author: "Test"
+					author: "Test",
+					blockNumber: 0
 				},
 				{
 					reportID: "1114",
@@ -396,7 +423,8 @@ describe("report.service", () => {
 					apiKey: "ABdggekj23",
 					dateCreated: "2022-01-01",
 					title: "This is my other other other report",
-					author: "Test"
+					author: "Test",
+					blockNumber: 0
 				}
 			];
 
@@ -430,7 +458,8 @@ describe("report.service", () => {
 					apiKey: "ABdggekj23",
 					dateCreated: "2022-01-01",
 					title: "This is my report",
-					author: "Test"
+					author: "Test",
+					blockNumber: 0
 				},
 				{
 					reportID: "1112",
@@ -439,7 +468,8 @@ describe("report.service", () => {
 					apiKey: "ABdggekj23",
 					dateCreated: "2022-01-01",
 					title: "This is my other report",
-					author: "Test"
+					author: "Test",
+					blockNumber: 0
 				},
 				{
 					reportID: "1113",
@@ -448,7 +478,8 @@ describe("report.service", () => {
 					apiKey: "ABdggekj23",
 					dateCreated: "2022-01-01",
 					title: "This is my other other report",
-					author: "Test"
+					author: "Test",
+					blockNumber: 0
 				},
 				{
 					reportID: "1114",
@@ -457,7 +488,8 @@ describe("report.service", () => {
 					apiKey: "ABdggekj23",
 					dateCreated: "2022-01-01",
 					title: "This is my other other other report",
-					author: "Test"
+					author: "Test",
+					blockNumber: 0
 				}
 			];
 
@@ -491,7 +523,8 @@ describe("report.service", () => {
 					apiKey: "ABdggekj23",
 					dateCreated: "2022-01-01",
 					title: "This is my report",
-					author: "Test"
+					author: "Test",
+					blockNumber: 0
 				},
 				{
 					reportID: "1112",
@@ -500,7 +533,8 @@ describe("report.service", () => {
 					apiKey: "ABdggekj23",
 					dateCreated: "2022-01-01",
 					title: "This is my other report",
-					author: "Test"
+					author: "Test",
+					blockNumber: 0
 				},
 				{
 					reportID: "1113",
@@ -509,7 +543,8 @@ describe("report.service", () => {
 					apiKey: "ABdggekj23",
 					dateCreated: "2022-01-01",
 					title: "This is my other other report",
-					author: "Test"
+					author: "Test",
+					blockNumber: 0
 				},
 				{
 					reportID: "1114",
@@ -518,7 +553,8 @@ describe("report.service", () => {
 					apiKey: "ABdggekj23",
 					dateCreated: "2022-01-01",
 					title: "This is my other other other report",
-					author: "Test"
+					author: "Test",
+					blockNumber: 0
 				}
 			];
 

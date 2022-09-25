@@ -17,7 +17,7 @@ function SharedCard(props: any) {
 		navigate(newReportLink);
 	};
 	return (
-		<div className="rounded-lg pt-3 pb-3 md:pl-20 md:pr-20 ml-4 mr-4 mb-4 bg-gradient-to-b from-blue-50 via-sky-100 border  transform hover:shadow-md hover:scale-105 transition duration-200 ease-in hover:bg-blue-200">
+		<div className="pt-3 pb-3 pl-20 pr-20 m-3 bg-gradient-to-b from-blue-50 via-sky-100 border rounded-lg transform hover:shadow-md hover:scale-105 transition duration-200 ease-in hover:bg-blue-200">
 			<div className="flex items-center justify-center">
 				<p aria-label="Author" title="Author" className="mr-3 ">
 					<img
@@ -31,7 +31,7 @@ function SharedCard(props: any) {
 			<p
 				aria-label="Article"
 				title={props.data.title}
-				className="flex items-center justify-center mt-3 mb-2 h-10 text-2xl font-bold leading-5 text-black transition-colors duration-200 hover:text-deep-purple-accent-400"
+				className="flex items-center justify-center mt-2 mb-2 text-2xl font-bold leading-5 text-black transition-colors duration-200 hover:text-deep-purple-accent-400"
 			>
 				{props.data.title}
 			</p>
@@ -44,7 +44,7 @@ function SharedCard(props: any) {
 					</Carousel.Item>
 					<Carousel.Item>
 						<span className=" font-semiboldtext-deep-purple-accent-400">
-							Shared Report - {props.data.dateCreated.substring(0, 16)}
+							Published Report - {props.data.dateCreated.substring(0, 16)}
 						</span>
 					</Carousel.Item>
 				</Carousel>

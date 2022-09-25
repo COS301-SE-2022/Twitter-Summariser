@@ -36,17 +36,6 @@ function Shared() {
 		};
 	}, []);
 
-	// #######################################################################
-
-	// EXTRACTING REQUIRED DATA
-	// let shared = report
-	// 	.filter(function (data) {
-	// 		return data.status === "VIEWER" || ;
-	// 	})
-	// 	.map(function (data) {
-	// 		return data;
-	// 	});
-
 	const loadIcon = (
 		<svg
 			role="status"
@@ -68,7 +57,6 @@ function Shared() {
 
 	return (
 		<div data-testid="shared">
-			{/* Api response comes here */}
 			<div className="">
 				<div className="">
 					<div className="flex flex-row flex-wrap justify-center p-2">

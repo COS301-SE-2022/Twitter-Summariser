@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiErrorCircle } from "react-icons/bi";
-// import { useLocation } from "react-router-dom";
 import Button from "./Button";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
@@ -10,17 +9,6 @@ function Modal({ setModalOn, setChoice, func, rID }: any) {
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
 	const { auth } = useAuth();
-	// const handleOKClick = () => {
-	// 	setChoice(true);
-	// 	setModalOn(false);
-	// 	console.log("setModal false");
-	// };
-
-	// const location = useLocation();
-	// const ind = location.pathname.lastIndexOf("/");
-	// // console.log(location.pathname.substring(ind + 1));
-
-	// const repID = location.pathname.substring(ind + 1);
 
 	const handleCancelClick = () => {
 		setChoice(false);
@@ -32,12 +20,7 @@ function Modal({ setModalOn, setChoice, func, rID }: any) {
 	const [enteredSearch, changeEnteredSearch] = useState("");
 	const [loading, changeLoading] = useState(false);
 	const [invalidURL, setInvalidURL] = useState(false);
-
 	const bStyle = { fontSize: "1.5rem", color: "red" };
-
-	// const axiosPrivate = useAxiosPrivate();
-	// const controller = new AbortController();
-	// const [clicked, changeClicked] = useState(false);
 
 	const searchHandler = (event: any) => {
 		changeEnteredSearch(event.target.value);
@@ -48,73 +31,36 @@ function Modal({ setModalOn, setChoice, func, rID }: any) {
 		changeLoading(!loading);
 	};
 
-	// const rerender = () => {
-
-	// }
-
 	const addTweet = async (tweetData: any) => {
 		try {
 			const tweet = await axiosPrivate.post("addCustomTweet", JSON.stringify(tweetData), {
 				signal: controller.signal
 			});
 
-			// console.log(tweet.data);
-
-			// console.log( props.func);
-
 			changeLoading(false);
 
 			if (tweet.data === "Invalid Tweet url.") {
 				// TWEET NOT FOUND - return error message
-				// console.log("Invalid tweet url. Please try again");
 				setInvalidURL(true);
-				// changeNAN(true);
 			} else {
 				// TWEET FOUND - do something with it
-				// console.log("Tweet found");
 				setModalOn(false);
 				func(true);
-
-				// console.log(tweet.data);
-				// changeNAN(false);
-				// setSuccessfulShare(true);
-				// setShare(false);
 			}
 		} catch (err) {
 			console.error(err);
 		}
-		// searchData;
-		// try {
-		// 	const response = await axiosPrivate.post("searchTweets", JSON.stringify(searchData), {
-		// 		signal: controller.signal
-		// 	});
-
-		// 	// do something with the response
-		// 	response.data;
-		// 	// changeResultSet(await response.data.resultSetID);
-		// 	// changeResponse(await response.data.tweets);
-		// 	// changeLoading(false);
-		// 	// changePulse(true);
-		// } catch (err) {
-		// 	console.error(err);
-		// }
 	};
 
 	const search = () => {
 		const tweetData = {
 			apiKey: auth.apiKey,
-			// reportID: localStorage.getItem("draftReportId"),
 			reportID: rID,
 			url: enteredSearch
-			// 	keyword: enteredSearch,
-			// 	numOfTweets: noOfTweets,
-			// 	sortBy: sort === "-" ? "-" : sort,
-			// 	filterBy: filter === "-" ? "-" : filter
 		};
 
 		if (enteredSearch !== "") {
 			loadingHandler();
-			// changeClicked(false);
 			addTweet(tweetData);
 		}
 	};
@@ -172,12 +118,6 @@ function Modal({ setModalOn, setChoice, func, rID }: any) {
 									className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
 									disabled
 								>
-									{/* <svg
-									className="animate-spin h-5 w-5 mr-3 bg-white"
-									viewBox="0 0 24 24"
-								> */}
-									{/* <!-- ... --> */}
-									{/* </svg> */}
 									{loadIcon}
 								</button>
 							)}
@@ -185,22 +125,6 @@ function Modal({ setModalOn, setChoice, func, rID }: any) {
 								<Button text="Search" size="large" handle={search} type="search" />
 							)}
 						</div>
-						{/* <div className="flex">
-							<button
-								type="submit"
-								onClick={handleOKClick}
-								className=" rounded px-4 py-2 text-white  bg-green-400 "
-							>
-								Yes
-							</button>
-							<button
-								type="submit"
-								onClick={handleCancelClick}
-								className="rounded px-4 py-2 ml-4 text-white bg-blue-500 "
-							>
-								No
-							</button>
-						</div> */}
 					</div>
 				</div>
 			</div>

@@ -42,7 +42,8 @@ export const generateReport = middyfy(
 				title: title.searchPhrase,
 				apiKey: params["apiKey"],
 				dateCreated: d.toString(),
-				author: params["author"]
+				author: params["author"],
+				blockNumber: tweets.length
 			});
 
 			const { data } = await clientV2.get("tweets", { ids: tweets });
@@ -366,7 +367,7 @@ export const getReport = middyfy(
 
 			if (per !== undefined) {
 				report.permission = per.type;
-			} else if (params.apiKey ===  report.apiKey) {
+			} else if (params.apiKey === report.apiKey) {
 				report.permission = "OWNER";
 			} else {
 				report.permission = "VIEWER";
@@ -374,7 +375,9 @@ export const getReport = middyfy(
 
 			const result = [];
 
-			const reportBlocks = await ServicesLayer.reportBlockService.getReportBlocks(report.reportID);
+			const reportBlocks = await ServicesLayer.reportBlockService.getReportBlocks(
+				report.reportID
+			);
 
 			const promises = reportBlocks.map(async (block) => {
 				const type = block.blockType;
@@ -389,7 +392,9 @@ export const getReport = middyfy(
 						tweetID: block.tweetID
 					};
 				} else if (type === "RICHTEXT") {
-					const style = await ServicesLayer.textStyleService.getStyle(block.reportBlockID);
+					const style = await ServicesLayer.textStyleService.getStyle(
+						block.reportBlockID
+					);
 					ob.block = {
 						text: block.richText,
 						position: block.position,
@@ -436,7 +441,7 @@ export const getReport = middyfy(
 				bl = false;
 			}
 
-			const { data } = await clientV2.get("tweets", { ids: params.tweets });
+			const { data } = await clientV2.get("tweets", { ids: tweets });
 
 			let twts = [];
 
@@ -465,7 +470,7 @@ export const getReport = middyfy(
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify({report})
+				body: JSON.stringify({ report })
 			};
 		} catch (e) {
 			return {
@@ -578,17 +583,32 @@ export const getSharedReport = middyfy(
 
 			const re = await ServicesLayer.reportService.getSharedReports(params.apiKey);
 
-			for (let report of re) {
-				const user = await ServicesLayer.creatorService.getCreatorByKey(report.apiKey);
-				report.profileKey = user.profileKey;
-				delete report.apiKey;
-				delete report.resultSetID;
-			}
+			re.sort((a, b) => {
+				return new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime();
+			});
 
+			let responseArray = await re.reduce(async (result, report) => {
+				let resultArray = await result;
+				if(report.status !== "DELETED") {
+					
+
+					const user = await ServicesLayer.creatorService.getCreatorByKey(report.apiKey);
+					report.profileKey = user.profileKey;
+					delete report.apiKey;
+					delete report.resultSetID;
+
+					resultArray.push(report);
+
+				} else {
+					ServicesLayer.permissionService.deletePermission(report.reportID, params.apiKey);
+				}
+				return result;
+			}, Promise.resolve([]));
+		
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify(re)
+				body: JSON.stringify(responseArray)
 			};
 		} catch (e) {
 			return {

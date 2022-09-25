@@ -2,7 +2,6 @@ import { GoHome } from "react-icons/go";
 import { BiHash } from "react-icons/bi";
 import { TiDocumentText } from "react-icons/ti";
 import { RiDraftLine } from "react-icons/ri";
-// import { BsShare } from "react-icons/bs";
 import { HiOutlineLogin } from "react-icons/hi";
 import { AiOutlineHistory } from "react-icons/ai";
 import { Link, useNavigate, useLocation } from "react-router-dom";
@@ -27,15 +26,6 @@ function MobileNavigation(props: any) {
 		localStorage.clear();
 		navigate("/login");
 	};
-
-	// const imageStyle: any = {
-	// 	backgroundImage:
-	// 		auth.profileKey === "assets/profile.png"
-	// 			? "url(assets/profile.png)"
-	// 			: `url(https://twitter-summariser-images.s3.amazonaws.com/${
-	// 					auth.profileKey
-	// 			  }?${new Date().getTime()})`
-	// };
 
 	const imageURL =
 		auth.profileKey === "assets/profile.png"
@@ -77,7 +67,6 @@ function MobileNavigation(props: any) {
 					>
 						<div className="items-end ">
 							<GoHome style={style} />
-							{/* <GoHome /> */}
 						</div>
 						<div>&nbsp; Home</div>
 					</Link>
@@ -108,45 +97,6 @@ function MobileNavigation(props: any) {
 						<div>&nbsp; Report</div>
 					</Link>
 				</div>
-
-				{/* <div className="pt-4 flex flex-row ml-4" key={(3).toString()}>
-					<Link
-						to="/reports"
-						className="flex flex-row hover:text-slate-50"
-						onClick={() => pageHandler()}
-					>
-						<div className="items-end pt-1 ">
-							<TiDocumentText style={style} />
-						</div>
-						<div>&nbsp; Published</div>
-					</Link>
-				</div>
-
-				<div className="pt-4 flex flex-row ml-4" key={(4).toString()}>
-					<Link
-						to="/drafts"
-						className="flex flex-row hover:text-slate-50"
-						onClick={() => pageHandler()}
-					>
-						<div className="items-end pt-1 ">
-							<RiDraftLine style={style} />
-						</div>
-						<div>&nbsp; Drafts</div>
-					</Link>
-				</div>
-
-				<div className="pt-4 flex flex-row ml-4" key={(5).toString()}>
-					<Link
-						to="/shared"
-						className="flex flex-row hover:text-slate-50"
-						onClick={() => pageHandler()}
-					>
-						<div className="items-end pt-1 ">
-							<BsShare style={style} />
-						</div>
-						<div>&nbsp; Shared</div>
-					</Link>
-		</div> */}
 
 				<div className="pt-4 flex flex-row ml-4" key={(6).toString()}>
 					<Link

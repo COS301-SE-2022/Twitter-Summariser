@@ -14,7 +14,7 @@ function NotificationCard(props: any) {
 	const { auth } = useAuth();
 
 	const imageURL =
-		props.data.senderUrl === "assets/profile.png"
+		(props.data.senderUrl).startsWith("assets/")
 			? props.data.senderUrl
 			: `https://s3.amazonaws.com/twitter-summariser-images/${
 					props.data.senderUrl
@@ -91,7 +91,6 @@ function NotificationCard(props: any) {
 			</div>
 			{isOpen && (
 				<ul className="absolute right-5 bg-white shadow-lg text-sm w-36 p-3 md:p-5 space-y-3 ">
-					{/* <li className="flex flex-row ">Mark as read</li> */}
 					<li className="flex flex-row ">
 						<div onClick={deleteNotificationHandler}>
 							<RiDeleteBinFill size={18} style={{ fill: "#b91c1c" }} />

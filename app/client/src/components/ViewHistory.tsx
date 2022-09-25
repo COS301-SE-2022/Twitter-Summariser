@@ -189,7 +189,6 @@ function ViewHistory() {
 				) : (
 					<div>
 						<div className="flex flex-col flex-wrap justify-around pt-3 pb-4 pl-4 ">
-							{/*  */}
 							<h1 className="text-3xl mt-12">{searchPhrase}</h1>
 
 							<div className="flex flex-col mt-4">
@@ -210,7 +209,6 @@ function ViewHistory() {
 										<p>{sort}</p>
 									</div>
 								</div>
-								{/* this is for the Fitlering options */}
 							</div>
 						</div>
 
@@ -219,26 +217,12 @@ function ViewHistory() {
 							{apiResponse}
 							<br />
 							<div className="flex flex-row w-full justify-center pt-3 mb-20">
-								{/* <button
-								data-testid="btn-generate"
-								type="submit"
-								className="button w-3/4 text-lg p-0.5"
-								onClick={genRep}
-							>
-								Generate Report
-							</button> */}
 								{generateLoading && (
 									<button
 										type="button"
 										className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-full items-center"
 										disabled
 									>
-										{/* <svg
-									className="animate-spin h-5 w-5 mr-3 bg-white"
-									viewBox="0 0 24 24"
-								> */}
-										{/* <!-- ... --> */}
-										{/* </svg> */}
 										{loadIcon}
 									</button>
 								)}

@@ -7,7 +7,6 @@ import AuthLink from "./AuthLink";
 
 function LoginPage({ loginPageData }: any) {
 	const pageStyle = "flex justify-center flex-col items-center h-screen w-screen";
-
 	const currPage = loginPageData.page;
 	const submissionHandler = loginPageData.subHandler;
 	const changeHandlerMethod = loginPageData.changeHandler;
