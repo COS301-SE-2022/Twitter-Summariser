@@ -14,7 +14,7 @@ function NotificationCard(props: any) {
 	const { auth } = useAuth();
 
 	const imageURL =
-		props.data.senderUrl === "assets/profile.png"
+		(props.data.senderUrl).startsWith("assets/")
 			? props.data.senderUrl
 			: `https://s3.amazonaws.com/twitter-summariser-images/${
 					props.data.senderUrl
