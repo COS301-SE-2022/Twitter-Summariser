@@ -28,7 +28,7 @@ export const generateReport = middyfy(
 			const { tweets } = title;
 
 			let id: string;
-			if(params.reportID === undefined){
+			if(params["reportID"] === undefined){
 				id = "RT-" + randomUUID();
 			}else{
 				id = params.reportID;
@@ -44,7 +44,7 @@ export const generateReport = middyfy(
 				dateCreated: d.toString(),
 				author: params["author"]
 			});
-			
+
 			const { data } = await clientV2.get("tweets", { ids: tweets });
 
 			let twts = "";
