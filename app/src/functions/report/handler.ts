@@ -359,7 +359,7 @@ export const getReport = middyfy(
 				params.apiKey
 			);
 
-			report = await ServicesLayer.reportService.getReport(params.reportID);
+			//report = await ServicesLayer.reportService.getReport(params.reportID);
 
 			if (per !== undefined) {
 				report.permission = per.type;
@@ -429,13 +429,14 @@ export const getReport = middyfy(
 				bl = false;
 			}
 
-			const Report = rp;
-			const numOfBlocks = count;
+			report.Report = rp;
+			report.numOfBlocks = count;
+			delete report.apiKey;
 
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify({ report:  Report, numBlocks: numOfBlocks })
+				body: JSON.stringify(report)
 			};
 		} catch (e) {
 			return {
