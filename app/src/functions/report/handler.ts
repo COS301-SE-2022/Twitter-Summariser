@@ -578,25 +578,32 @@ export const getSharedReport = middyfy(
 
 			const re = await ServicesLayer.reportService.getSharedReports(params.apiKey);
 
-			re.forEach(async (report, index) => {
-				if (report.status === "DELETED") {
-					re.splice(index, 1);
-				} else {
-					const user = await ServicesLayer.creatorService.getCreatorByKey(report.apiKey);
-					report.profileKey = user.profileKey;
-					delete report.apiKey;
-					delete report.resultSetID;
-				}
-			});
-
 			re.sort((a, b) => {
 				return new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime();
 			});
 
+			let responseArray = await re.reduce(async (result, report) => {
+				let resultArray = await result;
+				if(report.status !== "DELETED") {
+					
+
+					const user = await ServicesLayer.creatorService.getCreatorByKey(report.apiKey);
+					report.profileKey = user.profileKey;
+					delete report.apiKey;
+					delete report.resultSetID;
+
+					resultArray.push(report);
+
+				} else {
+					ServicesLayer.permissionService.deletePermission(report.reportID, params.apiKey);
+				}
+				return result;
+			}, Promise.resolve([]));
+		
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
-				body: JSON.stringify(re)
+				body: JSON.stringify(responseArray)
 			};
 		} catch (e) {
 			return {
