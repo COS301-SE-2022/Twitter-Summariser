@@ -44,7 +44,8 @@ describe("report.service", () => {
 				apiKey: "ABdggekj23",
 				dateCreated: "2022-01-01",
 				title: "This is my report",
-				author: "Test"
+				author: "Test",
+				blockNumber: 0
 			};
 
 			expect(report).toEqual(expected);
