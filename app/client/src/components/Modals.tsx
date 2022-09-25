@@ -66,13 +66,10 @@ function Modals({
 	};
 
 	const sortHandler = (event: any) => {
-		console.log("Sort by: ", event.target.value);
-
 		changeSort(event.target.value);
 	};
 
 	const filterHandler = (event: any) => {
-		console.log("Fitler by: ", event.target.value);
 		changeFilter(event.target.value);
 	};
 
@@ -88,10 +85,6 @@ function Modals({
 
 	const [checkedValue, setCheckedValue] = useState(false);
 
-	// const checkedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-	// 	setChecked(event.target.checked);
-	// 	setCheckedValue(event.target.checked);
-	// };
 
 	function advanceSearch() {
 		changeDateTime();
@@ -106,63 +99,28 @@ function Modals({
 				signal: controller.signal
 			});
 
-			// console.log(tweet.data);
-
-			// console.log( props.func);
-
 			changeLoading(false);
 
 			if (tweet.data === "Invalid Tweet url.") {
-				// TWEET NOT FOUND - return error message
-				// console.log("Invalid tweet url. Please try again");
 				setInvalidURL(true);
-				// changeNAN(true);
 			} else {
-				// TWEET FOUND - do something with it
-				// console.log("Tweet found");
 				setModalOn(false);
 				func(true);
-
-				// console.log(tweet.data);
-				// changeNAN(false);
-				// setSuccessfulShare(true);
-				// setShare(false);
 			}
 		} catch (err) {
 			console.error(err);
 		}
-		// searchData;
-		// try {
-		// 	const response = await axiosPrivate.post("searchTweets", JSON.stringify(searchData), {
-		// 		signal: controller.signal
-		// 	});
-
-		// 	// do something with the response
-		// 	response.data;
-		// 	// changeResultSet(await response.data.resultSetID);
-		// 	// changeResponse(await response.data.tweets);
-		// 	// changeLoading(false);
-		// 	// changePulse(true);
-		// } catch (err) {
-		// 	console.error(err);
-		// }
 	};
 
 	const search = () => {
 		const tweetData = {
 			apiKey: auth.apiKey,
-			// reportID: localStorage.getItem("draftReportId"),
 			reportID: rID,
 			url: enteredSearch
-			// 	keyword: enteredSearch,
-			// 	numOfTweets: noOfTweets,
-			// 	sortBy: sort === "-" ? "-" : sort,
-			// 	filterBy: filter === "-" ? "-" : filter
 		};
 
 		if (enteredSearch !== "") {
 			loadingHandler();
-			// changeClicked(false);
 			addTweet(tweetData);
 		}
 	};
@@ -204,11 +162,6 @@ function Modals({
 		type
 	};
 
-	// const shareHandler = () => {
-	// 	setSuccessfulShare(false);
-	// 	setShare(!share);
-	// };
-
 	const enteredShareHandler = (event: any) => {
 		changeNAN(false);
 		changeEnteredShare(event.target.value);
@@ -233,7 +186,6 @@ function Modals({
 				changeNAN(false);
 				setSuccessfulShare(true);
 				setShareLoadIcon(false);
-				// setShare(false);
 			}
 		} catch (err) {
 			console.error(err);
@@ -538,28 +490,12 @@ function Modals({
 														/>
 													</Form.Group>
 												</Form>
-												{/* <input
-													type="search"
-													id="default-search"
-													className="p-3 my-5 mx-5 pl-10 text-sm text-gray-900 bg-gray-50 rounded-full border-gray-200 border focus:outline-none focus:ring focus:border-blue-500"
-													value={enteredSearch}
-													onChange={searchHandler}
-													placeholder="Enter the tweet URL..."
-													required
-												/> */}
-
 												{loading && (
 													<button
 														type="button"
 														className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
 														disabled
 													>
-														{/* <svg
-									className="animate-spin h-5 w-5 mr-3 bg-white"
-									viewBox="0 0 24 24"
-								> */}
-														{/* <!-- ... --> */}
-														{/* </svg> */}
 														{loadIcon}
 													</button>
 												)}
@@ -572,22 +508,6 @@ function Modals({
 													/>
 												)}
 											</div>
-											{/* <div className="flex">
-							<button
-								type="submit"
-								onClick={handleOKClick}
-								className=" rounded px-4 py-2 text-white  bg-green-400 "
-							>
-								Yes
-							</button>
-							<button
-								type="submit"
-								onClick={handleCancelClickAddTweet}
-								className="rounded px-4 py-2 ml-4 text-white bg-blue-500 "
-							>
-								No
-							</button>
-						</div> */}
 										</div>
 									</Dialog.Panel>
 								</Transition.Child>
@@ -638,47 +558,6 @@ function Modals({
 												/>
 											</div>
 										</Dialog.Title>
-										{/* <div className="flex-col justify-center   p-12 ">
-											{invalidURL && (
-												<div className="flex flex-row border-2 border-red-500 rounded-md bg-red-300 h-auto w-60 m-4 mb-5 p-2">
-													<BiErrorCircle style={bStyle} />
-													<p className="pl-2 items-center justify-center">
-														Invalid URL
-													</p>
-												</div>
-											)}
-											<div className="flex flex-col justify-center items-center  text-lg  text-zinc-600  my-2">
-												<Form className="w-full mb-3">
-													<Form.Group>
-														<Form.Control
-															type="search"
-															value={enteredSearch}
-															onChange={searchHandler}
-															placeholder="Enter the tweet URL..."
-															className="w-full"
-														/>
-													</Form.Group>
-												</Form>
-
-												{loading && (
-													<button
-														type="button"
-														className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-60 items-center"
-														disabled
-													>
-														{loadIcon}
-													</button>
-												)}
-												{!loading && (
-													<Button
-														text="Search"
-														size="large"
-														handle={search}
-														type="search"
-													/>
-												)}
-											</div>
-										</div> */}
 										<div className="flex-col justify-center   p-12 ">
 											<div className="flex flex-col justify-center items-center  text-lg  text-zinc-600  my-2">
 												{NAN && (
@@ -703,28 +582,6 @@ function Modals({
 														/>
 													</Form.Group>
 												</Form>
-												{/* <input
-														data-testid="search"
-														type="search"
-														className="
-									nosubmit
-									w-full
-									px-3
-									py-1.5
-									text-lg
-									font-normal
-									text-gray-700
-									bg-clip-padding
-									border border-solid border-gray-300
-									rounded-lg
-									focus:text-gray-700 focus:bg-white focus:border-twitter-blue focus:outline-none
-									bg-gray-200
-								"
-														onChange={enteredShareHandler}
-														placeholder="enter user email ..."
-													/> */}
-
-												{/*  */}
 
 												<div className="flex flex-row flex-wrap justify-around items-center p-3 rounded-md bg-slate-100 w-full">
 													<div className="mb-0">
@@ -742,31 +599,6 @@ function Modals({
 														</Form.Select>
 													</div>
 												</div>
-
-												{/* this is for the Fitlering options */}
-												{/* <div className="flex flex-row flex-wrap w-1/3 justify-center">
-													<p className="">Allow User to: </p> &nbsp;
-													<select
-														data-testid="select-filter"
-														className=" text-black text-center"
-														onChange={typeHandler}
-													>
-														<option value="VIEWER">View</option>
-														<option value="EDITOR">Edit</option>
-													</select>
-												</div> */}
-
-												{/* this is for the search button */}
-												{/* <div className="flex flex-row w-1/3 justify-center pt-3">
-													<button
-														data-testid="btn-search"
-														type="submit"
-														className="button w-3/4 text-lg p-0.5"
-														onClick={shareSearchHandler}
-													>
-														Share
-													</button>
-												</div> */}
 
 												<div className="w-full justify-center items-center align-center text-center">
 													{shareLoadIcon ? (

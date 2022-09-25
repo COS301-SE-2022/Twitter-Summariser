@@ -82,8 +82,6 @@ function DraftReport() {
 			isMounted && setDate(response.data.report.dateCreated.substring(0, 16));
 			isMounted && changePageLoading(false);
 
-			// console.log(response.data);
-
 			if (pulseCounter === 0) {
 				changePulse(true);
 			}
@@ -122,15 +120,13 @@ function DraftReport() {
 
 	const publishHandler = () => {
 		publishReport(requiredData);
-		// const draftId = String(localStorage.getItem("draftReportId"));
-		// localStorage.setItem("reportId", draftId);
+
 	};
 
 	const apiResponse = [<div key="begining div" />];
 
 	const reorderUpHandler = async (tweetPos: any) => {
 		const resultDetails = {
-			// reportID: localStorage.getItem("draftReportId"),
 			reportID: repID,
 			apiKey: auth.apiKey,
 			pos: tweetPos,
@@ -149,14 +145,11 @@ function DraftReport() {
 
 	const reorderDownHandler = async (tweetPos: any) => {
 		const resultDetails = {
-			// reportID: localStorage.getItem("draftReportId"),
 			reportID: repID,
 			apiKey: auth.apiKey,
 			pos: tweetPos,
 			newPlace: "DOWN"
 		};
-
-		// console.log(resultDetails);
 
 		try {
 			await axiosPrivate.post("reorderTweets", JSON.stringify(resultDetails), {
@@ -168,25 +161,6 @@ function DraftReport() {
 		}
 	};
 
-	// UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY
-	// const deleteTweetHandler = async (blockID: any) => {
-	// 		const deleteDetails = {
-	// 			apiKey: auth.apiKey,
-	// 			reportID: localStorage.getItem("draftReportId"),
-	// 			reportBlockID: blockID
-	// 		};
-
-	// 		try {
-	// 			await axiosPrivate.post("deleteReportBlock", JSON.stringify(deleteDetails), {
-	// 				signal: controller.signal
-	// 			});
-	// 			changeShouldRender(true);
-	// 		} catch (err) {
-	// 			console.error(err);
-	// 		}
-	// 	};
-
-	// console.log(state);
 
 	state.map((data: any, index: number) =>
 		apiResponse.push(
@@ -230,32 +204,8 @@ function DraftReport() {
 								</div>
 							</div>
 						</div>
-						{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
-						{/* <div className="w-1/6 flex text-center justify-center">
-						<button type="button" onClick={() => deleteTweetHandler(data.reportBlockID)}>
-							<MdDeleteOutline style={iconStyle3} />
-						</button>
-					</div> */}
 					</>
-				)}
-				{/* {data.blockType === "TWEET" && data.position > 1 && data.position < state.length-3 && (
-					<div className=" w-full border border-gray-200 p-3" key={data.position}>
-						<Tweet
-							options={{ align: "center", width: "" }}
-							tweetId={data.block.tweetID}
-						/>
-						<div className="" data-bs-toggle="tooltip" title="Move Tweet Up">
-							<button type="submit">
-								<BsArrowUp style={style} onClick={() => reorderUpHandler(data.position)} />
-							</button>
-						</div>
-						<div className="" data-bs-toggle="tooltip" title="Move Tweet Down">
-							<button type="submit">
-								<BsArrowDown style={style} onClick={() => reorderDownHandler(data.position)} />
-							</button>
-						</div>
-					</div>
-				)} */}
+				)}			
 
 				{/* LAST TWEET */}
 				{data.blockType === "TWEET" && data.position === state.length - 1 && (
@@ -283,12 +233,6 @@ function DraftReport() {
 								tweetId={data.block.tweetID}
 							/>
 						</div>
-						{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
-						{/* <div className="w-1/6 flex text-center justify-center">
-							<button type="button" onClick={() => deleteTweetHandler(data.reportBlockID)}>
-								<MdDeleteOutline style={iconStyle3} />
-							</button>
-						</div> */}
 					</>
 				)}
 
@@ -334,34 +278,8 @@ function DraftReport() {
 									</div>
 								</div>
 							</div>
-							{/* UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY */}
-							{/* <div className="w-1/6 flex text-center justify-center">
-							<button type="button" onClick={() => deleteTweetHandler(data.reportBlockID)}>
-								<MdDeleteOutline style={iconStyle3} />
-							</button>
-						</div> */}
 						</>
 					)}
-
-				{/* {data.blockType === "TWEET" && (
-					<div className=" w-full border border-gray-200 p-3" key={data.position}>
-						<Tweet
-							options={{ align: "center", width: "" }}
-							tweetId={data.block.tweetID}
-						/>
-						<div className="" data-bs-toggle="tooltip" title="Move Tweet Up">
-							<button type="submit">
-								<BsArrowUp style={style} onClick={() => reorderUpHandler(data.position)} />
-							</button>
-						</div>
-						<div className="" data-bs-toggle="tooltip" title="Move Tweet Down">
-							<button type="submit">
-								<BsArrowDown style={style} onClick={() => reorderDownHandler(data.position)} />
-							</button>
-						</div>
-					</div>
-
-				)} */}
 			</div>
 		)
 	);
@@ -394,7 +312,6 @@ function DraftReport() {
 
 	const requiredDataForShare = {
 		apiKey: auth.apiKey,
-		// reportID: localStorage.getItem("draftReportId"),
 		reportID: repID,
 		email: enteredShare,
 		type
@@ -426,7 +343,6 @@ function DraftReport() {
 
 	const deleteReportHandler = async () => {
 		const resultDetails = {
-			// reportID: localStorage.getItem("draftReportId"),
 			reportID: repID,
 			apiKey: auth.apiKey
 		};
@@ -443,7 +359,6 @@ function DraftReport() {
 
 	const cloneReportHandler = async () => {
 		const resultDetails = {
-			// reportID: localStorage.getItem("draftReportId"),
 			reportID: repID,
 			apiKey: auth.apiKey
 		};
@@ -516,11 +431,6 @@ function DraftReport() {
 									</div>
 								)}
 								<div className="">&nbsp;&nbsp;</div>
-								{/* <div className="" data-bs-toggle="tooltip" title="Clone Report">
-								<button type="submit">
-									<GrCopy style={iconStyle3} />
-								</button>
-							</div> */}
 								<div
 									className=""
 									data-bs-toggle="tooltip"
@@ -559,48 +469,6 @@ function DraftReport() {
 						)}
 					</div>
 
-					{/* {share && (
-				<div className="flex flex-col">
-					{NAN && (
-						<div className="flex flex-row border-2 border-red-500 rounded-md bg-red-300 h-auto w-2/4 ml-6 p-2">
-							<BiErrorCircle style={style} />
-							<p>User Does not Exist</p>
-						</div>
-					)}
-					<div className="ml-2 p-4 flex flex-row">
-						<input
-							data-testid="search"
-							type="search"
-							className="
-                nosubmit
-                w-3/4
-                px-3
-                py-1.5
-                text-lg
-                font-normal
-                text-gray-700
-                bg-clip-padding
-                border border-solid border-gray-300
-                rounded-lg
-                focus:text-gray-700 focus:bg-white focus:border-twitter-blue focus:outline-none
-                bg-gray-200
-              "
-							onChange={enteredShareHandler}
-							placeholder="enter user email ..."
-						/>
-						<button
-							data-testid="btn-search"
-							type="submit"
-							className="button w-1/4 text-lg p-0.5"
-							onClick={shareSearchHandler}
-						>
-							Share
-						</button>
-					</div>
-				</div>
-			)} */}
-
-					{/* search */}
 					{share && (
 						<div className="flex flex-col">
 							{NAN && (
@@ -660,24 +528,6 @@ function DraftReport() {
 									>
 										Share
 									</button>
-									{/* {loading && ( */}
-									{/* <button
-												type="button"
-												className="flex flex-col bg-dark-cornflower-blue rounded-lg text-white  font-semibold opacity-50  group hover:shadow button_large text-lg justify-center h-10 w-full items-center"
-												disabled
-										> */}
-									{/* <svg
-					className="animate-spin h-5 w-5 mr-3 bg-white"
-					viewBox="0 0 24 24"
-				> */}
-									{/* <!-- ... --> */}
-									{/* </svg> */}
-									{/* {loadIcon} */}
-									{/* </button> */}
-									{/* )} */}
-									{/* {!loading && ( */}
-									{/* <Button text="Search" size="large" handle={shareSearchHandler} type="search" /> */}
-									{/* )} */}
 								</div>
 							</div>
 						</div>
@@ -698,14 +548,6 @@ function DraftReport() {
 
 					<div className="flex justify-center mb-20">
 						<Link to={newReportLink}>
-							{/* <button
-						onClick={publishHandler}
-						type="submit"
-						className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded button text-center"
-					>
-						{" "}
-						PUBLISH REPORT
-					</button> */}
 							<Button
 								text="Publish Report"
 								size="large"

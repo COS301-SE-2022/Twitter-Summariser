@@ -20,51 +20,19 @@ function Home() {
 	const [createTitle, changeCreateTitle] = useState("");
 	const [loading, changeLoading] = useState(false);
 	const [scheduleResponse, changeScheduleResponse] = useState("");
-
 	const [sentimentResponse, changeSentimentResponse] = useState<any[]>([]);
-
 	const [showTrends, changeShowTrends] = useState(true);
-
 	const [showSentimentOption, changeShowSentimentOption] = useState(false);
 	const style2 = { fontSize: "1.5rem" };
-
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
 	const [generateLoading, changeGenerateLoading] = useState(false);
 	const { auth } = useAuth();
 	const navigate = useNavigate();
-
+	const trendsResponse = [<div key="begining div" />];
 	const style = { fontSize: "1.5rem" };
 
-	// const mockTrends = [
-	// 	"#QueenElizabeth",
-	// 	 "#ESKOM",
-	// 	 "#Haaland",
-	// 	 "COVID19",
-	// 	 "Biden",
-	// 	 "Ramaphosa"
-
-	// ];
-
 	let searchInput = document.getElementById("default-search") as HTMLInputElement;
-
-	const trendsResponse = [<div key="begining div" />];
-
-	// mockTrends.map((tweetData) =>
-	// 	trendsResponse.push(
-	// 		<div
-	// 			key={mockTrends.indexOf(tweetData)}
-	// 			className="cursor-pointer pb-2 text-midnight-blue font-semibold"
-	// 			onClick={() => {
-	// 				searchInput = document.getElementById("default-search") as HTMLInputElement;
-	// 				searchInput.value = tweetData
-	// 				changeEnteredSearch(tweetData);
-	// 			}}
-	// 		>
-	// 			{tweetData}
-	// 		</div>
-	// 	)
-	// );
 
 	const searchHandler = (event: any) => {
 		changeEnteredSearch(event.target.value);
@@ -141,30 +109,6 @@ function Home() {
 
 	const [checkedSentiment, setCheckedSentiment] = useState(false);
 
-	// const [semanticColor, changeSemanticColor] = useState("red");
-	// const sentimentColor = "green";
-
-	// const checkedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-	// 	setCheckedSentiment(event.target.checked);
-	// };
-
-	// const tweetHandler = (event: any) => {
-	// 	changeNoOfTweets(event.target.value);
-	// };
-
-	// const sortHandler = (event: any) => {
-	// 	changeSort(event.target.value);
-	// };
-
-	// const filterHandler = (event: any) => {
-	// 	changeFilter(event.target.value);
-	// };
-
-	// UNCOMMENT FOR SCHEDULE REPORT FUNCTIONALITY
-	// const scheduleHandler = (event: any) => {
-	// 	changeSchedule(event.target.value);
-	// }
-
 	const [pulse, changePulse] = useState(false);
 
 	const analyseData: any[] = [];
@@ -205,18 +149,7 @@ function Home() {
 
 	const apiResponseWithSentimentAnalysis = [<div key="begining div" />];
 
-	// 	// searchResponse.map((data) =>
-	// 	// 	apiResponseWithSentimentAnalysis.push(
-	// 	// 		<div className={`pb-8 border-2 border-${sentimentCol}-500`} key={data.tweetId}>
-	// 	// 			<Tweet options={{ align: "center" }} tweetId={data.tweetId} onLoad={done} />
-	// 	// 		</div>
-	// 	// 	)
-	// 	// );
-	// }
-
 	const viewSentimentAnalysis = async (sentimentData: any) => {
-		// console.log(sentimentData);
-
 		try {
 			const response = await axiosPrivate.post("getSentiment", JSON.stringify(sentimentData));
 			changeSentimentResponse(await response.data);
@@ -227,13 +160,7 @@ function Home() {
 
 	const analyse = (resp: any) => {
 		resp.map((data: { tweetId: any }) => analyseData.push(data.tweetId));
-
-		const sentimentData = {
-			tweets: analyseData
-		};
-
-		// console.log(sentimentData);
-
+		const sentimentData = {	tweets: analyseData };
 		viewSentimentAnalysis(sentimentData);
 	};
 
@@ -242,8 +169,6 @@ function Home() {
 			setCheckedSentiment(false);
 		} else {
 			setCheckedSentiment(true);
-			// console.log(searchResponse);
-
 			analyse(searchResponse);
 		}
 	};
@@ -253,7 +178,6 @@ function Home() {
 			const response = await axiosPrivate.post("searchTweets", JSON.stringify(searchData));
 			changeResultSet(await response.data.resultSetID);
 			changeResponse(await response.data.tweets);
-			// console.log(await response.data.tweets);
 			changeLoading(false);
 			changePulse(true);
 			analyse(await response.data.tweets);
@@ -288,8 +212,6 @@ function Home() {
 	const tweetOptions = [];
 	let apiResponse = [<div key="begining div" />];
 
-	// const apiResponseWithSentimentAnalysis = [<div key="begining div" />];
-
 	for (let index = 5; index <= 100; index += 5) {
 		tweetOptions.push(<option key={index.toString()}>{index}</option>);
 	}
@@ -301,56 +223,37 @@ function Home() {
 		}
 	};
 
-	// const done = () => {
-	// 	changePulse(false);
-	// };
-
 	function opacityValue(inp: number): number {
-		// console.log(inp);
-
 		if (inp > 0 && inp <= 10) {
-			// console.log("10");
 			return 10;
 		}
 		if (inp > 10 && inp <= 20) {
-			// console.log("20");
 			return 20;
 		}
 		if (inp > 20 && inp <= 30) {
-			// console.log("30");
 			return 30;
 		}
 		if (inp > 30 && inp <= 40) {
-			// console.log("40");
 			return 40;
 		}
 		if (inp > 40 && inp <= 50) {
-			// console.log("50");
 			return 50;
 		}
 		if (inp > 50 && inp <= 60) {
-			// console.log("60");
 			return 60;
 		}
 		if (inp > 60 && inp <= 70) {
-			// console.log("70");
 			return 70;
 		}
 		if (inp > 70 && inp <= 80) {
-			// console.log("80");
 			return 80;
 		}
 		if (inp > 80 && inp <= 90) {
-			// console.log("90");
 			return 90;
 		}
 		if (inp > 90 && inp <= 100) {
-			// console.log("100");
 			return 100;
 		}
-
-		// console.log("here");
-
 		return 0;
 	}
 
@@ -378,7 +281,6 @@ function Home() {
 						</p>
 					</div>
 				)}
-				{/* <br /> */}
 				{data.sentimentWord === "POSITIVE" && (
 					<div
 						className={` border-2 border-green-500 border-opacity-${opacityValue(
@@ -392,7 +294,6 @@ function Home() {
 						</p>
 					</div>
 				)}
-				{/* <br /> */}
 				{data.sentimentWord === "MIXED" && (
 					<div
 						className={` border-2 border-gray-500 border-opacity-${opacityValue(
@@ -406,7 +307,6 @@ function Home() {
 						</p>
 					</div>
 				)}
-				{/* <br /> */}
 				{data.sentimentWord === "NEUTRAL" && (
 					<div
 						className={` border-2 border-blue-500 border-opacity-${opacityValue(
@@ -425,8 +325,6 @@ function Home() {
 			</>
 		)
 	);
-
-	// console.log(sentimentResponse);
 
 	const draftID = draftReport;
 	const newDraftReportLink = `/report/${draftID}`;
@@ -489,7 +387,6 @@ function Home() {
 				JSON.stringify(trendData)
 			);
 			isMounted && changeTrends(response.data);
-			// console.log(await response.data);
 			changeLoading(false);
 		} catch (error) {
 			console.error(error);
@@ -505,22 +402,6 @@ function Home() {
 			controller.abort();
 		};
 	}, []);
-
-	// const getTrends = async () => {
-
-	// 	const trendData = {};
-
-	// 		try {
-	// 			const response = await axiosPrivate.post("getTrendingTopics",JSON.stringify(trendData));
-	// 			// isMounted && changeTrends(response.data);
-	// 			console.log(await response.data);
-	// 			changeLoading(false);
-	// 		} catch (error) {
-	// 			console.error(error);
-	// 		}
-	// 	};
-
-	// getTrends();
 
 	trends.map((tweetData) =>
 		trendsResponse.push(
@@ -559,59 +440,13 @@ function Home() {
 			}
 		};
 
-		// const getTrends = async () => {
-		// 	try {
-		// 		const response = await axiosPrivate.post(
-		// 			"getTrendingTopics",
-		// 			JSON.stringify({}),
-		// 			{ signal: controller.signal }
-		// 		);
-		// 		// isMounted && changeTrends(response.data);
-		// 		console.log(await response.data);
-
-		// 		isMounted && changeLoading(false);
-		// 	} catch (error) {
-		// 		console.error(error);
-		// 	}
-		// };
-
 		getReports();
-		// getReports;
-
-		// getTrends();
 
 		return () => {
 			isMounted = false;
 			controller.abort();
 		};
 	}, [axiosPrivate]);
-
-	// useEffect(() => {
-	// 	let isMounted = true;
-
-	// 	const getTrends = async () => {
-	// 		try {
-	// 			const response = await axiosPrivate.post(
-	// 				"getTrendingTopics",
-	// 				JSON.stringify({})
-	// 				// { signal: controller.signal }
-	// 			);
-	// 			// isMounted && changeTrends(response.data);
-	// 			console.log(await response.data);
-
-	// 			isMounted && changeLoading(false);
-	// 		} catch (error) {
-	// 			console.error(error);
-	// 		}
-	// 	};
-
-	// 	getTrends();
-
-	// 	return () => {
-	// 		isMounted = false;
-	// 		controller.abort();
-	// 	};
-	// }, [axiosPrivate]);
 
 	const [homeDefault, changeHomeDefault] = useState(true);
 
@@ -779,14 +614,6 @@ function Home() {
 					<br />
 
 					{showSentimentOption && !checkedSentiment && (
-						// <div className="mb-0">
-						// 	<p className="">Show sentiment analysis:</p>
-						// 	<Checkbox
-						// 		checked={checkedSentiment}
-						// 		onChange={checkedHandler}
-						// 		inputProps={{ "aria-label": "controlled" }}
-						// 	/>
-						// </div>
 						<div className="" data-bs-toggle="tooltip" title="Show sentiment analysis">
 							<button type="submit">
 								<AiOutlineEye style={style2} onClick={checkedHandler} />
@@ -794,14 +621,6 @@ function Home() {
 						</div>
 					)}
 					{showSentimentOption && checkedSentiment && (
-						// <div className="mb-0">
-						// 	<p className="">Show sentiment analysis:</p>
-						// 	<Checkbox
-						// 		checked={checkedSentiment}
-						// 		onChange={checkedHandler}
-						// 		inputProps={{ "aria-label": "controlled" }}
-						// 	/>
-						// </div>
 						<div className="" data-bs-toggle="tooltip" title="Show sentiment analysis">
 							<button type="submit">
 								<AiOutlineEyeInvisible style={style2} onClick={checkedHandler} />
@@ -815,7 +634,6 @@ function Home() {
 						</div>
 					)}
 
-					{/* Api response comes here */}
 					<div data-testid="result" className="flex flex-col">
 						{clicked && (
 							<div
@@ -849,7 +667,6 @@ function Home() {
 							</div>
 						)}
 
-						{/* advanced search modal */}
 						{advance && (
 							<Modals
 								setAdvanceOn={setAdvanceOn}
@@ -878,18 +695,6 @@ function Home() {
 							<h1 className="text-2xl  flex flex-row justify-center border-b-4 mb-2  pb-4 w-full mr-16 align-middle items-center border-slate-300">
 								LATEST TRENDS
 							</h1>
-							{/* {loading && <div>{loadIcon} &nbsp; Loading latest Trending Topics</div>} */}
-							{/* {!loading &&
-							(trends.length === 0 ? (
-								<div>There are no trends at the moment </div>
-							) : (
-								trends.map((data) => (
-									<div>
-										#{data}
-									</div>
-								))
-							))} */}
-
 							<div>{trendsResponse}</div>
 						</div>
 					)}

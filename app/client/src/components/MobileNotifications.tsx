@@ -6,7 +6,6 @@ import { NotificationsContext } from "../context/NotificationsContext";
 
 function MobileNotifications() {
 	const { notifications, getNotifications } = useContext(NotificationsContext);
-
 	const [isOpen, setIsOpen] = useState(false);
 	const [shouldRender, changeShouldRender] = useState(true);
 	const controller = new AbortController();

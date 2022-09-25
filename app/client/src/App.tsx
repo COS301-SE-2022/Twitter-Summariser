@@ -23,7 +23,6 @@ import Drafts from "./components/Drafts";
 import Shared from "./components/Shared";
 import History from "./components/History";
 import Profile from "./components/Profile";
-// import DraftReport from "./components/DraftReport";
 import Report from "./components/Report";
 import ViewHistory from "./components/ViewHistory";
 import Splash from "./components/Splash";

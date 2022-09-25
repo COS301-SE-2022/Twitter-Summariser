@@ -52,10 +52,6 @@ function Profile() {
 		}
 	};
 
-	// if (auth.profileKey !== "assets/profile.png") {
-	// 	showLoader(false);
-	// }
-
 	useEffect(() => {
 		let isMounted = true;
 		getReports(isMounted);
@@ -84,8 +80,6 @@ function Profile() {
 			wasteTime(8000).then(() => loaderHandler());
 		}
 	}
-
-	// const sleep = (ms: any) => new Promise((resolve) => setTimeout(resolve, ms));
 
 	const imageUpload = (event: any) => {
 		event.preventDefault;
@@ -166,7 +160,6 @@ function Profile() {
 	return (
 		<div data-testid="profile">
 			<div className="flex flex-col items-center mt-3">
-				{/* div for the image */}
 				<div className="avatar-upload">
 					<div className="avatar-edit">
 						<input
@@ -187,23 +180,16 @@ function Profile() {
 									: "flex flex-row justify-center items-center bg-slate-300"
 							}`}
 						>
-							{/* <img
-								src="./assets/profile.png"
-								alt="test"
-								className="image rounded-full"
-							/> */}
 							<div>{loader && imageLoadIcon}</div>
 						</div>
 					</div>
 				</div>
-				{/* div for name, emails, number of reports published, share icon etc */}
 				<div className="h-20 w-2/3 text-center flex flex-col">
 					<div className=" text-3xl font-bold">{auth.username}</div>
 					<div className=" italic">{auth.email}</div>
 				</div>
 
 				<div data-testid="report">
-					{/* Api response comes here */}
 					<div className="w-full mt-4">
 						<div>
 							<div className="flex flex-row justify-around">
@@ -212,7 +198,6 @@ function Profile() {
 								</h1>
 							</div>
 							<div data-testid="report">
-								{/* Api response comes here */}
 								<div className="">
 									<div className=" ">
 										<div className=" flex flex-row flex-wrap justify-center p-2">
