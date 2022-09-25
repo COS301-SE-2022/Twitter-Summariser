@@ -21,72 +21,6 @@ export default class ReportService {
 			.promise();
 
 		if (result === undefined) throw new Error(`report with id: ${id} does not exist`);
-
-		const item = result.Item;
-
-		const report = [];
-
-		const reportBlocks = await ServicesLayer.reportBlockService.getReportBlocks(item.reportID);
-
-		const promises = reportBlocks.map(async (block) => {
-			const type = block.blockType;
-			const ob = {} as any;
-
-			ob.blockType = type;
-			ob.position = block.position;
-			ob.reportBlockID = block.reportBlockID;
-
-			if (type === "TWEET") {
-				ob.block = {
-					tweetID: block.tweetID
-				};
-			} else if (type === "RICHTEXT") {
-				const style = await ServicesLayer.textStyleService.getStyle(block.reportBlockID);
-				ob.block = {
-					text: block.richText,
-					position: block.position,
-					style
-				};
-			}
-			report.push(ob);
-		});
-
-		await Promise.all(promises);
-		await ServicesLayer.reportBlockService.sortReportBlocks(report);
-		const rp = [];
-		let bl = false;
-		let count = 0;
-		let max;
-
-		for (let y = 0; y < report.length; y++) {
-			max = report[y].position;
-		}
-
-		let y = 0;
-		for (let x = 0; x < max + 2; x++) {
-			if (report[y] !== undefined) {
-				if (report[y].position === x) {
-					rp.push(report[y]);
-					bl = true;
-					count++;
-					y++;
-				}
-			}
-
-			if (!bl && y > 0) {
-				if (report[y - 1].blockType === "TWEET") {
-					rp.push({ blockType: "RICHTEXT", position: x, block: null });
-					count++;
-				}
-			} else if (!bl && x === 0) {
-				rp.push({ blockType: "RICHTEXT", position: x, block: null });
-			}
-			bl = false;
-		}
-
-		item.Report = rp;
-		item.numOfBlocks = count;
-
 		return result.Item;
 	}
 
@@ -260,7 +194,7 @@ export default class ReportService {
 
 	// verify owner of report
 	async verifyOwner(reportID: string, apiKey: string): Promise<boolean> {
-		const per = await this.getReport(reportID);
+		const per = await this.getReportHelper(reportID);
 		return per.apiKey === apiKey;
 	}
 }
