@@ -5,7 +5,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
 import { GrCopy } from "react-icons/gr";
 import { GiConfirmed, GiCancel } from "react-icons/gi";
-import { FiSettings } from "react-icons/fi";
+// import { FiSettings } from "react-icons/fi";
+import { IoOptionsOutline } from "react-icons/io5";
 import { BsArrowDown, BsArrowUp, BsShare, BsThreeDots } from "react-icons/bs";
 // import { BiErrorCircle } from "react-icons/bi";
 import {
@@ -1518,7 +1519,7 @@ function Report() {
 										<Menu as="div" className="relative inline-block text-left">
 											<div>
 												<Menu.Button className="inline-flex w-full justify-center rounded-full  bg-dark-cornflower-blue px-2 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-													<FiSettings style={style} />
+													<IoOptionsOutline style={style} />
 												</Menu.Button>
 											</div>
 											<Transition

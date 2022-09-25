@@ -1,18 +1,14 @@
 import { useState, useEffect, Fragment } from "react";
-// import { Transition, Dialog } from "@headlessui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
-import { BsThreeDotsVertical } from "react-icons/bs";
-// import { Checkbox } from "@mui/material";
+import { FiSettings } from "react-icons/fi";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-// import { Checkbox } from "@mui/material";
 import axios from "axios";
 import ExploreCard from "./ExploreCard";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Button from "./Button";
 import "./styles/Animation.css";
-// import AdvanceSearch from "./AdvanceSearch";
 import Modals from "./Modals";
 
 function Home() {
@@ -722,7 +718,7 @@ function Home() {
 							/>
 						</div>
 						<div className="w-1/12 items-center flex flex-col justify-center cursor-pointer">
-							<BsThreeDotsVertical style={style} onClick={toggleAdvancSearch} />
+							<FiSettings style={style} onClick={toggleAdvancSearch} />
 						</div>
 					</div>
 
