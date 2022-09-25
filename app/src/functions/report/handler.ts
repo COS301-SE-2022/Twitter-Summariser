@@ -435,7 +435,7 @@ export const getReport = middyfy(
 				bl = false;
 			}
 
-			const { data } = await clientV2.get("tweets", { ids: params.tweets });
+			const { data } = await clientV2.get("tweets", { ids: tweets });
 
 			let twts = [];
 
