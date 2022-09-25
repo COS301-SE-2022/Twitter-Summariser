@@ -84,7 +84,8 @@ export const generateReport = middyfy(
 				title: title.searchPhrase,
 				apiKey: params["apiKey"],
 				dateCreated: d.toString(),
-				author: params["author"]
+				author: params["author"],
+				blockNumber: tweets.length
 			});
 
 			const tb = `BK-${randomUUID()}`;
@@ -577,12 +578,20 @@ export const getSharedReport = middyfy(
 
 			const re = await ServicesLayer.reportService.getSharedReports(params.apiKey);
 
-			for (let report of re) {
-				const user = await ServicesLayer.creatorService.getCreatorByKey(report.apiKey);
-				report.profileKey = user.profileKey;
-				delete report.apiKey;
-				delete report.resultSetID;
-			}
+			re.forEach(async (report, index) => {
+				if (report.status === "DELETED") {
+					re.splice(index, 1);
+				} else {
+					const user = await ServicesLayer.creatorService.getCreatorByKey(report.apiKey);
+					report.profileKey = user.profileKey;
+					delete report.apiKey;
+					delete report.resultSetID;
+				}
+			});
+
+			re.sort((a, b) => {
+				return new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime();
+			});
 
 			return {
 				statusCode: statusCodes.Successful,

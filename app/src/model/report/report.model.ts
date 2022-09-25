@@ -6,6 +6,7 @@ export default interface Report {
 	dateCreated: string;
 	title: string;
 	author: string;
+	blockNumber: number;
 	tweets?: any;
 	richtext?: any;
 	permission?: string;

@@ -116,12 +116,16 @@ export const genScheduledReport = async (params): Promise<void> => {
 			})
 			.promise();
 
+		let payloadBody = JSON.parse(JSON.parse(responseGR.Payload.toLocaleString()).body)
+		let genReport = payloadBody.Report;
+		let genReportID = genReport.reportID;
+
 		const notification: Notification = {
 			id: "NT-" + randomUUID(),
 			sender: "SYSTEM",
 			receiver: params.apiKey,
 			type: "SCHEDULER",
-			content: JSON.parse(JSON.parse(responseGR.Payload.toLocaleString()).body).reportID,
+			content: genReportID,
 			isRead: false,
 			dateCreated: new Date().toString()
 		};
