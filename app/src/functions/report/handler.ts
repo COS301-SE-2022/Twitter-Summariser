@@ -358,7 +358,7 @@ export const getReport = middyfy(
 
 			if (per !== undefined) {
 				report.permission = per.type;
-			} else if (ServicesLayer.reportService.verifyOwner(params.reportID, params.apiKey)) {
+			} else if (params.apiKey ===  report.apiKey) {
 				report.permission = "OWNER";
 			} else {
 				report.permission = "VIEWER";
