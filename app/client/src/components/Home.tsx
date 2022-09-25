@@ -482,21 +482,23 @@ function Home() {
 
 	const [trends, changeTrends] = useState<any[]>([]);
 
-	const getTrends = async (isMounted : boolean) => {
-
+	const getTrends = async (isMounted: boolean) => {
 		const trendData = {
-			apiKey : auth.apiKey
+			apiKey: auth.apiKey
 		};
 
-			try {
-				const response = await axiosPrivate.post("getTrendingTopics",JSON.stringify(trendData));
-				isMounted && changeTrends(response.data);
-				// console.log(await response.data);
-				changeLoading(false);
-			} catch (error) {
-				console.error(error);
-			}
-		};
+		try {
+			const response = await axiosPrivate.post(
+				"getTrendingTopics",
+				JSON.stringify(trendData)
+			);
+			isMounted && changeTrends(response.data);
+			// console.log(await response.data);
+			changeLoading(false);
+		} catch (error) {
+			console.error(error);
+		}
+	};
 
 	useEffect(() => {
 		let isMounted = true;
@@ -522,16 +524,16 @@ function Home() {
 	// 		}
 	// 	};
 
-		// getTrends();
+	// getTrends();
 
-		trends.map((tweetData) =>
+	trends.map((tweetData) =>
 		trendsResponse.push(
 			<div
 				key={trends.indexOf(tweetData)}
 				className="cursor-pointer pb-2 text-midnight-blue font-semibold"
 				onClick={() => {
 					searchInput = document.getElementById("default-search") as HTMLInputElement;
-					searchInput.value = tweetData
+					searchInput.value = tweetData;
 					changeEnteredSearch(tweetData);
 				}}
 			>
@@ -540,10 +542,7 @@ function Home() {
 		)
 	);
 
-
-
 	const [report, changeReport] = useState<any[]>([]);
-
 
 	useEffect(() => {
 		let isMounted = true;
