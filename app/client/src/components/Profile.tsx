@@ -204,7 +204,7 @@ function Profile() {
 
 				<div data-testid="report">
 					{/* Api response comes here */}
-					<div className=" mt-4">
+					<div className="w-full mt-4">
 						<div>
 							<div className="flex flex-row justify-around">
 								<h1 className="text-3xl flex flex-row justify-center border-b pb-4 w-5/6 align-middle items-center border-slate-300">
@@ -236,7 +236,7 @@ function Profile() {
 														<div
 															data-aos="fade-up"
 															data-aos-duration="500"
-															className="sm:w-1/2 w-full mr-5/2"
+															className=""
 															key={data.reportID}
 														>
 															<ReportCard
