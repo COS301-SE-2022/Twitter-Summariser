@@ -98,16 +98,13 @@ export const genScheduledReport = async (params): Promise<void> => {
 			})
 		);
 
-		const id = "RT-" + randomUUID();
-
 		const generateParams = {
 			FunctionName: "twitter-summariser-dev-generateReport",
 			InvocationType: "RequestResponse",
 			Payload: JSON.stringify({
 				apiKey: params.apiKey,
 				author: params.author,
-				resultSetID: responseST.data.resultSetID,
-				reportID: id
+				resultSetID: responseST.data.resultSetID
 			})
 		};
 
