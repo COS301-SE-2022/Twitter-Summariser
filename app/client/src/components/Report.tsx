@@ -170,6 +170,9 @@ function Report() {
 			isMounted && setLength(response.data.report.numOfBlocks);
 			isMounted && changePageLoading(false);
 
+			// isMounted && console.log(response.data.report);
+
+
 			if (pulseCounter === 0) {
 				changePulse(true);
 			}
@@ -475,7 +478,7 @@ function Report() {
 					)}
 
 					{/* LAST TWEET */}
-					{data.blockType === "TWEET" && data.position === length - 1 && (
+					{data.blockType === "TWEET" && data.position === length - 2 && (
 						<>
 							<div
 								className=" w-full p-3 flex flex-col justify-center"
@@ -593,7 +596,7 @@ function Report() {
 
 					{/* TWEETS IN-BETWEEN */}
 					{data.blockType === "TWEET" &&
-						!(data.position === 1 || data.position === length - 1) && (
+						!(data.position === 1 || data.position === length - 2) && (
 							<>
 								<div
 									className="  w-full p-3 flex flex-col justify-center"
@@ -1195,8 +1198,12 @@ function Report() {
 	const cloneReportHandler = async () => {
 		const resultDetails = {
 			reportID: repID,
-			apiKey: auth.apiKey
+			apiKey: auth.apiKey,
+			author: auth.username
 		};
+
+		// console.log(resultDetails);
+
 
 		try {
 			await axiosPrivate.post("cloneReport", JSON.stringify(resultDetails), {
@@ -1374,12 +1381,12 @@ function Report() {
 													data-bs-toggle="tooltip"
 													title="Edit Title"
 												>
-													<button type="submit">
+													{!isViewer() && <button type="submit">
 														<AiFillEdit
 															style={style}
 															onClick={() => editTitleHandler(true)}
 														/>
-													</button>
+													</button>}
 												</div>
 											</div>
 										)}
