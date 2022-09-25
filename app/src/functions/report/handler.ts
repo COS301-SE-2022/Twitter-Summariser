@@ -209,8 +209,7 @@ export const cloneReport = middyfy(
 			id = "RT-";
 			id += randomUUID();
 
-			const dd = new Date();
-			const d = new Date(`${dd.toLocaleString()}-02:00`);
+			const d = new Date();
 
 			report.reportID = id;
 			report.title = "Copy of " + report.title;
