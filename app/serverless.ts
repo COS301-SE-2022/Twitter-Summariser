@@ -54,6 +54,7 @@ const serverlessConfiguration: AWS = {
 	provider: {
 		name: "aws",
 		runtime: "nodejs14.x",
+		stage: "prod",
 		apiGateway: {
 			minimumCompressionSize: 1024,
 			shouldStartNameWithService: true
@@ -190,7 +191,7 @@ const serverlessConfiguration: AWS = {
 				convertEmptyValues: true,
 				noStart: true
 			},
-			stages: "dev"
+			stages: "prod"
 		},
 
 		s3Sync: [

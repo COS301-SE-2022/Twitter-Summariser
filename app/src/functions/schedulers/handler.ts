@@ -53,7 +53,7 @@ export const reportScheduler = middyfy(
 				Targets: [
 					{
 						Id: ruleName + "-target",
-						Arn: "arn:aws:lambda:us-east-1:626449495923:function:twitter-summariser-dev-genScheduledReport",
+						Arn: "arn:aws:lambda:us-east-1:724052881296:function:twitter-summariser-dev-genScheduledReport",
 						Input: JSON.stringify(params.reportDetails)
 					}
 				]
