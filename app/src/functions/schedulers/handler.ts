@@ -40,7 +40,7 @@ export const reportScheduler = middyfy(
 
 			const permissionParams = {
 				Action: "lambda:InvokeFunction",
-				FunctionName: "twitter-summariser-dev-genScheduledReport",
+				FunctionName: "twitter-summariser-prod-genScheduledReport",
 				Principal: "events.amazonaws.com",
 				StatementId: ruleName,
 				SourceArn: rule.RuleArn
@@ -53,7 +53,7 @@ export const reportScheduler = middyfy(
 				Targets: [
 					{
 						Id: ruleName + "-target",
-						Arn: "arn:aws:lambda:us-east-1:724052881296:function:twitter-summariser-dev-genScheduledReport",
+						Arn: "arn:aws:lambda:us-east-1:724052881296:function:twitter-summariser-prod-genScheduledReport",
 						Input: JSON.stringify(params.reportDetails)
 					}
 				]
@@ -99,7 +99,7 @@ export const genScheduledReport = async (params): Promise<void> => {
 		);
 
 		const generateParams = {
-			FunctionName: "twitter-summariser-dev-generateReport",
+			FunctionName: "twitter-summariser-prod-generateReport",
 			InvocationType: "RequestResponse",
 			Payload: JSON.stringify({
 				apiKey: params.apiKey,
