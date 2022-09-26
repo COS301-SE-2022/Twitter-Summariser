@@ -18,9 +18,7 @@ export const getNotifications = middyfy(
 
 			let responseArray = await notifications.reduce(async (result, notification) => {
 				let resultArray = await result;
-				const report = await ServicesLayer.reportService.getReport(
-					notification.content
-				);
+				const report = await ServicesLayer.reportService.getReport(notification.content);
 
 				if (report.status !== "DELETED") {
 					let senderUsername: string;

@@ -151,7 +151,7 @@ describe("creator.service", () => {
 	// 		awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Item: creator }));
 
 	// 		const r: Creator = await CreatorServices.creatorService.getCreatorByKey(
-	// 			"njksea" 
+	// 			"njksea"
 	// 		);
 
 	// 		expect(db.query).toHaveBeenCalledWith({
@@ -181,7 +181,7 @@ describe("creator.service", () => {
 
 			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Item: [creator] }));
 			const email = "test@gmail.com";
-			const token = "token"
+			const token = "token";
 
 			await CreatorServices.creatorService.updateCreator(email, token);
 			expect(db.update).toHaveBeenCalledWith({
@@ -197,7 +197,6 @@ describe("creator.service", () => {
 					":RefreshAccessToken": token
 				}
 			});
-
 		});
 	});
 
@@ -234,9 +233,6 @@ describe("creator.service", () => {
 		});
 	});
 
-
-				
-
 	describe("deleteCreator", () => {
 		test("Delete Creator", async () => {
 			const email = "test@gmail.com";
@@ -247,8 +243,7 @@ describe("creator.service", () => {
 				Key: {
 					email
 				}
-
 			});
 		});
-	});	
+	});
 });

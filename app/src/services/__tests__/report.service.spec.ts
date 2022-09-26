@@ -15,7 +15,6 @@ describe("report.service", () => {
 		awsSdkPromiseResponse.mockReset();
 	});
 
-
 	describe("getReport", () => {
 		test("Get Report", async () => {
 			const addedReport: Report = {
@@ -121,7 +120,6 @@ describe("report.service", () => {
 
 			expect(reportHelper).toEqual(expected);
 		});
-
 	});
 
 	describe("getReports", () => {
@@ -407,7 +405,7 @@ describe("report.service", () => {
 	describe("getPublishedReports", () => {
 		test("Get published reports", async () => {
 			const addedReports: Report[] = [
-					{
+				{
 					reportID: "1111",
 					resultSetID: "12222",
 					status: "DRAFT",
@@ -440,7 +438,7 @@ describe("report.service", () => {
 			expect(reports).toEqual(addedReports);
 		});
 	});
-	
+
 	describe("addReport", () => {
 		test("Add Report", async () => {
 			const report: Report = {
@@ -458,8 +456,6 @@ describe("report.service", () => {
 			expect(db.put).toHaveBeenCalledWith({ TableName: "ReportTable", Item: report });
 		});
 	});
-
-
 
 	describe("updateStatus", () => {
 		test("Update report status", async () => {
@@ -613,7 +609,7 @@ describe("report.service", () => {
 			expect(db.update).toHaveBeenCalledWith({
 				TableName: "ReportTable",
 				Key: {
-					"reportID": "1111"
+					reportID: "1111"
 				},
 				UpdateExpression: "SET #title = :title",
 				ExpressionAttributeNames: {
@@ -648,7 +644,7 @@ describe("report.service", () => {
 			expect(db.update).toHaveBeenCalledWith({
 				TableName: "ReportTable",
 				Key: {
-					"reportID": "1114"
+					reportID: "1114"
 				},
 				UpdateExpression: "SET #blockNumber = :num",
 				ExpressionAttributeNames: {
@@ -660,7 +656,6 @@ describe("report.service", () => {
 			});
 		});
 	});
-
 
 	describe("deleteReport", () => {
 		test("Delete report", async () => {
@@ -767,6 +762,5 @@ describe("report.service", () => {
 
 			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Items: addedReports }));
 		});
-	});		
-
+	});
 });

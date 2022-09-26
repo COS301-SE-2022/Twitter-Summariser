@@ -108,11 +108,14 @@ export const deleteReportBlock = middyfy(
 				const report = await ServicesLayer.reportBlockService.getReportBlocks(
 					blck.reportID
 				);
-				
-				const r = await ServicesLayer.reportService.getReport(params.reportID); 
-				
-				await ServicesLayer.reportService.updateReportBlockNum((r.blockNumber)-1, params.reportID);
-				
+
+				const r = await ServicesLayer.reportService.getReport(params.reportID);
+
+				await ServicesLayer.reportService.updateReportBlockNum(
+					r.blockNumber - 1,
+					params.reportID
+				);
+
 				let top = null;
 				let bottom = null;
 				report.map(async (block) => {

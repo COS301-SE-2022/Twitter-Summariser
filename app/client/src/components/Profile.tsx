@@ -18,7 +18,7 @@ function Profile() {
 		backgroundImage:
 			auth.profileKey === "assets/profile.png"
 				? "url(assets/profile.png)"
-				: `url(https://twitter-summariser-images.s3.amazonaws.com/${auth.profileKey})` 
+				: `url(https://twitter-summariser-images.s3.amazonaws.com/${auth.profileKey})`
 	};
 
 	const [loader, showLoader] = useState(false);
@@ -41,9 +41,7 @@ function Profile() {
 
 			if (auth.profileKey !== "assets/profile.png") {
 				changeImageURL(
-					`https://twitter-summariser-images.s3.amazonaws.com/${
-						auth.profileKey
-					}`
+					`https://twitter-summariser-images.s3.amazonaws.com/${auth.profileKey}`
 				);
 			}
 		} catch (error) {
