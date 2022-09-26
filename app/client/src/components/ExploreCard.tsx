@@ -9,7 +9,7 @@ function ExploreCard(props: any) {
 			? props.data.profileKey
 			: `https://s3.amazonaws.com/twitter-summariser-images/${
 					props.data.profileKey
-			  }?${new Date().getTime()}`;
+			  }`;
 
 	const viewReport = () => {
 		// if (localStorage.getItem("reportId")) {

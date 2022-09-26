@@ -32,7 +32,7 @@ function MobileNavigation(props: any) {
 			? auth.profileKey
 			: `https://s3.amazonaws.com/twitter-summariser-images/${
 					auth.profileKey
-			  }?${new Date().getTime()}`;
+			  }`;
 
 	return (
 		<div className="pt-2 text-lg w-full flex flex-col z-20 bg-gradient-to-b from-dark-cornflower-blue to-white h-full justify-evenly">

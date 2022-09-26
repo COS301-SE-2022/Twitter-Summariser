@@ -27,7 +27,7 @@ function Drafts() {
 				changeImageURL(
 					`https://twitter-summariser-images.s3.amazonaws.com/${
 						auth.profileKey
-					}?${new Date().getTime()}`
+					}`
 				);
 		} catch (error) {
 			console.error(error);

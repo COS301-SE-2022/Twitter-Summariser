@@ -18,7 +18,7 @@ function NotificationCard(props: any) {
 			? props.data.senderUrl
 			: `https://s3.amazonaws.com/twitter-summariser-images/${
 					props.data.senderUrl
-			  }?${new Date().getTime()}`;
+			  }`;
 
 	const description = () => {
 		if (props.data.type === "SHARE") {

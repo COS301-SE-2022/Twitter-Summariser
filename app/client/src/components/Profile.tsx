@@ -13,13 +13,12 @@ function Profile() {
 	const controller = new AbortController();
 
 	const { auth, setAuth } = useAuth();
+
 	const imageStyle: any = {
 		backgroundImage:
 			auth.profileKey === "assets/profile.png"
 				? "url(assets/profile.png)"
-				: `url(https://twitter-summariser-images.s3.amazonaws.com/${
-						auth.profileKey
-				  }?${new Date().getTime()})`
+				: `url(https://twitter-summariser-images.s3.amazonaws.com/${auth.profileKey})` 
 	};
 
 	const [loader, showLoader] = useState(false);
@@ -44,7 +43,7 @@ function Profile() {
 				changeImageURL(
 					`https://twitter-summariser-images.s3.amazonaws.com/${
 						auth.profileKey
-					}?${new Date().getTime()}`
+					}`
 				);
 			}
 		} catch (error) {
@@ -108,8 +107,8 @@ function Profile() {
 					...prev,
 					profileKey: response.data.profileKey
 				}));
-				changeShouldRender(true);
 
+				changeShouldRender(true);
 				showLoader(false);
 			} catch (error) {
 				console.error(error);
