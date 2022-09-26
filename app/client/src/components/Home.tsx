@@ -74,7 +74,7 @@ function Home() {
 				navigate(`/report/${response.data.Report.reportID}`);
 			} else {
 				const response = await axios.post(
-					"https://v3wxwnpzytm77wf7dfiqp6q3om0mrlis.lambda-url.us-east-1.on.aws/",
+					"https://bmrrb56qoqt2csmrnwlwhrkfbq0oyxkq.lambda-url.us-east-1.on.aws/",
 					JSON.stringify(searchData),
 					{
 						headers: {

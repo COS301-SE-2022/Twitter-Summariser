@@ -15,7 +15,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 def summarise(event, _context):
     url = "http://localhost:3000" if os.environ.get(
-        "PYTHON_ENV") == "development" else "https://d1v5l8i1h1l6lu.cloudfront.net"
+        "PYTHON_ENV") == "development" else "https://db42fgp0ws0c8.cloudfront.net"
 
     try:
         #   Get the parameters from the event
