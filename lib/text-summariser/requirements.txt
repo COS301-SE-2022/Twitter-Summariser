@@ -4,3 +4,4 @@ tokenizers==0.12.1
 tqdm==4.64.0
 transformers==4.21.1
 sockets==1.0.0
+python-dotenv==0.20.0

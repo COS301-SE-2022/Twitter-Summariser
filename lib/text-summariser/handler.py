@@ -1,32 +1,31 @@
+import os
 import json
 import torch
 import re
 import socket
+from dotenv import load_dotenv
 from transformers import T5Tokenizer, T5ForConditionalGeneration
 
+load_dotenv()
 
 tokenizer = T5Tokenizer.from_pretrained("./model")
 model = T5ForConditionalGeneration.from_pretrained("./model")
-device = torch.device("cpu")
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 def summarise(event, _context):
-    url = "http://localhost:3000" if socket.gethostname() == "127.0.0.1" or (
-        not "169.254" in socket.gethostname()) else "https://d2cjqnmnraumby.cloudfront.net"
+    url = "http://localhost:3000" if os.environ.get(
+        "PYTHON_ENV") == "development" else "https://d2cjqnmnraumby.cloudfront.net"
 
     try:
         #   Get the parameters from the event
         try:
             text = event["text"]
-            minWords = event["min"]
-            maxWords = event["max"]
         except KeyError:
             event = json.dumps(event)
             jsonEvent = json.loads(event)
             body = json.loads(jsonEvent['body'])
             text = body["text"]
-            minWords = body["min"]
-            maxWords = body["max"]
 
         # Clean the text
         TEXT_CLEANING_RE = "@\S+|https?:\S+|http?:\S|[^A-Za-z0-9]+"
@@ -36,16 +35,17 @@ def summarise(event, _context):
 
         #   Tokenize the text
         tokenizedText = tokenizer.encode(
-            preprocessedText, return_tensors="pt", max_length=512, truncation=True).to(device)
+            preprocessedText, return_tensors="pt", max_length=2048).to(device)
 
         #   Generate the summary
         summary_ids = model.generate(
             tokenizedText,
-            min_length=minWords,
-            max_length=maxWords,
+            min_length=30,
+            max_length=200,
             num_beams=4,
-            length_penalty=4.0,
-            early_stopping=True)
+            no_repeat_ngram_size=3,
+            length_penalty=2.0
+        )
 
         #   Decode the summary
         summary = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
