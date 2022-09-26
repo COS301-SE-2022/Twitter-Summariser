@@ -4,6 +4,7 @@ import { Tweet } from "react-twitter-widgets";
 import { FiSettings } from "react-icons/fi";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import axios from "axios";
+import { FaTwitter } from "react-icons/fa";
 import ExploreCard from "./ExploreCard";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
@@ -386,6 +387,7 @@ function Home() {
 				"getTrendingTopics",
 				JSON.stringify(trendData)
 			);
+
 			isMounted && changeTrends(response.data);
 			changeLoading(false);
 		} catch (error) {
@@ -407,14 +409,18 @@ function Home() {
 		trendsResponse.push(
 			<div
 				key={trends.indexOf(tweetData)}
-				className="cursor-pointer pb-2 text-midnight-blue font-semibold"
+				className="bg-gray-200 text-black items-center rounded-md mt-3 flex p-2.5 hover:cursor-pointer hover:bg-gray-400"
 				onClick={() => {
 					searchInput = document.getElementById("default-search") as HTMLInputElement;
 					searchInput.value = tweetData;
 					changeEnteredSearch(tweetData);
 				}}
 			>
-				{tweetData}
+				<FaTwitter />
+				<p className="truncate md:w-full sm:w-3 text-black font-medium">
+					{tweetData}
+				</p>
+				<div className="actions ml-6 md:ml-0">{}</div>
 			</div>
 		)
 	);
@@ -689,7 +695,7 @@ function Home() {
 					</div>
 
 					{showTrends && (
-						<div className="md:mt-0 mt-2 items-center justify-center ml-8 mr-8">
+						<div className="md:mt-0 mt-2 items-center justify-center md:ml-32 md:mr-32 ml-10 mr-10">
 							<h1 className="text-2xl  flex flex-row justify-center border-b-4 mb-2  pb-4 w-full mr-16 align-middle items-center border-slate-300">
 								LATEST TRENDS
 							</h1>
