@@ -116,9 +116,6 @@ function Report() {
 			isMounted && setLength(response.data.report.numOfBlocks);
 			isMounted && changePageLoading(false);
 
-			// isMounted && console.log(response.data.report.Report);
-
-
 			if (pulseCounter === 0) {
 				changePulse(true);
 			}
@@ -2062,7 +2059,7 @@ function Report() {
 	};
 
 	if (choice) {
-		console.log(choice);
+		// console.log(choice);
 	}
 
 	return (

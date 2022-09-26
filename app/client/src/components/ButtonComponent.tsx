@@ -6,8 +6,6 @@ function ButtonComponent({ page, text, type, size, handle, disableId, isLoading,
 	const sizeStyle = size === "small" ? "text-md p-0.5 h-10 w-36" : "text-lg p-0.5 h-10 w-60";
 	const buttonText = text;
 
-	console.log("disableId", disableId);
-
 	handle;
 
 	return (

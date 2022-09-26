@@ -425,8 +425,6 @@ function Home() {
 		let isMounted = true;
 
 		const getReports = async () => {
-			console.log(JSON.stringify({}));
-
 			try {
 				const response = await axiosPrivate.post(
 					"getAllPublishedReports",
