@@ -44,7 +44,7 @@ export const generateReport = middyfy(
 			} else {
 				//	Summarizing text
 				const lambdaParams = {
-					FunctionName: "text-summarisation-dev-summarise",
+					FunctionName: "text-summarisation-prod-summarise",
 					InvocationType: "RequestResponse",
 					Payload: JSON.stringify({
 						text: twts,
