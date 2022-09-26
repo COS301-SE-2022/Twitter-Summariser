@@ -398,7 +398,7 @@ function DraftReport() {
 	};
 
 	if (choice) {
-		console.log(choice);
+		// console.log(choice);
 	}
 
 	const isOwner = () => author === auth.username || title.substring(0, 4) === "Copy"; // temporary fix need PERMISSION to indicate whether person is owner or not correctly

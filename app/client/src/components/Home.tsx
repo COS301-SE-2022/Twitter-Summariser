@@ -74,7 +74,7 @@ function Home() {
 				navigate(`/report/${response.data.Report.reportID}`);
 			} else {
 				const response = await axios.post(
-					"https://bmrrb56qoqt2csmrnwlwhrkfbq0oyxkq.lambda-url.us-east-1.on.aws/",
+					"https://a4rntvvs25gunwl3pwjakjpu2q0ufhvw.lambda-url.us-east-1.on.aws/",
 					JSON.stringify(searchData),
 					{
 						headers: {
@@ -425,8 +425,6 @@ function Home() {
 		let isMounted = true;
 
 		const getReports = async () => {
-			console.log(JSON.stringify({}));
-
 			try {
 				const response = await axiosPrivate.post(
 					"getAllPublishedReports",

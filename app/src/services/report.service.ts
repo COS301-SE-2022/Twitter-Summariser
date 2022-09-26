@@ -133,7 +133,6 @@ export default class ReportService {
 
 	// store reports
 	async addReport(report: Report): Promise<Report> {
-		// console.log(report);
 		await this.docClient
 			.put({
 				TableName: this.TableName,

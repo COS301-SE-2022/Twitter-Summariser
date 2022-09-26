@@ -56,10 +56,8 @@ export const generateReport = middyfy(
 				const responseTS = await lambda
 					.invoke(lambdaParams, function (data, err) {
 						if (err) {
-							console.log(err);
-						} else {
-							console.log(data);
-						}
+							console.error(err);
+						} 
 					})
 					.promise();
 				sText = JSON.parse(JSON.parse(responseTS.Payload.toLocaleString()).body).text;
@@ -128,15 +126,22 @@ export const getAllMyDraftReports = middyfy(
 			const params = JSON.parse(event.body);
 			const reports = await ServicesLayer.reportService.getDraftReports(params.apiKey);
 
-			reports.map(async (report) => {
-				delete report.apiKey;
-			});
-
 			reports.sort((a, b) => {
 				return new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime();
 			});
 
-			// const tweets = await ServicesLayer.tweetService.getTweets(params.resultSetID);
+			if (reports.length > 1) {
+				const diff = new Date(reports[0].dateCreated).getTime() - new Date(reports[1].dateCreated).getTime();
+				if (reports[0].title === reports[1].title && Math.abs(diff/1000) < 1) {
+					await ServicesLayer.reportService.deleteReport(reports[0].reportID);
+					reports.shift();
+				};
+			};
+
+			reports.map(async (report) => {
+				delete report.apiKey;
+			});
+
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
