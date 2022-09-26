@@ -64,7 +64,7 @@ jobs:
       - name: Deployment of All Infrastructures to AWS
         uses: dhollerbach/actions.serverless-with-python-requirements@master
         with:
-          args: "-stage prod"
+          args: "--stage prod"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
