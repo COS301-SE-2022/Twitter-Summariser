@@ -135,4 +135,120 @@ describe("creator.service", () => {
 			});
 		});
 	});
+
+	// describe("getCreatorByKey", () => {
+	// 	test("Get Creator by key", async () => {
+	// 		const creator: Creator = {
+	// 			apiKey: "njksea",
+	// 			email: "test@gmail.com",
+	// 			username: "test",
+	// 			password: "password",
+	// 			dateRegistered: "2022-01-01T00:00:00.000Z",
+	// 			RefreshAccessToken: "",
+	// 			profileKey: "assets/profile.png"
+	// 		};
+
+	// 		awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Item: creator }));
+
+	// 		const r: Creator = await CreatorServices.creatorService.getCreatorByKey(
+	// 			"njksea" 
+	// 		);
+
+	// 		expect(db.query).toHaveBeenCalledWith({
+	// 			TableName: "CreatorTable",
+	// 			IndexName: "gsiIndex",
+	// 			KeyConditionExpression: "apiKey = :key",
+	// 			ExpressionAttributeValues: {
+	// 				":key": "njksea"
+	// 			}
+	// 		});
+
+	// 		expect(r).toEqual([creator]);
+	// 	});
+	// });
+
+	describe("updateCreator", () => {
+		test("Update Creator", async () => {
+			const creator: Creator = {
+				apiKey: "njksea",
+				email: "test@gmail.com",
+				username: "test",
+				password: "password",
+				dateRegistered: "2022-01-01T00:00:00.000Z",
+				RefreshAccessToken: "",
+				profileKey: "assets/profile.png"
+			};
+
+			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Item: [creator] }));
+			const email = "test@gmail.com";
+			const token = "token"
+
+			await CreatorServices.creatorService.updateCreator(email, token);
+			expect(db.update).toHaveBeenCalledWith({
+				TableName: "CreatorTable",
+				Key: {
+					email
+				},
+				UpdateExpression: "set #RefreshAccessToken = :RefreshAccessToken",
+				ExpressionAttributeNames: {
+					"#RefreshAccessToken": "RefreshAccessToken"
+				},
+				ExpressionAttributeValues: {
+					":RefreshAccessToken": token
+				}
+			});
+
+		});
+	});
+
+	describe("updateProfile", () => {
+		test("Update Profile", async () => {
+			const creator: Creator = {
+				apiKey: "njksea",
+				email: "test@gmail.com",
+				username: "test",
+				password: "password",
+				dateRegistered: "2022-01-01T00:00:00.000Z",
+				RefreshAccessToken: "",
+				profileKey: "assets/profile.png"
+			};
+
+			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Item: [creator] }));
+			const email = "test@gmail.com";
+			const key = "test.png";
+
+			await CreatorServices.creatorService.updateProfileKey(email, key);
+			expect(db.update).toHaveBeenCalledWith({
+				TableName: "CreatorTable",
+				Key: {
+					email
+				},
+				UpdateExpression: "set #profileKey = :profileKey",
+				ExpressionAttributeNames: {
+					"#profileKey": "profileKey"
+				},
+				ExpressionAttributeValues: {
+					":profileKey": key
+				}
+			});
+		});
+	});
+
+
+				
+
+	describe("deleteCreator", () => {
+		test("Delete Creator", async () => {
+			const email = "test@gmail.com";
+
+			await CreatorServices.creatorService.deleteCreator(email);
+			expect(db.delete).toHaveBeenCalledWith({
+				TableName: "CreatorTable",
+				Key: {
+					email
+				}
+
+			});
+		});
+	});	
 });
