@@ -6,7 +6,7 @@ import { Tweet } from "react-twitter-widgets";
 import { GrCopy } from "react-icons/gr";
 import { GiConfirmed, GiCancel } from "react-icons/gi";
 import { IoOptionsOutline } from "react-icons/io5";
-import { BsArrowDown, BsArrowUp, BsShare, BsThreeDots } from "react-icons/bs";
+import { BsArrowDown, BsArrowUp, BsShare } from "react-icons/bs";
 import { AiOutlineEye, AiOutlineEyeInvisible, AiFillEdit } from "react-icons/ai";
 import { MdDeleteOutline } from "react-icons/md";
 import Text from "./Text";
@@ -16,6 +16,79 @@ import Button from "./Button";
 import PublishedText from "./PublishedText";
 import "./styles/Animation.css";
 import Modals from "./Modals";
+import MenuComponent from "./MenuComponent";
+
+function SentimentIcon(props: any) {
+	const style2 = { fontSize: "1.3rem" };
+	return (
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		<div {...props}>
+			<AiOutlineEye style={style2} />
+		</div>
+	);
+}
+
+function NonSentimentIcon(props: any) {
+	const style2 = { fontSize: "1.3rem" };
+	return (
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		<div {...props}>
+			<AiOutlineEyeInvisible style={style2} />
+		</div>
+	);
+}
+
+function ShareIcon(props: any) {
+	const style = { fontSize: "1.1rem" };
+	return (
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		<div {...props}>
+			<BsShare style={style} />
+		</div>
+	);
+}
+
+function CloneIcon(props: any) {
+	const iconStyle3 = { fontSize: "1.1rem", color: "red" };
+	return (
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		<div {...props}>
+			<GrCopy style={iconStyle3} />
+		</div>
+	);
+}
+
+function DeleteIcon(props: any) {
+	const iconStyle4 = { fontSize: "1.3rem", color: "red" };
+	return (
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		<div {...props}>
+			<MdDeleteOutline style={iconStyle4} />
+		</div>
+	);
+}
+
+function ArrowDownIcon(props: any) {
+	const style = { fontSize: "1.1rem" };
+
+	return (
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		<div {...props}>
+			<BsArrowDown style={style} />
+		</div>
+	);
+}
+
+function ArrowUpIcon(props: any) {
+	const style = { fontSize: "1.1rem" };
+
+	return (
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		<div {...props}>
+			<BsArrowUp style={style} />
+		</div>
+	);
+}
 
 function Report() {
 	const style = { fontSize: "1.3rem" };
@@ -232,6 +305,8 @@ function Report() {
 	const isViewer = () => perm === "VIEWER";
 	const isOwner = () => perm === "OWNER";
 
+
+
 	function opacityValue(inp: number): number {
 		if (inp > 0 && inp <= 10) {
 			return 10;
@@ -311,7 +386,14 @@ function Report() {
 								className=" w-full p-3 flex flex-col justify-center"
 								key={data.position}
 							>
-								<div className="flex w-full justify-end">
+								<MenuComponent
+									type="firstTweet"
+									data={data}
+									reorderDownHandler={reorderDownHandler}
+									ArrowDownIcon={ArrowDownIcon}
+									deleteTweetHandler={deleteTweetHandler}
+									DeleteIcon={DeleteIcon} />
+								{/* <div className="flex w-full justify-end">
 									<div className="top-0 right-1">
 										<Menu as="div" className="relative inline-block text-left">
 											<div>
@@ -389,7 +471,7 @@ function Report() {
 											</Transition>
 										</Menu>
 									</div>
-								</div>
+								</div> */}
 								<Tweet
 									options={{ align: "center", width: "" }}
 									tweetId={data.block.tweetID}
@@ -406,7 +488,14 @@ function Report() {
 								className=" w-full p-3 flex flex-col justify-center"
 								key={data.position}
 							>
-								<div className="flex w-full justify-end">
+								<MenuComponent
+									type="lastTweet"
+									data={data}
+									reorderUpHandler={reorderUpHandler}
+									ArrowUpIcon={ArrowUpIcon}
+									deleteTweetHandler={deleteTweetHandler}
+									DeleteIcon={DeleteIcon} />
+								{/* <div className="flex w-full justify-end">
 									<div className="top-0 right-1">
 										<Menu as="div" className="relative inline-block text-left">
 											<div>
@@ -484,7 +573,7 @@ function Report() {
 											</Transition>
 										</Menu>
 									</div>
-								</div>
+								</div> */}
 
 								<Tweet
 									options={{ align: "center", width: "" }}
@@ -502,7 +591,17 @@ function Report() {
 									className="  w-full p-3 flex flex-col justify-center"
 									key={data.position}
 								>
-									<div className="flex w-full justify-end">
+									<MenuComponent
+									type="middleTweet"
+									data={data}
+									reorderUpHandler={reorderUpHandler}
+									ArrowUpIcon={ArrowUpIcon}
+									reorderDownHandler={reorderDownHandler}
+									ArrowDownIcon={ArrowDownIcon}
+									deleteTweetHandler={deleteTweetHandler}
+									DeleteIcon={DeleteIcon} />
+
+									{/* <div className="flex w-full justify-end">
 										<div className="top-0 right-1">
 											<Menu
 												as="div"
@@ -609,7 +708,7 @@ function Report() {
 												</Transition>
 											</Menu>
 										</div>
-									</div>
+									</div> */}
 
 									<Tweet
 										options={{ align: "center", width: "" }}
@@ -647,7 +746,14 @@ function Report() {
 									)}`}
 									key={data.position}
 								>
-									<div className="flex w-full justify-end">
+									<MenuComponent
+									type="firstTweet"
+									data={data}
+									reorderDownHandler={reorderDownHandler}
+									ArrowDownIcon={ArrowDownIcon}
+									deleteTweetHandler={deleteTweetHandler}
+									DeleteIcon={DeleteIcon} />
+									{/* <div className="flex w-full justify-end">
 										<div className="top-0 right-1">
 											<Menu
 												as="div"
@@ -728,7 +834,7 @@ function Report() {
 												</Transition>
 											</Menu>
 										</div>
-									</div>
+									</div> */}
 									<div>
 										<Tweet
 											options={{ align: "center" }}
@@ -758,7 +864,14 @@ function Report() {
 									)}`}
 									key={data.position}
 								>
-									<div className="flex w-full justify-end">
+									<MenuComponent
+									type="firstTweet"
+									data={data}
+									reorderDownHandler={reorderDownHandler}
+									ArrowDownIcon={ArrowDownIcon}
+									deleteTweetHandler={deleteTweetHandler}
+									DeleteIcon={DeleteIcon} />
+									{/* <div className="flex w-full justify-end">
 										<div className="top-0 right-1">
 											<Menu
 												as="div"
@@ -839,7 +952,7 @@ function Report() {
 												</Transition>
 											</Menu>
 										</div>
-									</div>
+									</div> */}
 									<div>
 										<Tweet
 											options={{ align: "center" }}
@@ -869,7 +982,14 @@ function Report() {
 									)}`}
 									key={data.position}
 								>
-									<div className="flex w-full justify-end">
+									<MenuComponent
+									type="firstTweet"
+									data={data}
+									reorderDownHandler={reorderDownHandler}
+									ArrowDownIcon={ArrowDownIcon}
+									deleteTweetHandler={deleteTweetHandler}
+									DeleteIcon={DeleteIcon} />
+									{/* <div className="flex w-full justify-end">
 										<div className="top-0 right-1">
 											<Menu
 												as="div"
@@ -950,7 +1070,7 @@ function Report() {
 												</Transition>
 											</Menu>
 										</div>
-									</div>
+									</div> */}
 									<div>
 										<Tweet
 											options={{ align: "center" }}
@@ -978,7 +1098,14 @@ function Report() {
 									)}`}
 									key={data.position}
 								>
-									<div className="flex w-full justify-end">
+									<MenuComponent
+									type="firstTweet"
+									data={data}
+									reorderDownHandler={reorderDownHandler}
+									ArrowDownIcon={ArrowDownIcon}
+									deleteTweetHandler={deleteTweetHandler}
+									DeleteIcon={DeleteIcon} />
+									{/* <div className="flex w-full justify-end">
 										<div className="top-0 right-1">
 											<Menu
 												as="div"
@@ -1059,7 +1186,7 @@ function Report() {
 												</Transition>
 											</Menu>
 										</div>
-									</div>
+									</div> */}
 									<div>
 										<Tweet
 											options={{ align: "center" }}
@@ -1096,7 +1223,14 @@ function Report() {
 									)}`}
 									key={data.position}
 								>
-									<div className="flex w-full justify-end">
+									<MenuComponent
+									type="lastTweet"
+									data={data}
+									reorderUpHandler={reorderUpHandler}
+									ArrowUpIcon={ArrowUpIcon}
+									deleteTweetHandler={deleteTweetHandler}
+									DeleteIcon={DeleteIcon} />
+									{/* <div className="flex w-full justify-end">
 										<div className="top-0 right-1">
 											<Menu
 												as="div"
@@ -1177,7 +1311,7 @@ function Report() {
 												</Transition>
 											</Menu>
 										</div>
-									</div>
+									</div> */}
 									<div>
 										<Tweet
 											options={{ align: "center" }}
@@ -1207,7 +1341,14 @@ function Report() {
 									)}`}
 									key={data.position}
 								>
-									<div className="flex w-full justify-end">
+									<MenuComponent
+									type="lastTweet"
+									data={data}
+									reorderUpHandler={reorderUpHandler}
+									ArrowUpIcon={ArrowUpIcon}
+									deleteTweetHandler={deleteTweetHandler}
+									DeleteIcon={DeleteIcon} />
+									{/* <div className="flex w-full justify-end">
 										<div className="top-0 right-1">
 											<Menu
 												as="div"
@@ -1288,7 +1429,7 @@ function Report() {
 												</Transition>
 											</Menu>
 										</div>
-									</div>
+									</div> */}
 									<div>
 										<Tweet
 											options={{ align: "center" }}
@@ -1318,7 +1459,14 @@ function Report() {
 									)}`}
 									key={data.position}
 								>
-									<div className="flex w-full justify-end">
+									<MenuComponent
+									type="lastTweet"
+									data={data}
+									reorderUpHandler={reorderUpHandler}
+									ArrowUpIcon={ArrowUpIcon}
+									deleteTweetHandler={deleteTweetHandler}
+									DeleteIcon={DeleteIcon} />
+									{/* <div className="flex w-full justify-end">
 										<div className="top-0 right-1">
 											<Menu
 												as="div"
@@ -1399,7 +1547,7 @@ function Report() {
 												</Transition>
 											</Menu>
 										</div>
-									</div>
+									</div> */}
 									<div>
 										<Tweet
 											options={{ align: "center" }}
@@ -1427,7 +1575,14 @@ function Report() {
 									)}`}
 									key={data.position}
 								>
-									<div className="flex w-full justify-end">
+									<MenuComponent
+									type="lastTweet"
+									data={data}
+									reorderUpHandler={reorderUpHandler}
+									ArrowUpIcon={ArrowUpIcon}
+									deleteTweetHandler={deleteTweetHandler}
+									DeleteIcon={DeleteIcon} />
+									{/* <div className="flex w-full justify-end">
 										<div className="top-0 right-1">
 											<Menu
 												as="div"
@@ -1508,7 +1663,7 @@ function Report() {
 												</Transition>
 											</Menu>
 										</div>
-									</div>
+									</div> */}
 									<div>
 										<Tweet
 											options={{ align: "center" }}
@@ -1548,7 +1703,16 @@ function Report() {
 										)}`}
 										key={data.position}
 									>
-										<div className="flex w-full justify-end">
+										<MenuComponent
+											type="middleTweet"
+											data={data}
+											reorderUpHandler={reorderUpHandler}
+											ArrowUpIcon={ArrowUpIcon}
+											reorderDownHandler={reorderDownHandler}
+											ArrowDownIcon={ArrowDownIcon}
+											deleteTweetHandler={deleteTweetHandler}
+											DeleteIcon={DeleteIcon} />
+										{/* <div className="flex w-full justify-end">
 											<div className="top-0 right-1">
 												<Menu
 													as="div"
@@ -1655,7 +1819,7 @@ function Report() {
 													</Transition>
 												</Menu>
 											</div>
-										</div>
+										</div> */}
 										<div>
 											<Tweet
 												options={{ align: "center" }}
@@ -1687,7 +1851,16 @@ function Report() {
 										)}`}
 										key={data.position}
 									>
-										<div className="flex w-full justify-end">
+										<MenuComponent
+											type="middleTweet"
+											data={data}
+											reorderUpHandler={reorderUpHandler}
+											ArrowUpIcon={ArrowUpIcon}
+											reorderDownHandler={reorderDownHandler}
+											ArrowDownIcon={ArrowDownIcon}
+											deleteTweetHandler={deleteTweetHandler}
+											DeleteIcon={DeleteIcon} />
+										{/* <div className="flex w-full justify-end">
 											<div className="top-0 right-1">
 												<Menu
 													as="div"
@@ -1794,7 +1967,7 @@ function Report() {
 													</Transition>
 												</Menu>
 											</div>
-										</div>
+										</div> */}
 										<div>
 											<Tweet
 												options={{ align: "center" }}
@@ -1826,7 +1999,16 @@ function Report() {
 										)}`}
 										key={data.position}
 									>
-										<div className="flex w-full justify-end">
+										<MenuComponent
+											type="middleTweet"
+											data={data}
+											reorderUpHandler={reorderUpHandler}
+											ArrowUpIcon={ArrowUpIcon}
+											reorderDownHandler={reorderDownHandler}
+											ArrowDownIcon={ArrowDownIcon}
+											deleteTweetHandler={deleteTweetHandler}
+											DeleteIcon={DeleteIcon} />
+										{/* <div className="flex w-full justify-end">
 											<div className="top-0 right-1">
 												<Menu
 													as="div"
@@ -1933,7 +2115,7 @@ function Report() {
 													</Transition>
 												</Menu>
 											</div>
-										</div>
+										</div> */}
 										<div>
 											<Tweet
 												options={{ align: "center" }}
@@ -1965,7 +2147,16 @@ function Report() {
 										)}`}
 										key={data.position}
 									>
-										<div className="flex w-full justify-end">
+										<MenuComponent
+											type="middleTweet"
+											data={data}
+											reorderUpHandler={reorderUpHandler}
+											ArrowUpIcon={ArrowUpIcon}
+											reorderDownHandler={reorderDownHandler}
+											ArrowDownIcon={ArrowDownIcon}
+											deleteTweetHandler={deleteTweetHandler}
+											DeleteIcon={DeleteIcon} />
+										{/* <div className="flex w-full justify-end">
 											<div className="top-0 right-1">
 												<Menu
 													as="div"
@@ -2072,7 +2263,7 @@ function Report() {
 													</Transition>
 												</Menu>
 											</div>
-										</div>
+										</div> */}
 										<div>
 											<Tweet
 												options={{ align: "center" }}
@@ -2557,76 +2748,6 @@ function Report() {
 	);
 }
 
-function SentimentIcon(props: any) {
-	const style2 = { fontSize: "1.3rem" };
-	return (
-		// eslint-disable-next-line react/jsx-props-no-spreading
-		<div {...props}>
-			<AiOutlineEye style={style2} />
-		</div>
-	);
-}
 
-function NonSentimentIcon(props: any) {
-	const style2 = { fontSize: "1.3rem" };
-	return (
-		// eslint-disable-next-line react/jsx-props-no-spreading
-		<div {...props}>
-			<AiOutlineEyeInvisible style={style2} />
-		</div>
-	);
-}
-
-function ShareIcon(props: any) {
-	const style = { fontSize: "1.1rem" };
-	return (
-		// eslint-disable-next-line react/jsx-props-no-spreading
-		<div {...props}>
-			<BsShare style={style} />
-		</div>
-	);
-}
-
-function CloneIcon(props: any) {
-	const iconStyle3 = { fontSize: "1.1rem", color: "red" };
-	return (
-		// eslint-disable-next-line react/jsx-props-no-spreading
-		<div {...props}>
-			<GrCopy style={iconStyle3} />
-		</div>
-	);
-}
-
-function DeleteIcon(props: any) {
-	const iconStyle4 = { fontSize: "1.3rem", color: "red" };
-	return (
-		// eslint-disable-next-line react/jsx-props-no-spreading
-		<div {...props}>
-			<MdDeleteOutline style={iconStyle4} />
-		</div>
-	);
-}
-
-function ArrowDownIcon(props: any) {
-	const style = { fontSize: "1.1rem" };
-
-	return (
-		// eslint-disable-next-line react/jsx-props-no-spreading
-		<div {...props}>
-			<BsArrowDown style={style} />
-		</div>
-	);
-}
-
-function ArrowUpIcon(props: any) {
-	const style = { fontSize: "1.1rem" };
-
-	return (
-		// eslint-disable-next-line react/jsx-props-no-spreading
-		<div {...props}>
-			<BsArrowUp style={style} />
-		</div>
-	);
-}
 
 export default Report;
