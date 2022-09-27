@@ -308,39 +308,39 @@ function Report() {
 
 
 
-	function opacityValue(inp: number): number {
-		if (inp > 0 && inp <= 10) {
-			return 10;
-		}
-		if (inp > 10 && inp <= 20) {
-			return 20;
-		}
-		if (inp > 20 && inp <= 30) {
-			return 30;
-		}
-		if (inp > 30 && inp <= 40) {
-			return 40;
-		}
-		if (inp > 40 && inp <= 50) {
-			return 50;
-		}
-		if (inp > 50 && inp <= 60) {
-			return 60;
-		}
-		if (inp > 60 && inp <= 70) {
-			return 70;
-		}
-		if (inp > 70 && inp <= 80) {
-			return 80;
-		}
-		if (inp > 80 && inp <= 90) {
-			return 90;
-		}
-		if (inp > 90 && inp <= 100) {
-			return 100;
-		}
-		return 0;
-	}
+	// function opacityValue(inp: number): number {
+	// 	if (inp > 0 && inp <= 10) {
+	// 		return 10;
+	// 	}
+	// 	if (inp > 10 && inp <= 20) {
+	// 		return 20;
+	// 	}
+	// 	if (inp > 20 && inp <= 30) {
+	// 		return 30;
+	// 	}
+	// 	if (inp > 30 && inp <= 40) {
+	// 		return 40;
+	// 	}
+	// 	if (inp > 40 && inp <= 50) {
+	// 		return 50;
+	// 	}
+	// 	if (inp > 50 && inp <= 60) {
+	// 		return 60;
+	// 	}
+	// 	if (inp > 60 && inp <= 70) {
+	// 		return 70;
+	// 	}
+	// 	if (inp > 70 && inp <= 80) {
+	// 		return 80;
+	// 	}
+	// 	if (inp > 80 && inp <= 90) {
+	// 		return 90;
+	// 	}
+	// 	if (inp > 90 && inp <= 100) {
+	// 		return 100;
+	// 	}
+	// 	return 0;
+	// }
 
 	if (isPublished() || isViewer()) {
 		state.map((data: any, index: number) =>
@@ -746,9 +746,7 @@ function Report() {
 						<>
 							{data.block.sentiment.sentimentWord === "NEGATIVE" && (
 								<div
-									className={` w-full p-3 flex flex-col justify-center border-2 border-red-500 border-opacity-${opacityValue(
-										Math.floor(data.block.sentiment.sentiment.Negative * 100)
-									)}`}
+									className="w-full p-3 flex flex-col justify-center border-2 border-red-500"
 									key={data.position}
 								>
 									<MenuComponent
@@ -865,9 +863,7 @@ function Report() {
 							)}
 							{data.block.sentiment.sentimentWord === "POSITIVE" && (
 								<div
-									className={` w-full p-3 flex flex-col justify-center border-2 border-green-500 border-opacity-${opacityValue(
-										Math.floor(data.block.sentiment.sentiment.Negative * 100)
-									)}`}
+									className="w-full p-3 flex flex-col justify-center border-2 border-green-500"
 									key={data.position}
 								>
 									<MenuComponent
@@ -984,9 +980,7 @@ function Report() {
 							)}
 							{data.block.sentiment.sentimentWord === "MIXED" && (
 								<div
-									className={` w-full p-3 flex flex-col justify-center border-2 border-gray-500 border-opacity-${opacityValue(
-										Math.floor(data.block.sentiment.sentiment.Negative * 100)
-									)}`}
+									className="w-full p-3 flex flex-col justify-center border-2 border-gray-500"
 									key={data.position}
 								>
 									<MenuComponent
@@ -1101,9 +1095,7 @@ function Report() {
 							)}
 							{data.block.sentiment.sentimentWord === "NEUTRAL" && (
 								<div
-									className={` w-full p-3 flex flex-col justify-center border-2 border-blue-500 border-opacity-${opacityValue(
-										Math.floor(data.block.sentiment.sentiment.Negative * 100)
-									)}`}
+									className="w-full p-3 flex flex-col justify-center border-2 border-blue-500"
 									key={data.position}
 								>
 									<MenuComponent
@@ -1227,9 +1219,7 @@ function Report() {
 						<>
 							{data.block.sentiment.sentimentWord === "NEGATIVE" && (
 								<div
-									className={` w-full p-3 flex flex-col justify-center border-2 border-red-500 border-opacity-${opacityValue(
-										Math.floor(data.block.sentiment.sentiment.Negative * 100)
-									)}`}
+									className="w-full p-3 flex flex-col justify-center border-2 border-red-500"
 									key={data.position}
 								>
 									<MenuComponent
@@ -1346,9 +1336,7 @@ function Report() {
 							)}
 							{data.block.sentiment.sentimentWord === "POSITIVE" && (
 								<div
-									className={` w-full p-3 flex flex-col justify-center border-2 border-green-500 border-opacity-${opacityValue(
-										Math.floor(data.block.sentiment.sentiment.Negative * 100)
-									)}`}
+									className="w-full p-3 flex flex-col justify-center border-2 border-green-500"
 									key={data.position}
 								>
 									<MenuComponent
@@ -1465,9 +1453,7 @@ function Report() {
 							)}
 							{data.block.sentiment.sentimentWord === "MIXED" && (
 								<div
-									className={` w-full p-3 flex flex-col justify-center border-2 border-gray-500 border-opacity-${opacityValue(
-										Math.floor(data.block.sentiment.sentiment.Negative * 100)
-									)}`}
+									className="w-full p-3 flex flex-col justify-center border-2 border-gray-500"
 									key={data.position}
 								>
 									<MenuComponent
@@ -1582,9 +1568,7 @@ function Report() {
 							)}
 							{data.block.sentiment.sentimentWord === "NEUTRAL" && (
 								<div
-									className={` w-full p-3 flex flex-col justify-center border-2 border-blue-500 border-opacity-${opacityValue(
-										Math.floor(data.block.sentiment.sentiment.Negative * 100)
-									)}`}
+									className="w-full p-3 flex flex-col justify-center border-2 border-blue-500"
 									key={data.position}
 								>
 									<MenuComponent
@@ -1709,11 +1693,7 @@ function Report() {
 							<>
 								{data.block.sentiment.sentimentWord === "NEGATIVE" && (
 									<div
-										className={` w-full p-3 flex flex-col justify-center border-2 border-red-500 border-opacity-${opacityValue(
-											Math.floor(
-												data.block.sentiment.sentiment.Negative * 100
-											)
-										)}`}
+										className="w-full p-3 flex flex-col justify-center border-2 border-red-500"
 										key={data.position}
 									>
 										<MenuComponent
@@ -1858,11 +1838,7 @@ function Report() {
 								)}
 								{data.block.sentiment.sentimentWord === "POSITIVE" && (
 									<div
-										className={` w-full p-3 flex flex-col justify-center border-2 border-green-500 border-opacity-${opacityValue(
-											Math.floor(
-												data.block.sentiment.sentiment.Negative * 100
-											)
-										)}`}
+										className="w-full p-3 flex flex-col justify-center border-2 border-green-500"
 										key={data.position}
 									>
 										<MenuComponent
@@ -2007,11 +1983,7 @@ function Report() {
 								)}
 								{data.block.sentiment.sentimentWord === "MIXED" && (
 									<div
-										className={` w-full p-3 flex flex-col justify-center border-2 border-gray-500 border-opacity-${opacityValue(
-											Math.floor(
-												data.block.sentiment.sentiment.Negative * 100
-											)
-										)}`}
+										className="w-full p-3 flex flex-col justify-center border-2 border-gray-500"
 										key={data.position}
 									>
 										<MenuComponent
@@ -2156,11 +2128,7 @@ function Report() {
 								)}
 								{data.block.sentiment.sentimentWord === "NEUTRAL" && (
 									<div
-										className={` w-full p-3 flex flex-col justify-center border-2 border-blue-500 border-opacity-${opacityValue(
-											Math.floor(
-												data.block.sentiment.sentiment.Negative * 100
-											)
-										)}`}
+										className="w-full p-3 flex flex-col justify-center border-2 border-blue-500"
 										key={data.position}
 									>
 										<MenuComponent
