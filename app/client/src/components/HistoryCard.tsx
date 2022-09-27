@@ -31,7 +31,7 @@ function HistoryCard(props: any) {
 		}
 	};
 
-	function toastSomething() {
+	function toggleDelete() {
 		toast.promise(deleteHandler(), {
 			loading: "Deleting.....",
 			success: <b>History deleted!</b>,
@@ -114,7 +114,7 @@ function HistoryCard(props: any) {
 					</p>
 					<div className="flex mt-8 space-x-6 md:mt-8 items-center justify-center">
 						<div className="rounded-sm items-center py-2.5 px-10 text-sm font-semibold text-center text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow">
-							<button onClick={toastSomething} type="submit">
+							<button onClick={toggleDelete} type="submit">
 								Yes
 							</button>
 						</div>
