@@ -116,7 +116,7 @@ export const genScheduledReport = async (params): Promise<void> => {
 			})
 			.promise();
 
-		let payloadBody = JSON.parse(JSON.parse(responseGR.Payload.toLocaleString()).body)
+		let payloadBody = JSON.parse(JSON.parse(responseGR.Payload.toLocaleString()).body);
 		let genReport = payloadBody.Report;
 		let genReportID = genReport.reportID;
 
