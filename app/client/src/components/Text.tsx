@@ -173,7 +173,7 @@ function Text(props: any) {
 		setSecondEditor(!secondEditor);
 	};
 
-	let style2 = "w-full h-auto mt-2 p-2";
+	let style2 = "w-full h-auto mt-2 p-4";
 
 	if (props.data.block === null) {
 		// editButton = true;
