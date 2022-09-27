@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import Carousel from "react-bootstrap/Carousel";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
@@ -29,6 +30,14 @@ function HistoryCard(props: any) {
 			console.error(error);
 		}
 	};
+
+	function toastSomething() {
+		toast.promise(deleteHandler(), {
+			loading: "Deleting.....",
+			success: <b>History deleted!</b>,
+			error: <b>Could not delete.</b>
+		});
+	}
 
 	let sort;
 	let filter;
@@ -105,7 +114,7 @@ function HistoryCard(props: any) {
 					</p>
 					<div className="flex mt-8 space-x-6 md:mt-8 items-center justify-center">
 						<div className="rounded-sm items-center py-2.5 px-10 text-sm font-semibold text-center text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow">
-							<button onClick={deleteHandler} type="submit">
+							<button onClick={toastSomething} type="submit">
 								Yes
 							</button>
 						</div>
