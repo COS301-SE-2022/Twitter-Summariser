@@ -5,6 +5,8 @@ import { IoColorPaletteOutline } from "react-icons/io5";
 import { MdDeleteOutline } from "react-icons/md";
 import { GrTextAlignCenter, GrTextAlignLeft, GrTextAlignRight, GrAdd } from "react-icons/gr";
 import { useState } from "react";
+import Form from "react-bootstrap/Form";
+import FloatingLabel from "react-bootstrap/FloatingLabel";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import useAuth from "../hooks/useAuth";
 
@@ -79,7 +81,7 @@ function Text(props: any) {
 		setColor(event.target.value);
 	};
 
-	const style = `border border-gray-300 w-full h-24 mt-2 p-2${italic}${bold}${color}${size}${align}`;
+	const style = `border border-gray-300 w-full${italic}${bold}${color}${size}${align}`;
 
 	const iconStyle = { fontSize: "1.2rem" };
 	const iconStyle2 = { fontSize: "1rem" };
@@ -250,10 +252,10 @@ function Text(props: any) {
 										</button>
 									)}
 									&nbsp;&nbsp;
-									<div className="flex flex-row">
+									<div className="flex flex-row items-center">
 										<AiOutlineFontSize style={iconStyle} />
-										<select
-											className="text-black text-center text-xs"
+										<Form.Select
+											className="text-black text-center w-24 text-xs bg-slate-100"
 											onChange={sizeHandler}
 										>
 											<option value=" text-xs">12px</option>
@@ -266,13 +268,13 @@ function Text(props: any) {
 											<option value=" text-4xl">36px</option>
 											<option value=" text-5xl">48px</option>
 											<option value=" text-6xl">64px</option>
-										</select>
+										</Form.Select>
 									</div>
 									&nbsp;{" "}
-									<div className="flex flex-row">
+									<div className="flex flex-row items-center">
 										<IoColorPaletteOutline style={iconStyle} />
-										<select
-											className="text-black text-center text-xs"
+										<Form.Select
+											className="text-black text-center w-24 text-xs bg-slate-100"
 											onChange={colorHandler}
 										>
 											<option value=" text-slate-600">slate</option>
@@ -283,18 +285,28 @@ function Text(props: any) {
 											<option value=" text-blue-600">blue</option>
 											<option value=" text-pink-600">pink</option>
 											<option value=" text-purple-600">purple</option>
-										</select>
+										</Form.Select>
 									</div>
 								</div>
 							</div>
 
-							<div className="flex flex-row items-center">
+							<div className="flex flex-row items-center px-4 py-2">
 								<div className="w-5/6">
-									<textarea
+									{/* <textarea
 										className={style}
 										onChange={textHandler}
 										defaultValue={props.data.block.text}
-									/>
+									/> */}
+									<FloatingLabel controlId="floatingTextarea2" label="Articles">
+										<Form.Control
+											as="textarea"
+											placeholder="Leave an article here"
+											style={{ height: "100px" }}
+											className={style}
+											onChange={textHandler}
+											defaultValue={props.data.block.text}
+										/>
+									</FloatingLabel>
 								</div>
 
 								<div className="w-1/6 flex text-center justify-center">
@@ -369,10 +381,10 @@ function Text(props: any) {
 										</button>
 									)}
 									&nbsp;&nbsp;
-									<div className="flex flex-row">
+									<div className="flex flex-row items-center">
 										<AiOutlineFontSize style={iconStyle} />
-										<select
-											className="text-black text-center text-xs"
+										<Form.Select
+											className="text-black text-center w-24 text-xs bg-slate-100"
 											onChange={sizeHandler}
 										>
 											<option value=" text-xs">12px</option>
@@ -385,13 +397,13 @@ function Text(props: any) {
 											<option value=" text-4xl">36px</option>
 											<option value=" text-5xl">48px</option>
 											<option value=" text-6xl">64px</option>
-										</select>
+										</Form.Select>
 									</div>
 									&nbsp;{" "}
-									<div className="flex flex-row">
+									<div className="flex flex-row items-center">
 										<IoColorPaletteOutline style={iconStyle} />
-										<select
-											className="text-black text-center text-xs"
+										<Form.Select
+											className="text-black text-center w-24 text-xs bg-slate-100"
 											onChange={colorHandler}
 										>
 											<option value=" text-slate-600">slate</option>
@@ -402,14 +414,23 @@ function Text(props: any) {
 											<option value=" text-blue-600">blue</option>
 											<option value=" text-pink-600">pink</option>
 											<option value=" text-purple-600">purple</option>
-										</select>
+										</Form.Select>
 									</div>
 								</div>
 							</div>
 
-							<div className="flex flex-row items-center">
+							<div className="flex flex-row items-center px-4 py-2">
 								<div className="w-full">
-									<textarea className={style} onChange={textHandler} />
+									{/* <textarea className={style} onChange={textHandler} /> */}
+									<FloatingLabel controlId="floatingTextarea2" label="Articles">
+										<Form.Control
+											as="textarea"
+											placeholder="Leave an article here"
+											style={{ height: "100px" }}
+											className={style}
+											onChange={textHandler}
+										/>
+									</FloatingLabel>
 								</div>
 							</div>
 
