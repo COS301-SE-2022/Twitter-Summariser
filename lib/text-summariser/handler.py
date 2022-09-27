@@ -2,11 +2,8 @@ import os
 import json
 import torch
 import re
-import socket
-from dotenv import load_dotenv
 from transformers import T5Tokenizer, T5ForConditionalGeneration
 
-load_dotenv()
 
 tokenizer = T5Tokenizer.from_pretrained("./model")
 model = T5ForConditionalGeneration.from_pretrained("./model")
@@ -14,8 +11,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 def summarise(event, _context):
-    url = "http://localhost:3000" if os.environ.get(
-        "PYTHON_ENV") == "development" else "https://db42fgp0ws0c8.cloudfront.net"
+    url = "https://db42fgp0ws0c8.cloudfront.net"
 
     try:
         #   Get the parameters from the event

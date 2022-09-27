@@ -67,10 +67,9 @@ describe("notification.service", () => {
 				Promise.resolve({ Items: [addedNotification] })
 			);
 
-			const notifications = await NotificationService.notificationService.getReceiverNotifications(
-				"jnrjNGgn"
-			);
-				
+			const notifications =
+				await NotificationService.notificationService.getReceiverNotifications("jnrjNGgn");
+
 			expect(db.query).toHaveBeenCalledWith({
 				TableName: "NotificationTable",
 				IndexName: "receiverIndex",
@@ -90,7 +89,6 @@ describe("notification.service", () => {
 					isRead: false,
 					dateCreated: "2022-01-01"
 				}
-
 			];
 
 			expect(notifications).toEqual(expected);
@@ -100,7 +98,6 @@ describe("notification.service", () => {
 	describe("getReceiverUnreadNotifications", () => {
 		test("Get Receiver Unread Notifications", async () => {
 			const addedNotification: Notification = {
-				
 				id: "1234",
 				sender: "dfberki",
 				receiver: "jnrjNGgn",
@@ -114,9 +111,10 @@ describe("notification.service", () => {
 				Promise.resolve({ Items: [addedNotification] })
 			);
 
-			const notifications = await NotificationService.notificationService.getReceiverUnreadNotifications(
-				"jnrjNGgn"
-			);
+			const notifications =
+				await NotificationService.notificationService.getReceiverUnreadNotifications(
+					"jnrjNGgn"
+				);
 
 			expect(db.query).toHaveBeenCalledWith({
 				TableName: "NotificationTable",
@@ -147,9 +145,6 @@ describe("notification.service", () => {
 			expect(notifications).toEqual(expected);
 		});
 	});
-
-
-
 
 	describe("addNotification", () => {
 		test("Add Notification", async () => {

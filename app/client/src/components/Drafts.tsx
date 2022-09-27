@@ -25,9 +25,7 @@ function Drafts() {
 
 			if (auth.profileKey !== "assets/profile.png")
 				changeImageURL(
-					`https://twitter-summariser-images.s3.amazonaws.com/${
-						auth.profileKey
-					}?${new Date().getTime()}`
+					`https://twitter-summariser-images.s3.amazonaws.com/${auth.profileKey}`
 				);
 		} catch (error) {
 			console.error(error);

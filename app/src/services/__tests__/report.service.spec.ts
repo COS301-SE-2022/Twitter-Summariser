@@ -15,7 +15,6 @@ describe("report.service", () => {
 		awsSdkPromiseResponse.mockReset();
 	});
 
-
 	describe("getReport", () => {
 		test("Get Report", async () => {
 			const addedReport: Report = {
@@ -121,12 +120,52 @@ describe("report.service", () => {
 
 			expect(reportHelper).toEqual(expected);
 		});
-
 	});
 
-	describe("getReports", () => {
-		test("Get Reports", async () => {
-			const addedReports: Report[] = [
+	const addedReports: Report[] = [
+		{
+			reportID: "1111",
+			resultSetID: "12222",
+			status: "DRAFT",
+			apiKey: "ABdggekj23",
+			dateCreated: "2022-01-01",
+			title: "This is my report",
+			author: "Test",
+			blockNumber: 0
+		},
+		{
+			reportID: "1112",
+			resultSetID: "12232",
+			status: "DRAFT",
+			apiKey: "ABdggekj23",
+			dateCreated: "2022-01-01",
+			title: "This is my other report",
+			author: "Test",
+			blockNumber: 0
+		},
+		{
+			reportID: "1113",
+			resultSetID: "12422",
+			status: "PUBLISHED",
+			apiKey: "ABdggekj23",
+			dateCreated: "2022-01-01",
+			title: "This is my other other report",
+			author: "Test",
+			blockNumber: 0
+		},
+		{
+			reportID: "1114",
+			resultSetID: "13222",
+			status: "DRAFT",
+			apiKey: "ABdggekj23",
+			dateCreated: "2022-01-01",
+			title: "This is my other other other report",
+			author: "Test",
+			blockNumber: 0
+		}
+	];
+
+	const expected: Report[] = [
 				{
 					reportID: "1111",
 					resultSetID: "12222",
@@ -168,6 +207,11 @@ describe("report.service", () => {
 					blockNumber: 0
 				}
 			];
+
+
+	describe("getReports", () => {
+		
+		test("Get Reports", async () => {
 
 			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Items: addedReports }));
 
@@ -182,48 +226,7 @@ describe("report.service", () => {
 				}
 			});
 
-			const expected: Report[] = [
-				{
-					reportID: "1111",
-					resultSetID: "12222",
-					status: "DRAFT",
-					apiKey: "ABdggekj23",
-					dateCreated: "2022-01-01",
-					title: "This is my report",
-					author: "Test",
-					blockNumber: 0
-				},
-				{
-					reportID: "1112",
-					resultSetID: "12232",
-					status: "DRAFT",
-					apiKey: "ABdggekj23",
-					dateCreated: "2022-01-01",
-					title: "This is my other report",
-					author: "Test",
-					blockNumber: 0
-				},
-				{
-					reportID: "1113",
-					resultSetID: "12422",
-					status: "PUBLISHED",
-					apiKey: "ABdggekj23",
-					dateCreated: "2022-01-01",
-					title: "This is my other other report",
-					author: "Test",
-					blockNumber: 0
-				},
-				{
-					reportID: "1114",
-					resultSetID: "13222",
-					status: "DRAFT",
-					apiKey: "ABdggekj23",
-					dateCreated: "2022-01-01",
-					title: "This is my other other other report",
-					author: "Test",
-					blockNumber: 0
-				}
-			];
+			
 
 			expect(reports).toEqual(expected);
 		});
@@ -241,49 +244,6 @@ describe("report.service", () => {
 		});
 
 		test("Reports don't exist", async () => {
-			const addedReports: Report[] = [
-				{
-					reportID: "1111",
-					resultSetID: "12222",
-					status: "DRAFT",
-					apiKey: "ABgT78ggekj23",
-					dateCreated: "2022-01-01",
-					title: "This is my report",
-					author: "Test",
-					blockNumber: 0
-				},
-				{
-					reportID: "1112",
-					resultSetID: "12232",
-					status: "DRAFT",
-					apiKey: "ABPlgekj23",
-					dateCreated: "2022-01-01",
-					title: "This is my other report",
-					author: "Test",
-					blockNumber: 0
-				},
-				{
-					reportID: "1113",
-					resultSetID: "12422",
-					status: "PUBLISHED",
-					apiKey: "ABdglIgekj23",
-					dateCreated: "2022-01-01",
-					title: "This is my other other report",
-					author: "Test",
-					blockNumber: 0
-				},
-				{
-					reportID: "1114",
-					resultSetID: "13222",
-					status: "DRAFT",
-					apiKey: "AJJgekj23",
-					dateCreated: "2022-01-01",
-					title: "This is my other other other report",
-					author: "Test",
-					blockNumber: 0
-				}
-			];
-
 			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Items: addedReports }));
 
 			try {
@@ -357,49 +317,6 @@ describe("report.service", () => {
 				}
 			});
 
-			const expected: Report[] = [
-				{
-					reportID: "1111",
-					resultSetID: "12222",
-					status: "DRAFT",
-					apiKey: "ABdggekj23",
-					dateCreated: "2022-01-01",
-					title: "This is my report",
-					author: "Test",
-					blockNumber: 0
-				},
-				{
-					reportID: "1112",
-					resultSetID: "12232",
-					status: "DRAFT",
-					apiKey: "ABdggekj23",
-					dateCreated: "2022-01-01",
-					title: "This is my other report",
-					author: "Test",
-					blockNumber: 0
-				},
-				{
-					reportID: "1113",
-					resultSetID: "12422",
-					status: "PUBLISHED",
-					apiKey: "ABdggekj23",
-					dateCreated: "2022-01-01",
-					title: "This is my other other report",
-					author: "Test",
-					blockNumber: 0
-				},
-				{
-					reportID: "1114",
-					resultSetID: "13222",
-					status: "DRAFT",
-					apiKey: "ABdggekj23",
-					dateCreated: "2022-01-01",
-					title: "This is my other other other report",
-					author: "Test",
-					blockNumber: 0
-				}
-			];
-
 			expect(reports).toEqual(expected);
 		});
 	});
@@ -407,7 +324,7 @@ describe("report.service", () => {
 	describe("getPublishedReports", () => {
 		test("Get published reports", async () => {
 			const addedReports: Report[] = [
-					{
+				{
 					reportID: "1111",
 					resultSetID: "12222",
 					status: "DRAFT",
@@ -440,7 +357,7 @@ describe("report.service", () => {
 			expect(reports).toEqual(addedReports);
 		});
 	});
-	
+
 	describe("addReport", () => {
 		test("Add Report", async () => {
 			const report: Report = {
@@ -459,31 +376,9 @@ describe("report.service", () => {
 		});
 	});
 
-
-
 	describe("updateStatus", () => {
 		test("Update report status", async () => {
-			const addedReports: Report[] = [
-				{
-					reportID: "1111",
-					resultSetID: "12222",
-					status: "DRAFT",
-					apiKey: "ABdggekj23",
-					dateCreated: "2022-01-01",
-					title: "This is my report",
-					author: "Test",
-					blockNumber: 0
-				},
-				{
-					reportID: "1112",
-					resultSetID: "12232",
-					status: "DRAFT",
-					apiKey: "ABdggekj23",
-					dateCreated: "2022-01-01",
-					title: "This is my other report",
-					author: "Test",
-					blockNumber: 0
-				},
+			const addedReports: Report[] = [			
 				{
 					reportID: "1113",
 					resultSetID: "12422",
@@ -613,7 +508,7 @@ describe("report.service", () => {
 			expect(db.update).toHaveBeenCalledWith({
 				TableName: "ReportTable",
 				Key: {
-					"reportID": "1111"
+					reportID: "1111"
 				},
 				UpdateExpression: "SET #title = :title",
 				ExpressionAttributeNames: {
@@ -648,7 +543,7 @@ describe("report.service", () => {
 			expect(db.update).toHaveBeenCalledWith({
 				TableName: "ReportTable",
 				Key: {
-					"reportID": "1114"
+					reportID: "1114"
 				},
 				UpdateExpression: "SET #blockNumber = :num",
 				ExpressionAttributeNames: {
@@ -660,7 +555,6 @@ describe("report.service", () => {
 			});
 		});
 	});
-
 
 	describe("deleteReport", () => {
 		test("Delete report", async () => {
@@ -767,6 +661,5 @@ describe("report.service", () => {
 
 			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Items: addedReports }));
 		});
-	});		
-
+	});
 });
