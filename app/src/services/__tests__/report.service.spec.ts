@@ -269,16 +269,6 @@ describe("report.service", () => {
 					title: "This is my other other report",
 					author: "Test",
 					blockNumber: 0
-				},
-				{
-					reportID: "1114",
-					resultSetID: "13222",
-					status: "DRAFT",
-					apiKey: "AJJgekj23",
-					dateCreated: "2022-01-01",
-					title: "This is my other other other report",
-					author: "Test",
-					blockNumber: 0
 				}
 			];
 
@@ -459,27 +449,7 @@ describe("report.service", () => {
 
 	describe("updateStatus", () => {
 		test("Update report status", async () => {
-			const addedReports: Report[] = [
-				{
-					reportID: "1111",
-					resultSetID: "12222",
-					status: "DRAFT",
-					apiKey: "ABdggekj23",
-					dateCreated: "2022-01-01",
-					title: "This is my report",
-					author: "Test",
-					blockNumber: 0
-				},
-				{
-					reportID: "1112",
-					resultSetID: "12232",
-					status: "DRAFT",
-					apiKey: "ABdggekj23",
-					dateCreated: "2022-01-01",
-					title: "This is my other report",
-					author: "Test",
-					blockNumber: 0
-				},
+			const addedReports: Report[] = [			
 				{
 					reportID: "1113",
 					resultSetID: "12422",
