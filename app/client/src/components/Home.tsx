@@ -2,7 +2,7 @@ import { useState, useEffect, Fragment } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
 import { FiSettings } from "react-icons/fi";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+// import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import axios from "axios";
 import { FaTwitter } from "react-icons/fa";
 import ExploreCard from "./ExploreCard";
@@ -24,7 +24,7 @@ function Home() {
 	const [sentimentResponse, changeSentimentResponse] = useState<any[]>([]);
 	const [showTrends, changeShowTrends] = useState(true);
 	const [showSentimentOption, changeShowSentimentOption] = useState(false);
-	const style2 = { fontSize: "1.5rem" };
+	// const style2 = { fontSize: "1.5rem" };
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
 	const [generateLoading, changeGenerateLoading] = useState(false);
@@ -617,7 +617,7 @@ function Home() {
 
 					<br />
 
-					{showSentimentOption && !checkedSentiment && (
+					{/* {showSentimentOption && !checkedSentiment && (
 						<div className="" data-bs-toggle="tooltip" title="Show sentiment analysis">
 							<button type="submit">
 								<AiOutlineEye style={style2} onClick={checkedHandler} />
@@ -630,8 +630,28 @@ function Home() {
 								<AiOutlineEyeInvisible style={style2} onClick={checkedHandler} />
 							</button>
 						</div>
-					)}
+					)} */}
 
+{showSentimentOption && !pulse && !loading  && (
+					<div className="mb-3 ml-4">
+											<label
+												htmlFor="default-toggle"
+												className="inline-flex relative items-center align-center text-center  justify-center cursor-pointer"
+											>
+												<input
+													type="checkbox"
+													value="checkedValue"
+													onClick={checkedHandler}
+													id="default-toggle"
+													className="sr-only peer"
+												/>
+												<div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600" />
+												<span className="ml-3 text-md font-medium text-center">
+													Show Tweets Sentiment
+												</span>
+											</label>
+										</div>
+)}
 					{loading && (
 						<div className="flex flex-row justify-center my-2">
 							{loadIcon} &nbsp; Loading Tweets
