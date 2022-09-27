@@ -62,6 +62,7 @@ function Landing() {
 			data-testid="landing"
 			className="flex flex-row bg-white lg:ml-14 lg:mr-14 mini-tablet:ml-5 mini-tablet:mr-5 relative justify-center"
 		>
+			<Toaster />
 			<div className="items-center border-b mini-tablet:hidden flex flex-row fixed top-0 left-0 right-0 w-full justify-between mb-8 h-14 bg-white text-black z-10 pl-4 p-2">
 				<button type="button" onClick={mobileClickHandler}>
 					<GiHamburgerMenu style={style} className="items-center" />
@@ -110,8 +111,6 @@ function Landing() {
 				<div className=" lg:flex lg:w-1/4 lg:p-2 lg:pt-5 lg:relative lg:mr-14 hidden">
 					<Notifications />
 				</div>
-				<Toaster />
-
 				<MobileNotifications />
 			</NotificationsProvider>
 		</div>

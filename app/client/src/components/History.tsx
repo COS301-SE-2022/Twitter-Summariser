@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Toaster } from "react-hot-toast";
+// import { Toaster } from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import HistoryCard from "./HistoryCard";
@@ -63,9 +63,6 @@ function History() {
 
 	return (
 		<div>
-			<div>
-				<Toaster />
-			</div>
 			<div className=" mt-2 pt-3 ">
 				<div className="mt-4">
 					<div className="flex flex-row justify-around">
