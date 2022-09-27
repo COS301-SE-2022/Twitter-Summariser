@@ -481,6 +481,7 @@ function Home() {
 						{/* this is for the search button */}
 						<div className="flex flex-row justify-around">
 							<Button
+								div data-testid="btn-start"
 								text="Get Started"
 								size="large"
 								handle={displayHomeSearch}
@@ -490,7 +491,7 @@ function Home() {
 					</div>
 					<div className="mt-2 pt-3 ">
 						<div className=" mt-4 text-center">
-							<h1 className="pl-2 pr-2 text-black font-semibold text-3xl">
+							<h1 data-testid="heading-explore" className="pl-2 pr-2 text-black font-semibold text-3xl">
 								Explore Latest Reports
 							</h1>
 
@@ -524,6 +525,7 @@ function Home() {
 				<div className="mt-8 mini-tablet:mt-0">
 					<div className="flex justify-center pt-8 pl-4 pr-8 pb-2">
 						<label
+							data-testid="search-label"
 							htmlFor="default-search"
 							className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
 						>
@@ -547,6 +549,7 @@ function Home() {
 								</svg>
 							</div>
 							<input
+								data-testid="search-input"
 								type="search"
 								id="default-search"
 								className="pl-10 w-11/12 text-sm text-gray-900 bg-gray-50 rounded-full border-gray-200 border focus:outline-none focus:ring focus:border-blue-500"
@@ -556,7 +559,7 @@ function Home() {
 								required
 							/>
 						</div>
-						<div className="w-1/12 items-center flex flex-col justify-center cursor-pointer">
+						<div data-testid="icon-advanced-search" className="w-1/12 items-center flex flex-col justify-center cursor-pointer">
 							<FiSettings style={style} onClick={toggleAdvancSearch} />
 						</div>
 					</div>
