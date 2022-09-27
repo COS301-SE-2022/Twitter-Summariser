@@ -9,6 +9,7 @@ describe("Rendering Tests For Components in Home", () => {
 	// });
 
 	it("renders Home without crashing", () => {
+		// expect(1).toBe(1);
 		render(
 			<BrowserRouter>
 				<Home />
@@ -16,6 +17,72 @@ describe("Rendering Tests For Components in Home", () => {
 		);
 		const home = screen.getByTestId("home");
 		expect(home).toBeTruthy();
+
+		it("renders start button without crashing", () => {
+		// expect(1).toBe(1);
+		render(
+			<BrowserRouter>
+				<Home />
+			</BrowserRouter>
+		);
+		const startButton = screen.getByTestId("btn-start");
+		expect(startButton).toBeTruthy();
+		});
+
+		it("renders start button without crashing", () => {
+		// expect(1).toBe(1);
+		render(
+			<BrowserRouter>
+				<Home />
+			</BrowserRouter>
+		);
+		const exploreHeading = screen.getByTestId("heading-explore");
+		expect(exploreHeading).toBeTruthy();
+		});
+
+		it("renders start button without crashing", () => {
+		// expect(1).toBe(1);
+		render(
+			<BrowserRouter>
+				<Home />
+			</BrowserRouter>
+		);
+		const exploreReports = screen.getByTestId("reports");
+		expect(exploreReports).toBeTruthy();
+		});
+
+		it("renders start button without crashing", () => {
+		// expect(1).toBe(1);
+		render(
+			<BrowserRouter>
+				<Home />
+			</BrowserRouter>
+		);
+		const searchLabel = screen.getByTestId("search-label");
+		expect(searchLabel).toBeTruthy();
+		});
+
+		it("renders start button without crashing", () => {
+		// expect(1).toBe(1);
+		render(
+			<BrowserRouter>
+				<Home />
+			</BrowserRouter>
+		);
+		const searchInput = screen.getByTestId("search-input");
+		expect(searchInput).toBeTruthy();
+		});
+
+		it("renders start button without crashing", () => {
+		// expect(1).toBe(1);
+		render(
+			<BrowserRouter>
+				<Home />
+			</BrowserRouter>
+		);
+		const advancedIcon = screen.getByTestId("icon-advanced-search");
+		expect(advancedIcon).toBeTruthy();
+		});
 	});
 
 	// Testing to see if Search bar is rendered
