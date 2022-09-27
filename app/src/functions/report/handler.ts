@@ -56,9 +56,7 @@ export const generateReport = middyfy(
 				const responseTS = await lambda
 					.invoke(lambdaParams, function (data, err) {
 						if (err) {
-							console.log(err);
-						} else {
-							console.log(data);
+							console.error(err);
 						}
 					})
 					.promise();
@@ -128,15 +126,24 @@ export const getAllMyDraftReports = middyfy(
 			const params = JSON.parse(event.body);
 			const reports = await ServicesLayer.reportService.getDraftReports(params.apiKey);
 
-			reports.map(async (report) => {
-				delete report.apiKey;
-			});
-
 			reports.sort((a, b) => {
 				return new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime();
 			});
 
-			// const tweets = await ServicesLayer.tweetService.getTweets(params.resultSetID);
+			if (reports.length > 1) {
+				const diff =
+					new Date(reports[0].dateCreated).getTime() -
+					new Date(reports[1].dateCreated).getTime();
+				if (reports[0].title === reports[1].title && Math.abs(diff / 1000) < 1) {
+					await ServicesLayer.reportService.deleteReport(reports[0].reportID);
+					reports.shift();
+				}
+			}
+
+			reports.map(async (report) => {
+				delete report.apiKey;
+			});
+
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
@@ -416,8 +423,8 @@ export const getReport = middyfy(
 				if (result[y] !== undefined) {
 					if (result[y].position === x) {
 						rp.push(result[y]);
-						if(result[y].blockType==='TWEET'){
-							tweets.push(result[y].block.tweetID)
+						if (result[y].blockType === "TWEET") {
+							tweets.push(result[y].block.tweetID);
 						}
 						bl = true;
 						count++;
@@ -451,7 +458,7 @@ export const getReport = middyfy(
 			const sentimentResults = await Comprehend.batchDetectSentiment(param).promise();
 
 			for (let x = 0; x < data.length; x++) {
-				rp[2*x+1].block.sentiment = {
+				rp[2 * x + 1].block.sentiment = {
 					sentimentWord: sentimentResults.ResultList[x].Sentiment,
 					sentiment: sentimentResults.ResultList[x].SentimentScore,
 					id: data[x].id
@@ -584,22 +591,22 @@ export const getSharedReport = middyfy(
 
 			let responseArray = await re.reduce(async (result, report) => {
 				let resultArray = await result;
-				if(report.status !== "DELETED") {
-					
-
+				if (report.status !== "DELETED") {
 					const user = await ServicesLayer.creatorService.getCreatorByKey(report.apiKey);
 					report.profileKey = user.profileKey;
 					delete report.apiKey;
 					delete report.resultSetID;
 
 					resultArray.push(report);
-
 				} else {
-					ServicesLayer.permissionService.deletePermission(report.reportID, params.apiKey);
+					ServicesLayer.permissionService.deletePermission(
+						report.reportID,
+						params.apiKey
+					);
 				}
 				return result;
 			}, Promise.resolve([]));
-		
+
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,

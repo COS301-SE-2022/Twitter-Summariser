@@ -29,14 +29,11 @@ export default class ReportBlockService {
 			})
 			.promise();
 
-		// console.log(result.Items);
 		if (result === undefined) return [] as ReportBlock[];
 
-		// let blocks: ReportBlock[];
 		const blocks = result.Items as ReportBlock[];
 		this.sortReportBlocks(blocks);
 
-		// console.log(blocks);
 		return blocks as ReportBlock[];
 	}
 

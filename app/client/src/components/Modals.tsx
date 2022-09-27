@@ -378,7 +378,6 @@ function Modals({
 													onClick={() => {
 														setCheckedValue(!checkedValue);
 														setChecked(!checkedValue);
-														console.log(checkedValue);
 													}}
 													id="default-toggle"
 													className="sr-only peer"

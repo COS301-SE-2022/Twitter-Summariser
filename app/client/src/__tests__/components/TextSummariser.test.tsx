@@ -1,4 +1,3 @@
-
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import TextSummariser from "../../components/TextSummariser";
@@ -12,10 +11,5 @@ describe("Rendering Tests For Components in TextSummariser", () => {
 		);
 		const summariser = screen.getByTestId("summariser");
 		expect(summariser).toBeTruthy();
-	})
-
-
-
-
+	});
 });
-

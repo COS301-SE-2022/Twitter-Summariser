@@ -80,13 +80,13 @@ describe("permission.service", () => {
 			const permission = await PermissionService.permissionService.verifyReportRetr(
 				"EDITOR",
 				"rdvsafbkjuk5",
-				"1111"				
+				"1111"
 			);
 
 			expect(permission.valueOf()).toEqual(true);
 		});
 	});
-			
+
 	describe("verifyEditor", () => {
 		test("Verify Editor", async () => {
 			const addedPermission: Permission = {
@@ -105,7 +105,6 @@ describe("permission.service", () => {
 			expect(permission.valueOf()).toEqual(true);
 
 			const addedPermission2: Permission = {
-
 				reportID: "1111",
 				apiKey: "rdvsafbkjuk5",
 				type: "VIEWER"
@@ -119,7 +118,6 @@ describe("permission.service", () => {
 			);
 
 			expect(permission2.valueOf()).toEqual(false);
-
 		});
 	});
 
@@ -131,7 +129,7 @@ describe("permission.service", () => {
 				type: "EDITOR"
 			};
 
-			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({Item: addedPermission}));
+			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Item: addedPermission }));
 
 			await PermissionService.permissionService.updatePermission(
 				"1111",

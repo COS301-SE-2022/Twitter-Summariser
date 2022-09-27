@@ -17,9 +17,7 @@ export const warmupTextSummariser = async () => {
 		await lambda
 			.invoke(lambdaParams, function (data, err) {
 				if (err) {
-					console.log(err);
-				} else {
-					console.log(data);
+					console.error(err);
 				}
 			})
 			.promise();

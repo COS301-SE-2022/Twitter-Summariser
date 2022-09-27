@@ -11,5 +11,5 @@ describe("Rendering Tests For Components in Reports", () => {
 		);
 		const report = screen.getByTestId("report");
 		expect(report).toBeTruthy();
-	})
+	});
 });

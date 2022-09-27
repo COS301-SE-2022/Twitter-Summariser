@@ -83,7 +83,7 @@ function ViewHistory() {
 				navigate(`/report/${response.data.Report.reportID}`);
 			} else {
 				const response = await axios.post(
-					"https://v3wxwnpzytm77wf7dfiqp6q3om0mrlis.lambda-url.us-east-1.on.aws/",
+					"https://a4rntvvs25gunwl3pwjakjpu2q0ufhvw.lambda-url.us-east-1.on.aws/",
 					JSON.stringify(searchData),
 					{
 						headers: {

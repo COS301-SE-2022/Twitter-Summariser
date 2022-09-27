@@ -119,7 +119,7 @@ const getValue = async (request: any) => {
 
 		return new Response(JSON.stringify(cacheData.response.body), cacheData.response);
 	} catch (err) {
-		console.log(err);
+		console.error(err);
 		return null;
 	}
 };

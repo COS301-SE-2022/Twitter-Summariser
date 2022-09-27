@@ -148,7 +148,6 @@ function Text(props: any) {
 			position: textPos,
 			apiKey: auth.apiKey
 		};
-		console.log(propsUpdate);
 		editText(propsUpdate);
 	};
 

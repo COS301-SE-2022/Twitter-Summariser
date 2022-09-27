@@ -65,10 +65,12 @@ export const profileImageUpload = middy(
 				};
 			}
 
+			const newKey = `${body.name}-${Date.now()}.${fileExtension}`;
+
 			await s3
 				.putObject({
 					Body: imageBuffer,
-					Key: `${body.name}.${fileExtension}`,
+					Key: newKey,
 					ContentType: body.mime,
 					Bucket: "twitter-summariser-images",
 					ACL: "public-read"
@@ -77,7 +79,7 @@ export const profileImageUpload = middy(
 
 			const isCreatorUpdated = await CreatorServices.creatorService.updateProfileKey(
 				body.email,
-				`${body.name}.${fileExtension}`
+				newKey
 			);
 
 			if (isCreatorUpdated === true) {
@@ -86,7 +88,7 @@ export const profileImageUpload = middy(
 					headers: header,
 					body: JSON.stringify({
 						message: "Image uploaded successfully!",
-						profileKey: `${body.name}.${fileExtension}`
+						profileKey: newKey
 					})
 				};
 			} else {
