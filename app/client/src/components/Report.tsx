@@ -2,7 +2,7 @@ import { useEffect, useState, Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import Form from "react-bootstrap/Form";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Tweet } from "react-twitter-widgets";
+// import { Tweet } from "react-twitter-widgets";
 import { GrCopy } from "react-icons/gr";
 import { GiConfirmed, GiCancel } from "react-icons/gi";
 import { IoOptionsOutline } from "react-icons/io5";
@@ -17,6 +17,7 @@ import PublishedText from "./PublishedText";
 import "./styles/Animation.css";
 import Modals from "./Modals";
 import MenuComponent from "./MenuComponent";
+import TweetComponent from "./TweetComponent";
 
 function SentimentIcon(props: any) {
 	const style2 = { fontSize: "1.3rem" };
@@ -353,11 +354,12 @@ function Report() {
 
 					{data.blockType === "TWEET" && (
 						<div className=" w-full border border-gray-200 p-3" key={data.position}>
-							<Tweet
+							{/* <Tweet
 								options={{ align: "center", width: "" }}
 								tweetId={data.block.tweetID}
 								onLoad={done}
-							/>
+							/> */}
+							<TweetComponent id={data.block.tweetID} done={done} />
 						</div>
 					)}
 				</div>
@@ -472,11 +474,12 @@ function Report() {
 										</Menu>
 									</div>
 								</div> */}
-								<Tweet
+								{/* <Tweet
 									options={{ align: "center", width: "" }}
 									tweetId={data.block.tweetID}
 									onLoad={done}
-								/>
+								/> */}
+								<TweetComponent id={data.block.tweetID} done={done} />
 							</div>
 						</>
 					)}
@@ -575,10 +578,11 @@ function Report() {
 									</div>
 								</div> */}
 
-								<Tweet
+								{/* <Tweet
 									options={{ align: "center", width: "" }}
 									tweetId={data.block.tweetID}
-								/>
+								/> */}
+								<TweetComponent id={data.block.tweetID} done={done} />
 							</div>
 						</>
 					)}
@@ -710,10 +714,11 @@ function Report() {
 										</div>
 									</div> */}
 
-									<Tweet
+									{/* <Tweet
 										options={{ align: "center", width: "" }}
 										tweetId={data.block.tweetID}
-									/>
+									/> */}
+									<TweetComponent id={data.block.tweetID} done={done} />
 								</div>
 							</>
 						)}
@@ -836,11 +841,12 @@ function Report() {
 										</div>
 									</div> */}
 									<div>
-										<Tweet
+										{/* <Tweet
 											options={{ align: "center" }}
 											tweetId={data.block.sentiment.id}
 											onLoad={done}
-										/>
+										/> */}
+										<TweetComponent id={data.block.sentiment.id} done={done} />
 										<p className="text-red-500">
 											Negative -{" "}
 											{Math.floor(
@@ -954,11 +960,12 @@ function Report() {
 										</div>
 									</div> */}
 									<div>
-										<Tweet
+										{/* <Tweet
 											options={{ align: "center" }}
 											tweetId={data.block.sentiment.id}
 											onLoad={done}
-										/>
+										/> */}
+										<TweetComponent id={data.block.sentiment.id} done={done} />
 										<p className="text-green-500">
 											Positive -{" "}
 											{Math.floor(
@@ -1072,11 +1079,12 @@ function Report() {
 										</div>
 									</div> */}
 									<div>
-										<Tweet
+										{/* <Tweet
 											options={{ align: "center" }}
 											tweetId={data.block.sentiment.id}
 											onLoad={done}
-										/>
+										/> */}
+										<TweetComponent id={data.block.sentiment.id} done={done} />
 										<p className="text-gray-500">
 											Mixed -{" "}
 											{Math.floor(data.block.sentiment.sentiment.Mixed * 100)}{" "}
@@ -1188,11 +1196,12 @@ function Report() {
 										</div>
 									</div> */}
 									<div>
-										<Tweet
+										{/* <Tweet
 											options={{ align: "center" }}
 											tweetId={data.block.sentiment.id}
 											onLoad={done}
-										/>
+										/> */}
+										<TweetComponent id={data.block.sentiment.id} done={done} />
 										{/* Neutral - {Math.floor(data.sentiment.Neutral * 100)} % */}
 										<p className="text-blue-500">
 											Neutral -{" "}
@@ -1313,11 +1322,12 @@ function Report() {
 										</div>
 									</div> */}
 									<div>
-										<Tweet
+										{/* <Tweet
 											options={{ align: "center" }}
 											tweetId={data.block.sentiment.id}
 											onLoad={done}
-										/>
+										/> */}
+										<TweetComponent id={data.block.sentiment.id} done={done} />
 										<p className="text-red-500">
 											Negative -{" "}
 											{Math.floor(
@@ -1431,11 +1441,12 @@ function Report() {
 										</div>
 									</div> */}
 									<div>
-										<Tweet
+										{/* <Tweet
 											options={{ align: "center" }}
 											tweetId={data.block.sentiment.id}
 											onLoad={done}
-										/>
+										/> */}
+										<TweetComponent id={data.block.sentiment.id} done={done} />
 										<p className="text-green-500">
 											Positive -{" "}
 											{Math.floor(
@@ -1549,11 +1560,12 @@ function Report() {
 										</div>
 									</div> */}
 									<div>
-										<Tweet
+										{/* <Tweet
 											options={{ align: "center" }}
 											tweetId={data.block.sentiment.id}
 											onLoad={done}
-										/>
+										/> */}
+										<TweetComponent id={data.block.sentiment.id} done={done} />
 										<p className="text-gray-500">
 											Mixed -{" "}
 											{Math.floor(data.block.sentiment.sentiment.Mixed * 100)}{" "}
@@ -1665,11 +1677,12 @@ function Report() {
 										</div>
 									</div> */}
 									<div>
-										<Tweet
+										{/* <Tweet
 											options={{ align: "center" }}
 											tweetId={data.block.sentiment.id}
 											onLoad={done}
-										/>
+										/> */}
+										<TweetComponent id={data.block.sentiment.id} done={done} />
 										{/* Neutral - {Math.floor(data.sentiment.Neutral * 100)} % */}
 										<p className="text-blue-500">
 											Neutral -{" "}
@@ -1821,11 +1834,12 @@ function Report() {
 											</div>
 										</div> */}
 										<div>
-											<Tweet
+											{/* <Tweet
 												options={{ align: "center" }}
 												tweetId={data.block.sentiment.id}
 												onLoad={done}
-											/>
+											/> */}
+											<TweetComponent id={data.block.sentiment.id} done={done} />
 											<p className="text-red-500">
 												Negative -{" "}
 												{Math.floor(
@@ -1969,11 +1983,12 @@ function Report() {
 											</div>
 										</div> */}
 										<div>
-											<Tweet
+											{/* <Tweet
 												options={{ align: "center" }}
 												tweetId={data.block.sentiment.id}
 												onLoad={done}
-											/>
+											/> */}
+											<TweetComponent id={data.block.sentiment.id} done={done} />
 											<p className="text-green-500">
 												Positive -{" "}
 												{Math.floor(
@@ -2117,11 +2132,12 @@ function Report() {
 											</div>
 										</div> */}
 										<div>
-											<Tweet
+											{/* <Tweet
 												options={{ align: "center" }}
 												tweetId={data.block.sentiment.id}
 												onLoad={done}
-											/>
+											/> */}
+											<TweetComponent id={data.block.sentiment.id} done={done} />
 											<p className="text-gray-500">
 												Mixed -{" "}
 												{Math.floor(
@@ -2265,11 +2281,12 @@ function Report() {
 											</div>
 										</div> */}
 										<div>
-											<Tweet
+											{/* <Tweet
 												options={{ align: "center" }}
 												tweetId={data.block.sentiment.id}
 												onLoad={done}
-											/>
+											/> */}
+											<TweetComponent id={data.block.sentiment.id} done={done} />
 											{/* Neutral - {Math.floor(data.sentiment.Neutral * 100)} % */}
 											<p className="text-blue-500">
 												Neutral -{" "}
