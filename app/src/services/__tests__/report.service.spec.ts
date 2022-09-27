@@ -123,8 +123,7 @@ describe("report.service", () => {
 	});
 
 	describe("getReports", () => {
-		test("Get Reports", async () => {
-			const addedReports: Report[] = [
+		const addedReports: Report[] = [
 				{
 					reportID: "1111",
 					resultSetID: "12222",
@@ -166,6 +165,8 @@ describe("report.service", () => {
 					blockNumber: 0
 				}
 			];
+
+		test("Get Reports", async () => {
 
 			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Items: addedReports }));
 
@@ -239,39 +240,6 @@ describe("report.service", () => {
 		});
 
 		test("Reports don't exist", async () => {
-			const addedReports: Report[] = [
-				{
-					reportID: "1111",
-					resultSetID: "12222",
-					status: "DRAFT",
-					apiKey: "ABgT78ggekj23",
-					dateCreated: "2022-01-01",
-					title: "This is my report",
-					author: "Test",
-					blockNumber: 0
-				},
-				{
-					reportID: "1112",
-					resultSetID: "12232",
-					status: "DRAFT",
-					apiKey: "ABPlgekj23",
-					dateCreated: "2022-01-01",
-					title: "This is my other report",
-					author: "Test",
-					blockNumber: 0
-				},
-				{
-					reportID: "1113",
-					resultSetID: "12422",
-					status: "PUBLISHED",
-					apiKey: "ABdglIgekj23",
-					dateCreated: "2022-01-01",
-					title: "This is my other other report",
-					author: "Test",
-					blockNumber: 0
-				}
-			];
-
 			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Items: addedReports }));
 
 			try {
