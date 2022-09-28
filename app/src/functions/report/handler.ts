@@ -27,6 +27,26 @@ export const generateReport = middyfy(
 
 			const { tweets } = title;
 
+			// // Get All the drafts
+			// const drafts = await ServicesLayer.reportService.getDraftReports(params["apiKey"]);
+
+			// drafts.sort((a, b) => {
+			// 	return new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime();
+			// });
+
+			// const diff = new Date().getTime() -	new Date(drafts[0].dateCreated).getTime();
+			// if (drafts.length > 0  && drafts[0].title === title.searchPhrase && Math.abs(diff / 1000) < 5) {
+			// 	return {
+			// 		statusCode: statusCodes.accepted,
+			// 		headers: header,
+			// 		body: JSON.stringify({
+			// 			message: "Report already generated",
+			// 			reportID: drafts[0].reportID
+			// 		})
+			// 	};
+			// }
+
+
 			let id: string = "RT-" + randomUUID();
 			const d = new Date();
 
@@ -53,13 +73,7 @@ export const generateReport = middyfy(
 					})
 				};
 
-				const responseTS = await lambda
-					.invoke(lambdaParams, function (data, err) {
-						if (err) {
-							console.error(err);
-						}
-					})
-					.promise();
+				const responseTS = await lambda.invoke(lambdaParams).promise();
 				sText = JSON.parse(JSON.parse(responseTS.Payload.toLocaleString()).body).text;
 			}
 
@@ -106,6 +120,21 @@ export const generateReport = middyfy(
 				size: " text-xs"
 			});
 
+
+			if (params["reportType"] && params["reportType"] === "SCHEDULED") {
+				const notification = {
+					id: "NT-" + randomUUID(),
+					sender: "SYSTEM",
+					receiver: params.apiKey,
+					type: "SCHEDULER",
+					content: report.reportID,
+					isRead: false,
+					dateCreated: new Date().toString()
+				};
+
+				await ServicesLayer.notificationService.addNotification(notification);
+			}
+
 			return {
 				statusCode: statusCodes.Successful,
 				body: JSON.stringify({ Report: report, summarisedText: sText })
@@ -134,7 +163,7 @@ export const getAllMyDraftReports = middyfy(
 				const diff =
 					new Date(reports[0].dateCreated).getTime() -
 					new Date(reports[1].dateCreated).getTime();
-				if (reports[0].title === reports[1].title && Math.abs(diff / 1000) < 1) {
+				if (reports[0].title === reports[1].title && Math.abs(diff / 1000) < 5) {
 					await ServicesLayer.reportService.deleteReport(reports[0].reportID);
 					reports.shift();
 				}

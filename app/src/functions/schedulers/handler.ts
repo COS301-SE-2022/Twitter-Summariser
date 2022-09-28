@@ -4,8 +4,9 @@ import { header, statusCodes } from "@functions/resources/APIresponse";
 import { EventBridge, Lambda } from "aws-sdk";
 import ServicesLayer from "../../services";
 import { randomUUID } from "crypto";
-import Notification from "@model/notification/notification.model";
 import axiosPrivate from "../../../client/src/api/ConfigAxios";
+import axios from "axios";
+
 
 const eventBridge = new EventBridge();
 const lambda = new Lambda();
@@ -104,33 +105,13 @@ export const genScheduledReport = async (params): Promise<void> => {
 			Payload: JSON.stringify({
 				apiKey: params.apiKey,
 				author: params.author,
-				resultSetID: responseST.data.resultSetID
+				resultSetID: responseST.data.resultSetID,
+				reportType: "SCHEDULED"
 			})
 		};
 
-		const responseGR = await lambda
-			.invoke(generateParams, function (_data, err) {
-				if (err) {
-					console.error(err);
-				}
-			})
-			.promise();
+		await lambda.invoke(generateParams).promise();
 
-		let payloadBody = JSON.parse(JSON.parse(responseGR.Payload.toLocaleString()).body);
-		let genReport = payloadBody.Report;
-		let genReportID = genReport.reportID;
-
-		const notification: Notification = {
-			id: "NT-" + randomUUID(),
-			sender: "SYSTEM",
-			receiver: params.apiKey,
-			type: "SCHEDULER",
-			content: genReportID,
-			isRead: false,
-			dateCreated: new Date().toString()
-		};
-
-		await ServicesLayer.notificationService.addNotification(notification);
 	} catch (e) {}
 };
 
