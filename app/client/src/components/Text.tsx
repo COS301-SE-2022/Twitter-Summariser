@@ -120,13 +120,13 @@ function Text(props: any) {
 		setSecondEditor(!secondEditor);
 	};
 
-	function toggleDeleteText() {
-		toast.promise(deleteTextHandler(), {
-			loading: "Deleting article!.....",
-			success: <b>Text deleted!</b>,
-			error: <b>Could not delete.</b>
-		});
-	}
+	// function toggleDeleteText() {
+	// 	toast.promise(deleteTextHandler(), {
+	// 		loading: "Deleting article!.....",
+	// 		success: <b>Text deleted!</b>,
+	// 		error: <b>Could not delete.</b>
+	// 	});
+	// }
 
 	const [report, changeReport] = useState("");
 
@@ -145,12 +145,28 @@ function Text(props: any) {
 		}
 	};
 
-	function toggleEditText(text: any) {
-		toast.promise(editText(text), {
-			loading: "Updating article!.....",
-			success: <b>Article Added!</b>,
-			error: <b>Could not add article.</b>
-		});
+	// function toggleEditText(text: any) {
+	// 	toast.promise(editText(text), {
+	// 		loading: "Updating article!.....",
+	// 		success: <b>Article Added!</b>,
+	// 		error: <b>Could not add article.</b>
+	// 	});
+	// }
+
+	function toggle(option: any, text: any) {
+		if (option === "edit") {
+			toast.promise(editText(text), {
+				loading: "Updating article!.....",
+				success: <b>Article Added!</b>,
+				error: <b>Could not add article.</b>
+			});
+		} else {
+			toast.promise(deleteTextHandler(), {
+				loading: "Deleting article!.....",
+				success: <b>Text deleted!</b>,
+				error: <b>Could not delete.</b>
+			});
+		}
 	}
 
 	const update = async () => {
@@ -167,7 +183,7 @@ function Text(props: any) {
 			position: textPos,
 			apiKey: auth.apiKey
 		};
-		toggleEditText(propsUpdate);
+		toggle("edit", propsUpdate);
 	};
 
 	const secondUpdate = () => {
@@ -186,7 +202,7 @@ function Text(props: any) {
 			position: textPos,
 			apiKey: auth.apiKey
 		};
-		toggleEditText(propsSecondUpdate);
+		toggle("edit", propsSecondUpdate);
 		setSecondEditor(!secondEditor);
 	};
 
@@ -327,7 +343,7 @@ function Text(props: any) {
 								</div>
 
 								<div className="w-1/6 flex text-center justify-center">
-									<button type="button" onClick={toggleDeleteText}>
+									<button type="button" onClick={() => toggle("", "")}>
 										<MdDeleteOutline style={iconStyle3} />
 									</button>
 								</div>
