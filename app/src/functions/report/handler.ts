@@ -106,11 +106,11 @@ export const generateReport = middyfy(
 			await ServicesLayer.textStyleService.addStyle({
 				textStylesID: sid,
 				reportBlockID: tb,
-				align: " text-left",
-				bold: " font-bold",
-				colour: " text-black",
+				align: "",
+				bold: "",
+				colour: "",
 				italic: "",
-				size: " text-xs"
+				size: ""
 			});
 
 			return {
