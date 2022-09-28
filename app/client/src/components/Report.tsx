@@ -94,7 +94,6 @@ function ArrowUpIcon(props: any) {
 
 function Report() {
 	const style = { fontSize: "1.3rem" };
-	// const iconStyle3 = { fontSize: "1.5rem", color: "red" };
 	const styleCorrect = { fontSize: "1.5rem", color: "green" };
 	const styleWrong = { fontSize: "1.5rem", color: "red" };
 	const [share, setShare] = useState(false);
