@@ -122,7 +122,7 @@ function Text(props: any) {
 
 	function toggleDeleteText() {
 		toast.promise(deleteTextHandler(), {
-			loading: "Deleting.....",
+			loading: "Deleting article!.....",
 			success: <b>Text deleted!</b>,
 			error: <b>Could not delete.</b>
 		});
