@@ -119,6 +119,7 @@ export const generateReport = middyfy(
 				italic: "",
 				size: " text-xs"
 			});
+			
 
 			if (params["reportType"] && params["reportType"] === "SCHEDULED") {
 				const notification = {
