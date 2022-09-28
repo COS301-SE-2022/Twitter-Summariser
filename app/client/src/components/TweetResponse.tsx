@@ -52,10 +52,10 @@ function TweetResponse({ position, type, type2, tweetId, DeleteIcon, done, data,
 			</div>}
 
 			{type === "with" &&  <div
-				className={ `w-full p-3 flex flex-col justify-center border-2 border-${color}-500`}
+				className={ `w-full p-3 flex flex-col justify-center border-2 border-${color}-500 rounded-lg`}
 				key={position}
 			>
-				{type === "first" && <MenuComponent
+				{type2 === "first" && <MenuComponent
 					type="firstTweet"
 					data={data}
 					reorderDownHandler={reorderDownHandler}
@@ -63,7 +63,7 @@ function TweetResponse({ position, type, type2, tweetId, DeleteIcon, done, data,
 					deleteTweetHandler={deleteTweetHandler}
 					DeleteIcon={DeleteIcon} />}
 
-				{type === "last" && <MenuComponent
+				{type2 === "last" && <MenuComponent
 					type="lastTweet"
 					data={data}
 					reorderUpHandler={reorderUpHandler}
@@ -71,7 +71,7 @@ function TweetResponse({ position, type, type2, tweetId, DeleteIcon, done, data,
 					deleteTweetHandler={deleteTweetHandler}
 					DeleteIcon={DeleteIcon} />}
 
-				{type === "middle" && <MenuComponent
+				{type2 === "middle" && <MenuComponent
 					type="middleTweet"
 					data={data}
 					reorderUpHandler={reorderUpHandler}
