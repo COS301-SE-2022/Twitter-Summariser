@@ -13,7 +13,7 @@ function TweetResponse({
 	toggleUp,
 	ArrowDownIcon,
 	ArrowUpIcon,
-	deleteTweetHandler,
+	toggleDeleteTweet,
 	color,
 	sentimentValue,
 	sentimentText
@@ -41,7 +41,7 @@ function TweetResponse({
 								data={data}
 								toggleDown={toggleDown}
 								ArrowDownIcon={ArrowDownIcon}
-								deleteTweetHandler={deleteTweetHandler}
+								toggleDeleteTweet={toggleDeleteTweet}
 								DeleteIcon={DeleteIcon}
 							/>
 						</>
@@ -54,7 +54,7 @@ function TweetResponse({
 								data={data}
 								toggleUp={toggleUp}
 								ArrowUpIcon={ArrowUpIcon}
-								deleteTweetHandler={deleteTweetHandler}
+								toggleDeleteTweet={toggleDeleteTweet}
 								DeleteIcon={DeleteIcon}
 							/>
 						</>
@@ -69,7 +69,7 @@ function TweetResponse({
 								ArrowUpIcon={ArrowUpIcon}
 								toggleDown={toggleDown}
 								ArrowDownIcon={ArrowDownIcon}
-								deleteTweetHandler={deleteTweetHandler}
+								toggleDeleteTweet={toggleDeleteTweet}
 								DeleteIcon={DeleteIcon}
 							/>
 						</>
@@ -89,7 +89,7 @@ function TweetResponse({
 							data={data}
 							toggleDown={toggleDown}
 							ArrowDownIcon={ArrowDownIcon}
-							deleteTweetHandler={deleteTweetHandler}
+							toggleDeleteTweet={toggleDeleteTweet}
 							DeleteIcon={DeleteIcon}
 						/>
 					)}
@@ -100,7 +100,7 @@ function TweetResponse({
 							data={data}
 							toggleUp={toggleUp}
 							ArrowUpIcon={ArrowUpIcon}
-							deleteTweetHandler={deleteTweetHandler}
+							toggleDeleteTweet={toggleDeleteTweet}
 							DeleteIcon={DeleteIcon}
 						/>
 					)}
@@ -113,7 +113,7 @@ function TweetResponse({
 							ArrowUpIcon={ArrowUpIcon}
 							toggleDown={toggleDown}
 							ArrowDownIcon={ArrowDownIcon}
-							deleteTweetHandler={deleteTweetHandler}
+							toggleDeleteTweet={toggleDeleteTweet}
 							DeleteIcon={DeleteIcon}
 						/>
 					)}

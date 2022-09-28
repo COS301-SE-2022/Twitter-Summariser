@@ -9,7 +9,7 @@ function MenuComponent({
 	toggleDown,
 	ArrowUpIcon,
 	ArrowDownIcon,
-	deleteTweetHandler,
+	toggleDeleteTweet,
 	DeleteIcon
 }: any) {
 	return (
@@ -91,7 +91,7 @@ function MenuComponent({
 													? "bg-slate-200 text-gray-900"
 													: "text-gray-900"
 											} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-											onClick={() => deleteTweetHandler(data.reportBlockID)}
+											onClick={() => toggleDeleteTweet(data.reportBlockID)}
 										>
 											{
 												// eslint-disable-next-line no-use-before-define

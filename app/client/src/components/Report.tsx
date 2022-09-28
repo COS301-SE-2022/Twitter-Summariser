@@ -316,6 +316,14 @@ function Report() {
 		}
 	};
 
+	function toggleDeleteTweet(val: any) {
+		toast.promise(deleteTweetHandler(val), {
+			loading: "Deleting tweet!.....",
+			success: <b>Tweet Deleted!</b>,
+			error: <b>Could not delete tweet.</b>
+		});
+	}
+
 	const isPublished = () => stat === "PUBLISHED";
 	const isViewer = () => perm === "VIEWER";
 	const isOwner = () => perm === "OWNER";
@@ -366,7 +374,7 @@ function Report() {
 							data={data}
 							toggleDown={toggleDown}
 							ArrowDownIcon={ArrowDownIcon}
-							deleteTweetHandler={deleteTweetHandler}
+							toggleDeleteTweet={toggleDeleteTweet}
 						/>
 					)}
 
@@ -382,7 +390,7 @@ function Report() {
 							data={data}
 							toggleUp={toggleUp}
 							ArrowUpIcon={ArrowUpIcon}
-							deleteTweetHandler={deleteTweetHandler}
+							toggleDeleteTweet={toggleDeleteTweet}
 						/>
 					)}
 
@@ -401,7 +409,7 @@ function Report() {
 								ArrowUpIcon={ArrowUpIcon}
 								toggleDown={toggleDown}
 								ArrowDownIcon={ArrowDownIcon}
-								deleteTweetHandler={deleteTweetHandler}
+								toggleDeleteTweet={toggleDeleteTweet}
 							/>
 						)}
 				</div>
@@ -437,7 +445,7 @@ function Report() {
 									data={data}
 									toggleDown={toggleDown}
 									ArrowDownIcon={ArrowDownIcon}
-									deleteTweetHandler={deleteTweetHandler}
+									toggleDeleteTweet={toggleDeleteTweet}
 									color="red"
 									sentimentValue={Math.floor(
 										data.block.sentiment.sentiment.Negative * 100
@@ -456,7 +464,7 @@ function Report() {
 									data={data}
 									toggleDown={toggleDown}
 									ArrowDownIcon={ArrowDownIcon}
-									deleteTweetHandler={deleteTweetHandler}
+									toggleDeleteTweet={toggleDeleteTweet}
 									color="green"
 									sentimentValue={Math.floor(
 										data.block.sentiment.sentiment.Positive * 100
@@ -475,7 +483,7 @@ function Report() {
 									data={data}
 									toggleDown={toggleDown}
 									ArrowDownIcon={ArrowDownIcon}
-									deleteTweetHandler={deleteTweetHandler}
+									toggleDeleteTweet={toggleDeleteTweet}
 									color="gray"
 									sentimentValue={Math.floor(
 										data.block.sentiment.sentiment.Mixed * 100
@@ -494,7 +502,7 @@ function Report() {
 									data={data}
 									toggleDown={toggleDown}
 									ArrowDownIcon={ArrowDownIcon}
-									deleteTweetHandler={deleteTweetHandler}
+									toggleDeleteTweet={toggleDeleteTweet}
 									color="blue"
 									sentimentValue={Math.floor(
 										data.block.sentiment.sentiment.Neutral * 100
@@ -519,7 +527,7 @@ function Report() {
 									data={data}
 									toggleUp={toggleUp}
 									ArrowUpIcon={ArrowUpIcon}
-									deleteTweetHandler={deleteTweetHandler}
+									toggleDeleteTweet={toggleDeleteTweet}
 									color="red"
 									sentimentValue={Math.floor(
 										data.block.sentiment.sentiment.Negative * 100
@@ -538,7 +546,7 @@ function Report() {
 									data={data}
 									toggleUp={toggleUp}
 									ArrowUpIcon={ArrowUpIcon}
-									deleteTweetHandler={deleteTweetHandler}
+									toggleDeleteTweet={toggleDeleteTweet}
 									color="green"
 									sentimentValue={Math.floor(
 										data.block.sentiment.sentiment.Positive * 100
@@ -557,7 +565,7 @@ function Report() {
 									data={data}
 									toggleUp={toggleUp}
 									ArrowUpIcon={ArrowUpIcon}
-									deleteTweetHandler={deleteTweetHandler}
+									toggleDeleteTweet={toggleDeleteTweet}
 									color="gray"
 									sentimentValue={Math.floor(
 										data.block.sentiment.sentiment.Mixed * 100
@@ -576,7 +584,7 @@ function Report() {
 									data={data}
 									toggleUp={toggleUp}
 									ArrowUpIcon={ArrowUpIcon}
-									deleteTweetHandler={deleteTweetHandler}
+									toggleDeleteTweet={toggleDeleteTweet}
 									color="blue"
 									sentimentValue={Math.floor(
 										data.block.sentiment.sentiment.Neutral * 100
@@ -604,7 +612,7 @@ function Report() {
 										ArrowUpIcon={ArrowUpIcon}
 										toggleDown={toggleDown}
 										ArrowDownIcon={ArrowDownIcon}
-										deleteTweetHandler={deleteTweetHandler}
+										toggleDeleteTweet={toggleDeleteTweet}
 										color="red"
 										sentimentValue={Math.floor(
 											data.block.sentiment.sentiment.Negative * 100
@@ -625,7 +633,7 @@ function Report() {
 										ArrowUpIcon={ArrowUpIcon}
 										toggleDown={toggleDown}
 										ArrowDownIcon={ArrowDownIcon}
-										deleteTweetHandler={deleteTweetHandler}
+										toggleDeleteTweet={toggleDeleteTweet}
 										color="green"
 										sentimentValue={Math.floor(
 											data.block.sentiment.sentiment.Positive * 100
@@ -646,7 +654,7 @@ function Report() {
 										ArrowUpIcon={ArrowUpIcon}
 										toggleDown={toggleDown}
 										ArrowDownIcon={ArrowDownIcon}
-										deleteTweetHandler={deleteTweetHandler}
+										toggleDeleteTweet={toggleDeleteTweet}
 										color="gray"
 										sentimentValue={Math.floor(
 											data.block.sentiment.sentiment.Mixed * 100
@@ -667,7 +675,7 @@ function Report() {
 										ArrowUpIcon={ArrowUpIcon}
 										toggleDown={toggleDown}
 										ArrowDownIcon={ArrowDownIcon}
-										deleteTweetHandler={deleteTweetHandler}
+										toggleDeleteTweet={toggleDeleteTweet}
 										color="blue"
 										sentimentValue={Math.floor(
 											data.block.sentiment.sentiment.Neutral * 100
