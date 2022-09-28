@@ -104,33 +104,13 @@ export const genScheduledReport = async (params): Promise<void> => {
 			Payload: JSON.stringify({
 				apiKey: params.apiKey,
 				author: params.author,
-				resultSetID: responseST.data.resultSetID
+				resultSetID: responseST.data.resultSetID,
+				reportType: "SCHEDULED"
 			})
 		};
 
-		const responseGR = await lambda
-			.invoke(generateParams, function (_data, err) {
-				if (err) {
-					console.error(err);
-				}
-			})
-			.promise();
-
-		let payloadBody = JSON.parse(JSON.parse(responseGR.Payload.toLocaleString()).body);
-		let genReport = payloadBody.Report;
-		let genReportID = genReport.reportID;
-
-		const notification: Notification = {
-			id: "NT-" + randomUUID(),
-			sender: "SYSTEM",
-			receiver: params.apiKey,
-			type: "SCHEDULER",
-			content: genReportID,
-			isRead: false,
-			dateCreated: new Date().toString()
-		};
-
-		await ServicesLayer.notificationService.addNotification(notification);
+		await lambda.invoke(generateParams).promise();
+		
 	} catch (e) {}
 };
 
