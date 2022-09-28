@@ -1,4 +1,5 @@
 import { BiItalic, BiBold } from "react-icons/bi";
+import toast from "react-hot-toast";
 import { BsJustify } from "react-icons/bs";
 import { AiOutlineFontSize, AiFillEdit } from "react-icons/ai";
 import { IoColorPaletteOutline } from "react-icons/io5";
@@ -119,6 +120,14 @@ function Text(props: any) {
 		setSecondEditor(!secondEditor);
 	};
 
+	function toggleDeleteText() {
+		toast.promise(deleteTextHandler(), {
+			loading: "Deleting.....",
+			success: <b>Text deleted!</b>,
+			error: <b>Could not delete.</b>
+		});
+	}
+
 	const [report, changeReport] = useState("");
 
 	const textHandler = (event: any) => {
@@ -136,6 +145,14 @@ function Text(props: any) {
 		}
 	};
 
+	function toggleEditText(text: any) {
+		toast.promise(editText(text), {
+			loading: "Updating article!.....",
+			success: <b>Article Added!</b>,
+			error: <b>Could not add article.</b>
+		});
+	}
+
 	const update = async () => {
 		const propsUpdate = {
 			textStyle: {
@@ -150,7 +167,7 @@ function Text(props: any) {
 			position: textPos,
 			apiKey: auth.apiKey
 		};
-		editText(propsUpdate);
+		toggleEditText(propsUpdate);
 	};
 
 	const secondUpdate = () => {
@@ -169,7 +186,7 @@ function Text(props: any) {
 			position: textPos,
 			apiKey: auth.apiKey
 		};
-		editText(propsSecondUpdate);
+		toggleEditText(propsSecondUpdate);
 		setSecondEditor(!secondEditor);
 	};
 
@@ -310,7 +327,7 @@ function Text(props: any) {
 								</div>
 
 								<div className="w-1/6 flex text-center justify-center">
-									<button type="button" onClick={deleteTextHandler}>
+									<button type="button" onClick={toggleDeleteText}>
 										<MdDeleteOutline style={iconStyle3} />
 									</button>
 								</div>
