@@ -1,4 +1,6 @@
+/* eslint-disable react/jsx-no-bind */
 import { useEffect, useState, Fragment } from "react";
+import toast from "react-hot-toast";
 import { Menu, Transition } from "@headlessui/react";
 import Form from "react-bootstrap/Form";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -262,6 +264,14 @@ function Report() {
 		}
 	};
 
+	function toggleUp(val: any) {
+		toast.promise(reorderUpHandler(val), {
+			loading: "Moving twwet up!.....",
+			success: <b>Tweet Moved!</b>,
+			error: <b>Could not move tweet.</b>
+		});
+	}
+
 	const reorderDownHandler = async (tweetPos: any) => {
 		const resultDetails = {
 			reportID: repID,
@@ -280,6 +290,14 @@ function Report() {
 		}
 	};
 
+	function toggleDown(val: any) {
+		toast.promise(reorderDownHandler(val), {
+			loading: "Moving tweet down!.....",
+			success: <b>Tweet Moved!</b>,
+			error: <b>Could not move tweet.</b>
+		});
+	}
+
 	// UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY
 	const deleteTweetHandler = async (blockID: any) => {
 		const deleteDetails = {
@@ -297,6 +315,14 @@ function Report() {
 			console.error(err);
 		}
 	};
+
+	function toggleDeleteTweet(val: any) {
+		toast.promise(deleteTweetHandler(val), {
+			loading: "Deleting tweet!.....",
+			success: <b>Tweet Deleted!</b>,
+			error: <b>Could not delete tweet.</b>
+		});
+	}
 
 	const isPublished = () => stat === "PUBLISHED";
 	const isViewer = () => perm === "VIEWER";
@@ -346,9 +372,10 @@ function Report() {
 							DeleteIcon={DeleteIcon}
 							done={done}
 							data={data}
-							reorderDownHandler={reorderDownHandler}
+							toggleDown={toggleDown}
 							ArrowDownIcon={ArrowDownIcon}
-							deleteTweetHandler={deleteTweetHandler} />
+							toggleDeleteTweet={toggleDeleteTweet}
+						/>
 					)}
 
 					{/* LAST TWEET */}
@@ -361,27 +388,29 @@ function Report() {
 							DeleteIcon={DeleteIcon}
 							done={done}
 							data={data}
-							reorderUpHandler={reorderUpHandler}
+							toggleUp={toggleUp}
 							ArrowUpIcon={ArrowUpIcon}
-							deleteTweetHandler={deleteTweetHandler} />
+							toggleDeleteTweet={toggleDeleteTweet}
+						/>
 					)}
 
 					{/* TWEETS IN-BETWEEN */}
 					{data.blockType === "TWEET" &&
 						!(data.position === 1 || data.position === length - 2) && (
 							<TweetResponse
-							position={data.position}
-							type="without"
-							type2="middle"
-							tweetId={data.block.tweetID}
-							DeleteIcon={DeleteIcon}
-							done={done}
-							data={data}
-							reorderUpHandler={reorderUpHandler}
-							ArrowUpIcon={ArrowUpIcon}
-							reorderDownHandler={reorderDownHandler}
-							ArrowDownIcon={ArrowDownIcon}
-							deleteTweetHandler={deleteTweetHandler} />
+								position={data.position}
+								type="without"
+								type2="middle"
+								tweetId={data.block.tweetID}
+								DeleteIcon={DeleteIcon}
+								done={done}
+								data={data}
+								toggleUp={toggleUp}
+								ArrowUpIcon={ArrowUpIcon}
+								toggleDown={toggleDown}
+								ArrowDownIcon={ArrowDownIcon}
+								toggleDeleteTweet={toggleDeleteTweet}
+							/>
 						)}
 				</div>
 			)
@@ -414,12 +443,15 @@ function Report() {
 									DeleteIcon={DeleteIcon}
 									done={done}
 									data={data}
-									reorderDownHandler={reorderDownHandler}
+									toggleDown={toggleDown}
 									ArrowDownIcon={ArrowDownIcon}
-									deleteTweetHandler={deleteTweetHandler}
+									toggleDeleteTweet={toggleDeleteTweet}
 									color="red"
-									sentimentValue={Math.floor(data.block.sentiment.sentiment.Negative * 100)}
-									sentimentText="Negative" />
+									sentimentValue={Math.floor(
+										data.block.sentiment.sentiment.Negative * 100
+									)}
+									sentimentText="Negative"
+								/>
 							)}
 							{data.block.sentiment.sentimentWord === "POSITIVE" && (
 								<TweetResponse
@@ -430,13 +462,15 @@ function Report() {
 									DeleteIcon={DeleteIcon}
 									done={done}
 									data={data}
-									reorderDownHandler={reorderDownHandler}
+									toggleDown={toggleDown}
 									ArrowDownIcon={ArrowDownIcon}
-									deleteTweetHandler={deleteTweetHandler}
+									toggleDeleteTweet={toggleDeleteTweet}
 									color="green"
-									sentimentValue={Math.floor(data.block.sentiment.sentiment.Positive * 100)}
-									sentimentText="Positive" />
-
+									sentimentValue={Math.floor(
+										data.block.sentiment.sentiment.Positive * 100
+									)}
+									sentimentText="Positive"
+								/>
 							)}
 							{data.block.sentiment.sentimentWord === "MIXED" && (
 								<TweetResponse
@@ -447,13 +481,15 @@ function Report() {
 									DeleteIcon={DeleteIcon}
 									done={done}
 									data={data}
-									reorderDownHandler={reorderDownHandler}
+									toggleDown={toggleDown}
 									ArrowDownIcon={ArrowDownIcon}
-									deleteTweetHandler={deleteTweetHandler}
+									toggleDeleteTweet={toggleDeleteTweet}
 									color="gray"
-									sentimentValue={Math.floor(data.block.sentiment.sentiment.Mixed * 100)}
-									sentimentText="Mixed" />
-
+									sentimentValue={Math.floor(
+										data.block.sentiment.sentiment.Mixed * 100
+									)}
+									sentimentText="Mixed"
+								/>
 							)}
 							{data.block.sentiment.sentimentWord === "NEUTRAL" && (
 								<TweetResponse
@@ -464,13 +500,15 @@ function Report() {
 									DeleteIcon={DeleteIcon}
 									done={done}
 									data={data}
-									reorderDownHandler={reorderDownHandler}
+									toggleDown={toggleDown}
 									ArrowDownIcon={ArrowDownIcon}
-									deleteTweetHandler={deleteTweetHandler}
+									toggleDeleteTweet={toggleDeleteTweet}
 									color="blue"
-									sentimentValue={Math.floor(data.block.sentiment.sentiment.Neutral * 100)}
-									sentimentText="Neutral" />
-
+									sentimentValue={Math.floor(
+										data.block.sentiment.sentiment.Neutral * 100
+									)}
+									sentimentText="Neutral"
+								/>
 							)}
 						</>
 					)}
@@ -487,13 +525,15 @@ function Report() {
 									DeleteIcon={DeleteIcon}
 									done={done}
 									data={data}
-									reorderUpHandler={reorderUpHandler}
+									toggleUp={toggleUp}
 									ArrowUpIcon={ArrowUpIcon}
-									deleteTweetHandler={deleteTweetHandler}
+									toggleDeleteTweet={toggleDeleteTweet}
 									color="red"
-									sentimentValue={Math.floor(data.block.sentiment.sentiment.Negative * 100)}
-									sentimentText="Negative" />
-
+									sentimentValue={Math.floor(
+										data.block.sentiment.sentiment.Negative * 100
+									)}
+									sentimentText="Negative"
+								/>
 							)}
 							{data.block.sentiment.sentimentWord === "POSITIVE" && (
 								<TweetResponse
@@ -504,13 +544,15 @@ function Report() {
 									DeleteIcon={DeleteIcon}
 									done={done}
 									data={data}
-									reorderUpHandler={reorderUpHandler}
+									toggleUp={toggleUp}
 									ArrowUpIcon={ArrowUpIcon}
-									deleteTweetHandler={deleteTweetHandler}
+									toggleDeleteTweet={toggleDeleteTweet}
 									color="green"
-									sentimentValue={Math.floor(data.block.sentiment.sentiment.Positive * 100)}
-									sentimentText="Positive" />
-
+									sentimentValue={Math.floor(
+										data.block.sentiment.sentiment.Positive * 100
+									)}
+									sentimentText="Positive"
+								/>
 							)}
 							{data.block.sentiment.sentimentWord === "MIXED" && (
 								<TweetResponse
@@ -521,13 +563,15 @@ function Report() {
 									DeleteIcon={DeleteIcon}
 									done={done}
 									data={data}
-									reorderUpHandler={reorderUpHandler}
+									toggleUp={toggleUp}
 									ArrowUpIcon={ArrowUpIcon}
-									deleteTweetHandler={deleteTweetHandler}
+									toggleDeleteTweet={toggleDeleteTweet}
 									color="gray"
-									sentimentValue={Math.floor(data.block.sentiment.sentiment.Mixed * 100)}
-									sentimentText="Mixed" />
-
+									sentimentValue={Math.floor(
+										data.block.sentiment.sentiment.Mixed * 100
+									)}
+									sentimentText="Mixed"
+								/>
 							)}
 							{data.block.sentiment.sentimentWord === "NEUTRAL" && (
 								<TweetResponse
@@ -538,13 +582,15 @@ function Report() {
 									DeleteIcon={DeleteIcon}
 									done={done}
 									data={data}
-									reorderUpHandler={reorderUpHandler}
+									toggleUp={toggleUp}
 									ArrowUpIcon={ArrowUpIcon}
-									deleteTweetHandler={deleteTweetHandler}
+									toggleDeleteTweet={toggleDeleteTweet}
 									color="blue"
-									sentimentValue={Math.floor(data.block.sentiment.sentiment.Neutral * 100)}
-									sentimentText="Neutral" />
-
+									sentimentValue={Math.floor(
+										data.block.sentiment.sentiment.Neutral * 100
+									)}
+									sentimentText="Neutral"
+								/>
 							)}
 						</>
 					)}
@@ -554,80 +600,88 @@ function Report() {
 						!(data.position === 1 || data.position === length - 2) && (
 							<>
 								{data.block.sentiment.sentimentWord === "NEGATIVE" && (
-								<TweetResponse
-									position={data.position}
-									type="with"
-									type2="middle"
-									tweetId={data.block.tweetID}
-									DeleteIcon={DeleteIcon}
-									done={done}
-									data={data}
-									reorderUpHandler={reorderUpHandler}
-									ArrowUpIcon={ArrowUpIcon}
-									reorderDownHandler={reorderDownHandler}
-									ArrowDownIcon={ArrowDownIcon}
-									deleteTweetHandler={deleteTweetHandler}
-									color="red"
-									sentimentValue={Math.floor(data.block.sentiment.sentiment.Negative * 100)}
-									sentimentText="Negative" />
-
+									<TweetResponse
+										position={data.position}
+										type="with"
+										type2="middle"
+										tweetId={data.block.tweetID}
+										DeleteIcon={DeleteIcon}
+										done={done}
+										data={data}
+										toggleUp={toggleUp}
+										ArrowUpIcon={ArrowUpIcon}
+										toggleDown={toggleDown}
+										ArrowDownIcon={ArrowDownIcon}
+										toggleDeleteTweet={toggleDeleteTweet}
+										color="red"
+										sentimentValue={Math.floor(
+											data.block.sentiment.sentiment.Negative * 100
+										)}
+										sentimentText="Negative"
+									/>
 								)}
 								{data.block.sentiment.sentimentWord === "POSITIVE" && (
-								<TweetResponse
-									position={data.position}
-									type="with"
-									type2="middle"
-									tweetId={data.block.tweetID}
-									DeleteIcon={DeleteIcon}
-									done={done}
-									data={data}
-									reorderUpHandler={reorderUpHandler}
-									ArrowUpIcon={ArrowUpIcon}
-									reorderDownHandler={reorderDownHandler}
-									ArrowDownIcon={ArrowDownIcon}
-									deleteTweetHandler={deleteTweetHandler}
-									color="green"
-									sentimentValue={Math.floor(data.block.sentiment.sentiment.Positive * 100)}
-									sentimentText="Positive" />
-
+									<TweetResponse
+										position={data.position}
+										type="with"
+										type2="middle"
+										tweetId={data.block.tweetID}
+										DeleteIcon={DeleteIcon}
+										done={done}
+										data={data}
+										toggleUp={toggleUp}
+										ArrowUpIcon={ArrowUpIcon}
+										toggleDown={toggleDown}
+										ArrowDownIcon={ArrowDownIcon}
+										toggleDeleteTweet={toggleDeleteTweet}
+										color="green"
+										sentimentValue={Math.floor(
+											data.block.sentiment.sentiment.Positive * 100
+										)}
+										sentimentText="Positive"
+									/>
 								)}
 								{data.block.sentiment.sentimentWord === "MIXED" && (
 									<TweetResponse
-									position={data.position}
-									type="with"
-									type2="middle"
-									tweetId={data.block.tweetID}
-									DeleteIcon={DeleteIcon}
-									done={done}
-									data={data}
-									reorderUpHandler={reorderUpHandler}
-									ArrowUpIcon={ArrowUpIcon}
-									reorderDownHandler={reorderDownHandler}
-									ArrowDownIcon={ArrowDownIcon}
-									deleteTweetHandler={deleteTweetHandler}
-									color="gray"
-									sentimentValue={Math.floor(data.block.sentiment.sentiment.Mixed * 100)}
-									sentimentText="Mixed" />
-
+										position={data.position}
+										type="with"
+										type2="middle"
+										tweetId={data.block.tweetID}
+										DeleteIcon={DeleteIcon}
+										done={done}
+										data={data}
+										toggleUp={toggleUp}
+										ArrowUpIcon={ArrowUpIcon}
+										toggleDown={toggleDown}
+										ArrowDownIcon={ArrowDownIcon}
+										toggleDeleteTweet={toggleDeleteTweet}
+										color="gray"
+										sentimentValue={Math.floor(
+											data.block.sentiment.sentiment.Mixed * 100
+										)}
+										sentimentText="Mixed"
+									/>
 								)}
 								{data.block.sentiment.sentimentWord === "NEUTRAL" && (
-								<TweetResponse
-									position={data.position}
-									type="with"
-									type2="middle"
-									tweetId={data.block.tweetID}
-									DeleteIcon={DeleteIcon}
-									done={done}
-									data={data}
-									reorderUpHandler={reorderUpHandler}
-									ArrowUpIcon={ArrowUpIcon}
-									reorderDownHandler={reorderDownHandler}
-									ArrowDownIcon={ArrowDownIcon}
-									deleteTweetHandler={deleteTweetHandler}
-									color="blue"
-									sentimentValue={Math.floor(data.block.sentiment.sentiment.Neutral * 100)}
-									sentimentText="Neutral" />
-
+									<TweetResponse
+										position={data.position}
+										type="with"
+										type2="middle"
+										tweetId={data.block.tweetID}
+										DeleteIcon={DeleteIcon}
+										done={done}
+										data={data}
+										toggleUp={toggleUp}
+										ArrowUpIcon={ArrowUpIcon}
+										toggleDown={toggleDown}
+										ArrowDownIcon={ArrowDownIcon}
+										toggleDeleteTweet={toggleDeleteTweet}
+										color="blue"
+										sentimentValue={Math.floor(
+											data.block.sentiment.sentiment.Neutral * 100
+										)}
+										sentimentText="Neutral"
+									/>
 								)}
 							</>
 						)}
@@ -1089,7 +1143,5 @@ function Report() {
 		</div>
 	);
 }
-
-
 
 export default Report;
