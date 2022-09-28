@@ -80,10 +80,10 @@ function TweetResponse({
 
 			{type === "with" && (
 				<div
-					className={`w-full p-3 flex flex-col justify-center border-2 border-${color}-500`}
+					className={`w-full p-3 flex flex-col justify-center border-2 border-${color}-500 rounded-lg`}
 					key={position}
 				>
-					{type === "first" && (
+					{type2 === "first" && (
 						<MenuComponent
 							type="firstTweet"
 							data={data}
@@ -94,7 +94,7 @@ function TweetResponse({
 						/>
 					)}
 
-					{type === "last" && (
+					{type2 === "last" && (
 						<MenuComponent
 							type="lastTweet"
 							data={data}
@@ -105,7 +105,7 @@ function TweetResponse({
 						/>
 					)}
 
-					{type === "middle" && (
+					{type2 === "middle" && (
 						<MenuComponent
 							type="middleTweet"
 							data={data}
