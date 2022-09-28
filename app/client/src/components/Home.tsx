@@ -2,8 +2,9 @@ import { useState, useEffect, Fragment } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
 import { FiSettings } from "react-icons/fi";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+// import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import axios from "axios";
+import { FaTwitter } from "react-icons/fa";
 import ExploreCard from "./ExploreCard";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
@@ -23,7 +24,7 @@ function Home() {
 	const [sentimentResponse, changeSentimentResponse] = useState<any[]>([]);
 	const [showTrends, changeShowTrends] = useState(true);
 	const [showSentimentOption, changeShowSentimentOption] = useState(false);
-	const style2 = { fontSize: "1.5rem" };
+	// const style2 = { fontSize: "1.5rem" };
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
 	const [generateLoading, changeGenerateLoading] = useState(false);
@@ -74,7 +75,7 @@ function Home() {
 				navigate(`/report/${response.data.Report.reportID}`);
 			} else {
 				const response = await axios.post(
-					"https://v3wxwnpzytm77wf7dfiqp6q3om0mrlis.lambda-url.us-east-1.on.aws/",
+					"https://b5vqifffzyekwisapei2eptkdu0mpwfi.lambda-url.us-east-1.on.aws/",
 					JSON.stringify(searchData),
 					{
 						headers: {
@@ -270,7 +271,7 @@ function Home() {
 			<>
 				{data.sentimentWord === "NEGATIVE" && (
 					<div
-						className={` border-2 border-red-500 border-opacity-${opacityValue(
+						className={` rounded-lg border-2 border-red-500 border-opacity-${opacityValue(
 							Math.floor(data.sentiment.Negative * 100)
 						)}  `}
 						key={data.id + 1}
@@ -283,7 +284,7 @@ function Home() {
 				)}
 				{data.sentimentWord === "POSITIVE" && (
 					<div
-						className={` border-2 border-green-500 border-opacity-${opacityValue(
+						className={` rounded-lg border-2 border-green-500 border-opacity-${opacityValue(
 							Math.floor(data.sentiment.Positive * 100)
 						)} `}
 						key={data.id + 2}
@@ -296,7 +297,7 @@ function Home() {
 				)}
 				{data.sentimentWord === "MIXED" && (
 					<div
-						className={` border-2 border-gray-500 border-opacity-${opacityValue(
+						className={` rounded-lg border-2 border-gray-500 border-opacity-${opacityValue(
 							Math.floor(data.sentiment.Mixed * 100)
 						)} `}
 						key={data.id + 3}
@@ -309,7 +310,7 @@ function Home() {
 				)}
 				{data.sentimentWord === "NEUTRAL" && (
 					<div
-						className={` border-2 border-blue-500 border-opacity-${opacityValue(
+						className={` rounded-lg border-2 border-blue-500 border-opacity-${opacityValue(
 							Math.floor(data.sentiment.Neutral * 100)
 						)} `}
 						key={data.id + 4}
@@ -328,6 +329,13 @@ function Home() {
 
 	const draftID = draftReport;
 	const newDraftReportLink = `/report/${draftID}`;
+
+	function scrollToTop() {
+		window.scrollTo({
+			top: 0,
+			behavior: "smooth"
+		});
+	}
 
 	const loadIcon = (
 		<svg
@@ -386,6 +394,7 @@ function Home() {
 				"getTrendingTopics",
 				JSON.stringify(trendData)
 			);
+
 			isMounted && changeTrends(response.data);
 			changeLoading(false);
 		} catch (error) {
@@ -407,14 +416,19 @@ function Home() {
 		trendsResponse.push(
 			<div
 				key={trends.indexOf(tweetData)}
-				className="cursor-pointer pb-2 text-midnight-blue font-semibold"
+				className="bg-gray-200 text-black items-center rounded-md mt-3 flex p-2.5 hover:cursor-pointer hover:bg-gray-400"
 				onClick={() => {
 					searchInput = document.getElementById("default-search") as HTMLInputElement;
 					searchInput.value = tweetData;
 					changeEnteredSearch(tweetData);
+					scrollToTop();
 				}}
 			>
-				{tweetData}
+				<FaTwitter />
+				<p className="truncate md:w-full sm:w-3 text-black font-medium">
+					{tweetData}
+				</p>
+				<div className="actions ml-6 md:ml-0">{}</div>
 			</div>
 		)
 	);
@@ -425,8 +439,6 @@ function Home() {
 		let isMounted = true;
 
 		const getReports = async () => {
-			console.log(JSON.stringify({}));
-
 			try {
 				const response = await axiosPrivate.post(
 					"getAllPublishedReports",
@@ -477,6 +489,8 @@ function Home() {
 						{/* this is for the search button */}
 						<div className="flex flex-row justify-around">
 							<Button
+								div
+								data-testid="btn-start"
 								text="Get Started"
 								size="large"
 								handle={displayHomeSearch}
@@ -486,7 +500,7 @@ function Home() {
 					</div>
 					<div className="mt-2 pt-3 ">
 						<div className=" mt-4 text-center">
-							<h1 className="pl-2 pr-2 text-black font-semibold text-3xl">
+							<h1 data-testid="heading-explore" className="pl-2 pr-2 text-black font-semibold text-3xl">
 								Explore Latest Reports
 							</h1>
 
@@ -520,6 +534,7 @@ function Home() {
 				<div className="mt-8 mini-tablet:mt-0">
 					<div className="flex justify-center pt-8 pl-4 pr-8 pb-2">
 						<label
+							data-testid="search-label"
 							htmlFor="default-search"
 							className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
 						>
@@ -543,6 +558,7 @@ function Home() {
 								</svg>
 							</div>
 							<input
+								data-testid="search-input"
 								type="search"
 								id="default-search"
 								className="pl-10 w-11/12 text-sm text-gray-900 bg-gray-50 rounded-full border-gray-200 border focus:outline-none focus:ring focus:border-blue-500"
@@ -552,7 +568,7 @@ function Home() {
 								required
 							/>
 						</div>
-						<div className="w-1/12 items-center flex flex-col justify-center cursor-pointer">
+						<div data-testid="icon-advanced-search" className="w-1/12 items-center flex flex-col justify-center cursor-pointer">
 							<FiSettings style={style} onClick={toggleAdvancSearch} />
 						</div>
 					</div>
@@ -613,7 +629,7 @@ function Home() {
 
 					<br />
 
-					{showSentimentOption && !checkedSentiment && (
+					{/* {showSentimentOption && !checkedSentiment && (
 						<div className="" data-bs-toggle="tooltip" title="Show sentiment analysis">
 							<button type="submit">
 								<AiOutlineEye style={style2} onClick={checkedHandler} />
@@ -626,8 +642,28 @@ function Home() {
 								<AiOutlineEyeInvisible style={style2} onClick={checkedHandler} />
 							</button>
 						</div>
-					)}
+					)} */}
 
+{showSentimentOption && !pulse && !loading  && (
+					<div className="mb-3 ml-4">
+											<label
+												htmlFor="default-toggle"
+												className="inline-flex relative items-center align-center text-center  justify-center cursor-pointer"
+											>
+												<input
+													type="checkbox"
+													value="checkedValue"
+													onClick={checkedHandler}
+													id="default-toggle"
+													className="sr-only peer"
+												/>
+												<div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600" />
+												<span className="ml-3 text-md font-medium text-center">
+													Show Tweets Sentiment
+												</span>
+											</label>
+										</div>
+)}
 					{loading && (
 						<div className="flex flex-row justify-center my-2">
 							{loadIcon} &nbsp; Loading Tweets
@@ -691,7 +727,7 @@ function Home() {
 					</div>
 
 					{showTrends && (
-						<div className="md:mt-0 mt-2 items-center justify-center ml-8 mr-8">
+						<div className="md:mt-0 mt-2 items-center justify-center md:ml-32 md:mr-32 ml-10 mr-10">
 							<h1 className="text-2xl  flex flex-row justify-center border-b-4 mb-2  pb-4 w-full mr-16 align-middle items-center border-slate-300">
 								LATEST TRENDS
 							</h1>

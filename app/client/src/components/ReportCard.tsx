@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import Carousel from "react-bootstrap/Carousel";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
@@ -37,6 +38,14 @@ function ReportCard(props: any) {
 			console.error(error);
 		}
 	};
+
+	function toggleDelete() {
+		toast.promise(deleteReportHandler(), {
+			loading: "Deleting.....",
+			success: <b>Report deleted!</b>,
+			error: <b>Could not delete.</b>
+		});
+	}
 
 	const [options, setoptions] = useState(false);
 
@@ -103,7 +112,7 @@ function ReportCard(props: any) {
 					</p>
 					<div className="flex mt-20 space-x-4 md:mt-14 items-center justify-center">
 						<div className="rounded-sm items-center py-2.5 px-10 space-x-4 text-sm font-semibold text-center text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow">
-							<button onClick={deleteReportHandler} type="submit">
+							<button onClick={toggleDelete} type="submit">
 								Yes
 							</button>
 						</div>

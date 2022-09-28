@@ -9,9 +9,7 @@ function SharedCard(props: any) {
 	const imageURL =
 		props.data.profileKey === "assets/profile.png"
 			? props.data.profileKey
-			: `https://s3.amazonaws.com/twitter-summariser-images/${
-					props.data.profileKey
-			  }?${new Date().getTime()}`;
+			: `https://s3.amazonaws.com/twitter-summariser-images/${props.data.profileKey}`;
 
 	const viewReport = () => {
 		navigate(newReportLink);

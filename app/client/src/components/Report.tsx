@@ -1,12 +1,13 @@
+/* eslint-disable react/jsx-no-bind */
 import { useEffect, useState, Fragment } from "react";
+import toast from "react-hot-toast";
 import { Menu, Transition } from "@headlessui/react";
 import Form from "react-bootstrap/Form";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Tweet } from "react-twitter-widgets";
 import { GrCopy } from "react-icons/gr";
 import { GiConfirmed, GiCancel } from "react-icons/gi";
 import { IoOptionsOutline } from "react-icons/io5";
-import { BsArrowDown, BsArrowUp, BsShare, BsThreeDots } from "react-icons/bs";
+import { BsArrowDown, BsArrowUp, BsShare } from "react-icons/bs";
 import { AiOutlineEye, AiOutlineEyeInvisible, AiFillEdit } from "react-icons/ai";
 import { MdDeleteOutline } from "react-icons/md";
 import Text from "./Text";
@@ -16,6 +17,80 @@ import Button from "./Button";
 import PublishedText from "./PublishedText";
 import "./styles/Animation.css";
 import Modals from "./Modals";
+import TweetComponent from "./TweetComponent";
+import TweetResponse from "./TweetResponse";
+
+function SentimentIcon(props: any) {
+	const style2 = { fontSize: "1.3rem" };
+	return (
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		<div {...props}>
+			<AiOutlineEye style={style2} />
+		</div>
+	);
+}
+
+function NonSentimentIcon(props: any) {
+	const style2 = { fontSize: "1.3rem" };
+	return (
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		<div {...props}>
+			<AiOutlineEyeInvisible style={style2} />
+		</div>
+	);
+}
+
+function ShareIcon(props: any) {
+	const style = { fontSize: "1.1rem" };
+	return (
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		<div {...props}>
+			<BsShare style={style} />
+		</div>
+	);
+}
+
+function CloneIcon(props: any) {
+	const iconStyle3 = { fontSize: "1.1rem", color: "red" };
+	return (
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		<div {...props}>
+			<GrCopy style={iconStyle3} />
+		</div>
+	);
+}
+
+function DeleteIcon(props: any) {
+	const iconStyle4 = { fontSize: "1.3rem", color: "red" };
+	return (
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		<div {...props}>
+			<MdDeleteOutline style={iconStyle4} />
+		</div>
+	);
+}
+
+function ArrowDownIcon(props: any) {
+	const style = { fontSize: "1.1rem" };
+
+	return (
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		<div {...props}>
+			<BsArrowDown style={style} />
+		</div>
+	);
+}
+
+function ArrowUpIcon(props: any) {
+	const style = { fontSize: "1.1rem" };
+
+	return (
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		<div {...props}>
+			<BsArrowUp style={style} />
+		</div>
+	);
+}
 
 function Report() {
 	const style = { fontSize: "1.3rem" };
@@ -48,9 +123,6 @@ function Report() {
 	const ind = location.pathname.lastIndexOf("/");
 	const repID = location.pathname.substring(ind + 1);
 	const [checkedSentiment, setCheckedSentiment] = useState(false);
-	// const sentimentColor = "green";
-	// const sentimentColor2 = "yellow";
-	// const sentimentColor3 = "red";
 	const [editTitle, setEditTitle] = useState(false);
 	const [titleValue, setTitleValue] = useState("");
 
@@ -115,9 +187,6 @@ function Report() {
 			isMounted && setDate(response.data.report.dateCreated.substring(0, 16));
 			isMounted && setLength(response.data.report.numOfBlocks);
 			isMounted && changePageLoading(false);
-
-			// isMounted && console.log(response.data.report.Report);
-
 
 			if (pulseCounter === 0) {
 				changePulse(true);
@@ -195,6 +264,14 @@ function Report() {
 		}
 	};
 
+	function toggleUp(val: any) {
+		toast.promise(reorderUpHandler(val), {
+			loading: "Moving twwet up!.....",
+			success: <b>Tweet Moved!</b>,
+			error: <b>Could not move tweet.</b>
+		});
+	}
+
 	const reorderDownHandler = async (tweetPos: any) => {
 		const resultDetails = {
 			reportID: repID,
@@ -212,6 +289,14 @@ function Report() {
 			console.error(err);
 		}
 	};
+
+	function toggleDown(val: any) {
+		toast.promise(reorderDownHandler(val), {
+			loading: "Moving tweet down!.....",
+			success: <b>Tweet Moved!</b>,
+			error: <b>Could not move tweet.</b>
+		});
+	}
 
 	// UNCOMMENT THIS FOR DELETE TWEET FUNCTIONALITY
 	const deleteTweetHandler = async (blockID: any) => {
@@ -231,43 +316,17 @@ function Report() {
 		}
 	};
 
+	function toggleDeleteTweet(val: any) {
+		toast.promise(deleteTweetHandler(val), {
+			loading: "Deleting tweet!.....",
+			success: <b>Tweet Deleted!</b>,
+			error: <b>Could not delete tweet.</b>
+		});
+	}
+
 	const isPublished = () => stat === "PUBLISHED";
 	const isViewer = () => perm === "VIEWER";
 	const isOwner = () => perm === "OWNER";
-
-	function opacityValue(inp: number): number {
-		if (inp > 0 && inp <= 10) {
-			return 10;
-		}
-		if (inp > 10 && inp <= 20) {
-			return 20;
-		}
-		if (inp > 20 && inp <= 30) {
-			return 30;
-		}
-		if (inp > 30 && inp <= 40) {
-			return 40;
-		}
-		if (inp > 40 && inp <= 50) {
-			return 50;
-		}
-		if (inp > 50 && inp <= 60) {
-			return 60;
-		}
-		if (inp > 60 && inp <= 70) {
-			return 70;
-		}
-		if (inp > 70 && inp <= 80) {
-			return 80;
-		}
-		if (inp > 80 && inp <= 90) {
-			return 90;
-		}
-		if (inp > 90 && inp <= 100) {
-			return 100;
-		}
-		return 0;
-	}
 
 	if (isPublished() || isViewer()) {
 		state.map((data: any, index: number) =>
@@ -281,11 +340,7 @@ function Report() {
 
 					{data.blockType === "TWEET" && (
 						<div className=" w-full border border-gray-200 p-3" key={data.position}>
-							<Tweet
-								options={{ align: "center", width: "" }}
-								tweetId={data.block.tweetID}
-								onLoad={done}
-							/>
+							<TweetComponent id={data.block.tweetID} done={done} />
 						</div>
 					)}
 				</div>
@@ -309,317 +364,53 @@ function Report() {
 
 					{/* FIRST TWEET */}
 					{data.blockType === "TWEET" && data.position === 1 && (
-						<>
-							<div
-								className=" w-full p-3 flex flex-col justify-center"
-								key={data.position}
-							>
-								<div className="flex w-full justify-end">
-									<div className="top-0 right-1">
-										<Menu as="div" className="relative inline-block text-left">
-											<div>
-												<Menu.Button className="inline-flex w-full justify-center rounded-md  bg-dark-cornflower-blue px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-													<BsThreeDots />
-												</Menu.Button>
-											</div>
-											<Transition
-												as={Fragment}
-												enter="transition ease-out duration-100"
-												enterFrom="transform opacity-0 scale-95"
-												enterTo="transform opacity-100 scale-100"
-												leave="transition ease-in duration-75"
-												leaveFrom="transform opacity-100 scale-100"
-												leaveTo="transform opacity-0 scale-95"
-											>
-												<Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-													<div className="px-1 py-1 ">
-														<Menu.Item>
-															{({ active }) => (
-																<button
-																	type="button"
-																	className={`${
-																		active
-																			? "bg-slate-200 text-gray-900"
-																			: "text-gray-900"
-																	} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																	onClick={() =>
-																		reorderDownHandler(
-																			data.position
-																		)
-																	}
-																>
-																	{
-																		// eslint-disable-next-line no-use-before-define
-																		<ArrowDownIcon
-																			className="mr-2 h-5 w-5"
-																			aria-hidden="true"
-																		/>
-																	}
-																	Move Tweet down
-																</button>
-															)}
-														</Menu.Item>
-													</div>
-													<div className="px-1 py-1 ">
-														<Menu.Item>
-															{({ active }) => (
-																<button
-																	type="button"
-																	className={`${
-																		active
-																			? "bg-slate-200 text-gray-900"
-																			: "text-gray-900"
-																	} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																	onClick={() =>
-																		deleteTweetHandler(
-																			data.reportBlockID
-																		)
-																	}
-																>
-																	{
-																		// eslint-disable-next-line no-use-before-define
-																		<DeleteIcon
-																			className="mr-2 h-5 w-5"
-																			aria-hidden="true"
-																		/>
-																	}
-																	Delete Tweet
-																</button>
-															)}
-														</Menu.Item>
-													</div>
-												</Menu.Items>
-											</Transition>
-										</Menu>
-									</div>
-								</div>
-								<Tweet
-									options={{ align: "center", width: "" }}
-									tweetId={data.block.tweetID}
-									onLoad={done}
-								/>
-							</div>
-						</>
+						<TweetResponse
+							position={data.position}
+							type="without"
+							type2="first"
+							tweetId={data.block.tweetID}
+							DeleteIcon={DeleteIcon}
+							done={done}
+							data={data}
+							toggleDown={toggleDown}
+							ArrowDownIcon={ArrowDownIcon}
+							toggleDeleteTweet={toggleDeleteTweet}
+						/>
 					)}
 
 					{/* LAST TWEET */}
 					{data.blockType === "TWEET" && data.position === length - 2 && (
-						<>
-							<div
-								className=" w-full p-3 flex flex-col justify-center"
-								key={data.position}
-							>
-								<div className="flex w-full justify-end">
-									<div className="top-0 right-1">
-										<Menu as="div" className="relative inline-block text-left">
-											<div>
-												<Menu.Button className="inline-flex w-full justify-center rounded-md  bg-dark-cornflower-blue px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-													<BsThreeDots />
-												</Menu.Button>
-											</div>
-											<Transition
-												as={Fragment}
-												enter="transition ease-out duration-100"
-												enterFrom="transform opacity-0 scale-95"
-												enterTo="transform opacity-100 scale-100"
-												leave="transition ease-in duration-75"
-												leaveFrom="transform opacity-100 scale-100"
-												leaveTo="transform opacity-0 scale-95"
-											>
-												<Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-													<div className="px-1 py-1 ">
-														<Menu.Item>
-															{({ active }) => (
-																<button
-																	type="button"
-																	className={`${
-																		active
-																			? "bg-slate-200 text-gray-900"
-																			: "text-gray-900"
-																	} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																	onClick={() =>
-																		reorderUpHandler(
-																			data.position
-																		)
-																	}
-																>
-																	{
-																		// eslint-disable-next-line no-use-before-define
-																		<ArrowUpIcon
-																			className="mr-2 h-5 w-5"
-																			aria-hidden="true"
-																		/>
-																	}
-																	Move Tweet up
-																</button>
-															)}
-														</Menu.Item>
-													</div>
-													<div className="px-1 py-1 ">
-														<Menu.Item>
-															{({ active }) => (
-																<button
-																	type="button"
-																	className={`${
-																		active
-																			? "bg-slate-200 text-gray-900"
-																			: "text-gray-900"
-																	} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																	onClick={() =>
-																		deleteTweetHandler(
-																			data.reportBlockID
-																		)
-																	}
-																>
-																	{
-																		// eslint-disable-next-line no-use-before-define
-																		<DeleteIcon
-																			className="mr-2 h-5 w-5"
-																			aria-hidden="true"
-																		/>
-																	}
-																	Delete Tweet
-																</button>
-															)}
-														</Menu.Item>
-													</div>
-												</Menu.Items>
-											</Transition>
-										</Menu>
-									</div>
-								</div>
-
-								<Tweet
-									options={{ align: "center", width: "" }}
-									tweetId={data.block.tweetID}
-								/>
-							</div>
-						</>
+						<TweetResponse
+							position={data.position}
+							type="without"
+							type2="last"
+							tweetId={data.block.tweetID}
+							DeleteIcon={DeleteIcon}
+							done={done}
+							data={data}
+							toggleUp={toggleUp}
+							ArrowUpIcon={ArrowUpIcon}
+							toggleDeleteTweet={toggleDeleteTweet}
+						/>
 					)}
 
 					{/* TWEETS IN-BETWEEN */}
 					{data.blockType === "TWEET" &&
 						!(data.position === 1 || data.position === length - 2) && (
-							<>
-								<div
-									className="  w-full p-3 flex flex-col justify-center"
-									key={data.position}
-								>
-									<div className="flex w-full justify-end">
-										<div className="top-0 right-1">
-											<Menu
-												as="div"
-												className="relative inline-block text-left"
-											>
-												<div>
-													<Menu.Button className="inline-flex w-full justify-center rounded-md  bg-dark-cornflower-blue px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-														<BsThreeDots />
-													</Menu.Button>
-												</div>
-												<Transition
-													as={Fragment}
-													enter="transition ease-out duration-100"
-													enterFrom="transform opacity-0 scale-95"
-													enterTo="transform opacity-100 scale-100"
-													leave="transition ease-in duration-75"
-													leaveFrom="transform opacity-100 scale-100"
-													leaveTo="transform opacity-0 scale-95"
-												>
-													<Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-														<div className="px-1 py-1 ">
-															<Menu.Item>
-																{({ active }) => (
-																	<button
-																		type="button"
-																		className={`${
-																			active
-																				? "bg-slate-200 text-gray-900"
-																				: "text-gray-900"
-																		} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																		onClick={() =>
-																			reorderUpHandler(
-																				data.position
-																			)
-																		}
-																	>
-																		{
-																			// eslint-disable-next-line no-use-before-define
-																			<ArrowUpIcon
-																				className="mr-2 h-5 w-5"
-																				aria-hidden="true"
-																			/>
-																		}
-																		Move Tweet up
-																	</button>
-																)}
-															</Menu.Item>
-															<Menu.Item>
-																{({ active }) => (
-																	<button
-																		type="button"
-																		className={`${
-																			active
-																				? "bg-slate-200 text-gray-900"
-																				: "text-gray-900"
-																		} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																		onClick={() =>
-																			reorderDownHandler(
-																				data.position
-																			)
-																		}
-																	>
-																		{
-																			// eslint-disable-next-line no-use-before-define
-																			<ArrowDownIcon
-																				className="mr-2 h-5 w-5"
-																				aria-hidden="true"
-																			/>
-																		}
-																		Move Tweet down
-																	</button>
-																)}
-															</Menu.Item>
-														</div>
-														<div className="px-1 py-1 ">
-															<Menu.Item>
-																{({ active }) => (
-																	<button
-																		type="button"
-																		className={`${
-																			active
-																				? "bg-slate-200 text-gray-900"
-																				: "text-gray-900"
-																		} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																		onClick={() =>
-																			deleteTweetHandler(
-																				data.reportBlockID
-																			)
-																		}
-																	>
-																		{
-																			// eslint-disable-next-line no-use-before-define
-																			<DeleteIcon
-																				className="mr-2 h-5 w-5"
-																				aria-hidden="true"
-																			/>
-																		}
-																		Delete Tweet
-																	</button>
-																)}
-															</Menu.Item>
-														</div>
-													</Menu.Items>
-												</Transition>
-											</Menu>
-										</div>
-									</div>
-
-									<Tweet
-										options={{ align: "center", width: "" }}
-										tweetId={data.block.tweetID}
-									/>
-								</div>
-							</>
+							<TweetResponse
+								position={data.position}
+								type="without"
+								type2="middle"
+								tweetId={data.block.tweetID}
+								DeleteIcon={DeleteIcon}
+								done={done}
+								data={data}
+								toggleUp={toggleUp}
+								ArrowUpIcon={ArrowUpIcon}
+								toggleDown={toggleDown}
+								ArrowDownIcon={ArrowDownIcon}
+								toggleDeleteTweet={toggleDeleteTweet}
+							/>
 						)}
 				</div>
 			)
@@ -643,1307 +434,256 @@ function Report() {
 					{/* FIRST TWEET */}
 					{data.blockType === "TWEET" && data.position === 1 && (
 						<>
-							{ data.block.sentiment.sentimentWord === "NEGATIVE" && <div
-								className={` w-full p-3 flex flex-col justify-center border-2 border-red-500 border-opacity-${opacityValue(Math.floor(data.block.sentiment.sentiment.Negative * 100)
-									)}`}
-								key={data.position}
-							>
-								<div className="flex w-full justify-end">
-									<div className="top-0 right-1">
-										<Menu as="div" className="relative inline-block text-left">
-											<div>
-												<Menu.Button className="inline-flex w-full justify-center rounded-md  bg-dark-cornflower-blue px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-													<BsThreeDots />
-												</Menu.Button>
-											</div>
-											<Transition
-												as={Fragment}
-												enter="transition ease-out duration-100"
-												enterFrom="transform opacity-0 scale-95"
-												enterTo="transform opacity-100 scale-100"
-												leave="transition ease-in duration-75"
-												leaveFrom="transform opacity-100 scale-100"
-												leaveTo="transform opacity-0 scale-95"
-											>
-												<Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-													<div className="px-1 py-1 ">
-														<Menu.Item>
-															{({ active }) => (
-																<button
-																	type="button"
-																	className={`${
-																		active
-																			? "bg-slate-200 text-gray-900"
-																			: "text-gray-900"
-																	} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																	onClick={() =>
-																		reorderDownHandler(
-																			data.position
-																		)
-																	}
-																>
-																	{
-																		// eslint-disable-next-line no-use-before-define
-																		<ArrowDownIcon
-																			className="mr-2 h-5 w-5"
-																			aria-hidden="true"
-																		/>
-																	}
-																	Move Tweet down
-																</button>
-															)}
-														</Menu.Item>
-													</div>
-													<div className="px-1 py-1 ">
-														<Menu.Item>
-															{({ active }) => (
-																<button
-																	type="button"
-																	className={`${
-																		active
-																			? "bg-slate-200 text-gray-900"
-																			: "text-gray-900"
-																	} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																	onClick={() =>
-																		deleteTweetHandler(
-																			data.reportBlockID
-																		)
-																	}
-																>
-																	{
-																		// eslint-disable-next-line no-use-before-define
-																		<DeleteIcon
-																			className="mr-2 h-5 w-5"
-																			aria-hidden="true"
-																		/>
-																	}
-																	Delete Tweet
-																</button>
-															)}
-														</Menu.Item>
-													</div>
-												</Menu.Items>
-											</Transition>
-										</Menu>
-									</div>
-								</div>
-								<div>
-									<Tweet options={{ align: "center" }} tweetId={data.block.sentiment.id} onLoad={done} />
-									<p className="text-red-500">
-										Negative - {Math.floor(data.block.sentiment.sentiment.Negative * 100)} %
-									</p>
-								</div>
-
-								{/* <Tweet
-									options={{ align: "center", width: "" }}
+							{data.block.sentiment.sentimentWord === "NEGATIVE" && (
+								<TweetResponse
+									position={data.position}
+									type="with"
+									type2="first"
 									tweetId={data.block.tweetID}
-									onLoad={done}
-								/> */}
-							</div>}
-							{ data.block.sentiment.sentimentWord === "POSITIVE" && <div
-								className={` w-full p-3 flex flex-col justify-center border-2 border-green-500 border-opacity-${opacityValue(Math.floor(data.block.sentiment.sentiment.Negative * 100)
-									)}`}
-								key={data.position}
-							>
-								<div className="flex w-full justify-end">
-									<div className="top-0 right-1">
-										<Menu as="div" className="relative inline-block text-left">
-											<div>
-												<Menu.Button className="inline-flex w-full justify-center rounded-md  bg-dark-cornflower-blue px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-													<BsThreeDots />
-												</Menu.Button>
-											</div>
-											<Transition
-												as={Fragment}
-												enter="transition ease-out duration-100"
-												enterFrom="transform opacity-0 scale-95"
-												enterTo="transform opacity-100 scale-100"
-												leave="transition ease-in duration-75"
-												leaveFrom="transform opacity-100 scale-100"
-												leaveTo="transform opacity-0 scale-95"
-											>
-												<Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-													<div className="px-1 py-1 ">
-														<Menu.Item>
-															{({ active }) => (
-																<button
-																	type="button"
-																	className={`${
-																		active
-																			? "bg-slate-200 text-gray-900"
-																			: "text-gray-900"
-																	} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																	onClick={() =>
-																		reorderDownHandler(
-																			data.position
-																		)
-																	}
-																>
-																	{
-																		// eslint-disable-next-line no-use-before-define
-																		<ArrowDownIcon
-																			className="mr-2 h-5 w-5"
-																			aria-hidden="true"
-																		/>
-																	}
-																	Move Tweet down
-																</button>
-															)}
-														</Menu.Item>
-													</div>
-													<div className="px-1 py-1 ">
-														<Menu.Item>
-															{({ active }) => (
-																<button
-																	type="button"
-																	className={`${
-																		active
-																			? "bg-slate-200 text-gray-900"
-																			: "text-gray-900"
-																	} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																	onClick={() =>
-																		deleteTweetHandler(
-																			data.reportBlockID
-																		)
-																	}
-																>
-																	{
-																		// eslint-disable-next-line no-use-before-define
-																		<DeleteIcon
-																			className="mr-2 h-5 w-5"
-																			aria-hidden="true"
-																		/>
-																	}
-																	Delete Tweet
-																</button>
-															)}
-														</Menu.Item>
-													</div>
-												</Menu.Items>
-											</Transition>
-										</Menu>
-									</div>
-								</div>
-								<div>
-									<Tweet options={{ align: "center" }} tweetId={data.block.sentiment.id} onLoad={done} />
-										<p className="text-green-500">
-											Positive - {Math.floor(data.block.sentiment.sentiment.Positive * 100)} %
-										</p>
-								</div>
-
-								{/* <Tweet
-									options={{ align: "center", width: "" }}
+									DeleteIcon={DeleteIcon}
+									done={done}
+									data={data}
+									toggleDown={toggleDown}
+									ArrowDownIcon={ArrowDownIcon}
+									toggleDeleteTweet={toggleDeleteTweet}
+									color="red"
+									sentimentValue={Math.floor(
+										data.block.sentiment.sentiment.Negative * 100
+									)}
+									sentimentText="Negative"
+								/>
+							)}
+							{data.block.sentiment.sentimentWord === "POSITIVE" && (
+								<TweetResponse
+									position={data.position}
+									type="with"
+									type2="first"
 									tweetId={data.block.tweetID}
-									onLoad={done}
-								/> */}
-							</div>}
-							{ data.block.sentiment.sentimentWord === "MIXED" && <div
-								className={` w-full p-3 flex flex-col justify-center border-2 border-gray-500 border-opacity-${opacityValue(Math.floor(data.block.sentiment.sentiment.Negative * 100)
-									)}`}
-								key={data.position}
-							>
-								<div className="flex w-full justify-end">
-									<div className="top-0 right-1">
-										<Menu as="div" className="relative inline-block text-left">
-											<div>
-												<Menu.Button className="inline-flex w-full justify-center rounded-md  bg-dark-cornflower-blue px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-													<BsThreeDots />
-												</Menu.Button>
-											</div>
-											<Transition
-												as={Fragment}
-												enter="transition ease-out duration-100"
-												enterFrom="transform opacity-0 scale-95"
-												enterTo="transform opacity-100 scale-100"
-												leave="transition ease-in duration-75"
-												leaveFrom="transform opacity-100 scale-100"
-												leaveTo="transform opacity-0 scale-95"
-											>
-												<Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-													<div className="px-1 py-1 ">
-														<Menu.Item>
-															{({ active }) => (
-																<button
-																	type="button"
-																	className={`${
-																		active
-																			? "bg-slate-200 text-gray-900"
-																			: "text-gray-900"
-																	} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																	onClick={() =>
-																		reorderDownHandler(
-																			data.position
-																		)
-																	}
-																>
-																	{
-																		// eslint-disable-next-line no-use-before-define
-																		<ArrowDownIcon
-																			className="mr-2 h-5 w-5"
-																			aria-hidden="true"
-																		/>
-																	}
-																	Move Tweet down
-																</button>
-															)}
-														</Menu.Item>
-													</div>
-													<div className="px-1 py-1 ">
-														<Menu.Item>
-															{({ active }) => (
-																<button
-																	type="button"
-																	className={`${
-																		active
-																			? "bg-slate-200 text-gray-900"
-																			: "text-gray-900"
-																	} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																	onClick={() =>
-																		deleteTweetHandler(
-																			data.reportBlockID
-																		)
-																	}
-																>
-																	{
-																		// eslint-disable-next-line no-use-before-define
-																		<DeleteIcon
-																			className="mr-2 h-5 w-5"
-																			aria-hidden="true"
-																		/>
-																	}
-																	Delete Tweet
-																</button>
-															)}
-														</Menu.Item>
-													</div>
-												</Menu.Items>
-											</Transition>
-										</Menu>
-									</div>
-								</div>
-								<div>
-									<Tweet options={{ align: "center" }} tweetId={data.block.sentiment.id} onLoad={done} />
-										<p className="text-gray-500">
-											Mixed - {Math.floor(data.block.sentiment.sentiment.Mixed * 100)} %
-										</p>
-								</div>
-
-								{/* <Tweet
-									options={{ align: "center", width: "" }}
+									DeleteIcon={DeleteIcon}
+									done={done}
+									data={data}
+									toggleDown={toggleDown}
+									ArrowDownIcon={ArrowDownIcon}
+									toggleDeleteTweet={toggleDeleteTweet}
+									color="green"
+									sentimentValue={Math.floor(
+										data.block.sentiment.sentiment.Positive * 100
+									)}
+									sentimentText="Positive"
+								/>
+							)}
+							{data.block.sentiment.sentimentWord === "MIXED" && (
+								<TweetResponse
+									position={data.position}
+									type="with"
+									type2="first"
 									tweetId={data.block.tweetID}
-									onLoad={done}
-								/> */}
-							</div>}
-							{ data.block.sentiment.sentimentWord === "NEUTRAL" && <div
-								className={` w-full p-3 flex flex-col justify-center border-2 border-blue-500 border-opacity-${opacityValue(Math.floor(data.block.sentiment.sentiment.Negative * 100)
-									)}`}
-								key={data.position}
-							>
-								<div className="flex w-full justify-end">
-									<div className="top-0 right-1">
-										<Menu as="div" className="relative inline-block text-left">
-											<div>
-												<Menu.Button className="inline-flex w-full justify-center rounded-md  bg-dark-cornflower-blue px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-													<BsThreeDots />
-												</Menu.Button>
-											</div>
-											<Transition
-												as={Fragment}
-												enter="transition ease-out duration-100"
-												enterFrom="transform opacity-0 scale-95"
-												enterTo="transform opacity-100 scale-100"
-												leave="transition ease-in duration-75"
-												leaveFrom="transform opacity-100 scale-100"
-												leaveTo="transform opacity-0 scale-95"
-											>
-												<Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-													<div className="px-1 py-1 ">
-														<Menu.Item>
-															{({ active }) => (
-																<button
-																	type="button"
-																	className={`${
-																		active
-																			? "bg-slate-200 text-gray-900"
-																			: "text-gray-900"
-																	} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																	onClick={() =>
-																		reorderDownHandler(
-																			data.position
-																		)
-																	}
-																>
-																	{
-																		// eslint-disable-next-line no-use-before-define
-																		<ArrowDownIcon
-																			className="mr-2 h-5 w-5"
-																			aria-hidden="true"
-																		/>
-																	}
-																	Move Tweet down
-																</button>
-															)}
-														</Menu.Item>
-													</div>
-													<div className="px-1 py-1 ">
-														<Menu.Item>
-															{({ active }) => (
-																<button
-																	type="button"
-																	className={`${
-																		active
-																			? "bg-slate-200 text-gray-900"
-																			: "text-gray-900"
-																	} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																	onClick={() =>
-																		deleteTweetHandler(
-																			data.reportBlockID
-																		)
-																	}
-																>
-																	{
-																		// eslint-disable-next-line no-use-before-define
-																		<DeleteIcon
-																			className="mr-2 h-5 w-5"
-																			aria-hidden="true"
-																		/>
-																	}
-																	Delete Tweet
-																</button>
-															)}
-														</Menu.Item>
-													</div>
-												</Menu.Items>
-											</Transition>
-										</Menu>
-									</div>
-								</div>
-								<div>
-									<Tweet options={{ align: "center" }} tweetId={data.block.sentiment.id} onLoad={done} />
-										{/* Neutral - {Math.floor(data.sentiment.Neutral * 100)} % */}
-										<p className="text-blue-500">
-											Neutral - {Math.floor(data.block.sentiment.sentiment.Neutral * 100)} %
-										</p>
-								</div>
-
-								{/* <Tweet
-									options={{ align: "center", width: "" }}
+									DeleteIcon={DeleteIcon}
+									done={done}
+									data={data}
+									toggleDown={toggleDown}
+									ArrowDownIcon={ArrowDownIcon}
+									toggleDeleteTweet={toggleDeleteTweet}
+									color="gray"
+									sentimentValue={Math.floor(
+										data.block.sentiment.sentiment.Mixed * 100
+									)}
+									sentimentText="Mixed"
+								/>
+							)}
+							{data.block.sentiment.sentimentWord === "NEUTRAL" && (
+								<TweetResponse
+									position={data.position}
+									type="with"
+									type2="first"
 									tweetId={data.block.tweetID}
-									onLoad={done}
-								/> */}
-							</div>}
+									DeleteIcon={DeleteIcon}
+									done={done}
+									data={data}
+									toggleDown={toggleDown}
+									ArrowDownIcon={ArrowDownIcon}
+									toggleDeleteTweet={toggleDeleteTweet}
+									color="blue"
+									sentimentValue={Math.floor(
+										data.block.sentiment.sentiment.Neutral * 100
+									)}
+									sentimentText="Neutral"
+								/>
+							)}
 						</>
 					)}
-
-
 
 					{/* LAST TWEET */}
 					{data.blockType === "TWEET" && data.position === length - 2 && (
 						<>
-							{ data.block.sentiment.sentimentWord === "NEGATIVE" && <div
-								className={` w-full p-3 flex flex-col justify-center border-2 border-red-500 border-opacity-${opacityValue(Math.floor(data.block.sentiment.sentiment.Negative * 100)
-									)}`}
-								key={data.position}
-							>
-								<div className="flex w-full justify-end">
-									<div className="top-0 right-1">
-										<Menu as="div" className="relative inline-block text-left">
-											<div>
-												<Menu.Button className="inline-flex w-full justify-center rounded-md  bg-dark-cornflower-blue px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-													<BsThreeDots />
-												</Menu.Button>
-											</div>
-											<Transition
-												as={Fragment}
-												enter="transition ease-out duration-100"
-												enterFrom="transform opacity-0 scale-95"
-												enterTo="transform opacity-100 scale-100"
-												leave="transition ease-in duration-75"
-												leaveFrom="transform opacity-100 scale-100"
-												leaveTo="transform opacity-0 scale-95"
-											>
-												<Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-													<div className="px-1 py-1 ">
-														<Menu.Item>
-															{({ active }) => (
-																<button
-																	type="button"
-																	className={`${
-																		active
-																			? "bg-slate-200 text-gray-900"
-																			: "text-gray-900"
-																	} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																	onClick={() =>
-																		reorderUpHandler(
-																			data.position
-																		)
-																	}
-																>
-																	{
-																		// eslint-disable-next-line no-use-before-define
-																		<ArrowUpIcon
-																			className="mr-2 h-5 w-5"
-																			aria-hidden="true"
-																		/>
-																	}
-																	Move Tweet up
-																</button>
-															)}
-														</Menu.Item>
-													</div>
-													<div className="px-1 py-1 ">
-														<Menu.Item>
-															{({ active }) => (
-																<button
-																	type="button"
-																	className={`${
-																		active
-																			? "bg-slate-200 text-gray-900"
-																			: "text-gray-900"
-																	} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																	onClick={() =>
-																		deleteTweetHandler(
-																			data.reportBlockID
-																		)
-																	}
-																>
-																	{
-																		// eslint-disable-next-line no-use-before-define
-																		<DeleteIcon
-																			className="mr-2 h-5 w-5"
-																			aria-hidden="true"
-																		/>
-																	}
-																	Delete Tweet
-																</button>
-															)}
-														</Menu.Item>
-													</div>
-												</Menu.Items>
-											</Transition>
-										</Menu>
-									</div>
-								</div>
-								<div>
-									<Tweet options={{ align: "center" }} tweetId={data.block.sentiment.id} onLoad={done} />
-									<p className="text-red-500">
-										Negative - {Math.floor(data.block.sentiment.sentiment.Negative * 100)} %
-									</p>
-								</div>
-
-								{/* <Tweet
-									options={{ align: "center", width: "" }}
+							{data.block.sentiment.sentimentWord === "NEGATIVE" && (
+								<TweetResponse
+									position={data.position}
+									type="with"
+									type2="last"
 									tweetId={data.block.tweetID}
-									onLoad={done}
-								/> */}
-							</div>}
-							{ data.block.sentiment.sentimentWord === "POSITIVE" && <div
-								className={` w-full p-3 flex flex-col justify-center border-2 border-green-500 border-opacity-${opacityValue(Math.floor(data.block.sentiment.sentiment.Negative * 100)
-									)}`}
-								key={data.position}
-							>
-								<div className="flex w-full justify-end">
-									<div className="top-0 right-1">
-										<Menu as="div" className="relative inline-block text-left">
-											<div>
-												<Menu.Button className="inline-flex w-full justify-center rounded-md  bg-dark-cornflower-blue px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-													<BsThreeDots />
-												</Menu.Button>
-											</div>
-											<Transition
-												as={Fragment}
-												enter="transition ease-out duration-100"
-												enterFrom="transform opacity-0 scale-95"
-												enterTo="transform opacity-100 scale-100"
-												leave="transition ease-in duration-75"
-												leaveFrom="transform opacity-100 scale-100"
-												leaveTo="transform opacity-0 scale-95"
-											>
-												<Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-													<div className="px-1 py-1 ">
-														<Menu.Item>
-															{({ active }) => (
-																<button
-																	type="button"
-																	className={`${
-																		active
-																			? "bg-slate-200 text-gray-900"
-																			: "text-gray-900"
-																	} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																	onClick={() =>
-																		reorderUpHandler(
-																			data.position
-																		)
-																	}
-																>
-																	{
-																		// eslint-disable-next-line no-use-before-define
-																		<ArrowUpIcon
-																			className="mr-2 h-5 w-5"
-																			aria-hidden="true"
-																		/>
-																	}
-																	Move Tweet up
-																</button>
-															)}
-														</Menu.Item>
-													</div>
-													<div className="px-1 py-1 ">
-														<Menu.Item>
-															{({ active }) => (
-																<button
-																	type="button"
-																	className={`${
-																		active
-																			? "bg-slate-200 text-gray-900"
-																			: "text-gray-900"
-																	} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																	onClick={() =>
-																		deleteTweetHandler(
-																			data.reportBlockID
-																		)
-																	}
-																>
-																	{
-																		// eslint-disable-next-line no-use-before-define
-																		<DeleteIcon
-																			className="mr-2 h-5 w-5"
-																			aria-hidden="true"
-																		/>
-																	}
-																	Delete Tweet
-																</button>
-															)}
-														</Menu.Item>
-													</div>
-												</Menu.Items>
-											</Transition>
-										</Menu>
-									</div>
-								</div>
-								<div>
-									<Tweet options={{ align: "center" }} tweetId={data.block.sentiment.id} onLoad={done} />
-										<p className="text-green-500">
-											Positive - {Math.floor(data.block.sentiment.sentiment.Positive * 100)} %
-										</p>
-								</div>
-
-								{/* <Tweet
-									options={{ align: "center", width: "" }}
+									DeleteIcon={DeleteIcon}
+									done={done}
+									data={data}
+									toggleUp={toggleUp}
+									ArrowUpIcon={ArrowUpIcon}
+									toggleDeleteTweet={toggleDeleteTweet}
+									color="red"
+									sentimentValue={Math.floor(
+										data.block.sentiment.sentiment.Negative * 100
+									)}
+									sentimentText="Negative"
+								/>
+							)}
+							{data.block.sentiment.sentimentWord === "POSITIVE" && (
+								<TweetResponse
+									position={data.position}
+									type="with"
+									type2="last"
 									tweetId={data.block.tweetID}
-									onLoad={done}
-								/> */}
-							</div>}
-							{ data.block.sentiment.sentimentWord === "MIXED" && <div
-								className={` w-full p-3 flex flex-col justify-center border-2 border-gray-500 border-opacity-${opacityValue(Math.floor(data.block.sentiment.sentiment.Negative * 100)
-									)}`}
-								key={data.position}
-							>
-								<div className="flex w-full justify-end">
-									<div className="top-0 right-1">
-										<Menu as="div" className="relative inline-block text-left">
-											<div>
-												<Menu.Button className="inline-flex w-full justify-center rounded-md  bg-dark-cornflower-blue px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-													<BsThreeDots />
-												</Menu.Button>
-											</div>
-											<Transition
-												as={Fragment}
-												enter="transition ease-out duration-100"
-												enterFrom="transform opacity-0 scale-95"
-												enterTo="transform opacity-100 scale-100"
-												leave="transition ease-in duration-75"
-												leaveFrom="transform opacity-100 scale-100"
-												leaveTo="transform opacity-0 scale-95"
-											>
-												<Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-													<div className="px-1 py-1 ">
-														<Menu.Item>
-															{({ active }) => (
-																<button
-																	type="button"
-																	className={`${
-																		active
-																			? "bg-slate-200 text-gray-900"
-																			: "text-gray-900"
-																	} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																	onClick={() =>
-																		reorderUpHandler(
-																			data.position
-																		)
-																	}
-																>
-																	{
-																		// eslint-disable-next-line no-use-before-define
-																		<ArrowUpIcon
-																			className="mr-2 h-5 w-5"
-																			aria-hidden="true"
-																		/>
-																	}
-																	Move Tweet up
-																</button>
-															)}
-														</Menu.Item>
-													</div>
-													<div className="px-1 py-1 ">
-														<Menu.Item>
-															{({ active }) => (
-																<button
-																	type="button"
-																	className={`${
-																		active
-																			? "bg-slate-200 text-gray-900"
-																			: "text-gray-900"
-																	} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																	onClick={() =>
-																		deleteTweetHandler(
-																			data.reportBlockID
-																		)
-																	}
-																>
-																	{
-																		// eslint-disable-next-line no-use-before-define
-																		<DeleteIcon
-																			className="mr-2 h-5 w-5"
-																			aria-hidden="true"
-																		/>
-																	}
-																	Delete Tweet
-																</button>
-															)}
-														</Menu.Item>
-													</div>
-												</Menu.Items>
-											</Transition>
-										</Menu>
-									</div>
-								</div>
-								<div>
-									<Tweet options={{ align: "center" }} tweetId={data.block.sentiment.id} onLoad={done} />
-										<p className="text-gray-500">
-											Mixed - {Math.floor(data.block.sentiment.sentiment.Mixed * 100)} %
-										</p>
-								</div>
-
-								{/* <Tweet
-									options={{ align: "center", width: "" }}
+									DeleteIcon={DeleteIcon}
+									done={done}
+									data={data}
+									toggleUp={toggleUp}
+									ArrowUpIcon={ArrowUpIcon}
+									toggleDeleteTweet={toggleDeleteTweet}
+									color="green"
+									sentimentValue={Math.floor(
+										data.block.sentiment.sentiment.Positive * 100
+									)}
+									sentimentText="Positive"
+								/>
+							)}
+							{data.block.sentiment.sentimentWord === "MIXED" && (
+								<TweetResponse
+									position={data.position}
+									type="with"
+									type2="last"
 									tweetId={data.block.tweetID}
-									onLoad={done}
-								/> */}
-							</div>}
-							{ data.block.sentiment.sentimentWord === "NEUTRAL" && <div
-								className={` w-full p-3 flex flex-col justify-center border-2 border-blue-500 border-opacity-${opacityValue(Math.floor(data.block.sentiment.sentiment.Negative * 100)
-									)}`}
-								key={data.position}
-							>
-								<div className="flex w-full justify-end">
-									<div className="top-0 right-1">
-										<Menu as="div" className="relative inline-block text-left">
-											<div>
-												<Menu.Button className="inline-flex w-full justify-center rounded-md  bg-dark-cornflower-blue px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-													<BsThreeDots />
-												</Menu.Button>
-											</div>
-											<Transition
-												as={Fragment}
-												enter="transition ease-out duration-100"
-												enterFrom="transform opacity-0 scale-95"
-												enterTo="transform opacity-100 scale-100"
-												leave="transition ease-in duration-75"
-												leaveFrom="transform opacity-100 scale-100"
-												leaveTo="transform opacity-0 scale-95"
-											>
-												<Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-													<div className="px-1 py-1 ">
-														<Menu.Item>
-															{({ active }) => (
-																<button
-																	type="button"
-																	className={`${
-																		active
-																			? "bg-slate-200 text-gray-900"
-																			: "text-gray-900"
-																	} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																	onClick={() =>
-																		reorderUpHandler(
-																			data.position
-																		)
-																	}
-																>
-																	{
-																		// eslint-disable-next-line no-use-before-define
-																		<ArrowUpIcon
-																			className="mr-2 h-5 w-5"
-																			aria-hidden="true"
-																		/>
-																	}
-																	Move Tweet up
-																</button>
-															)}
-														</Menu.Item>
-													</div>
-													<div className="px-1 py-1 ">
-														<Menu.Item>
-															{({ active }) => (
-																<button
-																	type="button"
-																	className={`${
-																		active
-																			? "bg-slate-200 text-gray-900"
-																			: "text-gray-900"
-																	} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																	onClick={() =>
-																		deleteTweetHandler(
-																			data.reportBlockID
-																		)
-																	}
-																>
-																	{
-																		// eslint-disable-next-line no-use-before-define
-																		<DeleteIcon
-																			className="mr-2 h-5 w-5"
-																			aria-hidden="true"
-																		/>
-																	}
-																	Delete Tweet
-																</button>
-															)}
-														</Menu.Item>
-													</div>
-												</Menu.Items>
-											</Transition>
-										</Menu>
-									</div>
-								</div>
-								<div>
-									<Tweet options={{ align: "center" }} tweetId={data.block.sentiment.id} onLoad={done} />
-										{/* Neutral - {Math.floor(data.sentiment.Neutral * 100)} % */}
-										<p className="text-blue-500">
-											Neutral - {Math.floor(data.block.sentiment.sentiment.Neutral * 100)} %
-										</p>
-								</div>
-
-								{/* <Tweet
-									options={{ align: "center", width: "" }}
+									DeleteIcon={DeleteIcon}
+									done={done}
+									data={data}
+									toggleUp={toggleUp}
+									ArrowUpIcon={ArrowUpIcon}
+									toggleDeleteTweet={toggleDeleteTweet}
+									color="gray"
+									sentimentValue={Math.floor(
+										data.block.sentiment.sentiment.Mixed * 100
+									)}
+									sentimentText="Mixed"
+								/>
+							)}
+							{data.block.sentiment.sentimentWord === "NEUTRAL" && (
+								<TweetResponse
+									position={data.position}
+									type="with"
+									type2="last"
 									tweetId={data.block.tweetID}
-									onLoad={done}
-								/> */}
-							</div>}
+									DeleteIcon={DeleteIcon}
+									done={done}
+									data={data}
+									toggleUp={toggleUp}
+									ArrowUpIcon={ArrowUpIcon}
+									toggleDeleteTweet={toggleDeleteTweet}
+									color="blue"
+									sentimentValue={Math.floor(
+										data.block.sentiment.sentiment.Neutral * 100
+									)}
+									sentimentText="Neutral"
+								/>
+							)}
 						</>
 					)}
-
-
 
 					{/* TWEETS IN-BETWEEN */}
 					{data.blockType === "TWEET" &&
 						!(data.position === 1 || data.position === length - 2) && (
 							<>
-							{ data.block.sentiment.sentimentWord === "NEGATIVE" && <div
-								className={` w-full p-3 flex flex-col justify-center border-2 border-red-500 border-opacity-${opacityValue(Math.floor(data.block.sentiment.sentiment.Negative * 100)
-									)}`}
-								key={data.position}
-							>
-								<div className="flex w-full justify-end">
-										<div className="top-0 right-1">
-											<Menu
-												as="div"
-												className="relative inline-block text-left"
-											>
-												<div>
-													<Menu.Button className="inline-flex w-full justify-center rounded-md bg-dark-cornflower-blue px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-														<BsThreeDots />
-													</Menu.Button>
-												</div>
-												<Transition
-													as={Fragment}
-													enter="transition ease-out duration-100"
-													enterFrom="transform opacity-0 scale-95"
-													enterTo="transform opacity-100 scale-100"
-													leave="transition ease-in duration-75"
-													leaveFrom="transform opacity-100 scale-100"
-													leaveTo="transform opacity-0 scale-95"
-												>
-													<Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-														<div className="px-1 py-1 ">
-															<Menu.Item>
-																{({ active }) => (
-																	<button
-																		type="button"
-																		className={`${
-																			active
-																				? "bg-slate-200 text-gray-900"
-																				: "text-gray-900"
-																		} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																		onClick={() =>
-																			reorderUpHandler(
-																				data.position
-																			)
-																		}
-																	>
-																		{
-																			// eslint-disable-next-line no-use-before-define
-																			<ArrowUpIcon
-																				className="mr-2 h-5 w-5"
-																				aria-hidden="true"
-																			/>
-																		}
-																		Move Tweet up
-																	</button>
-																)}
-															</Menu.Item>
-															<Menu.Item>
-																{({ active }) => (
-																	<button
-																		type="button"
-																		className={`${
-																			active
-																				? "bg-slate-200 text-gray-900"
-																				: "text-gray-900"
-																		} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																		onClick={() =>
-																			reorderDownHandler(
-																				data.position
-																			)
-																		}
-																	>
-																		{
-																			// eslint-disable-next-line no-use-before-define
-																			<ArrowDownIcon
-																				className="mr-2 h-5 w-5"
-																				aria-hidden="true"
-																			/>
-																		}
-																		Move Tweet down
-																	</button>
-																)}
-															</Menu.Item>
-														</div>
-														<div className="px-1 py-1 ">
-															<Menu.Item>
-																{({ active }) => (
-																	<button
-																		type="button"
-																		className={`${
-																			active
-																				? "bg-slate-200 text-gray-900"
-																				: "text-gray-900"
-																		} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																		onClick={() =>
-																			deleteTweetHandler(
-																				data.reportBlockID
-																			)
-																		}
-																	>
-																		{
-																			// eslint-disable-next-line no-use-before-define
-																			<DeleteIcon
-																				className="mr-2 h-5 w-5"
-																				aria-hidden="true"
-																			/>
-																		}
-																		Delete Tweet
-																	</button>
-																)}
-															</Menu.Item>
-														</div>
-													</Menu.Items>
-												</Transition>
-											</Menu>
-										</div>
-									</div>
-								<div>
-									<Tweet options={{ align: "center" }} tweetId={data.block.sentiment.id} onLoad={done} />
-									<p className="text-red-500">
-										Negative - {Math.floor(data.block.sentiment.sentiment.Negative * 100)} %
-									</p>
-								</div>
-
-								{/* <Tweet
-									options={{ align: "center", width: "" }}
-									tweetId={data.block.tweetID}
-									onLoad={done}
-								/> */}
-							</div>}
-							{ data.block.sentiment.sentimentWord === "POSITIVE" && <div
-								className={` w-full p-3 flex flex-col justify-center border-2 border-green-500 border-opacity-${opacityValue(Math.floor(data.block.sentiment.sentiment.Negative * 100)
-									)}`}
-								key={data.position}
-							>
-								<div className="flex w-full justify-end">
-										<div className="top-0 right-1">
-											<Menu
-												as="div"
-												className="relative inline-block text-left"
-											>
-												<div>
-													<Menu.Button className="inline-flex w-full justify-center rounded-md bg-dark-cornflower-blue px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-														<BsThreeDots />
-													</Menu.Button>
-												</div>
-												<Transition
-													as={Fragment}
-													enter="transition ease-out duration-100"
-													enterFrom="transform opacity-0 scale-95"
-													enterTo="transform opacity-100 scale-100"
-													leave="transition ease-in duration-75"
-													leaveFrom="transform opacity-100 scale-100"
-													leaveTo="transform opacity-0 scale-95"
-												>
-													<Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-														<div className="px-1 py-1 ">
-															<Menu.Item>
-																{({ active }) => (
-																	<button
-																		type="button"
-																		className={`${
-																			active
-																				? "bg-slate-200 text-gray-900"
-																				: "text-gray-900"
-																		} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																		onClick={() =>
-																			reorderUpHandler(
-																				data.position
-																			)
-																		}
-																	>
-																		{
-																			// eslint-disable-next-line no-use-before-define
-																			<ArrowUpIcon
-																				className="mr-2 h-5 w-5"
-																				aria-hidden="true"
-																			/>
-																		}
-																		Move Tweet up
-																	</button>
-																)}
-															</Menu.Item>
-															<Menu.Item>
-																{({ active }) => (
-																	<button
-																		type="button"
-																		className={`${
-																			active
-																				? "bg-slate-200 text-gray-900"
-																				: "text-gray-900"
-																		} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																		onClick={() =>
-																			reorderDownHandler(
-																				data.position
-																			)
-																		}
-																	>
-																		{
-																			// eslint-disable-next-line no-use-before-define
-																			<ArrowDownIcon
-																				className="mr-2 h-5 w-5"
-																				aria-hidden="true"
-																			/>
-																		}
-																		Move Tweet down
-																	</button>
-																)}
-															</Menu.Item>
-														</div>
-														<div className="px-1 py-1 ">
-															<Menu.Item>
-																{({ active }) => (
-																	<button
-																		type="button"
-																		className={`${
-																			active
-																				? "bg-slate-200 text-gray-900"
-																				: "text-gray-900"
-																		} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																		onClick={() =>
-																			deleteTweetHandler(
-																				data.reportBlockID
-																			)
-																		}
-																	>
-																		{
-																			// eslint-disable-next-line no-use-before-define
-																			<DeleteIcon
-																				className="mr-2 h-5 w-5"
-																				aria-hidden="true"
-																			/>
-																		}
-																		Delete Tweet
-																	</button>
-																)}
-															</Menu.Item>
-														</div>
-													</Menu.Items>
-												</Transition>
-											</Menu>
-										</div>
-									</div>
-								<div>
-									<Tweet options={{ align: "center" }} tweetId={data.block.sentiment.id} onLoad={done} />
-										<p className="text-green-500">
-											Positive - {Math.floor(data.block.sentiment.sentiment.Positive * 100)} %
-										</p>
-								</div>
-
-								{/* <Tweet
-									options={{ align: "center", width: "" }}
-									tweetId={data.block.tweetID}
-									onLoad={done}
-								/> */}
-							</div>}
-							{ data.block.sentiment.sentimentWord === "MIXED" && <div
-								className={` w-full p-3 flex flex-col justify-center border-2 border-gray-500 border-opacity-${opacityValue(Math.floor(data.block.sentiment.sentiment.Negative * 100)
-									)}`}
-								key={data.position}
-							>
-								<div className="flex w-full justify-end">
-										<div className="top-0 right-1">
-											<Menu
-												as="div"
-												className="relative inline-block text-left"
-											>
-												<div>
-													<Menu.Button className="inline-flex w-full justify-center rounded-md bg-dark-cornflower-blue px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-														<BsThreeDots />
-													</Menu.Button>
-												</div>
-												<Transition
-													as={Fragment}
-													enter="transition ease-out duration-100"
-													enterFrom="transform opacity-0 scale-95"
-													enterTo="transform opacity-100 scale-100"
-													leave="transition ease-in duration-75"
-													leaveFrom="transform opacity-100 scale-100"
-													leaveTo="transform opacity-0 scale-95"
-												>
-													<Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-														<div className="px-1 py-1 ">
-															<Menu.Item>
-																{({ active }) => (
-																	<button
-																		type="button"
-																		className={`${
-																			active
-																				? "bg-slate-200 text-gray-900"
-																				: "text-gray-900"
-																		} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																		onClick={() =>
-																			reorderUpHandler(
-																				data.position
-																			)
-																		}
-																	>
-																		{
-																			// eslint-disable-next-line no-use-before-define
-																			<ArrowUpIcon
-																				className="mr-2 h-5 w-5"
-																				aria-hidden="true"
-																			/>
-																		}
-																		Move Tweet up
-																	</button>
-																)}
-															</Menu.Item>
-															<Menu.Item>
-																{({ active }) => (
-																	<button
-																		type="button"
-																		className={`${
-																			active
-																				? "bg-slate-200 text-gray-900"
-																				: "text-gray-900"
-																		} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																		onClick={() =>
-																			reorderDownHandler(
-																				data.position
-																			)
-																		}
-																	>
-																		{
-																			// eslint-disable-next-line no-use-before-define
-																			<ArrowDownIcon
-																				className="mr-2 h-5 w-5"
-																				aria-hidden="true"
-																			/>
-																		}
-																		Move Tweet down
-																	</button>
-																)}
-															</Menu.Item>
-														</div>
-														<div className="px-1 py-1 ">
-															<Menu.Item>
-																{({ active }) => (
-																	<button
-																		type="button"
-																		className={`${
-																			active
-																				? "bg-slate-200 text-gray-900"
-																				: "text-gray-900"
-																		} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																		onClick={() =>
-																			deleteTweetHandler(
-																				data.reportBlockID
-																			)
-																		}
-																	>
-																		{
-																			// eslint-disable-next-line no-use-before-define
-																			<DeleteIcon
-																				className="mr-2 h-5 w-5"
-																				aria-hidden="true"
-																			/>
-																		}
-																		Delete Tweet
-																	</button>
-																)}
-															</Menu.Item>
-														</div>
-													</Menu.Items>
-												</Transition>
-											</Menu>
-										</div>
-									</div>
-								<div>
-									<Tweet options={{ align: "center" }} tweetId={data.block.sentiment.id} onLoad={done} />
-										<p className="text-gray-500">
-											Mixed - {Math.floor(data.block.sentiment.sentiment.Mixed * 100)} %
-										</p>
-								</div>
-
-								{/* <Tweet
-									options={{ align: "center", width: "" }}
-									tweetId={data.block.tweetID}
-									onLoad={done}
-								/> */}
-							</div>}
-							{ data.block.sentiment.sentimentWord === "NEUTRAL" && <div
-								className={` w-full p-3 flex flex-col justify-center border-2 border-blue-500 border-opacity-${opacityValue(Math.floor(data.block.sentiment.sentiment.Negative * 100)
-									)}`}
-								key={data.position}
-							>
-								<div className="flex w-full justify-end">
-										<div className="top-0 right-1">
-											<Menu
-												as="div"
-												className="relative inline-block text-left"
-											>
-												<div>
-													<Menu.Button className="inline-flex w-full justify-center rounded-md bg-dark-cornflower-blue px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-														<BsThreeDots />
-													</Menu.Button>
-												</div>
-												<Transition
-													as={Fragment}
-													enter="transition ease-out duration-100"
-													enterFrom="transform opacity-0 scale-95"
-													enterTo="transform opacity-100 scale-100"
-													leave="transition ease-in duration-75"
-													leaveFrom="transform opacity-100 scale-100"
-													leaveTo="transform opacity-0 scale-95"
-												>
-													<Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-														<div className="px-1 py-1 ">
-															<Menu.Item>
-																{({ active }) => (
-																	<button
-																		type="button"
-																		className={`${
-																			active
-																				? "bg-slate-200 text-gray-900"
-																				: "text-gray-900"
-																		} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																		onClick={() =>
-																			reorderUpHandler(
-																				data.position
-																			)
-																		}
-																	>
-																		{
-																			// eslint-disable-next-line no-use-before-define
-																			<ArrowUpIcon
-																				className="mr-2 h-5 w-5"
-																				aria-hidden="true"
-																			/>
-																		}
-																		Move Tweet up
-																	</button>
-																)}
-															</Menu.Item>
-															<Menu.Item>
-																{({ active }) => (
-																	<button
-																		type="button"
-																		className={`${
-																			active
-																				? "bg-slate-200 text-gray-900"
-																				: "text-gray-900"
-																		} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																		onClick={() =>
-																			reorderDownHandler(
-																				data.position
-																			)
-																		}
-																	>
-																		{
-																			// eslint-disable-next-line no-use-before-define
-																			<ArrowDownIcon
-																				className="mr-2 h-5 w-5"
-																				aria-hidden="true"
-																			/>
-																		}
-																		Move Tweet down
-																	</button>
-																)}
-															</Menu.Item>
-														</div>
-														<div className="px-1 py-1 ">
-															<Menu.Item>
-																{({ active }) => (
-																	<button
-																		type="button"
-																		className={`${
-																			active
-																				? "bg-slate-200 text-gray-900"
-																				: "text-gray-900"
-																		} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-																		onClick={() =>
-																			deleteTweetHandler(
-																				data.reportBlockID
-																			)
-																		}
-																	>
-																		{
-																			// eslint-disable-next-line no-use-before-define
-																			<DeleteIcon
-																				className="mr-2 h-5 w-5"
-																				aria-hidden="true"
-																			/>
-																		}
-																		Delete Tweet
-																	</button>
-																)}
-															</Menu.Item>
-														</div>
-													</Menu.Items>
-												</Transition>
-											</Menu>
-										</div>
-									</div>
-								<div>
-									<Tweet options={{ align: "center" }} tweetId={data.block.sentiment.id} onLoad={done} />
-										{/* Neutral - {Math.floor(data.sentiment.Neutral * 100)} % */}
-										<p className="text-blue-500">
-											Neutral - {Math.floor(data.block.sentiment.sentiment.Neutral * 100)} %
-										</p>
-								</div>
-
-								{/* <Tweet
-									options={{ align: "center", width: "" }}
-									tweetId={data.block.tweetID}
-									onLoad={done}
-								/> */}
-							</div>}
-						</>
+								{data.block.sentiment.sentimentWord === "NEGATIVE" && (
+									<TweetResponse
+										position={data.position}
+										type="with"
+										type2="middle"
+										tweetId={data.block.tweetID}
+										DeleteIcon={DeleteIcon}
+										done={done}
+										data={data}
+										toggleUp={toggleUp}
+										ArrowUpIcon={ArrowUpIcon}
+										toggleDown={toggleDown}
+										ArrowDownIcon={ArrowDownIcon}
+										toggleDeleteTweet={toggleDeleteTweet}
+										color="red"
+										sentimentValue={Math.floor(
+											data.block.sentiment.sentiment.Negative * 100
+										)}
+										sentimentText="Negative"
+									/>
+								)}
+								{data.block.sentiment.sentimentWord === "POSITIVE" && (
+									<TweetResponse
+										position={data.position}
+										type="with"
+										type2="middle"
+										tweetId={data.block.tweetID}
+										DeleteIcon={DeleteIcon}
+										done={done}
+										data={data}
+										toggleUp={toggleUp}
+										ArrowUpIcon={ArrowUpIcon}
+										toggleDown={toggleDown}
+										ArrowDownIcon={ArrowDownIcon}
+										toggleDeleteTweet={toggleDeleteTweet}
+										color="green"
+										sentimentValue={Math.floor(
+											data.block.sentiment.sentiment.Positive * 100
+										)}
+										sentimentText="Positive"
+									/>
+								)}
+								{data.block.sentiment.sentimentWord === "MIXED" && (
+									<TweetResponse
+										position={data.position}
+										type="with"
+										type2="middle"
+										tweetId={data.block.tweetID}
+										DeleteIcon={DeleteIcon}
+										done={done}
+										data={data}
+										toggleUp={toggleUp}
+										ArrowUpIcon={ArrowUpIcon}
+										toggleDown={toggleDown}
+										ArrowDownIcon={ArrowDownIcon}
+										toggleDeleteTweet={toggleDeleteTweet}
+										color="gray"
+										sentimentValue={Math.floor(
+											data.block.sentiment.sentiment.Mixed * 100
+										)}
+										sentimentText="Mixed"
+									/>
+								)}
+								{data.block.sentiment.sentimentWord === "NEUTRAL" && (
+									<TweetResponse
+										position={data.position}
+										type="with"
+										type2="middle"
+										tweetId={data.block.tweetID}
+										DeleteIcon={DeleteIcon}
+										done={done}
+										data={data}
+										toggleUp={toggleUp}
+										ArrowUpIcon={ArrowUpIcon}
+										toggleDown={toggleDown}
+										ArrowDownIcon={ArrowDownIcon}
+										toggleDeleteTweet={toggleDeleteTweet}
+										color="blue"
+										sentimentValue={Math.floor(
+											data.block.sentiment.sentiment.Neutral * 100
+										)}
+										sentimentText="Neutral"
+									/>
+								)}
+							</>
 						)}
 				</div>
 			)
@@ -2062,7 +802,7 @@ function Report() {
 	};
 
 	if (choice) {
-		console.log(choice);
+		// console.log(choice);
 	}
 
 	return (
@@ -2400,78 +1140,6 @@ function Report() {
 					<br /> <br /> <br />
 				</div>
 			)}
-		</div>
-	);
-}
-
-function SentimentIcon(props: any) {
-	const style2 = { fontSize: "1.3rem" };
-	return (
-		// eslint-disable-next-line react/jsx-props-no-spreading
-		<div {...props}>
-			<AiOutlineEye style={style2} />
-		</div>
-	);
-}
-
-function NonSentimentIcon(props: any) {
-	const style2 = { fontSize: "1.3rem" };
-	return (
-		// eslint-disable-next-line react/jsx-props-no-spreading
-		<div {...props}>
-			<AiOutlineEyeInvisible style={style2} />
-		</div>
-	);
-}
-
-function ShareIcon(props: any) {
-	const style = { fontSize: "1.1rem" };
-	return (
-		// eslint-disable-next-line react/jsx-props-no-spreading
-		<div {...props}>
-			<BsShare style={style} />
-		</div>
-	);
-}
-
-function CloneIcon(props: any) {
-	const iconStyle3 = { fontSize: "1.1rem", color: "red" };
-	return (
-		// eslint-disable-next-line react/jsx-props-no-spreading
-		<div {...props}>
-			<GrCopy style={iconStyle3} />
-		</div>
-	);
-}
-
-function DeleteIcon(props: any) {
-	const iconStyle4 = { fontSize: "1.3rem", color: "red" };
-	return (
-		// eslint-disable-next-line react/jsx-props-no-spreading
-		<div {...props}>
-			<MdDeleteOutline style={iconStyle4} />
-		</div>
-	);
-}
-
-function ArrowDownIcon(props: any) {
-	const style = { fontSize: "1.1rem" };
-
-	return (
-		// eslint-disable-next-line react/jsx-props-no-spreading
-		<div {...props}>
-			<BsArrowDown style={style} />
-		</div>
-	);
-}
-
-function ArrowUpIcon(props: any) {
-	const style = { fontSize: "1.1rem" };
-
-	return (
-		// eslint-disable-next-line react/jsx-props-no-spreading
-		<div {...props}>
-			<BsArrowUp style={style} />
 		</div>
 	);
 }

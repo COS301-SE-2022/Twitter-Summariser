@@ -93,7 +93,7 @@ self.addEventListener("fetch", async (event) => {
 	const url = event.request.url;
 
 	// console.log(auth.apiKey);
-	if (event.request.method === "POST" && url.includes("/dev/get")) {
+	if (event.request.method === "POST" && url.includes("/prod/get")) {
 		// eslint-disable-next-line no-use-before-define
 		event.respondWith(networkFirst(event));
 	}
@@ -119,7 +119,7 @@ const getValue = async (request: any) => {
 
 		return new Response(JSON.stringify(cacheData.response.body), cacheData.response);
 	} catch (err) {
-		console.log(err);
+		console.error(err);
 		return null;
 	}
 };

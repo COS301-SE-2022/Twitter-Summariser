@@ -13,12 +13,9 @@ function NotificationCard(props: any) {
 	const controller = new AbortController();
 	const { auth } = useAuth();
 
-	const imageURL =
-		(props.data.senderUrl).startsWith("assets/")
-			? props.data.senderUrl
-			: `https://s3.amazonaws.com/twitter-summariser-images/${
-					props.data.senderUrl
-			  }?${new Date().getTime()}`;
+	const imageURL = props.data.senderUrl.startsWith("assets/")
+		? props.data.senderUrl
+		: `https://s3.amazonaws.com/twitter-summariser-images/${props.data.senderUrl}`;
 
 	const description = () => {
 		if (props.data.type === "SHARE") {

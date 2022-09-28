@@ -27,24 +27,28 @@ export const generateReport = middyfy(
 
 			const { tweets } = title;
 
-			let id: string;
-			if(params["reportID"] === undefined){
-				id = "RT-" + randomUUID();
-			}else{
-				id = params["reportID"];
-			}
-			const d = new Date();
+			// // Get All the drafts
+			// const drafts = await ServicesLayer.reportService.getDraftReports(params["apiKey"]);
 
-			const report = await ServicesLayer.reportService.addReport({
-				reportID: id,
-				resultSetID: params["resultSetID"],
-				status: "DRAFT",
-				title: title.searchPhrase,
-				apiKey: params["apiKey"],
-				dateCreated: d.toString(),
-				author: params["author"],
-				blockNumber: tweets.length
-			});
+			// drafts.sort((a, b) => {
+			// 	return new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime();
+			// });
+
+			// const diff = new Date().getTime() -	new Date(drafts[0].dateCreated).getTime();
+			// if (drafts.length > 0  && drafts[0].title === title.searchPhrase && Math.abs(diff / 1000) < 5) {
+			// 	return {
+			// 		statusCode: statusCodes.accepted,
+			// 		headers: header,
+			// 		body: JSON.stringify({
+			// 			message: "Report already generated",
+			// 			reportID: drafts[0].reportID
+			// 		})
+			// 	};
+			// }
+
+
+			let id: string = "RT-" + randomUUID();
+			const d = new Date();
 
 			const { data } = await clientV2.get("tweets", { ids: tweets });
 
@@ -60,7 +64,7 @@ export const generateReport = middyfy(
 			} else {
 				//	Summarizing text
 				const lambdaParams = {
-					FunctionName: "text-summarisation-dev-summarise",
+					FunctionName: "text-summarisation-prod-summarise",
 					InvocationType: "RequestResponse",
 					Payload: JSON.stringify({
 						text: twts,
@@ -69,15 +73,7 @@ export const generateReport = middyfy(
 					})
 				};
 
-				const responseTS = await lambda
-					.invoke(lambdaParams, function (data, err) {
-						if (err) {
-							console.log(err);
-						} else {
-							console.log(data);
-						}
-					})
-					.promise();
+				const responseTS = await lambda.invoke(lambdaParams).promise();
 				sText = JSON.parse(JSON.parse(responseTS.Payload.toLocaleString()).body).text;
 			}
 
@@ -91,6 +87,17 @@ export const generateReport = middyfy(
 					position: (x += 2),
 					tweetID: tweet
 				});
+			});
+
+			const report = await ServicesLayer.reportService.addReport({
+				reportID: id,
+				resultSetID: params["resultSetID"],
+				status: "DRAFT",
+				title: title.searchPhrase,
+				apiKey: params["apiKey"],
+				dateCreated: d.toString(),
+				author: params["author"],
+				blockNumber: tweets.length
 			});
 
 			const tb = `BK-${randomUUID()}`;
@@ -113,6 +120,21 @@ export const generateReport = middyfy(
 				size: ""
 			});
 
+
+			if (params["reportType"] && params["reportType"] === "SCHEDULED") {
+				const notification = {
+					id: "NT-" + randomUUID(),
+					sender: "SYSTEM",
+					receiver: params.apiKey,
+					type: "SCHEDULER",
+					content: report.reportID,
+					isRead: false,
+					dateCreated: new Date().toString()
+				};
+
+				await ServicesLayer.notificationService.addNotification(notification);
+			}
+
 			return {
 				statusCode: statusCodes.Successful,
 				body: JSON.stringify({ Report: report, summarisedText: sText })
@@ -133,15 +155,24 @@ export const getAllMyDraftReports = middyfy(
 			const params = JSON.parse(event.body);
 			const reports = await ServicesLayer.reportService.getDraftReports(params.apiKey);
 
-			reports.map(async (report) => {
-				delete report.apiKey;
-			});
-
 			reports.sort((a, b) => {
 				return new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime();
 			});
 
-			// const tweets = await ServicesLayer.tweetService.getTweets(params.resultSetID);
+			if (reports.length > 1) {
+				const diff =
+					new Date(reports[0].dateCreated).getTime() -
+					new Date(reports[1].dateCreated).getTime();
+				if (reports[0].title === reports[1].title && Math.abs(diff / 1000) < 5) {
+					await ServicesLayer.reportService.deleteReport(reports[0].reportID);
+					reports.shift();
+				}
+			}
+
+			reports.map(async (report) => {
+				delete report.apiKey;
+			});
+
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,
@@ -421,8 +452,8 @@ export const getReport = middyfy(
 				if (result[y] !== undefined) {
 					if (result[y].position === x) {
 						rp.push(result[y]);
-						if(result[y].blockType==='TWEET'){
-							tweets.push(result[y].block.tweetID)
+						if (result[y].blockType === "TWEET") {
+							tweets.push(result[y].block.tweetID);
 						}
 						bl = true;
 						count++;
@@ -456,7 +487,7 @@ export const getReport = middyfy(
 			const sentimentResults = await Comprehend.batchDetectSentiment(param).promise();
 
 			for (let x = 0; x < data.length; x++) {
-				rp[2*x+1].block.sentiment = {
+				rp[2 * x + 1].block.sentiment = {
 					sentimentWord: sentimentResults.ResultList[x].Sentiment,
 					sentiment: sentimentResults.ResultList[x].SentimentScore,
 					id: data[x].id
@@ -589,22 +620,22 @@ export const getSharedReport = middyfy(
 
 			let responseArray = await re.reduce(async (result, report) => {
 				let resultArray = await result;
-				if(report.status !== "DELETED") {
-					
-
+				if (report.status !== "DELETED") {
 					const user = await ServicesLayer.creatorService.getCreatorByKey(report.apiKey);
 					report.profileKey = user.profileKey;
 					delete report.apiKey;
 					delete report.resultSetID;
 
 					resultArray.push(report);
-
 				} else {
-					ServicesLayer.permissionService.deletePermission(report.reportID, params.apiKey);
+					ServicesLayer.permissionService.deletePermission(
+						report.reportID,
+						params.apiKey
+					);
 				}
 				return result;
 			}, Promise.resolve([]));
-		
+
 			return {
 				statusCode: statusCodes.Successful,
 				headers: header,

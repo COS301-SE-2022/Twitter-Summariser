@@ -48,6 +48,109 @@ describe("permission.service", () => {
 		});
 	});
 
+	describe("addPermission", () => {
+		test("Add Permission", async () => {
+			const addedPermission: Permission = {
+				reportID: "1111",
+				apiKey: "rdvsafbkjuk5",
+				type: "EDITOR"
+			};
+
+			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({}));
+
+			await PermissionService.permissionService.addPermission(addedPermission);
+
+			expect(db.put).toHaveBeenCalledWith({
+				TableName: "PermissionTable",
+				Item: addedPermission
+			});
+		});
+	});
+
+	describe("verifyReportRetr", () => {
+		test("Verify Report Retr", async () => {
+			const addedPermission: Permission = {
+				reportID: "1111",
+				apiKey: "rdvsafbkjuk5",
+				type: "EDITOR"
+			};
+
+			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Item: addedPermission }));
+
+			const permission = await PermissionService.permissionService.verifyReportRetr(
+				"EDITOR",
+				"rdvsafbkjuk5",
+				"1111"
+			);
+
+			expect(permission.valueOf()).toEqual(true);
+		});
+	});
+
+	describe("verifyEditor", () => {
+		test("Verify Editor", async () => {
+			const addedPermission: Permission = {
+				reportID: "1111",
+				apiKey: "rdvsafbkjuk5",
+				type: "EDITOR"
+			};
+
+			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Item: addedPermission }));
+
+			const permission = await PermissionService.permissionService.verifyEditor(
+				"1111",
+				"rdvsafbkjuk5"
+			);
+
+			expect(permission.valueOf()).toEqual(true);
+
+			const addedPermission2: Permission = {
+				reportID: "1111",
+				apiKey: "rdvsafbkjuk5",
+				type: "VIEWER"
+			};
+
+			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Item: addedPermission2 }));
+
+			const permission2 = await PermissionService.permissionService.verifyEditor(
+				"1111",
+				"rdvsafbkjuk5"
+			);
+
+			expect(permission2.valueOf()).toEqual(false);
+		});
+	});
+
+	describe("updatePermission", () => {
+		test("Update Permission", async () => {
+			const addedPermission: Permission = {
+				reportID: "1111",
+				apiKey: "rdvsafbkjuk5",
+				type: "EDITOR"
+			};
+
+			awsSdkPromiseResponse.mockReturnValueOnce(Promise.resolve({ Item: addedPermission }));
+
+			await PermissionService.permissionService.updatePermission(
+				"1111",
+				"rdvsafbkjuk5",
+				"VIEWER"
+			);
+
+			expect(db.update).toHaveBeenCalledWith({
+				TableName: "PermissionTable",
+				Key: {
+					reportID: "1111",
+					apiKey: "rdvsafbkjuk5"
+				},
+				UpdateExpression: "SET type = :type",
+				ExpressionAttributeValues: {
+					":type": "VIEWER"
+				}
+			});
+		});
+	});
+
 	describe("getPermissions", () => {
 		test("Get Permissions", async () => {
 			const addedPermissions: Permission[] = [

@@ -30,9 +30,7 @@ function MobileNavigation(props: any) {
 	const imageURL =
 		auth.profileKey === "assets/profile.png"
 			? auth.profileKey
-			: `https://s3.amazonaws.com/twitter-summariser-images/${
-					auth.profileKey
-			  }?${new Date().getTime()}`;
+			: `https://s3.amazonaws.com/twitter-summariser-images/${auth.profileKey}`;
 
 	return (
 		<div className="pt-2 text-lg w-full flex flex-col z-20 bg-gradient-to-b from-dark-cornflower-blue to-white h-full justify-evenly">

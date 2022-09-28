@@ -4,8 +4,9 @@ import { header, statusCodes } from "@functions/resources/APIresponse";
 import { EventBridge, Lambda } from "aws-sdk";
 import ServicesLayer from "../../services";
 import { randomUUID } from "crypto";
-import Notification from "@model/notification/notification.model";
 import axiosPrivate from "../../../client/src/api/ConfigAxios";
+import axios from "axios";
+
 
 const eventBridge = new EventBridge();
 const lambda = new Lambda();
@@ -40,7 +41,7 @@ export const reportScheduler = middyfy(
 
 			const permissionParams = {
 				Action: "lambda:InvokeFunction",
-				FunctionName: "twitter-summariser-dev-genScheduledReport",
+				FunctionName: "twitter-summariser-prod-genScheduledReport",
 				Principal: "events.amazonaws.com",
 				StatementId: ruleName,
 				SourceArn: rule.RuleArn
@@ -53,7 +54,7 @@ export const reportScheduler = middyfy(
 				Targets: [
 					{
 						Id: ruleName + "-target",
-						Arn: "arn:aws:lambda:us-east-1:626449495923:function:twitter-summariser-dev-genScheduledReport",
+						Arn: "arn:aws:lambda:us-east-1:724052881296:function:twitter-summariser-prod-genScheduledReport",
 						Input: JSON.stringify(params.reportDetails)
 					}
 				]
@@ -98,42 +99,19 @@ export const genScheduledReport = async (params): Promise<void> => {
 			})
 		);
 
-		const id = "RT-" + randomUUID();
-
 		const generateParams = {
-			FunctionName: "twitter-summariser-dev-generateReport",
+			FunctionName: "twitter-summariser-prod-generateReport",
 			InvocationType: "RequestResponse",
 			Payload: JSON.stringify({
 				apiKey: params.apiKey,
 				author: params.author,
 				resultSetID: responseST.data.resultSetID,
-				reportID: id
+				reportType: "SCHEDULED"
 			})
 		};
 
-		const responseGR = await lambda
-			.invoke(generateParams, function (_data, err) {
-				if (err) {
-					console.error(err);
-				}
-			})
-			.promise();
+		await lambda.invoke(generateParams).promise();
 
-		let payloadBody = JSON.parse(JSON.parse(responseGR.Payload.toLocaleString()).body)
-		let genReport = payloadBody.Report;
-		let genReportID = genReport.reportID;
-
-		const notification: Notification = {
-			id: "NT-" + randomUUID(),
-			sender: "SYSTEM",
-			receiver: params.apiKey,
-			type: "SCHEDULER",
-			content: genReportID,
-			isRead: false,
-			dateCreated: new Date().toString()
-		};
-
-		await ServicesLayer.notificationService.addNotification(notification);
 	} catch (e) {}
 };
 

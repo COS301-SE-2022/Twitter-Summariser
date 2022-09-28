@@ -1,14 +1,10 @@
-function ButtonComponent({ page, text, type, size, handle, disableId, isLoading, loader }: any) {
+function ButtonComponent({ page, text, type, size, disableId, isLoading, loader }: any) {
 	const fixedStyle = disableId
 		? "bg-dark-cornflower-blue rounded-sm text-white font-semibold opacity-50"
 		: "bg-dark-cornflower-blue rounded-sm text-white font-semibold hover:bg-midnight-blue group hover:shadow";
 
 	const sizeStyle = size === "small" ? "text-md p-0.5 h-10 w-36" : "text-lg p-0.5 h-10 w-60";
 	const buttonText = text;
-
-	console.log("disableId", disableId);
-
-	handle;
 
 	return (
 		<div>

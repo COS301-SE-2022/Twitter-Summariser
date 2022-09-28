@@ -5,6 +5,7 @@ const serverlessConfiguration: AWS = {
     frameworkVersion: "3",
     provider: {
         name: "aws",
+        stage: "prod",
         runtime: "python3.8",
         region: "us-east-1",
         timeout: 30
@@ -12,7 +13,7 @@ const serverlessConfiguration: AWS = {
 
     functions: {
         summarise: {
-            image: "626449495923.dkr.ecr.us-east-1.amazonaws.com/text-summarisation@sha256:7493c15203ae8ce762d57ee7a82a3fafdc5f07500c542163d18b76ff701b43b7",
+            image: "724052881296.dkr.ecr.us-east-1.amazonaws.com/text-summarisation@sha256:ee58211ee08223b98a65a1f38beef24f5f81eaba0f94a348a8ac8d26d76f4197",
             events: [
                 {
                     http: {
