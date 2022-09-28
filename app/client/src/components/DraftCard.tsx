@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
@@ -34,6 +35,14 @@ function DraftCard(props: any) {
 			console.error(error);
 		}
 	};
+
+	function toggleDelete() {
+		toast.promise(deleteDraftHandler(), {
+			loading: "Deleting.....",
+			success: <b>Draft deleted!</b>,
+			error: <b>Could not delete.</b>
+		});
+	}
 
 	const [options, setoptions] = useState(false);
 
@@ -80,7 +89,7 @@ function DraftCard(props: any) {
 					</p>
 					<div className="flex mt-8 space-x-4 md:mt-8 items-center justify-center">
 						<div className="rounded-sm items-center py-2.5 px-10 space-x-4 text-sm font-semibold text-center text-white bg-dark-cornflower-blue  hover:bg-midnight-blue group hover:shadow">
-							<button onClick={deleteDraftHandler} type="submit">
+							<button onClick={toggleDelete} type="submit">
 								Yes
 							</button>
 						</div>
