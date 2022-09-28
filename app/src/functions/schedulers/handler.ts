@@ -4,8 +4,9 @@ import { header, statusCodes } from "@functions/resources/APIresponse";
 import { EventBridge, Lambda } from "aws-sdk";
 import ServicesLayer from "../../services";
 import { randomUUID } from "crypto";
-import Notification from "@model/notification/notification.model";
 import axiosPrivate from "../../../client/src/api/ConfigAxios";
+import axios from "axios";
+
 
 const eventBridge = new EventBridge();
 const lambda = new Lambda();
@@ -110,7 +111,7 @@ export const genScheduledReport = async (params): Promise<void> => {
 		};
 
 		await lambda.invoke(generateParams).promise();
-		
+
 	} catch (e) {}
 };
 
