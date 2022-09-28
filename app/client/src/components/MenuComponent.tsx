@@ -2,8 +2,16 @@ import { Menu, Transition } from "@headlessui/react";
 import { BsThreeDots } from "react-icons/bs";
 import { Fragment } from "react";
 
-function MenuComponent({ type, data, reorderUpHandler, reorderDownHandler,ArrowUpIcon, ArrowDownIcon, deleteTweetHandler, DeleteIcon }: any) {
-
+function MenuComponent({
+	type,
+	data,
+	toggleUp,
+	toggleDown,
+	ArrowUpIcon,
+	ArrowDownIcon,
+	deleteTweetHandler,
+	DeleteIcon
+}: any) {
 	return (
 		<div className="flex w-full justify-end">
 			<div className="top-0 right-1">
@@ -24,58 +32,54 @@ function MenuComponent({ type, data, reorderUpHandler, reorderDownHandler,ArrowU
 					>
 						<Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
 							<div className="px-1 py-1 ">
-								{(type === "lastTweet" || type === "middleTweet") && <Menu.Item>
-									{({ active }) => (
-										<button
-											type="button"
-											className={`${
-												active
-													? "bg-slate-200 text-gray-900"
-													: "text-gray-900"
-											} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-											onClick={() =>
-												reorderUpHandler(
-													data.position
-												)
-											}
-										>
-											{
-												// eslint-disable-next-line no-use-before-define
-												<ArrowUpIcon
-													className="mr-2 h-5 w-5"
-													aria-hidden="true"
-												/>
-											}
-											Move Tweet up
-										</button>
-									)}
-								</Menu.Item>}
-								{(type === "firstTweet" || type === "middleTweet") && <Menu.Item>
-									{({ active }) => (
-										<button
-											type="button"
-											className={`${
-												active
-													? "bg-slate-200 text-gray-900"
-													: "text-gray-900"
-											} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-											onClick={() =>
-												reorderDownHandler(
-													data.position
-												)
-											}
-										>
-											{
-												// eslint-disable-next-line no-use-before-define
-												<ArrowDownIcon
-													className="mr-2 h-5 w-5"
-													aria-hidden="true"
-												/>
-											}
-											Move Tweet down
-										</button>
-									)}
-								</Menu.Item>}
+								{(type === "lastTweet" || type === "middleTweet") && (
+									<Menu.Item>
+										{({ active }) => (
+											<button
+												type="button"
+												className={`${
+													active
+														? "bg-slate-200 text-gray-900"
+														: "text-gray-900"
+												} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+												onClick={() => toggleUp(data.position)}
+											>
+												{
+													// eslint-disable-next-line no-use-before-define
+													<ArrowUpIcon
+														className="mr-2 h-5 w-5"
+														aria-hidden="true"
+													/>
+												}
+												Move Tweet up
+											</button>
+										)}
+									</Menu.Item>
+								)}
+								{(type === "firstTweet" || type === "middleTweet") && (
+									<Menu.Item>
+										{({ active }) => (
+											<button
+												type="button"
+												className={`${
+													active
+														? "bg-slate-200 text-gray-900"
+														: "text-gray-900"
+												} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+												onClick={() => toggleDown(data.position)}
+											>
+												{
+													// eslint-disable-next-line no-use-before-define
+													<ArrowDownIcon
+														className="mr-2 h-5 w-5"
+														aria-hidden="true"
+													/>
+												}
+												Move Tweet down
+											</button>
+										)}
+									</Menu.Item>
+								)}
 							</div>
 							<div className="px-1 py-1 ">
 								<Menu.Item>
@@ -87,11 +91,7 @@ function MenuComponent({ type, data, reorderUpHandler, reorderDownHandler,ArrowU
 													? "bg-slate-200 text-gray-900"
 													: "text-gray-900"
 											} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-											onClick={() =>
-												deleteTweetHandler(
-													data.reportBlockID
-												)
-											}
+											onClick={() => deleteTweetHandler(data.reportBlockID)}
 										>
 											{
 												// eslint-disable-next-line no-use-before-define
@@ -110,7 +110,6 @@ function MenuComponent({ type, data, reorderUpHandler, reorderDownHandler,ArrowU
 				</Menu>
 			</div>
 		</div>
-
 	);
 }
 
