@@ -271,7 +271,7 @@ function Home() {
 			<>
 				{data.sentimentWord === "NEGATIVE" && (
 					<div
-						className={` border-2 border-red-500 border-opacity-${opacityValue(
+						className={` rounded-lg border-2 border-red-500 border-opacity-${opacityValue(
 							Math.floor(data.sentiment.Negative * 100)
 						)}  `}
 						key={data.id + 1}
@@ -284,7 +284,7 @@ function Home() {
 				)}
 				{data.sentimentWord === "POSITIVE" && (
 					<div
-						className={` border-2 border-green-500 border-opacity-${opacityValue(
+						className={` rounded-lg border-2 border-green-500 border-opacity-${opacityValue(
 							Math.floor(data.sentiment.Positive * 100)
 						)} `}
 						key={data.id + 2}
@@ -297,7 +297,7 @@ function Home() {
 				)}
 				{data.sentimentWord === "MIXED" && (
 					<div
-						className={` border-2 border-gray-500 border-opacity-${opacityValue(
+						className={` rounded-lg border-2 border-gray-500 border-opacity-${opacityValue(
 							Math.floor(data.sentiment.Mixed * 100)
 						)} `}
 						key={data.id + 3}
@@ -310,7 +310,7 @@ function Home() {
 				)}
 				{data.sentimentWord === "NEUTRAL" && (
 					<div
-						className={` border-2 border-blue-500 border-opacity-${opacityValue(
+						className={` rounded-lg border-2 border-blue-500 border-opacity-${opacityValue(
 							Math.floor(data.sentiment.Neutral * 100)
 						)} `}
 						key={data.id + 4}
