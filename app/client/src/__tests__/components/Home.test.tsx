@@ -18,16 +18,16 @@ describe("Rendering Tests For Components in Home", () => {
 		const home = screen.getByTestId("home");
 		expect(home).toBeTruthy();
 
-		// it("renders start button without crashing", () => {
-		// // expect(1).toBe(1);
-		// render(
-		// 	<BrowserRouter>
-		// 		<Home />
-		// 	</BrowserRouter>
-		// );
-		// const startButton = screen.getByTestId("btn-start");
-		// expect(startButton).toBeTruthy();
-		// });
+		it("renders start button without crashing", () => {
+		// expect(1).toBe(1);
+		render(
+			<BrowserRouter>
+				<Home />
+			</BrowserRouter>
+		);
+		const startButton = screen.getByTestId("btn-start");
+		expect(startButton).toBeTruthy();
+		});
 
 		// it("renders start button without crashing", () => {
 		// // expect(1).toBe(1);

@@ -489,7 +489,8 @@ function Home() {
 						{/* this is for the search button */}
 						<div className="flex flex-row justify-around">
 							<Button
-								div data-testid="btn-start"
+								div
+								data-testid="btn-start"
 								text="Get Started"
 								size="large"
 								handle={displayHomeSearch}
