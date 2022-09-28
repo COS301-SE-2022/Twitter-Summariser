@@ -330,6 +330,13 @@ function Home() {
 	const draftID = draftReport;
 	const newDraftReportLink = `/report/${draftID}`;
 
+	function scrollToTop() {
+		window.scrollTo({
+			top: 0,
+			behavior: "smooth"
+		});
+	}
+
 	const loadIcon = (
 		<svg
 			role="status"
@@ -414,6 +421,7 @@ function Home() {
 					searchInput = document.getElementById("default-search") as HTMLInputElement;
 					searchInput.value = tweetData;
 					changeEnteredSearch(tweetData);
+					scrollToTop();
 				}}
 			>
 				<FaTwitter />
