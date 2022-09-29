@@ -7,17 +7,13 @@
 <strong><h3 style="font-family: Jetbrains Mono">PROJECT BOARD:</h3></strong>
 - <a href="https://github.com/COS301-SE-2022/Twitter-Summariser/projects/1" style="font-family: Jetbrains Mono">Project Board</a>
 
-<strong><h3 style="font-family: Jetbrains Mono" >DEMO 1:</h3></strong>
-- <a style="font-family: Jetbrains Mono" href="https://github.com/COS301-SE-2022/Twitter-Summariser/files/8684152/twitter-summariser-srs.pdf">System Requirement Specifications V1</a>
-- <a style="font-family: Jetbrains Mono" href="https://drive.google.com/file/d/1LPuUmVU7ITBsx_G0VlAXqQpufLkrOZKe/view?usp=sharing">Demo 1 Video</a>
-
-<strong><h3 style="font-family: Jetbrains Mono">DEMO 2:</h3></strong>
-- <a style="font-family: Jetbrains Mono" href="https://github.com/COS301-SE-2022/Twitter-Summariser/files/8888883/twitter_summariser_srs.pdf">System Requirement Specifications V2</a>
-- <a style="font-family: Jetbrains Mono" href="https://github.com/COS301-SE-2022/Twitter-Summariser/files/8888879/twitter_summariser_architecture_document.2.pdf">Architectural Requirements Document V1</a>
-- <a style="font-family: Jetbrains Mono" href="https://drive.google.com/file/d/1-hZeVnyrBWiAW5kq7P9eLNwRzdFrK-3e/view?usp=sharing">Demo 2 Video</a>
-- <a style="font-family: Jetbrains Mono" href="https://github.com/COS301-SE-2022/Twitter-Summariser/files/8888880/twitter_summariser_coding_standard_document.pdf">Coding Standards V1</a>
-- <a style="font-family: Jetbrains Mono" href="https://github.com/COS301-SE-2022/Twitter-Summariser/files/8888884/twitter_summariser_user_manual.pdf">User Manual V1</a>
-
+<strong><h3 style="font-family: Jetbrains Mono">DEMO 4:</h3></strong>
+- [System Requirement Specifications V4](https://drive.google.com/file/d/1UWaoA5M4MNFN7pt6jUzJ6FlTv-eWqyV7/view?usp=sharing)
+- [Coding Standards V3](https://drive.google.com/file/d/1UWaoA5M4MNFN7pt6jUzJ6FlTv-eWqyV7/view?usp=sharing)
+- [User Manual V3](https://drive.google.com/file/d/1ko9uqD8_BqW7rteUkC7RBnR724GvJkGO/view?usp=sharing)
+- [Architectural Requirements Document V3](https://drive.google.com/file/d/1ayWLdGCCo-14Tb3YMGIlEvjKEVj902xR/view?usp=sharing)
+- [Technical Installation Manual V2](https://drive.google.com/file/d/1IO7kYnrH9JaBWwSiymUV1qhkMbvCS7v_/view?usp=sharing)
+- [Testing Policy V1](https://drive.google.com/file/d/1XEFo6WqE76tyEQUj3taD_Q9nIGxTsDB6/view?usp=sharing)
 
 <strong><h3 style="font-family: Jetbrains Mono">DEMO 3:</h3></strong>
 - [System Requirement Specifications V3](https://drive.google.com/file/d/1nnajjYjOZF8OV4ho2XJhR3SXsR5f6sUb/view?usp=sharing)
@@ -26,13 +22,16 @@
 - [Architectural Requirements Document V2](https://drive.google.com/file/d/1oD3XMBOmLVvX46M-FxHL3b2WlAcGnRVj/view?usp=sharing)
 - [Technical Installation Manual V1](https://drive.google.com/file/d/1Uqq64gtLYr-3rORTMhXbraCLPNtMhsn2/view?usp=sharing)
 
-<strong><h3 style="font-family: Jetbrains Mono">DEMO 4:</h3></strong>
-- [System Requirement Specifications V4](https://drive.google.com/file/d/1UWaoA5M4MNFN7pt6jUzJ6FlTv-eWqyV7/view?usp=sharing)
-- [Coding Standards V3](https://drive.google.com/file/d/1UWaoA5M4MNFN7pt6jUzJ6FlTv-eWqyV7/view?usp=sharing)
-- [User Manual V3](https://drive.google.com/file/d/1ko9uqD8_BqW7rteUkC7RBnR724GvJkGO/view?usp=sharing)
-- [Architectural Requirements Document V3](https://drive.google.com/file/d/1ayWLdGCCo-14Tb3YMGIlEvjKEVj902xR/view?usp=sharing)
-- [Technical Installation Manual V2](https://drive.google.com/file/d/1IO7kYnrH9JaBWwSiymUV1qhkMbvCS7v_/view?usp=sharing)
-- [Testing Policy V1](https://drive.google.com/file/d/1XEFo6WqE76tyEQUj3taD_Q9nIGxTsDB6/view?usp=sharing)
+<strong><h3 style="font-family: Jetbrains Mono">DEMO 2:</h3></strong>
+- <a style="font-family: Jetbrains Mono" href="https://github.com/COS301-SE-2022/Twitter-Summariser/files/8888883/twitter_summariser_srs.pdf">System Requirement Specifications V2</a>
+- <a style="font-family: Jetbrains Mono" href="https://github.com/COS301-SE-2022/Twitter-Summariser/files/8888879/twitter_summariser_architecture_document.2.pdf">Architectural Requirements Document V1</a>
+- <a style="font-family: Jetbrains Mono" href="https://drive.google.com/file/d/1-hZeVnyrBWiAW5kq7P9eLNwRzdFrK-3e/view?usp=sharing">Demo 2 Video</a>
+- <a style="font-family: Jetbrains Mono" href="https://github.com/COS301-SE-2022/Twitter-Summariser/files/8888880/twitter_summariser_coding_standard_document.pdf">Coding Standards V1</a>
+- <a style="font-family: Jetbrains Mono" href="https://github.com/COS301-SE-2022/Twitter-Summariser/files/8888884/twitter_summariser_user_manual.pdf">User Manual V1</a>
+
+<strong><h3 style="font-family: Jetbrains Mono" >DEMO 1:</h3></strong>
+- <a style="font-family: Jetbrains Mono" href="https://github.com/COS301-SE-2022/Twitter-Summariser/files/8684152/twitter-summariser-srs.pdf">System Requirement Specifications V1</a>
+- <a style="font-family: Jetbrains Mono" href="https://drive.google.com/file/d/1LPuUmVU7ITBsx_G0VlAXqQpufLkrOZKe/view?usp=sharing">Demo 1 Video</a>
 
 
 <strong><h3 style="font-family: Jetbrains Mono">BADGES:</h3></strong>
