@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: Twitter-Summariser
+        working-directory: app
 
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
@@ -25,7 +25,7 @@ jobs:
           workflow: build.yml
           workflow_conclusion: success
           name: client-artifact
-          path: Twitter-Summariser/client/coverage
+          path: app/client/coverage
 
       - name: Download the backend coverage artifact
         uses: dawidd6/action-download-artifact@v2
@@ -33,7 +33,7 @@ jobs:
           workflow: build.yml
           workflow_conclusion: success
           name: backend-artifact
-          path: Twitter-Summariser/coverage
+          path: app/coverage
 
       - name: Install glob dependency
         run:  yarn add -D glob

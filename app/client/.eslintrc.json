@@ -1,0 +1,83 @@
+{
+	"env": {
+		"browser": true,
+		"es2021": true
+	},
+	"extends": [
+		"eslint:recommended",
+		"plugin:react/recommended",
+		"plugin:@typescript-eslint/recommended",
+		"airbnb",
+		"prettier"
+	],
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"ecmaVersion": "latest",
+		"sourceType": "module"
+	},
+	"plugins": ["react", "react-hooks", "@typescript-eslint", "prettier"],
+	"rules": {
+		"react/react-in-jsx-scope": "off",
+		"react/destructuring-assignment": "off",
+		"react/prop-types": "off",
+		"react/jsx-no-constructed-context-values": "off",
+		"jsx-a11y/label-has-associated-control": "off",
+		"jsx-a11y/click-events-have-key-events": "off",
+		"jsx-a11y/no-static-element-interactions": "off",
+		"react/jsx-no-useless-fragment": "off",
+		"import/extensions": [
+			"error",
+			"ignorePackages",
+			{
+				"js": "never",
+				"jsx": "never",
+				"ts": "never",
+				"tsx": "never"
+			}
+		],
+		"react/jsx-filename-extension": [
+			"off",
+			{
+				"extensions": [".js", ".jsx", ".ts", ".tsx"]
+			}
+		],
+		"react/no-unknown-property": "off",
+		"import/no-extraneous-dependencies": [
+			"error",
+			{
+				"devDependencies": true,
+				"optionalDependencies": true,
+				"peerDependencies": true
+			}
+		],
+		"no-extra-semi": "off",
+		"@typescript-eslint/no-extra-semi": "error",
+		"no-unused-vars": "off",
+		"@typescript-eslint/no-unused-vars": "error",
+		"no-shadow": "off",
+		"@typescript-eslint/no-shadow": ["error"],
+		"no-unused-expressions": "off",
+		"@typescript-eslint/no-unused-expressions": "off",
+		"no-console": [
+			"error",
+			{
+				"allow": ["error", "log"]
+			}
+		],
+		"no-nested-ternary": "off",
+		"no-param-reassign": "off",
+		"@typescript-eslint/no-nested-ternary": "off",
+		"no-undef": "off",
+		"no-duplicate-imports": "error",
+		"no-plusplus": "off",
+		"@typescript-eslint/no-explicit-any": "off"
+	},
+	"settings": {
+		"import/resolver": {
+			"typescript": {}
+		}
+	}
+}

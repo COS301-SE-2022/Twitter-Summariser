@@ -1,0 +1,24 @@
+{
+	"name": "text-extraction",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"format": "prettier --write . --config .prettierrc"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"cors": "^2.8.5",
+		"express": "^4.17.1",
+		"express-fileupload": "^1.2.1",
+		"pdf-parse": "^1.1.1",
+		"prettier": "^2.7.1",
+		"serverless-http": "^3.0.2"
+	},
+	"devDependencies": {
+		"serverless-offline": "^10.1.0"
+	}
+}

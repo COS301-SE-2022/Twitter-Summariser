@@ -1,0 +1,6 @@
+{
+	"serverLink": "https://2sqkla17m9.execute-api.us-east-1.amazonaws.com/prod/",
+	"localhostLink": "http://localhost:4000/prod/",
+	"teSeverLink": "https://970fhlevh1.execute-api.us-east-1.amazonaws.com/extract-text",
+	"teLocalhostLink": "http://localhost:5000/extract-text"
+}

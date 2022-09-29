@@ -64,7 +64,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: Twitter-Summariser/client
+        working-directory: app/client
 
     steps:
       - name: Checkout to develop branch
@@ -92,14 +92,14 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: client-artifact
-          path: client/coverage/
+          path: app/client/coverage/
 
   Twitter-Summariser-Backend:
     name: Testing of backend
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: Twitter-Summariser
+        working-directory: app
 
     steps:
       - name: Checkout to develop branch
@@ -124,4 +124,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: backend-artifact
-          path: coverage/
+          path: app/coverage/
