@@ -94,7 +94,6 @@ function ArrowUpIcon(props: any) {
 
 function Report() {
 	const style = { fontSize: "1.3rem" };
-	const iconStyle3 = { fontSize: "1.5rem", color: "red" };
 	const styleCorrect = { fontSize: "1.5rem", color: "green" };
 	const styleWrong = { fontSize: "1.5rem", color: "red" };
 	const [share, setShare] = useState(false);
@@ -823,7 +822,7 @@ function Report() {
 									<h3 className="italic text-xs">Date Created: {date}</h3>
 								</div>
 
-								<div className="flex flex-row items-end p-4 justify-between">
+								{/* <div className="flex flex-row items-end p-4 justify-between">
 									<div
 										className=""
 										data-bs-toggle="tooltip"
@@ -834,7 +833,7 @@ function Report() {
 											<GrCopy style={iconStyle3} />
 										</button>
 									</div>
-								</div>
+								</div> */}
 							</div>
 
 							<br />
