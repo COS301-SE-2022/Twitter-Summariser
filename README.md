@@ -20,11 +20,19 @@
 
 
 <strong><h3 style="font-family: Jetbrains Mono">DEMO 3:</h3></strong>
-- [System Requirement Specifications V3](https://github.com/COS301-SE-2022/Twitter-Summariser/files/9220212/twitter_summariser_srs_v3.pdf)
-- [Coding Standards V2](https://github.com/COS301-SE-2022/Twitter-Summariser/files/9217404/Twitter.Summariser.-.Coding.Standards.pdf)
-- [User Manual V2](https://github.com/COS301-SE-2022/Twitter-Summariser/files/9217486/Twitter.Summariser.-.User.Manual.pdf)
-- [Architectural Requirements Document V2](https://github.com/COS301-SE-2022/Twitter-Summariser/files/9220184/twitter_summariser_architecture_v2.pdf)
-- [Technical Installation Manual V1](https://github.com/COS301-SE-2022/Twitter-Summariser/files/9217593/twitter_summariser_tech_installation_manual.pdf)
+- [System Requirement Specifications V3](https://drive.google.com/file/d/1nnajjYjOZF8OV4ho2XJhR3SXsR5f6sUb/view?usp=sharing)
+- [Coding Standards V2](https://drive.google.com/file/d/1i75THGnJ8_z8JczotLoWtykshLtubtNP/view?usp=sharing)
+- [User Manual V2](https://docs.google.com/document/d/1gVUpSVIimCRTx5WdwsGUoxfiTA6tHylrgdVmiiiv_3M/edit?usp=sharing)
+- [Architectural Requirements Document V2](https://drive.google.com/file/d/1oD3XMBOmLVvX46M-FxHL3b2WlAcGnRVj/view?usp=sharing)
+- [Technical Installation Manual V1](https://drive.google.com/file/d/1Uqq64gtLYr-3rORTMhXbraCLPNtMhsn2/view?usp=sharing)
+
+<strong><h3 style="font-family: Jetbrains Mono">DEMO 4:</h3></strong>
+- [System Requirement Specifications V4](https://drive.google.com/file/d/1UWaoA5M4MNFN7pt6jUzJ6FlTv-eWqyV7/view?usp=sharing)
+- [Coding Standards V3](https://drive.google.com/file/d/1UWaoA5M4MNFN7pt6jUzJ6FlTv-eWqyV7/view?usp=sharing)
+- [User Manual V3](https://drive.google.com/file/d/1ko9uqD8_BqW7rteUkC7RBnR724GvJkGO/view?usp=sharing)
+- [Architectural Requirements Document V3](https://drive.google.com/file/d/1ayWLdGCCo-14Tb3YMGIlEvjKEVj902xR/view?usp=sharing)
+- [Technical Installation Manual V2](https://drive.google.com/file/d/1IO7kYnrH9JaBWwSiymUV1qhkMbvCS7v_/view?usp=sharing)
+- [Testing Policy V1](https://drive.google.com/file/d/1XEFo6WqE76tyEQUj3taD_Q9nIGxTsDB6/view?usp=sharing)
 
 
 <strong><h3 style="font-family: Jetbrains Mono">BADGES:</h3></strong>
