@@ -228,7 +228,7 @@ function Text(props: any) {
 		<div>
 			{props.data.block !== null && (
 				<div className="flex flex-col">
-					{!secondEditor && <div className={style2}>{props.data.block.text.trim()}</div>}
+					{!secondEditor && <div className={style2}>{props.data.block.text}</div>}
 
 					{!secondEditor && (
 						<div
