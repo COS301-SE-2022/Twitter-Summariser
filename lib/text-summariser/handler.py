@@ -11,7 +11,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 def summarise(event, _context):
-    url = "https://d23exbau77kw0b.cloudfront.net"
+    url = "https://dqm5fq4ad9quu.cloudfront.net"
 
     try:
         #   Get the parameters from the event

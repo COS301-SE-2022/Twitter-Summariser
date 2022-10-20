@@ -27,26 +27,6 @@ export const generateReport = middyfy(
 
 			const { tweets } = title;
 
-			// // Get All the drafts
-			// const drafts = await ServicesLayer.reportService.getDraftReports(params["apiKey"]);
-
-			// drafts.sort((a, b) => {
-			// 	return new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime();
-			// });
-
-			// const diff = new Date().getTime() -	new Date(drafts[0].dateCreated).getTime();
-			// if (drafts.length > 0  && drafts[0].title === title.searchPhrase && Math.abs(diff / 1000) < 5) {
-			// 	return {
-			// 		statusCode: statusCodes.accepted,
-			// 		headers: header,
-			// 		body: JSON.stringify({
-			// 			message: "Report already generated",
-			// 			reportID: drafts[0].reportID
-			// 		})
-			// 	};
-			// }
-
-
 			let id: string = "RT-" + randomUUID();
 			const d = new Date();
 
@@ -64,12 +44,10 @@ export const generateReport = middyfy(
 			} else {
 				//	Summarizing text
 				const lambdaParams = {
-					FunctionName: "text-summarisation-prod-summarise",
+					FunctionName: "twitter-summariser-prod-summarize",
 					InvocationType: "RequestResponse",
 					Payload: JSON.stringify({
-						text: twts,
-						min: 100,
-						max: 200
+						text: twts
 					})
 				};
 
