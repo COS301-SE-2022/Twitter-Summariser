@@ -2,7 +2,6 @@ import { useState, useEffect, Fragment } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
 import { FiSettings } from "react-icons/fi";
-import axios from "axios";
 import { FaTwitter } from "react-icons/fa";
 import ExploreCard from "./ExploreCard";
 import useAuth from "../hooks/useAuth";
