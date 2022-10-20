@@ -122,6 +122,7 @@ export const generateReport = middyfy(
 
 			return {
 				statusCode: statusCodes.Successful,
+				headers: header,
 				body: JSON.stringify({ Report: report, summarisedText: sText })
 			};
 		} catch (e) {
