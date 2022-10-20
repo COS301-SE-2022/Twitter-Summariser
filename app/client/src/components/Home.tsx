@@ -2,7 +2,6 @@ import { useState, useEffect, Fragment } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
 import { FiSettings } from "react-icons/fi";
-// import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import axios from "axios";
 import { FaTwitter } from "react-icons/fa";
 import ExploreCard from "./ExploreCard";
@@ -24,7 +23,6 @@ function Home() {
 	const [sentimentResponse, changeSentimentResponse] = useState<any[]>([]);
 	const [showTrends, changeShowTrends] = useState(true);
 	const [showSentimentOption, changeShowSentimentOption] = useState(false);
-	// const style2 = { fontSize: "1.5rem" };
 	const axiosPrivate = useAxiosPrivate();
 	const controller = new AbortController();
 	const [generateLoading, changeGenerateLoading] = useState(false);
@@ -55,47 +53,47 @@ function Home() {
 		};
 
 		try {
-			if (process.env.NODE_ENV === "development") {
-				const response = await axiosPrivate.post(
-					"generateReport",
-					JSON.stringify(searchData),
-					{ signal: controller.signal }
-				);
+			const response = await axiosPrivate.post(
+				"generateReport",
+				JSON.stringify(searchData),
+				{ signal: controller.signal }
+			);
 
-				changeGenerateLoading(false);
-				changeDate(response.data.Report.dateCreated.substring(0, 10));
-				changeDraftReport(response.data.Report.reportID);
+			changeGenerateLoading(false);
+			changeDate(response.data.Report.dateCreated.substring(0, 10));
+			changeDraftReport(response.data.Report.reportID);
 
-				if (enteredSearch !== "") {
-					changeCreateTitle(enteredSearch);
-					changeEnteredSearch("");
-					changeClicked(true);
-				}
-
-				navigate(`/report/${response.data.Report.reportID}`);
-			} else {
-				const response = await axios.post(
-					"https://b5vqifffzyekwisapei2eptkdu0mpwfi.lambda-url.us-east-1.on.aws/",
-					JSON.stringify(searchData),
-					{
-						headers: {
-							"Content-Type": "application/json"
-						}
-					}
-				);
-
-				changeGenerateLoading(false);
-				changeDate(response.data.Report.dateCreated.substring(0, 10));
-				changeDraftReport(response.data.Report.reportID);
-
-				if (enteredSearch !== "") {
-					changeCreateTitle(enteredSearch);
-					changeEnteredSearch("");
-					changeClicked(true);
-				}
-
-				navigate(`/report/${response.data.Report.reportID}`);
+			if (enteredSearch !== "") {
+				changeCreateTitle(enteredSearch);
+				changeEnteredSearch("");
+				changeClicked(true);
 			}
+
+			navigate(`/report/${response.data.Report.reportID}`);
+			
+			// else {
+			// 	const response = await axios.post(
+			// 		"https://b5vqifffzyekwisapei2eptkdu0mpwfi.lambda-url.us-east-1.on.aws/",
+			// 		JSON.stringify(searchData),
+			// 		{
+			// 			headers: {
+			// 				"Content-Type": "application/json"
+			// 			}
+			// 		}
+			// 	);
+
+			// 	changeGenerateLoading(false);
+			// 	changeDate(response.data.Report.dateCreated.substring(0, 10));
+			// 	changeDraftReport(response.data.Report.reportID);
+
+			// 	if (enteredSearch !== "") {
+			// 		changeCreateTitle(enteredSearch);
+			// 		changeEnteredSearch("");
+			// 		changeClicked(true);
+			// 	}
+
+			// 	navigate(`/report/${response.data.Report.reportID}`);
+			// }
 		} catch (error) {
 			console.error(error);
 		}
