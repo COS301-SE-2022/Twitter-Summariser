@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
@@ -69,35 +68,17 @@ function ViewHistory() {
 		};
 
 		try {
-			if (process.env.NODE_ENV === "development") {
-				const response = await axiosPrivate.post(
-					"generateReport",
-					JSON.stringify(searchData),
-					{ signal: controller.signal }
-				);
+			const response = await axiosPrivate.post(
+				"generateReport",
+				JSON.stringify(searchData),
+				{ signal: controller.signal }
+			);
 
-				changeGenerateLoading(false);
-				changeDate(await response.data.Report.dateCreated.substring(0, 10));
-				changeDraftReport(response.data.Report.reportID);
-				changeClicked(true);
-				navigate(`/report/${response.data.Report.reportID}`);
-			} else {
-				const response = await axios.post(
-					"https://b5vqifffzyekwisapei2eptkdu0mpwfi.lambda-url.us-east-1.on.aws/",
-					JSON.stringify(searchData),
-					{
-						headers: {
-							"Content-Type": "application/json"
-						}
-					}
-				);
-
-				changeGenerateLoading(false);
-				changeDate(await response.data.Report.dateCreated.substring(0, 10));
-				changeDraftReport(response.data.Report.reportID);
-				changeClicked(true);
-				navigate(`/report/${response.data.Report.reportID}`);
-			}
+			changeGenerateLoading(false);
+			changeDate(await response.data.Report.dateCreated.substring(0, 10));
+			changeDraftReport(response.data.Report.reportID);
+			changeClicked(true);
+			navigate(`/report/${response.data.Report.reportID}`);
 		} catch (error) {
 			console.error(error);
 		}

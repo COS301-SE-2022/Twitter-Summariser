@@ -70,29 +70,6 @@ function Home() {
 
 			navigate(`/report/${response.data.Report.reportID}`);
 			
-			// else {
-			// 	const response = await axios.post(
-			// 		"https://b5vqifffzyekwisapei2eptkdu0mpwfi.lambda-url.us-east-1.on.aws/",
-			// 		JSON.stringify(searchData),
-			// 		{
-			// 			headers: {
-			// 				"Content-Type": "application/json"
-			// 			}
-			// 		}
-			// 	);
-
-			// 	changeGenerateLoading(false);
-			// 	changeDate(response.data.Report.dateCreated.substring(0, 10));
-			// 	changeDraftReport(response.data.Report.reportID);
-
-			// 	if (enteredSearch !== "") {
-			// 		changeCreateTitle(enteredSearch);
-			// 		changeEnteredSearch("");
-			// 		changeClicked(true);
-			// 	}
-
-			// 	navigate(`/report/${response.data.Report.reportID}`);
-			// }
 		} catch (error) {
 			console.error(error);
 		}

@@ -8,6 +8,7 @@ import TextStyle from "@model/textStyles/textStyles.model";
 import Notification from "@model/notification/notification.model";
 import { clientV2 } from "@functions/resources/twitterV2.client";
 import * as AWS from "aws-sdk";
+import { axiosPrivate } from "client/src/api/ConfigAxios";
 
 const lambda = new Lambda();
 
@@ -40,7 +41,13 @@ export const generateReport = middyfy(
 			let sText: string = "";
 
 			if (process.env.NODE_ENV === "development") {
-				sText = "This is test text";
+				const response = await axiosPrivate.post(
+					'summarize',
+					JSON.stringify({
+						text: twts,
+					})
+				);
+				sText = response.data.text;
 			} else {
 				//	Summarizing text
 				const lambdaParams = {
