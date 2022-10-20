@@ -41,6 +41,7 @@ import { backupDynamoDB } from "@functions/backup";
 import { getNotifications, deleteNotification } from "@functions/notifications";
 import { getTrendingTopics } from "@functions/trending";
 import { warmupTextSummariser } from "@functions/warmup";
+import { summarize } from "@functions/summarise";
 
 const serverlessConfiguration: AWS = {
 	service: "twitter-summariser",
@@ -160,7 +161,8 @@ const serverlessConfiguration: AWS = {
 		getTrendingTopics,
 		editTitle,
 		warmupTextSummariser,
-		getSentiment
+		getSentiment,
+		summarize
 	},
 
 	package: {
