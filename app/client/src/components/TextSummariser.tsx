@@ -44,7 +44,7 @@ function TextSummariser() {
 
 			const response = await axiosPrivate.post(
 				"summarize",
-				{ text: s, min: 100, max: 200 },
+				JSON.stringify({ text: s }),
 				{ signal: controller.signal }
 			);
 
