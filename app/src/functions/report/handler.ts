@@ -44,12 +44,10 @@ export const generateReport = middyfy(
 			} else {
 				//	Summarizing text
 				const lambdaParams = {
-					FunctionName: "text-summarisation-prod-summarise",
+					FunctionName: "twitter-summariser-prod-summarize",
 					InvocationType: "RequestResponse",
 					Payload: JSON.stringify({
-						text: twts,
-						min: 100,
-						max: 200
+						text: twts
 					})
 				};
 
