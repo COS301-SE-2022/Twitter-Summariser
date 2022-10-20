@@ -4,7 +4,7 @@ import { BiErrorCircle } from "react-icons/bi";
 import { Radio } from "@material-tailwind/react";
 import FileUpload from "./FileUpload";
 import FileList from "./FileList";
-import { axiosTextSummariser } from "../api/ConfigAxios";
+import { axiosPrivate } from "../api/ConfigAxios";
 
 function TextSummariser() {
 	const controller = new AbortController();
@@ -42,7 +42,7 @@ function TextSummariser() {
 			setFiles([]);
 			setIsDone(false);
 
-			const response = await axiosTextSummariser.post(
+			const response = await axiosPrivate.post(
 				"summarize",
 				{ text: s, min: 100, max: 200 },
 				{ signal: controller.signal }

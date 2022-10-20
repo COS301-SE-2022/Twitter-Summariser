@@ -12,7 +12,3 @@ export const axiosPrivate = axios.create({
 	baseURL: BASE_URL,
 	withCredentials: true
 });
-
-export const axiosTextSummariser = axios.create({
-	baseURL: "https://kexashtfgc.execute-api.us-east-1.amazonaws.com/prod/"
-});
