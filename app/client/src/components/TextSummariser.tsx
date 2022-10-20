@@ -43,7 +43,7 @@ function TextSummariser() {
 			setIsDone(false);
 
 			const response = await axiosTextSummariser.post(
-				"summarise",
+				"summarize",
 				{ text: s, min: 100, max: 200 },
 				{ signal: controller.signal }
 			);
