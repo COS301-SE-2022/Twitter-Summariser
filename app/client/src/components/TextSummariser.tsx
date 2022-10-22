@@ -42,11 +42,9 @@ function TextSummariser() {
 			setFiles([]);
 			setIsDone(false);
 
-			const response = await axiosPrivate.post(
-				"summarize",
-				JSON.stringify({ text: s }),
-				{ signal: controller.signal }
-			);
+			const response = await axiosPrivate.post("summarize", JSON.stringify({ text: s }), {
+				signal: controller.signal
+			});
 
 			setSummary(response.data.text);
 			setShowSpinner(false);

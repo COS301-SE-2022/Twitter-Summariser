@@ -71,11 +71,9 @@ function ViewHistory() {
 		try {
 			let response;
 			if (process.env.NODE_ENV === "development") {
-				response = await axiosPrivate.post(
-					"generateReport",
-					JSON.stringify(searchData),
-					{ signal: controller.signal }
-				);
+				response = await axiosPrivate.post("generateReport", JSON.stringify(searchData), {
+					signal: controller.signal
+				});
 			} else {
 				response = await axios.post(
 					"https://5lgckw2brai7suqgmedu3cp4ru0anphh.lambda-url.us-east-1.on.aws/",

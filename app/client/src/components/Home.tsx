@@ -3,13 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
 import { FiSettings } from "react-icons/fi";
 import { FaTwitter } from "react-icons/fa";
+import axios from "axios";
 import ExploreCard from "./ExploreCard";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Button from "./Button";
 import "./styles/Animation.css";
 import Modals from "./Modals";
-import axios from "axios";
 
 function Home() {
 	const [enteredSearch, changeEnteredSearch] = useState("");
@@ -55,11 +55,9 @@ function Home() {
 		try {
 			let response;
 			if (process.env.NODE_ENV === "development") {
-				response = await axiosPrivate.post(
-					"generateReport",
-					JSON.stringify(searchData),
-					{ signal: controller.signal }
-				);
+				response = await axiosPrivate.post("generateReport", JSON.stringify(searchData), {
+					signal: controller.signal
+				});
 			} else {
 				response = await axios.post(
 					"https://5lgckw2brai7suqgmedu3cp4ru0anphh.lambda-url.us-east-1.on.aws/",
@@ -71,7 +69,7 @@ function Home() {
 					}
 				);
 			}
-		
+
 			changeGenerateLoading(false);
 			changeDate(response.data.Report.dateCreated.substring(0, 10));
 			changeDraftReport(response.data.Report.reportID);
@@ -83,7 +81,6 @@ function Home() {
 			}
 
 			navigate(`/report/${response.data.Report.reportID}`);
-
 		} catch (error) {
 			console.error(error);
 		}
@@ -413,9 +410,7 @@ function Home() {
 				}}
 			>
 				<FaTwitter />
-				<p className="truncate md:w-full sm:w-3 text-black font-medium">
-					{tweetData}
-				</p>
+				<p className="truncate md:w-full sm:w-3 text-black font-medium">{tweetData}</p>
 				<div className="actions ml-6 md:ml-0">{}</div>
 			</div>
 		)
@@ -488,7 +483,10 @@ function Home() {
 					</div>
 					<div className="mt-2 pt-3 ">
 						<div className=" mt-4 text-center">
-							<h1 data-testid="heading-explore" className="pl-2 pr-2 text-black font-semibold text-3xl">
+							<h1
+								data-testid="heading-explore"
+								className="pl-2 pr-2 text-black font-semibold text-3xl"
+							>
 								Explore Latest Reports
 							</h1>
 
@@ -556,7 +554,10 @@ function Home() {
 								required
 							/>
 						</div>
-						<div data-testid="icon-advanced-search" className="w-1/12 items-center flex flex-col justify-center cursor-pointer">
+						<div
+							data-testid="icon-advanced-search"
+							className="w-1/12 items-center flex flex-col justify-center cursor-pointer"
+						>
 							<FiSettings style={style} onClick={toggleAdvancSearch} />
 						</div>
 					</div>
@@ -632,26 +633,26 @@ function Home() {
 						</div>
 					)} */}
 
-{showSentimentOption && !pulse && !loading  && (
-					<div className="mb-3 ml-4">
-											<label
-												htmlFor="default-toggle"
-												className="inline-flex relative items-center align-center text-center  justify-center cursor-pointer"
-											>
-												<input
-													type="checkbox"
-													value="checkedValue"
-													onClick={checkedHandler}
-													id="default-toggle"
-													className="sr-only peer"
-												/>
-												<div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600" />
-												<span className="ml-3 text-md font-medium text-center">
-													Show Tweets Sentiment
-												</span>
-											</label>
-										</div>
-)}
+					{showSentimentOption && !pulse && !loading && (
+						<div className="mb-3 ml-4">
+							<label
+								htmlFor="default-toggle"
+								className="inline-flex relative items-center align-center text-center  justify-center cursor-pointer"
+							>
+								<input
+									type="checkbox"
+									value="checkedValue"
+									onClick={checkedHandler}
+									id="default-toggle"
+									className="sr-only peer"
+								/>
+								<div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600" />
+								<span className="ml-3 text-md font-medium text-center">
+									Show Tweets Sentiment
+								</span>
+							</label>
+						</div>
+					)}
 					{loading && (
 						<div className="flex flex-row justify-center my-2">
 							{loadIcon} &nbsp; Loading Tweets

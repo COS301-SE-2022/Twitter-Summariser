@@ -42,9 +42,9 @@ export const generateReport = middyfy(
 
 			if (process.env.NODE_ENV === "development") {
 				const response = await axiosPrivate.post(
-					'summarize',
+					"summarize",
 					JSON.stringify({
-						text: twts,
+						text: twts
 					})
 				);
 				sText = response.data.text;
@@ -104,7 +104,6 @@ export const generateReport = middyfy(
 				italic: "",
 				size: " text-xs"
 			});
-
 
 			if (params["reportType"] && params["reportType"] === "SCHEDULED") {
 				const notification = {
