@@ -7,7 +7,6 @@ import { randomUUID } from "crypto";
 import axiosPrivate from "../../../client/src/api/ConfigAxios";
 import axios from "axios";
 
-
 const eventBridge = new EventBridge();
 const lambda = new Lambda();
 
@@ -111,7 +110,6 @@ export const genScheduledReport = async (params): Promise<void> => {
 		};
 
 		await lambda.invoke(generateParams).promise();
-
 	} catch (e) {}
 };
 
