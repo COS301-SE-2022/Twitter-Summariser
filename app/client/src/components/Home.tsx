@@ -3,13 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
 import { FiSettings } from "react-icons/fi";
 import { FaTwitter } from "react-icons/fa";
+import axios from "axios";
 import ExploreCard from "./ExploreCard";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Button from "./Button";
 import "./styles/Animation.css";
 import Modals from "./Modals";
-import axios from "axios";
 
 function Home() {
 	const [enteredSearch, changeEnteredSearch] = useState("");
