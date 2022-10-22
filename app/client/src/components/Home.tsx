@@ -9,6 +9,7 @@ import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Button from "./Button";
 import "./styles/Animation.css";
 import Modals from "./Modals";
+import axios from "axios";
 
 function Home() {
 	const [enteredSearch, changeEnteredSearch] = useState("");
@@ -52,12 +53,25 @@ function Home() {
 		};
 
 		try {
-			const response = await axiosPrivate.post(
-				"generateReport",
-				JSON.stringify(searchData),
-				{ signal: controller.signal }
-			);
-
+			let response;
+			if (process.env.NODE_ENV === "development") {
+				response = await axiosPrivate.post(
+					"generateReport",
+					JSON.stringify(searchData),
+					{ signal: controller.signal }
+				);
+			} else {
+				response = await axios.post(
+					"https://5lgckw2brai7suqgmedu3cp4ru0anphh.lambda-url.us-east-1.on.aws/",
+					JSON.stringify(searchData),
+					{
+						headers: {
+							"Content-Type": "application/json"
+						}
+					}
+				);
+			}
+		
 			changeGenerateLoading(false);
 			changeDate(response.data.Report.dateCreated.substring(0, 10));
 			changeDraftReport(response.data.Report.reportID);
@@ -69,7 +83,7 @@ function Home() {
 			}
 
 			navigate(`/report/${response.data.Report.reportID}`);
-			
+
 		} catch (error) {
 			console.error(error);
 		}
