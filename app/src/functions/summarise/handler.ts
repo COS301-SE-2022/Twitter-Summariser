@@ -9,9 +9,9 @@ dotenv.config();
 
 export const summarize = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     try {
-        const params = JSON.parse(event.body);
+        let params = (event.body == null) ? event : JSON.parse(event.body);
 
-       if (Object.keys(params).length !== 1 || !params.text) {
+        if (Object.keys(params).length !== 1 || !params.text) {
             return {
                 statusCode: statusCodes.badRequest,
                 headers: header,

@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Tweet } from "react-twitter-widgets";
@@ -68,11 +69,24 @@ function ViewHistory() {
 		};
 
 		try {
-			const response = await axiosPrivate.post(
-				"generateReport",
-				JSON.stringify(searchData),
-				{ signal: controller.signal }
-			);
+			let response;
+			if (process.env.NODE_ENV === "development") {
+				response = await axiosPrivate.post(
+					"generateReport",
+					JSON.stringify(searchData),
+					{ signal: controller.signal }
+				);
+			} else {
+				response = await axios.post(
+					"https://5lgckw2brai7suqgmedu3cp4ru0anphh.lambda-url.us-east-1.on.aws/",
+					JSON.stringify(searchData),
+					{
+						headers: {
+							"Content-Type": "application/json"
+						}
+					}
+				);
+			}
 
 			changeGenerateLoading(false);
 			changeDate(await response.data.Report.dateCreated.substring(0, 10));
