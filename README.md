@@ -7,6 +7,9 @@
 <strong><h3 style="font-family: Jetbrains Mono">PROJECT BOARD:</h3></strong>
 - <a href="https://github.com/COS301-SE-2022/Twitter-Summariser/projects/1" style="font-family: Jetbrains Mono">Project Board</a>
 
+<strong><h3 style="font-family: Jetbrains Mono">Project Day:</h3></strong>
+- [Project Day Demo](https://drive.google.com/file/d/1hvOhIkKt2nWV1_-iTN48y5gICuFJM0Qp/view?usp=sharing)
+
 <strong><h3 style="font-family: Jetbrains Mono">DEMO 4:</h3></strong>
 - [System Requirement Specifications V4](https://drive.google.com/file/d/1UWaoA5M4MNFN7pt6jUzJ6FlTv-eWqyV7/view?usp=sharing)
 - [Coding Standards V3](https://drive.google.com/file/d/1UWaoA5M4MNFN7pt6jUzJ6FlTv-eWqyV7/view?usp=sharing)
