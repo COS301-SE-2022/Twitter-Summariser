@@ -245,36 +245,6 @@ export const cloneReport = middyfy(
 			// Getting blocks
 			const blocks = await ServicesLayer.reportBlockService.getReportBlocks(oldReportId);
 
-			// blocks.map(async (block) => {
-				// const temp = { ...block };
-				// temp.reportID = id;
-				// temp.reportBlockID = `BK-${randomUUID()}`;
-
-				// // Cloning blocks
-				// if (block.blockType === "RICHTEXT") {
-				// 	// Cloning Text
-				// 	temp.richText = block.richText;
-
-				// 	// Cloning styles
-				// 	let style: TextStyle;
-				// 	await ServicesLayer.textStyleService
-				// 		.getStyle(block.reportBlockID)
-				// 		.then((value) => {
-				// 			style = value[0];
-				// 		});
-
-				// 	style.textStylesID = `ST-${randomUUID()}`;
-				// 	style.reportBlockID = temp.reportBlockID;
-				// 	await ServicesLayer.textStyleService.addStyle(style);
-				// } else {
-				// 	// Cloning Tweet
-				// 	temp.tweetID = block.tweetID;
-				// }
-
-				// await ServicesLayer.reportBlockService.addReportBlock(temp);
-				// return temp;
-			// });
-
 			for (let block of blocks) {
 				const temp = { ...block };
 				temp.reportID = id;
